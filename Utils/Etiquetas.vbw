@@ -1,0 +1,5 @@
+Batchelor = 0, 0, 815, 355, C, 110, 145, 925, 500, C
+Flags = 44, 58, 859, 413, C
+Dialog = 0, 0, 0, 0, C, 66, 87, 881, 442, C
+dbxSendTextToLabel = 110, 145, 925, 500, C, 22, 29, 837, 384, C
+PublicVariables = 0, 0, 815, 355, C

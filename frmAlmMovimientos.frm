@@ -1,0 +1,2910 @@
+VERSION 5.00
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
+Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
+Begin VB.Form frmAlmMovimientos2 
+   BorderStyle     =   3  'Fixed Dialog
+   Caption         =   "Movimientos Almacen"
+   ClientHeight    =   5940
+   ClientLeft      =   45
+   ClientTop       =   630
+   ClientWidth     =   13785
+   Icon            =   "frmAlmMovimientos.frx":0000
+   LinkTopic       =   "Form1"
+   MaxButton       =   0   'False
+   MinButton       =   0   'False
+   ScaleHeight     =   5940
+   ScaleWidth      =   13785
+   ShowInTaskbar   =   0   'False
+   StartUpPosition =   2  'CenterScreen
+   Begin VB.CommandButton cmdAux 
+      Appearance      =   0  'Flat
+      Caption         =   "+"
+      Height          =   315
+      Index           =   1
+      Left            =   9960
+      TabIndex        =   32
+      ToolTipText     =   "Buscar artículo"
+      Top             =   4800
+      Visible         =   0   'False
+      Width           =   195
+   End
+   Begin VB.TextBox txtAux 
+      Appearance      =   0  'Flat
+      BorderStyle     =   0  'None
+      Height          =   320
+      Index           =   4
+      Left            =   9120
+      MaxLength       =   40
+      TabIndex        =   8
+      Text            =   "lote"
+      Top             =   4800
+      Visible         =   0   'False
+      Width           =   975
+   End
+   Begin VB.TextBox Text1 
+      Alignment       =   1  'Right Justify
+      Height          =   315
+      Index           =   5
+      Left            =   5240
+      MaxLength       =   8
+      TabIndex        =   30
+      Tag             =   "Hora|H|N|||scamov|hormovim|hh:mm:ss|N|"
+      Text            =   "Text1"
+      Top             =   675
+      Width           =   855
+   End
+   Begin VB.CheckBox chkImpresion 
+      Caption         =   "Impreso"
+      Enabled         =   0   'False
+      Height          =   255
+      Left            =   4920
+      TabIndex        =   29
+      Tag             =   "Situación Impresión|N|N|||scamov|situacio||N|"
+      Top             =   700
+      Width           =   855
+   End
+   Begin VB.ComboBox cboAux 
+      Height          =   315
+      Left            =   4920
+      Style           =   2  'Dropdown List
+      TabIndex        =   7
+      Tag             =   "Situación Impresión|N|N|||scamov|situacio||N|"
+      Top             =   4800
+      Visible         =   0   'False
+      Width           =   1455
+   End
+   Begin VB.CommandButton cmdAux 
+      Appearance      =   0  'Flat
+      Caption         =   "+"
+      Height          =   315
+      Index           =   0
+      Left            =   1200
+      TabIndex        =   27
+      ToolTipText     =   "Buscar artículo"
+      Top             =   4800
+      Visible         =   0   'False
+      Width           =   195
+   End
+   Begin VB.TextBox txtAux 
+      Appearance      =   0  'Flat
+      BorderStyle     =   0  'None
+      Height          =   320
+      Index           =   3
+      Left            =   6360
+      MaxLength       =   50
+      TabIndex        =   9
+      Text            =   "observac"
+      Top             =   4800
+      Visible         =   0   'False
+      Width           =   3015
+   End
+   Begin VB.TextBox txtAux 
+      Alignment       =   1  'Right Justify
+      Appearance      =   0  'Flat
+      BorderStyle     =   0  'None
+      Height          =   320
+      Index           =   2
+      Left            =   3960
+      MaxLength       =   16
+      TabIndex        =   6
+      Text            =   "cantidad"
+      Top             =   4800
+      Visible         =   0   'False
+      Width           =   975
+   End
+   Begin VB.TextBox txtAux 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000018&
+      BorderStyle     =   0  'None
+      Enabled         =   0   'False
+      Height          =   320
+      Index           =   1
+      Left            =   1440
+      Locked          =   -1  'True
+      MaxLength       =   40
+      TabIndex        =   16
+      Text            =   "nombre artic"
+      Top             =   4800
+      Visible         =   0   'False
+      Width           =   2415
+   End
+   Begin VB.TextBox txtAux 
+      Appearance      =   0  'Flat
+      BorderStyle     =   0  'None
+      Height          =   290
+      Index           =   0
+      Left            =   240
+      MaxLength       =   16
+      TabIndex        =   5
+      Text            =   "codartic"
+      Top             =   4800
+      Visible         =   0   'False
+      Width           =   855
+   End
+   Begin VB.CommandButton cmdAceptar 
+      Caption         =   "&Aceptar"
+      Height          =   375
+      Left            =   11400
+      TabIndex        =   10
+      Top             =   5475
+      Width           =   1035
+   End
+   Begin VB.CommandButton cmdCancelar 
+      Cancel          =   -1  'True
+      Caption         =   "&Cancelar"
+      Height          =   375
+      Left            =   12675
+      TabIndex        =   11
+      Top             =   5475
+      Width           =   1035
+   End
+   Begin VB.CommandButton cmdRegresar 
+      Caption         =   "&Regresar"
+      Height          =   375
+      Left            =   12675
+      TabIndex        =   26
+      Top             =   5475
+      Visible         =   0   'False
+      Width           =   1035
+   End
+   Begin VB.Frame Frame1 
+      Height          =   540
+      Index           =   0
+      Left            =   120
+      TabIndex        =   24
+      Top             =   5310
+      Width           =   3000
+      Begin VB.Label lblIndicador 
+         Alignment       =   2  'Center
+         Caption         =   "Label2"
+         Height          =   240
+         Left            =   240
+         TabIndex        =   25
+         Top             =   180
+         Width           =   2115
+      End
+   End
+   Begin VB.TextBox Text2 
+      BackColor       =   &H80000018&
+      Height          =   315
+      Index           =   0
+      Left            =   2580
+      Locked          =   -1  'True
+      TabIndex        =   22
+      Text            =   "Text2"
+      Top             =   1230
+      Width           =   3495
+   End
+   Begin VB.TextBox Text2 
+      BackColor       =   &H80000018&
+      Height          =   315
+      Index           =   1
+      Left            =   2580
+      Locked          =   -1  'True
+      TabIndex        =   21
+      Text            =   "Text2"
+      Top             =   1575
+      Width           =   3495
+   End
+   Begin VB.TextBox Text1 
+      Height          =   1035
+      Index           =   4
+      Left            =   6360
+      MaxLength       =   200
+      MultiLine       =   -1  'True
+      TabIndex        =   4
+      Tag             =   "Observaciones|T|S|||scamov|observa1||N|"
+      Text            =   "frmAlmMovimientos.frx":000C
+      Top             =   840
+      Width           =   5295
+   End
+   Begin VB.TextBox Text1 
+      Alignment       =   1  'Right Justify
+      Height          =   315
+      Index           =   3
+      Left            =   1800
+      MaxLength       =   4
+      TabIndex        =   3
+      Tag             =   "Cod. Trabajador|N|N|0|9999|scamov|codtraba|0000|N|"
+      Text            =   "Text1"
+      Top             =   1575
+      Width           =   735
+   End
+   Begin VB.TextBox Text1 
+      Alignment       =   1  'Right Justify
+      Height          =   315
+      Index           =   2
+      Left            =   1800
+      MaxLength       =   3
+      TabIndex        =   2
+      Tag             =   "Cod. Almacen|N|N|0|999|scamov|codalmac|000|N|"
+      Text            =   "Text1"
+      Top             =   1230
+      Width           =   735
+   End
+   Begin VB.TextBox Text1 
+      Alignment       =   1  'Right Justify
+      Height          =   315
+      Index           =   1
+      Left            =   3480
+      MaxLength       =   10
+      TabIndex        =   1
+      Tag             =   "Fecha|F|N|||scamov|fecmovim|dd/mm/yyyy|N|"
+      Text            =   "Text1"
+      Top             =   675
+      Width           =   1095
+   End
+   Begin MSComctlLib.Toolbar Toolbar1 
+      Align           =   1  'Align Top
+      Height          =   420
+      Left            =   0
+      TabIndex        =   13
+      Top             =   0
+      Width           =   13785
+      _ExtentX        =   24315
+      _ExtentY        =   741
+      ButtonWidth     =   609
+      ButtonHeight    =   582
+      AllowCustomize  =   0   'False
+      Appearance      =   1
+      _Version        =   393216
+      BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
+         NumButtons      =   18
+         BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Buscar"
+         EndProperty
+         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Ver Todos"
+         EndProperty
+         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Nuevo"
+            Object.Tag             =   "2"
+         EndProperty
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Modificar"
+            Object.Tag             =   "2"
+         EndProperty
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Eliminar"
+            Object.Tag             =   "2"
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Lineas"
+            Object.Tag             =   "2"
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Actualizar"
+            Object.Tag             =   "2"
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Imprimir"
+         EndProperty
+         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Salir"
+         EndProperty
+         BeginProperty Button14 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button15 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Primero"
+         EndProperty
+         BeginProperty Button16 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Anterior"
+         EndProperty
+         BeginProperty Button17 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Siguiente"
+         EndProperty
+         BeginProperty Button18 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Último"
+         EndProperty
+      EndProperty
+      Begin VB.CheckBox chkVistaPrevia 
+         Caption         =   "Vista previa"
+         Height          =   315
+         Left            =   6600
+         TabIndex        =   23
+         Top             =   0
+         Width           =   1215
+      End
+   End
+   Begin MSDataGridLib.DataGrid DataGrid1 
+      Bindings        =   "frmAlmMovimientos.frx":0012
+      Height          =   3255
+      Left            =   120
+      TabIndex        =   12
+      Top             =   2040
+      Width           =   13575
+      _ExtentX        =   23945
+      _ExtentY        =   5741
+      _Version        =   393216
+      AllowUpdate     =   0   'False
+      AllowArrows     =   -1  'True
+      ColumnHeaders   =   -1  'True
+      HeadLines       =   1
+      RowHeight       =   15
+      FormatLocked    =   -1  'True
+      BeginProperty HeadFont {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ColumnCount     =   2
+      BeginProperty Column00 
+         DataField       =   ""
+         Caption         =   ""
+         BeginProperty DataFormat {6D835690-900B-11D0-9484-00A0C91110ED} 
+            Type            =   0
+            Format          =   ""
+            HaveTrueFalseNull=   0
+            FirstDayOfWeek  =   0
+            FirstWeekOfYear =   0
+            LCID            =   3082
+            SubFormatType   =   0
+         EndProperty
+      EndProperty
+      BeginProperty Column01 
+         DataField       =   ""
+         Caption         =   ""
+         BeginProperty DataFormat {6D835690-900B-11D0-9484-00A0C91110ED} 
+            Type            =   0
+            Format          =   ""
+            HaveTrueFalseNull=   0
+            FirstDayOfWeek  =   0
+            FirstWeekOfYear =   0
+            LCID            =   3082
+            SubFormatType   =   0
+         EndProperty
+      EndProperty
+      SplitCount      =   1
+      BeginProperty Split0 
+         BeginProperty Column00 
+         EndProperty
+         BeginProperty Column01 
+         EndProperty
+      EndProperty
+   End
+   Begin MSAdodcLib.Adodc Data1 
+      Height          =   330
+      Left            =   8280
+      Top             =   480
+      Visible         =   0   'False
+      Width           =   1335
+      _ExtentX        =   2355
+      _ExtentY        =   582
+      ConnectMode     =   0
+      CursorLocation  =   3
+      IsolationLevel  =   -1
+      ConnectionTimeout=   15
+      CommandTimeout  =   30
+      CursorType      =   3
+      LockType        =   3
+      CommandType     =   8
+      CursorOptions   =   0
+      CacheSize       =   50
+      MaxRecords      =   0
+      BOFAction       =   0
+      EOFAction       =   0
+      ConnectStringType=   1
+      Appearance      =   1
+      BackColor       =   -2147483643
+      ForeColor       =   -2147483640
+      Orientation     =   0
+      Enabled         =   -1
+      Connect         =   ""
+      OLEDBString     =   ""
+      OLEDBFile       =   ""
+      DataSourceName  =   ""
+      OtherAttributes =   ""
+      UserName        =   ""
+      Password        =   ""
+      RecordSource    =   ""
+      Caption         =   "Adodc1"
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      _Version        =   393216
+   End
+   Begin VB.TextBox Text1 
+      Alignment       =   1  'Right Justify
+      BackColor       =   &H00FEF7E4&
+      Height          =   315
+      Index           =   0
+      Left            =   1320
+      MaxLength       =   7
+      TabIndex        =   0
+      Tag             =   "Nº Movimiento|N|S|0||scamov|codmovim|0000000|S|"
+      Text            =   "Text1"
+      Top             =   675
+      Width           =   1095
+   End
+   Begin MSAdodcLib.Adodc Data2 
+      Height          =   330
+      Left            =   9720
+      Top             =   480
+      Visible         =   0   'False
+      Width           =   1335
+      _ExtentX        =   2355
+      _ExtentY        =   582
+      ConnectMode     =   0
+      CursorLocation  =   3
+      IsolationLevel  =   -1
+      ConnectionTimeout=   15
+      CommandTimeout  =   30
+      CursorType      =   3
+      LockType        =   3
+      CommandType     =   8
+      CursorOptions   =   0
+      CacheSize       =   50
+      MaxRecords      =   0
+      BOFAction       =   0
+      EOFAction       =   0
+      ConnectStringType=   1
+      Appearance      =   1
+      BackColor       =   -2147483643
+      ForeColor       =   -2147483640
+      Orientation     =   0
+      Enabled         =   -1
+      Connect         =   ""
+      OLEDBString     =   ""
+      OLEDBFile       =   ""
+      DataSourceName  =   ""
+      OtherAttributes =   ""
+      UserName        =   ""
+      Password        =   ""
+      RecordSource    =   ""
+      Caption         =   "Adodc1"
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      _Version        =   393216
+   End
+   Begin MSComctlLib.ProgressBar ProgressBar1 
+      Height          =   375
+      Left            =   3600
+      TabIndex        =   28
+      Top             =   5430
+      Visible         =   0   'False
+      Width           =   2535
+      _ExtentX        =   4471
+      _ExtentY        =   661
+      _Version        =   393216
+      Appearance      =   1
+   End
+   Begin VB.Label Label4 
+      Caption         =   "Hora"
+      Height          =   255
+      Left            =   4800
+      TabIndex        =   31
+      Top             =   720
+      Width           =   375
+   End
+   Begin VB.Image imgBuscar 
+      Height          =   240
+      Index           =   1
+      Left            =   1500
+      Picture         =   "frmAlmMovimientos.frx":0027
+      ToolTipText     =   "Buscar trabajador"
+      Top             =   1605
+      Width           =   240
+   End
+   Begin VB.Image imgBuscar 
+      Height          =   240
+      Index           =   0
+      Left            =   1500
+      Picture         =   "frmAlmMovimientos.frx":0129
+      ToolTipText     =   "Buscar almacen"
+      Top             =   1275
+      Width           =   240
+   End
+   Begin VB.Image imgFecha 
+      Height          =   240
+      Index           =   0
+      Left            =   3170
+      Picture         =   "frmAlmMovimientos.frx":022B
+      ToolTipText     =   "Buscar fecha"
+      Top             =   680
+      Width           =   240
+   End
+   Begin VB.Label Label6 
+      Caption         =   "Observaciones"
+      Height          =   255
+      Left            =   6360
+      TabIndex        =   20
+      Top             =   630
+      Width           =   1095
+   End
+   Begin VB.Label Label5 
+      Caption         =   "Cód. Trabajador"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   19
+      Top             =   1575
+      Width           =   1215
+   End
+   Begin VB.Label Label3 
+      Caption         =   "Cod. Almacen"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   18
+      Top             =   1230
+      Width           =   1095
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Fecha"
+      Height          =   255
+      Left            =   2650
+      TabIndex        =   17
+      Top             =   675
+      Width           =   495
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Nº Movimiento"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   15
+      Top             =   675
+      Width           =   1095
+   End
+   Begin VB.Label Label10 
+      Caption         =   "Cargando datos ........."
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   240
+      TabIndex        =   14
+      Top             =   8220
+      Visible         =   0   'False
+      Width           =   3495
+   End
+   Begin VB.Menu mnOpciones 
+      Caption         =   "&Opciones"
+      Begin VB.Menu mnBuscar 
+         Caption         =   "&Buscar"
+         Shortcut        =   ^F
+      End
+      Begin VB.Menu mnVerTodos 
+         Caption         =   "&Ver Todos"
+         Shortcut        =   ^B
+      End
+      Begin VB.Menu mnBarra1 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnNuevo 
+         Caption         =   "&Nuevo"
+         HelpContextID   =   2
+         Shortcut        =   ^N
+      End
+      Begin VB.Menu mnModificar 
+         Caption         =   "&Modificar"
+         HelpContextID   =   2
+         Shortcut        =   ^M
+      End
+      Begin VB.Menu mnEliminar 
+         Caption         =   "&Eliminar"
+         HelpContextID   =   2
+         Shortcut        =   ^E
+      End
+      Begin VB.Menu mnBarra2 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnSalir 
+         Caption         =   "&Salir"
+         Shortcut        =   ^S
+      End
+   End
+End
+Attribute VB_Name = "frmAlmMovimientos2"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Explicit
+
+Public EsHistorico As Boolean 'Si es true abrir el formulario con la tabla de
+                              'historico schmov, y solo en modo de consulta
+
+'Si se llama de la busqueda en el frmAlmMovimArticulos se accede
+'a las tablas del histórico de movimiento seleccionado (solo consulta)
+Public hcoCodMovim As Long 'cod. movim del historico
+Public hcoFechaMovim As Date 'Fecha del historico
+
+Public TrasiegoMoixent As Boolean
+
+'-----------------------------------------------------------------------
+
+Private WithEvents frmB As frmBuscaGrid 'Form para busquedas (frmBuscaGrid)
+Attribute frmB.VB_VarHelpID = -1
+Private WithEvents frmF As frmCal 'Calendario de Fechas
+Attribute frmF.VB_VarHelpID = -1
+
+Private WithEvents frmA As frmAlmAlPropios 'Almacen Origen/Destino
+Attribute frmA.VB_VarHelpID = -1
+Private WithEvents frmT As frmAdmTrabajadores 'Mto de Trabajadores
+Attribute frmT.VB_VarHelpID = -1
+Private WithEvents frmArt As frmAlmArticulos   'Form Articulos
+Attribute frmArt.VB_VarHelpID = -1
+Private WithEvents frmL As frmAlmPartidas
+Attribute frmL.VB_VarHelpID = -1
+
+Dim NombreTabla As String
+Dim NomTablaLineas As String
+Dim Ordenacion As String
+
+Private Modo As Byte
+Private ModoAnterior As Byte
+Dim kCampo As Integer
+
+Dim btnAnyadir As Byte
+'Variable que indica el número del Boton  Anyadir en la Toolbar1
+
+Dim btnPrimero As Byte
+'Variable que indica el número del Boton  PrimerRegistro en la Toolbar1
+
+Dim ModificaLineas As Byte
+'1.- Añadir,  2.- Modificar,  3.- Borrar,  0.-Pasar control a Lineas
+
+Dim CodTipoMov As String
+'Codigo tipo de movimiento en función del valor en la tabla de parámetros: stipom
+
+Dim CadenaConsulta As String
+Dim cadSeleccion As String 'Cadena de seleccion para FormulaSelection del Informe
+
+
+Private HaDevueltoDatos As Boolean
+
+Dim PriVez As Boolean
+
+
+Private Sub cboAux_KeyPress(KeyAscii As Integer)
+    KEYpress KeyAscii
+End Sub
+
+Private Sub cboImpresion_KeyPress(KeyAscii As Integer)
+    KEYpress KeyAscii
+End Sub
+
+Private Sub chkVistaPrevia_KeyPress(KeyAscii As Integer)
+    KEYpress KeyAscii
+End Sub
+
+Private Sub cmdAceptar_Click()
+Dim cad As String, Indicador As String
+On Error GoTo Error1
+    
+    Screen.MousePointer = vbHourglass
+    
+    Select Case Modo
+    Case 1 'BUSQUEDA
+        cadSeleccion = ""
+        HacerBusqueda
+        
+    Case 3 'INSERTAR
+        If DatosOk Then InsertarCabecera
+
+    Case 4 'MODIFICAR
+        If DatosOk Then
+            If ModificaDesdeFormulario(Me, 1) Then
+                TerminaBloquear
+                cad = "(" & ObtenerWhereCP(False) & ")"
+                If SituarData(Data1, cad, Indicador) Then
+                    PonerModo 2
+                    lblIndicador.Caption = Indicador
+                Else
+                    PonerModo 0
+                End If
+            End If
+        End If
+            
+    Case 5 'Lineas Movimientos Almacenes
+        If InsertarModificarLinea Then
+            'Reestablecemos los campos y ponemos el grid
+            DataGrid1.AllowAddNew = False
+'            CargaGrid True
+            If ModificaLineas = 1 Then 'Insertar
+                CargaGrid True
+                ModificaLineas = 0
+                BotonAnyadirLineas
+            ElseIf ModificaLineas = 2 Then 'Modificar
+                TerminaBloquear
+                CargaGrid True
+                Data2.Recordset.Find (Data2.Recordset.Fields(1).Name & " =" & CInt(Me.cmdAceptar.Tag))
+                ModificaLineas = 0
+                PonerBotonCabecera True
+                CargaTxtAux False, False
+                Me.lblIndicador.Caption = ""
+                DataGrid1.Enabled = True
+            End If
+        End If
+    End Select
+    
+Error1:
+    Screen.MousePointer = vbDefault
+    If Err.Number <> 0 Then MsgBox Err.Number & ": " & Err.Description, vbExclamation
+End Sub
+
+Private Sub cmdAux_Click(Index As Integer)
+    If Index = 0 Then
+        Set frmArt = New frmAlmArticulos
+        frmArt.DatosADevolverBusqueda2 = "@1@" 'Abre en Modo busqueda
+        frmArt.Show vbModal
+        Set frmArt = Nothing
+        PonerFoco txtAux(0)
+
+    Else
+        If txtAux(0).Text = "" Then Exit Sub
+        CadenaConsulta = ""
+        Set frmL = New frmAlmPartidas
+        frmL.DatosADevolverBusqueda = txtAux(0).Text
+        frmL.Show vbModal
+        Set frmL = Nothing
+        If CadenaConsulta <> "" Then
+        
+            'El primer valor es el lote
+            txtAux(4).Text = RecuperaValor(CadenaConsulta, 1)
+            CadenaConsulta = RecuperaValor(CadenaConsulta, 2) 'la cantidad
+            If Me.cboAux.ListIndex = 0 Then
+                'SALIDA
+                'ECho un vistazo a las cantidades.... aqunque dejo seguir
+                If txtAux(2).Text <> "" Then
+                    If ImporteFormateado(txtAux(2).Text) > CCur(CadenaConsulta) Then
+                        CadenaConsulta = "Lote:   " & Format(CadenaConsulta, FormatoCantidad) & vbCrLf & "Salida: " & txtAux(2).Text
+                        CadenaConsulta = "El movimiento de salida es mayor que la cantidad restante del lote: " & vbCrLf & CadenaConsulta
+                        CadenaConsulta = CadenaConsulta & vbCrLf & "¿Continuar?"
+                        If MsgBox(CadenaConsulta, vbQuestion + vbYesNo) = vbNo Then
+                            txtAux(4).Text = ""
+                            PonerFoco txtAux(4)
+                        End If
+                    End If
+                End If
+            End If
+            CadenaConsulta = ""
+        
+        End If
+    End If
+End Sub
+
+Private Sub cmdCancelar_Click()
+On Error GoTo ECancelar
+
+    Select Case Modo
+        Case 1 'Buscar
+            LimpiarCampos
+            PonerModo 0
+        Case 3 'Insertar
+            If ModoAnterior = 0 Then
+                LimpiarCampos
+                PonerModo 0
+            Else
+                PonerModo 2
+                PonerCampos
+            End If
+                
+        Case 4  'Modificar
+            TerminaBloquear
+            PonerModo 2
+            PonerCampos
+            PonerFoco Text1(0)
+            
+        Case 5 'Mantenimiento Lineas traspasos
+            CargaTxtAux False, False
+            DataGrid1.AllowAddNew = False
+            If Not ModificaLineas = 2 Then '2 = Modificar
+                If Not Data2.Recordset.EOF Then Data2.Recordset.MoveFirst
+            End If
+            ModificaLineas = 0
+            PonerBotonCabecera True
+            DataGrid1.Refresh
+            DataGrid1.Enabled = True
+    End Select
+ECancelar:
+    If Err.Number <> 0 Then MsgBox Err.Number & ": " & Err.Description, vbExclamation
+End Sub
+
+
+Private Sub cmdRegresar_Click()
+    'Quitar lineas y volver a la cabecera
+    If Modo = 5 Then 'modo 5: Mantenimiento Lineas
+        PonerBotonCabecera False
+        PonerModo 2
+        Me.lblIndicador.Caption = Data1.Recordset.AbsolutePosition & " de " & Data1.Recordset.RecordCount
+        If DataGrid1.Row >= 0 Then
+            DeseleccionaGrid Me.DataGrid1
+            DataGrid1.Bookmark = 1
+        End If
+    End If
+End Sub
+
+
+Private Sub cmdRegresar_KeyPress(KeyAscii As Integer)
+    If Modo = 5 And KeyAscii = 27 Then 'ESC 'Modo Lineas
+        cmdRegresar_Click
+    End If
+End Sub
+
+Private Sub DataGrid1_KeyPress(KeyAscii As Integer)
+    If Modo = 5 And KeyAscii = 27 Then 'ESC 'Modo Lineas
+        cmdRegresar_Click
+    Else
+        KEYpress KeyAscii
+    End If
+End Sub
+
+Private Sub Form_Activate()
+    If PriVez Then
+        PriVez = False
+    
+        If Me.TrasiegoMoixent Then
+            'Boton de trasiego de moixent. En otro sitio hemos creado el movimiento y aqui lo vamos a actualiar
+            
+            
+            Screen.MousePointer = vbHourglass
+            Me.lblIndicador.Caption = "ACTUALIZANDO"
+            lblIndicador.Refresh
+            Espera 0.5
+            CadenaDesdeOtroForm = "NO"
+            If ActualizarTraspaso Then CadenaDesdeOtroForm = ""
+            Unload Me
+            
+            
+        End If
+    End If
+    Screen.MousePointer = vbDefault
+End Sub
+
+Private Sub Form_Load()
+    
+    PriVez = True
+    
+    'Icono del formulario
+    Me.Icon = frmppal.Icon
+    
+    'ICONOS de La toolbar
+    btnAnyadir = 5 'Posicion del boton Añadir en la toolbar1
+    btnPrimero = 15 'Posicion del Boton Primero en la toolbar (+ 3 siguientes)
+    With Toolbar1
+        .ImageList = frmppal.imgListComun
+        'ASignamos botones
+        .Buttons(1).Image = 1   'Buscar
+        .Buttons(2).Image = 2 'Ver Todos
+        .Buttons(5).Image = 3 'Añadir
+        .Buttons(6).Image = 4 'Modificar
+        .Buttons(7).Image = 5 'Eliminar
+        .Buttons(9).Image = 10 'Mantenimiento Líneas
+        .Buttons(10).Image = 39 'Actualizar
+        .Buttons(12).Image = 16 'Imprimir
+        .Buttons(13).Image = 15 'Salir
+        .Buttons(btnPrimero).Image = 6 'Primero
+        .Buttons(btnPrimero + 1).Image = 7 'Anterior
+        .Buttons(btnPrimero + 2).Image = 8 'Siguiente
+        .Buttons(btnPrimero + 3).Image = 9 'Ultimo
+    End With
+    
+    LimpiarCampos   'Limpia los campos TextBox
+    DataGrid1.ClearFields
+    
+    'Vemos como esta guardado el valor del check
+    chkVistaPrevia.Value = CheckValueLeer(Name)
+    CodTipoMov = "REG"
+    
+    'campo situacio solo en tabla scamov
+    Me.chkImpresion.visible = Not EsHistorico
+    'Campo Hora solo en el Historico
+    Me.Label4.visible = EsHistorico
+    Me.Text1(5).visible = EsHistorico
+    
+    cadSeleccion = ""
+   
+    If Not EsHistorico Then
+        NombreTabla = "scamov"
+        NomTablaLineas = "slimov" 'Tabla lineas de Movimientos
+        Me.Caption = "Movimientos de Almacen"
+    Else
+        NombreTabla = "schmov"
+        NomTablaLineas = "slhmov"
+        CargarTagsHco Me, "scamov", NombreTabla
+        Me.Caption = "Histórico Movimientos de Almacen"
+    End If
+    Ordenacion = " ORDER BY codmovim"
+    
+    CadenaConsulta = "Select * from " & NombreTabla
+    If hcoCodMovim <> -1 Then
+    'Se llama desde Dobleclick en frmAlmMovimArticulos
+        CadenaConsulta = CadenaConsulta & " where codmovim=" & hcoCodMovim & " and fecmovim= """ & Format(hcoFechaMovim, "yyyy-mm-dd") & """"
+    Else
+         CadenaConsulta = CadenaConsulta & " WHERE codmovim = -1"
+    End If
+    Data1.ConnectionString = Conn
+    Data1.RecordSource = CadenaConsulta
+    Data1.Refresh
+    
+    If Not Data1.Recordset.EOF Then 'Se llama desde DblClick frmAlmMovimArticulos
+                                    'Se carga con el valor del registro del DblClick
+        Data1.Recordset.MoveFirst
+        Me.Text1(0).Text = Format(Data1.Recordset!codMovim, "0000000")
+        Me.Text1(1).Text = Data1.Recordset!fecmovim
+        
+        If Not Me.TrasiegoMoixent Then Me.Text1(5).Text = Format(Data1.Recordset!hormovim, "hh:mm:ss")
+        
+        'Cod. Almacen
+        Me.Text1(2).Text = Format(Data1.Recordset!codalmac, "000")
+        Me.Text2(0).Text = PonerNombreDeCod(Text1(2), conAri, "salmpr", "nomalmac", "codalmac")
+        'Cod. Trabajador
+        Me.Text1(3).Text = Format(Data1.Recordset!CodTraba, "0000")
+        Me.Text2(1).Text = PonerNombreDeCod(Text1(3), conAri, "straba", "nomtraba", "codtraba")
+        'Observaciones
+        Text1(4).Text = DBLet(Data1.Recordset!observa1, "T")
+        CargaGrid True
+    Else
+        CargaGrid False '(Modo = 2) 'False
+    End If
+    PonerModo 0
+    Screen.MousePointer = vbDefault
+End Sub
+
+
+Private Sub CargaGrid(enlaza As Boolean)
+Dim B As Boolean
+Dim i As Byte
+Dim SQL As String
+On Error GoTo ECarga
+
+    B = DataGrid1.Enabled
+    
+    SQL = MontaSQLCarga(enlaza)
+    CargaGridGnral DataGrid1, Me.Data2, SQL, False
+    
+    DataGrid1.Columns(0).visible = False 'Cod. Movim
+    DataGrid1.Columns(1).visible = False 'Numlinea
+    i = 2
+    
+    'Cod. Artículo
+    DataGrid1.Columns(i).Caption = "Cod. Articulo"
+    DataGrid1.Columns(i).Width = 1700
+    
+    'Nombre Artículo
+    i = i + 1
+    DataGrid1.Columns(i).Caption = "Nombre Articulo"
+    DataGrid1.Columns(i).Width = 3100
+    
+    'Cantidad
+    i = i + 1
+    DataGrid1.Columns(i).Caption = "Cantidad"
+    DataGrid1.Columns(i).Width = 1300
+    DataGrid1.Columns(i).Alignment = dbgRight
+    DataGrid1.Columns(i).NumberFormat = FormatoImporte
+    
+    'tipo Movimiento
+    i = i + 1
+    DataGrid1.Columns(i).Caption = "T.Mov."
+    DataGrid1.Columns(i).Width = 700
+    DataGrid1.Columns(i).Alignment = dbgCenter
+    
+    
+    'Octubre 2010
+    i = i + 1
+    DataGrid1.Columns(i).Caption = "Lote"
+    DataGrid1.Columns(i).Width = 1400
+    DataGrid1.Columns(i).Alignment = dbgCenter
+    
+    
+    'Observaciones
+    i = i + 1
+    DataGrid1.Columns(i).Caption = "Observaciones"
+    DataGrid1.Columns(i).Width = 4050
+       
+    For i = 0 To DataGrid1.Columns.Count - 1
+        DataGrid1.Columns(i).AllowSizing = False
+    Next i
+    DataGrid1.Enabled = B
+    DataGrid1.ScrollBars = dbgAutomatic
+    
+ECarga:
+    If Err.Number <> 0 Then MuestraError Err.Number, "Cargando datos grid: " & DataGrid1.Tag, Err.Description
+End Sub
+
+'Esta funcion sustituye a LlamaLineas
+Private Sub CargaTxtAux(visible As Boolean, limpiar As Boolean)
+'IN: visible: si es true ponerlos visibles en la posición adecuada
+'    limpiar: si es true vaciar los txtAux
+Dim i As Byte
+Dim alto As Single
+
+    If Not visible Then
+        'Fijamos el alto (ponerlo en la parte inferior del form)
+        For i = 0 To txtAux.Count - 1
+            txtAux(i).Top = 290
+        Next i
+        Me.cmdAux(0).Top = 290
+        Me.cmdAux(1).Top = 290
+        Me.cboAux.Top = 290
+    Else
+        DeseleccionaGrid Me.DataGrid1
+        CargarComboAux
+        If limpiar Then 'Vaciar los textBox (Vamos a Insertar)
+            For i = 0 To txtAux.Count - 1
+                txtAux(i).Text = ""
+                If i <> 1 Then txtAux(i).Locked = False
+            Next i
+            cmdAux(0).Enabled = True
+            cmdAux(1).Enabled = True
+            cboAux.Enabled = True
+            cboAux.ListIndex = -1
+        Else  'Poner valor a los txtAux
+            For i = 0 To txtAux.Count - 2
+                txtAux(i).Text = DataGrid1.Columns(i + 2).Text
+            Next i
+            Select Case DataGrid1.Columns(5).Value
+                Case "S"
+                    Me.cboAux.ListIndex = 0
+                Case "E"
+                    Me.cboAux.ListIndex = 1
+            End Select
+            txtAux(3).Text = DataGrid1.Columns(7).Text
+
+            cboAux.Enabled = True
+
+        End If
+        BloquearTxt txtAux(0), Not limpiar
+        cmdAux(0).Enabled = limpiar
+        If DataGrid1.Row < 0 Then
+            alto = DataGrid1.Top + 220
+        Else
+            alto = DataGrid1.Top + DataGrid1.RowTop(DataGrid1.Row) + 10
+        End If
+        
+        'Fijamos altura y posición Top
+        For i = 0 To txtAux.Count - 1
+            txtAux(i).Top = alto
+            txtAux(i).Height = DataGrid1.RowHeight
+        Next i
+        Me.cmdAux(0).Top = alto
+        Me.cmdAux(1).Top = alto
+        Me.cmdAux(0).Height = DataGrid1.RowHeight
+        Me.cmdAux(1).Height = DataGrid1.RowHeight
+        
+        cboAux.Top = alto - 5
+        
+        'Fijamos anchura y posicion Left
+        txtAux(0).Left = DataGrid1.Left + 340 'codartic
+        txtAux(0).Width = DataGrid1.Columns(2).Width - 200
+        cmdAux(0).Left = txtAux(0).Left + txtAux(0).Width
+        txtAux(1).Left = cmdAux(0).Left + cmdAux(0).Width  'Nombre Artic
+        txtAux(1).Width = DataGrid1.Columns(3).Width - 35
+        i = 2 'Cantidad
+        txtAux(i).Left = txtAux(i - 1).Left + txtAux(i - 1).Width + 25
+        txtAux(i).Width = DataGrid1.Columns(i + 2).Width - 20
+        'Tipo Movimiento
+        cboAux.Left = txtAux(2).Left + txtAux(2).Width + 20
+        cboAux.Width = DataGrid1.Columns(5).Width + 10
+        i = 4 'LOTE
+        txtAux(i).Left = cboAux.Left + cboAux.Width + 30
+        txtAux(i).Width = DataGrid1.Columns(6).Width - 200
+        cmdAux(1).Left = txtAux(i).Left + txtAux(i).Width
+        i = 3  'obsrva linea
+        txtAux(i).Left = cmdAux(1).Left + cmdAux(1).Width  'Nombre Artic
+        txtAux(i).Width = DataGrid1.Columns(7).Width - 35
+        
+    End If
+
+    'Los ponemos Visibles o No
+    For i = 0 To txtAux.Count - 1
+        txtAux(i).visible = visible
+    Next i
+    cmdAux(0).visible = visible
+    cmdAux(1).visible = visible
+    
+    cboAux.visible = visible
+End Sub
+
+
+Private Sub frmA_DatoSeleccionado(CadenaSeleccion As String)
+'Almacen Propios
+Dim Indice As Byte
+    Indice = CByte(Me.imgBuscar(0).Tag)
+    Text1(Indice + 2).Text = Format(RecuperaValor(CadenaSeleccion, 1), "000")
+    Text2(Indice).Text = RecuperaValor(CadenaSeleccion, 2)
+End Sub
+
+Private Sub frmArt_DatoSeleccionado(CadenaSeleccion As String)
+'Mantenimiento de Articulos
+    txtAux(0).Text = RecuperaValor(CadenaSeleccion, 1) 'Cod Artic
+    txtAux(1).Text = RecuperaValor(CadenaSeleccion, 2) 'Nom Artic
+End Sub
+
+Private Sub frmB_Selecionado(CadenaDevuelta As String)
+'Formulario para Busqueda
+Dim cadB As String
+Dim Aux As String
+      
+    If CadenaDevuelta <> "" Then
+        HaDevueltoDatos = True
+        Screen.MousePointer = vbHourglass
+        
+        If Modo <> 5 Then 'Estamos en Cabecera
+            'Recupera todo el registro de Traspaso Almacenes
+            'Sabemos que campos son los que nos devuelve
+            'Creamos una cadena consulta y ponemos los datos
+            cadB = ""
+            Aux = ValorDevueltoFormGrid(Text1(0), CadenaDevuelta, 1)
+            cadB = Aux
+            CadenaConsulta = "select * from " & NombreTabla & " WHERE " & cadB & " " & Ordenacion
+            PonerCadenaBusqueda
+        Else 'Estamos en Lineas
+            'Llamamos desde el boton auxiliar de Artículos
+            txtAux(0).Text = RecuperaValor(CadenaDevuelta, 1)
+            txtAux(1).Text = RecuperaValor(CadenaDevuelta, 2)
+            PonerFoco txtAux(2)
+        End If
+    End If
+    Screen.MousePointer = vbDefault
+End Sub
+
+Private Sub frmF_Selec(vFecha As Date)
+'Calendario de Fecha
+Dim Indice As Byte
+    Indice = 1
+    Text1(Indice).Text = Format(vFecha, "dd/mm/yyyy")
+End Sub
+
+
+Private Sub frmL_DatoSeleccionado(CadenaSeleccion As String)
+    CadenaConsulta = CadenaSeleccion
+End Sub
+
+Private Sub frmT_DatoSeleccionado(CadenaSeleccion As String)
+'Mantenimiento de Trabajadores
+Dim Indice As Byte
+    Indice = 3
+    Text1(Indice).Text = Format(RecuperaValor(CadenaSeleccion, 1), "0000")
+    Text2(Indice - 2).Text = RecuperaValor(CadenaSeleccion, 2)
+End Sub
+
+
+Private Sub imgBuscar_Click(Index As Integer)
+
+    If Modo = 2 Or Modo = 0 Then Exit Sub
+ 
+    Screen.MousePointer = vbHourglass
+    imgBuscar(0).Tag = Index
+    
+    Select Case Index
+        Case 0 'Codigo Almacen
+            Set frmA = New frmAlmAlPropios
+            frmA.DatosADevolverBusqueda = "0"
+            frmA.Show vbModal
+            Set frmA = Nothing
+        Case 1  'Cod. Trabajador
+            Set frmT = New frmAdmTrabajadores
+            frmT.DatosADevolverBusqueda = "0"
+            frmT.Show vbModal
+            Set frmT = Nothing
+    End Select
+    PonerFoco Text1(Index + 2)
+    Screen.MousePointer = vbDefault
+End Sub
+
+
+Private Sub imgFecha_Click(Index As Integer)
+Dim Indice As Byte
+
+   Screen.MousePointer = vbHourglass
+   imgFecha(0).Tag = Index
+   Set frmF = New frmCal
+   frmF.Fecha = Now
+   
+   Indice = 1
+   PonerFormatoFecha Text1(Indice)
+   If Text1(Indice).Text <> "" Then frmF.Fecha = CDate(Text1(Indice).Text)
+
+   Screen.MousePointer = vbDefault
+   frmF.Show vbModal
+   Set frmF = Nothing
+   PonerFoco Text1(1)
+End Sub
+
+Private Sub mnBuscar_Click()
+    BotonBuscar
+End Sub
+
+Private Sub mnEliminar_Click()
+    If Modo = 5 Then   'Eliminar lineas Movimiento Almacenes
+        BotonEliminarLinea
+    Else 'Eliminar Cabecera Movimiento Almacenes
+        BotonEliminar
+    End If
+End Sub
+
+Private Sub mnModificar_Click()
+Dim vWhere As String
+
+    If Modo = 5 Then  'Modificar LINEAS
+        If Data2.Recordset.EOF Then Exit Sub
+        vWhere = ObtenerWhereCP(False) & " and numlinea=" & Me.Data2.Recordset.Fields(1)
+        If BloqueaRegistro(NomTablaLineas, vWhere) Then BotonModificarLinea
+    Else 'Modificar Cabecera
+       If BLOQUEADesdeFormulario(Me) Then BotonModificar
+    End If
+End Sub
+
+
+Private Sub mnNuevo_Click()
+     If Modo = 5 Then  'Añadir lineas Movimiento Almacenes
+        BotonAnyadirLineas
+    Else 'Añadir Cabecera Movimiento Almacenes
+        BotonAnyadir
+    End If
+End Sub
+
+
+Private Sub mnSalir_Click()
+    Screen.MousePointer = vbDefault
+    If (Modo = 5) Then 'Modo 5: Mto Lineas
+        '1:Insertar linea, 2: Modificar
+        If ModificaLineas = 1 Or ModificaLineas = 2 Then cmdCancelar_Click
+        cmdRegresar_Click
+        Exit Sub
+    End If
+    Unload Me
+End Sub
+
+Private Sub mnVerTodos_Click()
+    BotonVerTodos
+End Sub
+
+Private Sub Text1_GotFocus(Index As Integer)
+    If Index <> 4 Then ConseguirFoco Text1(Index), Modo
+End Sub
+
+
+
+Private Sub Text1_KeyDown(Index As Integer, KeyCode As Integer, Shift As Integer)
+'Avanzar/Retroceder los campos con las flechas de desplazamiento del teclado.
+    KEYdown KeyCode
+End Sub
+
+Private Sub Text1_KeyPress(Index As Integer, KeyAscii As Integer)
+
+    If KeyAscii = 13 And Index = 3 And Modo = 1 Then
+        PonerFocoBtn cmdAceptar
+    Else
+        KEYpress KeyAscii
+    End If
+End Sub
+
+
+Private Sub Text1_LostFocus(Index As Integer)
+
+    If Not PerderFocoGnral(Text1(Index), Modo) Then Exit Sub
+    'Bloquear el contador si no estamos en busquedas
+    If (Modo <> 1) And (Index = 0) Then BloquearTxt Text1(0), True, True
+
+    Select Case Index
+        Case 0 'Codigo Movimiento Almacen
+            Text1(Index).Text = Format(Text1(Index).Text, "0000000")
+        Case 1 'Fecha
+            If Text1(Index).Text <> "" Then PonerFormatoFecha Text1(Index)
+            
+        Case 2 'Codigo Almacen
+            If PonerFormatoEntero(Text1(Index)) Then
+                Text2(Index - 2).Text = PonerNombreDeCod(Text1(Index), conAri, "salmpr", "nomalmac", "codalmac")
+            Else
+                Text2(Index - 2).Text = ""
+            End If
+            
+        Case 3  'Codigo Trabajador
+            If PonerFormatoEntero(Text1(Index)) Then
+                Text2(Index - 2).Text = PonerNombreDeCod(Text1(Index), conAri, "straba", "nomtraba", "codtraba")
+            Else
+                Text2(Index - 2).Text = ""
+            End If
+            
+        Case 4 'Observaciones
+            If Text1(Index).Text <> "" Then Text1(Index).Text = QuitarCaracterEnter(Text1(Index).Text)
+    End Select
+End Sub
+
+Private Sub txtAux_GotFocus(Index As Integer)
+    ConseguirFocoLin txtAux(Index)
+End Sub
+
+Private Sub txtAux_KeyDown(Index As Integer, KeyCode As Integer, Shift As Integer)
+    If Index = 3 And KeyCode = 40 Then
+        PonerFocoBtn Me.cmdAceptar
+    Else
+        KEYdown KeyCode
+    End If
+End Sub
+
+Private Sub txtAux_KeyPress(Index As Integer, KeyAscii As Integer)
+    If Index = 3 And KeyAscii = 13 Then
+        PonerFocoBtn Me.cmdAceptar
+    Else
+        KEYpress KeyAscii
+    End If
+End Sub
+
+Private Sub txtAux_LostFocus(Index As Integer)
+
+    If Not PerderFocoGnralLineas(txtAux(Index), ModificaLineas) Then Exit Sub
+    txtAux(Index).Text = Trim(txtAux(Index).Text)
+    Select Case Index
+        Case 0 'Cod ARTICULO
+            If txtAux(Index).Text = "" Then
+                txtAux(Index + 1).Text = ""
+            Else
+                 PonerArticulo txtAux(0), txtAux(1), Text1(2).Text, CodTipoMov, ModificaLineas
+            End If
+            
+        Case 2 'CANTIDAD (Comprobamos formato como si fuera un Importe)
+            'Formato tipo 1: Decimal(12,2)
+            PonerFormatoDecimal txtAux(Index), 1
+            
+             
+        Case 4
+            If txtAux(Index).Text = "" Then Exit Sub
+            
+            CadenaConsulta = "" 'OK
+            If txtAux(0).Text = "" Then
+                MsgBox "Debe indicar primero la referncia", vbExclamation
+                CadenaConsulta = "0"
+            End If
+            
+            'E/SALIDA
+            If Me.cboAux.ListIndex < 0 Then
+                MsgBox "Seleccione el tipo entrada/salida", vbExclamation
+                CadenaConsulta = "-1"
+            End If
+            'Cantidad a cero
+            If txtAux(2).Text = "" Then
+                MsgBox "Debe indicar primero la cantidad", vbExclamation
+                CadenaConsulta = "2"
+            End If
+            If CadenaConsulta <> "" Then
+                'Error
+                If Val(CadenaConsulta) >= 0 Then
+                    PonerFoco txtAux(CInt(CadenaConsulta))
+                Else
+                    PonerFocoCbo cboAux
+                End If
+                txtAux(4).Text = ""
+                
+            Else
+                CadenaConsulta = "codartic = " & DBSet(txtAux(0).Text, "T") & " AND numlote "
+                CadenaConsulta = DevuelveDesdeBD(conAri, "cantotal", "spartidas", CadenaConsulta, DBSet(txtAux(4).Text, "T"))
+                If CadenaConsulta = "" Then
+                    CadenaConsulta = "No existe el lote: " & txtAux(4).Text & " para el articulo " & txtAux(0).Text
+                    MsgBox CadenaConsulta, vbExclamation
+                Else
+                    'Si es salida
+                    If Me.cboAux.ListIndex = 0 Then
+                       If ImporteFormateado(txtAux(2).Text) > CCur(CadenaConsulta) Then
+                            CadenaConsulta = "Lote:   " & Format(CadenaConsulta, FormatoCantidad) & vbCrLf & "Salida: " & txtAux(2).Text
+                            CadenaConsulta = "El movimiento de salida es mayor que la cantidad restante del lote: " & vbCrLf & CadenaConsulta
+                            CadenaConsulta = CadenaConsulta & vbCrLf & "¿Continuar?"
+                            If MsgBox(CadenaConsulta, vbQuestion + vbYesNo) = vbNo Then
+                                txtAux(4).Text = ""
+                                PonerFoco txtAux(4)
+                            End If
+                       End If
+                     End If
+                End If
+            End If
+            CadenaConsulta = ""
+    End Select
+End Sub
+
+
+Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
+    Select Case Button.Index
+        Case 1 'Busqueda
+           mnBuscar_Click
+        Case 2 'Ver Todos
+           mnVerTodos_Click
+        Case 5 'Nuevo
+           mnNuevo_Click
+        Case 6  'Modificar
+           mnModificar_Click
+        Case 7 'Eliminar
+           mnEliminar_Click
+           
+        Case 9 'Mantenimiento Lineas
+           BotonLineas
+        Case 10 'Actualizar
+           BotonActualizar
+        Case 12 'Imprimir
+           BotonImprimir
+        Case 13  'Salir
+           mnSalir_Click
+        Case btnPrimero To btnPrimero + 3 'Flechas de Desplazamiento
+           Desplazamiento (Button.Index - btnPrimero)
+    End Select
+End Sub
+
+
+Private Sub KEYpress(KeyAscii As Integer)
+Dim cerrar As Boolean
+
+    KEYpressGnral KeyAscii, Modo, cerrar
+    If cerrar Then Unload Me
+End Sub
+
+
+Private Sub PonerModo(Kmodo As Byte)
+Dim i As Byte, NumReg As Byte
+Dim B As Boolean
+    
+    'Actualiza Iconos Insertar,Modificar,Eliminar
+    ActualizarToolbarGnral Me.Toolbar1, Modo, Kmodo, btnAnyadir
+    
+    Modo = Kmodo
+    PonerIndicador lblIndicador, Modo
+    
+    '--------------------------------------------
+    B = (Kmodo = 2)
+    NumReg = 1
+    If Not Data1.Recordset.EOF Then
+        If Data1.Recordset.RecordCount > 1 Then NumReg = 2 'Solo es para saber q hay + de 1 registro
+    End If
+    DesplazamientoVisible Me.Toolbar1, btnPrimero, B, NumReg
+    
+    'Bloquea los campos Text1 sino estamos modificando/Insertando Datos
+    'Si estamos en Insertar además limpia los campos Text1
+    BloquearText1 Me, Modo
+    
+    'Como el campo 0 es clave primaria, NO se puede modificar, es contador
+    BloquearTxt Text1(0), (Modo <> 1), True
+    
+'    Me.cmdRegresar.visible = (Not b) And Not EsHistorico
+'    If DatosADevolverBusqueda <> "" Then
+'        cmdRegresar.visible = b
+'    Else
+'        cmdRegresar.visible = False
+'    End If
+    
+    '=================================================
+    B = Modo <> 0 And Modo <> 2 And Modo <> 5
+    cmdCancelar.visible = B
+    cmdAceptar.visible = B
+    
+    For i = 0 To Me.imgFecha.Count - 1
+        Me.imgFecha(i).Enabled = B
+    Next i
+    
+    For i = 0 To Me.imgBuscar.Count - 1
+        Me.imgBuscar(i).Enabled = B
+    Next i
+
+    Me.chkVistaPrevia.Enabled = (Modo <= 2)
+
+    'Poner el tamaño de los campos. Si es modo Busqueda el MaxLength del campo
+    'debe ser mayor para adminir intervalos de busqueda.
+    PonerLongCampos
+    
+    PonerModoOpcionesMenu 'Activar opciones de menu según Modo
+    PonerOpcionesMenu   'Activar opciones de menu según nivel
+                        'de permisos del usuario
+End Sub
+
+
+Private Sub PonerLongCampos()
+'Modificar el MaxLength del campo en funcion de si es modo de búsqueda o no
+'para los campos que permitan introducir criterios más largos del tamaño del campo
+    PonerLongCamposGnral Me, Modo, 1
+End Sub
+
+Private Sub PonerModoOpcionesMenu()
+Dim B As Boolean
+Dim i As Byte
+
+    'Si visualizamos el historico no mostrar botones de Mantenimiento, solo es consulta
+    For i = 5 To 10
+        Toolbar1.Buttons(i).visible = Not EsHistorico
+    Next i
+    Me.mnNuevo.visible = Not EsHistorico
+    Me.mnModificar.visible = Not EsHistorico
+    Me.mnEliminar.visible = Not EsHistorico
+    Me.mnBarra2.visible = Not EsHistorico
+    
+    If Not EsHistorico Then
+        'Modo 2. Hay datos y estamos visualizandolos
+        B = (Modo = 2) Or (Modo = 5 And ModificaLineas = 0)
+        'Insertar
+        Toolbar1.Buttons(5).Enabled = (B Or Modo = 0)
+        Me.mnNuevo.Enabled = (B Or Modo = 0)
+        'Modificar
+        Toolbar1.Buttons(6).Enabled = B
+        Me.mnModificar.Enabled = B
+        'eliminar
+        Toolbar1.Buttons(7).Enabled = B
+        Me.mnEliminar.Enabled = B
+        
+        '--------------------------------
+        B = (Modo = 2)
+        'Lineas Movimientos Almacenes
+        Toolbar1.Buttons(9).Enabled = B
+        'Actualizar
+        Toolbar1.Buttons(10).Enabled = B
+        
+        
+        B = (Modo >= 3) Or Modo = 1
+        'Buscar
+        Toolbar1.Buttons(1).Enabled = Not B
+        Me.mnBuscar.Enabled = Not B
+        'Ver Todos
+        Toolbar1.Buttons(2).Enabled = Not B
+        Me.mnVerTodos.Enabled = Not B
+    End If
+End Sub
+
+
+Private Sub LimpiarCampos()
+    limpiar Me   'Metodo general: Limpia los controles TextBox
+    'Aqui va el especifico de cada form es
+    '### a mano
+    Me.chkImpresion.Value = 0
+End Sub
+
+
+Private Sub Desplazamiento(Index As Integer)
+'Botones de Desplazamiento de la Toolbar
+    
+    Select Case Modo
+        Case 5 'Modo Mantenimiento de Almacenes (Lineas)
+            If Data2.Recordset.EOF Then Exit Sub
+            DesplazamientoData Data2, Index
+        Case Else 'Datos de Cabecera
+            If Data1.Recordset.EOF Then Exit Sub
+            DesplazamientoData Data1, Index
+            PonerCampos
+    End Select
+End Sub
+
+
+Private Function MontaSQLCarga(enlaza As Boolean) As String
+'--------------------------------------------------------------------
+' MontaSQlCarga:
+'   Basándose en la información proporcionada por el vector de campos
+'   crea un SQl para ejecutar una consulta sobre la base de datos que los
+'   devuelva.
+' Si ENLAZA -> Enlaza con el data1
+'           -> Si no lo cargamos sin enlazar a ningun campo
+'--------------------------------------------------------------------
+Dim SQL As String
+Dim Tabla As String
+    
+    Tabla = NomTablaLineas
+
+    SQL = "SELECT " & Tabla & ".codmovim, "
+    SQL = SQL & Tabla & ".numlinea, " & Tabla & ".codartic, Articulos.nomartic, "
+    SQL = SQL & Tabla & ".cantidad, if(" & Tabla & ".tipomovi=0,""S"",""E"") as tipomovi, "
+    'Octubre 2010
+    SQL = SQL & " numlote, "
+    SQL = SQL & Tabla & ".motimovi "
+    SQL = SQL & " FROM ((" & Tabla & " LEFT JOIN sartic AS Articulos ON " & Tabla & ".codartic ="
+    SQL = SQL & " Articulos.codartic))"
+    If enlaza Then
+        SQL = SQL & " WHERE codmovim = " & Data1.Recordset!codMovim
+    Else
+        SQL = SQL & " WHERE codmovim = -1"
+    End If
+    SQL = SQL & " ORDER BY " & Tabla & ".numlinea"
+    MontaSQLCarga = SQL
+End Function
+
+
+Private Sub BotonBuscar()
+    'Buscar
+    If Modo <> 1 Then
+        LimpiarCampos
+        PonerModo 1
+        'Ponemos el grid lineasfacturas enlazando a ningun sitio
+        CargaGrid False
+
+        'Si pasamos el control aqui lo ponemos en amarillo
+        PonerFoco Text1(0)
+        Text1(0).BackColor = vbYellow
+    Else
+        HacerBusqueda
+        If Data1.Recordset.EOF Then
+            Text1(kCampo).Text = ""
+            Text1(kCampo).BackColor = vbYellow
+            PonerFoco Text1(kCampo)
+        End If
+    End If
+End Sub
+
+
+Private Sub BotonVerTodos()
+'Ver todos
+    
+    If chkVistaPrevia.Value = 1 Then
+        MandaBusquedaPrevia ""
+    Else
+        CadenaConsulta = "Select * from " & NombreTabla & Ordenacion
+        PonerCadenaBusqueda
+    End If
+End Sub
+
+
+Private Sub BotonLineas()
+On Error GoTo ErrorLineas
+
+    Screen.MousePointer = vbHourglass
+    PonerModo (5)
+    ModificaLineas = 0
+    PonerBotonCabecera True
+    CargaGrid True
+    DataGrid1.Enabled = True
+    Me.DataGrid1.SetFocus
+    Screen.MousePointer = vbDefault
+    Exit Sub
+    
+ErrorLineas:
+    If Err.Number <> 0 Then MuestraError Err.Number, "Lineas"
+    Screen.MousePointer = vbDefault
+End Sub
+
+
+Private Sub BotonAnyadir()
+Dim NomTraba As String
+
+    LimpiarCampos 'Vacía los TextBox
+    ModoAnterior = Modo 'Para el botón Cancelar en Modo Insertar
+    PonerModo 3
+           
+    'Ponemos el grid lineas Traspaso enlazando a ningun sitio
+    CargaGrid False
+    
+    Text1(1).Text = Format(Now, "dd/mm/yyyy")
+    'Poner Trabajador por defecto el trabajador conectado
+    Text1(3).Text = PonerTrabajadorConectado(NomTraba)
+    Text2(1).Text = NomTraba
+    PonerFoco Text1(1)
+End Sub
+
+
+Private Sub BotonAnyadirLineas()
+Dim vWhere As String
+    
+    'Si no estaba modificando lineas salimos
+    ' Es decir, si estaba insertando linea no podemos hacer otra cosa
+    If ModificaLineas = 2 Then Exit Sub
+    
+    ModificaLineas = 1
+    
+    vWhere = ObtenerWhereCP(False)
+    cmdAceptar.Tag = SugerirCodigoSiguienteStr("slimov", "numlinea", vWhere)
+    
+    PonerBotonCabecera False
+    lblIndicador.Caption = "INSERTAR"
+    
+    'Situamos el grid al final
+    AnyadirLinea DataGrid1, Data2
+
+    DataGrid1.Enabled = False
+    CargaTxtAux True, True
+    PonerFoco txtAux(0)
+End Sub
+
+
+Private Sub BotonModificar()
+    'Escondemos el navegador y ponemos Modo Modificar
+    PonerModo 4
+    
+    'Como el campo 1 es clave primaria, NO se puede modificar
+    BloquearTxt Text1(0), True, True
+    PonerFoco Text1(1)
+End Sub
+
+
+Private Sub BotonModificarLinea()
+Dim i As Integer
+
+    If Data2.Recordset.EOF Then Exit Sub
+    If Data2.Recordset.RecordCount < 1 Then Exit Sub
+
+    'Si no estaba modificando lineas salimos
+    ' Es decir, si estaba insertando linea no podemos hacer otra cosa
+    If ModificaLineas = 1 Then Exit Sub
+    
+    ModificaLineas = 2 'Modificar
+
+    Screen.MousePointer = vbHourglass
+    
+    PonerBotonCabecera False
+    Me.lblIndicador.Caption = "MODIFICAR"
+    
+    If DataGrid1.Bookmark < DataGrid1.FirstRow Or DataGrid1.Bookmark > (DataGrid1.FirstRow + DataGrid1.VisibleRows - 1) Then
+        i = DataGrid1.Bookmark - DataGrid1.FirstRow
+        DataGrid1.Scroll 0, i
+        DataGrid1.Refresh
+    End If
+    
+    cmdAceptar.Tag = Data2.Recordset!numlinea
+    
+    CargaTxtAux True, False
+    DataGrid1.Enabled = False
+    PonerFoco txtAux(2) 'Poner el foco
+    Screen.MousePointer = vbDefault
+End Sub
+
+
+Private Sub BotonEliminar()
+Dim vTipomov As CTiposMov 'Clase Tipo Movimiento
+Dim SQL As String
+
+    'Ciertas comprobaciones
+    If Data1.Recordset.EOF Then Exit Sub
+    
+    SQL = "Cabecera de Movimiento Almacen." & vbCrLf
+    SQL = SQL & "----------------------------------------" & vbCrLf & vbCrLf
+    
+    SQL = SQL & "Va a eliminar el Movimiento:"
+    SQL = SQL & vbCrLf & " Nº Movim. : " & Text1(0).Text
+    SQL = SQL & vbCrLf & " Fecha Mov.: " & CStr(Data1.Recordset.Fields(1))
+    SQL = SQL & vbCrLf & " Almacen   : " & Text1(2).Text
+    SQL = SQL & vbCrLf & vbCrLf & " ¿Desea continuar ? "
+    
+    If MsgBox(SQL, vbQuestion + vbYesNoCancel) = vbYes Then
+        'Hay que eliminar
+        On Error GoTo Error2
+        If Not Eliminar Then Exit Sub
+    
+        'Devolvemos contador, si no estamos actualizando
+        Set vTipomov = New CTiposMov
+        NumRegElim = Data1.Recordset.Fields(0)
+        vTipomov.DevolverContador CodTipoMov, NumRegElim
+        Set vTipomov = Nothing
+        
+        NumRegElim = Data1.Recordset.AbsolutePosition
+        DataGrid1.Enabled = False
+        
+        If SituarDataTrasEliminar(Data1, NumRegElim) Then
+            PonerCampos
+        Else 'solo habia un registro
+            LimpiarCampos
+            CargaGrid False
+            PonerModo 0
+        End If
+    End If
+    
+Error2:
+    Screen.MousePointer = vbDefault
+    If Err.Number <> 0 Then
+        MuestraError Err.Number, "Eliminar Movimiento", Err.Description
+        Data1.Recordset.CancelUpdate
+    End If
+End Sub
+
+
+Private Function Eliminar() As Boolean
+Dim SQL As String
+On Error GoTo FinEliminar
+        
+        Conn.BeginTrans
+        SQL = " WHERE  codmovim=" & Data1.Recordset!codMovim
+        
+        'Lineas
+        Conn.Execute "Delete  from slimov " & SQL
+        
+        'Cabeceras
+        Conn.Execute "Delete  from scamov " & SQL
+                      
+FinEliminar:
+    If Err.Number <> 0 Then
+        MuestraError Err.Number, "Eliminar"
+        Conn.RollbackTrans
+        Eliminar = False
+    Else
+        Conn.CommitTrans
+        Eliminar = True
+    End If
+End Function
+
+
+Private Sub BotonEliminarLinea()
+Dim SQL As String
+On Error GoTo Error2
+    
+    'Ciertas comprobaciones
+    If Data2.Recordset.EOF Then Exit Sub
+    
+    'Si no estaba modificando lineas salimos
+    'Es decir, si estaba insertando linea no podemos hacer otra cosa
+    If ModificaLineas = 1 Or ModificaLineas = 2 Then Exit Sub '1= Insertar, 2=Modificar
+       
+    ModificaLineas = 3 'Eliminar
+    
+    '### a mano
+    SQL = "Seguro que desea eliminar la línea del Artículo:"
+    SQL = SQL & vbCrLf & "Código: " & Data2.Recordset!codArtic
+    SQL = SQL & vbCrLf & "Descripción: " & Data2.Recordset.Fields(3)
+    
+    If MsgBox(SQL, vbQuestion + vbYesNoCancel) = vbYes Then
+        'Hay que eliminar
+        SQL = "Delete from slimov where codmovim=" & Data2.Recordset!codMovim
+        SQL = SQL & " and numlinea=" & Data2.Recordset!numlinea
+        SQL = SQL & " and codartic=" & DBSet(Data2.Recordset!codArtic, "T")
+        Conn.Execute SQL
+        CancelaADODC Me.Data2
+        CargaGrid True
+        CancelaADODC Me.Data2
+    End If
+    ModificaLineas = 0
+    
+Error2:
+    Screen.MousePointer = vbDefault
+    ModificaLineas = 0
+    If Err.Number <> 0 Then MuestraError Err.Number, "Eliminar Línea de Artículo de Movimiento Almacen", Err.Description
+End Sub
+
+
+Private Function DatosOk() As Boolean
+Dim B As Boolean
+'Dim vStock As String
+'Dim vstockOrig As Single  'Stock en el almacen Origen
+'Dim SQL As String, devuelve As String
+
+    DatosOk = False
+    B = CompForm(Me, 1)
+    If Not B Then Exit Function
+    
+    
+    If Not vUsu.TrabajadorB Then
+        If Val(Text1(2).Text) = vParamAplic.AlmacenB Then
+            MsgBox "Almacen incorrecto(2)", vbExclamation
+            Exit Function
+        End If
+    End If
+    
+    If vUsu.Nivel > 0 Then
+        Me.Tag = PonerTrabajadorConectado(CadenaConsulta)
+        CadenaConsulta = ""
+        If Me.Tag = "" Then
+            CadenaConsulta = "No puede obtener trabajador conectado"
+        Else
+            If Val(Me.Tag) <> Text1(3).Text Then CadenaConsulta = "No es el trabajador conectado"
+        End If
+        Me.Tag = ""
+        If CadenaConsulta <> "" Then
+            MsgBox CadenaConsulta, vbExclamation
+            CadenaConsulta = Data1.Recordset.EOF
+            Exit Function
+        End If
+    End If
+    
+    'Comprobar que todos los Artículos estan en el nuevo almacen
+    If Modo = 4 Then 'Modificando
+        B = ComprobarStocksLineas
+    End If
+
+    DatosOk = True
+End Function
+
+
+
+Private Function ComprobarStocksLineas() As Boolean
+'Comprobar para todas las lineas del traspaso que:
+' - todos los Artículos entan en el almacen origen
+' - Comprobar que hay suficiente stock en el Almacen Origen de ese Articulo
+Dim B As Boolean
+
+    If Not Data2.Recordset.EOF Then  'Si hay lineas
+        Data2.Recordset.MoveFirst
+        B = True
+        
+        While Not Data2.Recordset.EOF And B
+            If Data2.Recordset!tipomovi = "S" Then 'Mov. de salida
+                B = ComprobarStock(Data2.Recordset!codArtic, Text1(2).Text, Data2.Recordset!Cantidad, CodTipoMov)
+            End If
+            Data2.Recordset.MoveNext
+        Wend
+        Data2.Recordset.MoveFirst
+    End If
+    ComprobarStocksLineas = B
+End Function
+
+
+
+
+Private Function DatosOkLinea() As Boolean
+Dim B As Boolean
+Dim LlevaTraza As Boolean
+Dim devuelve As String
+
+
+    DatosOkLinea = False
+    B = True
+        
+    If txtAux(0).Text = "" Then
+        MsgBox "El campo Cod. Artículo no puede ser nulo", vbExclamation
+        B = False
+        Exit Function
+    End If
+        
+    'Comprobamos el campo Cantidad
+    If txtAux(2).Text = "" Then
+         MsgBox "El campo Cantidad no puede ser nulo", vbExclamation, "Artículos"
+         B = False
+    ElseIf Not IsNumeric(txtAux(2).Text) Then
+        MsgBox "El campo Cantidad debe ser numérico", vbExclamation
+        B = False
+    ElseIf ImporteFormateado(txtAux(2).Text) < 0 Then
+        MsgBox "Importe debe ser positov", vbExclamation
+        B = False
+    End If
+    
+    If Not B Then
+        PonerFoco txtAux(2)
+        Exit Function
+    End If
+     
+     
+     'Si el articulo lleva trazabilidad
+     
+     LlevaTraza = EsArticuloTrazabilidad(txtAux(0).Text)
+     
+     If LlevaTraza Then
+        If txtAux(4).Text = "" Then
+            devuelve = "Deberia indicar numero de lote. " & vbCrLf & "¿Continuar de igual modo?"
+            If MsgBox(devuelve, vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then Exit Function
+        End If
+    Else
+        If txtAux(4).Text <> "" Then
+            MsgBox "El articulo no es de trazabilidad. No debe indicar lote", vbExclamation
+            PonerFoco txtAux(4)
+            Exit Function
+        End If
+    End If
+        
+    'Comprobamos si ya existe una linea con el artículo, solo si estamos insertando (ModificaLineas=1)
+    'BD 1: conexion a BD Ariges
+    If ModificaLineas = 1 Then
+        devuelve = DevuelveDesdeBDNew(conAri, "slimov", "codmovim", "codmovim", Text1(0).Text, "N", , "codartic", txtAux(0).Text, "T")
+        If devuelve <> "" Then
+            B = False
+            devuelve = "Ya hay una línea con ese Artículo: " & vbCrLf
+            devuelve = devuelve & "Codigo: " & txtAux(0).Text & vbCrLf
+            devuelve = devuelve & "Descripción: " & txtAux(1).Text & vbCrLf & "¿Continuar?"
+            If MsgBox(devuelve, vbQuestion + vbYesNo) = vbNo Then Exit Function
+        End If
+        
+        'Comprobamos si existe el artículo, solo si estamos insertando (ModificaLineas=1)
+        If Trim(txtAux(1).Text) = "" Then
+            B = False
+            devuelve = "No existe el Artículo " & vbCrLf
+            devuelve = devuelve & "Codigo: " & txtAux(0).Text & vbCrLf
+            devuelve = devuelve & "Descripción: " & txtAux(1).Text
+            MsgBox devuelve, vbExclamation
+        End If
+    End If
+    If Not B Then Exit Function
+    
+    'Comprobar que hay suficiente stock en el Almacen
+    'Si es movimiento de Salida
+    If Me.cboAux.ListIndex = 0 Then
+        B = ComprobarStock(txtAux(0).Text, Text1(2).Text, txtAux(2).Text, CodTipoMov)
+    End If
+    DatosOkLinea = B
+End Function
+
+
+Private Sub PonerBotonCabecera(B As Boolean)
+On Error Resume Next
+    Me.cmdAceptar.visible = Not B
+    Me.cmdCancelar.visible = Not B
+    Me.cmdRegresar.visible = B
+    Me.cmdRegresar.Caption = "Cabecera"
+    If B Then
+        Me.lblIndicador.Caption = "Lineas Detalle"
+        PonerFocoBtn Me.cmdRegresar
+    Else
+        Me.lblIndicador.Caption = ""
+    End If
+    'Habilitar las opciones correctas del menu según Modo
+    PonerModoOpcionesMenu
+    PonerOpcionesMenu 'Habilitar las opciones correctas del menu según Nivel de Acceso
+    If Err.Number <> 0 Then Err.Clear
+End Sub
+
+
+Private Function InsertarModificarLinea() As Boolean
+Dim SQL As String, cad As String
+On Error GoTo EInsertarModificarLinea
+    
+    SQL = ""
+    InsertarModificarLinea = False
+    
+    Select Case ModificaLineas
+    Case 1 'Insertar
+        If DatosOkLinea Then 'INSERTAR
+            SQL = "INSERT INTO slimov (codmovim,numlinea,codartic,cantidad,tipomovi,motimovi,numlote) "
+            SQL = SQL & " VALUES (" & Val(Text1(0).Text) & ", "
+            SQL = SQL & cmdAceptar.Tag & ", "
+            SQL = SQL & DBSet(txtAux(0).Text, "T") & ", "
+            SQL = SQL & DBSet(txtAux(2).Text, "N") & ", "
+            If cboAux.ListIndex = -1 Then
+                cad = ValorNulo
+            Else
+                 cad = cboAux.ItemData(cboAux.ListIndex)
+            End If
+            SQL = SQL & CSng(cad) & ","
+            SQL = SQL & DBSet(txtAux(3).Text, "T") & ","
+            SQL = SQL & DBSet(txtAux(4).Text, "T") & ") "
+        End If
+    Case 2 'Modificar
+        If DatosOkLinea Then
+            SQL = "UPDATE slimov Set cantidad = " & DBSet(txtAux(2).Text, "N")
+            SQL = SQL & ", tipomovi = " & cboAux.ItemData(cboAux.ListIndex)
+            SQL = SQL & ", motimovi = " & DBSet(txtAux(3).Text, "T")
+            SQL = SQL & ", numlote = " & DBSet(txtAux(4).Text, "T")
+            SQL = SQL & " WHERE codmovim =" & Val(Text1(0).Text) & " AND "
+            SQL = SQL & " numlinea =" & Val(cmdAceptar.Tag)
+        End If
+    End Select
+            
+    If SQL <> "" Then
+        Conn.Execute SQL
+        InsertarModificarLinea = True
+    End If
+    Exit Function
+EInsertarModificarLinea:
+    MuestraError Err.Number, "Insertar/Modificar Lineas Traspaso Almacenes" & vbCrLf & Err.Description
+End Function
+
+
+Private Sub MandaBusquedaPrevia(cadB As String)
+'Carga el formulario frmBuscaGrid con los valores correspondientes
+Dim cad As String
+Dim Tabla As String
+Dim Titulo As String
+
+    'Llamamos a al form
+    cad = ""
+    'Registro de la tabla de cabeceras: scamov
+    cad = cad & ParaGrid(Text1(0), 15, "Nº Mov.")
+    cad = cad & ParaGrid(Text1(1), 20, "Fecha")
+    cad = cad & ParaGrid(Text1(2), 10, "Alm.")
+    cad = cad & "Desc. Alm. Orig|salmpr|nomalmac|T||40·"
+    Tabla = "(" & NombreTabla & " LEFT JOIN salmpr ON " & NombreTabla & ".codalmac=salmpr.codalmac" & ") "
+    Titulo = Me.Caption
+
+           
+    If cad <> "" Then
+        Screen.MousePointer = vbHourglass
+        Set frmB = New frmBuscaGrid
+        frmB.vCampos = cad
+        frmB.vTabla = Tabla
+        frmB.vSQL = cadB
+        HaDevueltoDatos = False
+        '###A mano
+        frmB.vDevuelve = "0|1|"
+        frmB.vTitulo = Titulo
+        frmB.vselElem = 0
+        frmB.vConexionGrid = conAri 'Conexion a BD Ariges
+'        frmB.vBuscaPrevia = chkVistaPrevia
+        '#
+        frmB.Show vbModal
+        Set frmB = Nothing
+        'Si ha puesto valores y tenemos que es formulario de busqueda entonces
+        'tendremos que cerrar el form lanzando el evento
+        If HaDevueltoDatos Then
+''            If (Not Data1.Recordset.EOF) And DatosADevolverBusqueda <> "" Then _
+''                cmdRegresar_Click
+'        Else   'de ha devuelto datos, es decir NO ha devuelto datos
+'            If Modo = 5 Then
+'                PonerFoco txtAux(0)
+'            Else
+                PonerFoco Text1(kCampo)
+'            End If
+        End If
+    End If
+    Screen.MousePointer = vbDefault
+End Sub
+
+
+Private Sub HacerBusqueda()
+Dim cadB As String
+
+    cadB = ObtenerBusqueda(Me, False)
+    cadSeleccion = ObtenerBusqueda(Me, True) 'Para la consulta de report
+
+    If chkVistaPrevia = 1 Then
+        MandaBusquedaPrevia cadB
+    ElseIf cadB <> "" Then 'Se muestran en el mismo form
+        CadenaConsulta = "select * from " & NombreTabla & " WHERE " & cadB & " " & Ordenacion
+        PonerCadenaBusqueda
+    Else
+        MsgBox "Introducir criterios de búsqueda", vbExclamation
+        PonerFoco Text1(0)
+    End If
+    
+End Sub
+
+
+Private Sub PonerCadenaBusqueda()
+On Error GoTo EEPonerBusq
+    Screen.MousePointer = vbHourglass
+
+    Data1.RecordSource = CadenaConsulta
+    Data1.Refresh
+    If Data1.Recordset.RecordCount <= 0 Then
+        MsgBox "No hay ningún registro en la tabla " & NombreTabla, vbInformation
+        Screen.MousePointer = vbDefault
+        PonerFoco Text1(0)
+        Exit Sub
+    Else
+        PonerModo 2
+        Data1.Recordset.MoveFirst
+        PonerCampos
+    End If
+    Screen.MousePointer = vbDefault
+    Exit Sub
+    
+EEPonerBusq:
+    MuestraError Err.Number, "PonerCadenaBusqueda"
+    PonerModo 0
+    Screen.MousePointer = vbDefault
+End Sub
+
+Private Sub PonerCampos()
+On Error GoTo EPonerCampos
+
+    If Data1.Recordset.EOF Then Exit Sub
+    
+    PonerCamposForma Me, Data1
+    Text2(0).Text = PonerNombreDeCod(Text1(2), conAri, "salmpr", "nomalmac")
+    Text2(1).Text = PonerNombreDeCod(Text1(3), conAri, "straba", "nomtraba")
+    CargaGrid True
+    
+    '-- Esto permanece para saber donde estamos
+    lblIndicador.Caption = Data1.Recordset.AbsolutePosition & " de " & Data1.Recordset.RecordCount
+    
+EPonerCampos:
+    If Err.Number <> 0 Then MuestraError Err.Number, "Poniendo Campos", Err.Description
+End Sub
+
+
+Private Function ActualizarStocks() As Boolean
+Dim SQL As String, EnAlmDest As String
+Dim Cantidad As Single, vStock As Single
+Dim devuelve As String
+Dim vCantidad As String
+    On Error GoTo EActualizarStock
+
+    ActualizarStocks = False
+    While Not Data2.Recordset.EOF
+        'Actualizar el stock si el articulo tiene control de stock
+        devuelve = DevuelveDesdeBDNew(conAri, "sartic", "ctrstock", "codartic", Data2.Recordset!codArtic, "T")
+        If Val(devuelve) = 1 Then 'Hay control de stock
+
+            Cantidad = Data2.Recordset!Cantidad 'Cant a traspasar
+            vCantidad = TransformaComasPuntos(CStr(CCur(Cantidad)))
+            If Data2.Recordset!tipomovi = "E" Then 'Mov. de Entrada
+                '==== Aumentar el stock en el Almacen
+                'Comprobar que existe el articulo en Almacen Destino
+                EnAlmDest = DevuelveDesdeBDNew(conAri, "salmac", "codartic", "codartic", Data2.Recordset!codArtic, "T", , "codalmac", Text1(2).Text, "N")
+                If EnAlmDest = "" Then 'No hay de ese artículo en Almacen
+                    SQL = "INSERT INTO salmac (codartic,codalmac,ubialmac,canstock,stockmin,puntoped,stockmax,stockinv,fechainv,horainve,statusin)"
+                    SQL = SQL & " VALUES (" & DBSet(Data2.Recordset!codArtic, "T") & "," & Val(Text1(2).Text) & ",''," & DBSet(Cantidad, "N") & ",0,0,0,0,NULL,NULL,0)"
+                Else 'Existe el artic en almac. Dest -> Aumentar stock
+                    SQL = "UPDATE salmac Set canstock = canstock + " & vCantidad
+                    SQL = SQL & " WHERE codartic =" & DBSet(Data2.Recordset!codArtic, "T") & " AND "
+                    SQL = SQL & " codalmac =" & Data1.Recordset!codalmac
+                End If
+                
+            Else 'Mov. de Salida
+                '==== Disminuir Stock en Almacen Origen
+                EnAlmDest = DevuelveDesdeBDNew(conAri, "salmac", "canstock", "codartic", Data2.Recordset!codArtic, "T", , "codalmac", Text1(2).Text, "N")
+                If EnAlmDest = "" Then 'No hay de ese artículo en Almacen
+                    devuelve = "No existe en el Almacen: " & Data1.Recordset!codalmac & vbCrLf
+                    devuelve = devuelve & "El Artículo: " & Data2.Recordset!codArtic
+                    MsgBox devuelve, vbExclamation
+                Else 'Existe el artic en almac. Dest -> Disminuir stock
+                    vStock = CSng(EnAlmDest)
+                    If ComprobarHayStock(vStock, Cantidad, Data2.Recordset!codArtic, Data2.Recordset!NomArtic, CodTipoMov) Then
+                        SQL = "UPDATE salmac Set canstock = canstock - " & vCantidad
+                        SQL = SQL & " WHERE codartic =" & DBSet(Data2.Recordset!codArtic, "T") & " AND "
+                        SQL = SQL & " codalmac =" & Data1.Recordset!codalmac
+                    End If
+                End If
+            End If
+            
+            Conn.Execute SQL
+        End If
+        Data2.Recordset.MoveNext
+    Wend
+    
+    If Err.Number <> 0 Then
+        'Hay error , almacenamos y salimos
+        ActualizarStocks = False
+    Else
+        ActualizarStocks = True
+    End If
+EActualizarStock:
+End Function
+
+
+Private Sub BotonActualizar()
+'Actualizar Traspaso Almacen
+Dim SQL As String
+
+
+    SQL = PonerTrabajadorConectado("")
+    If SQL = "" Then Exit Sub
+    
+    If Val(SQL) <> Text1(3).Text Then
+        MsgBox "Trabajador traspaso y trabajador actual distintos", vbExclamation
+        Exit Sub
+    End If
+    
+
+    If Data1.Recordset.EOF Then
+        MsgBox "Ningún Movimiento para actualizar.", vbExclamation
+        Exit Sub
+    End If
+    
+    If Data2 Is Nothing Then Exit Sub
+    If Data2.Recordset.EOF Then
+        MsgBox "No hay lineas insertadas para este Nº de Movimiento", vbExclamation
+        Exit Sub
+    End If
+    
+    SQL = "Actualización Movimientos Almacen." & vbCrLf
+    SQL = SQL & "-------------------------------------------" & vbCrLf & vbCrLf
+
+    If Not CBool(Data1.Recordset.Fields(5).Value) Then 'Informe No Impreso
+        SQL = SQL & "NO ESTA IMPRESO EL MOVIMIENTO:" & vbCrLf
+    End If
+    SQL = SQL & vbCrLf & "Nº Movim. : " & Format(Data1.Recordset.Fields(0), "0000000")
+    SQL = SQL & vbCrLf & "Fecha        : " & CStr(Data1.Recordset.Fields(2))
+    SQL = SQL & vbCrLf & "Almacen    : " & Format(Data1.Recordset.Fields(1), "000") & " - " & Text2(0).Text
+    SQL = SQL & vbCrLf & vbCrLf & " ¿Desea continuar ? "
+    If MsgBox(SQL, vbQuestion + vbYesNoCancel) <> vbYes Then Exit Sub
+    
+
+    
+    Me.ProgressBar1.visible = True
+    Me.ProgressBar1.Value = 0
+    
+    NumRegElim = Data1.Recordset.AbsolutePosition
+    If ActualizarTraspaso Then
+        If SituarDataTrasEliminar(Data1, NumRegElim) Then
+            PonerCampos
+            PonerModo 2
+        Else 'Solo habia un registro
+            LimpiarCampos
+            CargaGrid False
+            PonerModo 0
+            Espera 0.3
+            Me.Refresh
+        End If
+    
+    End If
+    Me.ProgressBar1.visible = False
+End Sub
+
+
+Private Function ActualizarTraspaso() As Boolean
+Dim Donde As String
+Dim devuelve As String
+Dim bol As Boolean
+On Error GoTo EActualizarTraspaso
+    
+    'Comprobamos que no existe en historico
+    devuelve = DevuelveDesdeBDNew(conAri, "schmov", "codmovim", "codmovim", Data1.Recordset!codMovim, "N", , "fecmovim", Data1.Recordset!fecmovim, "F")
+    If Trim(devuelve) <> "" Then
+        devuelve = "Ya existe en el histórico el movimiento:" & vbCrLf
+        devuelve = devuelve & " Nº: " & Data1.Recordset!codMovim & vbCrLf
+        devuelve = devuelve & " Fecha: " & Data1.Recordset!fecmovim
+        MsgBox devuelve, vbExclamation
+        Exit Function
+    End If
+    
+    If Not ComprobarStocksLineas Then Exit Function
+    
+    'Voy a comprobar los  articulos con trazabilidad y su numero de lote
+    If Not HacerTrazabilidad(True) Then Exit Function
+    
+    
+    'Aqui empieza transaccion
+    Conn.BeginTrans
+    Donde = ""
+    bol = ActualizarElTraspaso2(Donde)
+
+EActualizarTraspaso:
+    If Err.Number <> 0 Or Donde <> "" Then
+        devuelve = "Actualizar Movimiento." & vbCrLf & "----------------------------" & vbCrLf
+        devuelve = devuelve & Donde
+        MuestraError Err.Number, devuelve, Err.Description
+        bol = False
+    End If
+    If bol Then
+        Conn.CommitTrans
+        ActualizarTraspaso = True
+    Else
+        Conn.RollbackTrans
+        MuestraError Err.Number, devuelve, Err.Description
+    End If
+End Function
+
+
+Private Function ActualizarElTraspaso2(ByRef ADonde As String) As Boolean
+
+    ActualizarElTraspaso2 = False
+    
+    'Insertamos en cabeceras Historico
+    ADonde = "Insertando datos en historico cabeceras movimientos almacen"
+    If Not InsertarCabeceraHistorico Then Exit Function
+    IncrementarProgres 2
+     
+    'Insertamos en lineas Historico
+    ADonde = "Insertando datos en Historico lineas Movimientos Almacen"
+    If Not InsertarLineasHistorico Then Exit Function
+    IncrementarProgres 2
+    
+    
+     'Modificar stock
+    ADonde = "Actualizando Stocks Almacenes"
+    If Not ActualizarStocks() Then Exit Function
+    IncrementarProgres 2
+    
+    
+    'Insertamos en Movimientos Artículos
+    ADonde = "Insertando datos en Movimientos de Articulos"
+    If Not InsertarMovimArticulos Then Exit Function
+    IncrementarProgres 2
+   
+   
+    'Lotes y demas
+    If Not HacerTrazabilidad(False) Then Exit Function
+    
+   
+    
+    'Borramos cabeceras y lineas del asiento
+    ADonde = "Borrar cabeceras y lineas en Movimientos Almacen"
+    If Not BorrarTraspaso() Then Exit Function
+    IncrementarProgres 2
+    
+
+    
+    ActualizarElTraspaso2 = True
+    ADonde = ""
+End Function
+
+
+Private Function InsertarCabeceraHistorico() As Boolean
+Dim SQL As String
+Dim RS As ADODB.Recordset
+On Error GoTo EInsertarCab
+
+    SQL = "SELECT codmovim,codalmac,fecmovim,codtraba,observa1 from scamov where "
+    SQL = SQL & " codmovim =" & Data1.Recordset!codMovim
+    SQL = SQL & " AND fecmovim='" & Format(Data1.Recordset!fecmovim, "yyyy-mm-dd") & "'"
+    
+    Set RS = New ADODB.Recordset
+    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    If Not RS.EOF Then
+        SQL = "INSERT INTO schmov (codmovim, fecmovim,hormovim,codalmac,codtraba,observa1) "
+        SQL = SQL & " VALUES (" & RS.Fields(0).Value & ", '" & Format(RS.Fields(2).Value, "yyyy-mm-dd") & "','"
+        SQL = SQL & Format(Now, "yyyy-mm-dd hh:mm:ss") & "', " & RS.Fields(1).Value & ", " & RS.Fields(3).Value
+        SQL = SQL & ", " & DBSet(RS.Fields(4).Value, "T") & ")"
+    End If
+    RS.Close
+    Set RS = Nothing
+    Conn.Execute SQL
+   
+EInsertarCab:
+    If Err.Number <> 0 Then
+        'Hay error , almacenamos y salimos
+        InsertarCabeceraHistorico = False
+    Else
+        InsertarCabeceraHistorico = True
+    End If
+End Function
+
+
+Private Function InsertarLineasHistorico() As Boolean
+Dim SQL As String
+Dim RS As ADODB.Recordset
+On Error GoTo EInsertarLineas
+
+    SQL = "SELECT codmovim, numlinea, codartic, cantidad, tipomovi, motimovi,numlote from slimov where "
+    SQL = SQL & " codmovim =" & Data1.Recordset!codMovim
+    
+    Set RS = New ADODB.Recordset
+    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.MoveFirst
+    While Not RS.EOF
+        SQL = "INSERT INTO slhmov (codmovim, fecmovim, numlinea, codartic, cantidad, tipomovi, motimovi,numlote)"
+        SQL = SQL & " VALUES (" & RS.Fields(0).Value & ", '" & Format(Data1.Recordset!fecmovim, "yyyy-mm-dd") & "', "
+        SQL = SQL & RS.Fields(1).Value & ", " & DBSet(RS.Fields(2).Value, "T") & ", "
+        SQL = SQL & DBSet(RS.Fields(3).Value, "N") & ", " & RS.Fields(4).Value
+        SQL = SQL & ", '" & RS.Fields(5).Value & "'"
+        SQL = SQL & ", " & DBSet(RS!Numlote, "T", "S") & ")"
+        Conn.Execute SQL
+        RS.MoveNext
+    Wend
+    RS.Close
+    Set RS = Nothing
+    
+EInsertarLineas:
+    If Err.Number <> 0 Then
+        'Hay error , almacenamos y salimos
+        RS.Close
+        Set RS = Nothing
+        InsertarLineasHistorico = False
+    Else
+        InsertarLineasHistorico = True
+    End If
+End Function
+
+
+Private Function InsertarMovimArticulos() As Boolean
+Dim SQL As String
+Dim RS As ADODB.Recordset
+Dim vImporte As Single, vPrecioVenta As String
+Dim vTipomov As CTiposMov
+Dim bol As Boolean
+Dim cad As String
+On Error GoTo EInsertar
+
+    bol = True
+    Set vTipomov = New CTiposMov
+    If vTipomov.Leer(CodTipoMov) Then
+        'Se han cargado correctamente los valores de la clase
+        SQL = "SELECT scamov.codmovim, codalmac, fecmovim, codtraba, numlinea, codartic, cantidad, tipomovi "
+        SQL = SQL & " from scamov LEFT JOIN slimov on scamov.codmovim=slimov.codmovim "
+        SQL = SQL & " WHERE scamov.codmovim =" & Data1.Recordset!codMovim
+        SQL = SQL & " AND fecmovim='" & Format(Data1.Recordset!fecmovim, "yyyy-mm-dd") & "'"
+    
+        Set RS = New ADODB.Recordset
+        RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+        While Not RS.EOF
+            'Obtener el precio de venta del articulo, si tiene control de stock
+            cad = "ctrstock"
+            vPrecioVenta = DevuelveDesdeBDNew(conAri, "sartic", "preciomp", "codartic", RS.Fields!codArtic, "T", cad)
+            If vPrecioVenta <> "" Then
+                vImporte = RS.Fields!Cantidad * CSng(vPrecioVenta)
+            Else
+                vImporte = 0
+            End If
+            If Val(cad) = 1 Then
+                SQL = "INSERT INTO smoval (codartic, codalmac, fechamov, horamovi, tipomovi, detamovi, cantidad, impormov, codigope, letraser, document, numlinea) "
+                SQL = SQL & " VALUES (" & DBSet(RS.Fields!codArtic, "T") & ", " & RS.Fields!codalmac & ", '" & Format(RS.Fields!fecmovim, "yyyy-mm-dd") & "', '"
+                SQL = SQL & Format(RS.Fields!fecmovim & " " & Time, "yyyy-mm-dd hh:mm:ss") & "', " & RS.Fields!tipomovi & ", '" & vTipomov.TipoMovimiento & "', " & DBSet(RS.Fields!Cantidad, "N") & ", " & DBSet(vImporte, "N") & ", " & RS.Fields!CodTraba & ", '"
+                SQL = SQL & vTipomov.LetraSerie & "', " & RS.Fields!codMovim & ", " & RS.Fields!numlinea & ")"
+                Conn.Execute SQL
+            End If
+            RS.MoveNext
+        Wend
+    Else
+        bol = False
+    End If
+    Set vTipomov = Nothing
+    RS.Close
+    Set RS = Nothing
+    
+EInsertar:
+    If Err.Number <> 0 Then
+        Set vTipomov = Nothing
+        RS.Close
+        Set RS = Nothing
+    End If
+    If Err.Number <> 0 Or Not bol Then
+         'Hay error , almacenamos y salimos
+        InsertarMovimArticulos = False
+    Else
+        InsertarMovimArticulos = True
+    End If
+End Function
+
+
+
+Private Sub IncrementarProgres(Veces As Integer)
+On Error Resume Next
+    Me.ProgressBar1.Value = Me.ProgressBar1.Value + (Veces * 10)
+    If Err.Number <> 0 Then Err.Clear
+    Me.Refresh
+End Sub
+
+
+Private Function BorrarTraspaso() As Boolean
+'Si EnHistorico=true borra de las tablas de historico: "schtra" y "slhtra"
+'Si EnHistorico=false borra de las tablas de traspaso: "scatra" y "slitra"
+Dim SQL As String
+
+    BorrarTraspaso = False
+    
+    'Borramos las lineas
+    SQL = "Delete from "
+    'Octubre 2010.  Solo borraremos en slimov.  NUNCA en hco
+    'If EnHistorico Then
+    '    SQL = SQL & "slhmov"
+    '    SQL = SQL & " WHERE codmovim = " & Data1.Recordset!codMovim
+    '    SQL = SQL & " AND fecmovim = '" & Data1.Recordset!fecmovim & "'"
+    'Else
+        SQL = SQL & "slimov"
+        SQL = SQL & " WHERE codmovim = " & Data1.Recordset!codMovim
+    'End If
+    Conn.Execute SQL
+    
+    'La cabecera
+    SQL = "Delete from "
+    'If EnHistorico Then
+    '    SQL = SQL & "schmov"
+    '    SQL = SQL & " WHERE codmovim =" & Data1.Recordset!codMovim
+    '    SQL = SQL & " AND fecmovim='" & Data1.Recordset!fecmovim & "'"
+    'Else
+        SQL = SQL & "scamov"
+        SQL = SQL & " WHERE codmovim =" & Data1.Recordset!codMovim
+    'End If
+    Conn.Execute SQL
+    
+    If Err.Number <> 0 Then
+        BorrarTraspaso = False
+    Else
+        BorrarTraspaso = True
+    End If
+End Function
+
+
+Private Sub CargarComboAux()
+'### Combo Tipo Movimiento
+'Cargaremos el combo, o bien desde una tabla o con valores fijos o como
+'se quiera, la cuestion es cargarlo
+' El estilo del combo debe de ser 2 - Dropdown List
+' Si queremos que este ordenado, o lo ordenamos por la sentencia sql
+' o marcamos la opcion sorted del combo
+'0-Entrada, 1-Salida
+
+    cboAux.Clear
+    cboAux.AddItem "S"
+    cboAux.ItemData(cboAux.NewIndex) = 0
+    
+    cboAux.AddItem "E"
+    cboAux.ItemData(cboAux.NewIndex) = 1
+        
+End Sub
+
+
+Public Sub ActualizarSituacionImpresion()
+Dim cad As String, Indicador As String
+On Error GoTo EImpresion
+   
+    cad = "(" & ObtenerWhereCP(False) & ")"
+    If SituarData(Data1, cad, Indicador) Then
+        If Modo <> 5 Then
+            PonerModo 2
+        Else
+            PonerModo 5
+        End If
+        PonerCampos
+        lblIndicador.Caption = Indicador
+    Else
+        PonerModo 0
+    End If
+EImpresion:
+    If Err.Number <> 0 Then MsgBox Err.Number & ": " & Err.Description, vbExclamation
+End Sub
+
+
+Private Sub BotonImprimir()
+        If Text1(0).Text = "" Then Exit Sub
+        frmListado.NumCod = Text1(0).Text
+        If Not EsHistorico Then
+            AbrirListado (8) '8: Informe Movimientos Almacen
+            ActualizarSituacionImpresion
+        Else
+            BotonImprimirHco
+        End If
+End Sub
+
+
+Private Sub BotonImprimirHco()
+Dim indRPT As Byte
+Dim cadParam As String
+Dim cad As String
+Dim numParam As Byte
+Dim nomDocu As String
+
+
+    cadParam = "|"
+    numParam = 0
+    If Not PonerParamEmpresa(cadParam, numParam) Then Exit Sub
+
+    indRPT = 4 '4: Historico Movimientos de Almacen
+    If PonerParamRPT(indRPT, cadParam, numParam, nomDocu) Then
+        With frmImprimir
+            .OtrosParametros = cadParam
+            .NumeroParametros = numParam
+            .NombreRPT = nomDocu
+            .EnvioEMail = False
+            .opcion = 8
+            .Titulo = "Hist. Movimientos Alm."
+            If cadSeleccion <> "" Then
+                .FormulaSeleccion = cadSeleccion
+            Else
+                'Se Llama desde dobleclick en frmAlmMovimArticulos
+                cad = "{schmov.codmovim}= " & Data1.Recordset!codMovim
+                cad = cad & " and {schmov.fecmovim}= Date(" & Year(Data1.Recordset!fecmovim) & "," & Month(Data1.Recordset!fecmovim) & "," & Day(Data1.Recordset!fecmovim) & ")" & ""
+                .FormulaSeleccion = cad
+            End If
+            .Show vbModal
+        End With
+    End If
+End Sub
+
+
+
+Private Function InsertarMovimiento(vSQL As String, vTipomov As CTiposMov) As Boolean
+Dim MenError As String
+Dim bol As Boolean
+On Error GoTo EInsertarMovim
+    
+    bol = True
+    
+    'Aqui empieza transaccion
+    Conn.BeginTrans
+    
+    MenError = "Error al insertar en la tabla de Movimientos(smovim)."
+    Conn.Execute vSQL, , adCmdText
+    
+    MenError = "Error al actualizar el contador del recibo."
+    bol = vTipomov.IncrementarContador(CodTipoMov)
+
+EInsertarMovim:
+        If Err.Number <> 0 Then
+            MenError = "Insertando Movimiento." & vbCrLf & "----------------------------" & vbCrLf & MenError
+            MuestraError Err.Number, MenError, Err.Description
+            bol = False
+        End If
+        If bol Then
+            Conn.CommitTrans
+            InsertarMovimiento = True
+        Else
+            Conn.RollbackTrans
+            InsertarMovimiento = False
+        End If
+End Function
+
+
+Private Sub PonerOpcionesMenu()
+    PonerOpcionesMenuGeneral Me
+End Sub
+
+
+Private Function ObtenerWhereCP(conWhere As Boolean) As String
+'Obtiene la sentencia WHERE para seleccionar registros de la tabla por Clave Primaria
+On Error Resume Next
+    If conWhere Then
+        ObtenerWhereCP = " WHERE codmovim= " & Val(Text1(0).Text)
+    Else
+        ObtenerWhereCP = " codmovim= " & Val(Text1(0).Text)
+    End If
+    If Err.Number <> 0 Then Err.Clear
+End Function
+
+
+Private Sub InsertarCabecera()
+Dim vTipomov As CTiposMov 'Clase Tipo Movimiento
+Dim SQL As String
+
+    Set vTipomov = New CTiposMov
+    
+    If vTipomov.Leer(CodTipoMov) Then
+        Text1(0).Text = vTipomov.ConseguirContador(CodTipoMov)
+        Text1(0).Text = Format(Text1(0).Text, "0000000")
+        cmdCancelar.Caption = "Cancelar"
+        SQL = CadenaInsertarDesdeForm(Me)
+        
+        If SQL <> "" Then
+            If InsertarMovimiento(SQL, vTipomov) Then
+                CadenaConsulta = "Select * from " & NombreTabla & ObtenerWhereCP(True) & Ordenacion
+                PonerCadenaBusqueda
+                PonerModo 2
+                 'Ponerse en Modo Insertar Lineas
+                BotonLineas
+                BotonAnyadirLineas
+            End If
+        End If
+    End If
+    Set vTipomov = Nothing
+End Sub
+
+
+
+Private Function HacerTrazabilidad(SoloComprobar As Boolean) As Boolean
+Dim cad As String
+Dim R As ADODB.Recordset
+Dim cP As cPartidas
+Dim CL As cLotaje
+Dim Cantidad As Currency
+
+    On Error GoTo EComprobarTrazabilidad
+    HacerTrazabilidad = False
+    Set R = New ADODB.Recordset
+    If SoloComprobar Then
+        cad = "select slimov.*,trazabilidad,nomartic from slimov,sartic where slimov.codartic=sartic.codartic and codmovim=" & Text1(0).Text
+        R.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        cad = ""
+        While Not R.EOF
+            If R!Trazabilidad = 0 Then
+                If DBLet(R!Numlote, "T") <> "" Then cad = cad & "   -" & R!NomArtic & " lleva lote (NO SE CREARA)"
+            Else
+                If DBLet(R!Numlote, "T") = "" Then
+                    cad = cad & "   -" & R!NomArtic & " DEBERIA llevar numero lote"
+                Else
+                    'Si lleva numero de LOTE
+                    
+                End If
+            End If
+            R.MoveNext
+        Wend
+        R.Close
+        
+        If cad <> "" Then
+            cad = "Error en LOTES" & vbCrLf & String(40, "*") & vbCrLf & vbCrLf & cad
+            If MsgBox(cad, vbQuestion + vbYesNo) = vbNo Then Exit Function
+        End If
+        
+        
+    End If
+    
+
+    
+    'SEGUIMOS.  PARA cada articulo con trazabilidad entonces.....
+    If Not SoloComprobar Then
+        'Cuando "vaya de bo"
+         Set CL = New cLotaje
+        'Trozo comun
+             
+        CL.DetaMov = "REG"
+        CL.Documento = Text1(0).Text
+        CL.Fechamov = CDate(Me.Text1(1).Text)
+        CL.HoraMov = CDate(Me.Text1(1).Text & " " & Format(Now, "hh:nn:ss"))
+        CL.ProvCliTra = Text1(3).Text
+        CL.SubLinea = 0
+        CL.codarti2 = ""
+        CL.codalmac = Text1(2).Text
+        
+    End If
+    cad = "select slimov.*,nomartic from slimov,sartic where slimov.codartic=sartic.codartic and codmovim=" & Text1(0).Text & " AND trazabilidad =1"
+    cad = cad & " AND numlote <>"""""
+    R.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    cad = ""
+    While Not R.EOF
+        'PARA CADA ARTICULO....
+        Set cP = New cPartidas
+        Cantidad = R!Cantidad
+        If Val(R!tipomovi) = 0 Then Cantidad = -Cantidad
+        If cP.LeerDesdeArticulo(R!codArtic, Text1(2).Text, R!Numlote) Then
+            'OKkkkkkkk-   Aqui tenemos el lote
+            If Not SoloComprobar Then
+                cP.IncrementarCantidad Cantidad
+            
+            Else
+                'Comprobando. Comprobamos cantidad
+                If Val(R!tipomovi) = 0 Then
+                    'SALIDA. Veremos si hay suficiente cantidad
+                    If R!Cantidad > cP.Cantidad Then cad = cad & vbCrLf & "      INSUFICIENTE-> " & R!codArtic & " " & R!NomArtic & "      LOTE: " & R!Numlote & " (" & R!Cantidad & " / " & cP.Cantidad & ")"
+                End If
+            End If
+        Else
+            'HAY QUE AGREGARLO?
+            If SoloComprobar Then
+                cad = cad & vbCrLf & "      NO EXISTE-> " & R!codArtic & " " & R!NomArtic & "      LOTE: " & R!Numlote
+            Else
+                'Habra que insertar
+                cP.Cantidad = Cantidad
+                cP.codalmac = CL.codalmac
+                cP.codArtic = R!codArtic
+                cP.codProve = 0 'CERO
+                cP.Fecha = CL.Fechamov
+                cP.NumAlbar = "REG:" & CL.Documento   'como albaran el cod moviimiento
+                cP.Numlote = R!Numlote
+                If Not cP.Insertar Then Err.Raise 513, , "Insertando lote: " & cP.codArtic & "//" & cP.Numlote
+            End If
+        End If
+        
+        'Para movimientos de lotes
+        If Not SoloComprobar Then
+            CL.tipoMov = R!tipomovi  'Salida
+            CL.Cantidad = Abs(Cantidad)
+            
+            CL.codArtic = cP.codArtic
+            
+            CL.Numlote = cP.Numlote
+            CL.LineaDocu = R!numlinea
+            CL.InsertarLote
+        End If
+        
+        Set cP = Nothing
+        R.MoveNext
+    Wend
+    R.Close
+    Set CL = Nothing
+    Set cP = Nothing
+    
+    If SoloComprobar Then
+        If cad <> "" Then
+            cad = "Error en LOTES:" & vbCrLf & String(40, "*") & vbCrLf & cad & vbCrLf & vbCrLf & "¿Continuar?"
+            If MsgBox(cad, vbQuestion + vbYesNo) = vbNo Then Exit Function
+        End If
+    End If
+    'Llegados aqui... todo bien, o eso creo
+    HacerTrazabilidad = True
+
+
+EComprobarTrazabilidad:
+    If Err.Number <> 0 Then MuestraError Err.Number, "Comprobar arti. trazabilidad"
+    Set R = Nothing
+End Function
+
+
+

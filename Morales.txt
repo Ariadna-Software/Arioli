@@ -1,0 +1,73 @@
+
+#MORALES    modificacion
+alter table `slhmov` add column `numlote` varchar (60)   NULL  after `motimovi`;
+alter table `slimov` add column `numlote` varchar (60)   NULL  after `motimovi`;
+
+
+
+alter table `olicoupagelinlotes` add column `fincuba` tinyint  DEFAULT '0' NULL  after `cantlote`;
+insert into `stipom` (`codtipom`,`nomtipom`,`muevesto`,`contador`,`letraser`,`tipodocu`) values ( 'LTF','Final cisterna ','0','0',NULL,NULL);
+
+
+#Para PRODUCCION con pistoals
+alter table `slipprlotes` add column `etiquetas` smallint  DEFAULT '1' NOT NULL  after `numlote`;
+alter table `slifpc` add column `etiquetas` smallint  DEFAULT '0' NOT NULL  after `numlotes`;
+alter table `slialp` add column `etiquetas` smallint  DEFAULT '0' NOT NULL  after `numlotes`;
+
+CREATE TABLE `spartidaslin` (                                                                 
+             `id` int(6) unsigned NOT NULL default '0',                                               
+             `bulto` smallint(3) unsigned NOT NULL default '0',                                    
+             `cantidad` decimal(12,2) NOT NULL default '0.00',                                        
+             PRIMARY KEY  (`id`,`bulto`),                                                                     
+             CONSTRAINT `spartidaslin_ibfk_1` FOREIGN KEY (`id`) REFERENCES `spartidas` (`id`)  
+           ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Lineas partidas. Lotes.';
+
+
+insert into `stipom` (`codtipom`,`nomtipom`,`muevesto`,`contador`,`letraser`,`tipodocu`) values ( 'TRZ','Trazabilidad','0','1',NULL,NULL);
+
+CREATE TABLE `prodcab` (                                          
+           `codigo` int(11) NOT NULL default '0',                          
+           `descripcion` varchar(255) default NULL,                        
+           `feccreacion` date NOT NULL default '0000-00-00',               
+           `fecproduccion` date default NULL,                              
+           `almacen2` tinyint(4) NOT NULL default '0' COMMENT 'codalmac',  
+           `producido` tinyint(4) NOT NULL default '0' COMMENT 'SI o NO',  
+           PRIMARY KEY  (`codigo`)                                         
+         ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `prodlin` (                                                                         
+           `codigo` int(11) NOT NULL default '0',                                                         
+           `idlin` int(11) NOT NULL default '0',                                                          
+           `codartic` varchar(16) NOT NULL default '',                                                    
+           `cantesti` decimal(12,2) NOT NULL default '0.00' COMMENT 'cantidad estimada',                  
+           `cantprodu` decimal(12,2) default NULL COMMENT 'Si tiene valor se ha finalizado de producir',  
+           `fhinicio` datetime default NULL,                                                              
+           `fhFin` datetime default NULL,                                                                 
+           `estado` tinyint(4) NOT NULL default '0',                                                      
+           `cajasprod` smallint(6) NOT NULL default '0' COMMENT 'Total cajas producidas',                 
+           PRIMARY KEY  (`codigo`,`idlin`)                                                                
+         ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `prodtrazcompo` (                                                                 
+                 `codigo` int(11) NOT NULL default '0',                                                       
+                 `idlin` int(11) NOT NULL default '0',                                                        
+                 `lineaprod` tinyint(4) NOT NULL default '0',                                                 
+                 `lotetraza` int(11) NOT NULL,                                                                
+                 `codartic` varchar(16) NOT NULL,                                                             
+                 `numlote` varchar(60) NOT NULL COMMENT 'lote de la mate/prima auxiliar',                     
+                 `cantutili` decimal(12,2) default NULL COMMENT 'cundo tenga valor se ha finiquitado',        
+                 `cantsarti1` decimal(12,5) default NULL COMMENT 'Es el valor de cantidad en tabala sarti1',  
+                 PRIMARY KEY  (`codigo`,`idlin`,`lineaprod`,`lotetraza`,`codartic`)                           
+               ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ CREATE TABLE `prodtrazlin` (                                                               
+               `codigo` int(11) NOT NULL default '0',                                                   
+               `idlin` int(11) NOT NULL default '0',                                                    
+               `lineaprod` tinyint(4) NOT NULL default '0',                                             
+               `lotetraza` int(11) NOT NULL,                                                            
+               `cantprodu` decimal(12,2) default NULL COMMENT 'Cuando tenga cantidad se ha producido',  
+               `cajasprod` smallint(6) default NULL,                                                    
+               PRIMARY KEY  (`codigo`,`idlin`,`lineaprod`,`lotetraza`),                                 
+               UNIQUE KEY `lotetraza` (`lotetraza`)                                                     
+             ) ENGINE=InnoDB DEFAULT CHARSET=latin1;  

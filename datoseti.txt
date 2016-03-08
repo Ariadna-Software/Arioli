@@ -1,0 +1,4 @@
+%BTW% /AF="C:\Archivos de programa\Ariadna\Ariges\Etiquetas\cajamor.btw"  /D="%Trigger File Name%" /PRN="Linea0" /R=3 /P 
+%END%
+TALCUAL a.o.V.E. PET 5 L,18412594101541,0000782400058,7824,002400180306 BOTELLA PLASTICO PET 5 L    o mas!!,ESPAÑA valencia ESPAÑA
+TALCUAL a.o.V.E. PET 5 L,18412594101541,0000782400059,7824,002400180306 BOTELLA PLASTICO PET 5 L    o mas!!,ESPAÑA valencia ESPAÑA
