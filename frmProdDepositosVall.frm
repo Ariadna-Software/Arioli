@@ -1374,3 +1374,6 @@ Private Sub imgLinea_DblClick(Index As Integer)
     End If
 End Sub
 
+Private Sub txtLote_Change(Index As Integer)
+
+End Sub
