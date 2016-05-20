@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmRegistros 
@@ -778,7 +778,7 @@ Private Sub Form_Load()
     
         CadenaConsulta = CadenaConsulta & " idregistro= -1" 'No recupera datos
   
-    Data1.ConnectionString = Conn
+    Data1.ConnectionString = conn
     Data1.RecordSource = CadenaConsulta
     Data1.Refresh
     
@@ -982,15 +982,19 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnLineas_Click
         
         Case 13
-            LlamaImprimirGral "", "", 0, "morListReg.rpt", "Listado registros"
-            
+            CadenaDesdeOtroForm = "morListReg.rpt"
+            If vParamAplic.QUE_EMPRESA = 4 Then CadenaDesdeOtroForm = "vallListReg.rpt"
+            LlamaImprimirGral "", "", 0, CadenaDesdeOtroForm, "Listado registros"
+            CadenaDesdeOtroForm = ""
         Case 14
             If Data1.Recordset.EOF Then Exit Sub
             If Data2.Recordset.EOF Then Exit Sub
             
             CadenaConsulta = "{sregistros.idRegistro}=" & Text1(0).Text & " AND {sregistrosl.secuencial} = " & Data2.Recordset!secuencial
             
+            
             CadenaDesdeOtroForm = "MorRegistro.rpt"
+            If vParamAplic.QUE_EMPRESA = 4 Then CadenaDesdeOtroForm = "vallRegistro.rpt"
             If Text1(3).Text <> "" Then CadenaDesdeOtroForm = Text1(3).Text
             LlamaImprimirGral CadenaConsulta, "", 0, CadenaDesdeOtroForm, "Registro: " & Text1(0).Text & " - " & Data2.Recordset!Fecha
             
@@ -1074,16 +1078,16 @@ Private Function MontaSQLCarga(enlaza As Boolean) As String
 '           -> Si no lo cargamos sin enlazar a ningun campo
 '--------------------------------------------------------------------
 Dim SQL As String
-Dim tabla As String
+Dim Tabla As String
     
-    tabla = "sregistrosl"
-    SQL = "SELECT secuencial,fecha,if(firmado=0,""NO"",""si"") FROM " & tabla
+    Tabla = "sregistrosl"
+    SQL = "SELECT secuencial,fecha,if(firmado=0,""NO"",""si"") FROM " & Tabla
     If enlaza Then
         SQL = SQL & " WHERE sregistrosl.idregistro=" & Data1.Recordset!idRegistro
     Else
         SQL = SQL & " WHERE idregistro = -1"
     End If
-    SQL = SQL & " ORDER BY " & tabla & ".fecha desc"
+    SQL = SQL & " ORDER BY " & Tabla & ".fecha desc"
     MontaSQLCarga = SQL
 End Function
 
@@ -1219,10 +1223,10 @@ On Error GoTo FinEliminar
         SQL = " WHERE idRegistro=" & Val(Data1.Recordset!idRegistro)
         
         'Lineas  sregistrosl
-        Conn.Execute "Delete  from sregistrosl " & SQL
+        conn.Execute "Delete  from sregistrosl " & SQL
         
         'Cabeceras sregistros
-        Conn.Execute "Delete  from sregistros " & SQL
+        conn.Execute "Delete  from sregistros " & SQL
                       
 FinEliminar:
     If Err.Number <> 0 Then
@@ -1254,7 +1258,7 @@ End Function
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
 Dim cad As String
-Dim tabla As String
+Dim Tabla As String
 Dim Titulo As String
 
     'Llamamos a al form
@@ -1266,8 +1270,8 @@ Dim Titulo As String
     cad = cad & ParaGrid(Text1(1), 15, "Cod. Artic")
     cad = cad & "Desc. Artic|sartic|nomartic|T||38·"
     
-    tabla = "(" & NombreTabla & " LEFT JOIN sclien ON " & NombreTabla & ".codclien=sclien.codclien" & ")"
-    tabla = tabla & " LEFT JOIN sartic ON " & NombreTabla & ".codartic=sartic.codartic"
+    Tabla = "(" & NombreTabla & " LEFT JOIN sclien ON " & NombreTabla & ".codclien=sclien.codclien" & ")"
+    Tabla = Tabla & " LEFT JOIN sartic ON " & NombreTabla & ".codartic=sartic.codartic"
     
     Titulo = "Precios Especiales"
            
@@ -1275,7 +1279,7 @@ Dim Titulo As String
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
         frmB.vCampos = cad
-        frmB.vTabla = tabla
+        frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
         '###A mano
@@ -1380,7 +1384,7 @@ Dim SQL As String
 
     SQL = "UPDATE " & NombreTabla & " SET precioac=precionu, precioa1=precion1, dtoespec=dtoespe1, fechanue=null, precionu=0, precion1=0"
     SQL = SQL & " WHERE codclien=" & Data1.Recordset!CodClien & " AND codartic=" & DBSet(Data1.Recordset!codartic, "T")
-    Conn.Execute SQL
+    conn.Execute SQL
     
     If Err.Number <> 0 Then
          'Hay error , almacenamos y salimos
@@ -1444,7 +1448,7 @@ End Sub
 
 
 Private Sub PonerModo(Kmodo As Byte)
-Dim I As Byte, NumReg As Byte
+Dim i As Byte, NumReg As Byte
 Dim b As Boolean
 
     On Error GoTo EPonerModo

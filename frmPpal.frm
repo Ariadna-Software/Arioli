@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.MDIForm frmppal 
    BackColor       =   &H00858585&
@@ -341,7 +341,7 @@ Begin VB.MDIForm frmppal
             Style           =   5
             Object.Width           =   1058
             MinWidth        =   1058
-            TextSave        =   "11:03"
+            TextSave        =   "13:35"
          EndProperty
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -1871,7 +1871,7 @@ Dim TieneEditorDeMenus As Boolean
 
 
 Private Sub MDIForm_Activate()
-Dim B As Boolean
+Dim b As Boolean
 Dim i As Integer
 Dim Permis As String
 
@@ -1907,10 +1907,10 @@ Dim Permis As String
     
     
     'Albaranes INTERNOS
-    B = DevuelveDesdeBD(conAri, "codtipom", "stipom", "codtipom", "ALI", "T") <> ""
-    PuntoDeMenuVisible mnServicios(3), B
-    PuntoDeMenuVisible mnServicios(4), B
-    PuntoDeMenuVisible mnServicios(5), B
+    b = DevuelveDesdeBD(conAri, "codtipom", "stipom", "codtipom", "ALI", "T") <> ""
+    PuntoDeMenuVisible mnServicios(3), b
+    PuntoDeMenuVisible mnServicios(4), b
+    PuntoDeMenuVisible mnServicios(5), b
     
     
     'vParamAplic.Reparaciones
@@ -1935,9 +1935,9 @@ Dim Permis As String
     'seran visibles si esta creado el tipo movimiento y tene contabilidad B
     'b = DevuelveDesdeBD(conAri, "codtipom", "stipom", "codtipom", "ALZ", "T") <> ""
     'b = b And vParamAplic.ContabilidadB > 0
-    B = vUsu.TrabajadorB
-    PuntoDeMenuVisible Me.mnAlbaranesB, B
-    PuntoDeMenuVisible mnFacturarPresupuestos, B
+    b = vUsu.TrabajadorB
+    PuntoDeMenuVisible Me.mnAlbaranesB, b
+    PuntoDeMenuVisible mnFacturarPresupuestos, b
     
     'Declara LOM visible : FALSE
     PuntoDeMenuVisible mnUtiDeclaracionLOM, False
@@ -1955,20 +1955,21 @@ Dim Permis As String
     PuntoDeMenuVisible Me.mnproduccion, vParamAplic.Produccion
        
     'Registros de limpieza, desinfeccion.... Si produccion y tiene AVAB.
-    B = vParamAplic.Produccion And EmprAVAB > 0
-    PuntoDeMenuVisible mnRegPpañ, B
-    PuntoDeMenuVisible mnRegistros2, B
+    b = vParamAplic.Produccion And EmprAVAB > 0
+    PuntoDeMenuVisible mnRegPpañ, b
+    PuntoDeMenuVisible mnRegistros2, b
     'PuntoDeMenuVisible mnRegistros2, vParamAplic.Produccion
     
     'Actualizar precios en AVAB desde morales
     'B = vEmpresa.codempre = EmpresaAVAB
-    B = vParamAplic.EsAVAB
-    PuntoDeMenuVisible mnAVABprecio(0), B
-    PuntoDeMenuVisible mnAVABprecio(1), B
-    PuntoDeMenuVisible mnTraspasoFraAVAB(0), B
-    PuntoDeMenuVisible mnTraspasoFraAVAB(1), B
+    b = vParamAplic.EsAVAB
+    PuntoDeMenuVisible mnAVABprecio(0), b
+    PuntoDeMenuVisible mnAVABprecio(1), b
+    PuntoDeMenuVisible mnTraspasoFraAVAB(0), b
+    PuntoDeMenuVisible mnTraspasoFraAVAB(1), b
     
     
+    mnproduccion1(4).visible = False   'Disponible para poner
     
     'Si no tiene NUEVA PRODUCCION no dejamos ver los puntos de las lineas...
     'El 4 de momento NO ES VISIBLE, esta disponible. Empiezo en el 5
@@ -1983,43 +1984,36 @@ Dim Permis As String
         '9.- etiquetas
         '11.- pistola
        
-        'Morales
-        mnproduccion1(4).visible = False
-    
         
-        B = vParamAplic.ProduccionNueva And vUsu.Nivel = 0
-        PuntoDeMenuVisible mnproduccion1(9), B   'etiquetas solo ramon y adninistrador
+        b = vParamAplic.ProduccionNueva And vUsu.Nivel = 0
+        PuntoDeMenuVisible mnproduccion1(9), b   'etiquetas solo ramon y adninistrador
      
-'
-'        If vUsu.Nivel = 0 Then
-'            Permis = "11"
-'        Else
-'                Permis = "00"
-'                If Not TienePermiso("frmProduccion", Permis) Then Permis = "00"
-'        End If
-    
-       
-        '- Las líneas de producción y la pistola sólo las tiene que poder ver José y Yo.
-        '- Autorizar a todos a poder ver: lote de trazabilidad, mantenimiento de palets y mantenimiento de etiquetas.
-        'ANTES
-        'B = False
-        'i = vUsu.Codigo Mod 1000
-        '   Usuario RAMON y JOSE (y root)
-        'If i < 2 Or i = 13 Then B = True
-        
-'        'AHORA octubre 2012
-'        b = Val(Permis) > 0
-'        PuntoDeMenuVisible mnproduccion1(3), b
-'        PuntoDeMenuVisible mnproduccion1(11), b
-'        mnproduccion1(3).Tag = Permis 'si esta visible puede tener solo permisos de un tipo
-'        mnproduccion1(11).Tag = Permis
-'
-'        mnproduccion1(8).Tag = Permis   'palets
     Else
         'Caulqueir otra NO
         For i = 2 To Me.mnproduccion1.Count - 1
             PuntoDeMenuVisible mnproduccion1(i), False
         Next
+    
+        If vParamAplic.QUE_EMPRESA = 4 Then    'QUATRETONDA ALMAZARA
+    
+            '0.-Produccion antigua
+            '1.- Tasas
+            '3.- Nueva produccion. Las lineas
+            '5.- Ver trazabilidades hco
+            '6.- caja, esta siempre visible=false
+            '8.- palets
+            '9.- etiquetas
+            '11.- pistola
+           
+            
+
+            mnproduccion1(6).visible = True
+            mnproduccion1(1).visible = False
+            mnNuevosPuntosMenuTraza(1).visible = False
+    
+
+        End If
+        
     End If
     
     
@@ -2036,6 +2030,7 @@ Dim Permis As String
     
     PuntoDeMenuVisible Me.mnMoixentMov(0), (vParamAplic.QUE_EMPRESA = 2 Or vParamAplic.QUE_EMPRESA = 3)
     PuntoDeMenuVisible Me.mnMoixentMov(1), (vParamAplic.QUE_EMPRESA = 2 Or vParamAplic.QUE_EMPRESA = 3)
+    
     'De momento esta  oculto
     'PuntoDeMenuVisible Me.mnMoixentMov(0), False
     'PuntoDeMenuVisible Me.mnMoixentMov(1), False
@@ -2057,8 +2052,8 @@ End Sub
 
 
 
-Private Sub PuntoDeMenuVisible(ByRef MnPuntoDMenu As Menu, B As Boolean)
-    If MnPuntoDMenu.visible Then MnPuntoDMenu.visible = B
+Private Sub PuntoDeMenuVisible(ByRef MnPuntoDMenu As Menu, b As Boolean)
+    If MnPuntoDMenu.visible Then MnPuntoDMenu.visible = b
     
 End Sub
 
@@ -2183,7 +2178,7 @@ Dim cad As String
 
     'Alguna cosilla antes de cerrar. Eliminar bloqueos
     cad = "Delete from zbloqueos where codusu = " & vUsu.Codigo
-    Conn.Execute cad
+    conn.Execute cad
 
     'Elimnar bloquo BD
     Set vUsu = Nothing
@@ -2197,7 +2192,7 @@ Dim cad As String
     TerminaBloquear
     
     'cerrar las conexiones
-    Conn.Close
+    conn.Close
     CerrarConexionConta
 
 End Sub
@@ -2399,7 +2394,7 @@ Private Sub mnCambioEmpresa_Click()
     End If
 
     'Borramos temporal
-    Conn.Execute "Delete from zbloqueos where codusu = " & vUsu.Codigo
+    conn.Execute "Delete from zbloqueos where codusu = " & vUsu.Codigo
 
 
     CadenaDesdeOtroForm = vUsu.Login & "|" & vUsu.PasswdPROPIO & "|"
@@ -2415,7 +2410,7 @@ Private Sub mnCambioEmpresa_Click()
 
     Screen.MousePointer = vbHourglass
     'Cerramos la conexion
-    Conn.Close
+    conn.Close
     ConnConta.Close
 
 
@@ -2648,7 +2643,7 @@ Private Sub mnEcoenves_Click()
 End Sub
 
 Private Sub mnEliminarArticulos_Click()
-    frmVarios.Opcion = 1
+    frmVarios.opcion = 1
     frmVarios.Show vbModal
 End Sub
 
@@ -2952,7 +2947,7 @@ Private Sub mnFacPedidos_Click(Index As Integer)
     Case 8
         frmFacConsultaPrecios.Show vbModal
     Case 9
-        frmVarios.Opcion = 2
+        frmVarios.opcion = 2
         frmVarios.Show vbModal
     End Select
 End Sub
@@ -3158,23 +3153,27 @@ End Sub
 Private Sub mnproduccion1_1_Click(Index As Integer)
     Select Case Index
     Case 0
-        
-        frmProdDepositos.Show vbModal
+        If vParamAplic.QUE_EMPRESA = 4 Then
+            frmProdDepositosVall.Show vbModal
+            
+        Else
+            frmProdDepositos.Show vbModal
+        End If
     
     Case 1
     
-        frmProduVarios.Opcion = 2
+        frmProduVarios.opcion = 2
         frmProduVarios.Show vbModal
     
     
     Case 2
         'FILTRADO
-        frmProduVarios.Opcion = 4
+        frmProduVarios.opcion = 4
         frmProduVarios.Show vbModal
     
     Case 3
         'VACIADO
-        frmProduVarios.Opcion = 3
+        frmProduVarios.opcion = 3
         frmProduVarios.Show vbModal
     
     End Select
@@ -3195,36 +3194,7 @@ Dim i As Integer
         End If
         
         
-        
-        If Not vParamAplic.ProduccionNueva Then
-            Permis = "Nuevo sistema de produccion no implantado" & vbCrLf & "¿Continuar?"
-            If MsgBox(Permis, vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then Exit Sub
-        End If
-     
-'        'CAD: llevara los permisos
-'        If index = 5 Then
-'            'Si lo tienen en menu pueden ver el hco de produccion
-'
-'        Else
-'            If vUsu.Nivel = 0 Then
-'                Permis = "11"
-'            Else
-'                Permis = mnproduccion1(index).Tag
-'                If Permis = "" Then Permis = "0"
-'
-'                If index = 8 Or index = 11 Then
-'                    'Para ver los palets y pistola tiene que tner permiso de produccion y planning es decir dos 11
-'                    i = 1
-'                Else
-'                    i = 0
-'                End If
-'                If SumaUnosPermisos(Permis) = i Then
-'                    MsgBox "No disponible", vbExclamation
-'                    Exit Sub
-'                End If
-'
-'            End If
-'        End If
+  
     End If
     
     Select Case Index
@@ -3298,9 +3268,9 @@ Private Sub mnRecupFac_Click()
 End Sub
 
 Private Sub mnRegistros_Click(Index As Integer)
-Dim ind As Integer
-    ind = Index
-    Select Case ind
+Dim Ind As Integer
+    Ind = Index
+    Select Case Ind
     Case 1
         'limpieza
         frmRegistros.Show vbModal
@@ -3314,7 +3284,7 @@ Dim ind As Integer
         
         
     Case 4
-        frmVarios.Opcion = 7
+        frmVarios.opcion = 7
         frmVarios.Show vbModal
         
     Case 5
@@ -3420,7 +3390,7 @@ Private Sub mnSoporte_Click(Index As Integer)
         Screen.MousePointer = vbDefault
     
     Case 7
-        frmVarios.Opcion = 8
+        frmVarios.opcion = 8
         frmVarios.Show vbModal
     Case 9
         'Acerca de
@@ -3482,13 +3452,13 @@ Private Sub mnTrazaNueva_Click(Index As Integer)
     Select Case Index
     Case 0
         
-                 frmProdTrazaVer2.Show vbModal
+            frmProdTrazaVer2.Show vbModal
     Case 1
-            frmFacTrazabilidad3.Opcion = 0
+            frmFacTrazabilidad3.opcion = 0
             frmFacTrazabilidad3.Show vbModal
     Case 3
     
-            frmFacTrazabilidad3.Opcion = 1
+            frmFacTrazabilidad3.opcion = 1
             frmFacTrazabilidad3.Show vbModal
     Case 4
             frmFacTrazabilidad.Show vbModal
@@ -3503,14 +3473,14 @@ End Sub
 Private Sub mnUtiBuscarErrConCli_Click()
 'Facturas pendientes de contabilizar (CLIENTES)
     Screen.MousePointer = vbHourglass
-    frmUtilidades.Opcion = 6
+    frmUtilidades.opcion = 6
     frmUtilidades.Show vbModal
 End Sub
 
 Private Sub mnUtiBuscarErrConPro_Click()
 'Facturas pendientes de contabilizar (PROVEEDORES)
     Screen.MousePointer = vbHourglass
-    frmUtilidades.Opcion = 7
+    frmUtilidades.opcion = 7
     frmUtilidades.Show vbModal
 End Sub
 
@@ -3518,7 +3488,7 @@ End Sub
 Private Sub mnUtiBuscarErrFac_Click()
 'Buscar errores en nº de factura (solo en facturas de clientes)
     Screen.MousePointer = vbHourglass
-    frmUtilidades.Opcion = 5
+    frmUtilidades.opcion = 5
     frmUtilidades.Show vbModal
 End Sub
 
@@ -3598,7 +3568,7 @@ End Sub
 
 
 Private Sub mnVtasAgrupadox_Click()
-    frmListado2.Opcion = 26
+    frmListado2.opcion = 26
     frmListado2.Show vbModal
 End Sub
 
@@ -3718,21 +3688,21 @@ Dim T
 End Sub
 
 Private Sub PonerMenusNivelUsuario()
-Dim B As Boolean
+Dim b As Boolean
 
-    B = (vUsu.Nivel = 0) Or (vUsu.Nivel = 1)  'Administradores y root
+    b = (vUsu.Nivel = 0) Or (vUsu.Nivel = 1)  'Administradores y root
 
-    Me.mnConfParamAplic = B
-    mnConfManteUsuarios = B
+    Me.mnConfParamAplic = b
+    mnConfManteUsuarios = b
     
-    mnUsuarios.Enabled = B
-    mnNuevaEmpresa.Enabled = B
-    mnPedirPwd.Enabled = B
+    mnUsuarios.Enabled = b
+    mnNuevaEmpresa.Enabled = b
+    mnPedirPwd.Enabled = b
     'Me.mnUtiConnActivas.Enabled = (vUsu.Nivel = 0) 'solo para root
     
 
-    B = vUsu.Nivel = 3  'Es usuario de consultas
-    If B Then
+    b = vUsu.Nivel = 3  'Es usuario de consultas
+    If b Then
         'Inventario
         Me.mnAlmTomaInven.Enabled = False
         Me.mnAlmEntradaInve.Enabled = False
@@ -3762,7 +3732,7 @@ End Sub
 
 
 
-Private Sub LanzaHome(Opcion As String)
+Private Sub LanzaHome(opcion As String)
 Dim i As Integer
 Dim cad As String
 
@@ -3770,13 +3740,13 @@ Dim cad As String
 
 '    LanzaHome = False
     'Obtenemos la pagina web de los parametros
-    CadenaDesdeOtroForm = DevuelveDesdeBDNew(conAri, "spara1", Opcion, "codigo", "1", "N")
+    CadenaDesdeOtroForm = DevuelveDesdeBDNew(conAri, "spara1", opcion, "codigo", "1", "N")
     If CadenaDesdeOtroForm = "" Then
         MsgBox "Falta configurar los datos en Parámetros de la Aplicación.", vbExclamation
         Exit Sub
     End If
 
-    If Opcion = "webversion" Then CadenaDesdeOtroForm = CadenaDesdeOtroForm & "?version=" & App.Major & "." & App.Minor & "." & App.Revision
+    If opcion = "webversion" Then CadenaDesdeOtroForm = CadenaDesdeOtroForm & "?version=" & App.Major & "." & App.Minor & "." & App.Revision
 
 
 '    I = FreeFile
@@ -3808,7 +3778,7 @@ Dim miRsAux As ADODB.Recordset
     TieneEditorDeMenus = False
     SQL = "Select count(*) from usuarios.appmenus where aplicacion='Arioli'"
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If Not miRsAux.EOF Then
         If Not IsNull(miRsAux.Fields(0)) Then
             If miRsAux.Fields(0) > 0 Then TieneEditorDeMenus = True
@@ -3835,7 +3805,7 @@ Dim miRsAux As ADODB.Recordset
     
     SQL = "Select * from usuarios.appmenususuario where aplicacion='Ariges" & vEmpresa.codempre & "' and codusu = " & Val(Right(CStr(vUsu.Codigo), 3))
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     SQL = ""
 
     While Not miRsAux.EOF
@@ -3889,7 +3859,7 @@ Private Sub PoneBarraMenus()
 'Para cada boton de la toolbar comprobar que el menu con el que se corresponde
 'esta visible y activado, y ponerle los mismos valore que tenga el menu
 Dim Activado As Boolean
-Dim B As Boolean
+Dim b As Boolean
 
     On Error GoTo 0
     
@@ -3952,14 +3922,14 @@ Dim B As Boolean
 
     '-----------------------------------------------------------
     'Mantenimientos
-    B = False
+    b = False
 
     'Me.Toolbar1.Buttons(21).visible = ComprobarBotonMenuVisible(B, Activado)
     'Me.Toolbar1.Buttons(21).Enabled = Activado
-    B = vParamAplic.Mantenimientos
-    If B Then B = ComprobarBotonMenuVisible(mnManEntrada, Activado)
+    b = vParamAplic.Mantenimientos
+    If b Then b = ComprobarBotonMenuVisible(mnManEntrada, Activado)
         
-    Me.Toolbar1.Buttons(21).visible = B
+    Me.Toolbar1.Buttons(21).visible = b
     Me.Toolbar1.Buttons(21).Enabled = Activado
      
     
@@ -4014,16 +3984,16 @@ Dim nomMenu As String
 Dim SQL As String
 Dim RS As ADODB.Recordset
 Dim cad As String
-Dim B As Boolean
+Dim b As Boolean
 
 
     On Error GoTo EComprobar
     
-    B = objMenu.visible
+    b = objMenu.visible
     Activado = objMenu.Enabled
     
-    If B = False Then
-        ComprobarBotonMenuVisible = B
+    If b = False Then
+        ComprobarBotonMenuVisible = b
     Else
     
         nomMenu = objMenu.Name
@@ -4032,16 +4002,16 @@ Dim B As Boolean
         
         'Obtener el padre del menu
         SQL = "select padre from usuarios.appmenus where aplicacion='Arioli' and name=" & DBSet(nomMenu, "T")
-        RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         If Not RS.EOF Then
             cad = RS.Fields(0).Value
         End If
         RS.Close
         
-        B = True
-        While B And cad <> ""
+        b = True
+        While b And cad <> ""
                 SQL = "Select name,padre from usuarios.appmenus where aplicacion='Arioli' and contador= " & cad
-                RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 If Not RS.EOF Then
                     cad = RS!Padre
                     nomMenu = RS!Name
@@ -4051,15 +4021,15 @@ Dim B As Boolean
                 'comprobar si el padre esta bloqueado
                 SQL = "Select count(*) from usuarios.appmenususuario where aplicacion='Ariges" & vEmpresa.codempre & "' and codusu=" & Val(Right(CStr(vUsu.Codigo), 3))
                 SQL = SQL & " and tag='" & nomMenu & "|'"
-                RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 If RS.Fields(0).Value > 0 Then
                     'Esta bloqueado el menu para el usuario
-                    B = False
+                    b = False
                 End If
                 RS.Close
                 If cad = "0" Then cad = "" 'terminar si llegamos a la raiz
         Wend
-        ComprobarBotonMenuVisible = B
+        ComprobarBotonMenuVisible = b
         Set RS = Nothing
     End If
     
@@ -4071,7 +4041,7 @@ End Function
 
 Private Sub AbrirListado2(KOpcion As Integer)
     Screen.MousePointer = vbHourglass
-    frmListado2.Opcion = KOpcion
+    frmListado2.opcion = KOpcion
     frmListado2.Show vbModal
     Screen.MousePointer = vbDefault
 End Sub
@@ -4092,10 +4062,10 @@ End Sub
 '
 
 
-Private Sub HacerMenuARidoc(Opcion As Byte)
+Private Sub HacerMenuARidoc(opcion As Byte)
     
     If Conexion_Aridoc_(True) Then
-        Select Case Opcion
+        Select Case opcion
         Case 0
             frmAridocConfig.Show vbModal
         End Select
@@ -4139,7 +4109,7 @@ Dim J As Integer
     'Aqui tenemos los documentos de LIMPIEZA
     '                                                   k tenga definida la perioricidad
     cad = "select * from sregistros WHERE diasaviso > 0  and perioricidad >0"
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     cad = ""
     While Not miRsAux.EOF
         F = miRsAux!PrimeraFecha
@@ -4170,7 +4140,7 @@ Dim J As Integer
     
     'Mantenimiento PREVENTIVO
     Aux = "select * from sregistrosmanprev WHERE diasaviso > 0  and perioricidad >0"
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Aux = ""
     While Not miRsAux.EOF
         F = miRsAux!PrimeraFecha

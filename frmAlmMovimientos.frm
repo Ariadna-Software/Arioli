@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmAlmMovimientos2 
@@ -978,7 +978,7 @@ Private Sub Form_Load()
     Else
          CadenaConsulta = CadenaConsulta & " WHERE codmovim = -1"
     End If
-    Data1.ConnectionString = Conn
+    Data1.ConnectionString = conn
     Data1.RecordSource = CadenaConsulta
     Data1.Refresh
     
@@ -1008,12 +1008,12 @@ End Sub
 
 
 Private Sub CargaGrid(enlaza As Boolean)
-Dim B As Boolean
+Dim b As Boolean
 Dim i As Byte
 Dim SQL As String
 On Error GoTo ECarga
 
-    B = DataGrid1.Enabled
+    b = DataGrid1.Enabled
     
     SQL = MontaSQLCarga(enlaza)
     CargaGridGnral DataGrid1, Me.Data2, SQL, False
@@ -1060,7 +1060,7 @@ On Error GoTo ECarga
     For i = 0 To DataGrid1.Columns.Count - 1
         DataGrid1.Columns(i).AllowSizing = False
     Next i
-    DataGrid1.Enabled = B
+    DataGrid1.Enabled = b
     DataGrid1.ScrollBars = dbgAutomatic
     
 ECarga:
@@ -1496,7 +1496,7 @@ End Sub
 
 Private Sub PonerModo(Kmodo As Byte)
 Dim i As Byte, NumReg As Byte
-Dim B As Boolean
+Dim b As Boolean
     
     'Actualiza Iconos Insertar,Modificar,Eliminar
     ActualizarToolbarGnral Me.Toolbar1, Modo, Kmodo, btnAnyadir
@@ -1505,12 +1505,12 @@ Dim B As Boolean
     PonerIndicador lblIndicador, Modo
     
     '--------------------------------------------
-    B = (Kmodo = 2)
+    b = (Kmodo = 2)
     NumReg = 1
     If Not Data1.Recordset.EOF Then
         If Data1.Recordset.RecordCount > 1 Then NumReg = 2 'Solo es para saber q hay + de 1 registro
     End If
-    DesplazamientoVisible Me.Toolbar1, btnPrimero, B, NumReg
+    DesplazamientoVisible Me.Toolbar1, btnPrimero, b, NumReg
     
     'Bloquea los campos Text1 sino estamos modificando/Insertando Datos
     'Si estamos en Insertar además limpia los campos Text1
@@ -1527,16 +1527,16 @@ Dim B As Boolean
 '    End If
     
     '=================================================
-    B = Modo <> 0 And Modo <> 2 And Modo <> 5
-    cmdCancelar.visible = B
-    cmdAceptar.visible = B
+    b = Modo <> 0 And Modo <> 2 And Modo <> 5
+    cmdCancelar.visible = b
+    cmdAceptar.visible = b
     
     For i = 0 To Me.imgFecha.Count - 1
-        Me.imgFecha(i).Enabled = B
+        Me.imgFecha(i).Enabled = b
     Next i
     
     For i = 0 To Me.imgBuscar.Count - 1
-        Me.imgBuscar(i).Enabled = B
+        Me.imgBuscar(i).Enabled = b
     Next i
 
     Me.chkVistaPrevia.Enabled = (Modo <= 2)
@@ -1558,7 +1558,7 @@ Private Sub PonerLongCampos()
 End Sub
 
 Private Sub PonerModoOpcionesMenu()
-Dim B As Boolean
+Dim b As Boolean
 Dim i As Byte
 
     'Si visualizamos el historico no mostrar botones de Mantenimiento, solo es consulta
@@ -1572,32 +1572,32 @@ Dim i As Byte
     
     If Not EsHistorico Then
         'Modo 2. Hay datos y estamos visualizandolos
-        B = (Modo = 2) Or (Modo = 5 And ModificaLineas = 0)
+        b = (Modo = 2) Or (Modo = 5 And ModificaLineas = 0)
         'Insertar
-        Toolbar1.Buttons(5).Enabled = (B Or Modo = 0)
-        Me.mnNuevo.Enabled = (B Or Modo = 0)
+        Toolbar1.Buttons(5).Enabled = (b Or Modo = 0)
+        Me.mnNuevo.Enabled = (b Or Modo = 0)
         'Modificar
-        Toolbar1.Buttons(6).Enabled = B
-        Me.mnModificar.Enabled = B
+        Toolbar1.Buttons(6).Enabled = b
+        Me.mnModificar.Enabled = b
         'eliminar
-        Toolbar1.Buttons(7).Enabled = B
-        Me.mnEliminar.Enabled = B
+        Toolbar1.Buttons(7).Enabled = b
+        Me.mnEliminar.Enabled = b
         
         '--------------------------------
-        B = (Modo = 2)
+        b = (Modo = 2)
         'Lineas Movimientos Almacenes
-        Toolbar1.Buttons(9).Enabled = B
+        Toolbar1.Buttons(9).Enabled = b
         'Actualizar
-        Toolbar1.Buttons(10).Enabled = B
+        Toolbar1.Buttons(10).Enabled = b
         
         
-        B = (Modo >= 3) Or Modo = 1
+        b = (Modo >= 3) Or Modo = 1
         'Buscar
-        Toolbar1.Buttons(1).Enabled = Not B
-        Me.mnBuscar.Enabled = Not B
+        Toolbar1.Buttons(1).Enabled = Not b
+        Me.mnBuscar.Enabled = Not b
         'Ver Todos
-        Toolbar1.Buttons(2).Enabled = Not B
-        Me.mnVerTodos.Enabled = Not B
+        Toolbar1.Buttons(2).Enabled = Not b
+        Me.mnVerTodos.Enabled = Not b
     End If
 End Sub
 
@@ -1795,7 +1795,7 @@ End Sub
 
 
 Private Sub BotonEliminar()
-Dim vTipomov As CTiposMov 'Clase Tipo Movimiento
+Dim vTipoMov As CTiposMov 'Clase Tipo Movimiento
 Dim SQL As String
 
     'Ciertas comprobaciones
@@ -1816,10 +1816,10 @@ Dim SQL As String
         If Not Eliminar Then Exit Sub
     
         'Devolvemos contador, si no estamos actualizando
-        Set vTipomov = New CTiposMov
+        Set vTipoMov = New CTiposMov
         NumRegElim = Data1.Recordset.Fields(0)
-        vTipomov.DevolverContador CodTipoMov, NumRegElim
-        Set vTipomov = Nothing
+        vTipoMov.DevolverContador CodTipoMov, NumRegElim
+        Set vTipoMov = Nothing
         
         NumRegElim = Data1.Recordset.AbsolutePosition
         DataGrid1.Enabled = False
@@ -1846,22 +1846,22 @@ Private Function Eliminar() As Boolean
 Dim SQL As String
 On Error GoTo FinEliminar
         
-        Conn.BeginTrans
+        conn.BeginTrans
         SQL = " WHERE  codmovim=" & Data1.Recordset!codMovim
         
         'Lineas
-        Conn.Execute "Delete  from slimov " & SQL
+        conn.Execute "Delete  from slimov " & SQL
         
         'Cabeceras
-        Conn.Execute "Delete  from scamov " & SQL
+        conn.Execute "Delete  from scamov " & SQL
                       
 FinEliminar:
     If Err.Number <> 0 Then
         MuestraError Err.Number, "Eliminar"
-        Conn.RollbackTrans
+        conn.RollbackTrans
         Eliminar = False
     Else
-        Conn.CommitTrans
+        conn.CommitTrans
         Eliminar = True
     End If
 End Function
@@ -1882,15 +1882,15 @@ On Error GoTo Error2
     
     '### a mano
     SQL = "Seguro que desea eliminar la línea del Artículo:"
-    SQL = SQL & vbCrLf & "Código: " & Data2.Recordset!codArtic
+    SQL = SQL & vbCrLf & "Código: " & Data2.Recordset!codartic
     SQL = SQL & vbCrLf & "Descripción: " & Data2.Recordset.Fields(3)
     
     If MsgBox(SQL, vbQuestion + vbYesNoCancel) = vbYes Then
         'Hay que eliminar
         SQL = "Delete from slimov where codmovim=" & Data2.Recordset!codMovim
         SQL = SQL & " and numlinea=" & Data2.Recordset!numlinea
-        SQL = SQL & " and codartic=" & DBSet(Data2.Recordset!codArtic, "T")
-        Conn.Execute SQL
+        SQL = SQL & " and codartic=" & DBSet(Data2.Recordset!codartic, "T")
+        conn.Execute SQL
         CancelaADODC Me.Data2
         CargaGrid True
         CancelaADODC Me.Data2
@@ -1905,14 +1905,14 @@ End Sub
 
 
 Private Function DatosOk() As Boolean
-Dim B As Boolean
+Dim b As Boolean
 'Dim vStock As String
 'Dim vstockOrig As Single  'Stock en el almacen Origen
 'Dim SQL As String, devuelve As String
 
     DatosOk = False
-    B = CompForm(Me, 1)
-    If Not B Then Exit Function
+    b = CompForm(Me, 1)
+    If Not b Then Exit Function
     
     
     If Not vUsu.TrabajadorB Then
@@ -1940,7 +1940,7 @@ Dim B As Boolean
     
     'Comprobar que todos los Artículos estan en el nuevo almacen
     If Modo = 4 Then 'Modificando
-        B = ComprobarStocksLineas
+        b = ComprobarStocksLineas
     End If
 
     DatosOk = True
@@ -1952,54 +1952,54 @@ Private Function ComprobarStocksLineas() As Boolean
 'Comprobar para todas las lineas del traspaso que:
 ' - todos los Artículos entan en el almacen origen
 ' - Comprobar que hay suficiente stock en el Almacen Origen de ese Articulo
-Dim B As Boolean
+Dim b As Boolean
 
     If Not Data2.Recordset.EOF Then  'Si hay lineas
         Data2.Recordset.MoveFirst
-        B = True
+        b = True
         
-        While Not Data2.Recordset.EOF And B
+        While Not Data2.Recordset.EOF And b
             If Data2.Recordset!tipomovi = "S" Then 'Mov. de salida
-                B = ComprobarStock(Data2.Recordset!codArtic, Text1(2).Text, Data2.Recordset!Cantidad, CodTipoMov)
+                b = ComprobarStock(Data2.Recordset!codartic, Text1(2).Text, Data2.Recordset!Cantidad, CodTipoMov)
             End If
             Data2.Recordset.MoveNext
         Wend
         Data2.Recordset.MoveFirst
     End If
-    ComprobarStocksLineas = B
+    ComprobarStocksLineas = b
 End Function
 
 
 
 
 Private Function DatosOkLinea() As Boolean
-Dim B As Boolean
+Dim b As Boolean
 Dim LlevaTraza As Boolean
 Dim devuelve As String
 
 
     DatosOkLinea = False
-    B = True
+    b = True
         
     If txtAux(0).Text = "" Then
         MsgBox "El campo Cod. Artículo no puede ser nulo", vbExclamation
-        B = False
+        b = False
         Exit Function
     End If
         
     'Comprobamos el campo Cantidad
     If txtAux(2).Text = "" Then
          MsgBox "El campo Cantidad no puede ser nulo", vbExclamation, "Artículos"
-         B = False
+         b = False
     ElseIf Not IsNumeric(txtAux(2).Text) Then
         MsgBox "El campo Cantidad debe ser numérico", vbExclamation
-        B = False
+        b = False
     ElseIf ImporteFormateado(txtAux(2).Text) < 0 Then
         MsgBox "Importe debe ser positov", vbExclamation
-        B = False
+        b = False
     End If
     
-    If Not B Then
+    If Not b Then
         PonerFoco txtAux(2)
         Exit Function
     End If
@@ -2027,7 +2027,7 @@ Dim devuelve As String
     If ModificaLineas = 1 Then
         devuelve = DevuelveDesdeBDNew(conAri, "slimov", "codmovim", "codmovim", Text1(0).Text, "N", , "codartic", txtAux(0).Text, "T")
         If devuelve <> "" Then
-            B = False
+            b = False
             devuelve = "Ya hay una línea con ese Artículo: " & vbCrLf
             devuelve = devuelve & "Codigo: " & txtAux(0).Text & vbCrLf
             devuelve = devuelve & "Descripción: " & txtAux(1).Text & vbCrLf & "¿Continuar?"
@@ -2036,31 +2036,31 @@ Dim devuelve As String
         
         'Comprobamos si existe el artículo, solo si estamos insertando (ModificaLineas=1)
         If Trim(txtAux(1).Text) = "" Then
-            B = False
+            b = False
             devuelve = "No existe el Artículo " & vbCrLf
             devuelve = devuelve & "Codigo: " & txtAux(0).Text & vbCrLf
             devuelve = devuelve & "Descripción: " & txtAux(1).Text
             MsgBox devuelve, vbExclamation
         End If
     End If
-    If Not B Then Exit Function
+    If Not b Then Exit Function
     
     'Comprobar que hay suficiente stock en el Almacen
     'Si es movimiento de Salida
     If Me.cboAux.ListIndex = 0 Then
-        B = ComprobarStock(txtAux(0).Text, Text1(2).Text, txtAux(2).Text, CodTipoMov)
+        b = ComprobarStock(txtAux(0).Text, Text1(2).Text, txtAux(2).Text, CodTipoMov)
     End If
-    DatosOkLinea = B
+    DatosOkLinea = b
 End Function
 
 
-Private Sub PonerBotonCabecera(B As Boolean)
+Private Sub PonerBotonCabecera(b As Boolean)
 On Error Resume Next
-    Me.cmdAceptar.visible = Not B
-    Me.cmdCancelar.visible = Not B
-    Me.cmdRegresar.visible = B
+    Me.cmdAceptar.visible = Not b
+    Me.cmdCancelar.visible = Not b
+    Me.cmdRegresar.visible = b
     Me.cmdRegresar.Caption = "Cabecera"
-    If B Then
+    If b Then
         Me.lblIndicador.Caption = "Lineas Detalle"
         PonerFocoBtn Me.cmdRegresar
     Else
@@ -2109,7 +2109,7 @@ On Error GoTo EInsertarModificarLinea
     End Select
             
     If SQL <> "" Then
-        Conn.Execute SQL
+        conn.Execute SQL
         InsertarModificarLinea = True
     End If
     Exit Function
@@ -2240,7 +2240,7 @@ Dim vCantidad As String
     ActualizarStocks = False
     While Not Data2.Recordset.EOF
         'Actualizar el stock si el articulo tiene control de stock
-        devuelve = DevuelveDesdeBDNew(conAri, "sartic", "ctrstock", "codartic", Data2.Recordset!codArtic, "T")
+        devuelve = DevuelveDesdeBDNew(conAri, "sartic", "ctrstock", "codartic", Data2.Recordset!codartic, "T")
         If Val(devuelve) = 1 Then 'Hay control de stock
 
             Cantidad = Data2.Recordset!Cantidad 'Cant a traspasar
@@ -2248,34 +2248,34 @@ Dim vCantidad As String
             If Data2.Recordset!tipomovi = "E" Then 'Mov. de Entrada
                 '==== Aumentar el stock en el Almacen
                 'Comprobar que existe el articulo en Almacen Destino
-                EnAlmDest = DevuelveDesdeBDNew(conAri, "salmac", "codartic", "codartic", Data2.Recordset!codArtic, "T", , "codalmac", Text1(2).Text, "N")
+                EnAlmDest = DevuelveDesdeBDNew(conAri, "salmac", "codartic", "codartic", Data2.Recordset!codartic, "T", , "codalmac", Text1(2).Text, "N")
                 If EnAlmDest = "" Then 'No hay de ese artículo en Almacen
                     SQL = "INSERT INTO salmac (codartic,codalmac,ubialmac,canstock,stockmin,puntoped,stockmax,stockinv,fechainv,horainve,statusin)"
-                    SQL = SQL & " VALUES (" & DBSet(Data2.Recordset!codArtic, "T") & "," & Val(Text1(2).Text) & ",''," & DBSet(Cantidad, "N") & ",0,0,0,0,NULL,NULL,0)"
+                    SQL = SQL & " VALUES (" & DBSet(Data2.Recordset!codartic, "T") & "," & Val(Text1(2).Text) & ",''," & DBSet(Cantidad, "N") & ",0,0,0,0,NULL,NULL,0)"
                 Else 'Existe el artic en almac. Dest -> Aumentar stock
                     SQL = "UPDATE salmac Set canstock = canstock + " & vCantidad
-                    SQL = SQL & " WHERE codartic =" & DBSet(Data2.Recordset!codArtic, "T") & " AND "
+                    SQL = SQL & " WHERE codartic =" & DBSet(Data2.Recordset!codartic, "T") & " AND "
                     SQL = SQL & " codalmac =" & Data1.Recordset!codalmac
                 End If
                 
             Else 'Mov. de Salida
                 '==== Disminuir Stock en Almacen Origen
-                EnAlmDest = DevuelveDesdeBDNew(conAri, "salmac", "canstock", "codartic", Data2.Recordset!codArtic, "T", , "codalmac", Text1(2).Text, "N")
+                EnAlmDest = DevuelveDesdeBDNew(conAri, "salmac", "canstock", "codartic", Data2.Recordset!codartic, "T", , "codalmac", Text1(2).Text, "N")
                 If EnAlmDest = "" Then 'No hay de ese artículo en Almacen
                     devuelve = "No existe en el Almacen: " & Data1.Recordset!codalmac & vbCrLf
-                    devuelve = devuelve & "El Artículo: " & Data2.Recordset!codArtic
+                    devuelve = devuelve & "El Artículo: " & Data2.Recordset!codartic
                     MsgBox devuelve, vbExclamation
                 Else 'Existe el artic en almac. Dest -> Disminuir stock
                     vStock = CSng(EnAlmDest)
-                    If ComprobarHayStock(vStock, Cantidad, Data2.Recordset!codArtic, Data2.Recordset!NomArtic, CodTipoMov) Then
+                    If ComprobarHayStock(vStock, Cantidad, Data2.Recordset!codartic, Data2.Recordset!NomArtic, CodTipoMov) Then
                         SQL = "UPDATE salmac Set canstock = canstock - " & vCantidad
-                        SQL = SQL & " WHERE codartic =" & DBSet(Data2.Recordset!codArtic, "T") & " AND "
+                        SQL = SQL & " WHERE codartic =" & DBSet(Data2.Recordset!codartic, "T") & " AND "
                         SQL = SQL & " codalmac =" & Data1.Recordset!codalmac
                     End If
                 End If
             End If
             
-            Conn.Execute SQL
+            conn.Execute SQL
         End If
         Data2.Recordset.MoveNext
     Wend
@@ -2373,7 +2373,7 @@ On Error GoTo EActualizarTraspaso
     
     
     'Aqui empieza transaccion
-    Conn.BeginTrans
+    conn.BeginTrans
     Donde = ""
     bol = ActualizarElTraspaso2(Donde)
 
@@ -2385,10 +2385,10 @@ EActualizarTraspaso:
         bol = False
     End If
     If bol Then
-        Conn.CommitTrans
+        conn.CommitTrans
         ActualizarTraspaso = True
     Else
-        Conn.RollbackTrans
+        conn.RollbackTrans
         MuestraError Err.Number, devuelve, Err.Description
     End If
 End Function
@@ -2448,7 +2448,7 @@ On Error GoTo EInsertarCab
     SQL = SQL & " AND fecmovim='" & Format(Data1.Recordset!fecmovim, "yyyy-mm-dd") & "'"
     
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     If Not RS.EOF Then
         SQL = "INSERT INTO schmov (codmovim, fecmovim,hormovim,codalmac,codtraba,observa1) "
         SQL = SQL & " VALUES (" & RS.Fields(0).Value & ", '" & Format(RS.Fields(2).Value, "yyyy-mm-dd") & "','"
@@ -2457,7 +2457,7 @@ On Error GoTo EInsertarCab
     End If
     RS.Close
     Set RS = Nothing
-    Conn.Execute SQL
+    conn.Execute SQL
    
 EInsertarCab:
     If Err.Number <> 0 Then
@@ -2478,7 +2478,7 @@ On Error GoTo EInsertarLineas
     SQL = SQL & " codmovim =" & Data1.Recordset!codMovim
     
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     RS.MoveFirst
     While Not RS.EOF
         SQL = "INSERT INTO slhmov (codmovim, fecmovim, numlinea, codartic, cantidad, tipomovi, motimovi,numlote)"
@@ -2486,8 +2486,8 @@ On Error GoTo EInsertarLineas
         SQL = SQL & RS.Fields(1).Value & ", " & DBSet(RS.Fields(2).Value, "T") & ", "
         SQL = SQL & DBSet(RS.Fields(3).Value, "N") & ", " & RS.Fields(4).Value
         SQL = SQL & ", '" & RS.Fields(5).Value & "'"
-        SQL = SQL & ", " & DBSet(RS!Numlote, "T", "S") & ")"
-        Conn.Execute SQL
+        SQL = SQL & ", " & DBSet(RS!numLote, "T", "S") & ")"
+        conn.Execute SQL
         RS.MoveNext
     Wend
     RS.Close
@@ -2509,14 +2509,14 @@ Private Function InsertarMovimArticulos() As Boolean
 Dim SQL As String
 Dim RS As ADODB.Recordset
 Dim vImporte As Single, vPrecioVenta As String
-Dim vTipomov As CTiposMov
+Dim vTipoMov As CTiposMov
 Dim bol As Boolean
 Dim cad As String
 On Error GoTo EInsertar
 
     bol = True
-    Set vTipomov = New CTiposMov
-    If vTipomov.Leer(CodTipoMov) Then
+    Set vTipoMov = New CTiposMov
+    If vTipoMov.Leer(CodTipoMov) Then
         'Se han cargado correctamente los valores de la clase
         SQL = "SELECT scamov.codmovim, codalmac, fecmovim, codtraba, numlinea, codartic, cantidad, tipomovi "
         SQL = SQL & " from scamov LEFT JOIN slimov on scamov.codmovim=slimov.codmovim "
@@ -2524,11 +2524,11 @@ On Error GoTo EInsertar
         SQL = SQL & " AND fecmovim='" & Format(Data1.Recordset!fecmovim, "yyyy-mm-dd") & "'"
     
         Set RS = New ADODB.Recordset
-        RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+        RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
         While Not RS.EOF
             'Obtener el precio de venta del articulo, si tiene control de stock
             cad = "ctrstock"
-            vPrecioVenta = DevuelveDesdeBDNew(conAri, "sartic", "preciomp", "codartic", RS.Fields!codArtic, "T", cad)
+            vPrecioVenta = DevuelveDesdeBDNew(conAri, "sartic", "preciomp", "codartic", RS.Fields!codartic, "T", cad)
             If vPrecioVenta <> "" Then
                 vImporte = RS.Fields!Cantidad * CSng(vPrecioVenta)
             Else
@@ -2536,23 +2536,23 @@ On Error GoTo EInsertar
             End If
             If Val(cad) = 1 Then
                 SQL = "INSERT INTO smoval (codartic, codalmac, fechamov, horamovi, tipomovi, detamovi, cantidad, impormov, codigope, letraser, document, numlinea) "
-                SQL = SQL & " VALUES (" & DBSet(RS.Fields!codArtic, "T") & ", " & RS.Fields!codalmac & ", '" & Format(RS.Fields!fecmovim, "yyyy-mm-dd") & "', '"
-                SQL = SQL & Format(RS.Fields!fecmovim & " " & Time, "yyyy-mm-dd hh:mm:ss") & "', " & RS.Fields!tipomovi & ", '" & vTipomov.TipoMovimiento & "', " & DBSet(RS.Fields!Cantidad, "N") & ", " & DBSet(vImporte, "N") & ", " & RS.Fields!CodTraba & ", '"
-                SQL = SQL & vTipomov.LetraSerie & "', " & RS.Fields!codMovim & ", " & RS.Fields!numlinea & ")"
-                Conn.Execute SQL
+                SQL = SQL & " VALUES (" & DBSet(RS.Fields!codartic, "T") & ", " & RS.Fields!codalmac & ", '" & Format(RS.Fields!fecmovim, "yyyy-mm-dd") & "', '"
+                SQL = SQL & Format(RS.Fields!fecmovim & " " & Time, "yyyy-mm-dd hh:mm:ss") & "', " & RS.Fields!tipomovi & ", '" & vTipoMov.TipoMovimiento & "', " & DBSet(RS.Fields!Cantidad, "N") & ", " & DBSet(vImporte, "N") & ", " & RS.Fields!CodTraba & ", '"
+                SQL = SQL & vTipoMov.LetraSerie & "', " & RS.Fields!codMovim & ", " & RS.Fields!numlinea & ")"
+                conn.Execute SQL
             End If
             RS.MoveNext
         Wend
     Else
         bol = False
     End If
-    Set vTipomov = Nothing
+    Set vTipoMov = Nothing
     RS.Close
     Set RS = Nothing
     
 EInsertar:
     If Err.Number <> 0 Then
-        Set vTipomov = Nothing
+        Set vTipoMov = Nothing
         RS.Close
         Set RS = Nothing
     End If
@@ -2592,7 +2592,7 @@ Dim SQL As String
         SQL = SQL & "slimov"
         SQL = SQL & " WHERE codmovim = " & Data1.Recordset!codMovim
     'End If
-    Conn.Execute SQL
+    conn.Execute SQL
     
     'La cabecera
     SQL = "Delete from "
@@ -2604,7 +2604,7 @@ Dim SQL As String
         SQL = SQL & "scamov"
         SQL = SQL & " WHERE codmovim =" & Data1.Recordset!codMovim
     'End If
-    Conn.Execute SQL
+    conn.Execute SQL
     
     If Err.Number <> 0 Then
         BorrarTraspaso = False
@@ -2668,21 +2668,21 @@ End Sub
 
 Private Sub BotonImprimirHco()
 Dim indRPT As Byte
-Dim cadParam As String
+Dim Cadparam As String
 Dim cad As String
-Dim numParam As Byte
+Dim NumParam As Byte
 Dim nomDocu As String
 
 
-    cadParam = "|"
-    numParam = 0
-    If Not PonerParamEmpresa(cadParam, numParam) Then Exit Sub
+    Cadparam = "|"
+    NumParam = 0
+    If Not PonerParamEmpresa(Cadparam, NumParam) Then Exit Sub
 
     indRPT = 4 '4: Historico Movimientos de Almacen
-    If PonerParamRPT(indRPT, cadParam, numParam, nomDocu) Then
+    If PonerParamRPT(indRPT, Cadparam, NumParam, nomDocu) Then
         With frmImprimir
-            .OtrosParametros = cadParam
-            .NumeroParametros = numParam
+            .OtrosParametros = Cadparam
+            .NumeroParametros = NumParam
             .NombreRPT = nomDocu
             .EnvioEMail = False
             .opcion = 8
@@ -2702,7 +2702,7 @@ End Sub
 
 
 
-Private Function InsertarMovimiento(vSQL As String, vTipomov As CTiposMov) As Boolean
+Private Function InsertarMovimiento(vSQL As String, vTipoMov As CTiposMov) As Boolean
 Dim MenError As String
 Dim bol As Boolean
 On Error GoTo EInsertarMovim
@@ -2710,13 +2710,13 @@ On Error GoTo EInsertarMovim
     bol = True
     
     'Aqui empieza transaccion
-    Conn.BeginTrans
+    conn.BeginTrans
     
     MenError = "Error al insertar en la tabla de Movimientos(smovim)."
-    Conn.Execute vSQL, , adCmdText
+    conn.Execute vSQL, , adCmdText
     
     MenError = "Error al actualizar el contador del recibo."
-    bol = vTipomov.IncrementarContador(CodTipoMov)
+    bol = vTipoMov.IncrementarContador(CodTipoMov)
 
 EInsertarMovim:
         If Err.Number <> 0 Then
@@ -2725,10 +2725,10 @@ EInsertarMovim:
             bol = False
         End If
         If bol Then
-            Conn.CommitTrans
+            conn.CommitTrans
             InsertarMovimiento = True
         Else
-            Conn.RollbackTrans
+            conn.RollbackTrans
             InsertarMovimiento = False
         End If
 End Function
@@ -2752,19 +2752,19 @@ End Function
 
 
 Private Sub InsertarCabecera()
-Dim vTipomov As CTiposMov 'Clase Tipo Movimiento
+Dim vTipoMov As CTiposMov 'Clase Tipo Movimiento
 Dim SQL As String
 
-    Set vTipomov = New CTiposMov
+    Set vTipoMov = New CTiposMov
     
-    If vTipomov.Leer(CodTipoMov) Then
-        Text1(0).Text = vTipomov.ConseguirContador(CodTipoMov)
+    If vTipoMov.Leer(CodTipoMov) Then
+        Text1(0).Text = vTipoMov.ConseguirContador(CodTipoMov)
         Text1(0).Text = Format(Text1(0).Text, "0000000")
         cmdCancelar.Caption = "Cancelar"
         SQL = CadenaInsertarDesdeForm(Me)
         
         If SQL <> "" Then
-            If InsertarMovimiento(SQL, vTipomov) Then
+            If InsertarMovimiento(SQL, vTipoMov) Then
                 CadenaConsulta = "Select * from " & NombreTabla & ObtenerWhereCP(True) & Ordenacion
                 PonerCadenaBusqueda
                 PonerModo 2
@@ -2774,7 +2774,7 @@ Dim SQL As String
             End If
         End If
     End If
-    Set vTipomov = Nothing
+    Set vTipoMov = Nothing
 End Sub
 
 
@@ -2782,8 +2782,8 @@ End Sub
 Private Function HacerTrazabilidad(SoloComprobar As Boolean) As Boolean
 Dim cad As String
 Dim R As ADODB.Recordset
-Dim cP As cPartidas
-Dim CL As cLotaje
+Dim Cp As cPartidas
+Dim cL As cLotaje
 Dim Cantidad As Currency
 
     On Error GoTo EComprobarTrazabilidad
@@ -2791,13 +2791,13 @@ Dim Cantidad As Currency
     Set R = New ADODB.Recordset
     If SoloComprobar Then
         cad = "select slimov.*,trazabilidad,nomartic from slimov,sartic where slimov.codartic=sartic.codartic and codmovim=" & Text1(0).Text
-        R.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        R.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         cad = ""
         While Not R.EOF
             If R!Trazabilidad = 0 Then
-                If DBLet(R!Numlote, "T") <> "" Then cad = cad & "   -" & R!NomArtic & " lleva lote (NO SE CREARA)"
+                If DBLet(R!numLote, "T") <> "" Then cad = cad & "   -" & R!NomArtic & " lleva lote (NO SE CREARA)"
             Else
-                If DBLet(R!Numlote, "T") = "" Then
+                If DBLet(R!numLote, "T") = "" Then
                     cad = cad & "   -" & R!NomArtic & " DEBERIA llevar numero lote"
                 Else
                     'Si lleva numero de LOTE
@@ -2821,75 +2821,75 @@ Dim Cantidad As Currency
     'SEGUIMOS.  PARA cada articulo con trazabilidad entonces.....
     If Not SoloComprobar Then
         'Cuando "vaya de bo"
-         Set CL = New cLotaje
+         Set cL = New cLotaje
         'Trozo comun
              
-        CL.DetaMov = "REG"
-        CL.Documento = Text1(0).Text
-        CL.Fechamov = CDate(Me.Text1(1).Text)
-        CL.HoraMov = CDate(Me.Text1(1).Text & " " & Format(Now, "hh:nn:ss"))
-        CL.ProvCliTra = Text1(3).Text
-        CL.SubLinea = 0
-        CL.codarti2 = ""
-        CL.codalmac = Text1(2).Text
+        cL.DetaMov = "REG"
+        cL.Documento = Text1(0).Text
+        cL.Fechamov = CDate(Me.Text1(1).Text)
+        cL.HoraMov = CDate(Me.Text1(1).Text & " " & Format(Now, "hh:nn:ss"))
+        cL.ProvCliTra = Text1(3).Text
+        cL.SubLinea = 0
+        cL.codarti2 = ""
+        cL.codalmac = Text1(2).Text
         
     End If
     cad = "select slimov.*,nomartic from slimov,sartic where slimov.codartic=sartic.codartic and codmovim=" & Text1(0).Text & " AND trazabilidad =1"
     cad = cad & " AND numlote <>"""""
-    R.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    R.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     cad = ""
     While Not R.EOF
         'PARA CADA ARTICULO....
-        Set cP = New cPartidas
+        Set Cp = New cPartidas
         Cantidad = R!Cantidad
         If Val(R!tipomovi) = 0 Then Cantidad = -Cantidad
-        If cP.LeerDesdeArticulo(R!codArtic, Text1(2).Text, R!Numlote) Then
+        If Cp.LeerDesdeArticulo(R!codartic, Text1(2).Text, R!numLote) Then
             'OKkkkkkkk-   Aqui tenemos el lote
             If Not SoloComprobar Then
-                cP.IncrementarCantidad Cantidad
+                Cp.IncrementarCantidad Cantidad
             
             Else
                 'Comprobando. Comprobamos cantidad
                 If Val(R!tipomovi) = 0 Then
                     'SALIDA. Veremos si hay suficiente cantidad
-                    If R!Cantidad > cP.Cantidad Then cad = cad & vbCrLf & "      INSUFICIENTE-> " & R!codArtic & " " & R!NomArtic & "      LOTE: " & R!Numlote & " (" & R!Cantidad & " / " & cP.Cantidad & ")"
+                    If R!Cantidad > Cp.Cantidad Then cad = cad & vbCrLf & ".-INSUFICIENTE: " & R!codartic & " " & R!NomArtic & "      LOTE: " & R!numLote & " (" & R!Cantidad & " / " & Cp.Cantidad & ")"
                 End If
             End If
         Else
             'HAY QUE AGREGARLO?
             If SoloComprobar Then
-                cad = cad & vbCrLf & "      NO EXISTE-> " & R!codArtic & " " & R!NomArtic & "      LOTE: " & R!Numlote
+                cad = cad & vbCrLf & ".-NO EXISTE: " & R!codartic & " " & R!NomArtic & "      LOTE: " & R!numLote
             Else
                 'Habra que insertar
-                cP.Cantidad = Cantidad
-                cP.codalmac = CL.codalmac
-                cP.codArtic = R!codArtic
-                cP.codProve = 0 'CERO
-                cP.Fecha = CL.Fechamov
-                cP.NumAlbar = "REG:" & CL.Documento   'como albaran el cod moviimiento
-                cP.Numlote = R!Numlote
-                If Not cP.Insertar Then Err.Raise 513, , "Insertando lote: " & cP.codArtic & "//" & cP.Numlote
+                Cp.Cantidad = Cantidad
+                Cp.codalmac = cL.codalmac
+                Cp.codartic = R!codartic
+                Cp.codProve = 0 'CERO
+                Cp.Fecha = cL.Fechamov
+                Cp.NumAlbar = "REG" & cL.Documento   'como albaran el cod moviimiento
+                Cp.numLote = R!numLote
+                If Not Cp.Insertar Then Err.Raise 513, , "Insertando lote: " & Cp.codartic & "//" & Cp.numLote
             End If
         End If
         
         'Para movimientos de lotes
         If Not SoloComprobar Then
-            CL.tipoMov = R!tipomovi  'Salida
-            CL.Cantidad = Abs(Cantidad)
+            cL.tipoMov = R!tipomovi  'Salida
+            cL.Cantidad = Abs(Cantidad)
             
-            CL.codArtic = cP.codArtic
+            cL.codartic = Cp.codartic
             
-            CL.Numlote = cP.Numlote
-            CL.LineaDocu = R!numlinea
-            CL.InsertarLote
+            cL.numLote = Cp.numLote
+            cL.LineaDocu = R!numlinea
+            cL.InsertarLote
         End If
         
-        Set cP = Nothing
+        Set Cp = Nothing
         R.MoveNext
     Wend
     R.Close
-    Set CL = Nothing
-    Set cP = Nothing
+    Set cL = Nothing
+    Set Cp = Nothing
     
     If SoloComprobar Then
         If cad <> "" Then

@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmConfParamAplic 
@@ -191,62 +191,62 @@ Begin VB.Form frmConfParamAplic
       TabCaption(1)   =   "Datos Facturación"
       TabPicture(1)   =   "frmConfParamAplic.frx":0028
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Frame10"
-      Tab(1).Control(1)=   "Frame9"
-      Tab(1).Control(2)=   "Text1(50)"
-      Tab(1).Control(3)=   "chkTicketsAgrupads"
+      Tab(1).Control(0)=   "Label1(51)"
+      Tab(1).Control(1)=   "Frame2"
+      Tab(1).Control(2)=   "Frame3"
+      Tab(1).Control(3)=   "Frame4"
       Tab(1).Control(4)=   "Frame6"
-      Tab(1).Control(5)=   "Frame4"
-      Tab(1).Control(6)=   "Frame3"
-      Tab(1).Control(7)=   "Frame2"
-      Tab(1).Control(8)=   "Label1(51)"
+      Tab(1).Control(5)=   "chkTicketsAgrupads"
+      Tab(1).Control(6)=   "Text1(50)"
+      Tab(1).Control(7)=   "Frame9"
+      Tab(1).Control(8)=   "Frame10"
       Tab(1).ControlCount=   9
       TabCaption(2)   =   "Internet"
       TabPicture(2)   =   "frmConfParamAplic.frx":0044
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "FrameSoporte"
-      Tab(2).Control(1)=   "FrameEMail"
+      Tab(2).Control(0)=   "FrameEMail"
+      Tab(2).Control(1)=   "FrameSoporte"
       Tab(2).ControlCount=   2
       TabCaption(3)   =   "Datos Contabilidad "
       TabPicture(3)   =   "frmConfParamAplic.frx":0060
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label1(15)"
-      Tab(3).Control(1)=   "Label1(17)"
-      Tab(3).Control(2)=   "Label1(18)"
-      Tab(3).Control(3)=   "Label1(19)"
-      Tab(3).Control(4)=   "imgBuscar(39)"
-      Tab(3).Control(5)=   "Label1(48)"
-      Tab(3).Control(6)=   "imgBuscar(40)"
-      Tab(3).Control(7)=   "Label2(7)"
-      Tab(3).Control(8)=   "Label2(6)"
-      Tab(3).Control(9)=   "Label1(49)"
-      Tab(3).Control(10)=   "Label1(50)"
-      Tab(3).Control(11)=   "imgBuscar(41)"
-      Tab(3).Control(12)=   "Label1(52)"
-      Tab(3).Control(13)=   "Label1(53)"
-      Tab(3).Control(14)=   "imgBuscar(45)"
+      Tab(3).Control(0)=   "Text1(52)"
+      Tab(3).Control(1)=   "Text2(52)"
+      Tab(3).Control(2)=   "cboObsFactura"
+      Tab(3).Control(3)=   "Text2(48)"
+      Tab(3).Control(4)=   "Text1(48)"
+      Tab(3).Control(5)=   "Text1(49)"
+      Tab(3).Control(6)=   "Text2(47)"
+      Tab(3).Control(7)=   "Text1(47)"
+      Tab(3).Control(8)=   "Text1(46)"
+      Tab(3).Control(9)=   "Text2(46)"
+      Tab(3).Control(10)=   "Frame8"
+      Tab(3).Control(11)=   "Text1(23)"
+      Tab(3).Control(12)=   "Text1(22)"
+      Tab(3).Control(13)=   "Text1(21)"
+      Tab(3).Control(14)=   "Text1(20)"
       Tab(3).Control(15)=   "Label1(47)"
-      Tab(3).Control(16)=   "Text1(20)"
-      Tab(3).Control(17)=   "Text1(21)"
-      Tab(3).Control(18)=   "Text1(22)"
-      Tab(3).Control(19)=   "Text1(23)"
-      Tab(3).Control(20)=   "Frame8"
-      Tab(3).Control(21)=   "Text2(46)"
-      Tab(3).Control(22)=   "Text1(46)"
-      Tab(3).Control(23)=   "Text1(47)"
-      Tab(3).Control(24)=   "Text2(47)"
-      Tab(3).Control(25)=   "Text1(49)"
-      Tab(3).Control(26)=   "Text1(48)"
-      Tab(3).Control(27)=   "Text2(48)"
-      Tab(3).Control(28)=   "cboObsFactura"
-      Tab(3).Control(29)=   "Text2(52)"
-      Tab(3).Control(30)=   "Text1(52)"
+      Tab(3).Control(16)=   "imgBuscar(45)"
+      Tab(3).Control(17)=   "Label1(53)"
+      Tab(3).Control(18)=   "Label1(52)"
+      Tab(3).Control(19)=   "imgBuscar(41)"
+      Tab(3).Control(20)=   "Label1(50)"
+      Tab(3).Control(21)=   "Label1(49)"
+      Tab(3).Control(22)=   "Label2(6)"
+      Tab(3).Control(23)=   "Label2(7)"
+      Tab(3).Control(24)=   "imgBuscar(40)"
+      Tab(3).Control(25)=   "Label1(48)"
+      Tab(3).Control(26)=   "imgBuscar(39)"
+      Tab(3).Control(27)=   "Label1(19)"
+      Tab(3).Control(28)=   "Label1(18)"
+      Tab(3).Control(29)=   "Label1(17)"
+      Tab(3).Control(30)=   "Label1(15)"
       Tab(3).ControlCount=   31
       TabCaption(4)   =   "Valores por defecto / AVISOS"
       TabPicture(4)   =   "frmConfParamAplic.frx":007C
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "Frame7"
-      Tab(4).Control(1)=   "Frame5"
+      Tab(4).Control(0)=   "Frame5"
+      Tab(4).Control(1)=   "Frame7"
       Tab(4).ControlCount=   2
       Begin VB.Frame Frame10 
          Caption         =   "Reciclado / Punto verde"
@@ -3043,7 +3043,7 @@ Dim Im
     
     NombreTabla = "spara1"
     'ASignamos un SQL al DATA1
-    Data1.ConnectionString = Conn
+    Data1.ConnectionString = conn
     CadenaConsulta = "Select * from " & NombreTabla
     Data1.RecordSource = CadenaConsulta
     Data1.Refresh
@@ -3384,7 +3384,7 @@ Private Sub Text1_LostFocus(Index As Integer)
         Case 40 To 46, 48, 52, 54 To 57
             If PonerFormatoEntero(Text1(Index)) Then
                 Text2(Index).Text = PonerNombreDeCod(Text1(Index), conConta, "tiposiva", "nombriva", "codigiva")
-                If Text2(Index).Text = "" Then PonerFoco Text1(Index)
+                If Text2(Index).Text = "" And Modo > 2 Then PonerFoco Text1(Index)
             Else
                 Text2(Index).Text = ""
                 
@@ -3455,7 +3455,7 @@ End Sub
 
 
 Private Function DatosOk() As Boolean
-Dim B As Boolean
+Dim b As Boolean
 
     On Error GoTo ErrOK
 
@@ -3463,14 +3463,14 @@ Dim B As Boolean
     If Me.Text1(6).Text = "" Then Me.Text1(6).Text = "0"
 
     DatosOk = False
-    B = CompForm(Me, 1)
+    b = CompForm(Me, 1)
     
     '--- forma de pago de CHEQUE regalo
     'comprobar q el tipo de la forma de pago es EFECTIVO
-    If B And Text1(24).Text <> "" Then
+    If b And Text1(24).Text <> "" Then
         If DevuelveDesdeBDNew(conAri, "sforpa", "tipforpa", "codforpa", Text1(24).Text, "N") <> "0" Then
             MsgBox "La forma de pago del cheque debe ser del tipo EFECTIVO", vbExclamation
-            B = False
+            b = False
         End If
     End If
     
@@ -3479,7 +3479,7 @@ Dim B As Boolean
         Exit Function
     End If
     
-    DatosOk = B
+    DatosOk = b
     Exit Function
     
 ErrOK:
@@ -3495,11 +3495,11 @@ Dim cerrar As Boolean
 End Sub
 
 
-Private Sub PonerBotonCabecera(B As Boolean)
-    Me.cmdAceptar.visible = Not B
-    Me.cmdCancelar.visible = Not B
-    Me.cmdSalir.visible = B
-    If B Then Me.lblIndicador.Caption = ""
+Private Sub PonerBotonCabecera(b As Boolean)
+    Me.cmdAceptar.visible = Not b
+    Me.cmdCancelar.visible = Not b
+    Me.cmdSalir.visible = b
+    If b Then Me.lblIndicador.Caption = ""
 End Sub
 
 
@@ -3555,20 +3555,20 @@ End Sub
 '   En PONERMODO se habilitan, o no, los diverso campos del
 '   formulario en funcion del modo en k vayamos a trabajar
 Private Sub PonerModo(Kmodo As Byte)
-Dim B As Boolean
+Dim b As Boolean
    
     Modo = Kmodo
     PonerIndicador lblIndicador, Modo
       
     '------------------------------------------------------
     'Modo insertar o modificar
-    B = (Kmodo >= 3) '-->Luego not b sera kmodo<3
+    b = (Kmodo >= 3) '-->Luego not b sera kmodo<3
     If cmdCancelar.visible Then
         cmdCancelar.Cancel = True
     Else
         cmdCancelar.Cancel = False
     End If
-    PonerBotonCabecera Not B
+    PonerBotonCabecera Not b
        
     'Bloquea los campos Text1 sino estamos modificando/Insertando Datos
     'Si estamos en Insertar además limpia los campos Text1 y bloquea la clave primaria
@@ -3578,16 +3578,16 @@ Dim B As Boolean
     BloquearChecks Me, Modo
 
     'Bloquear el combobox
-    B = Modo = 4
-    Me.cboTipodtos.Enabled = B
-    Me.cboOrdenDtos.Enabled = B
-    Me.cboObsFactura.Enabled = B
+    b = Modo = 4
+    Me.cboTipodtos.Enabled = b
+    Me.cboOrdenDtos.Enabled = b
+    Me.cboObsFactura.Enabled = b
     
     'Bloquear imagen de Busqueda
 
     Dim img As Image
     For Each img In Me.imgBuscar
-        BloquearImg img, Not B
+        BloquearImg img, Not b
     Next
 '    BloquearImg Me.imgBuscar(1), (Modo <> 4)
 '    BloquearImg Me.imgBuscar(15), (Modo <> 4)
@@ -3605,10 +3605,10 @@ End Sub
 
 
 Private Sub PonerModoOpcionesMenu()
-Dim B As Boolean
-    B = (Modo = 3) Or (Modo = 4)
-    Me.Toolbar1.Buttons(1).Enabled = Not B 'Modificar
-    Me.mnModificar.Enabled = Not B
+Dim b As Boolean
+    b = (Modo = 3) Or (Modo = 4)
+    Me.Toolbar1.Buttons(1).Enabled = Not b 'Modificar
+    Me.mnModificar.Enabled = Not b
 '    Me.Toolbar1.Buttons(2).Enabled = (Not b) 'Modificar
 End Sub
 

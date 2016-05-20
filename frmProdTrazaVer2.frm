@@ -1,7 +1,7 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
+Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "comctl32.ocx"
 Begin VB.Form frmProdTrazaVer2 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Trazabilidad"
@@ -443,7 +443,7 @@ Private kCampo As Integer
 
 
 Private Sub cmdAceptar_Click()
-Dim Cad As String, Indicador As String
+Dim cad As String, Indicador As String
 
     Screen.MousePointer = vbHourglass
     On Error GoTo Error1
@@ -502,9 +502,9 @@ Private Sub BotonVerTodos()
     'Ver todos
     LimpiarCampos
     If chkVistaPrevia.Value = 1 Then
-        MandaBusquedaPrevia " codartic IN (select codartic from sartic WHERE conjunto=1)"
+        MandaBusquedaPrevia " " & NombreTabla & ".codartic IN (select codartic from sartic WHERE conjunto=1)"
     Else
-        CadenaConsulta = "Select * from " & NombreTabla & " WHERE codartic IN (select codartic from sartic WHERE conjunto=1)"
+        CadenaConsulta = "Select * from " & NombreTabla & " WHERE spartidas.codartic IN (select codartic from sartic WHERE conjunto=1)"
         PonerCadenaBusqueda
     End If
 End Sub
@@ -524,16 +524,16 @@ End Sub
 
 
 Private Sub cmdRegresar_Click()
-Dim Cad As String
+Dim cad As String
 
     If Data1.Recordset.EOF Then
         MsgBox "Ningún registro devuelto.", vbExclamation
         Exit Sub
     End If
 
-    Cad = Data1.Recordset.Fields(0) & "|"
-    Cad = Cad & Data1.Recordset.Fields(1) & "|"
-    RaiseEvent DatoSeleccionado(Cad)
+    cad = Data1.Recordset.Fields(0) & "|"
+    cad = cad & Data1.Recordset.Fields(1) & "|"
+    RaiseEvent DatoSeleccionado(cad)
     Unload Me
 End Sub
 
@@ -696,21 +696,21 @@ End Sub
 
 
 Private Sub MandaBusquedaPrevia(cadB As String)
-Dim Cad As String
+Dim cad As String
 
         'Llamamos a al form
         '##A mano
-        Cad = ParaGrid(Text1(0), 20, "Lote")
-        Cad = Cad & ParaGrid(Text1(1), 19, "Articulo")
-        Cad = Cad & "Referencia|sartic|nomartic|T||50·"
-        Cad = Cad & ParaGrid(Text1(2), 11, "Partida")
+        cad = ParaGrid(Text1(0), 20, "Lote")
+        cad = cad & ParaGrid(Text1(1), 19, "Articulo")
+        cad = cad & "Referencia|sartic|nomartic|T||50·"
+        cad = cad & ParaGrid(Text1(2), 11, "Partida")
         
         If cadB <> "" Then cadB = " AND " & cadB
         cadB = "sartic.codartic = spartidas.codartic" & cadB
-        If Cad <> "" Then
+        If cad <> "" Then
             Screen.MousePointer = vbHourglass
             Set frmB = New frmBuscaGrid
-            frmB.vCampos = Cad
+            frmB.vCampos = cad
             frmB.vTabla = NombreTabla & ",sartic"
             frmB.vSQL = cadB
             
@@ -724,8 +724,8 @@ Dim Cad As String
             Set frmB = Nothing
         
             If CadenaConsulta <> "" Then
-                Cad = "id = " & RecuperaValor(CadenaConsulta, 1)
-                CadenaConsulta = "select * from " & NombreTabla & " WHERE " & Cad & " " & Ordenacion
+                cad = "id = " & RecuperaValor(CadenaConsulta, 1)
+                CadenaConsulta = "select * from " & NombreTabla & " WHERE " & cad & " " & Ordenacion
                 PonerCadenaBusqueda
             End If
         End If
@@ -801,16 +801,16 @@ End Sub
 
 Private Sub PonerCampos2()
 Dim SQL As String
-Dim cP As cPartidas
+Dim Cp As cPartidas
 Dim N
 
     PonerCamposForma Me, Data1
     TreeView1.Nodes.Clear
     ListView2.ListItems.Clear
-    Set cP = New cPartidas
+    Set Cp = New cPartidas
     Conn.Execute "DELETE FROM tmptraza"
-    If cP.LeerDesdeArticulo(Text1(1).Text, Data1.Recordset!codAlmac, Data1.Recordset!NUmlote) Then
-        cP.TrazbilidadDesdeVenta False, False
+    If Cp.LeerDesdeArticulo(Text1(1).Text, Data1.Recordset!codAlmac, Data1.Recordset!NUmlote) Then
+        Cp.TrazbilidadDesdeVenta False, False
         
     End If
     
@@ -835,7 +835,7 @@ Dim N
     'Todos cargaran si hay ventas
     CargarDatosVentas
     Set miRsAux = Nothing
-    Set cP = Nothing
+    Set Cp = Nothing
 End Sub
 
 
@@ -975,12 +975,12 @@ End Sub
 Private Sub CargarDatosProduccion()
 Dim C As String
 Dim N
-Dim Contador As Integer
+Dim contador As Integer
 Dim Nivel As Integer
 Dim Padre As String
 Dim Aux As String
 
-    C = "select tmptraza.*,nomartic from tmptraza,sartic where codartic=artic2 AND codusu =" & vUsu.codigo
+    C = "select tmptraza.*,nomartic from tmptraza,sartic where codartic=artic2 AND codusu =" & vUsu.Codigo
     miRsAux.Open C, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Nivel = -1
     While Not miRsAux.EOF
@@ -996,8 +996,8 @@ Dim Aux As String
 
                 
                 'C = DevuelveCadena(C, miRsAux!cantutili)
-                Contador = TreeView1.Nodes.Count + 1
-                Set N = TreeView1.Nodes.Add(, , "C" & Contador, C)
+                contador = TreeView1.Nodes.Count + 1
+                Set N = TreeView1.Nodes.Add(, , "C" & contador, C)
                 
                 
                 
@@ -1019,8 +1019,8 @@ Dim Aux As String
              
                 
                 'C = DevuelveCadena(C, miRsAux!cantutili)
-                Contador = TreeView1.Nodes.Count + 1
-                Set N = TreeView1.Nodes.Add(Padre, tvwChild, "C" & Contador, C)
+                contador = TreeView1.Nodes.Count + 1
+                Set N = TreeView1.Nodes.Add(Padre, tvwChild, "C" & contador, C)
             'PonAlbaran N.Key, miRsAux!NUmlote2, miRsAux!artic2
             End If
         
@@ -1037,7 +1037,7 @@ End Sub
 
 Private Sub CargarDatosVentas()
 Dim C As String
-Dim IT
+Dim It
     C = "select concat(scafac.codtipom,scafac.numfactu) lafact,scafac.fecfactu,codclien,nomclien,cantidad "
     C = C & " from slifaclotes,scafac  where"
     C = C & " slifaclotes.codTipoM = scafac.codTipoM And slifaclotes.NumFactu = scafac.NumFactu"
@@ -1045,12 +1045,12 @@ Dim IT
     C = C & " ORDER BY fecfactu,lafact"
     miRsAux.Open C, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
-        Set IT = ListView2.ListItems.Add()
-        IT.Text = miRsAux!lafact
-        IT.SubItems(1) = miRsAux!FecFactu
-        IT.SubItems(2) = Format(miRsAux!CodClien, "0000")
-        IT.SubItems(3) = miRsAux!nomClien
-        IT.SubItems(4) = Format(miRsAux!Cantidad, "#,##0")
+        Set It = ListView2.ListItems.Add()
+        It.Text = miRsAux!lafact
+        It.SubItems(1) = miRsAux!FecFactu
+        It.SubItems(2) = Format(miRsAux!CodClien, "0000")
+        It.SubItems(3) = miRsAux!nomclien
+        It.SubItems(4) = Format(miRsAux!Cantidad, "#,##0")
 
         miRsAux.MoveNext
     Wend
@@ -1066,12 +1066,12 @@ Dim IT
     C = C & " ORDER BY fechaalb,lafact"
     miRsAux.Open C, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
-        Set IT = ListView2.ListItems.Add()
-        IT.Text = miRsAux!lafact
-        IT.SubItems(1) = miRsAux!FechaAlb
-        IT.SubItems(2) = Format(miRsAux!CodClien, "0000")
-        IT.SubItems(3) = miRsAux!nomClien
-        IT.SubItems(4) = Format(miRsAux!Cantidad, "#,##0")
+        Set It = ListView2.ListItems.Add()
+        It.Text = miRsAux!lafact
+        It.SubItems(1) = miRsAux!FechaAlb
+        It.SubItems(2) = Format(miRsAux!CodClien, "0000")
+        It.SubItems(3) = miRsAux!nomclien
+        It.SubItems(4) = Format(miRsAux!Cantidad, "#,##0")
 
         miRsAux.MoveNext
     Wend
@@ -1083,42 +1083,42 @@ End Sub
 
 Private Function DevuelveAlbaran(NUmlote As String, vArtic As String) As String
 Dim RT As ADODB.Recordset
-Dim Cad As String
+Dim cad As String
 Dim PalWhere As String  'numalbar
     DevuelveAlbaran = ""
     Set RT = New ADODB.Recordset
-    Cad = "select * from spartidas where numlote=" & DBSet(NUmlote, "T") & " and codartic='" & vArtic & "'"
-    RT.Open Cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    Cad = ""
+    cad = "select * from spartidas where numlote=" & DBSet(NUmlote, "T") & " and codartic='" & vArtic & "'"
+    RT.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    cad = ""
     If Not RT.EOF Then
         
-        Cad = "select nomprove ,scafpc.numfactu idDoc ,scafpc.fecfactu fecha from scafpc,slifpc where scafpc.codprove=slifpc.codprove and"
-        Cad = Cad & " scafpc.numfactu=slifpc.numfactu and scafpc.fecfactu=slifpc.fecfactu"
-        Cad = Cad & " AND slifpc.numalbar=" & DBSet(RT!NumAlbar, "T") & " and codartic=" & DBSet(RT!codArtic, "T")
-        Cad = Cad & " AND scafpc.codprove =" & RT!codProve
+        cad = "select nomprove ,scafpc.numfactu idDoc ,scafpc.fecfactu fecha from scafpc,slifpc where scafpc.codprove=slifpc.codprove and"
+        cad = cad & " scafpc.numfactu=slifpc.numfactu and scafpc.fecfactu=slifpc.fecfactu"
+        cad = cad & " AND slifpc.numalbar=" & DBSet(RT!NumAlbar, "T") & " and codartic=" & DBSet(RT!codArtic, "T")
+        cad = cad & " AND scafpc.codprove =" & RT!codProve
         
     End If
     RT.Close
     
         
-    If Cad <> "" Then
-        RT.Open Cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If cad <> "" Then
+        RT.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         If RT.EOF Then
             
             RT.Close
             
-            Cad = Mid(RT.Source, InStr(1, UCase(RT.Source), "WHERE") + 6)
+            cad = Mid(RT.Source, InStr(1, UCase(RT.Source), "WHERE") + 6)
             'Reemplazamos
             
-            Cad = Replace(Cad, "scafpc", "scaalp")
-            Cad = Replace(Cad, "slifpc", "slialp")
-            Cad = Replace(Cad, "fecfactu", "fechaalb")
-            Cad = Replace(Cad, "numfactu", "numalbar")
-            Cad = " from scaalp,slialp where " & Cad
-            Cad = "select nomprove ,scaalp.numalbar idDoc ,scaalp.fechaalb fecha " & Cad
+            cad = Replace(cad, "scafpc", "scaalp")
+            cad = Replace(cad, "slifpc", "slialp")
+            cad = Replace(cad, "fecfactu", "fechaalb")
+            cad = Replace(cad, "numfactu", "numalbar")
+            cad = " from scaalp,slialp where " & cad
+            cad = "select nomprove ,scaalp.numalbar idDoc ,scaalp.fechaalb fecha " & cad
             
             
-            RT.Open Cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            RT.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             
             
             
@@ -1138,16 +1138,16 @@ Dim PalWhere As String  'numalbar
 End Function
 
 
-Private Function DevuelveCadena(CADENA As String, Cad2 As String, Nivel As Integer) As String
+Private Function DevuelveCadena(Cadena As String, cad2 As String, Nivel As Integer) As String
 Dim J As Integer
     
         
-    DevuelveCadena = Cad2
+    DevuelveCadena = cad2
     J = 124 - (Nivel * 5)
     
-    J = J - Len(DevuelveCadena) - Len(CADENA)
+    J = J - Len(DevuelveCadena) - Len(Cadena)
     If J < 0 Then J = 0
-    DevuelveCadena = CADENA & Space(J) & DevuelveCadena
+    DevuelveCadena = Cadena & Space(J) & DevuelveCadena
     
 End Function
 
@@ -1163,8 +1163,8 @@ Dim vLote As String
     
     Screen.MousePointer = vbHourglass
     
-    Conn.Execute "delete from tmpinformes WHERE codusu =" & vUsu.codigo
-    Conn.Execute "delete from tmppartidas WHERE codusu =" & vUsu.codigo
+    Conn.Execute "delete from tmpinformes WHERE codusu =" & vUsu.Codigo
+    Conn.Execute "delete from tmppartidas WHERE codusu =" & vUsu.Codigo
     
     
     
@@ -1232,7 +1232,7 @@ Dim vLote As String
     
     
     CadenaConsulta = "INSERT INTO tmppartidas(codusu,idpartida,codartic,numlote,idOperacion,Referencia,cantidad,abs_cantidad) VALUES ("
-    CadenaConsulta = CadenaConsulta & vUsu.codigo & "," & Text1(2).Text & ",'" & Text1(1).Text & "',"
+    CadenaConsulta = CadenaConsulta & vUsu.Codigo & "," & Text1(2).Text & ",'" & Text1(1).Text & "',"
     CadenaConsulta = CadenaConsulta & DBSet(Text2.Text, "T") & "," & DBSet(Text1(0).Text, "T")
     CadenaConsulta = CadenaConsulta & ",'" & Producida & "'," & DBSet(Text1(3).Text, "N", "N") & "," & DBSet(CantidadVenta, "N", "N") & ")"
     Conn.Execute CadenaConsulta
@@ -1244,7 +1244,7 @@ Dim vLote As String
     For NumRegElim = 1 To ListView2.ListItems.Count
         'tmpinformes codusu,codigo1,nombre1,campo1,nombre2,importe1 fecha
         With ListView2.ListItems(NumRegElim)
-            CadenaConsulta = CadenaConsulta & ", (" & vUsu.codigo & "," & .SubItems(2) & "," & DBSet(.Text, "T") & "," & NumRegElim & ","
+            CadenaConsulta = CadenaConsulta & ", (" & vUsu.Codigo & "," & .SubItems(2) & "," & DBSet(.Text, "T") & "," & NumRegElim & ","
             CadenaConsulta = CadenaConsulta & DBSet(.SubItems(3), "T") & "," & DBSet(.SubItems(4), "N") & "," & DBSet(.SubItems(1), "F") & ")"
         End With
     Next
@@ -1253,7 +1253,7 @@ Dim vLote As String
         Conn.Execute "INSERT INTO tmpinformes (codusu,codigo1,nombre1,campo1,nombre2,importe1,fecha1) VALUES " & CadenaConsulta
     End If
     Screen.MousePointer = vbDefault
-    CadenaConsulta = "{tmppartidas.codusu}=" & vUsu.codigo
+    CadenaConsulta = "{tmppartidas.codusu}=" & vUsu.Codigo
     LlamaImprimirGral CadenaConsulta, "", 0, "TrazaArtVenta.rpt", "Trazabilidad lote venta "
     CadenaConsulta = Data1.RecordSource
     

@@ -46,7 +46,7 @@ Private mvarDiaPago1 As Byte 'Dia de pago 1 para compras
 Private mvarDiaPago2 As Byte 'Dia de pago 2 para compras
 Private mvarDiaPago3 As Byte 'Dia de pago 3 para compras
 Private mvarMesnogir As Byte 'Mes a no girar para compras
-Private mvarCodForpa As String 'forma de pago para cheque regalo
+Private mvarCodForPa As String 'forma de pago para cheque regalo
 
 'Datos de Internet
 Private mvarDireMail As String 'Direccion email
@@ -399,11 +399,11 @@ End Property
 
 'forma de pago de los cheques regalo
 Public Property Let ForPagoChequeRegalo(ByVal vData As String)
-     mvarCodForpa = vData
+     mvarCodForPa = vData
 End Property
 
 Public Property Get ForPagoChequeRegalo() As String
-     ForPagoChequeRegalo = mvarCodForpa
+     ForPagoChequeRegalo = mvarCodForPa
 End Property
 
 
@@ -876,7 +876,7 @@ End Property
 
 'Con este podriamos quitar alguno del los de arriba (empresaAvab, emprMorales..
 Public Property Get QUE_EMPRESA() As Byte
-     QUE_EMPRESA = mvarqueempresaes   '0-1 Morales AVAB   2 Bodega Moxient  3 Almazara Moixent
+     QUE_EMPRESA = mvarqueempresaes   '0-1 Morales AVAB   2 Bodega Moxient  3 Almazara Moixent     4.- QuatreTonda
 End Property
 
 
@@ -896,7 +896,7 @@ On Error GoTo Err3
     
     SQL = "SELECT * FROM spara1 "
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic
 
     If RS.EOF Then
         Leer = 1
@@ -1077,7 +1077,7 @@ On Error GoTo EModificar
     SQL = SQL & ", diapago2= " & DBSet(mvarDiaPago2, "N")
     SQL = SQL & ", diapago3= " & DBSet(mvarDiaPago3, "N")
     SQL = SQL & ", mesnogir= " & DBSet(mvarMesnogir, "N")
-    SQL = SQL & ", codforpa= " & DBSet(mvarCodForpa, "N", "S")
+    SQL = SQL & ", codforpa= " & DBSet(mvarCodForPa, "N", "S")
     SQL = SQL & ", diremail= " & DBSet(mvarDireMail, "T")
     SQL = SQL & ", smtphost= " & DBSet(mvarSMTPhost, "T")
     SQL = SQL & ", smtpuser= " & DBSet(mvarSMTPuser, "T")
@@ -1170,7 +1170,7 @@ On Error GoTo EModificar
     'where
     SQL = SQL & " WHERE codigo =" & Codigo & ";"
 
-    Conn.Execute SQL
+    conn.Execute SQL
 
 
 
@@ -1205,7 +1205,7 @@ Private Function MovimientosParaServicios() As Boolean
     Dim RS As ADODB.Recordset
     SQL = "select count(*) from stipom where codtipom = 'ALS' or codtipom = 'FAS'"
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly
+    RS.Open SQL, conn, adOpenForwardOnly
     If RS.Fields(0) = 2 Then
         MovimientosParaServicios = True
     Else
@@ -1246,7 +1246,7 @@ Dim RS As ADODB.Recordset
     End If
     
     SQL = "DELETE FROM sivatra"
-    Conn.Execute SQL
+    conn.Execute SQL
     
     
     Set RS = New ADODB.Recordset
@@ -1255,7 +1255,7 @@ Dim RS As ADODB.Recordset
     While Not RS.EOF
         SQL = "INSERT INTO sivatra VALUES (" & RS!codigiva & "," & RS!codigiva & ")"
         
-        Conn.Execute SQL
+        conn.Execute SQL
         RS.MoveNext
     Wend
     RS.Close
@@ -1263,17 +1263,17 @@ Dim RS As ADODB.Recordset
     'Ahora acutalizo la relacion
     If mvarTipoIVAre1 > 0 Then
         SQL = "UPDATE sivatra set codigiva2=" & mvarTipoIVAre1 & " WHERE codigiva = " & mvarIVA1
-        Conn.Execute SQL
+        conn.Execute SQL
     End If
     
     If mvarTipoIVAre2 > 0 Then
         SQL = "UPDATE sivatra set codigiva2=" & mvarTipoIVAre2 & " WHERE codigiva = " & mvarIVA2
-        Conn.Execute SQL
+        conn.Execute SQL
     End If
         
     If mvarTipoIVAre3 > 0 Then
         SQL = "UPDATE sivatra set codigiva2=" & mvarTipoIVAre3 & " WHERE codigiva = " & mvarIVA3
-        Conn.Execute SQL
+        conn.Execute SQL
     End If
         
     Exit Sub

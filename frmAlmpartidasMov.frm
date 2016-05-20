@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmAlmpartidasMov 
@@ -319,7 +319,7 @@ Begin VB.Form frmAlmpartidasMov
    End
    Begin MSAdodcLib.Adodc Data1 
       Height          =   330
-      Left            =   5760
+      Left            =   4080
       Top             =   7560
       Visible         =   0   'False
       Width           =   1335
@@ -477,7 +477,7 @@ Begin VB.Form frmAlmpartidasMov
    End
    Begin MSAdodcLib.Adodc Data2 
       Height          =   330
-      Left            =   5760
+      Left            =   4200
       Top             =   7560
       Visible         =   0   'False
       Width           =   1335
@@ -845,7 +845,7 @@ End Sub
 
 Private Sub cmdRegresar_Click()
 'Este es el boton Cabecera
-Dim Cad As String
+Dim cad As String
 
     'Quitar lineas y volver a la cabecera
     If Modo = 5 Then  'modo 5: Mantenimientos Lineas
@@ -864,7 +864,7 @@ Dim Cad As String
         End If
         'cad = Data1.Recordset.Fields(0) & "|"
         'cad = cad & Data1.Recordset.Fields(1) & "|"
-        Cad = Data1.Recordset.Fields(0)
+        cad = Data1.Recordset.Fields(0)
        ' RaiseEvent DatoSeleccionado2(cad)
         Unload Me
     End If
@@ -936,7 +936,7 @@ Private Sub Form_Load()
 
     
     'ASignamos un SQL al DATA1
-    Data1.ConnectionString = Conn
+    Data1.ConnectionString = conn
     CadenaConsulta = "Select id from spartidas where id= -1"
     Data1.RecordSource = CadenaConsulta
     Data1.Refresh
@@ -1226,37 +1226,37 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim Cad As String
-Dim tabla As String
+Dim cad As String
+Dim Tabla As String
 Dim Titulo As String
-Dim Desc As String, devuelve As String
+Dim Desc As String, Devuelve As String
     'Llamamos a al form
     '##A mano
-    Cad = ""
+    cad = ""
     
-        Cad = Cad & ParaGrid(Text1(0), 15, "Id partida")
+        cad = cad & ParaGrid(Text1(0), 15, "Id partida")
         
-        Cad = Cad & ParaGrid(Text1(5), 15, "LOTE ")
-        Cad = Cad & ParaGrid(Text1(2), 20, "Articulo")
-        Cad = Cad & "Descripcion|sartic|nomartic|T||40·"
-        tabla = NombreTabla & " inner join sartic on " & NombreTabla & ".codartic = sartic.codartic"
+        cad = cad & ParaGrid(Text1(5), 15, "LOTE ")
+        cad = cad & ParaGrid(Text1(2), 20, "Articulo")
+        cad = cad & "Descripcion|sartic|nomartic|T||40·"
+        Tabla = NombreTabla & " inner join sartic on " & NombreTabla & ".codartic = sartic.codartic"
         
         Titulo = "Coupages"
-        devuelve = "0|"
+        Devuelve = "0|"
 
    
     
            
-    If Cad <> "" Then
+    If cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = Cad
-        frmB.vTabla = tabla
+        frmB.vCampos = cad
+        frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
         '###A mano
 '        frmB.vDevuelve = "0|1|"
-        frmB.vDevuelve = devuelve
+        frmB.vDevuelve = Devuelve
         frmB.vTitulo = Titulo
         frmB.vselElem = 0
         frmB.vConexionGrid = conAri 'Conexión a BD: Ariges
@@ -1313,35 +1313,35 @@ End Sub
 
 Private Sub PonerCampos()
 On Error Resume Next
-Dim cP As cPartidas
+Dim Cp As cPartidas
 Dim T1 As Single
     If Data1.Recordset.EOF Then Exit Sub
     Screen.MousePointer = vbHourglass
     T1 = Timer
     limpiar Me
-    Set cP = New cPartidas
-    If cP.Leer(CLng(Data1.Recordset!ID)) Then
-        Text1(0).Text = cP.IdPartida
-        Text1(5).Text = cP.NUmlote
-        Text1(1).Text = cP.Fecha
-        Text1(2).Text = cP.codartic
-        Text1(4).Text = cP.codAlmac
-        If cP.codProve > 0 Then Text1(3).Text = cP.codProve
-        Text1(6).Text = cP.NumAlbar
-        Text1(7).Text = Format(cP.Cantidad, FormatoCantidad)
+    Set Cp = New cPartidas
+    If Cp.Leer(CLng(Data1.Recordset!ID)) Then
+        Text1(0).Text = Cp.idPartida
+        Text1(5).Text = Cp.numLote
+        Text1(1).Text = Cp.Fecha
+        Text1(2).Text = Cp.codArtic
+        Text1(4).Text = Cp.codAlmac
+        If Cp.codProve > 0 Then Text1(3).Text = Cp.codProve
+        Text1(6).Text = Cp.NumAlbar
+        Text1(7).Text = Format(Cp.Cantidad, FormatoCantidad)
     
-        Conn.Execute "Delete from tmppartidas where codusu = " & vUsu.codigo
-        cP.CargaDatosParaListar
+        conn.Execute "Delete from tmppartidas where codusu = " & vUsu.Codigo
+        Cp.CargaDatosParaListar
         
         'Para que cuando vaya mas lento no de la impresion..
         T1 = Timer - T1
         If T1 < 0.4 Then Espera 0.2
-        CadenaConsulta = "codusu=" & vUsu.codigo & " and codartic=" & DBSet(cP.codartic, "T") & " AND 1"
+        CadenaConsulta = "codusu=" & vUsu.Codigo & " and codartic=" & DBSet(Cp.codArtic, "T") & " AND 1"
         CadenaConsulta = DevuelveDesdeBD(conAri, "sum(cantidad)", "tmppartidas", CadenaConsulta, "1")
         If CadenaConsulta = "" Then CadenaConsulta = 0
         Text1(8).Text = Format(CadenaConsulta, FormatoCantidad)
     End If
-    Set cP = Nothing
+    Set Cp = Nothing
     'Para que haga el losffocus bien
     CargaGrid True
     Modo = 3
@@ -1514,13 +1514,13 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
                Case 15
                
                     'TODOS
-                    .FormulaSeleccion = "{tmppartidas.codusu} = " & vUsu.codigo
+                    .FormulaSeleccion = "{tmppartidas.codusu} = " & vUsu.Codigo
                Case 14
                     'Solo el actual
-                    .FormulaSeleccion = "{tmppartidas.codusu} = " & vUsu.codigo & " AND {tmppartidas.idPartida} = " & Text1(0).Text
+                    .FormulaSeleccion = "{tmppartidas.codusu} = " & vUsu.Codigo & " AND {tmppartidas.idPartida} = " & Text1(0).Text
                 Case 11
                     'Movimientos del articulo
-                    .FormulaSeleccion = "{tmplotlistado2.codusu} = " & vUsu.codigo
+                    .FormulaSeleccion = "{tmplotlistado2.codusu} = " & vUsu.Codigo
                End Select
                If Button.Index = 11 Then
                     .NombreRPT = "morMovLotes.rpt"  'FALTA
@@ -1531,7 +1531,7 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
                 End If
                .OtrosParametros = "|pNomEmpre=""" & vParam.NombreEmpresa & """|"
                .NumeroParametros = 1
-               .Opcion = 2003 'Esta libre
+               .opcion = 2003 'Esta libre
                .Show vbModal
            End With
     
@@ -1772,7 +1772,7 @@ Dim SQL As String
     SQL = "SELECT `fecha`,`idOperacion`,`idNumOperacion`,`idReferencia`,`Referencia`,"
     SQL = SQL & " if(cantidad<0,""S"",""E""),"
     SQL = SQL & "abs_cantidad from tmppartidas"
-    SQL = SQL & " WHERE codusu = " & vUsu.codigo & " AND idpartida =  "
+    SQL = SQL & " WHERE codusu = " & vUsu.Codigo & " AND idpartida =  "
     If enlaza Then
         SQL = SQL & Data1.Recordset!ID
     Else
@@ -1831,22 +1831,22 @@ End Sub
 
     
 Private Sub GenerarDatosPartdas()
-Dim cP As cPartidas
+Dim Cp As cPartidas
     Set miRsAux = Nothing
     NumRegElim = Data1.Recordset.AbsolutePosition
     lblIndicador.Caption = "Leyendo BD"
     lblIndicador.Refresh
     Data1.Recordset.MoveFirst
-    Set cP = New cPartidas
+    Set Cp = New cPartidas
     While Not Data1.Recordset.EOF
         Me.lblIndicador.Caption = "Gen: " & Data1.Recordset.AbsolutePosition & " de " & Data1.Recordset.RecordCount
         Me.lblIndicador.Refresh
         If Val(Data1.Recordset!ID) <> Val(Text1(0).Text) Then
-            If cP.Leer(CLng(Data1.Recordset!ID)) Then cP.CargaDatosParaListar
+            If Cp.Leer(CLng(Data1.Recordset!ID)) Then Cp.CargaDatosParaListar
         End If
         Data1.Recordset.MoveNext
     Wend
-    Set cP = Nothing
+    Set Cp = Nothing
     Data1.Recordset.MoveFirst
     NumRegElim = NumRegElim - 1
     If NumRegElim > 0 Then Data1.Recordset.Move NumRegElim, 1
@@ -1878,7 +1878,7 @@ Dim i As Byte
     Exit Function
 
     generarMovimientosArticulo = False
-    Conn.Execute "Delete from tmplotlistado2 where codusu = " & vUsu.codigo
+    conn.Execute "Delete from tmplotlistado2 where codusu = " & vUsu.Codigo
     
     
     
@@ -1895,7 +1895,7 @@ End Function
 Private Sub LoteEnTabla(Num As Byte, mCodartic As String, mCodalmac As String)
 Dim Cadena1 As String
 Dim Desc As String
-Dim miSql As String
+Dim miSQL As String
 Dim Ca As Currency
 Dim SumaLotes As Boolean
 Dim RS As ADODB.Recordset
@@ -1905,34 +1905,34 @@ Dim RS As ADODB.Recordset
     Case 1
         'Lineas de coupage
         Desc = "'COUPAGE'"
-        miSql = "select concat(""CUP"", olicoupage.codigo) clave, sum(kilos) cantmostrar ,olicoupage.fecha mifecha, 0 idRefd,' ' vRefd  from"
-        miSql = miSql & " olicoupage,olicoupagelin where olicoupage.codigo=olicoupagelin.codigo"
+        miSQL = "select concat(""CUP"", olicoupage.codigo) clave, sum(kilos) cantmostrar ,olicoupage.fecha mifecha, 0 idRefd,' ' vRefd  from"
+        miSQL = miSQL & " olicoupage,olicoupagelin where olicoupage.codigo=olicoupagelin.codigo"
         'El arti/lote/almacen
-        miSql = miSql & " AND olicoupage.codartic = " & DBSet(mCodartic, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
-        miSql = miSql & " group by 1,3"
+        miSQL = miSQL & " AND olicoupage.codartic = " & DBSet(mCodartic, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " group by 1,3"
         SumaLotes = True
     Case 2
     'Lineas de coupage
         Desc = "'COUPAGE Lin'"
-        miSql = "select concat(""CUP"",olicoupagelin.codigo) clave,cantlote cantmostrar,fecha mifecha ,0 idRefd,' ' vRefd"
-        miSql = miSql & " FROM olicoupagelin,olicoupage WHERE  olicoupagelin.codigo=olicoupage.codigo"
+        miSQL = "select concat(""CUP"",olicoupagelin.codigo) clave,cantlote cantmostrar,fecha mifecha ,0 idRefd,' ' vRefd"
+        miSQL = miSQL & " FROM olicoupagelin,olicoupage WHERE  olicoupagelin.codigo=olicoupage.codigo"
         'El arti/lote/almacen
-        miSql = miSql & " AND olicoupagelin.codartic = " & DBSet(mCodartic, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND olicoupagelin.codartic = " & DBSet(mCodartic, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = False
     
     Case 3
         'Lineas albaran
         Desc = "'Albaran cliente'"
-        miSql = "select concat(slialblotes.codtipom,slialblotes.numalbar) clave,slialblotes.cantidad cantmostrar,"
-        miSql = miSql & " fechaalb mifecha, codclien idrefd,nomclien vrefd "
-        miSql = miSql & " from scaalb,slialb where"
-        miSql = miSql & " scaalb.codtipom=slialb.codtipom  and"
-        miSql = miSql & " slialb.NumAlbar = scaalb.NumAlbar"
+        miSQL = "select concat(slialblotes.codtipom,slialblotes.numalbar) clave,slialblotes.cantidad cantmostrar,"
+        miSQL = miSQL & " fechaalb mifecha, codclien idrefd,nomclien vrefd "
+        miSQL = miSQL & " from scaalb,slialb where"
+        miSQL = miSQL & " scaalb.codtipom=slialb.codtipom  and"
+        miSQL = miSQL & " slialb.NumAlbar = scaalb.NumAlbar"
         'El arti/lote/almacen
-        miSql = miSql & " AND slialb.codartic = " & DBSet(mCodartic, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND slialb.codartic = " & DBSet(mCodartic, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = False
         
     Case 4
@@ -1943,97 +1943,97 @@ Dim RS As ADODB.Recordset
         
         
         Desc = "'FACTURAS CLIENTE'"
-        miSql = "select concat(slifaclotes.codtipom,slifaclotes.numfactu) clave,slifaclotes.cantidad cantmostrar,"
-        miSql = miSql & " scafac.fecfactu mifecha, codclien idrefd,nomclien vrefd  from"
+        miSQL = "select concat(slifaclotes.codtipom,slifaclotes.numfactu) clave,slifaclotes.cantidad cantmostrar,"
+        miSQL = miSQL & " scafac.fecfactu mifecha, codclien idrefd,nomclien vrefd  from"
        ' miSQL = miSQL & " scafac,slifac,slifaclotes where scafac.codtipom=slifac.codtipom"
        ' miSQL = miSQL & " and scafac.numfactu=slifac.numalbar and scafac.fecfactu=slifac.numalbar"
        ' miSQL = miSQL & " and scafac.numfactu=slifaclotes.numfactu and scafac.fecfactu=slifaclotes.fecfactu and"
        ' miSQL = miSQL & " scafac.codTipoM = slifaclotes.codTipoM and slifac.numlinea=slifaclotes.numlinea "
         'AHORA MAYO 2010
-        miSql = miSql & " (`scafac` `scafac` INNER JOIN `slifac` `slifac` ON ((`scafac`.`codtipom`=`slifac`.`codtipom`) "
-        miSql = miSql & " AND (`scafac`.`numfactu`=`slifac`.`numfactu`)) AND (`scafac`.`fecfactu`=`slifac`.`fecfactu`))"
-        miSql = miSql & " INNER JOIN `slifaclotes` `slifaclotes` ON (((((`slifac`.`codtipom`=`slifaclotes`.`codtipom`)"
-        miSql = miSql & " AND (`slifac`.`numfactu`=`slifaclotes`.`numfactu`)) AND (`slifac`.`fecfactu`=`slifaclotes`.`fecfactu`))"
-        miSql = miSql & " AND (`slifac`.`codtipoa`=`slifaclotes`.`codtipoa`)) AND (`slifac`.`numalbar`=`slifaclotes`.`numalbar`))"
-        miSql = miSql & " AND (`slifac`.`numlinea`=`slifaclotes`.`numlinea`)"
+        miSQL = miSQL & " (`scafac` `scafac` INNER JOIN `slifac` `slifac` ON ((`scafac`.`codtipom`=`slifac`.`codtipom`) "
+        miSQL = miSQL & " AND (`scafac`.`numfactu`=`slifac`.`numfactu`)) AND (`scafac`.`fecfactu`=`slifac`.`fecfactu`))"
+        miSQL = miSQL & " INNER JOIN `slifaclotes` `slifaclotes` ON (((((`slifac`.`codtipom`=`slifaclotes`.`codtipom`)"
+        miSQL = miSQL & " AND (`slifac`.`numfactu`=`slifaclotes`.`numfactu`)) AND (`slifac`.`fecfactu`=`slifaclotes`.`fecfactu`))"
+        miSQL = miSQL & " AND (`slifac`.`codtipoa`=`slifaclotes`.`codtipoa`)) AND (`slifac`.`numalbar`=`slifaclotes`.`numalbar`))"
+        miSQL = miSQL & " AND (`slifac`.`numlinea`=`slifaclotes`.`numlinea`)"
 
        
         'El arti/lote/almacen
-        miSql = miSql & " AND slifac.codartic = " & DBSet(mCodartic, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND slifac.codartic = " & DBSet(mCodartic, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = False
         
     Case 5
         'PRoduccion
         'lineas SUMA
         Desc = "'PRODUCCION'"
-        miSql = "select concat(""PRO"",sordprod.codigo) clave,cantlote cantmostrar,fecproduccion mifecha ,0 idRefd,' ' vRefd"
-        miSql = miSql & " FROM sordprod,sliordprlotes WHERE sordprod.codigo = sliordprlotes.codigo"
+        miSQL = "select concat(""PRO"",sordprod.codigo) clave,cantlote cantmostrar,fecproduccion mifecha ,0 idRefd,' ' vRefd"
+        miSQL = miSQL & " FROM sordprod,sliordprlotes WHERE sordprod.codigo = sliordprlotes.codigo"
         'El arti/lote/almacen
-        miSql = miSql & " AND sliordprlotes.codartic = " & DBSet(mCodartic, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND sliordprlotes.codartic = " & DBSet(mCodartic, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = True
     Case 6
         'Sub lineas restan
         Desc = "'PRODUCCION compo.'"
-        miSql = "select sordprod.codigo clave,cantlote cantmostrar,fecproduccion mifecha ,0 idRefd,' ' vRefd"
-        miSql = miSql & " FROM sordprod,sliordpr2lotes WHERE sordprod.codigo = sliordpr2lotes.codigo"
+        miSQL = "select sordprod.codigo clave,cantlote cantmostrar,fecproduccion mifecha ,0 idRefd,' ' vRefd"
+        miSQL = miSQL & " FROM sordprod,sliordpr2lotes WHERE sordprod.codigo = sliordpr2lotes.codigo"
         'El arti/lote/almacen
-        miSql = miSql & " AND sliordpr2lotes.codarti2 = " & DBSet(mCodartic, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND sliordpr2lotes.codarti2 = " & DBSet(mCodartic, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = False
         
         
     Case 7
         'ALbaranes proveedor
         Desc = "'Albaranes proveedor'"
-        miSql = "select slialp.numalbar clave,cantidad cantmostrar,scaalp.fechaalb mifecha ,scaalp.codprove idRefD,scaalp.nomprove vrefd"
-        miSql = miSql & " from slialp,scaalp where scaalp.codprove=slialp.codprove and scaalp.fechaalb=slialp.fechaalb and scaalp.numalbar=slialp.numalbar"
+        miSQL = "select slialp.numalbar clave,cantidad cantmostrar,scaalp.fechaalb mifecha ,scaalp.codprove idRefD,scaalp.nomprove vrefd"
+        miSQL = miSQL & " from slialp,scaalp where scaalp.codprove=slialp.codprove and scaalp.fechaalb=slialp.fechaalb and scaalp.numalbar=slialp.numalbar"
         'El arti/lote/almacen                                               'ojo a la S
-        miSql = miSql & " AND slialp.codartic = " & DBSet(mCodartic, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND slialp.codartic = " & DBSet(mCodartic, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = True
         
     Case 8
         'Facturas proveedor
          Desc = "'FACTURAS PROVEEDOR'"
-        miSql = "select scafpc.numfactu clave,cantidad cantmostrar,scafpc.fecfactu mifecha,scafpc.codprove idrefd,scafpc.nomprove vrefd"
-        miSql = miSql & " FROM slifpc,scafpc where scafpc.codprove=slifpc.codprove and scafpc.fecfactu=slifpc.fecfactu"
-        miSql = miSql & " and scafpc.numfactu=slifpc.numfactu "
+        miSQL = "select scafpc.numfactu clave,cantidad cantmostrar,scafpc.fecfactu mifecha,scafpc.codprove idrefd,scafpc.nomprove vrefd"
+        miSQL = miSQL & " FROM slifpc,scafpc where scafpc.codprove=slifpc.codprove and scafpc.fecfactu=slifpc.fecfactu"
+        miSQL = miSQL & " and scafpc.numfactu=slifpc.numfactu "
         'El arti/lote/almacen                                                     'ojo a la S
-        miSql = miSql & " AND slifpc.codartic = " & DBSet(mCodartic, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND slifpc.codartic = " & DBSet(mCodartic, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = True
         
         
     End Select
     Set RS = New ADODB.Recordset
-    RS.Open miSql, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open miSQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     ' El insert
 '   `codusu`,`idpartida`,`codartic`,`numlote`,fecha,`idOperacion`,`idNumOperacion`,
 ' `idReferencia`,`Referencia `,`cantidad` ,abs_cantidad    Ref: cliente/proveedor/trabajador
     'SQL = ", (" & vUsu.Codigo & "," & mIdPartida & "," & DBSet(mCodartic, "T") & "," & DBSet(mNumlote, "T") & ","
-    miSql = ""
+    miSQL = ""
     While Not RS.EOF
         '`tmplotlistado2` (`codusu`,`codartic`,`fecha`,`Lugar`,`cantidad`)
-        miSql = miSql & ", (" & vUsu.codigo & "," & DBSet(mCodartic, "T") & ","
+        miSQL = miSQL & ", (" & vUsu.Codigo & "," & DBSet(mCodartic, "T") & ","
     
         'fecha, idoperacion,idnumoperacion
-        miSql = miSql & DBSet(RS!mifecha, "F") & "," & DBSet(RS!Clave, "T")
+        miSQL = miSQL & DBSet(RS!mifecha, "F") & "," & DBSet(RS!Clave, "T")
 
         Ca = RS!cantmostrar
         If Not SumaLotes Then Ca = -1 * Ca
-        miSql = miSql & DBSet(Ca, "N") & "," & DBSet(RS!cantmostrar, "N") & ")"
+        miSQL = miSQL & DBSet(Ca, "N") & "," & DBSet(RS!cantmostrar, "N") & ")"
         RS.MoveNext
     Wend
     RS.Close
     
-    If miSql <> "" Then
+    If miSQL <> "" Then
         
-        miSql = "INSERT INTO `tmplotlistado2` (`codusu`,`codartic`,`fecha`,`Lugar`,`cantidad`) values"
-        miSql = miSql & Mid(miSql, 2)
-        Conn.Execute miSql
+        miSQL = "INSERT INTO `tmplotlistado2` (`codusu`,`codartic`,`fecha`,`Lugar`,`cantidad`) values"
+        miSQL = miSQL & Mid(miSQL, 2)
+        conn.Execute miSQL
     End If
     
 End Sub

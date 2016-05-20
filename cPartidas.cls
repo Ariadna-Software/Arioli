@@ -18,7 +18,7 @@ Option Explicit
 
 
 'Variables para las propiedades
-Private mIdPartida As Long
+Private midPartida As Long
 Private mCodartic As String
 Private mCodalmac As Integer
 Private mNumlote As String
@@ -29,19 +29,19 @@ Private mCantidad As Currency
 
 Private mEtiq As Integer
 
-Dim Rs As ADODB.Recordset
+Dim RS As ADODB.Recordset
 Dim SQL As String
 
 
 
 
 '**** Identificador de la partida
-Public Property Let IdPartida(ByVal vData As Long)
-     mIdPartida = vData
+Public Property Let idPartida(ByVal vData As Long)
+     midPartida = vData
 End Property
 
-Public Property Get IdPartida() As Long
-     IdPartida = mIdPartida
+Public Property Get idPartida() As Long
+     idPartida = midPartida
 End Property
 
 
@@ -69,12 +69,12 @@ End Property
 
 
 '**** almacen de la partida
-Public Property Let NUmlote(ByVal vData As String)
+Public Property Let numLote(ByVal vData As String)
      mNumlote = vData
 End Property
 
-Public Property Get NUmlote() As String
-     NUmlote = mNumlote
+Public Property Get numLote() As String
+     numLote = mNumlote
 End Property
 
 
@@ -130,17 +130,17 @@ End Property
 Public Function Leer(ID As Long) As Boolean
     On Error GoTo ELee
     Leer = False
-    Set Rs = New ADODB.Recordset
+    Set RS = New ADODB.Recordset
     SQL = "Select * from spartidas where id =" & ID
-    Rs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    If Rs.EOF Then
+    RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If RS.EOF Then
         'MAAAAl. No existe
         
     Else
         AsignarValoresClase   'para poder llamar las sentecias en mas sitios
         Leer = True
     End If
-    Rs.Close
+    RS.Close
         
     
 ELee:
@@ -148,29 +148,29 @@ ELee:
         MsgBox Err.Description, vbExclamation
         Err.Clear
     End If
-    Set Rs = Nothing
+    Set RS = Nothing
 End Function
 
 'Leer la clase con los valores del articulo
 Public Function LeerDesdeArticulo(vCodArtic As String, vCodAlmac As Integer, cLote As String) As Boolean
     On Error GoTo ELeerDesdeArticulo
     LeerDesdeArticulo = False
-    Set Rs = New ADODB.Recordset
+    Set RS = New ADODB.Recordset
     SQL = "Select * from spartidas where codartic = " & DBSet(vCodArtic, "T")
     SQL = SQL & " AND codalmac = " & CStr(vCodAlmac) & " AND numlote = " & DBSet(cLote, "T")
-    Rs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    If Rs.EOF Then
+    RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If RS.EOF Then
         'Con los datos NO encuetra nada.
         
     Else
         AsignarValoresClase   'para poder llamar las sentecias en mas sitios
         LeerDesdeArticulo = True
     End If
-    Rs.Close
+    RS.Close
     
 ELeerDesdeArticulo:
     If Err.Number <> 0 Then MuestraError Err.Number
-    Set Rs = Nothing
+    Set RS = Nothing
 End Function
 
 
@@ -185,12 +185,12 @@ Dim OK As Boolean
 
     On Error GoTo ELeerDesdeArticulo
     LeerDesdeExpedicion = False
-    Set Rs = New ADODB.Recordset
+    Set RS = New ADODB.Recordset
     SQL = "Select * from spartidas where codartic = " & DBSet(vCodArtic, "T")
     SQL = SQL & " AND codalmac = " & CStr(vCodAlmac) & " AND numlote = " & DBSet(LoteExp, "T")
-    Rs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     OK = False
-    If Rs.EOF Then
+    If RS.EOF Then
         'Con los datos NO encuetra nada.
         
     Else
@@ -198,7 +198,7 @@ Dim OK As Boolean
         LeerDesdeExpedicion = True
         OK = True
     End If
-    Rs.Close
+    RS.Close
     
     
     
@@ -209,9 +209,9 @@ Dim OK As Boolean
             SQL = " AND codalmac = " & CStr(vCodAlmac) & " AND numlote like " & SQL
             SQL = "Select * from spartidas where codartic = " & DBSet(vCodArtic, "T") & SQL
             
-            Rs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             OK = False
-            If Rs.EOF Then
+            If RS.EOF Then
                 'Con los datos NO encuetra nada.
                 
             Else
@@ -219,12 +219,12 @@ Dim OK As Boolean
                 LeerDesdeExpedicion = True
                 OK = True
             End If
-            Rs.Close
+            RS.Close
     End If
     
 ELeerDesdeArticulo:
     If Err.Number <> 0 Then MuestraError Err.Number
-    Set Rs = Nothing
+    Set RS = Nothing
 End Function
 
 
@@ -233,23 +233,23 @@ End Function
 Public Function LeerDesdeAlbaran(vCodArtic As String, vCodAlmac As Integer, cLote As String, NumAlbar As String, codProve As Long) As Boolean
     On Error GoTo ELeerDesdeArticulo
     LeerDesdeAlbaran = False
-    Set Rs = New ADODB.Recordset
+    Set RS = New ADODB.Recordset
     SQL = "Select * from spartidas where codartic = " & DBSet(vCodArtic, "T")
     SQL = SQL & " AND codalmac = " & CStr(vCodAlmac) & " AND numlote = " & DBSet(cLote, "T")
     SQL = SQL & " AND numalbar = " & DBSet(NumAlbar, "T") & " AND codprove = " & CStr(codProve)
-    Rs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    If Rs.EOF Then
+    RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If RS.EOF Then
         'Con los datos NO encuetra nada.
         
     Else
         AsignarValoresClase   'para poder llamar las sentecias en mas sitios
         LeerDesdeAlbaran = True
     End If
-    Rs.Close
+    RS.Close
     
 ELeerDesdeArticulo:
     If Err.Number <> 0 Then MuestraError Err.Number
-    Set Rs = Nothing
+    Set RS = Nothing
 End Function
 
 
@@ -262,8 +262,8 @@ Public Sub IncrementarCantidad(Incremento As Currency)
     SQL = "UPDATE spartidas set cantotal=cantotal "
     If Incremento >= 0 Then SQL = SQL & "+ "
     SQL = SQL & TransformaComasPuntos(CStr(Incremento))
-    SQL = SQL & " WHERE id = " & mIdPartida
-    Conn.Execute SQL
+    SQL = SQL & " WHERE id = " & midPartida
+    conn.Execute SQL
     Exit Sub
 EIns:
     MsgBox Err.Description, vbExclamation
@@ -278,8 +278,8 @@ Public Sub FinPartida()
     On Error GoTo EIns
     
     SQL = "UPDATE spartidas set cantotal=0 "
-    SQL = SQL & " WHERE id = " & mIdPartida
-    Conn.Execute SQL
+    SQL = SQL & " WHERE id = " & midPartida
+    conn.Execute SQL
     Exit Sub
 EIns:
     MsgBox Err.Description, vbExclamation
@@ -292,13 +292,13 @@ Public Function Insertar() As Boolean
     Insertar = False
     
     'Siguiente
-    mIdPartida = Siguiente
+    midPartida = Siguiente
     'Insetamos
     SQL = "insert into spartidas (id,codartic,codalmac,numlote,codprove,numalbar,fecha,cantotal) values ("
-    SQL = SQL & mIdPartida & "," & DBSet(mCodartic, "T") & "," & mCodalmac & ","
+    SQL = SQL & midPartida & "," & DBSet(mCodartic, "T") & "," & mCodalmac & ","
     SQL = SQL & DBSet(mNumlote, "T") & "," & DBSet(mCodProve, "N")
     SQL = SQL & "," & DBSet(mNumalbar, "T") & "," & DBSet(mFecha, "F") & "," & DBSet(mCantidad, "N") & ")"
-    Conn.Execute SQL
+    conn.Execute SQL
     Insertar = True 'todo ok
     Exit Function
 EIns:
@@ -312,11 +312,11 @@ Public Function Eliminar() As Boolean
     On Error GoTo EIns
     Eliminar = False
     
-    SQL = "DELETE FROM spartidaslin WHERE id = " & mIdPartida
-    Conn.Execute SQL
+    SQL = "DELETE FROM spartidaslin WHERE id = " & midPartida
+    conn.Execute SQL
     
-    SQL = "DELETE FROM spartidas WHERE id = " & mIdPartida
-    Conn.Execute SQL
+    SQL = "DELETE FROM spartidas WHERE id = " & midPartida
+    conn.Execute SQL
     Eliminar = True 'todo ok
     Exit Function
 EIns:
@@ -339,12 +339,12 @@ Dim AlgunoAsignado As Boolean
 
     On Error GoTo ERecuperarLotes
     RecuperarLotes = 2
-    Set Rs = New ADODB.Recordset
+    Set RS = New ADODB.Recordset
     SQL = "Select * from spartidas where codartic = " & DBSet(vCodArtic, "T")
     SQL = SQL & " AND codalmac = " & CStr(vCodAlmac)
     SQL = SQL & " ORDER BY fecha asc"
-    Rs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    If Not Rs.EOF Then
+    RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If Not RS.EOF Then
         'Con los datos NO encuetra nada.
         AsignarValoresClase   'para poder llamar las sentecias en mas sitios
         AlgunoAsignado = False
@@ -352,7 +352,7 @@ Dim AlgunoAsignado As Boolean
         Set kLotes = New Collection
         Fin = False
         While Not Fin
-            Ca = Rs!cantotal
+            Ca = RS!cantotal
             If Ca > 0 Then
                 If Ca < CantidadNecesaria Then
                     'En este lote articulo no tengo bastante
@@ -366,12 +366,12 @@ Dim AlgunoAsignado As Boolean
                     Fin = True
                 End If
                 AlgunoAsignado = True
-                SQL = Rs!ID & "|" & Ca & "|" & Rs!NUmlote & "|"
+                SQL = RS!ID & "|" & Ca & "|" & RS!numLote & "|"
                 kLotes.Add SQL
             End If
             
-            Rs.MoveNext
-            If Rs.EOF Then Fin = True
+            RS.MoveNext
+            If RS.EOF Then Fin = True
             
         Wend
         
@@ -387,11 +387,11 @@ Dim AlgunoAsignado As Boolean
         End If
         
     End If
-    Rs.Close
+    RS.Close
     
 ERecuperarLotes:
     If Err.Number <> 0 Then MuestraError Err.Number
-    Set Rs = Nothing
+    Set RS = Nothing
 End Function
 
 
@@ -410,19 +410,19 @@ Dim J As Integer
     
     'insert into `tmppartidas` (`codusu`,`idpartida`,`codartic`,`numlote`,fecha,`idOperacion`,`idNumOperacion`,`cantidad`) values
     
-    Set Rs = New ADODB.Recordset
-    
+    Set RS = New ADODB.Recordset
+
     
     For J = 1 To 12
         'olicoupage,olicoupagelinlotes , slialblotes, slifaclotes, sliordpr2lotes, sliordprlotes, slialp,
         'slifpc,slhmov,prodtrazalin,prodtrazcompo,smovalotes
         LoteEnTabla2 J
     Next
-    Set Rs = Nothing
+    Set RS = Nothing
     CargaDatosParaListar = True
     Exit Function
 ECargaDatosParaListar:
-    Set Rs = Nothing
+    Set RS = Nothing
     MuestraError Err.Number, Err.Description
 End Function
 
@@ -434,19 +434,19 @@ Public Sub AjustarCantidad(Preguntar As Boolean)
 Dim Real As Currency
 
     'Borro tmp
-    SQL = "DELETE from tmppartidas where codusu = " & vUsu.codigo
-    Conn.Execute SQL
+    SQL = "DELETE from tmppartidas where codusu = " & vUsu.Codigo
+    conn.Execute SQL
     If CargaDatosParaListar Then
         'Ya tengo cargado el
         
         
-        Set Rs = New ADODB.Recordset
-        SQL = "Select sum(cantidad) from tmppartidas where codusu = " & vUsu.codigo & " AND idpartida=" & Me.IdPartida
-        Rs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        Set RS = New ADODB.Recordset
+        SQL = "Select sum(cantidad) from tmppartidas where codusu = " & vUsu.Codigo & " AND idpartida=" & Me.idPartida
+        RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         Real = 0
-        If Not Rs.EOF Then Real = DBLet(Rs.Fields(0), "N")
-        Rs.Close
-        Set Rs = Nothing
+        If Not RS.EOF Then Real = DBLet(RS.Fields(0), "N")
+        RS.Close
+        Set RS = Nothing
         
         If Real <> Me.Cantidad Then
             If Preguntar Then
@@ -460,7 +460,7 @@ Dim Real As Currency
             End If
             If SQL = "" Then
                     SQL = "UPDATE spartidas set cantotal=" & TransformaComasPuntos(CStr(Real))
-                    SQL = SQL & " WHERE id = " & mIdPartida
+                    SQL = SQL & " WHERE id = " & midPartida
                     EjecutaSQL conAri, SQL, True
             End If
         End If
@@ -480,27 +480,27 @@ End Sub
 
 Private Sub AsignarValoresClase()
     'No lleva error. Que se dispare el erro en el sub que lo llama
-    mIdPartida = Rs!ID
-    mCodartic = Rs!codArtic
-    mCodalmac = Rs!codAlmac
-    mNumlote = Rs!NUmlote
-    mCodProve = Rs!codProve
-    mNumalbar = Rs!NumAlbar
-    mFecha = Rs!Fecha
-    mCantidad = Rs!cantotal
+    midPartida = RS!ID
+    mCodartic = RS!codArtic
+    mCodalmac = RS!codAlmac
+    mNumlote = RS!numLote
+    mCodProve = RS!codProve
+    mNumalbar = RS!NumAlbar
+    mFecha = RS!Fecha
+    mCantidad = RS!cantotal
 End Sub
 
 
 Private Function Siguiente() As Long
     SQL = "select max(id) from spartidas"
-    Set Rs = New ADODB.Recordset
+    Set RS = New ADODB.Recordset
     Siguiente = 1
-    Rs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    If Not Rs.EOF Then
-        If Not IsNull(Rs.Fields(0)) Then Siguiente = Rs.Fields(0) + 1
+    RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If Not RS.EOF Then
+        If Not IsNull(RS.Fields(0)) Then Siguiente = RS.Fields(0) + 1
     End If
-    Rs.Close
-    Set Rs = Nothing
+    RS.Close
+    Set RS = Nothing
 End Function
 
 
@@ -516,7 +516,7 @@ End Function
 Private Sub LoteEnTabla2(Num As Integer)
 Dim Cadena1 As String
 Dim Desc As String
-Dim miSql As String
+Dim miSQL As String
 Dim Ca As Currency
 Dim SumaLotes As Boolean
     
@@ -524,35 +524,35 @@ Dim SumaLotes As Boolean
     Case 1
         'Lineas de coupage
         Desc = "'COUPAGE'"
-        miSql = "select olicoupage.codigo clave, sum(kilos) cantmostrar ,olicoupage.fecha mifecha, 0 idRefd,' ' vRefd from"
-        miSql = miSql & " olicoupage,olicoupagelin where olicoupage.codigo=olicoupagelin.codigo"
+        miSQL = "select olicoupage.codigo clave, sum(kilos) cantmostrar ,olicoupage.fecha mifecha, 0 idRefd,' ' vRefd from"
+        miSQL = miSQL & " olicoupage,olicoupagelin where olicoupage.codigo=olicoupagelin.codigo"
         'El arti/lote/almacen
-        miSql = miSql & " AND olicoupage.codartic = " & DBSet(mCodartic, "T") & " AND olicoupage.numlote = " & DBSet(mNumlote, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
-        miSql = miSql & " group by 1,3"
+        miSQL = miSQL & " AND olicoupage.codartic = " & DBSet(mCodartic, "T") & " AND olicoupage.numlote = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " group by 1,3"
         SumaLotes = True
     Case 2
     'Lineas de coupage
         Desc = "'COUPAGE Lin'"
-        miSql = "select olicoupagelinlotes.codigo clave,cantlote cantmostrar,fecha mifecha ,0 idRefd,' ' vRefd"
-        miSql = miSql & " FROM olicoupagelinlotes,olicoupage WHERE  olicoupagelinlotes.codigo=olicoupage.codigo"
+        miSQL = "select olicoupagelinlotes.codigo clave,cantlote cantmostrar,fecha mifecha ,0 idRefd,' ' vRefd"
+        miSQL = miSQL & " FROM olicoupagelinlotes,olicoupage WHERE  olicoupagelinlotes.codigo=olicoupage.codigo"
         'El arti/lote/almacen
-        miSql = miSql & " AND olicoupagelinlotes.codartic = " & DBSet(mCodartic, "T") & " AND olicoupagelinlotes.numlote = " & DBSet(mNumlote, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND olicoupagelinlotes.codartic = " & DBSet(mCodartic, "T") & " AND olicoupagelinlotes.numlote = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = False
     
     Case 3
         'Lineas albaran
         Desc = "'Albaran cliente'"
-        miSql = "select concat(slialblotes.codtipom,slialblotes.numalbar) clave,slialblotes.cantidad cantmostrar,"
-        miSql = miSql & " fechaalb mifecha, codclien idrefd,nomclien vrefd "
-        miSql = miSql & " from scaalb,slialblotes,slialb where"
-        miSql = miSql & " scaalb.codtipom=slialb.codtipom and scaalb.numalbar=slialblotes.numalbar and"
-        miSql = miSql & " slialblotes.codTipoM = slialb.codTipoM And slialb.NumAlbar = slialblotes.NumAlbar"
-        miSql = miSql & " and slialb.numlinea=slialblotes.numlinea"
+        miSQL = "select concat(slialblotes.codtipom,slialblotes.numalbar) clave,slialblotes.cantidad cantmostrar,"
+        miSQL = miSQL & " fechaalb mifecha, codclien idrefd,nomclien vrefd "
+        miSQL = miSQL & " from scaalb,slialblotes,slialb where"
+        miSQL = miSQL & " scaalb.codtipom=slialb.codtipom and scaalb.numalbar=slialblotes.numalbar and"
+        miSQL = miSQL & " slialblotes.codTipoM = slialb.codTipoM And slialb.NumAlbar = slialblotes.NumAlbar"
+        miSQL = miSQL & " and slialb.numlinea=slialblotes.numlinea"
         'El arti/lote/almacen
-        miSql = miSql & " AND slialb.codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND slialb.codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = False
         
     Case 4
@@ -563,74 +563,74 @@ Dim SumaLotes As Boolean
         
         
         Desc = "'FACTURAS CLIENTE'"
-        miSql = "select concat(slifaclotes.codtipom,slifaclotes.numfactu) clave,slifaclotes.cantidad cantmostrar,"
-        miSql = miSql & " scafac.fecfactu mifecha, codclien idrefd,nomclien vrefd  from"
+        miSQL = "select concat(slifaclotes.codtipom,slifaclotes.numfactu) clave,slifaclotes.cantidad cantmostrar,"
+        miSQL = miSQL & " scafac.fecfactu mifecha, codclien idrefd,nomclien vrefd  from"
        ' miSQL = miSQL & " scafac,slifac,slifaclotes where scafac.codtipom=slifac.codtipom"
        ' miSQL = miSQL & " and scafac.numfactu=slifac.numalbar and scafac.fecfactu=slifac.numalbar"
        ' miSQL = miSQL & " and scafac.numfactu=slifaclotes.numfactu and scafac.fecfactu=slifaclotes.fecfactu and"
        ' miSQL = miSQL & " scafac.codTipoM = slifaclotes.codTipoM and slifac.numlinea=slifaclotes.numlinea "
         'AHORA MAYO 2010
-        miSql = miSql & " (`scafac` `scafac` INNER JOIN `slifac` `slifac` ON ((`scafac`.`codtipom`=`slifac`.`codtipom`) "
-        miSql = miSql & " AND (`scafac`.`numfactu`=`slifac`.`numfactu`)) AND (`scafac`.`fecfactu`=`slifac`.`fecfactu`))"
-        miSql = miSql & " INNER JOIN `slifaclotes` `slifaclotes` ON (((((`slifac`.`codtipom`=`slifaclotes`.`codtipom`)"
-        miSql = miSql & " AND (`slifac`.`numfactu`=`slifaclotes`.`numfactu`)) AND (`slifac`.`fecfactu`=`slifaclotes`.`fecfactu`))"
-        miSql = miSql & " AND (`slifac`.`codtipoa`=`slifaclotes`.`codtipoa`)) AND (`slifac`.`numalbar`=`slifaclotes`.`numalbar`))"
-        miSql = miSql & " AND (`slifac`.`numlinea`=`slifaclotes`.`numlinea`)"
+        miSQL = miSQL & " (`scafac` `scafac` INNER JOIN `slifac` `slifac` ON ((`scafac`.`codtipom`=`slifac`.`codtipom`) "
+        miSQL = miSQL & " AND (`scafac`.`numfactu`=`slifac`.`numfactu`)) AND (`scafac`.`fecfactu`=`slifac`.`fecfactu`))"
+        miSQL = miSQL & " INNER JOIN `slifaclotes` `slifaclotes` ON (((((`slifac`.`codtipom`=`slifaclotes`.`codtipom`)"
+        miSQL = miSQL & " AND (`slifac`.`numfactu`=`slifaclotes`.`numfactu`)) AND (`slifac`.`fecfactu`=`slifaclotes`.`fecfactu`))"
+        miSQL = miSQL & " AND (`slifac`.`codtipoa`=`slifaclotes`.`codtipoa`)) AND (`slifac`.`numalbar`=`slifaclotes`.`numalbar`))"
+        miSQL = miSQL & " AND (`slifac`.`numlinea`=`slifaclotes`.`numlinea`)"
 
        
         'El arti/lote/almacen
-        miSql = miSql & " AND slifac.codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND slifac.codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = False
         
     Case 5
         'PRoduccion
         'lineas SUMA
         Desc = "'PRODUCCION'"
-        miSql = "select sordprod.codigo clave,cantlote cantmostrar,fecproduccion mifecha ,0 idRefd,' ' vRefd"
-        miSql = miSql & " FROM sordprod,sliordprlotes WHERE sordprod.codigo = sliordprlotes.codigo"
+        miSQL = "select sordprod.codigo clave,cantlote cantmostrar,fecproduccion mifecha ,0 idRefd,' ' vRefd"
+        miSQL = miSQL & " FROM sordprod,sliordprlotes WHERE sordprod.codigo = sliordprlotes.codigo"
         'Para que saque solo los que estan producidos
-        miSql = miSql & " AND fecproduccion>'1900-01-01'"
+        miSQL = miSQL & " AND fecproduccion>'1900-01-01'"
         
         'El arti/lote/almacen
-        miSql = miSql & " AND sliordprlotes.codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND sliordprlotes.codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = True
     Case 6
         'Sub lineas restan
         Desc = "'PRODUCCION compo.'"
-        miSql = "select sordprod.codigo clave,cantlote cantmostrar"
-        miSql = miSql & ",fecproduccion mifecha ,0 idRefd,' ' vRefd"
-        miSql = miSql & " FROM sordprod,sliordpr2lotes,sartic WHERE sordprod.codigo = sliordpr2lotes.codigo"
-        miSql = miSql & " AND sliordpr2lotes.codarti2=sartic.codartic"
+        miSQL = "select sordprod.codigo clave,cantlote cantmostrar"
+        miSQL = miSQL & ",fecproduccion mifecha ,0 idRefd,' ' vRefd"
+        miSQL = miSQL & " FROM sordprod,sliordpr2lotes,sartic WHERE sordprod.codigo = sliordpr2lotes.codigo"
+        miSQL = miSQL & " AND sliordpr2lotes.codarti2=sartic.codartic"
         'Para que saque solo los que estan producidos
-        miSql = miSql & " AND fecproduccion>'1900-01-01'"
+        miSQL = miSQL & " AND fecproduccion>'1900-01-01'"
         
         'El arti/lote/almacen
-        miSql = miSql & " AND sliordpr2lotes.codarti2 = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND sliordpr2lotes.codarti2 = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = False
         
         
     Case 7
         'ALbaranes proveedor
         Desc = "'Albaranes proveedor'"
-        miSql = "select slialp.numalbar clave,cantidad cantmostrar,scaalp.fechaalb mifecha ,scaalp.codprove idRefD,scaalp.nomprove vrefd"
-        miSql = miSql & " from slialp,scaalp where scaalp.codprove=slialp.codprove and scaalp.fechaalb=slialp.fechaalb and scaalp.numalbar=slialp.numalbar"
+        miSQL = "select slialp.numalbar clave,cantidad cantmostrar,scaalp.fechaalb mifecha ,scaalp.codprove idRefD,scaalp.nomprove vrefd"
+        miSQL = miSQL & " from slialp,scaalp where scaalp.codprove=slialp.codprove and scaalp.fechaalb=slialp.fechaalb and scaalp.numalbar=slialp.numalbar"
         'El arti/lote/almacen                                               'ojo a la S
-        miSql = miSql & " AND slialp.codartic = " & DBSet(mCodartic, "T") & " AND numlotes = " & DBSet(mNumlote, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND slialp.codartic = " & DBSet(mCodartic, "T") & " AND numlotes = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = True
         
     Case 8
         'Facturas proveedor
          Desc = "'FACTURAS PROVEEDOR'"
-        miSql = "select scafpc.numfactu clave,cantidad cantmostrar,scafpc.fecfactu mifecha,scafpc.codprove idrefd,scafpc.nomprove vrefd"
-        miSql = miSql & " FROM slifpc,scafpc where scafpc.codprove=slifpc.codprove and scafpc.fecfactu=slifpc.fecfactu"
-        miSql = miSql & " and scafpc.numfactu=slifpc.numfactu "
+        miSQL = "select scafpc.numfactu clave,cantidad cantmostrar,scafpc.fecfactu mifecha,scafpc.codprove idrefd,scafpc.nomprove vrefd"
+        miSQL = miSQL & " FROM slifpc,scafpc where scafpc.codprove=slifpc.codprove and scafpc.fecfactu=slifpc.fecfactu"
+        miSQL = miSQL & " and scafpc.numfactu=slifpc.numfactu "
         'El arti/lote/almacen                                                     'ojo a la S de numloteSSSS
-        miSql = miSql & " AND slifpc.codartic = " & DBSet(mCodartic, "T") & " AND numlotes = " & DBSet(mNumlote, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = miSQL & " AND slifpc.codartic = " & DBSet(mCodartic, "T") & " AND numlotes = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = True
         
         
@@ -638,12 +638,12 @@ Dim SumaLotes As Boolean
     Case 9
         'REGULARIZACION
          Desc = "'REGULARIZACION'"
-        miSql = "select schmov.codmovim clave,if(tipomovi=0,-cantidad,cantidad) cantmostrar,schmov.fecmovim mifecha,schmov.codtraba idrefd,nomtraba vrefd"
-        miSql = miSql & " from slhmov,schmov left join straba on schmov.codtraba=straba.codtraba WHERE slhmov.codmovim=schmov.codmovim"
+        miSQL = "select schmov.codmovim clave,if(tipomovi=0,-cantidad,cantidad) cantmostrar,schmov.fecmovim mifecha,schmov.codtraba idrefd,nomtraba vrefd"
+        miSQL = miSQL & " from slhmov,schmov left join straba on schmov.codtraba=straba.codtraba WHERE slhmov.codmovim=schmov.codmovim"
  
         'El arti/lote/almacen
-        miSql = miSql & " AND slhmov.codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
-        miSql = miSql & " and schmov.codalmac = " & mCodalmac
+        miSQL = miSQL & " AND slhmov.codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and schmov.codalmac = " & mCodalmac
         SumaLotes = True
         
         
@@ -655,11 +655,11 @@ Dim SumaLotes As Boolean
         'comprobar que es numerico
         If Not IsNumeric(mNumlote) Then Exit Sub
         'prodtrazlin
-        miSql = "select concat(prodcab.codigo,""/"",prodlin.idlin) clave,prodtrazlin.cantprodu cantmostrar,fhinicio mifecha,0 idRefd,' ' vRefd"
-        miSql = miSql & " from prodtrazlin,prodlin,prodcab where prodcab.codigo=prodlin.codigo  and prodtrazlin.codigo=prodlin.codigo and prodtrazlin.idlin=prodlin.idlin"
+        miSQL = "select concat(prodcab.codigo,""/"",prodlin.idlin) clave,prodtrazlin.cantprodu cantmostrar,fhinicio mifecha,0 idRefd,' ' vRefd"
+        miSQL = miSQL & " from prodtrazlin,prodlin,prodcab where prodcab.codigo=prodlin.codigo  and prodtrazlin.codigo=prodlin.codigo and prodtrazlin.idlin=prodlin.idlin"
         'El arti/lote/almacen
-        miSql = miSql & " AND prodlin.codartic = " & DBSet(mCodartic, "T") & " AND lotetraza = " & Val(mNumlote)
-        miSql = miSql & " and almacen2 = " & mCodalmac
+        miSQL = miSQL & " AND prodlin.codartic = " & DBSet(mCodartic, "T") & " AND lotetraza = " & Val(mNumlote)
+        miSQL = miSQL & " and almacen2 = " & mCodalmac
         SumaLotes = True
     Case 11
         Desc = "'PRO.TRAZA.COMPO.'"
@@ -668,53 +668,53 @@ Dim SumaLotes As Boolean
         'comprobar que es numerico
         
         'prodtrazlin
-        miSql = "select concat(prodcab.codigo,""/"",prodtrazcompo.idlin,"" "") clave,prodtrazcompo.cantutili cantmostrar,"
-        miSql = miSql & "fhinicio mifecha,prodtrazcompo.lineaprod idRefd,concat('Idtraza: ',prodtrazcompo.lotetraza) vRefd"
-        miSql = miSql & " from prodtrazcompo,prodlin,prodcab where prodcab.codigo=prodlin.codigo  and prodtrazcompo.codigo=prodlin.codigo and prodtrazcompo.idlin=prodlin.idlin"
+        miSQL = "select concat(prodcab.codigo,""/"",prodtrazcompo.idlin,"" "") clave,prodtrazcompo.cantutili cantmostrar,"
+        miSQL = miSQL & "fhinicio mifecha,prodtrazcompo.lineaprod idRefd,concat('Idtraza: ',prodtrazcompo.lotetraza) vRefd"
+        miSQL = miSQL & " from prodtrazcompo,prodlin,prodcab where prodcab.codigo=prodlin.codigo  and prodtrazcompo.codigo=prodlin.codigo and prodtrazcompo.idlin=prodlin.idlin"
         'El arti/lote/almacen
-        miSql = miSql & " AND prodtrazcompo.codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
-        miSql = miSql & " and almacen2 = " & mCodalmac
-        miSql = miSql & " and cantutili>0"
+        miSQL = miSQL & " AND prodtrazcompo.codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and almacen2 = " & mCodalmac
+        miSQL = miSQL & " and cantutili>0"
         SumaLotes = False
         
         
     Case 12
         'FIN DEPOSITO
         Desc = "'FIN DEPOSITO CUP'"
-        miSql = "select document clave,if(tipomovi=1,-cantidad,cantidad) cantmostrar,fechamov mifecha ,0 idRefd,' ' vRefd"
-        miSql = miSql & " FROM smovalotes WHERE  "
-        miSql = miSql & " detamovi='DEP' AND codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
-        miSql = miSql & " and codalmac = " & mCodalmac
+        miSQL = "select document clave,if(tipomovi=1,-cantidad,cantidad) cantmostrar,fechamov mifecha ,0 idRefd,' ' vRefd"
+        miSQL = miSQL & " FROM smovalotes WHERE  "
+        miSQL = miSQL & " detamovi='DEP' AND codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and codalmac = " & mCodalmac
         SumaLotes = False
         
         
     End Select
-    Rs.Open miSql, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open miSQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     ' El insert
 '   `codusu`,`idpartida`,`codartic`,`numlote`,fecha,`idOperacion`,`idNumOperacion`,
 ' `idReferencia`,`Referencia `,`cantidad` ,abs_cantidad    Ref: cliente/proveedor/trabajador
-    SQL = ", (" & vUsu.codigo & "," & mIdPartida & "," & DBSet(mCodartic, "T") & "," & DBSet(mNumlote, "T") & ","
-    miSql = ""
-    While Not Rs.EOF
-        miSql = miSql & SQL 'codusus,partida,numlote
+    SQL = ", (" & vUsu.Codigo & "," & midPartida & "," & DBSet(mCodartic, "T") & "," & DBSet(mNumlote, "T") & ","
+    miSQL = ""
+    While Not RS.EOF
+        miSQL = miSQL & SQL 'codusus,partida,numlote
     
         'fecha, idoperacion,idnumoperacion
-        miSql = miSql & DBSet(Rs!mifecha, "F") & "," & Desc & "," & DBSet(Rs!Clave, "T")
+        miSQL = miSQL & DBSet(RS!mifecha, "F") & "," & Desc & "," & DBSet(RS!Clave, "T")
         'idreferencia, referencia
-        miSql = miSql & "," & Rs!idrefd & "," & DBSet(Rs!vrefd, "T") & ","
+        miSQL = miSQL & "," & RS!idrefd & "," & DBSet(RS!vrefd, "T") & ","
         'cantidad, y valor absoluto de la cantidad
-        Ca = Rs!cantmostrar
+        Ca = RS!cantmostrar
         If Not SumaLotes Then Ca = -1 * Ca
-        miSql = miSql & DBSet(Ca, "N") & "," & DBSet(Rs!cantmostrar, "N") & ")"
-        Rs.MoveNext
+        miSQL = miSQL & DBSet(Ca, "N") & "," & DBSet(RS!cantmostrar, "N") & ")"
+        RS.MoveNext
     Wend
-    Rs.Close
+    RS.Close
     
-    If miSql <> "" Then
+    If miSQL <> "" Then
         SQL = "insert into `tmppartidas` (`codusu`,`idpartida`,`codartic`,`numlote`,`fecha`,`idOperacion`,`idNumOperacion`,`idReferencia`,`Referencia`,`cantidad`,abs_cantidad) values"
-        SQL = SQL & Mid(miSql, 2)
-        Conn.Execute SQL
+        SQL = SQL & Mid(miSQL, 2)
+        conn.Execute SQL
     End If
     
 End Sub
@@ -730,13 +730,13 @@ Dim MiNivel As Integer
     MiNivel = 0
     vContador = 0
     
-    GeneracionProcesosDesdeCompra MiNivel, vContador, Me.codArtic, Me.NUmlote, L, DetallarCoupages
+    GeneracionProcesosDesdeCompra MiNivel, vContador, Me.codArtic, Me.numLote, L, DetallarCoupages
     
 End Function
 
 
 
-Public Sub GeneracionProcesosDesdeCompra(Nivel As Integer, ByRef Contador As Long, ByVal vArticulo As String, ByVal vLote As String, ByRef LB As Label, DetallaLosCoup As Boolean)
+Public Sub GeneracionProcesosDesdeCompra(Nivel As Integer, ByRef contador As Long, ByVal vArticulo As String, ByVal vLote As String, ByRef LB As Label, DetallaLosCoup As Boolean)
 Dim Col As Collection
 Dim RN As ADODB.Recordset
 Dim Aux As String
@@ -755,7 +755,7 @@ Dim FactorMultiplicador1 As Currency
     'Debug.Print vArticulo & " " & vLote
     If Nivel = 0 Then
         'Las compras del articulo ORIGEN solo
-        EnAlbaranCompras Nivel, vArticulo, vLote, Contador
+        EnAlbaranCompras Nivel, vArticulo, vLote, contador
     Else
       '  Stop
     End If
@@ -768,9 +768,9 @@ Dim FactorMultiplicador1 As Currency
     Aux = Aux & " olicoupage , olicoupagelinlotes where olicoupage.codigo = olicoupagelinlotes.codigo"
     Aux = Aux & " AND olicoupagelinlotes.codartic = " & DBSet(vArticulo, "T")
     Aux = Aux & " AND olicoupagelinlotes.numlote = " & DBSet(vLote, "T")
-    RN.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
-        Aux = RN!codArtic & "|" & RN!NUmlote & "|" & RN!cantlote & "|" & RN!codigo & "|"
+        Aux = RN!codArtic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
         Col.Add Aux
         RN.MoveNext
     Wend
@@ -780,8 +780,8 @@ Dim FactorMultiplicador1 As Currency
 
         For J = 1 To Col.Count
             Aux = "Coupage (" & RecuperaValor(Col.Item(J), 4) & ")"
-            InsertarLinea Aux, Nivel, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), Contador, CCur(CStr(RecuperaValor(Col.Item(J), 3))), ""
-            If DetallaLosCoup Then GeneracionProcesosDesdeCompra Nivel + 1, Contador, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), LB, True
+            InsertarLinea Aux, Nivel, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), contador, CCur(CStr(RecuperaValor(Col.Item(J), 3))), ""
+            If DetallaLosCoup Then GeneracionProcesosDesdeCompra Nivel + 1, contador, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), LB, True
         Next J
     End If
     
@@ -792,10 +792,10 @@ Dim FactorMultiplicador1 As Currency
     Aux = Aux & " and sliordprlotes.codartic =sliordpr2lotes.codartic"
     Aux = Aux & " AND sliordpr2lotes.codarti2 = " & DBSet(vArticulo, "T")
     Aux = Aux & " AND sliordpr2lotes.numlote = " & DBSet(vLote, "T")
-    RN.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Set Col = New Collection
     While Not RN.EOF
-        Aux = RN!codArtic & "|" & RN!NUmlote & "|" & RN!cantlote & "|" & RN!codigo & "|"
+        Aux = RN!codArtic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
         Col.Add Aux
         RN.MoveNext
     Wend
@@ -805,8 +805,8 @@ Dim FactorMultiplicador1 As Currency
         
         For J = 1 To Col.Count
             Aux = "Produc. (" & RecuperaValor(Col.Item(J), 4) & ")"
-            InsertarLinea Aux, Nivel, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), Contador, CCur(CStr(RecuperaValor(Col.Item(J), 3))), ""
-            GeneracionProcesosDesdeCompra Nivel + 1, Contador, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), LB, True
+            InsertarLinea Aux, Nivel, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), contador, CCur(CStr(RecuperaValor(Col.Item(J), 3))), ""
+            GeneracionProcesosDesdeCompra Nivel + 1, contador, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), LB, True
         Next J
     End If
     Set Col = Nothing
@@ -819,7 +819,7 @@ Dim FactorMultiplicador1 As Currency
     
     Set Col2 = New Collection
     Set Col = New Collection
-    RN.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
         Col2.Add CStr(RN!lotetraza)
         RN.MoveNext
@@ -832,7 +832,7 @@ Dim FactorMultiplicador1 As Currency
         Aux = Aux & " from prodlin,prodtrazlin where prodtrazlin.codigo=prodlin.codigo and"
         Aux = Aux & " prodtrazlin.idlin = prodlin.idlin And lotetraza = " & Col2.Item(H)
         Aux = Aux & " order by prodtrazlin.lotetraza"
-        RN.Open Aux, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+        RN.Open Aux, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
         While Not RN.EOF
             Aux = RN!codArtic & "|" & RN!el_lote & "|" & RN!cantprodu & "|" & RN!elcodigo & "|"
             Col.Add Aux
@@ -863,8 +863,8 @@ Dim FactorMultiplicador1 As Currency
             
             Aux = "Prod TRZ. (" & RecuperaValor(Col.Item(J), 4) & ")"
             
-            InsertarLinea Aux, Nivel, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), Contador, Cantidad, ""
-            GeneracionProcesosDesdeCompra Nivel + 1, Contador, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), LB, True
+            InsertarLinea Aux, Nivel, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), contador, Cantidad, ""
+            GeneracionProcesosDesdeCompra Nivel + 1, contador, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), LB, True
         Next J
     End If
  
@@ -874,19 +874,48 @@ Dim FactorMultiplicador1 As Currency
     Set Col = Nothing
     
     
+    
+    
+    
+    
     'Veremos para este articulo LOTE las ventas
     If Nivel = 0 Then
         Aux = "Select cantidad ,tipomovi,numlinea from smovalotes where codartic=" & DBSet(vArticulo, "T") & " AND numlote = " & DBSet(vLote, "T")
         Aux = Aux & " AND detamovi in ('DEP')"
-        RN.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         If Not RN.EOF Then
             Aux = "Regularizacion deposito " & RN!numlinea
             Cantidad = RN!Cantidad
-            InsertarLinea Aux, Nivel, vArticulo, "", Contador, Cantidad, ""
+            InsertarLinea Aux, Nivel, vArticulo, "", contador, Cantidad, ""
                 
         End If
-    End If
+        RN.Close
+        
+            
+       If vParamAplic.QUE_EMPRESA > 2 Then
+            Aux = "Select * from slifac,slifaclotes    Where   slifac.codTipoM = slifaclotes.codTipoM"
+            Aux = Aux & " and slifac.numfactu  = slifaclotes.numfactu and slifac.fecfactu  = slifaclotes.fecfactu"
+            Aux = Aux & " and slifac.codtipoa = slifaclotes.codtipoa and slifac.numalbar = slifaclotes.numalbar"
+            Aux = Aux & " and slifac.numlinea = slifaclotes.numlinea  "
+            Aux = Aux & " AND codartic = '" & vArticulo & "' and codalmac =1"
+            Aux = Aux & " AND numlote = " & DBSet(vLote, "T")
+            
+            RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            While Not RN.EOF
+                Aux = RN!Codtipom & Format(RN!NumFactu, "000000")
+                Cantidad = RN!Cantidad
+                InsertarLinea Aux, Nivel, vArticulo, "", contador, Cantidad, ""
+                RN.MoveNext
+            Wend
+            RN.Close
+        End If
     
+
+
+        
+        
+        
+    End If
     
     
     'Si tiene alguna regularizacion
@@ -898,7 +927,7 @@ Dim FactorMultiplicador1 As Currency
     
 End Sub
 
-Private Function EnAlbaranVentas_(vNivel As Integer, vArt As String, NLote As String, ByRef Contador As Long, FactorMultiplicador As Currency) As Boolean
+Private Function EnAlbaranVentas_(vNivel As Integer, vArt As String, NLote As String, ByRef contador As Long, FactorMultiplicador As Currency) As Boolean
 Dim RN As ADODB.Recordset
 Dim S As String
 Dim ProveClie As String
@@ -911,11 +940,11 @@ Dim ProveClie As String
     S = S & " AND numlote = " & DBSet(NLote, "T")
 
 
-    RN.Open S, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
         ProveClie = "numalbar = " & RN!NumAlbar & " AND codtipom"
-        ProveClie = DevuelveDesdeBD(conAri, "nomclien", "scaalb", ProveClie, RN!codTipoM, "T")
-        InsertarLinea RN!codTipoM & RN!NumAlbar, vNivel, vArt, "", Contador, RN!Cantidad, ProveClie
+        ProveClie = DevuelveDesdeBD(conAri, "nomclien", "scaalb", ProveClie, RN!Codtipom, "T")
+        InsertarLinea RN!Codtipom & RN!NumAlbar, vNivel, vArt, "", contador, RN!Cantidad, ProveClie
 
         RN.MoveNext
     Wend
@@ -930,14 +959,14 @@ Dim ProveClie As String
     S = S & " AND numlote = " & DBSet(NLote, "T")
     
 
-    RN.Open S, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
         
-        ProveClie = "codtipom = '" & RN!codTipoM & "' AND fecfactu =" & DBSet(RN!FecFactu, "F") & " AND numfactu"
+        ProveClie = "codtipom = '" & RN!Codtipom & "' AND fecfactu =" & DBSet(RN!FecFactu, "F") & " AND numfactu"
         ProveClie = DevuelveDesdeBD(conAri, "nomclien", "scafac", ProveClie, RN!NumFactu, "T")
         
         
-        InsertarLinea RN!codTipoM & RN!NumFactu, vNivel, vArt, "", Contador, RN!Cantidad, ProveClie
+        InsertarLinea RN!Codtipom & RN!NumFactu, vNivel, vArt, "", contador, RN!Cantidad, ProveClie
 
         RN.MoveNext
     Wend
@@ -951,7 +980,7 @@ End Function
 
 
 
-Private Function EnAlbaranCompras(vNivel As Integer, vArt As String, NLote As String, ByRef Contador As Long) As Boolean
+Private Function EnAlbaranCompras(vNivel As Integer, vArt As String, NLote As String, ByRef contador As Long) As Boolean
 Dim RN As ADODB.Recordset
 Dim S As String
 Dim DesdeUnAlbaran As Boolean
@@ -968,10 +997,10 @@ Dim DesdeUnAlbaran As Boolean
 
 
 
-    RN.Open S, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
         DesdeUnAlbaran = True
-        InsertarLinea "ALP " & RN!Clave, vNivel, vArt, "", Contador, RN!cantmostrar, RN!vrefd
+        InsertarLinea "ALP " & RN!Clave, vNivel, vArt, "", contador, RN!cantmostrar, RN!vrefd
 
         RN.MoveNext
     Wend
@@ -984,9 +1013,9 @@ Dim DesdeUnAlbaran As Boolean
     'El arti/lote/almacen                                                     'ojo a la S
     S = S & " AND slifpc.codartic = " & DBSet(vArt, "T") & "AND numlotes = " & DBSet(NLote, "T")
     S = S & " and codalmac = " & mCodalmac
-    RN.Open S, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
-        InsertarLinea "F.PRO " & RN!Clave, vNivel, vArt, "", Contador, RN!cantmostrar, RN!vrefd
+        InsertarLinea "F.PRO " & RN!Clave, vNivel, vArt, "", contador, RN!cantmostrar, RN!vrefd
         DesdeUnAlbaran = True
         RN.MoveNext
     Wend
@@ -999,16 +1028,36 @@ Dim DesdeUnAlbaran As Boolean
         If Right(NLote, 1) = "C" Then
             S = "select olicoupage.codigo,sum(kilos) cantmostrar,deposito from olicoupage,olicoupagelin WHERE "
             S = S & " olicoupage.codigo=olicoupagelin.codigo AND "
-            S = S & " numlote =" & DBSet(NUmlote, "T") & " And codAlmac = " & mCodalmac & "  group by 1"
-            RN.Open S, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            S = S & " numlote =" & DBSet(numLote, "T") & " And codAlmac = " & mCodalmac & "  group by 1"
+            RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             If Not RN.EOF Then
-                S = "CUP" & Format(RN!codigo, "0000")
+                S = "CUP" & Format(RN!Codigo, "0000")
                 If RN!Deposito > 0 Then S = S & "[" & RN!Deposito & "]"
-                InsertarLinea S, vNivel, vArt, "", Contador, RN!cantmostrar, S
+                InsertarLinea S, vNivel, vArt, "", contador, RN!cantmostrar, S
                 
                 RN.MoveNext
             End If
             RN.Close
+            
+        Else
+                'M0IXENT    . No compra. Es una almazara. Mete las existencias por regularizacion
+                If vParamAplic.QUE_EMPRESA >= 2 Then
+                    S = "select * from slhmov where "
+                    'El arti/lote/almacen                                                     'ojo a la S
+                    S = S & "  slhmov.codartic = " & DBSet(codArtic, "T") & "AND slhmov.numlote = " & DBSet(numLote, "T")
+                    'S = S & " and codalmac = " & mCodalmac
+                    RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                    While Not RN.EOF
+                        S = "REG" & Format(RN!codMovim, "00000")
+                        InsertarLinea S, vNivel, vArt, "", contador, RN!Cantidad, "ALMAZARA"
+                        RN.MoveNext
+                    Wend
+                    RN.Close
+                        
+                    
+                End If
+
+        
         End If
     End If
     
@@ -1027,17 +1076,17 @@ End Function
 
 
 
-Private Sub InsertarLinea(Clave As String, vNivel As Integer, vArt As String, vL As String, ByRef Contador As Long, Cantidad As Currency, NomClienProv As String)
+Private Sub InsertarLinea(Clave As String, vNivel As Integer, vArt As String, vL As String, ByRef contador As Long, Cantidad As Currency, NomClienProv As String)
 Dim SQL As String
 
     SQL = "insert into `tmptraza` (`codusu`,`contador`,`artppal`,`numloteppal`,"
     SQL = SQL & "`nivle`,`idOperacion`,`artic2`,`numlote2`,`cantidad`,`abs_cantidad`,nomclien) values ("
     'Valroes
-    SQL = SQL & vUsu.codigo & "," & Contador & "," & DBSet(Me.codArtic, "T") & "," & DBSet(Me.NUmlote, "T")
+    SQL = SQL & vUsu.Codigo & "," & contador & "," & DBSet(Me.codArtic, "T") & "," & DBSet(Me.numLote, "T")
     SQL = SQL & "," & vNivel & "," & DBSet(Clave, "T") & "," & DBSet(vArt, "T") & "," & DBSet(vL, "T", "N")
     SQL = SQL & "," & TransformaComasPuntos(CStr(Cantidad)) & ",0," & DBSet(NomClienProv, "T", "S") & ")"
-    Conn.Execute SQL
-    Contador = Contador + 1
+    conn.Execute SQL
+    contador = contador + 1
 End Sub
 
 
@@ -1079,7 +1128,7 @@ Dim J As Integer
     
     For J = 1 To ColComp.Count
         Set ColVentas = New Collection
-        EnAlbaranVentas2 ColVentas, Me.codArtic, NUmlote
+        EnAlbaranVentas2 ColVentas, Me.codArtic, numLote
         
     Next J
     
@@ -1106,12 +1155,12 @@ Dim S As String
     S = "select slialp.numalbar clave,cantidad cantmostrar,scaalp.fechaalb mifecha ,scaalp.codprove idRefD,scaalp.nomprove vrefd"
     S = S & " from slialp,scaalp where scaalp.codprove=slialp.codprove and scaalp.fechaalb=slialp.fechaalb and scaalp.numalbar=slialp.numalbar"
     'El arti/lote/almacen                                               'ojo a la S
-    S = S & " AND slialp.codartic = " & DBSet(Me.codArtic, "T") & "AND numlotes = " & DBSet(Me.NUmlote, "T")
+    S = S & " AND slialp.codartic = " & DBSet(Me.codArtic, "T") & "AND numlotes = " & DBSet(Me.numLote, "T")
     S = S & " and codalmac = " & mCodalmac
 
 
 
-    RN.Open S, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
         S = RN!NumAlbar
         vLista.Add S
@@ -1125,15 +1174,34 @@ Dim S As String
     S = S & " FROM slifpc,scafpc where scafpc.codprove=slifpc.codprove and scafpc.fecfactu=slifpc.fecfactu"
     S = S & " and scafpc.numfactu=slifpc.numfactu "
     'El arti/lote/almacen                                                     'ojo a la S
-    S = S & " AND slifpc.codartic = " & DBSet(codArtic, "T") & "AND numlotes = " & DBSet(NUmlote, "T")
+    S = S & " AND slifpc.codartic = " & DBSet(codArtic, "T") & "AND numlotes = " & DBSet(numLote, "T")
     S = S & " and codalmac = " & mCodalmac
-    RN.Open S, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
         S = RN!Clave & "|" & RN!cantmostrar & "|"
         vLista.Add S
         RN.MoveNext
     Wend
     RN.Close
+    
+    
+    
+    'M0IXENT    . No compra. Es una almazara. Mete las existencias por regularizacion
+    If vParamAplic.QUE_EMPRESA >= 2 Then
+        S = "select * from slhmov where "
+        'El arti/lote/almacen                                                     'ojo a la S
+        S = S & " AND slhmov.codartic = " & DBSet(codArtic, "T") & "AND slhmov = " & DBSet(numLote, "T")
+        'S = S & " and codalmac = " & mCodalmac
+        RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        While Not RN.EOF
+            S = RN!Clave & "|" & RN!cantmostrar & "|"
+            vLista.Add S
+            RN.MoveNext
+        Wend
+        RN.Close
+            
+        
+    End If
     
     EnAlbaranCompras2 = True
     Exit Function
@@ -1159,10 +1227,10 @@ Dim S As String
     S = S & " AND numlote = " & DBSet(NLote, "T") & " ORDER BY fechaalb"
 
 
-    RN.Open S, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
         'De momento NOMBRE NO LO TRATP
-        S = "'" & RN!codTipoM & Format(RN!NumAlbar, "00000") & "'," & DBSet(RN!FechaAlb, "F")
+        S = "'" & RN!Codtipom & Format(RN!NumAlbar, "00000") & "'," & DBSet(RN!FechaAlb, "F")
         S = S & ",NULL," & TransformaComasPuntos(CStr(RN!Cantidad))
         cVentas.Add S
 
@@ -1179,9 +1247,9 @@ Dim S As String
     S = S & " AND numlote = " & DBSet(NLote, "T") & " ORDER BY slifac.fecfactu,slifac.numfactu"
     
 
-    RN.Open S, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
-        S = "'" & RN!codTipoM & Format(RN!NumFactu, "00000") & "'," & DBSet(RN!FecFactu, "F")
+        S = "'" & RN!Codtipom & Format(RN!NumFactu, "00000") & "'," & DBSet(RN!FecFactu, "F")
         S = S & ",NULL," & TransformaComasPuntos(CStr(RN!Cantidad))
         cVentas.Add S
 
@@ -1202,7 +1270,7 @@ End Function
 
 
 
-Public Sub GeneracionProcesosDesdeCompra3(ByRef Contador As Long, ByVal vArticulo As String, ByVal vLote As String, ByRef LB As Label)
+Public Sub GeneracionProcesosDesdeCompra3(ByRef contador As Long, ByVal vArticulo As String, ByVal vLote As String, ByRef LB As Label)
 Dim Col As Collection
 Dim RN As ADODB.Recordset
 Dim Aux As String
@@ -1221,9 +1289,9 @@ Dim Nivel As Integer
     Aux = Aux & " olicoupage , olicoupagelinlotes where olicoupage.codigo = olicoupagelinlotes.codigo"
     Aux = Aux & " AND olicoupagelinlotes.codartic = " & DBSet(vArticulo, "T")
     Aux = Aux & " AND olicoupagelinlotes.numlote = " & DBSet(vLote, "T")
-    RN.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
-        Aux = RN!codArtic & "|" & RN!NUmlote & "|" & RN!cantlote & "|" & RN!codigo & "|"
+        Aux = RN!codArtic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
         Col.Add Aux
         RN.MoveNext
     Wend
@@ -1233,8 +1301,8 @@ Dim Nivel As Integer
 
         For J = 1 To Col.Count
             Aux = "Coupage (" & RecuperaValor(Col.Item(J), 4) & ")"
-            InsertarLinea Aux, Nivel, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), Contador, CCur(CStr(RecuperaValor(Col.Item(J), 3))), ""
-            GeneracionProcesosDesdeCompra Nivel + 1, Contador, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), LB, True
+            InsertarLinea Aux, Nivel, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), contador, CCur(CStr(RecuperaValor(Col.Item(J), 3))), ""
+            GeneracionProcesosDesdeCompra Nivel + 1, contador, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), LB, True
         Next J
     End If
     
@@ -1245,10 +1313,10 @@ Dim Nivel As Integer
     Aux = Aux & " and sliordprlotes.codartic =sliordpr2lotes.codartic"
     Aux = Aux & " AND sliordpr2lotes.codarti2 = " & DBSet(vArticulo, "T")
     Aux = Aux & " AND sliordpr2lotes.numlote = " & DBSet(vLote, "T")
-    RN.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Set Col = New Collection
     While Not RN.EOF
-        Aux = RN!codArtic & "|" & RN!NUmlote & "|" & RN!cantlote & "|" & RN!codigo & "|"
+        Aux = RN!codArtic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
         Col.Add Aux
         RN.MoveNext
     Wend
@@ -1258,8 +1326,8 @@ Dim Nivel As Integer
         
         For J = 1 To Col.Count
             Aux = "Produc. (" & RecuperaValor(Col.Item(J), 4) & ")"
-            InsertarLinea Aux, Nivel, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), Contador, CCur(CStr(RecuperaValor(Col.Item(J), 3))), ""
-            GeneracionProcesosDesdeCompra Nivel + 1, Contador, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), LB, True
+            InsertarLinea Aux, Nivel, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), contador, CCur(CStr(RecuperaValor(Col.Item(J), 3))), ""
+            GeneracionProcesosDesdeCompra Nivel + 1, contador, CStr(RecuperaValor(Col.Item(J), 1)), CStr(RecuperaValor(Col.Item(J), 2)), LB, True
         Next J
     End If
     
@@ -1272,7 +1340,7 @@ Dim Nivel As Integer
     
     'Veremos para este articulo LOTE las ventas
     Stop
-    EnAlbaranVentas_ Nivel, vArticulo, vLote, Contador, FactorMultiplicador1
+    EnAlbaranVentas_ Nivel, vArticulo, vLote, contador, FactorMultiplicador1
     
     
 End Sub
@@ -1308,7 +1376,7 @@ Dim MiNivel As Integer
 Dim Embasado As Boolean
 Dim Produccion As Long
 Dim RCompo As ADODB.Recordset
-Dim Cad As String
+Dim cad As String
 Dim Art1 As String
 
 
@@ -1323,42 +1391,42 @@ Dim LinProd As Integer
     vContador = 0
     'Vamos por caso
     'Si es materia embasada:
-    Cad = DevuelveDesdeBD(conAri, "conjunto", "sartic", "codartic", Me.codArtic, "T")
-    If Cad = "" Then Cad = "0"
-    Embasado = Cad = "1"
+    cad = DevuelveDesdeBD(conAri, "conjunto", "sartic", "codartic", Me.codArtic, "T")
+    If cad = "" Then cad = "0"
+    Embasado = cad = "1"
     
     If Embasado Then
     
         'Proceso de envasado
         ' vemos la produccion donde esta
         SQL = "codalmac"
-        Cad = "codartic ='" & codArtic & "' and numlote"
-        Cad = DevuelveDesdeBD(conAri, "codigo", "sliordprlotes", Cad, Me.NUmlote, "T", SQL)
+        cad = "codartic ='" & codArtic & "' and numlote"
+        cad = DevuelveDesdeBD(conAri, "codigo", "sliordprlotes", cad, Me.numLote, "T", SQL)
         Encontrado = False
         BUscarEnNuevaProduccion = False
-        If Cad = "" Then
+        If cad = "" Then
             'NO encontramos la produccion
             
             BUscarEnNuevaProduccion = True
         Else
             Encontrado = True
-            Produccion = Val(Cad)
+            Produccion = Val(cad)
             codAlmac = Val(SQL)
         End If
         
         Set RCompo = New ADODB.Recordset
         If BUscarEnNuevaProduccion Then
             'Vemos si hay que buscar en nueva produccion
-            Cad = "select * from prodlin,prodtrazlin,prodtrazcompo where prodtrazlin.codigo=prodtrazcompo.codigo and"
-            Cad = Cad & " prodtrazlin.idlin = prodtrazcompo.idlin And prodtrazlin.Codigo = prodlin.Codigo And prodtrazlin.idlin = prodlin.idlin"
-            Cad = Cad & " AND prodlin.codartic = " & DBSet(codArtic, "T") & "  AND prodtrazcompo.lotetraza = " & DBSet(NUmlote, "T")
-            RCompo.Open Cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            cad = "select * from prodlin,prodtrazlin,prodtrazcompo where prodtrazlin.codigo=prodtrazcompo.codigo and"
+            cad = cad & " prodtrazlin.idlin = prodtrazcompo.idlin And prodtrazlin.Codigo = prodlin.Codigo And prodtrazlin.idlin = prodlin.idlin"
+            cad = cad & " AND prodlin.codartic = " & DBSet(codArtic, "T") & "  AND prodtrazcompo.lotetraza = " & DBSet(numLote, "T")
+            RCompo.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             If Not RCompo.EOF Then
                 Encontrado = True
-                Produccion = RCompo!codigo
+                Produccion = RCompo!Codigo
                 LinProd = RCompo!idlin
             Else
-                MsgBox "No se ha encontrado en lineas de produccion"
+                If vParamAplic.QUE_EMPRESA < 2 Then MsgBox "No se ha encontrado en lineas de produccion"
             
             End If
             RCompo.Close
@@ -1375,24 +1443,24 @@ Dim LinProd As Integer
                 '   Esta en produccion
             
             
-                Cad = "select * from sliordpr2lotes,sartic  where sliordpr2lotes.codarti2=sartic.codartic"
-                Cad = Cad & " AND codigo=" & Produccion & " and sliordpr2lotes.codartic=" & DBSet(codArtic, "T") & " AND codalmac= " & codAlmac
-                Cad = Cad & " ORDER BY FactorConversion desc"
-                RCompo.Open Cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                cad = "select * from sliordpr2lotes,sartic  where sliordpr2lotes.codarti2=sartic.codartic"
+                cad = cad & " AND codigo=" & Produccion & " and sliordpr2lotes.codartic=" & DBSet(codArtic, "T") & " AND codalmac= " & codAlmac
+                cad = cad & " ORDER BY FactorConversion desc"
+                RCompo.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 While Not RCompo.EOF
-                    Cad = ""
+                    cad = ""
                     
                     If RCompo!FactorConversion <> 1 Then
         
                         'Vemos si viene de un cupaje, o viene de compra directa
                         'Veremos si para un aceite y lote este, ha sido desde coupaje
-                        ComprobarAceite RCompo!codarti2, DBLet(RCompo!NUmlote), True, MiNivel, vContador
+                        ComprobarAceite RCompo!codarti2, DBLet(RCompo!numLote), True, MiNivel, vContador
                       
                         
                     Else
                         If Not SoloAceite Then
                             'Intentamos ver en que ALBARAN esta comprado
-                            materiaPrimaProduccion RCompo!codarti2, DBLet(RCompo!NUmlote), MiNivel, vContador
+                            materiaPrimaProduccion RCompo!codarti2, DBLet(RCompo!numLote), MiNivel, vContador
                         
                         End If
                     End If
@@ -1403,25 +1471,25 @@ Dim LinProd As Integer
                 
         
             Else
-                Cad = "select prodtrazcompo.*,FactorConversion from prodtrazcompo,sartic where "
-                Cad = Cad & " sartic.codartic=prodtrazcompo.codartic and codigo=" & Produccion
-                Cad = Cad & " and idlin=" & LinProd & " and lotetraza=" & DBSet(NUmlote, "T")
-                Cad = Cad & " ORDER BY FactorConversion desc"
-                RCompo.Open Cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                cad = "select prodtrazcompo.*,FactorConversion from prodtrazcompo,sartic where "
+                cad = cad & " sartic.codartic=prodtrazcompo.codartic and codigo=" & Produccion
+                cad = cad & " and idlin=" & LinProd & " and lotetraza=" & DBSet(numLote, "T")
+                cad = cad & " ORDER BY FactorConversion desc"
+                RCompo.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 While Not RCompo.EOF
-                    Cad = ""
+                    cad = ""
                     
                     If RCompo!FactorConversion <> 1 Then
         
                         'Vemos si viene de un cupaje, o viene de compra directa
                         'Veremos si para un aceite y lote este, ha sido desde coupaje
-                        ComprobarAceite RCompo!codArtic, DBLet(RCompo!NUmlote), True, MiNivel, vContador
+                        ComprobarAceite RCompo!codArtic, DBLet(RCompo!numLote), True, MiNivel, vContador
                       
                         
                     Else
                         If Not SoloAceite Then
                             'Intentamos ver en que ALBARAN esta comprado
-                            materiaPrimaProduccion RCompo!codArtic, DBLet(RCompo!NUmlote), MiNivel, vContador
+                            materiaPrimaProduccion RCompo!codArtic, DBLet(RCompo!numLote), MiNivel, vContador
                         
                         End If
                     End If
@@ -1444,7 +1512,7 @@ Dim LinProd As Integer
     Set RCompo = Nothing
 End Function
 
-Private Sub materiaPrimaProduccion(ByRef Art As String, ByRef NLote As String, Nivel As Integer, ByRef Contador As Long)
+Private Sub materiaPrimaProduccion(ByRef Art As String, ByRef NLote As String, Nivel As Integer, ByRef contador As Long)
 Dim T As ADODB.Recordset
 
 
@@ -1456,11 +1524,11 @@ Dim T As ADODB.Recordset
     SQL = SQL & " AND slifpc.codartic = " & DBSet(Art, "T") & " AND numlotes = " & DBSet(NLote, "T")
     SQL = SQL & " and codalmac = " & Me.codAlmac
     
-    T.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    T.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     SQL = ""
     If Not T.EOF Then
         SQL = T!NumFactu & " " & T!FecFactu & " (" & T!codProve & ")"
-        InsertarLinea SQL, Nivel, Art, NLote, Contador, 0, T!nomprove
+        InsertarLinea SQL, Nivel, Art, NLote, contador, 0, T!nomprove
         
     End If
     T.Close
@@ -1475,11 +1543,11 @@ Dim T As ADODB.Recordset
             'El arti/lote/almacen                                               'ojo a la S
             SQL = SQL & " AND slialp.codartic = " & DBSet(Art, "T") & "AND numlotes = " & DBSet(NLote, "T")
             SQL = SQL & " and codalmac = " & codAlmac
-            T.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            T.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             SQL = ""
             If Not T.EOF Then
                 SQL = T!NumAlbar & " " & T!FechaAlb & " (" & T!codProve & ")*"
-                InsertarLinea SQL, Nivel, Art, NLote, Contador, 0, T!nomprove
+                InsertarLinea SQL, Nivel, Art, NLote, contador, 0, T!nomprove
                 T.MoveNext
             End If
             T.Close
@@ -1508,7 +1576,7 @@ End Sub
 
 
 
-Private Sub ComprobarAceite(ByRef Art As String, ByRef NLote As String, ComprobarCoupaje As Boolean, Nivel As Integer, ByRef Contador As Long)
+Private Sub ComprobarAceite(ByRef Art As String, ByRef NLote As String, ComprobarCoupaje As Boolean, Nivel As Integer, ByRef contador As Long)
 Dim T As ADODB.Recordset
 Dim Col As Collection
 Dim i As Integer
@@ -1524,22 +1592,22 @@ Dim C As String
             SQL = SQL & " and codalmac = " & mCodalmac
             SQL = SQL & " group by 1"
             Set T = New ADODB.Recordset
-            T.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            T.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             SQL = ""
             If Not T.EOF Then
-                SQL = T!codigo
+                SQL = T!Codigo
             End If
             T.Close
           
             If SQL <> "" Then
 
                 SQL = "select * from olicoupagelinlotes where codigo=" & SQL
-                T.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                T.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 Set Col = New Collection
                 While Not T.EOF
-                    C = T!codArtic & "|" & T!NUmlote & "|"
+                    C = T!codArtic & "|" & T!numLote & "|"
                     Col.Add C
-                    SQL = T!codigo
+                    SQL = T!Codigo
                     T.MoveNext
                 Wend
                 
@@ -1548,11 +1616,11 @@ Dim C As String
                     MsgBox "Error leyendo coupage", vbExclamation
                 Else
                     SQL = "CUP " & SQL
-                    InsertarLinea SQL, Nivel, Art, NLote, Contador, 0, ""
+                    InsertarLinea SQL, Nivel, Art, NLote, contador, 0, ""
                     Nivel = Nivel + 1
                     For i = 1 To Col.Count
                         C = Col.Item(i)
-                        ComprobarAceite RecuperaValor(C, 1), RecuperaValor(C, 2), True, Nivel, Contador
+                        ComprobarAceite RecuperaValor(C, 1), RecuperaValor(C, 2), True, Nivel, contador
                     Next i
                 End If
                 Set Col = Nothing
@@ -1568,7 +1636,7 @@ Dim C As String
     If Seguir Then
 
             'El arti/lote/almacen
-            materiaPrimaProduccion Art, NLote, Nivel, Contador
+            materiaPrimaProduccion Art, NLote, Nivel, contador
 
             
             
@@ -1605,13 +1673,13 @@ End Sub
 Public Sub EstablecerEtiquetas(CuantasEtiquetas As Integer)
 Dim i As Integer
 
-    SQL = "DELETE FROM spartidaslin WHERE id = " & mIdPartida
-    Conn.Execute SQL
+    SQL = "DELETE FROM spartidaslin WHERE id = " & midPartida
+    conn.Execute SQL
     If CuantasEtiquetas = 0 Then Exit Sub  'Si no hay salgo
     
     SQL = ""
     For i = 1 To CuantasEtiquetas
-        SQL = SQL & ", (" & mIdPartida & "," & i & ",0)"
+        SQL = SQL & ", (" & midPartida & "," & i & ",0)"
     Next
     SQL = Mid(SQL, 2) 'QUITO la primera coma
     SQL = "INSERT INTO spartidaslin(id,bulto,cantidad) VALUES " & SQL
@@ -1627,13 +1695,13 @@ End Sub
 Public Function CuantasEtiquetas() As Integer
 Dim i As Integer
 
-    Set Rs = New ADODB.Recordset
-    SQL = "select count(*) from spartidaslin WHERE id = " & mIdPartida
-    Rs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Set RS = New ADODB.Recordset
+    SQL = "select count(*) from spartidaslin WHERE id = " & midPartida
+    RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     CuantasEtiquetas = 0
-    If Not Rs.EOF Then CuantasEtiquetas = DBLet(Rs.Fields(0), "N")
-    Rs.Close
-    Set Rs = Nothing
+    If Not RS.EOF Then CuantasEtiquetas = DBLet(RS.Fields(0), "N")
+    RS.Close
+    Set RS = Nothing
 '    EjecutaSQL conAri, SQL, True
 End Function
 
@@ -1641,13 +1709,13 @@ End Function
 Public Function TieneEtiquetasYAenProduccion() As Boolean
 Dim i As Integer
 
-    Set Rs = New ADODB.Recordset
-    SQL = "select count(*) from spartidaslin WHERE id = " & mIdPartida & " AND fechaulizada > '1900-01-01'"
-    Rs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Set RS = New ADODB.Recordset
+    SQL = "select count(*) from spartidaslin WHERE id = " & midPartida & " AND fechaulizada > '1900-01-01'"
+    RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     TieneEtiquetasYAenProduccion = False
-    If Not Rs.EOF Then TieneEtiquetasYAenProduccion = DBLet(Rs.Fields(0), "N") > 0
-    Rs.Close
-    Set Rs = Nothing
+    If Not RS.EOF Then TieneEtiquetasYAenProduccion = DBLet(RS.Fields(0), "N") > 0
+    RS.Close
+    Set RS = Nothing
  '   EjecutaSQL conAri, SQL, True
 End Function
 
@@ -1657,6 +1725,6 @@ End Function
 
 Public Function AjustarFinPartida()
     SQL = "UPDATE spartidas set cantotal=0 "
-    SQL = SQL & " WHERE id = " & mIdPartida
-    Conn.Execute SQL
+    SQL = SQL & " WHERE id = " & midPartida
+    conn.Execute SQL
 End Function
