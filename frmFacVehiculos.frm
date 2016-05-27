@@ -1,22 +1,61 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
-Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "msadodc.ocx"
+Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmFacVehiculos 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Vehiculos"
-   ClientHeight    =   6015
+   ClientHeight    =   6150
    ClientLeft      =   45
    ClientTop       =   330
-   ClientWidth     =   7215
+   ClientWidth     =   14130
    Icon            =   "frmFacVehiculos.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6015
-   ScaleWidth      =   7215
+   ScaleHeight     =   6150
+   ScaleWidth      =   14130
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.TextBox txtAux 
+      Appearance      =   0  'Flat
+      BorderStyle     =   0  'None
+      Height          =   270
+      Index           =   5
+      Left            =   10320
+      MaxLength       =   15
+      TabIndex        =   5
+      Tag             =   "DNIConductor|T|S|||svehiculos|DNIConductor||N|"
+      Text            =   "Dato2"
+      Top             =   4800
+      Width           =   1395
+   End
+   Begin VB.TextBox txtAux 
+      Appearance      =   0  'Flat
+      BorderStyle     =   0  'None
+      Height          =   270
+      Index           =   4
+      Left            =   8640
+      MaxLength       =   100
+      TabIndex        =   4
+      Tag             =   "C|T|S|||svehiculos|Conductor||N|"
+      Text            =   "Dato2"
+      Top             =   4800
+      Width           =   1395
+   End
+   Begin VB.TextBox txtAux 
+      Appearance      =   0  'Flat
+      BorderStyle     =   0  'None
+      Height          =   270
+      Index           =   3
+      Left            =   7080
+      MaxLength       =   100
+      TabIndex        =   3
+      Tag             =   "Empresa|T|S|||svehiculos|Empresa||N|"
+      Text            =   "Dato2"
+      Top             =   4800
+      Width           =   1395
+   End
    Begin VB.TextBox txtAux 
       Appearance      =   0  'Flat
       BorderStyle     =   0  'None
@@ -60,7 +99,7 @@ Begin VB.Form frmFacVehiculos
       Bindings        =   "frmFacVehiculos.frx":000C
       Height          =   4710
       Left            =   120
-      TabIndex        =   10
+      TabIndex        =   13
       TabStop         =   0   'False
       Top             =   540
       Width           =   6975
@@ -129,7 +168,7 @@ Begin VB.Form frmFacVehiculos
       Caption         =   "&Cancelar"
       Height          =   375
       Left            =   6060
-      TabIndex        =   4
+      TabIndex        =   7
       Top             =   5520
       Width           =   1035
    End
@@ -137,7 +176,7 @@ Begin VB.Form frmFacVehiculos
       Caption         =   "&Aceptar"
       Height          =   375
       Left            =   4860
-      TabIndex        =   3
+      TabIndex        =   6
       Top             =   5520
       Width           =   1035
    End
@@ -145,7 +184,7 @@ Begin VB.Form frmFacVehiculos
       Caption         =   "&Regresar"
       Height          =   375
       Left            =   6060
-      TabIndex        =   9
+      TabIndex        =   12
       Top             =   5520
       Visible         =   0   'False
       Width           =   1035
@@ -153,7 +192,7 @@ Begin VB.Form frmFacVehiculos
    Begin VB.Frame Frame1 
       Height          =   555
       Left            =   120
-      TabIndex        =   6
+      TabIndex        =   9
       Top             =   5340
       Width           =   1755
       Begin VB.Label lblIndicador 
@@ -170,7 +209,7 @@ Begin VB.Form frmFacVehiculos
          EndProperty
          Height          =   255
          Left            =   240
-         TabIndex        =   7
+         TabIndex        =   10
          Top             =   240
          Width           =   1200
       End
@@ -179,10 +218,10 @@ Begin VB.Form frmFacVehiculos
       Align           =   1  'Align Top
       Height          =   420
       Left            =   0
-      TabIndex        =   5
+      TabIndex        =   8
       Top             =   0
-      Width           =   7215
-      _ExtentX        =   12726
+      Width           =   14130
+      _ExtentX        =   24924
       _ExtentY        =   741
       ButtonWidth     =   609
       ButtonHeight    =   582
@@ -235,7 +274,7 @@ Begin VB.Form frmFacVehiculos
          Caption         =   "Vista previa"
          Height          =   195
          Left            =   3240
-         TabIndex        =   8
+         TabIndex        =   11
          Top             =   120
          Visible         =   0   'False
          Width           =   1215
@@ -362,6 +401,12 @@ Dim b As Boolean
     txtAux(1).visible = Not b
     txtAux(2).visible = Not b
     
+    txtAux(3).visible = vParamAplic.QUE_EMPRESA = 4 And Not b
+    txtAux(4).visible = vParamAplic.QUE_EMPRESA = 4 And Not b
+    txtAux(5).visible = vParamAplic.QUE_EMPRESA = 4 And Not b
+    
+    
+    
     cmdAceptar.visible = Not b
     cmdCancelar.visible = Not b
     
@@ -421,14 +466,17 @@ Private Sub BotonAnyadir()
 Dim anc As Single
     
     'Situamos el grid al final
-    AnyadirLinea DataGrid1, Adodc1
+    AnyadirLinea DataGrid1, adodc1
    
     anc = ObtenerAlto(Me.DataGrid1)
 
     txtAux(0).Text = SugerirCodigoSiguienteStr("svehiculos", "codigo")
     txtAux(1).Text = ""
     txtAux(2).Text = ""
-    
+    txtAux(3).Text = ""
+    txtAux(4).Text = ""
+    txtAux(5).Text = ""
+
     
     LLamaLineas anc, 3
     
@@ -445,6 +493,9 @@ Dim anc As Single
     txtAux(0).Text = ""
     txtAux(1).Text = ""
     txtAux(2).Text = ""
+    txtAux(3).Text = ""
+    txtAux(4).Text = ""
+    txtAux(5).Text = ""
     anc = ObtenerAlto(Me.DataGrid1)
     LLamaLineas anc, 1
     PonerFoco txtAux(0)
@@ -453,7 +504,7 @@ End Sub
 Private Sub BotonVerTodos()
 On Error Resume Next
     CargaGrid ""
-    If Adodc1.Recordset.RecordCount <= 0 Then
+    If adodc1.Recordset.RecordCount <= 0 Then
          MsgBox "No hay ningún registro en la tabla de vehiculos", vbInformation
          Screen.MousePointer = vbDefault
          Exit Sub
@@ -468,8 +519,8 @@ Private Sub BotonModificar()
 Dim anc As Single
 Dim i As Integer
     
-    If Adodc1.Recordset.EOF Then Exit Sub
-    If Adodc1.Recordset.RecordCount < 1 Then Exit Sub
+    If adodc1.Recordset.EOF Then Exit Sub
+    If adodc1.Recordset.RecordCount < 1 Then Exit Sub
 
     Screen.MousePointer = vbHourglass
     
@@ -483,6 +534,13 @@ Dim i As Integer
     txtAux(0).Text = DataGrid1.Columns(0).Text
     txtAux(1).Text = DataGrid1.Columns(1).Text
     txtAux(2).Text = DataGrid1.Columns(2).Text
+    
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        txtAux(3).Text = DataGrid1.Columns(3).Text
+        txtAux(4).Text = DataGrid1.Columns(4).Text
+        txtAux(5).Text = DataGrid1.Columns(5).Text
+        
+    End If
     anc = ObtenerAlto(Me.DataGrid1)
     LLamaLineas anc, 4
    
@@ -495,13 +553,17 @@ End Sub
 Private Sub LLamaLineas(alto As Single, xModo As Byte)
 Dim jj As Byte
 Dim b As Boolean
+Dim N As Byte
+
+
 
     DeseleccionaGrid Me.DataGrid1
     PonerModo xModo
     
     b = (xModo = 3 Or xModo = 4 Or xModo = 1) 'Insertar o Modificar Lineas
-    
-    For jj = 0 To txtAux.Count - 1
+    N = 2
+    If vParamAplic.QUE_EMPRESA = 4 Then N = 5
+    For jj = 0 To N
         txtAux(jj).Height = DataGrid1.RowHeight
         txtAux(jj).Top = alto
         txtAux(jj).visible = b
@@ -515,10 +577,10 @@ Dim SQL As String
 On Error GoTo Error2
     
     'Ciertas comprobaciones
-    If Adodc1.Recordset.EOF Then Exit Sub
+    If adodc1.Recordset.EOF Then Exit Sub
     
     'Comprobaremos que no esta vinculado a ninguna hoja de rutas
-    SQL = DevuelveDesdeBD(conAri, "vehiculo", "sRepartoC", "vehiculo", CStr(Adodc1.Recordset.Fields(0)))
+    SQL = DevuelveDesdeBD(conAri, "vehiculo", "sRepartoC", "vehiculo", CStr(adodc1.Recordset.Fields(0)))
     If SQL <> "" Then
         MsgBox "No puede eliminar el vehiculo", vbExclamation
         Exit Sub
@@ -526,20 +588,20 @@ On Error GoTo Error2
     
     '### a mano
     SQL = "¿Seguro que desea eliminar el vehicul0?" & vbCrLf
-    SQL = SQL & vbCrLf & "Código: " & Adodc1.Recordset.Fields(0)
-    SQL = SQL & vbCrLf & "Descrp: " & Adodc1.Recordset.Fields(1) & "    " & DBLet(Adodc1.Recordset!matricula, "T")
+    SQL = SQL & vbCrLf & "Código: " & adodc1.Recordset.Fields(0)
+    SQL = SQL & vbCrLf & "Descrp: " & adodc1.Recordset.Fields(1) & "    " & DBLet(adodc1.Recordset!matricula, "T")
         
         
         
     If MsgBox(SQL, vbQuestion + vbYesNo) = vbYes Then
         'Hay que eliminar
-        NumRegElim = Me.Adodc1.Recordset.AbsolutePosition
-        SQL = "Delete from svehiculos where codigo=" & DBSet(Adodc1.Recordset!Codigo, "N")
-        Conn.Execute SQL
-        CancelaADODC Me.Adodc1
+        NumRegElim = Me.adodc1.Recordset.AbsolutePosition
+        SQL = "Delete from svehiculos where codigo=" & DBSet(adodc1.Recordset!Codigo, "N")
+        conn.Execute SQL
+        CancelaADODC Me.adodc1
         CargaGrid ""
-        CancelaADODC Me.Adodc1
-        SituarDataPosicion Me.Adodc1, NumRegElim, SQL
+        CancelaADODC Me.adodc1
+        SituarDataPosicion Me.adodc1, NumRegElim, SQL
     End If
     
 Error2:
@@ -566,12 +628,12 @@ On Error Resume Next
              If DatosOk And BLOQUEADesdeFormulario(Me) Then
                  If ModificaDesdeFormulario(Me, 3) Then
                       TerminaBloquear
-                      i = Adodc1.Recordset.Fields(0)
+                      i = adodc1.Recordset.Fields(0)
 '                      LLamaLineas Modo, 0
                       PonerModo 2
-                      CancelaADODC Me.Adodc1
+                      CancelaADODC Me.adodc1
                       CargaGrid
-                      Adodc1.Recordset.Find (Adodc1.Recordset.Fields(0).Name & " =" & i)
+                      adodc1.Recordset.Find (adodc1.Recordset.Fields(0).Name & " =" & i)
                   End If
                   DataGrid1.SetFocus
             End If
@@ -594,13 +656,13 @@ On Error GoTo ECancelar
     Select Case Modo
         Case 3 'Insertar
             DataGrid1.AllowAddNew = False
-            If Not Adodc1.Recordset.EOF Then
-                Adodc1.Recordset.MoveFirst
+            If Not adodc1.Recordset.EOF Then
+                adodc1.Recordset.MoveFirst
             Else
                 Me.lblIndicador.Caption = ""
             End If
         Case 4 'Modificar
-            Me.lblIndicador.Caption = Adodc1.Recordset.AbsolutePosition & " de " & Adodc1.Recordset.RecordCount
+            Me.lblIndicador.Caption = adodc1.Recordset.AbsolutePosition & " de " & adodc1.Recordset.RecordCount
             TerminaBloquear
         Case 1 'Buscar
             CargaGrid
@@ -617,13 +679,13 @@ Private Sub cmdRegresar_Click()
 Dim cad As String
 On Error GoTo ERegresar
 
-    If Adodc1.Recordset.EOF Then
+    If adodc1.Recordset.EOF Then
         MsgBox "Ningún registro devuelto.", vbExclamation
         Exit Sub
     End If
 
-    cad = Adodc1.Recordset.Fields(0) & "|"
-    cad = cad & Adodc1.Recordset.Fields(1) & "|"
+    cad = adodc1.Recordset.Fields(0) & "|"
+    cad = cad & adodc1.Recordset.Fields(1) & "|"
     RaiseEvent DatoSeleccionado(cad)
     Unload Me
 ERegresar:
@@ -640,8 +702,8 @@ Private Sub DataGrid1_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub DataGrid1_RowColChange(LastRow As Variant, ByVal LastCol As Integer)
-    If Not Adodc1.Recordset.EOF Then 'And Modo = 0 Then
-        lblIndicador.Caption = Adodc1.Recordset.AbsolutePosition & " de " & Adodc1.Recordset.RecordCount
+    If Not adodc1.Recordset.EOF Then 'And Modo = 0 Then
+        lblIndicador.Caption = adodc1.Recordset.AbsolutePosition & " de " & adodc1.Recordset.RecordCount
     End If
 End Sub
 
@@ -650,6 +712,7 @@ Private Sub Form_Activate()
 End Sub
 
 Private Sub Form_Load()
+Dim K As Integer
 
     ' ICONITOS DE LA BARRA
     With Me.Toolbar1
@@ -665,6 +728,18 @@ Private Sub Form_Load()
     
     cmdRegresar.visible = (DatosADevolverBusqueda <> "")
     PonerModo 2
+    
+    K = 7305
+    If vParamAplic.QUE_EMPRESA = 4 Then K = 14220
+    Me.Width = K
+    
+    
+    Me.DataGrid1.Width = K - 330
+    Me.cmdAceptar.Left = K - 2445
+    Me.cmdCancelar.Left = K - 1245
+    Me.cmdRegresar.Left = cmdCancelar.Left
+    
+    
     'Cadena consulta
     CadenaConsulta = "Select * from svehiculos"
     CargaGrid
@@ -724,17 +799,28 @@ Dim tots As String
     End If
     SQL = SQL & " ORDER BY codigo"
     
-    CargaGridGnral DataGrid1, Me.Adodc1, SQL, False
+    CargaGridGnral DataGrid1, Me.adodc1, SQL, False
     
-    tots = "S|txtAux(0)|T|Cod.|1200|;S|txtAux(1)|T|Nombre|3350|;S|txtAux(2)|T|Matricula|1750|;"
+    tots = "S|txtAux(0)|T|Cod.|700|;S|txtAux(1)|T|Nombre|3150|;S|txtAux(2)|T|Matricula|1450|;"
+    
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        tots = tots & "S|txtAux(3)|T|Empresa|2900|;S|txtAux(4)|T|Conductor|3350|;S|txtAux(5)|T|DNI|1350|;"
+    Else
+        tots = tots & "N|||||;N|||||;N|||||;"
+    End If
     arregla tots, DataGrid1, Me
     
     DataGrid1.Enabled = b
     DataGrid1.ScrollBars = dbgAutomatic
    
+   
+   
+   
+   
+   
    'Actualizar indicador
-   If Not Adodc1.Recordset.EOF And (Modo = 2) Then
-        lblIndicador.Caption = Adodc1.Recordset.AbsolutePosition & " de " & Adodc1.Recordset.RecordCount
+   If Not adodc1.Recordset.EOF And (Modo = 2) Then
+        lblIndicador.Caption = adodc1.Recordset.AbsolutePosition & " de " & adodc1.Recordset.RecordCount
    Else
         Me.lblIndicador.Caption = ""
    End If

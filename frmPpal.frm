@@ -341,7 +341,7 @@ Begin VB.MDIForm frmppal
             Style           =   5
             Object.Width           =   1058
             MinWidth        =   1058
-            TextSave        =   "13:35"
+            TextSave        =   "16:56"
          EndProperty
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -1968,7 +1968,9 @@ Dim Permis As String
     PuntoDeMenuVisible mnTraspasoFraAVAB(0), b
     PuntoDeMenuVisible mnTraspasoFraAVAB(1), b
     
-    
+        
+    mnRutas(0).visible = vParamAplic.QUE_EMPRESA <> 4
+        
     mnproduccion1(4).visible = False   'Disponible para poner
     
     'Si no tiene NUEVA PRODUCCION no dejamos ver los puntos de las lineas...
@@ -2011,6 +2013,8 @@ Dim Permis As String
             mnproduccion1(1).visible = False
             mnNuevosPuntosMenuTraza(1).visible = False
     
+
+
 
         End If
         
