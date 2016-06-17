@@ -25,7 +25,7 @@ Begin VB.Form frmFacEntAlbaranes
       Left            =   9480
       Locked          =   -1  'True
       MaxLength       =   6
-      TabIndex        =   66
+      TabIndex        =   76
       Top             =   6780
       Visible         =   0   'False
       Width           =   1005
@@ -37,7 +37,7 @@ Begin VB.Form frmFacEntAlbaranes
       Left            =   2400
       Locked          =   -1  'True
       MaxLength       =   60
-      TabIndex        =   65
+      TabIndex        =   75
       Text            =   "Text2 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwqa"
       Top             =   6780
       Visible         =   0   'False
@@ -47,7 +47,7 @@ Begin VB.Form frmFacEntAlbaranes
       Height          =   475
       Index           =   0
       Left            =   120
-      TabIndex        =   46
+      TabIndex        =   56
       Top             =   6615
       Width           =   2175
       Begin VB.Label lblIndicador 
@@ -55,7 +55,7 @@ Begin VB.Form frmFacEntAlbaranes
          Caption         =   "Label2"
          Height          =   240
          Left            =   240
-         TabIndex        =   47
+         TabIndex        =   57
          Top             =   180
          Width           =   1755
       End
@@ -65,7 +65,7 @@ Begin VB.Form frmFacEntAlbaranes
       Caption         =   "&Cancelar"
       Height          =   375
       Left            =   13440
-      TabIndex        =   44
+      TabIndex        =   54
       Top             =   6720
       Width           =   1035
    End
@@ -73,7 +73,7 @@ Begin VB.Form frmFacEntAlbaranes
       Caption         =   "&Aceptar"
       Height          =   375
       Left            =   12240
-      TabIndex        =   43
+      TabIndex        =   53
       Top             =   6720
       Width           =   1035
    End
@@ -128,7 +128,7 @@ Begin VB.Form frmFacEntAlbaranes
       Align           =   1  'Align Top
       Height          =   420
       Left            =   0
-      TabIndex        =   48
+      TabIndex        =   58
       Top             =   0
       Width           =   14805
       _ExtentX        =   26114
@@ -239,9 +239,9 @@ Begin VB.Form frmFacEntAlbaranes
          ForeColor       =   &H00008000&
          Height          =   285
          Index           =   0
-         Left            =   8400
+         Left            =   9960
          MaxLength       =   15
-         TabIndex        =   111
+         TabIndex        =   121
          Text            =   "BASE IMP."
          Top             =   100
          Width           =   1490
@@ -251,9 +251,9 @@ Begin VB.Form frmFacEntAlbaranes
          BackColor       =   &H00C0FFC0&
          Height          =   285
          Index           =   56
-         Left            =   9960
+         Left            =   11520
          MaxLength       =   15
-         TabIndex        =   110
+         TabIndex        =   120
          Text            =   "Text1 7"
          Top             =   80
          Width           =   1530
@@ -261,8 +261,8 @@ Begin VB.Form frmFacEntAlbaranes
       Begin VB.CheckBox chkVistaPrevia 
          Caption         =   "Vista previa"
          Height          =   195
-         Left            =   6960
-         TabIndex        =   49
+         Left            =   8520
+         TabIndex        =   59
          Top             =   120
          Width           =   1215
       End
@@ -317,7 +317,7 @@ Begin VB.Form frmFacEntAlbaranes
    Begin TabDlg.SSTab SSTab1 
       Height          =   5220
       Left            =   120
-      TabIndex        =   50
+      TabIndex        =   60
       Tag             =   "Fecha Oferta|F|N|||scapre|fecentre|dd/mm/yyyy|N|"
       Top             =   1275
       Width           =   14535
@@ -406,7 +406,7 @@ Begin VB.Form frmFacEntAlbaranes
       Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "Label1(54)"
       Tab(2).Control(1).Enabled=   0   'False
-      Tab(2).Control(2)=   "imgFecha(45)"
+      Tab(2).Control(2)=   "imgFecha(44)"
       Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Label1(55)"
       Tab(2).Control(3).Enabled=   0   'False
@@ -434,54 +434,195 @@ Begin VB.Form frmFacEntAlbaranes
       Tab(2).Control(14).Enabled=   0   'False
       Tab(2).Control(15)=   "Label1(66)"
       Tab(2).Control(15).Enabled=   0   'False
-      Tab(2).Control(16)=   "Text1(43)"
+      Tab(2).Control(16)=   "Label1(67)"
       Tab(2).Control(16).Enabled=   0   'False
-      Tab(2).Control(17)=   "Text1(44)"
+      Tab(2).Control(17)=   "Label1(68)"
       Tab(2).Control(17).Enabled=   0   'False
-      Tab(2).Control(18)=   "Text1(45)"
+      Tab(2).Control(18)=   "Label1(69)"
       Tab(2).Control(18).Enabled=   0   'False
-      Tab(2).Control(19)=   "Text1(46)"
+      Tab(2).Control(19)=   "Label1(70)"
       Tab(2).Control(19).Enabled=   0   'False
-      Tab(2).Control(20)=   "Text1(47)"
+      Tab(2).Control(20)=   "Label1(71)"
       Tab(2).Control(20).Enabled=   0   'False
-      Tab(2).Control(21)=   "Text1(48)"
+      Tab(2).Control(21)=   "Label1(72)"
       Tab(2).Control(21).Enabled=   0   'False
-      Tab(2).Control(22)=   "Text1(49)"
+      Tab(2).Control(22)=   "Label1(73)"
       Tab(2).Control(22).Enabled=   0   'False
-      Tab(2).Control(23)=   "Text1(50)"
+      Tab(2).Control(23)=   "Text1(43)"
       Tab(2).Control(23).Enabled=   0   'False
-      Tab(2).Control(24)=   "Text1(51)"
+      Tab(2).Control(24)=   "Text1(44)"
       Tab(2).Control(24).Enabled=   0   'False
-      Tab(2).Control(25)=   "Text1(52)"
+      Tab(2).Control(25)=   "Text1(45)"
       Tab(2).Control(25).Enabled=   0   'False
-      Tab(2).Control(26)=   "Text1(53)"
+      Tab(2).Control(26)=   "Text1(46)"
       Tab(2).Control(26).Enabled=   0   'False
-      Tab(2).ControlCount=   27
+      Tab(2).Control(27)=   "Text1(47)"
+      Tab(2).Control(27).Enabled=   0   'False
+      Tab(2).Control(28)=   "Text1(48)"
+      Tab(2).Control(28).Enabled=   0   'False
+      Tab(2).Control(29)=   "Text1(49)"
+      Tab(2).Control(29).Enabled=   0   'False
+      Tab(2).Control(30)=   "Text1(50)"
+      Tab(2).Control(30).Enabled=   0   'False
+      Tab(2).Control(31)=   "Text1(51)"
+      Tab(2).Control(31).Enabled=   0   'False
+      Tab(2).Control(32)=   "Text1(52)"
+      Tab(2).Control(32).Enabled=   0   'False
+      Tab(2).Control(33)=   "Text1(53)"
+      Tab(2).Control(33).Enabled=   0   'False
+      Tab(2).Control(34)=   "Text1(54)"
+      Tab(2).Control(34).Enabled=   0   'False
+      Tab(2).Control(35)=   "Text1(55)"
+      Tab(2).Control(35).Enabled=   0   'False
+      Tab(2).Control(36)=   "Text1(56)"
+      Tab(2).Control(36).Enabled=   0   'False
+      Tab(2).Control(37)=   "Text1(57)"
+      Tab(2).Control(37).Enabled=   0   'False
+      Tab(2).Control(38)=   "Text1(58)"
+      Tab(2).Control(38).Enabled=   0   'False
+      Tab(2).Control(39)=   "chkCarga(0)"
+      Tab(2).Control(39).Enabled=   0   'False
+      Tab(2).Control(40)=   "Text1(59)"
+      Tab(2).Control(40).Enabled=   0   'False
+      Tab(2).Control(41)=   "chkCarga(1)"
+      Tab(2).Control(41).Enabled=   0   'False
+      Tab(2).Control(42)=   "chkCarga(2)"
+      Tab(2).Control(42).Enabled=   0   'False
+      Tab(2).Control(43)=   "chkCarga(3)"
+      Tab(2).Control(43).Enabled=   0   'False
+      Tab(2).ControlCount=   44
       TabCaption(3)   =   "Totales"
       TabPicture(3)   =   "frmFacEntAlbaranes.frx":0060
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "FrameFactura"
       Tab(3).ControlCount=   1
+      Begin VB.CheckBox chkCarga 
+         Caption         =   "Otros"
+         Height          =   375
+         Index           =   3
+         Left            =   12720
+         TabIndex        =   51
+         Tag             =   "Facturar|N|S|||scaalb|TransOtros||N|"
+         Top             =   3960
+         Width           =   975
+      End
+      Begin VB.CheckBox chkCarga 
+         Caption         =   "Certificado limpieza"
+         Height          =   375
+         Index           =   2
+         Left            =   10560
+         TabIndex        =   50
+         Tag             =   "Facturar|N|N|||scaalb|TransCertLim||N|"
+         Top             =   3960
+         Width           =   2055
+      End
+      Begin VB.CheckBox chkCarga 
+         Caption         =   "CMR"
+         Height          =   375
+         Index           =   1
+         Left            =   9360
+         TabIndex        =   49
+         Tag             =   "Facturar|N|N|||scaalb|TransCMR||N|"
+         Top             =   3960
+         Width           =   975
+      End
+      Begin VB.TextBox Text1 
+         Height          =   555
+         Index           =   59
+         Left            =   3840
+         MaxLength       =   255
+         MultiLine       =   -1  'True
+         TabIndex        =   45
+         Tag             =   "O1|T|S|||scaalb|TransMercancia||N|"
+         Text            =   "frmFacEntAlbaranes.frx":007C
+         Top             =   3000
+         Width           =   8205
+      End
+      Begin VB.CheckBox chkCarga 
+         Caption         =   "Ticket báscula"
+         Height          =   375
+         Index           =   0
+         Left            =   7560
+         TabIndex        =   48
+         Tag             =   "Facturar|N|N|||scaalb|TransTicketBas||N|"
+         Top             =   3960
+         Width           =   1695
+      End
+      Begin VB.TextBox Text1 
+         Alignment       =   1  'Right Justify
+         Height          =   315
+         Index           =   58
+         Left            =   6000
+         MaxLength       =   10
+         TabIndex        =   47
+         Tag             =   "Deposito|N|S||50|scaalb|TransLacradasCompr|00|N|"
+         Top             =   4080
+         Width           =   825
+      End
+      Begin VB.TextBox Text1 
+         Alignment       =   1  'Right Justify
+         Height          =   315
+         Index           =   57
+         Left            =   4800
+         MaxLength       =   10
+         TabIndex        =   46
+         Tag             =   "Deposito|N|S|1|50|scaalb|TransLacradasCoop|00|N|"
+         Top             =   4080
+         Width           =   825
+      End
+      Begin VB.TextBox Text1 
+         Alignment       =   1  'Right Justify
+         Height          =   315
+         Index           =   56
+         Left            =   8880
+         MaxLength       =   40
+         TabIndex        =   35
+         Tag             =   "O1|T|S|||scaalb|TransAcidez||N|"
+         Top             =   720
+         Width           =   1785
+      End
+      Begin VB.TextBox Text1 
+         Height          =   315
+         Index           =   55
+         Left            =   9960
+         MaxLength       =   30
+         TabIndex        =   44
+         Tag             =   "O1|T|S|||scaalb|TransDestino||N|"
+         Text            =   " "
+         Top             =   2400
+         Width           =   3165
+      End
+      Begin VB.TextBox Text1 
+         Height          =   315
+         Index           =   54
+         Left            =   9480
+         MaxLength       =   10
+         TabIndex        =   40
+         Tag             =   "O1|T|S|||scaalb|TransMatRemolque||N|"
+         Text            =   "Text15"
+         Top             =   1680
+         Width           =   1455
+      End
       Begin VB.TextBox Text1 
          Height          =   315
          Index           =   53
          Left            =   3840
          MaxLength       =   30
-         TabIndex        =   42
+         TabIndex        =   52
          Tag             =   "O1|T|S|||scaalb|TransObsPrecintos||N|"
          Text            =   "Text1 wwwwwwwwwwwwwwwwwwwwwwaq"
-         Top             =   4320
+         Top             =   4680
          Width           =   7245
       End
       Begin VB.TextBox Text1 
          Alignment       =   2  'Center
          Height          =   315
          Index           =   52
-         Left            =   9720
+         Left            =   11880
          MaxLength       =   10
-         TabIndex        =   39
+         TabIndex        =   41
          Tag             =   "Bocas|N|S|1|100|scaalb|TransNumBocas|00|N|"
-         Top             =   2400
+         Top             =   1680
          Width           =   1305
       End
       Begin VB.TextBox Text1 
@@ -489,17 +630,17 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   51
          Left            =   7440
          MaxLength       =   6
-         TabIndex        =   38
+         TabIndex        =   39
          Tag             =   "O1|T|S|||scaalb|TransMatricula||N|"
          Text            =   "Text15"
-         Top             =   2400
+         Top             =   1680
          Width           =   1455
       End
       Begin VB.TextBox Text1 
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   50
-         Left            =   7920
+         Left            =   7560
          MaxLength       =   10
          TabIndex        =   34
          Tag             =   "Deposito|N|S|1|20|scaalb|Deposito|0000|N|"
@@ -510,7 +651,7 @@ Begin VB.Form frmFacEntAlbaranes
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   49
-         Left            =   5760
+         Left            =   5520
          MaxLength       =   10
          TabIndex        =   33
          Tag             =   "O1|T|S|||scaalb|Muestra||N|"
@@ -522,32 +663,32 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   48
          Left            =   7440
          MaxLength       =   30
-         TabIndex        =   41
+         TabIndex        =   43
          Tag             =   "O1|T|S|||scaalb|TransCondDNI||N|"
-         Text            =   "Text1 wwwwwwwwwwwwwwwwwwwwwwaq"
-         Top             =   3120
+         Text            =   " "
+         Top             =   2400
          Width           =   2205
       End
       Begin VB.TextBox Text1 
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   47
-         Left            =   5760
+         Left            =   12840
          MaxLength       =   10
-         TabIndex        =   36
+         TabIndex        =   37
          Tag             =   "TaraKg|N|S|1||scaalb|TransTara|#,##0||"
-         Top             =   1440
+         Top             =   720
          Width           =   1065
       End
       Begin VB.TextBox Text1 
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   46
-         Left            =   3840
+         Left            =   10920
          MaxLength       =   10
-         TabIndex        =   35
+         TabIndex        =   36
          Tag             =   "BrutoKg|N|S|1||scaalb|TransBruto|#,##0||"
-         Top             =   1440
+         Top             =   720
          Width           =   1065
       End
       Begin VB.TextBox Text1 
@@ -566,27 +707,27 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   44
          Left            =   3840
          MaxLength       =   30
-         TabIndex        =   40
+         TabIndex        =   42
          Tag             =   "O1|T|S|||scaalb|TransConductor||N|"
          Text            =   "Text1 wwwwwwwwwwwwwwwwwwwwwwaq"
-         Top             =   3120
+         Top             =   2400
          Width           =   3405
       End
       Begin VB.TextBox Text1 
          Height          =   315
          Index           =   43
          Left            =   3840
-         MaxLength       =   6
-         TabIndex        =   37
+         MaxLength       =   60
+         TabIndex        =   38
          Tag             =   "O1|T|S|||scaalb|TransEmpresa||N|"
          Text            =   "Text15"
-         Top             =   2400
+         Top             =   1680
          Width           =   3030
       End
       Begin VB.Frame FrameFactura 
          Height          =   3300
          Left            =   -74280
-         TabIndex        =   138
+         TabIndex        =   148
          Top             =   840
          Width           =   10575
          Begin VB.TextBox Text3 
@@ -605,7 +746,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   55
             Left            =   6120
             MaxLength       =   15
-            TabIndex        =   161
+            TabIndex        =   171
             Text            =   "Text1 7"
             Top             =   2640
             Width           =   1845
@@ -617,7 +758,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   48
             Left            =   4680
             MaxLength       =   15
-            TabIndex        =   160
+            TabIndex        =   170
             Text            =   "Text1 7"
             Top             =   2160
             Width           =   1245
@@ -628,7 +769,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   42
             Left            =   4080
             MaxLength       =   5
-            TabIndex        =   159
+            TabIndex        =   169
             Text            =   "Text1 7"
             Top             =   2160
             Width           =   525
@@ -639,7 +780,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   39
             Left            =   2040
             MaxLength       =   4
-            TabIndex        =   158
+            TabIndex        =   168
             Text            =   "Text1 7"
             Top             =   2160
             Width           =   525
@@ -650,7 +791,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   45
             Left            =   2760
             MaxLength       =   15
-            TabIndex        =   157
+            TabIndex        =   167
             Text            =   "Text1 7"
             Top             =   2160
             Width           =   1125
@@ -662,7 +803,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   47
             Left            =   4680
             MaxLength       =   15
-            TabIndex        =   156
+            TabIndex        =   166
             Text            =   "Text1 7"
             Top             =   1800
             Width           =   1245
@@ -673,7 +814,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   41
             Left            =   4080
             MaxLength       =   5
-            TabIndex        =   155
+            TabIndex        =   165
             Text            =   "Text1 7"
             Top             =   1800
             Width           =   525
@@ -684,7 +825,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   38
             Left            =   2040
             MaxLength       =   4
-            TabIndex        =   154
+            TabIndex        =   164
             Text            =   "Text1 7"
             Top             =   1800
             Width           =   525
@@ -695,7 +836,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   44
             Left            =   2760
             MaxLength       =   15
-            TabIndex        =   153
+            TabIndex        =   163
             Text            =   "Text1 7"
             Top             =   1800
             Width           =   1125
@@ -707,7 +848,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   46
             Left            =   4680
             MaxLength       =   15
-            TabIndex        =   152
+            TabIndex        =   162
             Text            =   "Text1 7"
             Top             =   1440
             Width           =   1245
@@ -718,7 +859,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   40
             Left            =   4080
             MaxLength       =   5
-            TabIndex        =   151
+            TabIndex        =   161
             Text            =   "Text1 7"
             Top             =   1440
             Width           =   525
@@ -729,7 +870,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   37
             Left            =   2040
             MaxLength       =   4
-            TabIndex        =   150
+            TabIndex        =   160
             Text            =   "Text1 7"
             Top             =   1440
             Width           =   525
@@ -740,7 +881,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   43
             Left            =   2760
             MaxLength       =   15
-            TabIndex        =   149
+            TabIndex        =   159
             Text            =   "Text1 7"
             Top             =   1440
             Width           =   1125
@@ -752,7 +893,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   36
             Left            =   5760
             MaxLength       =   15
-            TabIndex        =   148
+            TabIndex        =   158
             Text            =   "Text1 7"
             Top             =   555
             Width           =   1485
@@ -763,7 +904,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   35
             Left            =   3960
             MaxLength       =   15
-            TabIndex        =   147
+            TabIndex        =   157
             Text            =   "Text1 7"
             Top             =   555
             Width           =   1365
@@ -774,7 +915,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   34
             Left            =   2160
             MaxLength       =   15
-            TabIndex        =   146
+            TabIndex        =   156
             Text            =   "Text1 7"
             Top             =   555
             Width           =   1365
@@ -785,7 +926,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   33
             Left            =   240
             MaxLength       =   15
-            TabIndex        =   145
+            TabIndex        =   155
             Text            =   "Text1 7"
             Top             =   555
             Width           =   1485
@@ -796,7 +937,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   49
             Left            =   6120
             MaxLength       =   5
-            TabIndex        =   144
+            TabIndex        =   154
             Text            =   "Text1 7"
             Top             =   1440
             Width           =   525
@@ -808,7 +949,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   52
             Left            =   6720
             MaxLength       =   15
-            TabIndex        =   143
+            TabIndex        =   153
             Text            =   "Text1 7"
             Top             =   1440
             Width           =   1245
@@ -819,7 +960,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   50
             Left            =   6120
             MaxLength       =   5
-            TabIndex        =   142
+            TabIndex        =   152
             Text            =   "Text1 7"
             Top             =   1800
             Width           =   525
@@ -831,7 +972,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   53
             Left            =   6720
             MaxLength       =   15
-            TabIndex        =   141
+            TabIndex        =   151
             Text            =   "Text1 7"
             Top             =   1800
             Width           =   1245
@@ -842,7 +983,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   51
             Left            =   6120
             MaxLength       =   5
-            TabIndex        =   140
+            TabIndex        =   150
             Text            =   "Text1 7"
             Top             =   2160
             Width           =   525
@@ -854,7 +995,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   54
             Left            =   6720
             MaxLength       =   15
-            TabIndex        =   139
+            TabIndex        =   149
             Text            =   "Text1 7"
             Top             =   2160
             Width           =   1245
@@ -864,7 +1005,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   42
             Left            =   2040
-            TabIndex        =   176
+            TabIndex        =   186
             Top             =   1200
             Width           =   735
          End
@@ -873,7 +1014,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   41
             Left            =   4080
-            TabIndex        =   175
+            TabIndex        =   185
             Top             =   1200
             Width           =   495
          End
@@ -892,7 +1033,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   285
             Index           =   39
             Left            =   4200
-            TabIndex        =   174
+            TabIndex        =   184
             Top             =   2655
             Width           =   1530
          End
@@ -910,7 +1051,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   36
             Left            =   11880
-            TabIndex        =   173
+            TabIndex        =   183
             Top             =   2160
             Width           =   135
          End
@@ -925,7 +1066,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   33
             Left            =   4800
-            TabIndex        =   172
+            TabIndex        =   182
             Top             =   1200
             Width           =   735
          End
@@ -943,7 +1084,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   32
             Left            =   5520
-            TabIndex        =   171
+            TabIndex        =   181
             Top             =   480
             Width           =   135
          End
@@ -961,7 +1102,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   31
             Left            =   3720
-            TabIndex        =   170
+            TabIndex        =   180
             Top             =   480
             Width           =   135
          End
@@ -979,7 +1120,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   30
             Left            =   1920
-            TabIndex        =   169
+            TabIndex        =   179
             Top             =   480
             Width           =   135
          End
@@ -988,7 +1129,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   2
             Left            =   5760
-            TabIndex        =   168
+            TabIndex        =   178
             Top             =   360
             Width           =   1215
          End
@@ -997,7 +1138,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   18
             Left            =   3960
-            TabIndex        =   167
+            TabIndex        =   177
             Top             =   360
             Width           =   855
          End
@@ -1006,7 +1147,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   22
             Left            =   2160
-            TabIndex        =   166
+            TabIndex        =   176
             Top             =   360
             Width           =   855
          End
@@ -1015,7 +1156,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   27
             Left            =   240
-            TabIndex        =   165
+            TabIndex        =   175
             Top             =   360
             Width           =   855
          End
@@ -1024,7 +1165,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   28
             Left            =   2760
-            TabIndex        =   164
+            TabIndex        =   174
             Top             =   1200
             Width           =   1095
          End
@@ -1033,7 +1174,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   6
             Left            =   6960
-            TabIndex        =   163
+            TabIndex        =   173
             Top             =   1200
             Width           =   735
          End
@@ -1042,7 +1183,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   48
             Left            =   6120
-            TabIndex        =   162
+            TabIndex        =   172
             Top             =   1200
             Width           =   495
          End
@@ -1056,7 +1197,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   13
          Left            =   -69120
          MaxLength       =   12
-         TabIndex        =   56
+         TabIndex        =   66
          Tag             =   "PrecioLitro"
          Text            =   "Palets"
          Top             =   3600
@@ -1083,7 +1224,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   11
          Left            =   -62760
          MaxLength       =   12
-         TabIndex        =   57
+         TabIndex        =   67
          Tag             =   "Cajas"
          Text            =   "Cajas"
          Top             =   3960
@@ -1099,7 +1240,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   12
          Left            =   -61800
          MaxLength       =   12
-         TabIndex        =   60
+         TabIndex        =   70
          Tag             =   "PrecioLitro"
          Text            =   "PrecioLitro"
          Top             =   3960
@@ -1112,7 +1253,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   315
          Index           =   9
          Left            =   -63120
-         TabIndex        =   133
+         TabIndex        =   143
          ToolTipText     =   "Buscar artículo"
          Top             =   3960
          Visible         =   0   'False
@@ -1125,7 +1266,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   315
          Index           =   10
          Left            =   -63000
-         TabIndex        =   132
+         TabIndex        =   142
          Tag             =   "Importe"
          Text            =   "nomprove"
          Top             =   3960
@@ -1141,7 +1282,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   9
          Left            =   -63960
          MaxLength       =   12
-         TabIndex        =   64
+         TabIndex        =   74
          Tag             =   "Importe"
          Text            =   "codprove"
          Top             =   3960
@@ -1154,7 +1295,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   39
          Left            =   -70800
          MaxLength       =   7
-         TabIndex        =   131
+         TabIndex        =   141
          Tag             =   "Nº Venta|N|S|||scaalb|numventa|0000000|N|"
          Text            =   "Text1 7"
          Top             =   675
@@ -1164,7 +1305,7 @@ Begin VB.Form frmFacEntAlbaranes
          Caption         =   "Datos Factura a rectificar "
          Height          =   1815
          Left            =   -68160
-         TabIndex        =   123
+         TabIndex        =   133
          Top             =   480
          Width           =   2775
          Begin VB.TextBox Text1 
@@ -1173,7 +1314,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   37
             Left            =   1200
             MaxLength       =   10
-            TabIndex        =   128
+            TabIndex        =   138
             Tag             =   "Tipo Mov. Factura|T|S|||scaalb|codtipmf||N|"
             Top             =   360
             Width           =   1185
@@ -1184,7 +1325,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   36
             Left            =   1200
             MaxLength       =   10
-            TabIndex        =   126
+            TabIndex        =   136
             Tag             =   "Nº. Factura|N|S|0||scaalb|numfactu|0000000|N|"
             Top             =   780
             Width           =   1185
@@ -1195,7 +1336,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   35
             Left            =   1200
             MaxLength       =   10
-            TabIndex        =   124
+            TabIndex        =   134
             Tag             =   "Fecha Factura|F|S|||scaalb|fecfactu|dd/mm/yyyy|N|"
             Top             =   1200
             Width           =   1185
@@ -1205,7 +1346,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   47
             Left            =   240
-            TabIndex        =   129
+            TabIndex        =   139
             Top             =   360
             Width           =   855
          End
@@ -1214,7 +1355,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   46
             Left            =   240
-            TabIndex        =   127
+            TabIndex        =   137
             Top             =   780
             Width           =   855
          End
@@ -1223,7 +1364,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   44
             Left            =   240
-            TabIndex        =   125
+            TabIndex        =   135
             Top             =   1200
             Width           =   855
          End
@@ -1231,7 +1372,7 @@ Begin VB.Form frmFacEntAlbaranes
       Begin VB.Frame FrameHco 
          Height          =   2055
          Left            =   -68280
-         TabIndex        =   112
+         TabIndex        =   122
          Top             =   360
          Width           =   4455
          Begin VB.TextBox Text2 
@@ -1241,7 +1382,7 @@ Begin VB.Form frmFacEntAlbaranes
             Left            =   795
             Locked          =   -1  'True
             MaxLength       =   40
-            TabIndex        =   120
+            TabIndex        =   130
             Text            =   "Text2"
             Top             =   1560
             Width           =   3525
@@ -1252,7 +1393,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   33
             Left            =   135
             MaxLength       =   30
-            TabIndex        =   119
+            TabIndex        =   129
             Text            =   "Text1"
             Top             =   1560
             Width           =   660
@@ -1264,7 +1405,7 @@ Begin VB.Form frmFacEntAlbaranes
             Left            =   795
             Locked          =   -1  'True
             MaxLength       =   40
-            TabIndex        =   117
+            TabIndex        =   127
             Text            =   "Text2"
             Top             =   840
             Width           =   3525
@@ -1275,7 +1416,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   32
             Left            =   135
             MaxLength       =   30
-            TabIndex        =   116
+            TabIndex        =   126
             Text            =   "Text1"
             Top             =   840
             Width           =   660
@@ -1286,7 +1427,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   31
             Left            =   1680
             MaxLength       =   10
-            TabIndex        =   114
+            TabIndex        =   124
             Top             =   240
             Width           =   1185
          End
@@ -1294,7 +1435,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   240
             Index           =   11
             Left            =   1080
-            Picture         =   "frmFacEntAlbaranes.frx":007C
+            Picture         =   "frmFacEntAlbaranes.frx":009B
             ToolTipText     =   "Buscar incidencia"
             Top             =   1320
             Width           =   240
@@ -1304,7 +1445,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   40
             Left            =   120
-            TabIndex        =   121
+            TabIndex        =   131
             Top             =   1320
             Width           =   825
          End
@@ -1312,7 +1453,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   240
             Index           =   10
             Left            =   1080
-            Picture         =   "frmFacEntAlbaranes.frx":017E
+            Picture         =   "frmFacEntAlbaranes.frx":019D
             ToolTipText     =   "Buscar trabajador"
             Top             =   600
             Width           =   240
@@ -1322,7 +1463,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   38
             Left            =   120
-            TabIndex        =   118
+            TabIndex        =   128
             Top             =   615
             Width           =   825
          End
@@ -1331,7 +1472,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   37
             Left            =   120
-            TabIndex        =   115
+            TabIndex        =   125
             Top             =   240
             Width           =   1335
          End
@@ -1339,7 +1480,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   29
             Left            =   360
-            TabIndex        =   113
+            TabIndex        =   123
             Top             =   240
             Width           =   735
          End
@@ -1363,7 +1504,7 @@ Begin VB.Form frmFacEntAlbaranes
          Left            =   -72120
          Locked          =   -1  'True
          MaxLength       =   40
-         TabIndex        =   101
+         TabIndex        =   111
          Text            =   "Text2"
          Top             =   2040
          Width           =   3525
@@ -1387,7 +1528,7 @@ Begin VB.Form frmFacEntAlbaranes
          Left            =   -72120
          Locked          =   -1  'True
          MaxLength       =   40
-         TabIndex        =   99
+         TabIndex        =   109
          Text            =   "Text2"
          Top             =   1680
          Width           =   3525
@@ -1411,7 +1552,7 @@ Begin VB.Form frmFacEntAlbaranes
          Left            =   -72120
          Locked          =   -1  'True
          MaxLength       =   40
-         TabIndex        =   97
+         TabIndex        =   107
          Text            =   "Text2"
          Top             =   1320
          Width           =   3525
@@ -1422,7 +1563,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   2
          Left            =   -72285
          MaxLength       =   10
-         TabIndex        =   95
+         TabIndex        =   105
          Tag             =   "Semana Entrega|N|S|||scaalb|sementre||N|"
          Top             =   675
          Width           =   705
@@ -1433,7 +1574,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   25
          Left            =   -74520
          MaxLength       =   7
-         TabIndex        =   92
+         TabIndex        =   102
          Tag             =   "Nº Pedido|N|S|||scaalb|numpedcl|0000000|N|"
          Text            =   "Text1 7"
          Top             =   675
@@ -1445,7 +1586,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   26
          Left            =   -73545
          MaxLength       =   10
-         TabIndex        =   91
+         TabIndex        =   101
          Tag             =   "Fecha Pedido|F|S|||scaalb|fecpedcl|dd/mm/yyyy|N|"
          Top             =   675
          Width           =   1185
@@ -1456,7 +1597,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   24
          Left            =   -69840
          MaxLength       =   10
-         TabIndex        =   87
+         TabIndex        =   97
          Tag             =   "Fecha Oferta|F|S|||scaalb|fecofert|dd/mm/yyyy|N|"
          Top             =   675
          Width           =   1185
@@ -1467,7 +1608,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   23
          Left            =   -70800
          MaxLength       =   7
-         TabIndex        =   86
+         TabIndex        =   96
          Tag             =   "Nº Oferta|N|S|||scaalb|numofert|0000000|N|"
          Text            =   "Text1 7"
          Top             =   675
@@ -1483,7 +1624,7 @@ Begin VB.Form frmFacEntAlbaranes
          Left            =   -66720
          Locked          =   -1  'True
          MaxLength       =   1
-         TabIndex        =   67
+         TabIndex        =   77
          Tag             =   "OF"
          Text            =   "OF"
          Top             =   3960
@@ -1493,7 +1634,7 @@ Begin VB.Form frmFacEntAlbaranes
       Begin VB.Frame FrameCliente 
          Height          =   2550
          Left            =   -74760
-         TabIndex        =   71
+         TabIndex        =   81
          Top             =   315
          Width           =   14055
          Begin VB.TextBox Text1 
@@ -1502,7 +1643,7 @@ Begin VB.Form frmFacEntAlbaranes
             Index           =   42
             Left            =   9945
             MaxLength       =   7
-            TabIndex        =   135
+            TabIndex        =   145
             Tag             =   "RefProduccion|N|S|0||scaalb|refproduccion|0||"
             Text            =   "Text1 7"
             Top             =   2160
@@ -1560,7 +1701,7 @@ Begin VB.Form frmFacEntAlbaranes
             Left            =   7470
             Locked          =   -1  'True
             MaxLength       =   40
-            TabIndex        =   83
+            TabIndex        =   93
             Tag             =   "Direccion/Dpto.|T|S|||scaped|nomdirec||N|"
             Text            =   "Text2"
             Top             =   165
@@ -1652,7 +1793,7 @@ Begin VB.Form frmFacEntAlbaranes
             Left            =   7470
             Locked          =   -1  'True
             MaxLength       =   40
-            TabIndex        =   78
+            TabIndex        =   88
             Text            =   "Text2"
             Top             =   513
             Width           =   3405
@@ -1676,7 +1817,7 @@ Begin VB.Form frmFacEntAlbaranes
             Left            =   7470
             Locked          =   -1  'True
             MaxLength       =   40
-            TabIndex        =   73
+            TabIndex        =   83
             Text            =   "Text2"
             Top             =   861
             Width           =   3405
@@ -1723,7 +1864,7 @@ Begin VB.Form frmFacEntAlbaranes
             ScrollBars      =   2  'Vertical
             TabIndex        =   9
             Tag             =   "Domicilio|T|N|||scaalb|domclien||N|"
-            Text            =   "frmFacEntAlbaranes.frx":0280
+            Text            =   "frmFacEntAlbaranes.frx":029F
             Top             =   513
             Width           =   4030
          End
@@ -1732,7 +1873,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   51
             Left            =   8520
-            TabIndex        =   136
+            TabIndex        =   146
             Top             =   2160
             Width           =   1335
          End
@@ -1742,7 +1883,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   49
             Left            =   7560
-            TabIndex        =   134
+            TabIndex        =   144
             Top             =   1575
             Width           =   2175
          End
@@ -1751,7 +1892,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   43
             Left            =   11940
-            TabIndex        =   122
+            TabIndex        =   132
             Top             =   255
             Width           =   975
          End
@@ -1760,7 +1901,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   13
             Left            =   120
-            TabIndex        =   90
+            TabIndex        =   100
             Top             =   2160
             Width           =   855
          End
@@ -1769,7 +1910,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   240
             Index           =   6
             Left            =   855
-            Picture         =   "frmFacEntAlbaranes.frx":02A4
+            Picture         =   "frmFacEntAlbaranes.frx":02C3
             ToolTipText     =   "Buscar población"
             Top             =   1350
             Width           =   240
@@ -1779,7 +1920,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   1
             Left            =   5700
-            TabIndex        =   85
+            TabIndex        =   95
             Top             =   165
             Width           =   855
          End
@@ -1788,7 +1929,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   240
             Index           =   2
             Left            =   6600
-            Picture         =   "frmFacEntAlbaranes.frx":03A6
+            Picture         =   "frmFacEntAlbaranes.frx":03C5
             ToolTipText     =   "Buscar direc./dpto"
             Top             =   165
             Width           =   240
@@ -1798,7 +1939,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   17
             Left            =   120
-            TabIndex        =   84
+            TabIndex        =   94
             Top             =   1695
             Width           =   735
          End
@@ -1807,7 +1948,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   16
             Left            =   120
-            TabIndex        =   82
+            TabIndex        =   92
             Top             =   1335
             Width           =   735
          End
@@ -1816,7 +1957,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   19
             Left            =   2805
-            TabIndex        =   81
+            TabIndex        =   91
             Top             =   2160
             Width           =   495
          End
@@ -1825,7 +1966,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   20
             Left            =   120
-            TabIndex        =   80
+            TabIndex        =   90
             Top             =   165
             Width           =   615
          End
@@ -1833,7 +1974,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   240
             Index           =   1
             Left            =   855
-            Picture         =   "frmFacEntAlbaranes.frx":04A8
+            Picture         =   "frmFacEntAlbaranes.frx":04C7
             ToolTipText     =   "Buscar cliente varios"
             Top             =   165
             Visible         =   0   'False
@@ -1844,7 +1985,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   34
             Left            =   5700
-            TabIndex        =   79
+            TabIndex        =   89
             Top             =   513
             Width           =   615
          End
@@ -1852,7 +1993,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   240
             Index           =   5
             Left            =   6600
-            Picture         =   "frmFacEntAlbaranes.frx":05AA
+            Picture         =   "frmFacEntAlbaranes.frx":05C9
             ToolTipText     =   "Buscar agente"
             Top             =   516
             Width           =   240
@@ -1862,7 +2003,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   15
             Left            =   5700
-            TabIndex        =   77
+            TabIndex        =   87
             Top             =   861
             Width           =   855
          End
@@ -1871,7 +2012,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   25
             Left            =   5700
-            TabIndex        =   76
+            TabIndex        =   86
             Top             =   1215
             Width           =   975
          End
@@ -1880,7 +2021,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   26
             Left            =   5715
-            TabIndex        =   75
+            TabIndex        =   85
             Top             =   1575
             Width           =   735
          End
@@ -1889,7 +2030,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   4
             Left            =   5640
-            TabIndex        =   74
+            TabIndex        =   84
             Top             =   2160
             Width           =   1095
          End
@@ -1897,7 +2038,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   240
             Index           =   4
             Left            =   6600
-            Picture         =   "frmFacEntAlbaranes.frx":06AC
+            Picture         =   "frmFacEntAlbaranes.frx":06CB
             ToolTipText     =   "Buscar forma de pago"
             Top             =   867
             Width           =   240
@@ -1907,7 +2048,7 @@ Begin VB.Form frmFacEntAlbaranes
             Height          =   255
             Index           =   7
             Left            =   120
-            TabIndex        =   72
+            TabIndex        =   82
             Top             =   513
             Width           =   735
          End
@@ -1918,7 +2059,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   315
          Index           =   1
          Left            =   -72360
-         TabIndex        =   70
+         TabIndex        =   80
          ToolTipText     =   "Buscar artículo"
          Top             =   3960
          Visible         =   0   'False
@@ -1930,7 +2071,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   315
          Index           =   0
          Left            =   -74040
-         TabIndex        =   69
+         TabIndex        =   79
          ToolTipText     =   "Buscar almacen"
          Top             =   3960
          Visible         =   0   'False
@@ -1945,7 +2086,7 @@ Begin VB.Form frmFacEntAlbaranes
          Left            =   -72120
          Locked          =   -1  'True
          MaxLength       =   40
-         TabIndex        =   55
+         TabIndex        =   65
          Tag             =   "Nombre Artículo"
          Text            =   "nomArtic"
          Top             =   3960
@@ -1961,7 +2102,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   8
          Left            =   -64920
          MaxLength       =   12
-         TabIndex        =   63
+         TabIndex        =   73
          Tag             =   "Importe"
          Text            =   "Importe"
          Top             =   3960
@@ -1977,7 +2118,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   7
          Left            =   -65520
          MaxLength       =   30
-         TabIndex        =   62
+         TabIndex        =   72
          Tag             =   "Descuento 2"
          Text            =   "Dto2"
          Top             =   3960
@@ -1993,7 +2134,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   6
          Left            =   -66120
          MaxLength       =   5
-         TabIndex        =   61
+         TabIndex        =   71
          Tag             =   "Descuento 1"
          Text            =   "Dto1"
          Top             =   3960
@@ -2009,7 +2150,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   4
          Left            =   -67560
          MaxLength       =   12
-         TabIndex        =   59
+         TabIndex        =   69
          Tag             =   "Precio"
          Text            =   "123,456.7879"
          Top             =   3960
@@ -2025,7 +2166,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   3
          Left            =   -68760
          MaxLength       =   16
-         TabIndex        =   58
+         TabIndex        =   68
          Tag             =   "Cantidad"
          Text            =   "1,234,567,891.25"
          Top             =   3960
@@ -2040,7 +2181,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   1
          Left            =   -73800
          MaxLength       =   18
-         TabIndex        =   54
+         TabIndex        =   64
          Tag             =   "Código Artículo"
          Text            =   "Artic Artic Artic5"
          Top             =   3900
@@ -2055,7 +2196,7 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   0
          Left            =   -74760
          MaxLength       =   15
-         TabIndex        =   53
+         TabIndex        =   63
          Tag             =   "Código Almacen"
          Text            =   "codalmac"
          Top             =   3840
@@ -2113,10 +2254,10 @@ Begin VB.Form frmFacEntAlbaranes
          Width           =   7845
       End
       Begin MSDataGridLib.DataGrid DataGrid1 
-         Bindings        =   "frmFacEntAlbaranes.frx":07AE
+         Bindings        =   "frmFacEntAlbaranes.frx":07CD
          Height          =   2040
          Left            =   -74760
-         TabIndex        =   68
+         TabIndex        =   78
          Top             =   3000
          Width           =   14175
          _ExtentX        =   25003
@@ -2187,10 +2328,97 @@ Begin VB.Form frmFacEntAlbaranes
          Index           =   38
          Left            =   -69840
          MaxLength       =   10
-         TabIndex        =   130
+         TabIndex        =   140
          Tag             =   "Nº terminal|N|S|||scaalb|numtermi||N|"
          Top             =   675
          Width           =   705
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Lacradas"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   -1  'True
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   195
+         Index           =   73
+         Left            =   3840
+         TabIndex        =   207
+         Top             =   3840
+         Width           =   855
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Comprador"
+         Height          =   195
+         Index           =   72
+         Left            =   6000
+         TabIndex        =   206
+         Top             =   3840
+         Width           =   765
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Coop"
+         Height          =   195
+         Index           =   71
+         Left            =   4920
+         TabIndex        =   205
+         Top             =   3840
+         Width           =   375
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Acidez"
+         Height          =   195
+         Index           =   70
+         Left            =   8880
+         TabIndex        =   204
+         Top             =   480
+         Width           =   480
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Destino"
+         Height          =   195
+         Index           =   69
+         Left            =   9960
+         TabIndex        =   203
+         Top             =   2160
+         Width           =   540
+      End
+      Begin VB.Label Label1 
+         Caption         =   "Mercancia"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   13.5
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   495
+         Index           =   68
+         Left            =   240
+         TabIndex        =   202
+         Top             =   2880
+         Width           =   2535
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Matrí. remolque"
+         Height          =   195
+         Index           =   67
+         Left            =   9480
+         TabIndex        =   201
+         Top             =   1440
+         Width           =   1110
       End
       Begin VB.Label Label1 
          AutoSize        =   -1  'True
@@ -2198,8 +2426,8 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   195
          Index           =   66
          Left            =   3840
-         TabIndex        =   190
-         Top             =   4080
+         TabIndex        =   200
+         Top             =   4440
          Width           =   660
       End
       Begin VB.Label Label1 
@@ -2208,8 +2436,8 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   195
          Index           =   65
          Left            =   7440
-         TabIndex        =   189
-         Top             =   2880
+         TabIndex        =   199
+         Top             =   2160
          Width           =   1050
       End
       Begin VB.Label Label1 
@@ -2218,8 +2446,8 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   195
          Index           =   64
          Left            =   3840
-         TabIndex        =   188
-         Top             =   2880
+         TabIndex        =   198
+         Top             =   2160
          Width           =   1320
       End
       Begin VB.Label Label1 
@@ -2227,9 +2455,9 @@ Begin VB.Form frmFacEntAlbaranes
          Caption         =   "Bocas precintadas"
          Height          =   195
          Index           =   63
-         Left            =   9720
-         TabIndex        =   187
-         Top             =   2160
+         Left            =   11880
+         TabIndex        =   197
+         Top             =   1440
          Width           =   1320
       End
       Begin VB.Label Label1 
@@ -2238,8 +2466,8 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   195
          Index           =   62
          Left            =   7440
-         TabIndex        =   186
-         Top             =   2160
+         TabIndex        =   196
+         Top             =   1440
          Width           =   675
       End
       Begin VB.Label Label1 
@@ -2248,8 +2476,8 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   195
          Index           =   61
          Left            =   3840
-         TabIndex        =   185
-         Top             =   2160
+         TabIndex        =   195
+         Top             =   1440
          Width           =   615
       End
       Begin VB.Label Label1 
@@ -2257,9 +2485,9 @@ Begin VB.Form frmFacEntAlbaranes
          Caption         =   "Tara  (kg)"
          Height          =   195
          Index           =   60
-         Left            =   5760
-         TabIndex        =   184
-         Top             =   1200
+         Left            =   12840
+         TabIndex        =   194
+         Top             =   480
          Width           =   690
       End
       Begin VB.Label Label1 
@@ -2267,9 +2495,9 @@ Begin VB.Form frmFacEntAlbaranes
          Caption         =   "Bruto(kg)"
          Height          =   195
          Index           =   59
-         Left            =   3840
-         TabIndex        =   183
-         Top             =   1200
+         Left            =   10920
+         TabIndex        =   193
+         Top             =   480
          Width           =   645
       End
       Begin VB.Label Label1 
@@ -2277,8 +2505,8 @@ Begin VB.Form frmFacEntAlbaranes
          Caption         =   "Depósito"
          Height          =   195
          Index           =   58
-         Left            =   7920
-         TabIndex        =   182
+         Left            =   7560
+         TabIndex        =   192
          Top             =   480
          Width           =   630
       End
@@ -2287,8 +2515,8 @@ Begin VB.Form frmFacEntAlbaranes
          Caption         =   "Muestra"
          Height          =   195
          Index           =   57
-         Left            =   5760
-         TabIndex        =   181
+         Left            =   5520
+         TabIndex        =   191
          Top             =   480
          Width           =   570
       End
@@ -2298,7 +2526,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   195
          Index           =   53
          Left            =   3840
-         TabIndex        =   180
+         TabIndex        =   190
          Top             =   480
          Width           =   765
       End
@@ -2316,8 +2544,8 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   495
          Index           =   56
          Left            =   240
-         TabIndex        =   179
-         Top             =   3960
+         TabIndex        =   189
+         Top             =   3840
          Width           =   2535
       End
       Begin VB.Label Label1 
@@ -2334,15 +2562,15 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   495
          Index           =   55
          Left            =   240
-         TabIndex        =   178
-         Top             =   2040
+         TabIndex        =   188
+         Top             =   1440
          Width           =   2535
       End
       Begin VB.Image imgFecha 
          Height          =   240
-         Index           =   45
+         Index           =   44
          Left            =   4680
-         Picture         =   "frmFacEntAlbaranes.frx":07C3
+         Picture         =   "frmFacEntAlbaranes.frx":07E2
          ToolTipText     =   "Buscar fecha"
          Top             =   480
          Width           =   240
@@ -2361,7 +2589,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   495
          Index           =   54
          Left            =   240
-         TabIndex        =   177
+         TabIndex        =   187
          Top             =   600
          Width           =   2535
       End
@@ -2370,16 +2598,16 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   240
          Index           =   13
          Left            =   4560
-         Picture         =   "frmFacEntAlbaranes.frx":084E
+         Picture         =   "frmFacEntAlbaranes.frx":086D
          ToolTipText     =   "Buscar población"
-         Top             =   2160
+         Top             =   1440
          Width           =   240
       End
       Begin VB.Image imgBuscar 
          Height          =   240
          Index           =   12
          Left            =   -73200
-         Picture         =   "frmFacEntAlbaranes.frx":0950
+         Picture         =   "frmFacEntAlbaranes.frx":096F
          ToolTipText     =   "Buscar trabajador"
          Top             =   2520
          Width           =   240
@@ -2389,7 +2617,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   24
          Left            =   -74520
-         TabIndex        =   102
+         TabIndex        =   112
          Top             =   2055
          Width           =   1425
       End
@@ -2397,7 +2625,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   240
          Index           =   9
          Left            =   -73095
-         Picture         =   "frmFacEntAlbaranes.frx":0A52
+         Picture         =   "frmFacEntAlbaranes.frx":0A71
          ToolTipText     =   "Buscar forma de envio"
          Top             =   2055
          Width           =   240
@@ -2407,7 +2635,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   23
          Left            =   -74520
-         TabIndex        =   100
+         TabIndex        =   110
          Top             =   1695
          Width           =   1425
       End
@@ -2415,7 +2643,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   240
          Index           =   8
          Left            =   -73095
-         Picture         =   "frmFacEntAlbaranes.frx":0B54
+         Picture         =   "frmFacEntAlbaranes.frx":0B73
          ToolTipText     =   "Buscar trabajador"
          Top             =   1695
          Width           =   240
@@ -2425,7 +2653,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   9
          Left            =   -74520
-         TabIndex        =   98
+         TabIndex        =   108
          Top             =   1340
          Width           =   1420
       End
@@ -2433,7 +2661,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   240
          Index           =   7
          Left            =   -73100
-         Picture         =   "frmFacEntAlbaranes.frx":0C56
+         Picture         =   "frmFacEntAlbaranes.frx":0C75
          ToolTipText     =   "Buscar trabajador"
          Top             =   1330
          Width           =   240
@@ -2443,7 +2671,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   12
          Left            =   -72285
-         TabIndex        =   96
+         TabIndex        =   106
          Top             =   480
          Width           =   975
       End
@@ -2452,7 +2680,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   11
          Left            =   -74520
-         TabIndex        =   94
+         TabIndex        =   104
          Top             =   480
          Width           =   735
       End
@@ -2461,7 +2689,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   10
          Left            =   -73545
-         TabIndex        =   93
+         TabIndex        =   103
          Top             =   480
          Width           =   1095
       End
@@ -2470,7 +2698,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   5
          Left            =   -69840
-         TabIndex        =   89
+         TabIndex        =   99
          Top             =   480
          Width           =   1095
       End
@@ -2479,7 +2707,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   3
          Left            =   -70800
-         TabIndex        =   88
+         TabIndex        =   98
          Top             =   480
          Width           =   735
       End
@@ -2488,7 +2716,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   45
          Left            =   -74520
-         TabIndex        =   52
+         TabIndex        =   62
          Top             =   2520
          Width           =   1095
       End
@@ -2497,7 +2725,7 @@ Begin VB.Form frmFacEntAlbaranes
       Caption         =   "&Regresar"
       Height          =   375
       Left            =   13410
-      TabIndex        =   45
+      TabIndex        =   55
       Top             =   6720
       Visible         =   0   'False
       Width           =   1035
@@ -2505,7 +2733,7 @@ Begin VB.Form frmFacEntAlbaranes
    Begin VB.Frame Frame2 
       Height          =   855
       Left            =   120
-      TabIndex        =   103
+      TabIndex        =   113
       Top             =   360
       Width           =   11415
       Begin VB.TextBox Text1 
@@ -2550,7 +2778,7 @@ Begin VB.Form frmFacEntAlbaranes
          Left            =   7780
          Locked          =   -1  'True
          MaxLength       =   40
-         TabIndex        =   108
+         TabIndex        =   118
          Text            =   "Text2"
          Top             =   120
          Width           =   3360
@@ -2603,7 +2831,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   240
          Index           =   0
          Left            =   6660
-         Picture         =   "frmFacEntAlbaranes.frx":0D58
+         Picture         =   "frmFacEntAlbaranes.frx":0D77
          ToolTipText     =   "Buscar cliente"
          Top             =   510
          Width           =   240
@@ -2613,7 +2841,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   0
          Left            =   5595
-         TabIndex        =   109
+         TabIndex        =   119
          Top             =   495
          Width           =   615
       End
@@ -2622,7 +2850,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   21
          Left            =   5595
-         TabIndex        =   107
+         TabIndex        =   117
          Top             =   165
          Width           =   1050
       End
@@ -2630,7 +2858,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   240
          Index           =   3
          Left            =   6660
-         Picture         =   "frmFacEntAlbaranes.frx":0E5A
+         Picture         =   "frmFacEntAlbaranes.frx":0E79
          ToolTipText     =   "Buscar trabajador"
          Top             =   150
          Width           =   240
@@ -2640,7 +2868,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   14
          Left            =   2040
-         TabIndex        =   106
+         TabIndex        =   116
          Top             =   150
          Width           =   735
       End
@@ -2648,7 +2876,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   240
          Index           =   0
          Left            =   2835
-         Picture         =   "frmFacEntAlbaranes.frx":0F5C
+         Picture         =   "frmFacEntAlbaranes.frx":0F7B
          ToolTipText     =   "Buscar fecha"
          Top             =   120
          Width           =   240
@@ -2658,7 +2886,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   50
          Left            =   240
-         TabIndex        =   105
+         TabIndex        =   115
          Top             =   150
          Width           =   855
       End
@@ -2667,7 +2895,7 @@ Begin VB.Form frmFacEntAlbaranes
          Height          =   255
          Index           =   8
          Left            =   1275
-         TabIndex        =   104
+         TabIndex        =   114
          Top             =   150
          Width           =   735
       End
@@ -2677,7 +2905,7 @@ Begin VB.Form frmFacEntAlbaranes
       Height          =   255
       Index           =   52
       Left            =   9480
-      TabIndex        =   137
+      TabIndex        =   147
       Top             =   6600
       Visible         =   0   'False
       Width           =   975
@@ -2687,7 +2915,7 @@ Begin VB.Form frmFacEntAlbaranes
       Height          =   255
       Index           =   35
       Left            =   2400
-      TabIndex        =   51
+      TabIndex        =   61
       Top             =   6600
       Visible         =   0   'False
       Width           =   1335
@@ -2802,6 +3030,10 @@ Attribute frmProv.VB_VarHelpID = -1
 Private WithEvents frmO As frmFacCopiarObservaciones2
 Attribute frmO.VB_VarHelpID = -1
 
+Private WithEvents frmVh As frmFacVehiculos
+Attribute frmVh.VB_VarHelpID = -1
+
+
 Private Modo As Byte
 '-----------------------------
 'Se distinguen varios modos
@@ -2881,6 +3113,10 @@ Private Sub cboFacturacion_KeyPress(KeyAscii As Integer)
     KEYpress KeyAscii
 End Sub
 
+
+Private Sub chkCarga_KeyPress(Index As Integer, KeyAscii As Integer)
+ KEYpress KeyAscii
+End Sub
 
 Private Sub chkFacturar_KeyDown(KeyCode As Integer, Shift As Integer)
     KEYdown KeyCode
@@ -3694,6 +3930,9 @@ Private Sub Form_Load()
     Me.SSTab1.Tab = 0
     
     Me.Toolbar1.Buttons(15).visible = vParamAplic.EsAVAB Or vParamAplic.QUE_EMPRESA = 4
+    If vParamAplic.QUE_EMPRESA = 4 Then Toolbar1.Buttons(15).ToolTipText = "impresion transporte"
+    
+    
     
     LimpiarCampos   'Limpia los campos TextBox
     
@@ -3831,9 +4070,10 @@ On Error Resume Next
     Me.cboFacturacion.ListIndex = -1
     Me.chkFacturar.Value = 0
     Me.chkFacturarKm.Value = 0
-    
+    Me.chkCarga(0).Value = 0: Me.chkCarga(1).Value = 0: Me.chkCarga(2).Value = 0: Me.chkCarga(3).Value = 0
     Text3(0).Text = "BASE IMP."
     If Err.Number <> 0 Then Err.Clear
+    
 End Sub
 
 
@@ -4057,6 +4297,10 @@ Dim Indice As Byte
 End Sub
 
 
+Private Sub frmVh_DatoSeleccionado(CadenaSeleccion As String)
+    motivo = CadenaSeleccion
+End Sub
+
 Private Sub imgBuscar_Click(Index As Integer)
 Dim Indice As Byte
 
@@ -4162,8 +4406,26 @@ Dim Indice As Byte
         Case 13
             'Vehiculos para LA vall
             Indice = 43
-            
-            
+            motivo = ""
+            Set frmVh = New frmFacVehiculos
+            frmVh.DatosADevolverBusqueda = "0"
+            frmVh.Show vbModal
+            Set frmVh = Nothing
+            If motivo <> "" Then
+                Set miRsAux = New ADODB.Recordset
+                motivo = "select * from svehiculos where codigo=" & RecuperaValor(motivo, 1)
+                miRsAux.Open motivo, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                If Not miRsAux.EOF Then
+                    'matricula  Empresa   Conductor   DNIConductor
+                    If Not IsNull(miRsAux!Empresa) Then Text1(43).Text = miRsAux!Empresa
+                    If Not IsNull(miRsAux!matricula) Then Text1(51).Text = miRsAux!matricula
+                    If Not IsNull(miRsAux!conductor) Then Text1(44).Text = miRsAux!conductor
+                    If Not IsNull(miRsAux!DNIConductor) Then Text1(48).Text = miRsAux!DNIConductor
+                End If
+                miRsAux.Close
+                Set miRsAux = Nothing
+                motivo = ""
+            End If
     End Select
     
     PonerFoco Text1(Indice)
@@ -4182,6 +4444,7 @@ Dim Indice As Byte
    Screen.MousePointer = vbHourglass
    Set frmF = New frmCal
    frmF.Fecha = Now
+   
    Indice = Index + 1
    Me.imgFecha(0).Tag = Index
    
@@ -4323,7 +4586,7 @@ Dim campo As String
           
     'Si queremos hacer algo ..
     Select Case Index
-        Case 1 'Fecha Albaran
+        Case 1, 45 'Fecha Albaran - fecha carga
                 If Text1(Index).Text <> "" Then PonerFormatoFecha Text1(Index)
                 
         Case 3, 27, 28 'Cod Vendedor
@@ -4423,6 +4686,10 @@ Dim campo As String
             End If
         Case 40
             PonerFormatoDecimal Text1(Index), 3
+                    
+        
+        Case 52, 46, 47, 57, 58
+            If Not PonerFormatoEntero(Text1(Index)) Then Text1(Index).Text = ""
     End Select
 End Sub
 
@@ -4730,6 +4997,13 @@ Dim b As Boolean
     Me.chkFacturar.Enabled = b
     Me.chkFacturarKm.Enabled = b
    
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        For i = 0 To 3
+            Me.chkCarga(i).Enabled = b
+        Next
+    End If
+   
+   
     'Si no es modo lineas Boquear los TxtAux
     For i = 0 To txtAux.Count - 1
         BloquearTxt txtAux(i), (Modo <> 5)
@@ -4743,7 +5017,7 @@ Dim b As Boolean
     cmdAceptar.visible = b
     
     Me.imgFecha(0).Enabled = b
-    Me.imgFecha(45).Enabled = b
+    Me.imgFecha(44).Enabled = b
     
     For i = 0 To Me.imgBuscar.Count - 1
         Me.imgBuscar(i).Enabled = b
@@ -4982,7 +5256,16 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
         Case 15
             'Traer numeros de lote
             'frmAVABasignLotes.Show vbModal
-            PackingList
+            If Me.Data1.Recordset Is Nothing Then Exit Sub
+            If Me.Data1.Recordset.EOF Then Exit Sub
+            
+            If vParamAplic.QUE_EMPRESA = 4 Then
+                CadenaDesdeOtroForm = Data1.Recordset!NumAlbar
+                frmListado2.opcion = 32
+                frmListado2.Show vbModal
+            Else
+                PackingList
+            End If
             
         Case 16 'Imprimir Albaran
             mnImprimir_Click
@@ -5718,7 +6001,7 @@ Dim ImporteConhectogrado As Currency
             
             If Me.DataGrid1.Columns(4).Caption = "EAN" Then
                 'Ha pulsado F2, para meter, en lugar del codigo del articulo, el EAN
-                okArticulo = PonerArticuloEan(txtAux(1), txtAux(2), txtAux(0).Text, CodTipoMov, ModificaLineas, Devuelve, , Cantidad)
+                okArticulo = PonerArticuloEAN(txtAux(1), txtAux(2), txtAux(0).Text, CodTipoMov, ModificaLineas, Devuelve, , Cantidad)
             Else
                 okArticulo = PonerArticulo(txtAux(1), txtAux(2), txtAux(0).Text, CodTipoMov, ModificaLineas, Devuelve, , Cantidad)
             End If
@@ -7947,8 +8230,7 @@ Dim nomDocu As String 'Nombre de Informe rpt de crystal
 Dim Devuelve As String
 Dim ImprimeDirecto As Boolean
 
-    If Me.Data1.Recordset Is Nothing Then Exit Sub
-    If Me.Data1.Recordset.EOF Then Exit Sub
+    
     
     If Me.Data1.Recordset!Codtipom <> "ALV" Then
         MsgBox "Solo albaranes de venta", vbExclamation

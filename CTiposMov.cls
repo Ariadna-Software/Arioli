@@ -44,13 +44,13 @@ Public Property Get NombreMovimiento() As String
 End Property
 
 
-Public Property Let Contador(ByVal vData As Long)
+Public Property Let contador(ByVal vData As Long)
     mvarContador = vData
 End Property
 
 
-Public Property Get Contador() As Long
-    Contador = mvarContador
+Public Property Get contador() As Long
+    contador = mvarContador
 End Property
 
 Public Property Let MueveStock(ByVal vData As Boolean)
@@ -76,7 +76,7 @@ End Property
 '//////////////////////////////////////////////////////////////////7
 '//
 '//     Si es el ultimo numero de la serie devuelve el anterior
-Public Function DevolverContador(vCodigo As String, Contador As Long) As Byte
+Public Function DevolverContador(vCodigo As String, contador As Long) As Byte
 Dim OK As Boolean
 Dim C1 As Long
 On Error GoTo Err1
@@ -88,23 +88,23 @@ On Error GoTo Err1
     DevolverContador = 1
     OK = False
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     If Not RS.EOF Then
         mvarTipoMov = vCodigo
         mvarNombreMov = RS!nomtipom
-        C1 = RS!Contador
+        C1 = RS!contador
         OK = True
     End If
     RS.Close
     Set RS = Nothing
     If Not OK Then
-        Conn.Execute "commit"
+        conn.Execute "commit"
         Exit Function
     End If
 
     OK = False
 
-    OK = (C1 = Contador)
+    OK = (C1 = contador)
     If OK Then
         'Actualizamos el contador
         SQL = "UPDATE stipom set "
@@ -112,11 +112,11 @@ On Error GoTo Err1
         C1 = C1 - 1
         SQL = SQL & " contador=" & C1
         SQL = SQL & " WHERE codtipom = '" & vCodigo & "'"
-        Conn.Execute SQL
+        conn.Execute SQL
     End If
 
     'Desbloqueamos
-    Conn.Execute "commit"
+    conn.Execute "commit"
     DevolverContador = 1
     
 Err1:
@@ -125,7 +125,7 @@ Err1:
         MsgBox Mens, vbExclamation
         DevolverContador = 0
     End If
-    Conn.Execute "Set autocommit = 1"
+    conn.Execute "Set autocommit = 1"
 End Function
 
 
@@ -140,13 +140,13 @@ On Error GoTo Err1
     'Abrimos bloqueando
     SQL = "Select * from stipom WHERE codtipom='" & vCodigo & "' FOR UPDATE"
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     If Not RS.EOF Then
         mvarTipoMov = vCodigo
         mvarNombreMov = RS!nomtipom
         mvarMueveStock = RS!muevesto
-        mvarContador = RS!Contador
-        C1 = RS!Contador
+        mvarContador = RS!contador
+        C1 = RS!contador
         OK = True
     End If
     RS.Close
@@ -167,14 +167,14 @@ On Error GoTo Err1
     
       
     'Actualizamos el contador
-    C1 = Contador
+    C1 = contador
     SQL = "UPDATE stipom set "
     C1 = C1 + 1
     mvarContador = C1
     SQL = SQL & " contador=" & C1
     
     SQL = SQL & " WHERE codtipom='" & vCodigo & "'"
-    Conn.Execute SQL
+    conn.Execute SQL
     IncrementarContador = True
     Exit Function
 Err1:
@@ -192,7 +192,7 @@ On Error GoTo Err3
     
     SQL = "SELECT * FROM stipom WHERE codtipom='" & vCodigo & "'"
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic
 
     If RS.EOF Then
         Leer = False
@@ -201,10 +201,10 @@ On Error GoTo Err3
         SQL = SQL & vbCrLf & "Consulte al Administrador."
         MsgBox SQL, vbCritical
     Else
-        mvarTipoMov = RS!codTipoM
+        mvarTipoMov = RS!Codtipom
         mvarNombreMov = RS!nomtipom
         mvarMueveStock = RS!muevesto
-        mvarContador = RS!Contador
+        mvarContador = RS!contador
         mvarLetraSerie = DBLet(RS!LetraSer, "T")
         Leer = True
     End If

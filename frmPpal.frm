@@ -341,7 +341,7 @@ Begin VB.MDIForm frmppal
             Style           =   5
             Object.Width           =   1058
             MinWidth        =   1058
-            TextSave        =   "16:56"
+            TextSave        =   "18:37"
          EndProperty
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -1684,6 +1684,13 @@ Begin VB.MDIForm frmppal
          End
       End
    End
+   Begin VB.Menu mnAlmazara 
+      Caption         =   "Almazara"
+      Begin VB.Menu mnAlmazara1 
+         Caption         =   "Entrada oliva"
+         Index           =   0
+      End
+   End
    Begin VB.Menu mnTPV 
       Caption         =   "&Punto de Venta"
       Visible         =   0   'False
@@ -2249,6 +2256,12 @@ Private Sub mnAlmArticulosMto_Click(Index As Integer)
         'Ficha tencinca
         frmFichaTecnicaMP.Show vbModal
     End Select
+End Sub
+
+Private Sub mnAlmazara1_Click(Index As Integer)
+    
+        frmVallEntradaOliva.Show vbModal
+       
 End Sub
 
 Private Sub mnAlmCategoria_Click()
@@ -3577,6 +3590,7 @@ Private Sub mnVtasAgrupadox_Click()
 End Sub
 
 Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
+    
     
     Select Case Button.Index
     Case 1 'Mantenimiento de Artículos

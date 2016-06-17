@@ -66,7 +66,10 @@ On Error Resume Next
         SQL = SQL & "factursn,codclien,nomclien,domclien,codpobla,pobclien,proclien,nifclien,telclien,"
         SQL = SQL & "coddirec,nomdirec,referenc,facturkm,cantidkm,codtraba,codtrab1,codtrab2,codagent,codforpa,codenvio,dtoppago,dtognral,"
         SQL = SQL & "tipofact,observa01,observa02,observa03,observa04,observa05,numofert,fecofert,numpedcl,fecpedcl,fecentre,sementre,esticket,numtermi,numventa,refproduccion "
-        
+        'Junio 2016. La VALL
+        SQL = SQL & ",FechaCarga , Muestra, Deposito, TransEmpresa, TransMatricula, TransConductor, TransCondDNI, TransNumBocas, TransBruto,"
+        SQL = SQL & "TransTara, TransObsPrecintos, TransMatRemolque, TransMercancia, TransAcidez, TransDestino, TransLacradasCoop,"
+        SQL = SQL & "TransLacradasCompr, TransTicketBas, TransCMR, TransCertLim, TransOtros"
         
       Case "OFE" 'Ofertas a Clientes
         NomTabla = "scapre"
@@ -100,7 +103,7 @@ On Error Resume Next
     SQL = SQL & " FROM " & NomTabla & " WHERE " & cadWhere
     SQL = "INSERT INTO " & NomTablaH & SQL
     
-    Conn.Execute SQL
+    conn.Execute SQL
     
     If Err.Number <> 0 Then
          'Hay error , almacenamos y salimos
@@ -158,7 +161,7 @@ On Error Resume Next
     
     SQL = "INSERT INTO " & NomTablaLinH & SQL
     
-    Conn.Execute SQL
+    conn.Execute SQL
     
     If Err.Number <> 0 Then
          'Hay error , almacenamos y salimos
@@ -174,7 +177,7 @@ Private Function BorrarTraspaso(EnHistorico As Boolean, cadWhere As String) As B
 'Si EnHistorico=true borra de las tablas de historico: "schtra" y "slhtra"
 'Si EnHistorico=false borra de las tablas de traspaso: "scatra" y "slitra"
 Dim SQL As String
-Dim Rs As ADODB.Recordset
+Dim RS As ADODB.Recordset
 Dim cad As String, cadAux As String
 
     BorrarTraspaso = False
@@ -198,19 +201,19 @@ Dim cad As String, cadAux As String
     End Select
     
     If CodTipoMov <> "ALC" And CodTipoMov <> "PEC" Then
-        Set Rs = New ADODB.Recordset
-        Rs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        Set RS = New ADODB.Recordset
+        RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         cad = ""
-        While Not Rs.EOF
+        While Not RS.EOF
             If CodTipoMov <> "ALC" Then
-                cad = cad & Rs.Fields(0).Value & ","
+                cad = cad & RS.Fields(0).Value & ","
             Else
                 cad = cad & "numalbar="
             End If
-            Rs.MoveNext
+            RS.MoveNext
         Wend
-        Rs.Close
-        Set Rs = Nothing
+        RS.Close
+        Set RS = Nothing
         'Quitar la ultima coma de la cadena
         cad = Mid(cad, 1, Len(cad) - 1)
         
@@ -221,12 +224,12 @@ Dim cad As String, cadAux As String
     
     SQL = "DELETE FROM " & NomTablaLin & " WHERE " & cadAux
 
-    Conn.Execute SQL
+    conn.Execute SQL
     
     'La cabecera
     SQL = "Delete from " & NomTabla
     SQL = SQL & " WHERE " & cadWhere
-    Conn.Execute SQL
+    conn.Execute SQL
     BorrarTraspaso = True
     
 EBorrar:

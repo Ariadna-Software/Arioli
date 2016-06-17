@@ -243,6 +243,7 @@ Class=cLOG; cLOG.cls
 Form=frmProdVerUnDepo.frm
 Form=frmVarios.frm
 Form=frmProdDepositos.frm
+Form=frmVallEntradaOliva.frm
 IconForm="frmppal"
 Startup="Sub Main"
 HelpFile=""

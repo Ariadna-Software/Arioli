@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "Comdlg32.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmImprimir 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Impresión listados"
@@ -167,11 +167,11 @@ Private ImpresoraSeleccionada As String
 
 'Private ReestableceSoloImprimir As Boolean
 Private Sub chkEMAIL_Click()
-    If chkEmail.Value = 1 Then Me.chkSoloImprimir.Value = 0
+    If chkEMAIL.Value = 1 Then Me.chkSoloImprimir.Value = 0
 End Sub
 
 Private Sub chkSoloImprimir_Click()
-    If Me.chkSoloImprimir.Value = 1 Then Me.chkEmail.Value = 0
+    If Me.chkSoloImprimir.Value = 1 Then Me.chkEMAIL.Value = 0
 End Sub
 
 
@@ -190,7 +190,7 @@ End Sub
 
 Private Sub cmdImprimir_Click()
 
-    If Me.chkSoloImprimir.Value = 1 And Me.chkEmail.Value = 1 Then
+    If Me.chkSoloImprimir.Value = 1 And Me.chkEMAIL.Value = 1 Then
         MsgBox "Si desea enviar por mail no debe marcar vista preliminar", vbExclamation
         Exit Sub
     End If
@@ -214,7 +214,7 @@ Private Sub Form_Activate()
         ElseIf Me.EnvioEMail Then
             Me.Hide
             DoEvents
-            chkEmail.Value = 1
+            chkEMAIL.Value = 1
             Imprime
             Unload Me
         End If
@@ -326,6 +326,8 @@ Dim cad As String
                 Text1.Text = Text1.Text & "(Trabajador)"
             End If
             NombreRPT = NombreRPT & ".rpt"
+        Case 2032
+            
         End Select
     Else
         'Normal. Los de antes
@@ -466,11 +468,11 @@ Private Function Imprime() As Boolean
         
         .ConSubInforme = ConSubInforme
         .opcion = opcion
-        .ExportarPDF = (chkEmail.Value = 1)
+        .ExportarPDF = (chkEMAIL.Value = 1)
         .Show vbModal
     End With
     
-    If Me.chkEmail.Value = 1 Then
+    If Me.chkEMAIL.Value = 1 Then
         If CadenaDesdeOtroForm <> "" Then 'se exporto el informe OK (.pdf)
             
             If Me.EnvioEMail Then  'se llamo desde envio masivo
@@ -490,7 +492,7 @@ End Function
 
 
 Private Sub Form_Unload(Cancel As Integer)
-    If Me.chkEmail.Value = 1 Then Me.chkSoloImprimir.Value = 1
+    If Me.chkEMAIL.Value = 1 Then Me.chkSoloImprimir.Value = 1
     'If ReestableceSoloImprimir Then SoloImprimir = False
     OperacionesArchivoDefecto
     NombreSubRptConta = ""
