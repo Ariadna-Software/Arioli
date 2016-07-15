@@ -2,43 +2,133 @@ VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmAlmpartidasMov 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Mantenimiento partidas/lotes"
-   ClientHeight    =   7995
+   ClientHeight    =   8085
    ClientLeft      =   45
    ClientTop       =   4335
-   ClientWidth     =   12150
+   ClientWidth     =   12345
    Icon            =   "frmAlmpartidasMov.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   7995
-   ScaleWidth      =   12150
+   ScaleHeight     =   8085
+   ScaleWidth      =   12345
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin TabDlg.SSTab SSTab1 
+      Height          =   4695
+      Left            =   120
+      TabIndex        =   35
+      Top             =   2760
+      Width           =   12015
+      _ExtentX        =   21193
+      _ExtentY        =   8281
+      _Version        =   393216
+      Tabs            =   1
+      TabsPerRow      =   1
+      TabHeight       =   520
+      TabCaption(0)   =   "Movimientos"
+      TabPicture(0)   =   "frmAlmpartidasMov.frx":000C
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "DataGrid1"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).ControlCount=   1
+      Begin MSDataGridLib.DataGrid DataGrid1 
+         Bindings        =   "frmAlmpartidasMov.frx":0028
+         Height          =   4200
+         Left            =   120
+         TabIndex        =   36
+         Top             =   360
+         Width           =   11775
+         _ExtentX        =   20770
+         _ExtentY        =   7408
+         _Version        =   393216
+         AllowUpdate     =   -1  'True
+         AllowArrows     =   -1  'True
+         ColumnHeaders   =   -1  'True
+         HeadLines       =   1
+         RowHeight       =   15
+         FormatLocked    =   -1  'True
+         BeginProperty HeadFont {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ColumnCount     =   2
+         BeginProperty Column00 
+            DataField       =   ""
+            Caption         =   ""
+            BeginProperty DataFormat {6D835690-900B-11D0-9484-00A0C91110ED} 
+               Type            =   0
+               Format          =   ""
+               HaveTrueFalseNull=   0
+               FirstDayOfWeek  =   0
+               FirstWeekOfYear =   0
+               LCID            =   3082
+               SubFormatType   =   0
+            EndProperty
+         EndProperty
+         BeginProperty Column01 
+            DataField       =   ""
+            Caption         =   ""
+            BeginProperty DataFormat {6D835690-900B-11D0-9484-00A0C91110ED} 
+               Type            =   0
+               Format          =   ""
+               HaveTrueFalseNull=   0
+               FirstDayOfWeek  =   0
+               FirstWeekOfYear =   0
+               LCID            =   3082
+               SubFormatType   =   0
+            EndProperty
+         EndProperty
+         SplitCount      =   1
+         BeginProperty Split0 
+            BeginProperty Column00 
+               ColumnAllowSizing=   -1  'True
+            EndProperty
+            BeginProperty Column01 
+            EndProperty
+         EndProperty
+      End
+   End
    Begin VB.CommandButton cmdDesdeMovalLotes 
       Caption         =   "Moviemientos"
       Height          =   375
       Left            =   2640
-      TabIndex        =   31
-      Top             =   7560
+      TabIndex        =   29
+      Top             =   7680
       Width           =   1335
    End
    Begin VB.CommandButton cmdCancelar 
       Caption         =   "Cancelar"
       Height          =   375
       Left            =   10920
-      TabIndex        =   30
-      Top             =   7560
+      TabIndex        =   28
+      Top             =   7680
       Width           =   1095
    End
    Begin VB.CommandButton cmdAceptar 
       Caption         =   "Aceptar"
       Height          =   375
       Left            =   9600
-      TabIndex        =   29
-      Top             =   7560
+      TabIndex        =   27
+      Top             =   7680
       Width           =   1095
    End
    Begin VB.Frame Frame2 
@@ -46,7 +136,40 @@ Begin VB.Form frmAlmpartidasMov
       Left            =   120
       TabIndex        =   13
       Top             =   410
-      Width           =   11775
+      Width           =   12015
+      Begin VB.CommandButton cmdPesos 
+         Height          =   495
+         Left            =   10800
+         Picture         =   "frmAlmpartidasMov.frx":003D
+         Style           =   1  'Graphical
+         TabIndex        =   33
+         Top             =   240
+         Width           =   375
+      End
+      Begin VB.TextBox Text2 
+         Alignment       =   1  'Right Justify
+         BackColor       =   &H80000018&
+         Enabled         =   0   'False
+         Height          =   315
+         Index           =   4
+         Left            =   9480
+         TabIndex        =   32
+         Text            =   "Text2"
+         Top             =   360
+         Width           =   1095
+      End
+      Begin VB.TextBox Text2 
+         Alignment       =   1  'Right Justify
+         BackColor       =   &H80000018&
+         Enabled         =   0   'False
+         Height          =   315
+         Index           =   2
+         Left            =   7920
+         TabIndex        =   31
+         Text            =   "Text2"
+         Top             =   360
+         Width           =   1095
+      End
       Begin VB.TextBox Text1 
          Alignment       =   1  'Right Justify
          BackColor       =   &H80000013&
@@ -54,7 +177,7 @@ Begin VB.Form frmAlmpartidasMov
          Index           =   8
          Left            =   9600
          MaxLength       =   60
-         TabIndex        =   27
+         TabIndex        =   25
          Tag             =   "c|N|N|||spartidas|id|||"
          Top             =   1800
          Width           =   1785
@@ -86,7 +209,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   315
          Index           =   3
          Left            =   1080
-         TabIndex        =   24
+         TabIndex        =   22
          Text            =   "Text2"
          Top             =   1800
          Width           =   3375
@@ -128,7 +251,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   315
          Index           =   1
          Left            =   7680
-         TabIndex        =   21
+         TabIndex        =   19
          Text            =   "Text2"
          Top             =   1080
          Width           =   3735
@@ -139,7 +262,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   315
          Index           =   0
          Left            =   2280
-         TabIndex        =   19
+         TabIndex        =   17
          Text            =   "Text2"
          Top             =   1080
          Width           =   4215
@@ -180,11 +303,29 @@ Begin VB.Form frmAlmpartidasMov
          Width           =   1125
       End
       Begin VB.Label Label1 
+         Caption         =   "Desviacion St"
+         Height          =   255
+         Index           =   8
+         Left            =   9480
+         TabIndex        =   34
+         Top             =   120
+         Width           =   855
+      End
+      Begin VB.Label Label1 
+         Caption         =   "Peso medio"
+         Height          =   255
+         Index           =   7
+         Left            =   7920
+         TabIndex        =   30
+         Top             =   120
+         Width           =   855
+      End
+      Begin VB.Label Label1 
          Caption         =   "Sum(movimientos)"
          Height          =   255
          Index           =   6
          Left            =   9600
-         TabIndex        =   28
+         TabIndex        =   26
          Top             =   1560
          Width           =   1695
       End
@@ -193,7 +334,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   255
          Index           =   5
          Left            =   7560
-         TabIndex        =   26
+         TabIndex        =   24
          Top             =   1560
          Width           =   1215
       End
@@ -202,7 +343,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   255
          Index           =   4
          Left            =   4560
-         TabIndex        =   25
+         TabIndex        =   23
          Top             =   1560
          Width           =   1215
       End
@@ -210,7 +351,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   2
          Left            =   1080
-         Picture         =   "frmAlmpartidasMov.frx":000C
+         Picture         =   "frmAlmpartidasMov.frx":688F
          Tag             =   "-1"
          ToolTipText     =   "Buscar articulo"
          Top             =   1560
@@ -221,7 +362,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   255
          Index           =   3
          Left            =   1680
-         TabIndex        =   23
+         TabIndex        =   21
          Top             =   120
          Width           =   855
       End
@@ -230,7 +371,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   255
          Index           =   2
          Left            =   6720
-         TabIndex        =   22
+         TabIndex        =   20
          Top             =   840
          Width           =   735
       End
@@ -238,7 +379,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   1
          Left            =   7440
-         Picture         =   "frmAlmpartidasMov.frx":010E
+         Picture         =   "frmAlmpartidasMov.frx":6991
          Tag             =   "-1"
          ToolTipText     =   "Buscar almacen"
          Top             =   840
@@ -248,7 +389,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   0
          Left            =   960
-         Picture         =   "frmAlmpartidasMov.frx":0210
+         Picture         =   "frmAlmpartidasMov.frx":6A93
          Tag             =   "-1"
          ToolTipText     =   "Buscar articulo"
          Top             =   840
@@ -259,7 +400,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   255
          Index           =   1
          Left            =   240
-         TabIndex        =   20
+         TabIndex        =   18
          Top             =   840
          Width           =   735
       End
@@ -268,7 +409,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   255
          Index           =   0
          Left            =   240
-         TabIndex        =   17
+         TabIndex        =   16
          Top             =   1560
          Width           =   1215
       End
@@ -285,7 +426,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   0
          Left            =   5880
-         Picture         =   "frmAlmpartidasMov.frx":0312
+         Picture         =   "frmAlmpartidasMov.frx":6B95
          ToolTipText     =   "Buscar fecha"
          Top             =   120
          Width           =   240
@@ -305,7 +446,7 @@ Begin VB.Form frmAlmpartidasMov
       Index           =   0
       Left            =   120
       TabIndex        =   9
-      Top             =   7440
+      Top             =   7560
       Width           =   2175
       Begin VB.Label lblIndicador 
          Alignment       =   2  'Center
@@ -319,8 +460,8 @@ Begin VB.Form frmAlmpartidasMov
    End
    Begin MSAdodcLib.Adodc Data1 
       Height          =   330
-      Left            =   4080
-      Top             =   7560
+      Left            =   3840
+      Top             =   7680
       Visible         =   0   'False
       Width           =   1335
       _ExtentX        =   2355
@@ -370,8 +511,8 @@ Begin VB.Form frmAlmpartidasMov
       Left            =   0
       TabIndex        =   11
       Top             =   0
-      Width           =   12150
-      _ExtentX        =   21431
+      Width           =   12345
+      _ExtentX        =   21775
       _ExtentY        =   741
       ButtonWidth     =   609
       ButtonHeight    =   582
@@ -478,7 +619,7 @@ Begin VB.Form frmAlmpartidasMov
    Begin MSAdodcLib.Adodc Data2 
       Height          =   330
       Left            =   4200
-      Top             =   7560
+      Top             =   7680
       Visible         =   0   'False
       Width           =   1335
       _ExtentX        =   2355
@@ -527,96 +668,9 @@ Begin VB.Form frmAlmpartidasMov
       Height          =   375
       Left            =   10920
       TabIndex        =   8
-      Top             =   7560
+      Top             =   7680
       Visible         =   0   'False
       Width           =   1035
-   End
-   Begin MSDataGridLib.DataGrid DataGrid1 
-      Bindings        =   "frmAlmpartidasMov.frx":039D
-      Height          =   4200
-      Left            =   120
-      TabIndex        =   16
-      Top             =   3240
-      Width           =   11775
-      _ExtentX        =   20770
-      _ExtentY        =   7408
-      _Version        =   393216
-      AllowUpdate     =   -1  'True
-      AllowArrows     =   -1  'True
-      ColumnHeaders   =   -1  'True
-      HeadLines       =   1
-      RowHeight       =   15
-      FormatLocked    =   -1  'True
-      BeginProperty HeadFont {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ColumnCount     =   2
-      BeginProperty Column00 
-         DataField       =   ""
-         Caption         =   ""
-         BeginProperty DataFormat {6D835690-900B-11D0-9484-00A0C91110ED} 
-            Type            =   0
-            Format          =   ""
-            HaveTrueFalseNull=   0
-            FirstDayOfWeek  =   0
-            FirstWeekOfYear =   0
-            LCID            =   3082
-            SubFormatType   =   0
-         EndProperty
-      EndProperty
-      BeginProperty Column01 
-         DataField       =   ""
-         Caption         =   ""
-         BeginProperty DataFormat {6D835690-900B-11D0-9484-00A0C91110ED} 
-            Type            =   0
-            Format          =   ""
-            HaveTrueFalseNull=   0
-            FirstDayOfWeek  =   0
-            FirstWeekOfYear =   0
-            LCID            =   3082
-            SubFormatType   =   0
-         EndProperty
-      EndProperty
-      SplitCount      =   1
-      BeginProperty Split0 
-         BeginProperty Column00 
-            ColumnAllowSizing=   -1  'True
-         EndProperty
-         BeginProperty Column01 
-         EndProperty
-      EndProperty
-   End
-   Begin VB.Label Label2 
-      Caption         =   "Movimientos"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   255
-      Left            =   120
-      TabIndex        =   18
-      Top             =   2880
-      Width           =   3375
    End
    Begin VB.Menu mnOpciones 
       Caption         =   "&Opciones"
@@ -841,6 +895,21 @@ Private Sub cmdDesdeMovalLotes_Click()
     End If
     
     frmAlmpartidasMovNuevo.Show vbModal
+End Sub
+
+Private Sub cmdPesos_Click()
+Dim C As String
+
+    C = DevuelveDesdeBD(conAri, "tipartic", "sartic", "codartic", Data1.Recordset!codartic)
+    If C <> 2 And C <> 3 Then
+        MsgBox "Sistema de pesajes para tapones / envases ", vbExclamation
+        Exit Sub
+    End If
+
+
+    frmProdPesos.Opcion = 0
+    frmProdPesos.Campos = Data1.Recordset!ID
+    frmProdPesos.Show vbModal
 End Sub
 
 Private Sub cmdRegresar_Click()
@@ -1324,7 +1393,7 @@ Dim T1 As Single
         Text1(0).Text = Cp.idPartida
         Text1(5).Text = Cp.numLote
         Text1(1).Text = Cp.Fecha
-        Text1(2).Text = Cp.codArtic
+        Text1(2).Text = Cp.codartic
         Text1(4).Text = Cp.codAlmac
         If Cp.codProve > 0 Then Text1(3).Text = Cp.codProve
         Text1(6).Text = Cp.NumAlbar
@@ -1333,13 +1402,21 @@ Dim T1 As Single
         conn.Execute "Delete from tmppartidas where codusu = " & vUsu.Codigo
         Cp.CargaDatosParaListar
         
+        Cp.LeerDatosPesajes
+        If Cp.Desviacion <> 0 Or Cp.PesoMedio <> 0 Then
+            Text2(2).Text = Format(Cp.PesoMedio, FormatoPrecio)
+            Text2(4).Text = Format(Cp.Desviacion, FormatoPrecio)
+        End If
+        
         'Para que cuando vaya mas lento no de la impresion..
         T1 = Timer - T1
         If T1 < 0.4 Then Espera 0.2
-        CadenaConsulta = "codusu=" & vUsu.Codigo & " and codartic=" & DBSet(Cp.codArtic, "T") & " AND 1"
+        CadenaConsulta = "codusu=" & vUsu.Codigo & " and codartic=" & DBSet(Cp.codartic, "T") & " AND 1"
         CadenaConsulta = DevuelveDesdeBD(conAri, "sum(cantidad)", "tmppartidas", CadenaConsulta, "1")
         If CadenaConsulta = "" Then CadenaConsulta = 0
         Text1(8).Text = Format(CadenaConsulta, FormatoCantidad)
+        
+        
     End If
     Set Cp = Nothing
     'Para que haga el losffocus bien
@@ -1368,7 +1445,7 @@ End Sub
 '   En PONERMODO se habilitan, o no, los diverso campos del
 '   formulario en funcion del modo en k vayamos a trabajar
 Private Sub PonerModo(Kmodo As Byte)
-Dim i As Byte, NumReg As Byte
+Dim I As Byte, NumReg As Byte
 Dim b As Boolean
 
     On Error GoTo EPonerModo
@@ -1408,8 +1485,8 @@ Dim b As Boolean
     BloquearTxt Text1(0), b, True
 
     b = Modo = 0 Or Modo = 2 Or Modo >= 5
-    For i = 1 To 7
-        BloquearTxt Text1(i), b
+    For I = 1 To 7
+        BloquearTxt Text1(I), b
     Next
     BloquearTxt Text1(8), True  'siempre bloqueado
 
@@ -1419,9 +1496,9 @@ Dim b As Boolean
 
     imgFecha(0).visible = b
      
-    For i = 0 To Me.imgCuentas.Count - 1
-        imgCuentas(i).visible = b
-    Next i
+    For I = 0 To Me.imgCuentas.Count - 1
+        imgCuentas(I).visible = b
+    Next I
 
 
     Me.chkVistaPrevia.Enabled = (Modo <= 2)
@@ -1531,7 +1608,7 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
                 End If
                .OtrosParametros = "|pNomEmpre=""" & vParam.NombreEmpresa & """|"
                .NumeroParametros = 1
-               .opcion = 2003 'Esta libre
+               .Opcion = 2003 'Esta libre
                .Show vbModal
            End With
     
@@ -1645,7 +1722,7 @@ End Sub
 
 
 Private Sub CargaGrid2()
-Dim i As Byte
+Dim I As Byte
 
     On Error GoTo ECargaGrid
 
@@ -1681,10 +1758,10 @@ Dim i As Byte
              
     
 
-    For i = 0 To DataGrid1.Columns.Count - 1
-        DataGrid1.Columns(i).Locked = True
-        DataGrid1.Columns(i).AllowSizing = False
-    Next i
+    For I = 0 To DataGrid1.Columns.Count - 1
+        DataGrid1.Columns(I).Locked = True
+        DataGrid1.Columns(I).AllowSizing = False
+    Next I
     DataGrid1.HoldFields
     Exit Sub
 ECargaGrid:
@@ -1872,7 +1949,7 @@ End Sub
 
 
 Private Function generarMovimientosArticulo() As Boolean
-Dim i As Byte
+Dim I As Byte
 
     'FALTA###
     Exit Function
@@ -1884,8 +1961,8 @@ Dim i As Byte
     
 
     
-    For i = 1 To 8
-        LoteEnTabla i, Text1(2).Text, Text1(4).Text
+    For I = 1 To 8
+        LoteEnTabla I, Text1(2).Text, Text1(4).Text
     Next
     
         
@@ -2056,6 +2133,8 @@ Private Sub ImpEtiquetas()
     
     
 End Sub
+
+
 
 
 

@@ -1,21 +1,300 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmProdNueTraza2 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Trazabilidad"
-   ClientHeight    =   8235
+   ClientHeight    =   9240
    ClientLeft      =   45
    ClientTop       =   330
-   ClientWidth     =   9180
+   ClientWidth     =   9435
    Icon            =   "frmProdNueTraza.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   8235
-   ScaleWidth      =   9180
+   ScaleHeight     =   9240
+   ScaleWidth      =   9435
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin TabDlg.SSTab SSTab1 
+      Height          =   4215
+      Left            =   120
+      TabIndex        =   40
+      Top             =   4320
+      Width           =   9135
+      _ExtentX        =   16113
+      _ExtentY        =   7435
+      _Version        =   393216
+      Tabs            =   2
+      Tab             =   1
+      TabsPerRow      =   2
+      TabHeight       =   520
+      TabCaption(0)   =   "Lotes"
+      TabPicture(0)   =   "frmProdNueTraza.frx":000C
+      Tab(0).ControlEnabled=   0   'False
+      Tab(0).Control(0)=   "TreeView1"
+      Tab(0).ControlCount=   1
+      TabCaption(1)   =   "Pesajes"
+      TabPicture(1)   =   "frmProdNueTraza.frx":0028
+      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).Control(0)=   "Label5(0)"
+      Tab(1).Control(0).Enabled=   0   'False
+      Tab(1).Control(1)=   "Label5(11)"
+      Tab(1).Control(1).Enabled=   0   'False
+      Tab(1).Control(2)=   "Label5(10)"
+      Tab(1).Control(2).Enabled=   0   'False
+      Tab(1).Control(3)=   "Label5(7)"
+      Tab(1).Control(3).Enabled=   0   'False
+      Tab(1).Control(4)=   "Label5(12)"
+      Tab(1).Control(4).Enabled=   0   'False
+      Tab(1).Control(5)=   "Label5(13)"
+      Tab(1).Control(5).Enabled=   0   'False
+      Tab(1).Control(6)=   "ListView2"
+      Tab(1).Control(6).Enabled=   0   'False
+      Tab(1).Control(7)=   "cboSerie"
+      Tab(1).Control(7).Enabled=   0   'False
+      Tab(1).Control(8)=   "Text5(9)"
+      Tab(1).Control(8).Enabled=   0   'False
+      Tab(1).Control(9)=   "Text5(8)"
+      Tab(1).Control(9).Enabled=   0   'False
+      Tab(1).Control(10)=   "Text5(5)"
+      Tab(1).Control(10).Enabled=   0   'False
+      Tab(1).Control(11)=   "Text5(10)"
+      Tab(1).Control(11).Enabled=   0   'False
+      Tab(1).Control(12)=   "Text5(11)"
+      Tab(1).Control(12).Enabled=   0   'False
+      Tab(1).Control(13)=   "Text5(12)"
+      Tab(1).Control(13).Enabled=   0   'False
+      Tab(1).ControlCount=   14
+      Begin VB.TextBox Text5 
+         Alignment       =   2  'Center
+         BackColor       =   &H00004000&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   13.5
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00C0FFC0&
+         Height          =   555
+         Index           =   12
+         Left            =   240
+         TabIndex        =   55
+         Text            =   "Text5"
+         Top             =   3450
+         Width           =   1695
+      End
+      Begin VB.TextBox Text5 
+         Alignment       =   1  'Right Justify
+         BackColor       =   &H80000018&
+         Enabled         =   0   'False
+         Height          =   285
+         Index           =   11
+         Left            =   240
+         TabIndex        =   53
+         Text            =   "Text5"
+         Top             =   3000
+         Width           =   1335
+      End
+      Begin VB.TextBox Text5 
+         Alignment       =   1  'Right Justify
+         BackColor       =   &H80000018&
+         Enabled         =   0   'False
+         Height          =   285
+         Index           =   10
+         Left            =   240
+         TabIndex        =   51
+         Text            =   "Text5"
+         Top             =   2400
+         Width           =   1335
+      End
+      Begin VB.TextBox Text5 
+         Alignment       =   2  'Center
+         BackColor       =   &H80000018&
+         Enabled         =   0   'False
+         Height          =   285
+         Index           =   5
+         Left            =   240
+         TabIndex        =   50
+         Text            =   "Text5"
+         Top             =   1200
+         Width           =   855
+      End
+      Begin VB.TextBox Text5 
+         Alignment       =   2  'Center
+         BackColor       =   &H80000018&
+         Enabled         =   0   'False
+         Height          =   285
+         Index           =   8
+         Left            =   240
+         TabIndex        =   46
+         Text            =   "Text5"
+         Top             =   1800
+         Width           =   615
+      End
+      Begin VB.TextBox Text5 
+         Alignment       =   2  'Center
+         BackColor       =   &H80000018&
+         Enabled         =   0   'False
+         Height          =   285
+         Index           =   9
+         Left            =   1080
+         TabIndex        =   45
+         Text            =   "Text5"
+         Top             =   1800
+         Width           =   615
+      End
+      Begin VB.ComboBox cboSerie 
+         Height          =   315
+         Left            =   840
+         Style           =   2  'Dropdown List
+         TabIndex        =   42
+         Top             =   480
+         Width           =   975
+      End
+      Begin MSComctlLib.TreeView TreeView1 
+         Height          =   3255
+         Left            =   -74640
+         TabIndex        =   41
+         Top             =   720
+         Width           =   8295
+         _ExtentX        =   14631
+         _ExtentY        =   5741
+         _Version        =   393217
+         Indentation     =   471
+         LabelEdit       =   1
+         LineStyle       =   1
+         Style           =   7
+         Appearance      =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Courier New"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
+      Begin MSComctlLib.ListView ListView2 
+         Height          =   3495
+         Left            =   2040
+         TabIndex        =   44
+         Top             =   480
+         Width           =   6855
+         _ExtentX        =   12091
+         _ExtentY        =   6165
+         View            =   3
+         LabelEdit       =   1
+         LabelWrap       =   -1  'True
+         HideSelection   =   -1  'True
+         FullRowSelect   =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         NumItems        =   7
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "Id"
+            Object.Width           =   1587
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Llena(gr)"
+            Object.Width           =   2028
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   1
+            SubItemIndex    =   2
+            Text            =   "Gr. aceite"
+            Object.Width           =   1676
+         EndProperty
+         BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   1
+            SubItemIndex    =   3
+            Text            =   "Volumen"
+            Object.Width           =   2029
+         EndProperty
+         BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   2
+            SubItemIndex    =   4
+            Text            =   "Emp"
+            Object.Width           =   1499
+         EndProperty
+         BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   2
+            SubItemIndex    =   5
+            Text            =   "Err1"
+            Object.Width           =   1146
+         EndProperty
+         BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   2
+            SubItemIndex    =   6
+            Text            =   "Err2"
+            Object.Width           =   1147
+         EndProperty
+      End
+      Begin VB.Label Label5 
+         Caption         =   "Desv.tip"
+         Height          =   375
+         Index           =   13
+         Left            =   240
+         TabIndex        =   54
+         Top             =   2760
+         Width           =   735
+      End
+      Begin VB.Label Label5 
+         Caption         =   "Promedio"
+         Height          =   375
+         Index           =   12
+         Left            =   240
+         TabIndex        =   52
+         Top             =   2160
+         Width           =   735
+      End
+      Begin VB.Label Label5 
+         Caption         =   "Nº pesos"
+         Height          =   375
+         Index           =   7
+         Left            =   240
+         TabIndex        =   49
+         Top             =   960
+         Width           =   735
+      End
+      Begin VB.Label Label5 
+         Caption         =   "NO emp"
+         Height          =   375
+         Index           =   10
+         Left            =   240
+         TabIndex        =   48
+         Top             =   1560
+         Width           =   735
+      End
+      Begin VB.Label Label5 
+         Caption         =   "No Emp2"
+         Height          =   375
+         Index           =   11
+         Left            =   1080
+         TabIndex        =   47
+         Top             =   1560
+         Width           =   735
+      End
+      Begin VB.Label Label5 
+         Caption         =   "Serie:"
+         Height          =   375
+         Index           =   0
+         Left            =   240
+         TabIndex        =   43
+         Top             =   480
+         Width           =   735
+      End
+   End
    Begin VB.TextBox txtPal 
       Alignment       =   2  'Center
       BackColor       =   &H80000018&
@@ -24,7 +303,7 @@ Begin VB.Form frmProdNueTraza2
       Index           =   1
       Left            =   6120
       Locked          =   -1  'True
-      TabIndex        =   39
+      TabIndex        =   38
       Text            =   "Text1"
       Top             =   3720
       Width           =   1245
@@ -37,7 +316,7 @@ Begin VB.Form frmProdNueTraza2
       Index           =   0
       Left            =   7560
       Locked          =   -1  'True
-      TabIndex        =   38
+      TabIndex        =   37
       Text            =   "Text1"
       Top             =   3720
       Width           =   1245
@@ -195,7 +474,7 @@ Begin VB.Form frmProdNueTraza2
       Height          =   375
       Left            =   7890
       TabIndex        =   15
-      Top             =   7800
+      Top             =   8760
       Visible         =   0   'False
       Width           =   1035
    End
@@ -203,7 +482,7 @@ Begin VB.Form frmProdNueTraza2
       Height          =   540
       Left            =   315
       TabIndex        =   17
-      Top             =   7635
+      Top             =   8595
       Width           =   3000
       Begin VB.Label lblIndicador 
          Alignment       =   2  'Center
@@ -221,7 +500,7 @@ Begin VB.Form frmProdNueTraza2
       Height          =   375
       Left            =   7890
       TabIndex        =   16
-      Top             =   7800
+      Top             =   8760
       Width           =   1035
    End
    Begin VB.CommandButton cmdAceptar 
@@ -229,13 +508,13 @@ Begin VB.Form frmProdNueTraza2
       Height          =   375
       Left            =   6720
       TabIndex        =   14
-      Top             =   7800
+      Top             =   8760
       Width           =   1035
    End
    Begin MSAdodcLib.Adodc Data1 
       Height          =   375
       Left            =   270
-      Top             =   7875
+      Top             =   8835
       Visible         =   0   'False
       Width           =   2055
       _ExtentX        =   3625
@@ -285,8 +564,8 @@ Begin VB.Form frmProdNueTraza2
       Left            =   0
       TabIndex        =   21
       Top             =   0
-      Width           =   9180
-      _ExtentX        =   16193
+      Width           =   9435
+      _ExtentX        =   16642
       _ExtentY        =   741
       ButtonWidth     =   609
       ButtonHeight    =   582
@@ -331,7 +610,7 @@ Begin VB.Form frmProdNueTraza2
             Object.ToolTipText     =   "Imprimir resumen diario"
          EndProperty
          BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
+            Object.ToolTipText     =   "Pesajes"
          EndProperty
          BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Salir"
@@ -368,37 +647,13 @@ Begin VB.Form frmProdNueTraza2
          Width           =   1215
       End
    End
-   Begin MSComctlLib.TreeView TreeView1 
-      Height          =   3135
-      Left            =   240
-      TabIndex        =   36
-      Top             =   4440
-      Width           =   8775
-      _ExtentX        =   15478
-      _ExtentY        =   5530
-      _Version        =   393217
-      Indentation     =   471
-      LabelEdit       =   1
-      LineStyle       =   1
-      Style           =   7
-      Appearance      =   1
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Courier New"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-   End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
       Caption         =   "Produccion"
       Height          =   195
       Index           =   14
       Left            =   6120
-      TabIndex        =   40
+      TabIndex        =   39
       Top             =   3480
       Width           =   810
    End
@@ -408,7 +663,7 @@ Begin VB.Form frmProdNueTraza2
       Height          =   195
       Index           =   13
       Left            =   7560
-      TabIndex        =   37
+      TabIndex        =   36
       Top             =   3480
       Width           =   855
    End
@@ -481,8 +736,8 @@ Begin VB.Form frmProdNueTraza2
    Begin VB.Line Line2 
       X1              =   240
       X2              =   9000
-      Y1              =   4200
-      Y2              =   4200
+      Y1              =   4080
+      Y2              =   4080
    End
    Begin VB.Label Label1 
       Caption         =   "Uds"
@@ -685,6 +940,13 @@ Private kCampo As Integer
 Private Ordenasao As String
 Private PrimeraVez As Boolean
 
+Dim SQL As String
+
+
+
+Private Sub cboSerie_Click()
+    CargarPesos
+End Sub
 
 Private Sub cmdAceptar_Click()
     Screen.MousePointer = vbHourglass
@@ -815,7 +1077,7 @@ Dim cad As String
         Screen.MousePointer = vbHourglass
         NumRegElim = Data1.Recordset.AbsolutePosition
         cad = "Delete from sbanpr where codbanpr=" & Data1.Recordset!codbanpr
-        Conn.Execute cad
+        conn.Execute cad
 '        Data1.Recordset.Delete
         If SituarDataTrasEliminar(Data1, NumRegElim) Then
             PonerCampos
@@ -886,7 +1148,7 @@ Private Sub Form_Load()
         
         .Buttons(9).Image = 16  'Botón Imprimir
         .Buttons(10).Image = 40 'Resumen diario produccion
-        
+        .Buttons(11).Image = 48 'Pesajes.
         .Buttons(12).Image = 15  'Salir
         
         .Buttons(btnPrimero).Image = 6  'Primero
@@ -904,7 +1166,7 @@ Private Sub Form_Load()
     chkVistaPrevia.Value = CheckValueLeer(Name)
     
     'ASignamos un SQL al DATA1
-    Data1.ConnectionString = Conn
+    Data1.ConnectionString = conn
     
     
     If QueTrazabilidad = 0 Then
@@ -928,6 +1190,8 @@ Private Sub LimpiarCampos()
     
     'Aqui va el especifico de cada form es
     '### a mano
+    Me.cboSerie.Clear
+    LimpiarPesos
 End Sub
 
 
@@ -961,6 +1225,67 @@ End Sub
 
 
 
+
+
+Private Sub ListView2_KeyPress(KeyAscii As Integer)
+Dim Peso As Currency
+Dim VolumenProd As Currency
+
+    If ListView2.ListItems.Count = 0 Then Exit Sub
+    If ListView2.SelectedItem Is Nothing Then Exit Sub
+    
+    If vUsu.Nivel > 0 Then Exit Sub
+    
+    If Not (KeyAscii = 112 Or KeyAscii = 80) Then Exit Sub
+    
+    
+    SQL = DevuelveDesdeBD(conAri, "litrosunidad", "sartic", "codartic", Text1(2).Text, "T")
+    If SQL = "" Then Err.Raise 513, , "Error LITROS - UNIDAD "
+    VolumenProd = 1000 * CCur(SQL)
+    
+    Set miRsAux = New ADODB.Recordset
+    SQL = "select  * from prodlinpesos where codigo =" & Text1(0).Text & " and idlin=" & Text1(1).Text
+    SQL = SQL & " AND serie =" & cboSerie.Text & " and secuencial = " & ListView2.SelectedItem.Text
+    SQL = SQL & " AND lotetraza = " & Text1(9).Text
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    
+    If miRsAux.EOF Then Err.Raise 513, , "No existe dato (EOF)"
+    
+    SQL = InputBox("Peso en gr:", , CStr(miRsAux!pesolleno))
+    If SQL <> "" Then
+        
+        Peso = CCur(SQL)
+        SQL = "UPDATE prodlinpesos set pesolleno=" & DBSet(Peso, "N")
+        
+        
+            'Volumen llenado
+            Peso = Peso - (miRsAux!PesoBotella + miRsAux!pesotapon + miRsAux!pesoetiqueta + miRsAux!pesootro)
+            Peso = Peso / 0.916
+            SQL = SQL & ", volumenllenado=" & DBSet(Peso, "N")
+            
+            If VolumenProd - Peso > miRsAux!Emp Then
+                SQL = SQL & ", cumpleemp=0"
+                If VolumenProd - Peso > 2 * miRsAux!Emp Then
+                   ' lw1.SelectedItem.ForeColor = vbRed
+                    SQL = SQL & ", cumple2emp=0"
+                Else
+                   ' lw1.SelectedItem.ForeColor = vbGreen
+                    SQL = SQL & ", cumple2emp=1"
+                End If
+            Else
+                SQL = SQL & ", cumpleemp=1, cumple2emp=1"
+            End If
+            miRsAux.Close
+            Set miRsAux = Nothing
+            
+            SQL = SQL & " Where Codigo = " & Text1(0).Text & " And idlin = " & Text1(1).Text
+            SQL = SQL & " AND serie =" & cboSerie.Text & " and secuencial = " & ListView2.SelectedItem.Text
+            SQL = SQL & " AND lotetraza = " & Text1(9).Text
+            conn.Execute SQL
+            CargarPesos
+    End If
+     Set miRsAux = Nothing
+End Sub
 
 
 Private Sub mnBuscar_Click()
@@ -1014,7 +1339,7 @@ End Sub
 '----------------------------------------------------------------
 '----------------------------------------------------------------
 Private Sub Text1_LostFocus(Index As Integer)
-Dim devuelve As String
+Dim Devuelve As String
       
     'en el campo ID de norma 34 no se hace Trim ni nada. Lo q pongan
     If Index = 18 Then Exit Sub
@@ -1196,6 +1521,11 @@ Dim I As Byte
     End If
     
     
+    'Pesajes. Julio 2016
+    lblIndicador.Caption = "Pesajes"
+    lblIndicador.Refresh
+    CargaSeries
+    
     '-- Esto permanece para saber donde estamos
     lblIndicador.Caption = Data1.Recordset.AbsolutePosition & " de " & Data1.Recordset.RecordCount
     Screen.MousePointer = vbDefault
@@ -1327,8 +1657,11 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
         Case 9: Imprimir
         Case 10:
                 'Imprime resume diario produccion
-                frmListado2.opcion = 27
+                frmListado2.Opcion = 27
                 frmListado2.Show vbModal
+        Case 11
+            'De momento
+            ImprimePesos
         Case 12
             mnSalir_Click
         Case btnPrimero To btnPrimero + 3 'Flechas Desplazamiento
@@ -1393,7 +1726,7 @@ Dim SQL As String
     
     SQL = SQL & "  order by lotetraza,factorconversion,codartic"
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     idTraza = -1
     Cantidad = 0
     While Not miRsAux.EOF
@@ -1418,7 +1751,7 @@ Dim SQL As String
       
             Set N = TreeView1.Nodes.Add("C" & idTraza, tvwChild)
             
-            SQL = miRsAux!codArtic & " " & miRsAux!NomArtic
+            SQL = miRsAux!codartic & " " & miRsAux!NomArtic
             L = Len(SQL)
             If L > 45 Then
                 SQL = Mid(SQL, 1, 45)
@@ -1428,7 +1761,7 @@ Dim SQL As String
             End If
             
             SQL = SQL & Space(CLng(L))
-            SQL = SQL & "Lot:" & miRsAux!NumLote & " / "
+            SQL = SQL & "Lot:" & miRsAux!numLote & " / "
             C2 = DBLet(miRsAux!cantutili, "N")
             If Int(C2) = C2 Then
                 SQL = SQL & Format(C2, "#,##0")
@@ -1490,3 +1823,267 @@ Private Sub TreeView1_DblClick()
     
     
 End Sub
+
+
+
+
+'***************************************************************************************
+'***************************************************************************************
+'***************************************************************************************
+'
+'   Sistema pesaje
+'
+'***************************************************************************************
+'***************************************************************************************
+'***************************************************************************************
+Private Sub CargaSeries()
+    cboSerie.Clear
+    Set miRsAux = New ADODB.Recordset
+    SQL = "select distinct serie from prodlinpesos where codigo =" & Text1(0).Text
+    SQL = SQL & " and idlin=" & Text1(1).Text & " AND lotetraza =" & Text1(9).Text & " order by 1"
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    While Not miRsAux.EOF
+        cboSerie.AddItem miRsAux.Fields(0)
+        miRsAux.MoveNext
+    Wend
+    miRsAux.Close
+    Set miRsAux = Nothing
+    If cboSerie.ListCount > 0 Then
+        cboSerie.ListIndex = cboSerie.ListCount - 1
+    Else
+        CargarPesos
+    End If
+    
+End Sub
+
+
+Private Sub LimpiarPesos()
+Dim T As TextBox
+    Me.ListView2.ListItems.Clear
+    For Each T In Text5
+        T.Text = ""
+        T.ForeColor = vbBlack
+        T.BackColor = &H80000018
+    Next
+
+End Sub
+
+
+Private Sub CargarPesos()
+Dim It As ListItem
+Dim numero As Currency
+Dim C As Integer
+    
+    LimpiarPesos
+    If Me.cboSerie.ListIndex < 0 Then Exit Sub
+    
+    Set miRsAux = New ADODB.Recordset
+    SQL = "select  secuencial,pesoBotella,pesoTapon,pesoEtiqueta,pesoOtro,pesoLleno,volumenLlenado,EMP,CumpleEMP,Cumple2EMP "
+    SQL = SQL & " from prodlinpesos where codigo =" & Text1(0).Text & " and idlin=" & Text1(1).Text
+    SQL = SQL & " AND lotetraza =" & Text1(9).Text
+    SQL = SQL & " AND serie =" & cboSerie.Text & " order by secuencial"
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    While Not miRsAux.EOF
+        
+        
+        'SQL = "K" & Format(miRsAux!secuencial, "00")
+        Set It = ListView2.ListItems.Add()
+        It.Text = Format(miRsAux!secuencial, "00")
+        
+        It.SubItems(1) = Format(miRsAux!pesolleno, FormatoPrecio)
+       
+        
+        numero = 0.916 * miRsAux!volumenLlenado
+        It.SubItems(2) = Format(numero, FormatoPrecio)
+        It.SubItems(3) = Format(miRsAux!volumenLlenado, FormatoPrecio)
+        It.SubItems(4) = Format(miRsAux!Emp, FormatoPorcen)
+        
+        If miRsAux!cumpleemp = 1 Then
+            'OK
+            SQL = " "
+        Else
+            SQL = "NO"
+            It.ForeColor = vbRed
+        End If
+        
+        It.SubItems(5) = SQL
+        If miRsAux!cumple2emp = 1 Then
+            'OK
+            SQL = " "
+        Else
+            SQL = "NO"
+            It.ForeColor = vbRed
+            For C = 1 To It.ListSubItems.Count
+                It.ListSubItems(C).ForeColor = vbRed
+            Next
+            
+        End If
+        It.SubItems(6) = SQL
+        If SQL = "NO" Then It.ListSubItems(6).ForeColor = vbRed
+        miRsAux.MoveNext
+    Wend
+    miRsAux.Close
+    
+    'Resumen de la muestra
+    ValoresEstadisticosMuestra2
+    
+    
+    
+    Set miRsAux = Nothing
+            
+    
+End Sub
+
+
+
+'De cada SERIE
+Private Sub ValoresEstadisticosMuestra2()
+Dim I As Integer
+Dim V As Currency
+Dim MedidaCorrecta As Boolean
+Dim LitrosUnidadMiles As Integer
+Dim T As TextBox
+
+    For Each T In Text5
+        T.Text = ""
+    Next
+    
+    
+    SQL = "select avg(round(volumenLlenado,2)) media,count(*) cuantos,std(volumenLlenado) desviacion,"
+    SQL = SQL & " sum(if(cumpleemp=0,1,0)) NoEmp1,sum(if(Cumple2EMP=0,1,0)) NoEmp2, max(volumenLlenado) maximo,min(volumenLlenado) minimo"
+    SQL = SQL & " ,pesobotella,pesotapon,pesoEtiqueta,pesootro"
+    SQL = SQL & " from prodlinpesos where codigo =" & Text1(0).Text & " and idlin=" & Text1(1).Text
+    SQL = SQL & " AND lotetraza =" & Text1(9).Text
+    SQL = SQL & " AND serie =" & cboSerie.Text
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    I = 0
+    If Not miRsAux.EOF Then I = DBLet(miRsAux!Cuantos, "N")
+    MedidaCorrecta = False
+    If I > 0 Then
+        'Hay datos. Vamos a mostrarlos
+        MedidaCorrecta = True
+'        Text5(1).Text = Format(miRsAux!PesoBotella, FormatoPrecio)
+'        Text5(2).Text = Format(miRsAux!pesotapon, FormatoPrecio)
+'        Text5(3).Text = Format(miRsAux!pesoetiqueta, FormatoPrecio)
+'        Text5(4).Text = Format(miRsAux!pesootro, FormatoPrecio)
+        
+        Text5(5).Text = Format(miRsAux!Cuantos, "0000")
+'        Text5(6).Text = Format(miRsAux!Maximo, FormatoPrecio)
+'        Text5(7).Text = Format(miRsAux!Minimo, FormatoPrecio)
+        
+        Text5(8).Text = Format(miRsAux!noemp1, "0000")
+        Text5(9).Text = Format(miRsAux!noemp2, "0000")
+        
+        Text5(10).Text = Format(miRsAux!media, FormatoPrecio)
+        Text5(11).Text = Format(miRsAux!Desviacion, FormatoPrecio)
+        
+        
+        'OK emp1
+        If miRsAux!noemp1 > 2 Then
+            If miRsAux!Cuantos > 50 Then
+                'Segunda tanda pesadas
+                If miRsAux!noemp1 >= 7 Then
+                    MedidaCorrecta = False
+                    PonerColorText 1, 8
+                Else
+                    'Caution. Ha sido correcto
+                    PonerColorText 2, 8
+                End If
+            Else
+                If miRsAux!noemp1 >= 5 Then
+                    MedidaCorrecta = False
+                    PonerColorText 1, 8
+                Else
+                    'Caution. Ha sido correcto
+                    PonerColorText 2, 8
+                End If
+            End If
+        Else
+            PonerColorText 0, 8
+        End If
+        
+        If miRsAux!noemp2 > 0 Then
+            MedidaCorrecta = False
+            PonerColorText 1, 9
+        Else
+            PonerColorText 0, 9
+        End If
+        SQL = DevuelveDesdeBD(conAri, "litrosunidad", "sartic", "codartic", Text1(2).Text, "T")
+        If SQL = "" Then MsgBox "Error LITROS - UNIDAD ", vbCritical
+        LitrosUnidadMiles = 1000 * CCur(SQL)
+        
+        'B13>=B2-0,379*B14
+        V = miRsAux!Desviacion * 0.397
+        V = LitrosUnidadMiles - V
+        
+        
+        If miRsAux!media > V Then
+            'ok
+        Else
+            MedidaCorrecta = False
+        End If
+        
+        If MedidaCorrecta Then
+            'COnforme
+            Text5(12).Text = "CONFORME"
+            PonerColorText 0, 12
+        Else
+            'NO conforme
+            Text5(12).Text = "NO"
+            PonerColorText 1, 12
+        End If
+        
+    End If
+    miRsAux.Close
+    
+    
+    'Nominal.
+    'En sartic
+'    SQL = "Select LitrosUnidad from sartic where codartic=" & DBSet(Text1(2).Text, "T")
+'    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+'    Text5(0).Text = ""
+'    If Not miRsAux.EOF Then
+'        Text5(0).Text = DBLet(miRsAux!LitrosUnidad, "N") * 1000
+'    End If
+'    miRsAux.Close
+    
+    
+    
+End Sub
+
+'Ok:  0: OK     1: Mal      2: Cuation
+Private Sub PonerColorText(OK As Byte, Indice As Integer)
+Dim ColoresFondo As String
+Dim ColoresFore As String
+
+    ColoresFondo = "&H4000|&H80|&HFFFF|"
+    ColoresFore = "&HC0FFC0|&HFFFFFF|&HFF0000|"
+    If OK = 0 Then
+        Text5(Indice).BackColor = RecuperaValor(ColoresFondo, OK + 1)
+        Text5(Indice).ForeColor = RecuperaValor(ColoresFore, OK + 1)
+        Text5(Indice).FontBold = False
+    Else
+        Text5(Indice).BackColor = RecuperaValor(ColoresFondo, OK + 1)
+        Text5(Indice).ForeColor = RecuperaValor(ColoresFore, OK + 1)
+        Text5(Indice).FontBold = True
+        Text5(Indice).ForeColor = vbWhite
+    End If
+End Sub
+
+Private Sub ImprimePesos()
+                    
+    If Modo = 1 Then Exit Sub
+    
+    If Data1.Recordset Is Nothing Then Exit Sub
+    If Data1.Recordset.EOF Then Exit Sub
+    
+    If Me.cboSerie.ListCount = 0 Then Exit Sub
+    
+ 
+    CadenaDesdeOtroForm = "{prodlin.codigo}=" & Text1(0).Text & " AND {prodlin.idlin} = " & Text1(1).Text
+    CadenaDesdeOtroForm = CadenaDesdeOtroForm & " AND {prodlinpesos.serie} = " & cboSerie.Text & " AND {prodlinpesos.lotetraza} = " & Text1(9).Text
+    LlamaImprimirGral CadenaDesdeOtroForm, "", 0, "morPesosProd.rpt", "Pesajes serie "
+    CadenaDesdeOtroForm = ""
+
+End Sub
+

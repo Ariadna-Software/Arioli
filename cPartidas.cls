@@ -29,6 +29,11 @@ Private mCantidad As Currency
 
 Private mEtiq As Integer
 
+
+Private mPesoMedio As Currency
+Private mDesviacion As Currency
+
+
 Dim RS As ADODB.Recordset
 Dim SQL As String
 
@@ -47,12 +52,12 @@ End Property
 
 
 '**** Articulo de la partida
-Public Property Let codArtic(ByVal vData As String)
+Public Property Let codartic(ByVal vData As String)
      mCodartic = vData
 End Property
 
-Public Property Get codArtic() As String
-     codArtic = mCodartic
+Public Property Get codartic() As String
+     codartic = mCodartic
 End Property
 
 
@@ -116,6 +121,16 @@ End Property
 
 Public Property Get Cantidad() As Currency
      Cantidad = mCantidad
+End Property
+
+
+
+Public Property Get PesoMedio() As Currency
+     PesoMedio = mPesoMedio
+End Property
+
+Public Property Get Desviacion() As Currency
+     Desviacion = mDesviacion
 End Property
 
 
@@ -315,6 +330,9 @@ Public Function Eliminar() As Boolean
     SQL = "DELETE FROM spartidaslin WHERE id = " & midPartida
     conn.Execute SQL
     
+    SQL = "DELETE FROM spartidaspesos WHERE idpartida = " & midPartida
+    conn.Execute SQL
+    
     SQL = "DELETE FROM spartidas WHERE id = " & midPartida
     conn.Execute SQL
     Eliminar = True 'todo ok
@@ -481,13 +499,15 @@ End Sub
 Private Sub AsignarValoresClase()
     'No lleva error. Que se dispare el erro en el sub que lo llama
     midPartida = RS!ID
-    mCodartic = RS!codArtic
+    mCodartic = RS!codartic
     mCodalmac = RS!codAlmac
     mNumlote = RS!numLote
     mCodProve = RS!codProve
     mNumalbar = RS!NumAlbar
     mFecha = RS!Fecha
     mCantidad = RS!cantotal
+    mPesoMedio = 0   'Estos se pondran cuando se solicite el evento leerpesos
+    mDesviacion = 0
 End Sub
 
 
@@ -730,7 +750,7 @@ Dim MiNivel As Integer
     MiNivel = 0
     vContador = 0
     
-    GeneracionProcesosDesdeCompra MiNivel, vContador, Me.codArtic, Me.numLote, L, DetallarCoupages
+    GeneracionProcesosDesdeCompra MiNivel, vContador, Me.codartic, Me.numLote, L, DetallarCoupages
     
 End Function
 
@@ -770,7 +790,7 @@ Dim FactorMultiplicador1 As Currency
     Aux = Aux & " AND olicoupagelinlotes.numlote = " & DBSet(vLote, "T")
     RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
-        Aux = RN!codArtic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
+        Aux = RN!codartic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
         Col.Add Aux
         RN.MoveNext
     Wend
@@ -795,7 +815,7 @@ Dim FactorMultiplicador1 As Currency
     RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Set Col = New Collection
     While Not RN.EOF
-        Aux = RN!codArtic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
+        Aux = RN!codartic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
         Col.Add Aux
         RN.MoveNext
     Wend
@@ -834,7 +854,7 @@ Dim FactorMultiplicador1 As Currency
         Aux = Aux & " order by prodtrazlin.lotetraza"
         RN.Open Aux, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
         While Not RN.EOF
-            Aux = RN!codArtic & "|" & RN!el_lote & "|" & RN!cantprodu & "|" & RN!elcodigo & "|"
+            Aux = RN!codartic & "|" & RN!el_lote & "|" & RN!cantprodu & "|" & RN!elcodigo & "|"
             Col.Add Aux
             RN.MoveNext
         Wend
@@ -1044,7 +1064,7 @@ Dim DesdeUnAlbaran As Boolean
                 If vParamAplic.QUE_EMPRESA >= 2 Then
                     S = "select * from slhmov where "
                     'El arti/lote/almacen                                                     'ojo a la S
-                    S = S & "  slhmov.codartic = " & DBSet(codArtic, "T") & "AND slhmov.numlote = " & DBSet(numLote, "T")
+                    S = S & "  slhmov.codartic = " & DBSet(codartic, "T") & "AND slhmov.numlote = " & DBSet(numLote, "T")
                     'S = S & " and codalmac = " & mCodalmac
                     RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                     While Not RN.EOF
@@ -1082,7 +1102,7 @@ Dim SQL As String
     SQL = "insert into `tmptraza` (`codusu`,`contador`,`artppal`,`numloteppal`,"
     SQL = SQL & "`nivle`,`idOperacion`,`artic2`,`numlote2`,`cantidad`,`abs_cantidad`,nomclien) values ("
     'Valroes
-    SQL = SQL & vUsu.Codigo & "," & contador & "," & DBSet(Me.codArtic, "T") & "," & DBSet(Me.numLote, "T")
+    SQL = SQL & vUsu.Codigo & "," & contador & "," & DBSet(Me.codartic, "T") & "," & DBSet(Me.numLote, "T")
     SQL = SQL & "," & vNivel & "," & DBSet(Clave, "T") & "," & DBSet(vArt, "T") & "," & DBSet(vL, "T", "N")
     SQL = SQL & "," & TransformaComasPuntos(CStr(Cantidad)) & ",0," & DBSet(NomClienProv, "T", "S") & ")"
     conn.Execute SQL
@@ -1128,7 +1148,7 @@ Dim J As Integer
     
     For J = 1 To ColComp.Count
         Set ColVentas = New Collection
-        EnAlbaranVentas2 ColVentas, Me.codArtic, numLote
+        EnAlbaranVentas2 ColVentas, Me.codartic, numLote
         
     Next J
     
@@ -1155,7 +1175,7 @@ Dim S As String
     S = "select slialp.numalbar clave,cantidad cantmostrar,scaalp.fechaalb mifecha ,scaalp.codprove idRefD,scaalp.nomprove vrefd"
     S = S & " from slialp,scaalp where scaalp.codprove=slialp.codprove and scaalp.fechaalb=slialp.fechaalb and scaalp.numalbar=slialp.numalbar"
     'El arti/lote/almacen                                               'ojo a la S
-    S = S & " AND slialp.codartic = " & DBSet(Me.codArtic, "T") & "AND numlotes = " & DBSet(Me.numLote, "T")
+    S = S & " AND slialp.codartic = " & DBSet(Me.codartic, "T") & "AND numlotes = " & DBSet(Me.numLote, "T")
     S = S & " and codalmac = " & mCodalmac
 
 
@@ -1174,7 +1194,7 @@ Dim S As String
     S = S & " FROM slifpc,scafpc where scafpc.codprove=slifpc.codprove and scafpc.fecfactu=slifpc.fecfactu"
     S = S & " and scafpc.numfactu=slifpc.numfactu "
     'El arti/lote/almacen                                                     'ojo a la S
-    S = S & " AND slifpc.codartic = " & DBSet(codArtic, "T") & "AND numlotes = " & DBSet(numLote, "T")
+    S = S & " AND slifpc.codartic = " & DBSet(codartic, "T") & "AND numlotes = " & DBSet(numLote, "T")
     S = S & " and codalmac = " & mCodalmac
     RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
@@ -1190,7 +1210,7 @@ Dim S As String
     If vParamAplic.QUE_EMPRESA >= 2 Then
         S = "select * from slhmov where "
         'El arti/lote/almacen                                                     'ojo a la S
-        S = S & " AND slhmov.codartic = " & DBSet(codArtic, "T") & "AND slhmov = " & DBSet(numLote, "T")
+        S = S & " AND slhmov.codartic = " & DBSet(codartic, "T") & "AND slhmov = " & DBSet(numLote, "T")
         'S = S & " and codalmac = " & mCodalmac
         RN.Open S, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         While Not RN.EOF
@@ -1291,7 +1311,7 @@ Dim Nivel As Integer
     Aux = Aux & " AND olicoupagelinlotes.numlote = " & DBSet(vLote, "T")
     RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
-        Aux = RN!codArtic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
+        Aux = RN!codartic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
         Col.Add Aux
         RN.MoveNext
     Wend
@@ -1316,7 +1336,7 @@ Dim Nivel As Integer
     RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Set Col = New Collection
     While Not RN.EOF
-        Aux = RN!codArtic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
+        Aux = RN!codartic & "|" & RN!numLote & "|" & RN!cantlote & "|" & RN!Codigo & "|"
         Col.Add Aux
         RN.MoveNext
     Wend
@@ -1391,7 +1411,7 @@ Dim LinProd As Integer
     vContador = 0
     'Vamos por caso
     'Si es materia embasada:
-    cad = DevuelveDesdeBD(conAri, "conjunto", "sartic", "codartic", Me.codArtic, "T")
+    cad = DevuelveDesdeBD(conAri, "conjunto", "sartic", "codartic", Me.codartic, "T")
     If cad = "" Then cad = "0"
     Embasado = cad = "1"
     
@@ -1400,7 +1420,7 @@ Dim LinProd As Integer
         'Proceso de envasado
         ' vemos la produccion donde esta
         SQL = "codalmac"
-        cad = "codartic ='" & codArtic & "' and numlote"
+        cad = "codartic ='" & codartic & "' and numlote"
         cad = DevuelveDesdeBD(conAri, "codigo", "sliordprlotes", cad, Me.numLote, "T", SQL)
         Encontrado = False
         BUscarEnNuevaProduccion = False
@@ -1419,7 +1439,7 @@ Dim LinProd As Integer
             'Vemos si hay que buscar en nueva produccion
             cad = "select * from prodlin,prodtrazlin,prodtrazcompo where prodtrazlin.codigo=prodtrazcompo.codigo and"
             cad = cad & " prodtrazlin.idlin = prodtrazcompo.idlin And prodtrazlin.Codigo = prodlin.Codigo And prodtrazlin.idlin = prodlin.idlin"
-            cad = cad & " AND prodlin.codartic = " & DBSet(codArtic, "T") & "  AND prodtrazcompo.lotetraza = " & DBSet(numLote, "T")
+            cad = cad & " AND prodlin.codartic = " & DBSet(codartic, "T") & "  AND prodtrazcompo.lotetraza = " & DBSet(numLote, "T")
             RCompo.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             If Not RCompo.EOF Then
                 Encontrado = True
@@ -1444,7 +1464,7 @@ Dim LinProd As Integer
             
             
                 cad = "select * from sliordpr2lotes,sartic  where sliordpr2lotes.codarti2=sartic.codartic"
-                cad = cad & " AND codigo=" & Produccion & " and sliordpr2lotes.codartic=" & DBSet(codArtic, "T") & " AND codalmac= " & codAlmac
+                cad = cad & " AND codigo=" & Produccion & " and sliordpr2lotes.codartic=" & DBSet(codartic, "T") & " AND codalmac= " & codAlmac
                 cad = cad & " ORDER BY FactorConversion desc"
                 RCompo.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 While Not RCompo.EOF
@@ -1483,13 +1503,13 @@ Dim LinProd As Integer
         
                         'Vemos si viene de un cupaje, o viene de compra directa
                         'Veremos si para un aceite y lote este, ha sido desde coupaje
-                        ComprobarAceite RCompo!codArtic, DBLet(RCompo!numLote), True, MiNivel, vContador
+                        ComprobarAceite RCompo!codartic, DBLet(RCompo!numLote), True, MiNivel, vContador
                       
                         
                     Else
                         If Not SoloAceite Then
                             'Intentamos ver en que ALBARAN esta comprado
-                            materiaPrimaProduccion RCompo!codArtic, DBLet(RCompo!numLote), MiNivel, vContador
+                            materiaPrimaProduccion RCompo!codartic, DBLet(RCompo!numLote), MiNivel, vContador
                         
                         End If
                     End If
@@ -1605,7 +1625,7 @@ Dim C As String
                 T.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 Set Col = New Collection
                 While Not T.EOF
-                    C = T!codArtic & "|" & T!numLote & "|"
+                    C = T!codartic & "|" & T!numLote & "|"
                     Col.Add C
                     SQL = T!Codigo
                     T.MoveNext
@@ -1728,3 +1748,33 @@ Public Function AjustarFinPartida()
     SQL = SQL & " WHERE id = " & midPartida
     conn.Execute SQL
 End Function
+
+
+
+
+
+Public Sub LeerDatosPesajes()
+
+    mPesoMedio = 0   'Estos se pondran cuando se solicite el evento leerpesos
+    mDesviacion = 0
+
+
+    On Error GoTo ePesadas
+    
+    Set RS = New ADODB.Recordset
+    'S e pueden hacer sum, reondando....
+    ',std(round(peso,1)),sum(peso),count(*)
+    SQL = "select avg(peso),std(peso) from spartidaspesos  where idpartida=" & midPartida
+    RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If Not RS.EOF Then
+        If Not IsNull(RS.Fields(0)) Then mPesoMedio = RS.Fields(0)
+        If Not IsNull(RS.Fields(1)) Then mDesviacion = Round2(RS.Fields(1), 4)
+    End If
+
+    RS.Close
+ePesadas:
+    If Err.Number <> 0 Then MuestraError Err.Number
+    Set RS = Nothing
+
+
+End Sub

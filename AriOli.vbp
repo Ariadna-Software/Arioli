@@ -244,6 +244,7 @@ Form=frmProdVerUnDepo.frm
 Form=frmVarios.frm
 Form=frmProdDepositos.frm
 Form=frmVallEntradaOliva.frm
+Form=frmProdPesos.frm
 IconForm="frmppal"
 Startup="Sub Main"
 HelpFile=""

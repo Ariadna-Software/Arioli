@@ -7,7 +7,7 @@ Begin VB.MDIForm frmppal
    ClientHeight    =   9315
    ClientLeft      =   165
    ClientTop       =   135
-   ClientWidth     =   12960
+   ClientWidth     =   13005
    Icon            =   "frmPpal.frx":0000
    LinkTopic       =   "MDIForm1"
    StartUpPosition =   2  'CenterScreen
@@ -185,8 +185,8 @@ Begin VB.MDIForm frmppal
       Left            =   0
       TabIndex        =   0
       Top             =   0
-      Width           =   12960
-      _ExtentX        =   22860
+      Width           =   13005
+      _ExtentX        =   22939
       _ExtentY        =   741
       ButtonWidth     =   609
       ButtonHeight    =   582
@@ -300,8 +300,8 @@ Begin VB.MDIForm frmppal
       Left            =   0
       TabIndex        =   1
       Top             =   8730
-      Width           =   12960
-      _ExtentX        =   22860
+      Width           =   13005
+      _ExtentX        =   22939
       _ExtentY        =   1032
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
@@ -314,7 +314,7 @@ Begin VB.MDIForm frmppal
          EndProperty
          BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   14790
+            Object.Width           =   14870
             Text            =   "asdasd"
             TextSave        =   "asdasd"
          EndProperty
@@ -341,7 +341,7 @@ Begin VB.MDIForm frmppal
             Style           =   5
             Object.Width           =   1058
             MinWidth        =   1058
-            TextSave        =   "18:37"
+            TextSave        =   "10:52"
          EndProperty
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -1690,6 +1690,10 @@ Begin VB.MDIForm frmppal
          Caption         =   "Entrada oliva"
          Index           =   0
       End
+      Begin VB.Menu mnAlmazara1 
+         Caption         =   "Proceso en almazara"
+         Index           =   1
+      End
    End
    Begin VB.Menu mnTPV 
       Caption         =   "&Punto de Venta"
@@ -1879,19 +1883,19 @@ Dim TieneEditorDeMenus As Boolean
 
 Private Sub MDIForm_Activate()
 Dim b As Boolean
-Dim i As Integer
+Dim I As Integer
 Dim Permis As String
 
 'Dim AvisosPendientes As Boolean
 'Formulario Principal
    ' AvisosPendientes = False
-    i = 0
+    I = 0
     If PrimeraVez Then
         PrimeraVez = False
         Screen.MousePointer = vbHourglass
        ' AvisosPendientes = TieneAvisosPendientes()
        ComprobarDocumentosPendientes True
-       i = 1
+       I = 1
        
     End If
     If Not vParam Is Nothing Then
@@ -1902,7 +1906,7 @@ Dim Permis As String
         End If
     End If
     
-    If i = 0 Then
+    If I = 0 Then
         Screen.MousePointer = vbDefault
         Exit Sub
     End If
@@ -1979,6 +1983,7 @@ Dim Permis As String
     mnRutas(0).visible = vParamAplic.QUE_EMPRESA <> 4
         
     mnproduccion1(4).visible = False   'Disponible para poner
+    mnAlmazara.visible = False
     
     'Si no tiene NUEVA PRODUCCION no dejamos ver los puntos de las lineas...
     'El 4 de momento NO ES VISIBLE, esta disponible. Empiezo en el 5
@@ -1999,8 +2004,8 @@ Dim Permis As String
      
     Else
         'Caulqueir otra NO
-        For i = 2 To Me.mnproduccion1.Count - 1
-            PuntoDeMenuVisible mnproduccion1(i), False
+        For I = 2 To Me.mnproduccion1.Count - 1
+            PuntoDeMenuVisible mnproduccion1(I), False
         Next
     
         If vParamAplic.QUE_EMPRESA = 4 Then    'QUATRETONDA ALMAZARA
@@ -2021,7 +2026,7 @@ Dim Permis As String
             mnNuevosPuntosMenuTraza(1).visible = False
     
 
-
+            mnAlmazara.visible = True
 
         End If
         
@@ -2259,9 +2264,13 @@ Private Sub mnAlmArticulosMto_Click(Index As Integer)
 End Sub
 
 Private Sub mnAlmazara1_Click(Index As Integer)
-    
+    Select Case Index
+    Case 0
         frmVallEntradaOliva.Show vbModal
        
+    Case 1
+    
+    End Select
 End Sub
 
 Private Sub mnAlmCategoria_Click()
@@ -2660,7 +2669,7 @@ Private Sub mnEcoenves_Click()
 End Sub
 
 Private Sub mnEliminarArticulos_Click()
-    frmVarios.opcion = 1
+    frmVarios.Opcion = 1
     frmVarios.Show vbModal
 End Sub
 
@@ -2964,7 +2973,7 @@ Private Sub mnFacPedidos_Click(Index As Integer)
     Case 8
         frmFacConsultaPrecios.Show vbModal
     Case 9
-        frmVarios.opcion = 2
+        frmVarios.Opcion = 2
         frmVarios.Show vbModal
     End Select
 End Sub
@@ -3179,18 +3188,18 @@ Private Sub mnproduccion1_1_Click(Index As Integer)
     
     Case 1
     
-        frmProduVarios.opcion = 2
+        frmProduVarios.Opcion = 2
         frmProduVarios.Show vbModal
     
     
     Case 2
         'FILTRADO
-        frmProduVarios.opcion = 4
+        frmProduVarios.Opcion = 4
         frmProduVarios.Show vbModal
     
     Case 3
         'VACIADO
-        frmProduVarios.opcion = 3
+        frmProduVarios.Opcion = 3
         frmProduVarios.Show vbModal
     
     End Select
@@ -3198,7 +3207,7 @@ End Sub
 
 Private Sub mnproduccion1_Click(Index As Integer)
 Dim Permis As String
-Dim i As Integer
+Dim I As Integer
 
     '- Las líneas de producción y la pistola sólo las tiene que poder ver José y Yo.
     '- Autorizar a todos a poder ver: lote de trazabilidad, mantenimiento de palets y mantenimiento de etiquetas.
@@ -3301,7 +3310,7 @@ Dim Ind As Integer
         
         
     Case 4
-        frmVarios.opcion = 7
+        frmVarios.Opcion = 7
         frmVarios.Show vbModal
         
     Case 5
@@ -3407,7 +3416,7 @@ Private Sub mnSoporte_Click(Index As Integer)
         Screen.MousePointer = vbDefault
     
     Case 7
-        frmVarios.opcion = 8
+        frmVarios.Opcion = 8
         frmVarios.Show vbModal
     Case 9
         'Acerca de
@@ -3471,11 +3480,11 @@ Private Sub mnTrazaNueva_Click(Index As Integer)
         
             frmProdTrazaVer2.Show vbModal
     Case 1
-            frmFacTrazabilidad3.opcion = 0
+            frmFacTrazabilidad3.Opcion = 0
             frmFacTrazabilidad3.Show vbModal
     Case 3
     
-            frmFacTrazabilidad3.opcion = 1
+            frmFacTrazabilidad3.Opcion = 1
             frmFacTrazabilidad3.Show vbModal
     Case 4
             frmFacTrazabilidad.Show vbModal
@@ -3490,14 +3499,14 @@ End Sub
 Private Sub mnUtiBuscarErrConCli_Click()
 'Facturas pendientes de contabilizar (CLIENTES)
     Screen.MousePointer = vbHourglass
-    frmUtilidades.opcion = 6
+    frmUtilidades.Opcion = 6
     frmUtilidades.Show vbModal
 End Sub
 
 Private Sub mnUtiBuscarErrConPro_Click()
 'Facturas pendientes de contabilizar (PROVEEDORES)
     Screen.MousePointer = vbHourglass
-    frmUtilidades.opcion = 7
+    frmUtilidades.Opcion = 7
     frmUtilidades.Show vbModal
 End Sub
 
@@ -3505,7 +3514,7 @@ End Sub
 Private Sub mnUtiBuscarErrFac_Click()
 'Buscar errores en nº de factura (solo en facturas de clientes)
     Screen.MousePointer = vbHourglass
-    frmUtilidades.opcion = 5
+    frmUtilidades.Opcion = 5
     frmUtilidades.Show vbModal
 End Sub
 
@@ -3532,19 +3541,19 @@ End Sub
 Private Sub mnUtiUsuActivos_Click()
 'Muestra si hay otros usuarios conectados a la Gestion
 Dim SQL As String
-Dim i As Integer
+Dim I As Integer
 
 
     On Error GoTo eUsacti
 
     CadenaDesdeOtroForm = OtrosPCsContraContabiliad
     If CadenaDesdeOtroForm <> "" Then
-        i = 1
+        I = 1
         Me.Tag = "Los siguientes PC's están conectados a: " & vEmpresa.nomempre & " (" & vUsu.CadenaConexion & ")" & vbCrLf & vbCrLf
         Do
-            SQL = RecuperaValor(CadenaDesdeOtroForm, i)
+            SQL = RecuperaValor(CadenaDesdeOtroForm, I)
             If SQL <> "" Then Me.Tag = Me.Tag & "    - " & SQL & vbCrLf
-            i = i + 1
+            I = I + 1
         Loop Until SQL = ""
         MsgBox Me.Tag, vbExclamation
     Else
@@ -3585,7 +3594,7 @@ End Sub
 
 
 Private Sub mnVtasAgrupadox_Click()
-    frmListado2.opcion = 26
+    frmListado2.Opcion = 26
     frmListado2.Show vbModal
 End Sub
 
@@ -3750,21 +3759,21 @@ End Sub
 
 
 
-Private Sub LanzaHome(opcion As String)
-Dim i As Integer
+Private Sub LanzaHome(Opcion As String)
+Dim I As Integer
 Dim cad As String
 
     On Error GoTo ELanzaHome
 
 '    LanzaHome = False
     'Obtenemos la pagina web de los parametros
-    CadenaDesdeOtroForm = DevuelveDesdeBDNew(conAri, "spara1", opcion, "codigo", "1", "N")
+    CadenaDesdeOtroForm = DevuelveDesdeBDNew(conAri, "spara1", Opcion, "codigo", "1", "N")
     If CadenaDesdeOtroForm = "" Then
         MsgBox "Falta configurar los datos en Parámetros de la Aplicación.", vbExclamation
         Exit Sub
     End If
 
-    If opcion = "webversion" Then CadenaDesdeOtroForm = CadenaDesdeOtroForm & "?version=" & App.Major & "." & App.Minor & "." & App.Revision
+    If Opcion = "webversion" Then CadenaDesdeOtroForm = CadenaDesdeOtroForm & "?version=" & App.Major & "." & App.Minor & "." & App.Revision
 
 
 '    I = FreeFile
@@ -4059,7 +4068,7 @@ End Function
 
 Private Sub AbrirListado2(KOpcion As Integer)
     Screen.MousePointer = vbHourglass
-    frmListado2.opcion = KOpcion
+    frmListado2.Opcion = KOpcion
     frmListado2.Show vbModal
     Screen.MousePointer = vbDefault
 End Sub
@@ -4080,10 +4089,10 @@ End Sub
 '
 
 
-Private Sub HacerMenuARidoc(opcion As Byte)
+Private Sub HacerMenuARidoc(Opcion As Byte)
     
     If Conexion_Aridoc_(True) Then
-        Select Case opcion
+        Select Case Opcion
         Case 0
             frmAridocConfig.Show vbModal
         End Select

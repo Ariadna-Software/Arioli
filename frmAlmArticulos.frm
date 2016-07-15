@@ -46,7 +46,7 @@ Begin VB.Form frmAlmArticulos
       _Version        =   393216
       Style           =   1
       Tabs            =   7
-      Tab             =   2
+      Tab             =   6
       TabsPerRow      =   7
       TabHeight       =   520
       TabCaption(0)   =   "Datos básicos   "
@@ -117,67 +117,37 @@ Begin VB.Form frmAlmArticulos
       Tab(1).ControlCount=   9
       TabCaption(2)   =   "Componentes"
       TabPicture(2)   =   "frmAlmArticulos.frx":0044
-      Tab(2).ControlEnabled=   -1  'True
-      Tab(2).Control(0)=   "Line4"
-      Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "Label5(0)"
-      Tab(2).Control(1).Enabled=   0   'False
-      Tab(2).Control(2)=   "Label5(1)"
-      Tab(2).Control(2).Enabled=   0   'False
-      Tab(2).Control(3)=   "Label5(2)"
-      Tab(2).Control(3).Enabled=   0   'False
-      Tab(2).Control(4)=   "Label5(3)"
-      Tab(2).Control(4).Enabled=   0   'False
-      Tab(2).Control(5)=   "Label5(4)"
-      Tab(2).Control(5).Enabled=   0   'False
-      Tab(2).Control(6)=   "Label5(5)"
-      Tab(2).Control(6).Enabled=   0   'False
-      Tab(2).Control(7)=   "Line5"
-      Tab(2).Control(7).Enabled=   0   'False
-      Tab(2).Control(8)=   "Label5(6)"
-      Tab(2).Control(8).Enabled=   0   'False
-      Tab(2).Control(9)=   "Label5(7)"
-      Tab(2).Control(9).Enabled=   0   'False
-      Tab(2).Control(10)=   "Data2"
-      Tab(2).Control(10).Enabled=   0   'False
-      Tab(2).Control(11)=   "DataGrid1"
-      Tab(2).Control(11).Enabled=   0   'False
-      Tab(2).Control(12)=   "cmdAux"
-      Tab(2).Control(12).Enabled=   0   'False
-      Tab(2).Control(13)=   "txtAux(0)"
-      Tab(2).Control(13).Enabled=   0   'False
-      Tab(2).Control(14)=   "txtAux(1)"
-      Tab(2).Control(14).Enabled=   0   'False
-      Tab(2).Control(15)=   "txtAux2"
-      Tab(2).Control(15).Enabled=   0   'False
-      Tab(2).Control(16)=   "txtAux(3)"
-      Tab(2).Control(16).Enabled=   0   'False
-      Tab(2).Control(17)=   "txtAux(4)"
-      Tab(2).Control(17).Enabled=   0   'False
-      Tab(2).Control(18)=   "txtAux(5)"
-      Tab(2).Control(18).Enabled=   0   'False
-      Tab(2).Control(19)=   "txtConjunto(0)"
-      Tab(2).Control(19).Enabled=   0   'False
-      Tab(2).Control(20)=   "txtConjunto(1)"
-      Tab(2).Control(20).Enabled=   0   'False
-      Tab(2).Control(21)=   "txtConjunto(2)"
-      Tab(2).Control(21).Enabled=   0   'False
-      Tab(2).Control(22)=   "txtConjunto(3)"
-      Tab(2).Control(22).Enabled=   0   'False
-      Tab(2).Control(23)=   "txtConjunto(4)"
-      Tab(2).Control(23).Enabled=   0   'False
-      Tab(2).Control(24)=   "txtConjunto(5)"
-      Tab(2).Control(24).Enabled=   0   'False
-      Tab(2).Control(25)=   "cmdActualizarImportes1(0)"
-      Tab(2).Control(25).Enabled=   0   'False
-      Tab(2).Control(26)=   "cmdActualizarImportes1(1)"
-      Tab(2).Control(26).Enabled=   0   'False
-      Tab(2).Control(27)=   "txtConjunto(6)"
-      Tab(2).Control(27).Enabled=   0   'False
-      Tab(2).Control(28)=   "txtConjunto(7)"
-      Tab(2).Control(28).Enabled=   0   'False
-      Tab(2).Control(29)=   "cmdImprCompo"
-      Tab(2).Control(29).Enabled=   0   'False
+      Tab(2).ControlEnabled=   0   'False
+      Tab(2).Control(0)=   "cmdImprCompo"
+      Tab(2).Control(1)=   "txtConjunto(7)"
+      Tab(2).Control(2)=   "txtConjunto(6)"
+      Tab(2).Control(3)=   "cmdActualizarImportes1(1)"
+      Tab(2).Control(4)=   "cmdActualizarImportes1(0)"
+      Tab(2).Control(5)=   "txtConjunto(5)"
+      Tab(2).Control(6)=   "txtConjunto(4)"
+      Tab(2).Control(7)=   "txtConjunto(3)"
+      Tab(2).Control(8)=   "txtConjunto(2)"
+      Tab(2).Control(9)=   "txtConjunto(1)"
+      Tab(2).Control(10)=   "txtConjunto(0)"
+      Tab(2).Control(11)=   "txtAux(5)"
+      Tab(2).Control(12)=   "txtAux(4)"
+      Tab(2).Control(13)=   "txtAux(3)"
+      Tab(2).Control(14)=   "txtAux2"
+      Tab(2).Control(15)=   "txtAux(1)"
+      Tab(2).Control(16)=   "txtAux(0)"
+      Tab(2).Control(17)=   "cmdAux"
+      Tab(2).Control(18)=   "DataGrid1"
+      Tab(2).Control(19)=   "Data2"
+      Tab(2).Control(20)=   "Label5(7)"
+      Tab(2).Control(21)=   "Label5(6)"
+      Tab(2).Control(22)=   "Line5"
+      Tab(2).Control(23)=   "Label5(5)"
+      Tab(2).Control(24)=   "Label5(4)"
+      Tab(2).Control(25)=   "Label5(3)"
+      Tab(2).Control(26)=   "Label5(2)"
+      Tab(2).Control(27)=   "Label5(1)"
+      Tab(2).Control(28)=   "Label5(0)"
+      Tab(2).Control(29)=   "Line4"
       Tab(2).ControlCount=   30
       TabCaption(3)   =   "Control instalación / producción"
       TabPicture(3)   =   "frmAlmArticulos.frx":0060
@@ -206,25 +176,39 @@ Begin VB.Form frmAlmArticulos
       Tab(5).ControlCount=   4
       TabCaption(6)   =   "Ficha técnica"
       TabPicture(6)   =   "frmAlmArticulos.frx":00B4
-      Tab(6).ControlEnabled=   0   'False
+      Tab(6).ControlEnabled=   -1  'True
       Tab(6).Control(0)=   "Label1(37)"
+      Tab(6).Control(0).Enabled=   0   'False
       Tab(6).Control(1)=   "Label1(38)"
+      Tab(6).Control(1).Enabled=   0   'False
       Tab(6).Control(2)=   "Label1(42)"
+      Tab(6).Control(2).Enabled=   0   'False
       Tab(6).Control(3)=   "FrFichaTec(3)"
+      Tab(6).Control(3).Enabled=   0   'False
       Tab(6).Control(4)=   "FrFichaTec(8)"
+      Tab(6).Control(4).Enabled=   0   'False
       Tab(6).Control(5)=   "FrFichaTec(4)"
+      Tab(6).Control(5).Enabled=   0   'False
       Tab(6).Control(6)=   "Text5(0)"
+      Tab(6).Control(6).Enabled=   0   'False
       Tab(6).Control(7)=   "Text5(1)"
+      Tab(6).Control(7).Enabled=   0   'False
       Tab(6).Control(8)=   "cboTipoArt"
+      Tab(6).Control(8).Enabled=   0   'False
       Tab(6).Control(9)=   "cmdIMpriFT"
+      Tab(6).Control(9).Enabled=   0   'False
       Tab(6).Control(10)=   "FrFichaTec(7)"
+      Tab(6).Control(10).Enabled=   0   'False
       Tab(6).Control(11)=   "FrFichaTec(6)"
+      Tab(6).Control(11).Enabled=   0   'False
       Tab(6).Control(12)=   "FramePalet"
+      Tab(6).Control(12).Enabled=   0   'False
       Tab(6).Control(13)=   "cmdImg"
+      Tab(6).Control(13).Enabled=   0   'False
       Tab(6).ControlCount=   14
       Begin VB.CommandButton cmdImg 
          Height          =   375
-         Left            =   -65160
+         Left            =   9840
          Picture         =   "frmAlmArticulos.frx":00D0
          Style           =   1  'Graphical
          TabIndex        =   230
@@ -244,7 +228,7 @@ Begin VB.Form frmAlmArticulos
          EndProperty
          ForeColor       =   &H00004080&
          Height          =   3015
-         Left            =   -74520
+         Left            =   480
          TabIndex        =   204
          Top             =   1320
          Visible         =   0   'False
@@ -465,7 +449,7 @@ Begin VB.Form frmAlmArticulos
          ForeColor       =   &H00004000&
          Height          =   2415
          Index           =   6
-         Left            =   -74520
+         Left            =   480
          TabIndex        =   186
          Top             =   1320
          Visible         =   0   'False
@@ -610,7 +594,7 @@ Begin VB.Form frmAlmArticulos
          ForeColor       =   &H00800080&
          Height          =   975
          Index           =   7
-         Left            =   -74520
+         Left            =   480
          TabIndex        =   226
          Top             =   1440
          Visible         =   0   'False
@@ -646,7 +630,7 @@ Begin VB.Form frmAlmArticulos
       End
       Begin VB.CommandButton cmdIMpriFT 
          Height          =   375
-         Left            =   -64680
+         Left            =   10320
          Picture         =   "frmAlmArticulos.frx":065A
          Style           =   1  'Graphical
          TabIndex        =   224
@@ -657,7 +641,7 @@ Begin VB.Form frmAlmArticulos
       Begin VB.ComboBox cboTipoArt 
          Height          =   315
          ItemData        =   "frmAlmArticulos.frx":0BE4
-         Left            =   -74520
+         Left            =   480
          List            =   "frmAlmArticulos.frx":0BE6
          Style           =   2  'Dropdown List
          TabIndex        =   218
@@ -668,7 +652,7 @@ Begin VB.Form frmAlmArticulos
       Begin VB.TextBox Text5 
          Height          =   285
          Index           =   1
-         Left            =   -70200
+         Left            =   4800
          TabIndex        =   163
          Text            =   "Text5"
          Top             =   840
@@ -677,7 +661,7 @@ Begin VB.Form frmAlmArticulos
       Begin VB.TextBox Text5 
          Height          =   285
          Index           =   0
-         Left            =   -71760
+         Left            =   3240
          TabIndex        =   162
          Text            =   "Text5"
          Top             =   840
@@ -685,7 +669,7 @@ Begin VB.Form frmAlmArticulos
       End
       Begin VB.CommandButton cmdImprCompo 
          Height          =   375
-         Left            =   10080
+         Left            =   -64920
          Picture         =   "frmAlmArticulos.frx":0BE8
          Style           =   1  'Graphical
          TabIndex        =   161
@@ -707,7 +691,7 @@ Begin VB.Form frmAlmArticulos
          Enabled         =   0   'False
          Height          =   285
          Index           =   7
-         Left            =   1560
+         Left            =   -73440
          TabIndex        =   157
          Text            =   "Text5"
          Top             =   5040
@@ -718,7 +702,7 @@ Begin VB.Form frmAlmArticulos
          Enabled         =   0   'False
          Height          =   285
          Index           =   6
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   156
          Text            =   "Text5"
          Top             =   5040
@@ -807,7 +791,7 @@ Begin VB.Form frmAlmArticulos
       Begin VB.CommandButton cmdActualizarImportes1 
          Height          =   375
          Index           =   1
-         Left            =   8760
+         Left            =   -66240
          Picture         =   "frmAlmArticulos.frx":1172
          Style           =   1  'Graphical
          TabIndex        =   149
@@ -818,7 +802,7 @@ Begin VB.Form frmAlmArticulos
       Begin VB.CommandButton cmdActualizarImportes1 
          Height          =   375
          Index           =   0
-         Left            =   9240
+         Left            =   -65760
          Picture         =   "frmAlmArticulos.frx":1B74
          Style           =   1  'Graphical
          TabIndex        =   148
@@ -831,7 +815,7 @@ Begin VB.Form frmAlmArticulos
          Enabled         =   0   'False
          Height          =   285
          Index           =   5
-         Left            =   7320
+         Left            =   -67680
          TabIndex        =   146
          Text            =   "Text5"
          Top             =   5040
@@ -842,7 +826,7 @@ Begin VB.Form frmAlmArticulos
          Enabled         =   0   'False
          Height          =   285
          Index           =   4
-         Left            =   6000
+         Left            =   -69000
          TabIndex        =   144
          Text            =   "Text5"
          Top             =   5040
@@ -853,7 +837,7 @@ Begin VB.Form frmAlmArticulos
          Enabled         =   0   'False
          Height          =   285
          Index           =   3
-         Left            =   4680
+         Left            =   -70320
          TabIndex        =   142
          Text            =   "Text5"
          Top             =   5040
@@ -864,7 +848,7 @@ Begin VB.Form frmAlmArticulos
          Enabled         =   0   'False
          Height          =   285
          Index           =   2
-         Left            =   9600
+         Left            =   -65400
          TabIndex        =   140
          Text            =   "Text5"
          Top             =   4680
@@ -876,7 +860,7 @@ Begin VB.Form frmAlmArticulos
          Enabled         =   0   'False
          Height          =   285
          Index           =   1
-         Left            =   2760
+         Left            =   -72240
          TabIndex        =   138
          Text            =   "Text5"
          Top             =   5040
@@ -887,7 +871,7 @@ Begin VB.Form frmAlmArticulos
          Enabled         =   0   'False
          Height          =   285
          Index           =   0
-         Left            =   9960
+         Left            =   -65040
          TabIndex        =   136
          Text            =   "Text5"
          Top             =   4680
@@ -900,7 +884,7 @@ Begin VB.Form frmAlmArticulos
          BorderStyle     =   0  'None
          Height          =   290
          Index           =   5
-         Left            =   7800
+         Left            =   -67200
          TabIndex        =   135
          Tag             =   "C|N|S|||||###,##0.0000||"
          Text            =   "Dato2"
@@ -914,7 +898,7 @@ Begin VB.Form frmAlmArticulos
          BorderStyle     =   0  'None
          Height          =   290
          Index           =   4
-         Left            =   9120
+         Left            =   -65880
          TabIndex        =   134
          Tag             =   "C|N|S|||||###,##0.0000||"
          Text            =   "Dato2"
@@ -928,7 +912,7 @@ Begin VB.Form frmAlmArticulos
          BorderStyle     =   0  'None
          Height          =   290
          Index           =   3
-         Left            =   6360
+         Left            =   -68640
          TabIndex        =   133
          Tag             =   "C|N|S|||||###,##0.0000||"
          Text            =   "Dato2"
@@ -1543,7 +1527,7 @@ Begin VB.Form frmAlmArticulos
          BorderStyle     =   0  'None
          Enabled         =   0   'False
          Height          =   290
-         Left            =   1800
+         Left            =   -73200
          TabIndex        =   66
          Text            =   "Dato2"
          Top             =   3180
@@ -1556,7 +1540,7 @@ Begin VB.Form frmAlmArticulos
          BorderStyle     =   0  'None
          Height          =   290
          Index           =   1
-         Left            =   4680
+         Left            =   -70320
          TabIndex        =   65
          Tag             =   "C|N|N|||||###,##0.00000||"
          Text            =   "Dato2"
@@ -1569,7 +1553,7 @@ Begin VB.Form frmAlmArticulos
          BorderStyle     =   0  'None
          Height          =   290
          Index           =   0
-         Left            =   720
+         Left            =   -74280
          TabIndex        =   64
          Text            =   "Dat"
          Top             =   3180
@@ -1580,7 +1564,7 @@ Begin VB.Form frmAlmArticulos
          Appearance      =   0  'Flat
          Caption         =   "+"
          Height          =   315
-         Left            =   1560
+         Left            =   -73440
          TabIndex        =   63
          Top             =   3180
          Visible         =   0   'False
@@ -1947,7 +1931,7 @@ Begin VB.Form frmAlmArticulos
       End
       Begin MSDataGridLib.DataGrid DataGrid1 
          Height          =   3675
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   67
          Top             =   600
          Width           =   10575
@@ -2011,7 +1995,7 @@ Begin VB.Form frmAlmArticulos
       End
       Begin MSAdodcLib.Adodc Data2 
          Height          =   330
-         Left            =   8760
+         Left            =   -66240
          Top             =   840
          Visible         =   0   'False
          Width           =   1575
@@ -2385,7 +2369,7 @@ Begin VB.Form frmAlmArticulos
          ForeColor       =   &H00004000&
          Height          =   2055
          Index           =   4
-         Left            =   -74520
+         Left            =   480
          TabIndex        =   185
          Top             =   1440
          Visible         =   0   'False
@@ -2441,7 +2425,7 @@ Begin VB.Form frmAlmArticulos
          ForeColor       =   &H00004000&
          Height          =   2055
          Index           =   8
-         Left            =   -74520
+         Left            =   480
          TabIndex        =   200
          Top             =   1440
          Visible         =   0   'False
@@ -2506,7 +2490,7 @@ Begin VB.Form frmAlmArticulos
          ForeColor       =   &H00004000&
          Height          =   2295
          Index           =   3
-         Left            =   -74520
+         Left            =   480
          TabIndex        =   184
          Top             =   1440
          Visible         =   0   'False
@@ -2625,7 +2609,7 @@ Begin VB.Form frmAlmArticulos
          Caption         =   "Tipo producto"
          Height          =   255
          Index           =   42
-         Left            =   -74520
+         Left            =   480
          TabIndex        =   219
          Top             =   600
          Width           =   1575
@@ -2634,7 +2618,7 @@ Begin VB.Form frmAlmArticulos
          Caption         =   "Peso bruto"
          Height          =   255
          Index           =   38
-         Left            =   -70200
+         Left            =   4800
          TabIndex        =   183
          Top             =   600
          Width           =   855
@@ -2643,7 +2627,7 @@ Begin VB.Form frmAlmArticulos
          Caption         =   "Peso neto"
          Height          =   255
          Index           =   37
-         Left            =   -71760
+         Left            =   3240
          TabIndex        =   181
          Top             =   600
          Width           =   855
@@ -2652,7 +2636,7 @@ Begin VB.Form frmAlmArticulos
          Caption         =   "Formato"
          Height          =   255
          Index           =   7
-         Left            =   1560
+         Left            =   -73440
          TabIndex        =   159
          Top             =   4800
          Width           =   735
@@ -2661,7 +2645,7 @@ Begin VB.Form frmAlmArticulos
          Caption         =   "Componentes"
          Height          =   255
          Index           =   6
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   158
          Top             =   4800
          Width           =   1215
@@ -2687,8 +2671,8 @@ Begin VB.Form frmAlmArticulos
       Begin VB.Line Line5 
          BorderColor     =   &H00008000&
          BorderWidth     =   3
-         X1              =   4680
-         X2              =   8520
+         X1              =   -70320
+         X2              =   -66480
          Y1              =   4680
          Y2              =   4680
       End
@@ -2696,7 +2680,7 @@ Begin VB.Form frmAlmArticulos
          Caption         =   "Diferencia"
          Height          =   255
          Index           =   5
-         Left            =   7320
+         Left            =   -67680
          TabIndex        =   147
          Top             =   4800
          Width           =   735
@@ -2705,7 +2689,7 @@ Begin VB.Form frmAlmArticulos
          Caption         =   "PVP real"
          Height          =   255
          Index           =   4
-         Left            =   6000
+         Left            =   -69000
          TabIndex        =   145
          Top             =   4800
          Width           =   735
@@ -2714,7 +2698,7 @@ Begin VB.Form frmAlmArticulos
          Caption         =   "PVP articulo"
          Height          =   255
          Index           =   3
-         Left            =   4680
+         Left            =   -70320
          TabIndex        =   143
          Top             =   4800
          Width           =   1095
@@ -2723,7 +2707,7 @@ Begin VB.Form frmAlmArticulos
          Caption         =   "Diferencia"
          Height          =   255
          Index           =   2
-         Left            =   9600
+         Left            =   -65400
          TabIndex        =   141
          Top             =   4440
          Visible         =   0   'False
@@ -2733,7 +2717,7 @@ Begin VB.Form frmAlmArticulos
          Caption         =   "Coste real"
          Height          =   255
          Index           =   1
-         Left            =   2760
+         Left            =   -72240
          TabIndex        =   139
          Top             =   4800
          Width           =   735
@@ -2742,7 +2726,7 @@ Begin VB.Form frmAlmArticulos
          Caption         =   "Coste articulo"
          Height          =   255
          Index           =   0
-         Left            =   9960
+         Left            =   -65040
          TabIndex        =   137
          Top             =   4440
          Visible         =   0   'False
@@ -2751,8 +2735,8 @@ Begin VB.Form frmAlmArticulos
       Begin VB.Line Line4 
          BorderColor     =   &H00000080&
          BorderWidth     =   3
-         X1              =   240
-         X2              =   4080
+         X1              =   -74760
+         X2              =   -70920
          Y1              =   4680
          Y2              =   4680
       End
@@ -4457,7 +4441,7 @@ Private Sub cmdImprCompo_Click()
         .NumeroParametros = 1
         .SoloImprimir = False
         .EnvioEMail = False
-        .opcion = 96
+        .Opcion = 96
         .Show vbModal
     End With
   
@@ -6861,7 +6845,7 @@ ECargaGrid:
 End Sub
 
 
-Private Function MontaSQLCarga(enlaza As Boolean, opcion As Byte) As String
+Private Function MontaSQLCarga(enlaza As Boolean, Opcion As Byte) As String
 '--------------------------------------------------------------------
 ' MontaSQlCarga:
 '   Basándose en la información proporcionada por el vector de campos
@@ -6872,7 +6856,7 @@ Private Function MontaSQLCarga(enlaza As Boolean, opcion As Byte) As String
 '--------------------------------------------------------------------
 Dim SQL As String
 
-    If opcion = 2 Then
+    If Opcion = 2 Then
         'cadena SQL para cargar los CONJUNTOS de la tabla sarti1
         'SQL = "SELECT sarti1.codartic,sarti1.numlinea,sarti1.codarti1,sartic.nomartic,sarti1.cantidad "
         'SQL = SQL & " FROM sarti1 INNER JOIN sartic ON sarti1.codarti1=sartic.codartic "
@@ -6898,7 +6882,7 @@ Dim SQL As String
         SQL = SQL & " ORDER BY sarti1.numlinea "
         
         
-    ElseIf opcion = 3 Then 'INSTALACIONES
+    ElseIf Opcion = 3 Then 'INSTALACIONES
         SQL = "SELECT sarti2.codartic, sarti2.numlinea, sarti2.licontro "
         SQL = SQL & " FROM sarti2"
         If enlaza Then
@@ -6908,7 +6892,7 @@ Dim SQL As String
         End If
         SQL = SQL & " ORDER BY sarti2.numlinea"
     
-    ElseIf opcion = 4 Then 'STOCK
+    ElseIf Opcion = 4 Then 'STOCK
         
         SQL = "select salmac.codalmac,nomalmac,canstock,ubialmac,stockmin,puntoped,stockmax,stockinv,fechainv,horainve,statusin  "
         SQL = SQL & " from salmac,salmpr where salmac.codalmac=salmpr.codalmac  "
@@ -6931,13 +6915,13 @@ Dim SQL As String
 End Function
 
 
-Private Sub LLamaLineas2(alto As Single, xModo As Byte, opcion As Byte)
+Private Sub LLamaLineas2(alto As Single, xModo As Byte, Opcion As Byte)
 Dim b As Boolean
 
     ModificaLineas = xModo
     b = (Modo >= 5 Or Modo <= 7) And (ModificaLineas = 1 Or ModificaLineas = 2) 'Insertar o Modificar Lineas
 
-    Select Case opcion
+    Select Case Opcion
     Case 2 'CONJUNTOS
         DeseleccionaGrid Me.DataGrid1
         
@@ -7705,15 +7689,15 @@ EPonerDatosFichaTecnica:
     Set RS = Nothing
 End Sub
 'TIPo:  Texto  N:numero    C:check
-Private Function MiDBLet(ByRef campo As Field, Optional Tipo As String) As Variant
-    If IsNull(campo) Then
+Private Function MiDBLet(ByRef Campo As Field, Optional Tipo As String) As Variant
+    If IsNull(Campo) Then
         If Tipo = "C" Then
             MiDBLet = 0
         Else
             MiDBLet = ""
         End If
     Else
-        MiDBLet = campo
+        MiDBLet = Campo
         'AÑADIREMOS  N entero,D decimal
         If Tipo = "D" Then MiDBLet = Format(MiDBLet, FormatoPrecio)
     End If

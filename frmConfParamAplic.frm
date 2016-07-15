@@ -167,39 +167,43 @@ Begin VB.Form frmConfParamAplic
       Tab(0).Control(5).Enabled=   0   'False
       Tab(0).Control(6)=   "imgBuscar(1)"
       Tab(0).Control(6).Enabled=   0   'False
-      Tab(0).Control(7)=   "Text1(0)"
+      Tab(0).Control(7)=   "Label1(55)"
       Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).Control(8)=   "FrameDiasMante"
+      Tab(0).Control(8)=   "Text1(0)"
       Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "FrameOpciones"
+      Tab(0).Control(9)=   "FrameDiasMante"
       Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "Text1(5)"
+      Tab(0).Control(10)=   "FrameOpciones"
       Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).Control(11)=   "Text1(4)"
+      Tab(0).Control(11)=   "Text1(5)"
       Tab(0).Control(11).Enabled=   0   'False
-      Tab(0).Control(12)=   "FramePrecioKm"
+      Tab(0).Control(12)=   "Text1(4)"
       Tab(0).Control(12).Enabled=   0   'False
-      Tab(0).Control(13)=   "Text1(1)"
+      Tab(0).Control(13)=   "FramePrecioKm"
       Tab(0).Control(13).Enabled=   0   'False
-      Tab(0).Control(14)=   "cboTipodtos"
+      Tab(0).Control(14)=   "Text1(1)"
       Tab(0).Control(14).Enabled=   0   'False
-      Tab(0).Control(15)=   "cboOrdenDtos"
+      Tab(0).Control(15)=   "cboTipodtos"
       Tab(0).Control(15).Enabled=   0   'False
-      Tab(0).Control(16)=   "Text2(1)"
+      Tab(0).Control(16)=   "cboOrdenDtos"
       Tab(0).Control(16).Enabled=   0   'False
-      Tab(0).ControlCount=   17
+      Tab(0).Control(17)=   "Text2(1)"
+      Tab(0).Control(17).Enabled=   0   'False
+      Tab(0).Control(18)=   "Text1(58)"
+      Tab(0).Control(18).Enabled=   0   'False
+      Tab(0).ControlCount=   19
       TabCaption(1)   =   "Datos Facturación"
       TabPicture(1)   =   "frmConfParamAplic.frx":0028
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label1(51)"
-      Tab(1).Control(1)=   "Frame2"
-      Tab(1).Control(2)=   "Frame3"
-      Tab(1).Control(3)=   "Frame4"
+      Tab(1).Control(0)=   "Frame10"
+      Tab(1).Control(1)=   "Frame9"
+      Tab(1).Control(2)=   "Text1(50)"
+      Tab(1).Control(3)=   "chkTicketsAgrupads"
       Tab(1).Control(4)=   "Frame6"
-      Tab(1).Control(5)=   "chkTicketsAgrupads"
-      Tab(1).Control(6)=   "Text1(50)"
-      Tab(1).Control(7)=   "Frame9"
-      Tab(1).Control(8)=   "Frame10"
+      Tab(1).Control(5)=   "Frame4"
+      Tab(1).Control(6)=   "Frame3"
+      Tab(1).Control(7)=   "Frame2"
+      Tab(1).Control(8)=   "Label1(51)"
       Tab(1).ControlCount=   9
       TabCaption(2)   =   "Internet"
       TabPicture(2)   =   "frmConfParamAplic.frx":0044
@@ -248,6 +252,18 @@ Begin VB.Form frmConfParamAplic
       Tab(4).Control(0)=   "Frame5"
       Tab(4).Control(1)=   "Frame7"
       Tab(4).ControlCount=   2
+      Begin VB.TextBox Text1 
+         Alignment       =   1  'Right Justify
+         Height          =   320
+         Index           =   58
+         Left            =   6720
+         MaxLength       =   10
+         TabIndex        =   191
+         Tag             =   "PesoEtiqueta|N|S|0||spara1|PesoEtiqueta|0.0000||"
+         Text            =   "Text1"
+         Top             =   4080
+         Width           =   1335
+      End
       Begin VB.Frame Frame10 
          Caption         =   "Reciclado / Punto verde"
          BeginProperty Font 
@@ -2157,7 +2173,7 @@ Begin VB.Form frmConfParamAplic
          Left            =   240
          TabIndex        =   83
          Top             =   3360
-         Width           =   8535
+         Width           =   6255
          Begin VB.CheckBox chkEmpresaExportador 
             Caption         =   "Empresa exportadora"
             Height          =   375
@@ -2346,6 +2362,16 @@ Begin VB.Form frmConfParamAplic
          Text            =   "Text1"
          Top             =   540
          Width           =   645
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Peso etiqueta (gr)"
+         Height          =   195
+         Index           =   55
+         Left            =   6720
+         TabIndex        =   192
+         Top             =   3840
+         Width           =   1245
       End
       Begin VB.Label Label1 
          Caption         =   "IVA intracomunitario"
