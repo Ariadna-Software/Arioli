@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmAlmMovArtSaldo 
    BorderStyle     =   3  'Fixed Dialog
@@ -463,7 +463,7 @@ Private HaDevueltoDatos As Boolean
 
 
 Dim vStock As Currency
-Dim rs As ADODB.Recordset
+Dim RS As ADODB.Recordset
 
 '------------------------------------------
 Dim CadClie As String   '|codigo·nombre|
@@ -484,20 +484,20 @@ End Sub
 
 Private Sub Imprimir()
 Dim Cad As String
-Dim numparam As Byte
+Dim NumParam As Byte
 
     'Resto parametros
     Cad = ""
     Cad = Cad & "|pNomEmpre=""" & vParam.NombreEmpresa & """|"
-    numparam = 1
+    NumParam = 1
             
     With frmImprimir
         .NombreRPT = "rAlmMovim.rpt"
         .OtrosParametros = Cad
-        .NumeroParametros = numparam
+        .NumeroParametros = NumParam
         .FormulaSeleccion = cadSeleccion2
         .EnvioEMail = False
-        .opcion = 9
+        .Opcion = 9
         .Titulo = "Informe Movimientos Articulos"
         .ConSubInforme = True
         .Show vbModal
@@ -561,7 +561,7 @@ Private Sub Form_Load()
     chkVistaPrevia.Value = CheckValueLeer(Name)
         
     Data1.CursorType = adOpenDynamic
-    Data1.ConnectionString = Conn
+    Data1.ConnectionString = conn
     CadenaConsulta = "Select codartic,codalmac from " & NombreTabla & " WHERE codartic = -1"
     Data1.RecordSource = CadenaConsulta
     'Data1.Refresh
@@ -649,7 +649,7 @@ End Sub
 Private Sub lw1_DblClick()
 'Abrir el formulario del Mantenimiento del que viene el Movimiento
 'Se busca en histórico o en Form
-Dim SQL As String
+Dim Sql As String
 Dim Documento As String
     
     If lw1.ListItems.Count = 0 Then Exit Sub
@@ -690,8 +690,8 @@ Dim Documento As String
             'si esta ya facturado abrir el histórico de facturas: frmFacHcoFacturas
 
             'consultamos si existe el albaran en la tabla de albaranes: scaalb
-            SQL = DevuelveDesdeBDNew(conAri, "scaalb", "numalbar", "codtipom", lw1.SelectedItem.SubItems(2), "T", , "numalbar", Documento, "N")
-            If SQL <> "" Then 'existe el Albaran
+            Sql = DevuelveDesdeBDNew(conAri, "scaalb", "numalbar", "codtipom", lw1.SelectedItem.SubItems(2), "T", , "numalbar", Documento, "N")
+            If Sql <> "" Then 'existe el Albaran
                
                          With frmFacEntAlbaranes
                             If EsNumerico(Documento) Then
@@ -729,8 +729,8 @@ Dim Documento As String
             'si esta ya facturado abrir el histórico de facturas: frmComHcoFacturas
 
             'consultamos si existe el albaran en la tabla de albaranes: scaalp
-            SQL = DevuelveDesdeBDNew(conAri, "scaalp", "numalbar", "codprove", lw1.SelectedItem.SubItems(3), "N", , "numalbar", Documento, "T", "fechaalb", lw1.SelectedItem.Text, "F")
-            If SQL <> "" Then 'existe el Albaran
+            Sql = DevuelveDesdeBDNew(conAri, "scaalp", "numalbar", "codprove", lw1.SelectedItem.SubItems(3), "N", , "numalbar", Documento, "T", "fechaalb", lw1.SelectedItem.Text, "F")
+            If Sql <> "" Then 'existe el Albaran
                 With frmComEntAlbaranes
                     .hcoCodMovim = Documento
                     .hcoFechaMovim = lw1.SelectedItem.Text
@@ -766,6 +766,10 @@ Dim Documento As String
             
             frmProdNueTraza2.QueTrazabilidad = Val(Documento)
             frmProdNueTraza2.Show vbModal
+            
+        Case "MLT"
+            frmVallAlmazara.DatosADevolverBusqueda2 = Val(Documento)
+            frmVallAlmazara.Show vbModal
     End Select
 
     Screen.MousePointer = vbDefault
@@ -1108,27 +1112,27 @@ On Error GoTo EPonerCampos
     'De salmac
     Aux = "Select nomalmac,canstock ,stockinv ,fechainv ,horainve from salmac,salmpr where salmac.codAlmac = salmpr.codAlmac "
     Aux = Aux & " AND salmac.codAlmac = " & Data1.Recordset!codAlmac
-    Aux = Aux & " AND codartic =" & DBSet(Data1.Recordset!codArtic, "T")
-    Set rs = New ADODB.Recordset
-    rs.Open Aux, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Aux = Aux & " AND codartic =" & DBSet(Data1.Recordset!codartic, "T")
+    Set RS = New ADODB.Recordset
+    RS.Open Aux, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     Aux = "||||"
     vStock = 0
     Text2(1).Text = ""
-    If Not rs.EOF Then
-        Text2(1).Text = rs!nomalmac
+    If Not RS.EOF Then
+        Text2(1).Text = RS!nomalmac
     
         Aux = ""
-        If Not IsNull(rs!fechainv) Then Aux = Aux & Format(rs!fechainv, "dd/mm/yyyy")
+        If Not IsNull(RS!fechainv) Then Aux = Aux & Format(RS!fechainv, "dd/mm/yyyy")
 
         Aux = Aux & "|"
-        If Not IsNull(rs!horainve) Then Aux = Aux & Format(rs!horainve, "hh:mm:ss")
+        If Not IsNull(RS!horainve) Then Aux = Aux & Format(RS!horainve, "hh:mm:ss")
         Aux = Aux & "|"
         
-        Aux = Aux & Format(rs!CanStock, FormatoCantidad) & "|"
-        Aux = Aux & Format(DBLet(rs!Stockinv, "N"), FormatoCantidad) & "|"
-        vStock = DBLet(rs!Stockinv, "N")
+        Aux = Aux & Format(RS!CanStock, FormatoCantidad) & "|"
+        Aux = Aux & Format(DBLet(RS!Stockinv, "N"), FormatoCantidad) & "|"
+        vStock = DBLet(RS!Stockinv, "N")
     End If
-    rs.Close
+    RS.Close
     For i = 1 To 4
         Text1(i + 1).Text = RecuperaValor(Aux, i)
     Next i
@@ -1153,7 +1157,7 @@ On Error GoTo EPonerCampos
     
 EPonerCampos:
     If Err.Number <> 0 Then MuestraError Err.Number, "Poniendo Campos", Err.Description
-    Set rs = Nothing
+    Set RS = Nothing
 End Sub
 
 
@@ -1212,7 +1216,7 @@ Dim Nombre As String
     'cadTraba
 
     Select Case movim
-        Case "TRA", "REG", "DFI"
+        Case "TRA", "REG", "DFI", "MLT"
             If Not EstaEnCadenas(Codigo, 1, Nombre) Then
                 'Obtener nombre de la tabla de trabajadores
                 Nombre = DevuelveDesdeBDNew(conAri, "straba", "nomtraba", "codtraba", CStr(Codigo), "N")
@@ -1248,7 +1252,7 @@ Dim Nombre As String
 End Function
 
 Private Function EstaEnCadenas(Codigo As Long, TipoRef As Byte, ByRef Nombre As String) As Boolean
-Dim j As Long
+Dim J As Long
 Dim i As Long
 Dim Aux As String
 '        cadTraba
@@ -1256,29 +1260,29 @@ Dim Aux As String
 '    cadTraba
     Aux = "|" & Codigo & "·"
     If TipoRef = 2 Then
-        j = InStr(1, CadClie, Aux)
+        J = InStr(1, CadClie, Aux)
         
     ElseIf TipoRef = 1 Then
-        j = InStr(1, cadTraba, Aux)
+        J = InStr(1, cadTraba, Aux)
     Else
-        j = InStr(1, CadProve, Aux)
+        J = InStr(1, CadProve, Aux)
     End If
     
     'J = 0
     
-    If j = 0 Then Exit Function
+    If J = 0 Then Exit Function
     
-    j = j + Len(Aux)
+    J = J + Len(Aux)
     If TipoRef = 2 Then
-        i = InStr(j, CadClie, "|")
-        Aux = Mid(CadClie, j, i - j)
+        i = InStr(J, CadClie, "|")
+        Aux = Mid(CadClie, J, i - J)
     ElseIf TipoRef = 1 Then
-        i = InStr(j, cadTraba, "|")
-        Aux = Mid(cadTraba, j, i - j)
+        i = InStr(J, cadTraba, "|")
+        Aux = Mid(cadTraba, J, i - J)
     Else
         
-        i = InStr(j, CadProve, "|")
-        Aux = Mid(CadProve, j, i - j)
+        i = InStr(J, CadProve, "|")
+        Aux = Mid(CadProve, J, i - J)
     End If
     Nombre = Aux
     EstaEnCadenas = True
@@ -1325,7 +1329,7 @@ Dim It As ListItem
     cadTraba = "|"
     Aux = "SELECT smoval.codartic, smoval.codalmac, fechamov, horamovi, tipomovi, detamovi, "
     Aux = Aux & " cantidad,  codigope, letraser, document, numlinea "
-    Aux = Aux & " FROM  smoval WHERE codartic =" & DBSet(Data1.Recordset!codArtic, "T")
+    Aux = Aux & " FROM  smoval WHERE codartic =" & DBSet(Data1.Recordset!codartic, "T")
     Aux = Aux & " AND codalmac =" & DBSet(Data1.Recordset!codAlmac, "N")
     
     'Si lleva fehca inv
@@ -1335,21 +1339,21 @@ Dim It As ListItem
     
     
     Aux = Aux & " order by Fechamov , horamovi "
-    rs.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    While Not rs.EOF
+    RS.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    While Not RS.EOF
         Set It = lw1.ListItems.Add()
-        It.Text = Format(rs!Fechamov, "dd/mm/yyyy")
-        It.SubItems(1) = Format(rs!horamovi, "hh:mm:ss")
-        It.SubItems(2) = rs!detamovi
-        It.SubItems(3) = rs!codigope
+        It.Text = Format(RS!Fechamov, "dd/mm/yyyy")
+        It.SubItems(1) = Format(RS!horamovi, "hh:mm:ss")
+        It.SubItems(2) = RS!detamovi
+        It.SubItems(3) = RS!codigope
         
         'If It.SubItems(2) = "ALR" And It.SubItems(3) = "752" Then Stop
         
         'smoval.tipomovi=0,""S""
         '   0: SALIDA
         '   1: ENTRADA
-        Cantidad = rs!Cantidad
-        If rs!tipomovi = 1 Then
+        Cantidad = RS!Cantidad
+        If RS!tipomovi = 1 Then
             It.SubItems(5) = Format(Cantidad, FormatoCantidad)
             It.SubItems(6) = " "
             
@@ -1362,20 +1366,20 @@ Dim It As ListItem
         It.SubItems(7) = Format(vStock, FormatoCantidad)
         
        ' If Me.chkCargaNombres.Value = 1 Then
-            Aux = PonerNombreCliente(rs!codigope, rs!detamovi)
+            Aux = PonerNombreCliente(RS!codigope, RS!detamovi)
             If Aux = "" Then Aux = "Error leyendo desde BD"
             It.SubItems(4) = Aux
        ' End If
        
        
        
-       It.Tag = DBLet(rs!document)
-       rs.MoveNext
+       It.Tag = DBLet(RS!document)
+       RS.MoveNext
         
         
     
     Wend
-    rs.Close
+    RS.Close
     
     'Si es el mismo importe k el stock
     CadClie = Format(vStock, FormatoCantidad)

@@ -3,16 +3,16 @@ Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "MSCOMM32.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form Form1 
    Caption         =   "Aceites Morales. Bascula producción"
-   ClientHeight    =   10950
+   ClientHeight    =   12930
    ClientLeft      =   120
    ClientTop       =   450
-   ClientWidth     =   18960
+   ClientWidth     =   19275
    Icon            =   "Form1.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   10950
-   ScaleWidth      =   18960
+   ScaleHeight     =   12930
+   ScaleWidth      =   19275
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
    Begin VB.Timer Timer2 
@@ -41,7 +41,7 @@ Begin VB.Form Form1
       TabIndex        =   24
       Top             =   0
       Visible         =   0   'False
-      Width           =   15135
+      Width           =   14895
       Begin VB.Frame FrameResultados 
          Height          =   4575
          Left            =   720
@@ -658,6 +658,106 @@ Begin VB.Form Form1
          Width           =   2655
       End
    End
+   Begin VB.Frame Frame2 
+      Height          =   4695
+      Left            =   120
+      TabIndex        =   19
+      Top             =   7680
+      Width           =   11415
+      Begin VB.Image Image2 
+         Height          =   4620
+         Left            =   4200
+         Picture         =   "Form1.frx":6852
+         Stretch         =   -1  'True
+         Top             =   240
+         Width           =   4020
+      End
+      Begin VB.Label Label1 
+         Caption         =   "Producción"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   36
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   975
+         Index           =   1
+         Left            =   120
+         TabIndex        =   20
+         Top             =   240
+         Width           =   4215
+      End
+   End
+   Begin VB.Frame Frame1 
+      Height          =   6975
+      Left            =   6240
+      TabIndex        =   21
+      Top             =   0
+      Width           =   5295
+      Begin VB.Label Label1 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Tapón"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   36
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   975
+         Index           =   2
+         Left            =   120
+         TabIndex        =   22
+         Top             =   240
+         Width           =   2775
+      End
+      Begin VB.Image Image3 
+         Height          =   2160
+         Left            =   1200
+         Picture         =   "Form1.frx":7BAA
+         Top             =   1560
+         Width           =   3240
+      End
+   End
+   Begin VB.Frame FrameBotella 
+      Height          =   6975
+      Left            =   120
+      TabIndex        =   17
+      Top             =   0
+      Width           =   6015
+      Begin VB.Label Label1 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Envases"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   36
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   975
+         Index           =   0
+         Left            =   120
+         TabIndex        =   18
+         Top             =   120
+         Width           =   5775
+      End
+      Begin VB.Image Image1 
+         Height          =   4800
+         Left            =   960
+         Picture         =   "Form1.frx":108BF
+         Stretch         =   -1  'True
+         Top             =   1440
+         Width           =   3945
+      End
+   End
    Begin VB.Frame FrameMateriaAuxiliar 
       Height          =   11655
       Left            =   11640
@@ -669,7 +769,7 @@ Begin VB.Form Form1
          Height          =   855
          Index           =   1
          Left            =   6960
-         Picture         =   "Form1.frx":6852
+         Picture         =   "Form1.frx":1237C
          Style           =   1  'Graphical
          TabIndex        =   33
          Top             =   9720
@@ -679,7 +779,7 @@ Begin VB.Form Form1
          Height          =   855
          Index           =   0
          Left            =   600
-         Picture         =   "Form1.frx":711C
+         Picture         =   "Form1.frx":12C46
          Style           =   1  'Graphical
          TabIndex        =   32
          Top             =   9720
@@ -751,113 +851,31 @@ Begin VB.Form Form1
          Width           =   5700
       End
    End
-   Begin VB.Frame Frame2 
-      Height          =   4695
-      Left            =   120
-      TabIndex        =   19
-      Top             =   7080
-      Width           =   11415
-      Begin VB.Image Image2 
-         Height          =   4620
-         Left            =   4200
-         Picture         =   "Form1.frx":79E6
-         Stretch         =   -1  'True
-         Top             =   240
-         Width           =   4020
-      End
-      Begin VB.Label Label1 
-         Caption         =   "Producción"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   36
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   975
-         Index           =   1
-         Left            =   120
-         TabIndex        =   20
-         Top             =   240
-         Width           =   4215
-      End
-   End
-   Begin VB.Frame Frame1 
-      Height          =   6975
-      Left            =   6240
-      TabIndex        =   21
-      Top             =   0
-      Width           =   5295
-      Begin VB.Label Label1 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Tapón"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   36
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   975
-         Index           =   2
-         Left            =   120
-         TabIndex        =   22
-         Top             =   240
-         Width           =   2775
-      End
-      Begin VB.Image Image3 
-         Height          =   2160
-         Left            =   1200
-         Picture         =   "Form1.frx":8D3E
-         Top             =   1560
-         Width           =   3240
-      End
-   End
-   Begin VB.Frame FrameBotella 
-      Height          =   6975
-      Left            =   120
-      TabIndex        =   17
-      Top             =   0
-      Width           =   6015
-      Begin VB.Label Label1 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Envases"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   36
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   975
-         Index           =   0
-         Left            =   120
-         TabIndex        =   18
-         Top             =   120
-         Width           =   5775
-      End
-      Begin VB.Image Image1 
-         Height          =   4800
-         Left            =   960
-         Picture         =   "Form1.frx":11A53
-         Stretch         =   -1  'True
-         Top             =   1440
-         Width           =   3945
-      End
-   End
    Begin VB.Frame FrameLineasProd 
-      Height          =   10815
+      Height          =   12975
       Left            =   11640
       TabIndex        =   0
       Top             =   0
       Visible         =   0   'False
       Width           =   8895
+      Begin VB.CommandButton cmdLinea 
+         Caption         =   "Command1"
+         Height          =   735
+         Index           =   9
+         Left            =   960
+         TabIndex        =   68
+         Top             =   11880
+         Width           =   7215
+      End
+      Begin VB.CommandButton cmdLinea 
+         Caption         =   "Command1"
+         Height          =   735
+         Index           =   8
+         Left            =   960
+         TabIndex        =   67
+         Top             =   10800
+         Width           =   7215
+      End
       Begin VB.CommandButton cmdLinea 
          Caption         =   "Command1"
          Height          =   735
@@ -930,6 +948,42 @@ Begin VB.Form Form1
          Top             =   9720
          Width           =   7215
       End
+      Begin VB.Label lblLinea 
+         Caption         =   "M2"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   27.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   975
+         Index           =   9
+         Left            =   120
+         TabIndex        =   70
+         Top             =   11880
+         Width           =   735
+      End
+      Begin VB.Label lblLinea 
+         Caption         =   "M1"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   27.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   975
+         Index           =   8
+         Left            =   120
+         TabIndex        =   69
+         Top             =   10800
+         Width           =   615
+      End
       Begin VB.Label Label1 
          BackStyle       =   0  'Transparent
          Caption         =   "Líneas producción"
@@ -945,9 +999,9 @@ Begin VB.Form Form1
          ForeColor       =   &H00008080&
          Height          =   870
          Index           =   3
-         Left            =   360
+         Left            =   1080
          TabIndex        =   23
-         Top             =   360
+         Top             =   720
          Width           =   5700
       End
       Begin VB.Label lblLinea 
@@ -1552,7 +1606,7 @@ Private Sub LineasProduccion()
 Dim J As Integer
     Set miRsAux = New ADODB.Recordset
     
-    For J = 0 To 7
+    For J = 0 To 9
         cmdLinea(J).Tag = ""
         Me.cmdLinea(J).Visible = False
         Me.lblLinea(J).Visible = False

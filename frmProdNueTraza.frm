@@ -27,45 +27,31 @@ Begin VB.Form frmProdNueTraza2
       _ExtentY        =   7435
       _Version        =   393216
       Tabs            =   2
-      Tab             =   1
       TabsPerRow      =   2
       TabHeight       =   520
       TabCaption(0)   =   "Lotes"
       TabPicture(0)   =   "frmProdNueTraza.frx":000C
-      Tab(0).ControlEnabled=   0   'False
+      Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "TreeView1"
+      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).ControlCount=   1
       TabCaption(1)   =   "Pesajes"
       TabPicture(1)   =   "frmProdNueTraza.frx":0028
-      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Label5(0)"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "Label5(11)"
-      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "Label5(10)"
-      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "Label5(7)"
-      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "Label5(12)"
-      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).Control(5)=   "Label5(13)"
-      Tab(1).Control(5).Enabled=   0   'False
       Tab(1).Control(6)=   "ListView2"
-      Tab(1).Control(6).Enabled=   0   'False
       Tab(1).Control(7)=   "cboSerie"
-      Tab(1).Control(7).Enabled=   0   'False
       Tab(1).Control(8)=   "Text5(9)"
-      Tab(1).Control(8).Enabled=   0   'False
       Tab(1).Control(9)=   "Text5(8)"
-      Tab(1).Control(9).Enabled=   0   'False
       Tab(1).Control(10)=   "Text5(5)"
-      Tab(1).Control(10).Enabled=   0   'False
       Tab(1).Control(11)=   "Text5(10)"
-      Tab(1).Control(11).Enabled=   0   'False
       Tab(1).Control(12)=   "Text5(11)"
-      Tab(1).Control(12).Enabled=   0   'False
       Tab(1).Control(13)=   "Text5(12)"
-      Tab(1).Control(13).Enabled=   0   'False
       Tab(1).ControlCount=   14
       Begin VB.TextBox Text5 
          Alignment       =   2  'Center
@@ -83,7 +69,7 @@ Begin VB.Form frmProdNueTraza2
          ForeColor       =   &H00C0FFC0&
          Height          =   555
          Index           =   12
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   55
          Text            =   "Text5"
          Top             =   3450
@@ -95,7 +81,7 @@ Begin VB.Form frmProdNueTraza2
          Enabled         =   0   'False
          Height          =   285
          Index           =   11
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   53
          Text            =   "Text5"
          Top             =   3000
@@ -107,7 +93,7 @@ Begin VB.Form frmProdNueTraza2
          Enabled         =   0   'False
          Height          =   285
          Index           =   10
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   51
          Text            =   "Text5"
          Top             =   2400
@@ -119,7 +105,7 @@ Begin VB.Form frmProdNueTraza2
          Enabled         =   0   'False
          Height          =   285
          Index           =   5
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   50
          Text            =   "Text5"
          Top             =   1200
@@ -131,7 +117,7 @@ Begin VB.Form frmProdNueTraza2
          Enabled         =   0   'False
          Height          =   285
          Index           =   8
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   46
          Text            =   "Text5"
          Top             =   1800
@@ -143,7 +129,7 @@ Begin VB.Form frmProdNueTraza2
          Enabled         =   0   'False
          Height          =   285
          Index           =   9
-         Left            =   1080
+         Left            =   -73920
          TabIndex        =   45
          Text            =   "Text5"
          Top             =   1800
@@ -151,7 +137,7 @@ Begin VB.Form frmProdNueTraza2
       End
       Begin VB.ComboBox cboSerie 
          Height          =   315
-         Left            =   840
+         Left            =   -74160
          Style           =   2  'Dropdown List
          TabIndex        =   42
          Top             =   480
@@ -159,7 +145,7 @@ Begin VB.Form frmProdNueTraza2
       End
       Begin MSComctlLib.TreeView TreeView1 
          Height          =   3255
-         Left            =   -74640
+         Left            =   360
          TabIndex        =   41
          Top             =   720
          Width           =   8295
@@ -183,7 +169,7 @@ Begin VB.Form frmProdNueTraza2
       End
       Begin MSComctlLib.ListView ListView2 
          Height          =   3495
-         Left            =   2040
+         Left            =   -72960
          TabIndex        =   44
          Top             =   480
          Width           =   6855
@@ -244,7 +230,7 @@ Begin VB.Form frmProdNueTraza2
          Caption         =   "Desv.tip"
          Height          =   375
          Index           =   13
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   54
          Top             =   2760
          Width           =   735
@@ -253,7 +239,7 @@ Begin VB.Form frmProdNueTraza2
          Caption         =   "Promedio"
          Height          =   375
          Index           =   12
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   52
          Top             =   2160
          Width           =   735
@@ -262,7 +248,7 @@ Begin VB.Form frmProdNueTraza2
          Caption         =   "Nº pesos"
          Height          =   375
          Index           =   7
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   49
          Top             =   960
          Width           =   735
@@ -271,7 +257,7 @@ Begin VB.Form frmProdNueTraza2
          Caption         =   "NO emp"
          Height          =   375
          Index           =   10
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   48
          Top             =   1560
          Width           =   735
@@ -280,7 +266,7 @@ Begin VB.Form frmProdNueTraza2
          Caption         =   "No Emp2"
          Height          =   375
          Index           =   11
-         Left            =   1080
+         Left            =   -73920
          TabIndex        =   47
          Top             =   1560
          Width           =   735
@@ -289,7 +275,7 @@ Begin VB.Form frmProdNueTraza2
          Caption         =   "Serie:"
          Height          =   375
          Index           =   0
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   43
          Top             =   480
          Width           =   735
@@ -1234,7 +1220,7 @@ Dim VolumenProd As Currency
     If ListView2.ListItems.Count = 0 Then Exit Sub
     If ListView2.SelectedItem Is Nothing Then Exit Sub
     
-    If vUsu.Nivel > 0 Then Exit Sub
+    If vUsu.Nivel > 1 Then Exit Sub
     
     If Not (KeyAscii = 112 Or KeyAscii = 80) Then Exit Sub
     
@@ -1339,7 +1325,7 @@ End Sub
 '----------------------------------------------------------------
 '----------------------------------------------------------------
 Private Sub Text1_LostFocus(Index As Integer)
-Dim Devuelve As String
+Dim devuelve As String
       
     'en el campo ID de norma 34 no se hace Trim ni nada. Lo q pongan
     If Index = 18 Then Exit Sub
@@ -1537,19 +1523,19 @@ End Sub
 '   formulario en funcion del modo en k vayamos a trabajar
 '
 Private Sub PonerModo(Kmodo As Byte)
-Dim b As Boolean
+Dim B As Boolean
 Dim NumReg As Byte
    
     Modo = Kmodo
         
     '----------------------------------------------
     'Modo 2. Hay datos y estamos visualizandolos
-    b = (Kmodo = 2)
+    B = (Kmodo = 2)
     PonerIndicador lblIndicador, Modo
     
     'Ponemos visible, si es formulario de busqueda, el boton regresar cuando hay datos
     If DatosADevolverBusqueda <> "" Then
-        cmdRegresar.visible = b
+        cmdRegresar.visible = B
     Else
         cmdRegresar.visible = False
     End If
@@ -1559,14 +1545,14 @@ Dim NumReg As Byte
     If Not Data1.Recordset.EOF Then
         If Data1.Recordset.RecordCount > 1 Then NumReg = 2 'Solo es para saber q hay + de 1 registro
     End If
-    DesplazamientoVisible Me.Toolbar1, btnPrimero, b, NumReg
+    DesplazamientoVisible Me.Toolbar1, btnPrimero, B, NumReg
     
     
     '------------------------------------------------------
     'Modo insertar o modificar
-    b = (Kmodo >= 3) '-->Luego not b sera kmodo<3
-    cmdAceptar.visible = b Or Modo = 1
-    cmdCancelar.visible = b Or Modo = 1
+    B = (Kmodo >= 3) '-->Luego not b sera kmodo<3
+    cmdAceptar.visible = B Or Modo = 1
+    cmdCancelar.visible = B Or Modo = 1
     If cmdCancelar.visible Then
         cmdCancelar.Cancel = True
     Else
@@ -1597,51 +1583,51 @@ End Sub
 
 Private Sub PonerModoOpcionesMenu()
 'Activa botones de la Toolbar segun el Modo
-Dim b As Boolean
+Dim B As Boolean
 
-    b = False
+    B = False
     'Lo comento
     'B = (Modo = 2)
     'Modificar
-    Toolbar1.Buttons(6).Enabled = b
-    mnModificar.Enabled = b
+    Toolbar1.Buttons(6).Enabled = B
+    mnModificar.Enabled = B
     'eliminar
-    Toolbar1.Buttons(7).Enabled = b
-    mnEliminar.Enabled = b
+    Toolbar1.Buttons(7).Enabled = B
+    mnEliminar.Enabled = B
     
     '-----------------------------------------
     'B = (Modo >= 3) 'Insertar/Modificar
-    b = True
+    B = True
     'Insertar
-    Toolbar1.Buttons(5).Enabled = Not b
-    Me.mnNuevo.Enabled = Not b
+    Toolbar1.Buttons(5).Enabled = Not B
+    Me.mnNuevo.Enabled = Not B
     
-    b = (Modo >= 3) 'Insertar/Modificar
+    B = (Modo >= 3) 'Insertar/Modificar
     'Buscar
-    Toolbar1.Buttons(1).Enabled = Not b
-    Me.mnBuscar.Enabled = Not b
+    Toolbar1.Buttons(1).Enabled = Not B
+    Me.mnBuscar.Enabled = Not B
     'Ver Todos
-    Toolbar1.Buttons(2).Enabled = Not b
-    Me.mnVerTodos.Enabled = Not b
+    Toolbar1.Buttons(2).Enabled = Not B
+    Me.mnVerTodos.Enabled = Not B
 End Sub
 
 
 Private Function DatosOk() As Boolean
-Dim b As Boolean
+Dim B As Boolean
 
     DatosOk = False
-    b = CompForm(Me, 1)
-    If Not b Then Exit Function
+    B = CompForm(Me, 1)
+    If Not B Then Exit Function
     
     If Not Comprueba_CC(Text1(10).Text & Text1(11).Text & Text1(12).Text & Text1(13).Text) Then
-        If MsgBox("La cuenta bancaria no es correcta. ¿Continuar?", vbQuestion + vbYesNo) = vbNo Then b = False
+        If MsgBox("La cuenta bancaria no es correcta. ¿Continuar?", vbQuestion + vbYesNo) = vbNo Then B = False
     End If
  
     If Modo = 3 Then 'Insertar
-        If ExisteCP(Text1(0)) Then b = False
+        If ExisteCP(Text1(0)) Then B = False
     End If
 
-    DatosOk = b
+    DatosOk = B
 End Function
 
 
@@ -1657,7 +1643,7 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
         Case 9: Imprimir
         Case 10:
                 'Imprime resume diario produccion
-                frmListado2.Opcion = 27
+                frmListado2.opcion = 27
                 frmListado2.Show vbModal
         Case 11
             'De momento
@@ -1761,7 +1747,7 @@ Dim SQL As String
             End If
             
             SQL = SQL & Space(CLng(L))
-            SQL = SQL & "Lot:" & miRsAux!numLote & " / "
+            SQL = SQL & "Lot:" & miRsAux!NUmlote & " / "
             C2 = DBLet(miRsAux!cantutili, "N")
             If Int(C2) = C2 Then
                 SQL = SQL & Format(C2, "#,##0")
@@ -1890,12 +1876,12 @@ Dim C As Integer
         Set It = ListView2.ListItems.Add()
         It.Text = Format(miRsAux!secuencial, "00")
         
-        It.SubItems(1) = Format(miRsAux!pesolleno, FormatoPrecio)
+        It.SubItems(1) = Format(miRsAux!pesolleno, FormatoCantidad)
        
         
         numero = 0.916 * miRsAux!volumenLlenado
-        It.SubItems(2) = Format(numero, FormatoPrecio)
-        It.SubItems(3) = Format(miRsAux!volumenLlenado, FormatoPrecio)
+        It.SubItems(2) = Format(numero, FormatoCantidad)
+        It.SubItems(3) = Format(miRsAux!volumenLlenado, FormatoCantidad)
         It.SubItems(4) = Format(miRsAux!Emp, FormatoPorcen)
         
         If miRsAux!cumpleemp = 1 Then

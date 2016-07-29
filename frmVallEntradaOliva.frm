@@ -32,16 +32,27 @@ Begin VB.Form frmVallEntradaOliva
       ForeColor       =   &H00000080&
       Height          =   4815
       Left            =   120
-      TabIndex        =   40
+      TabIndex        =   41
       Top             =   2760
       Width           =   11175
+      Begin VB.TextBox Text3 
+         Alignment       =   1  'Right Justify
+         Height          =   315
+         Index           =   20
+         Left            =   9840
+         MaxLength       =   12
+         TabIndex        =   10
+         Text            =   "Text1"
+         Top             =   600
+         Width           =   855
+      End
       Begin VB.TextBox Text3 
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   5
          Left            =   7200
          MaxLength       =   12
-         TabIndex        =   24
+         TabIndex        =   26
          Text            =   "Text1"
          Top             =   4080
          Width           =   855
@@ -50,9 +61,9 @@ Begin VB.Form frmVallEntradaOliva
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   6
-         Left            =   8520
+         Left            =   9240
          MaxLength       =   12
-         TabIndex        =   25
+         TabIndex        =   27
          Text            =   "Text1"
          Top             =   4080
          Width           =   1095
@@ -63,7 +74,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   12
          Left            =   8760
          MaxLength       =   12
-         TabIndex        =   14
+         TabIndex        =   16
          Text            =   "Text1"
          Top             =   1920
          Width           =   855
@@ -75,7 +86,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   10
          Left            =   9720
          Locked          =   -1  'True
-         TabIndex        =   66
+         TabIndex        =   67
          Text            =   "Text2"
          Top             =   2880
          Width           =   1245
@@ -87,7 +98,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   9
          Left            =   9720
          Locked          =   -1  'True
-         TabIndex        =   65
+         TabIndex        =   66
          Text            =   "Text2"
          Top             =   2400
          Width           =   1245
@@ -99,7 +110,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   8
          Left            =   9720
          Locked          =   -1  'True
-         TabIndex        =   64
+         TabIndex        =   65
          Text            =   "Text2"
          Top             =   1920
          Width           =   1245
@@ -111,7 +122,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   7
          Left            =   9720
          Locked          =   -1  'True
-         TabIndex        =   63
+         TabIndex        =   64
          Text            =   "Text2"
          Top             =   1440
          Width           =   1245
@@ -122,7 +133,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   18
          Left            =   8760
          MaxLength       =   12
-         TabIndex        =   20
+         TabIndex        =   22
          Text            =   "Text1"
          Top             =   2880
          Width           =   855
@@ -133,7 +144,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   6
          Left            =   5160
          Locked          =   -1  'True
-         TabIndex        =   62
+         TabIndex        =   63
          Text            =   "Text2"
          Top             =   2880
          Width           =   2805
@@ -144,7 +155,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   17
          Left            =   8040
          MaxLength       =   12
-         TabIndex        =   19
+         TabIndex        =   21
          Text            =   "Text1"
          Top             =   2880
          Width           =   615
@@ -155,7 +166,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   16
          Left            =   3600
          MaxLength       =   12
-         TabIndex        =   18
+         TabIndex        =   20
          Text            =   "Text1"
          Top             =   2880
          Width           =   1215
@@ -166,7 +177,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   15
          Left            =   8760
          MaxLength       =   12
-         TabIndex        =   17
+         TabIndex        =   19
          Text            =   "Text1"
          Top             =   2400
          Width           =   855
@@ -177,7 +188,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   5
          Left            =   5160
          Locked          =   -1  'True
-         TabIndex        =   61
+         TabIndex        =   62
          Text            =   "Text2"
          Top             =   2400
          Width           =   2805
@@ -188,7 +199,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   14
          Left            =   8040
          MaxLength       =   12
-         TabIndex        =   16
+         TabIndex        =   18
          Text            =   "Text1"
          Top             =   2400
          Width           =   615
@@ -199,7 +210,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   13
          Left            =   3600
          MaxLength       =   12
-         TabIndex        =   15
+         TabIndex        =   17
          Text            =   "Text1"
          Top             =   2400
          Width           =   1215
@@ -210,7 +221,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   4
          Left            =   5160
          Locked          =   -1  'True
-         TabIndex        =   60
+         TabIndex        =   61
          Text            =   "Text2"
          Top             =   1920
          Width           =   2805
@@ -221,7 +232,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   11
          Left            =   8040
          MaxLength       =   12
-         TabIndex        =   13
+         TabIndex        =   15
          Text            =   "Text1"
          Top             =   1920
          Width           =   615
@@ -232,7 +243,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   10
          Left            =   3600
          MaxLength       =   12
-         TabIndex        =   12
+         TabIndex        =   14
          Text            =   "Text1"
          Top             =   1920
          Width           =   1215
@@ -243,7 +254,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   9
          Left            =   8760
          MaxLength       =   12
-         TabIndex        =   11
+         TabIndex        =   13
          Text            =   "Text1"
          Top             =   1440
          Width           =   855
@@ -254,7 +265,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   3
          Left            =   5160
          Locked          =   -1  'True
-         TabIndex        =   53
+         TabIndex        =   54
          Text            =   "Text2"
          Top             =   1440
          Width           =   2805
@@ -265,7 +276,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   8
          Left            =   8040
          MaxLength       =   12
-         TabIndex        =   10
+         TabIndex        =   12
          Text            =   "Text1"
          Top             =   1440
          Width           =   615
@@ -276,7 +287,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   7
          Left            =   3600
          MaxLength       =   12
-         TabIndex        =   9
+         TabIndex        =   11
          Text            =   "Text1"
          Top             =   1440
          Width           =   1215
@@ -285,11 +296,11 @@ Begin VB.Form frmVallEntradaOliva
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   19
-         Left            =   10080
+         Left            =   8760
          MaxLength       =   12
-         TabIndex        =   26
+         TabIndex        =   9
          Text            =   "Text1"
-         Top             =   4080
+         Top             =   600
          Width           =   855
       End
       Begin VB.TextBox Text3 
@@ -298,7 +309,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   4
          Left            =   6000
          MaxLength       =   12
-         TabIndex        =   23
+         TabIndex        =   25
          Text            =   "Text1"
          Top             =   4080
          Width           =   975
@@ -309,7 +320,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   3
          Left            =   4920
          MaxLength       =   12
-         TabIndex        =   22
+         TabIndex        =   24
          Text            =   "Text1"
          Top             =   4080
          Width           =   975
@@ -320,7 +331,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   2
          Left            =   3600
          MaxLength       =   12
-         TabIndex        =   21
+         TabIndex        =   23
          Text            =   "Text1"
          Top             =   4080
          Width           =   1095
@@ -342,7 +353,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   2
          Left            =   5160
          Locked          =   -1  'True
-         TabIndex        =   50
+         TabIndex        =   51
          Text            =   "Text2"
          Top             =   600
          Width           =   3165
@@ -362,7 +373,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   0
          Left            =   720
          MaxLength       =   12
-         TabIndex        =   49
+         TabIndex        =   50
          Text            =   "Text1"
          Top             =   720
          Width           =   1335
@@ -371,7 +382,7 @@ Begin VB.Form frmVallEntradaOliva
          Bindings        =   "frmVallEntradaOliva.frx":000C
          Height          =   3975
          Left            =   360
-         TabIndex        =   41
+         TabIndex        =   42
          Top             =   480
          Width           =   2895
          _ExtentX        =   5106
@@ -437,12 +448,21 @@ Begin VB.Form frmVallEntradaOliva
          EndProperty
       End
       Begin VB.Label Label1 
+         Caption         =   "Real"
+         Height          =   195
+         Index           =   10
+         Left            =   10080
+         TabIndex        =   73
+         Top             =   360
+         Width           =   330
+      End
+      Begin VB.Label Label1 
          Caption         =   "Rendimiento"
          Height          =   195
          Index           =   15
-         Left            =   10080
-         TabIndex        =   71
-         Top             =   3840
+         Left            =   8760
+         TabIndex        =   72
+         Top             =   360
          Width           =   885
       End
       Begin VB.Label Label1 
@@ -450,7 +470,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   14
          Left            =   7320
-         TabIndex        =   70
+         TabIndex        =   71
          Top             =   3840
          Width           =   735
       End
@@ -458,8 +478,8 @@ Begin VB.Form frmVallEntradaOliva
          Caption         =   "Total KG"
          Height          =   255
          Index           =   13
-         Left            =   8760
-         TabIndex        =   69
+         Left            =   9480
+         TabIndex        =   70
          Top             =   3840
          Width           =   735
       End
@@ -468,7 +488,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   12
          Left            =   6240
-         TabIndex        =   68
+         TabIndex        =   69
          Top             =   3840
          Width           =   735
       End
@@ -478,7 +498,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   11
          Left            =   4920
-         TabIndex        =   67
+         TabIndex        =   68
          Top             =   3840
          Width           =   975
       End
@@ -527,7 +547,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   9
          Left            =   10080
-         TabIndex        =   59
+         TabIndex        =   60
          Top             =   1200
          Width           =   285
       End
@@ -536,7 +556,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   8
          Left            =   8880
-         TabIndex        =   58
+         TabIndex        =   59
          Top             =   1200
          Width           =   405
       End
@@ -545,7 +565,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   7
          Left            =   8160
-         TabIndex        =   57
+         TabIndex        =   58
          Top             =   1200
          Width           =   285
       End
@@ -554,7 +574,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   6
          Left            =   3720
-         TabIndex        =   56
+         TabIndex        =   57
          Top             =   3840
          Width           =   810
       End
@@ -563,7 +583,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   5
          Left            =   3600
-         TabIndex        =   55
+         TabIndex        =   56
          Top             =   1200
          Width           =   735
       End
@@ -572,7 +592,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   4
          Left            =   3600
-         TabIndex        =   54
+         TabIndex        =   55
          Top             =   360
          Width           =   855
       End
@@ -580,7 +600,7 @@ Begin VB.Form frmVallEntradaOliva
    Begin VB.Frame Frame2 
       Height          =   1155
       Left            =   120
-      TabIndex        =   36
+      TabIndex        =   37
       Top             =   480
       Width           =   11175
       Begin VB.TextBox Text2 
@@ -590,7 +610,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   1
          Left            =   9840
          Locked          =   -1  'True
-         TabIndex        =   51
+         TabIndex        =   52
          Text            =   "Text2"
          Top             =   720
          Width           =   1125
@@ -661,7 +681,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   0
          Left            =   2280
          Locked          =   -1  'True
-         TabIndex        =   38
+         TabIndex        =   39
          Text            =   "Text2"
          Top             =   720
          Width           =   3645
@@ -670,7 +690,7 @@ Begin VB.Form frmVallEntradaOliva
          Caption         =   "Generación finalizada"
          Height          =   195
          Left            =   8520
-         TabIndex        =   37
+         TabIndex        =   38
          Tag             =   "Fin|N|N|0||vallentradacamion|EntradaFinalizada|||"
          Top             =   240
          Width           =   2295
@@ -680,7 +700,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   2
          Left            =   9240
-         TabIndex        =   52
+         TabIndex        =   53
          Top             =   750
          Width           =   495
       End
@@ -689,7 +709,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   1
          Left            =   7680
-         TabIndex        =   48
+         TabIndex        =   49
          Top             =   750
          Width           =   495
       End
@@ -698,7 +718,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   0
          Left            =   6120
-         TabIndex        =   47
+         TabIndex        =   48
          Top             =   750
          Width           =   495
       End
@@ -707,7 +727,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   0
          Left            =   240
-         TabIndex        =   43
+         TabIndex        =   44
          Top             =   240
          Width           =   855
       End
@@ -724,7 +744,7 @@ Begin VB.Form frmVallEntradaOliva
          Caption         =   "Fecha "
          Height          =   255
          Left            =   2760
-         TabIndex        =   42
+         TabIndex        =   43
          Top             =   285
          Width           =   735
       End
@@ -732,7 +752,7 @@ Begin VB.Form frmVallEntradaOliva
          Caption         =   "Proveedor"
          Height          =   255
          Left            =   240
-         TabIndex        =   39
+         TabIndex        =   40
          Top             =   720
          Width           =   855
       End
@@ -759,7 +779,7 @@ Begin VB.Form frmVallEntradaOliva
       ForeColor       =   &H00972E0B&
       Height          =   975
       Left            =   120
-      TabIndex        =   35
+      TabIndex        =   36
       Top             =   1680
       Width           =   11175
       Begin VB.TextBox Text1 
@@ -800,7 +820,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   3
          Left            =   5640
-         TabIndex        =   46
+         TabIndex        =   47
          Top             =   360
          Width           =   855
       End
@@ -809,7 +829,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   2
          Left            =   2760
-         TabIndex        =   45
+         TabIndex        =   46
          Top             =   360
          Width           =   855
       End
@@ -818,7 +838,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   1
          Left            =   120
-         TabIndex        =   44
+         TabIndex        =   45
          Top             =   360
          Width           =   855
       End
@@ -827,7 +847,7 @@ Begin VB.Form frmVallEntradaOliva
       Caption         =   "&Aceptar"
       Height          =   375
       Left            =   8400
-      TabIndex        =   27
+      TabIndex        =   28
       Top             =   8130
       Width           =   1035
    End
@@ -836,7 +856,7 @@ Begin VB.Form frmVallEntradaOliva
       Caption         =   "&Cancelar"
       Height          =   375
       Left            =   9555
-      TabIndex        =   28
+      TabIndex        =   29
       Top             =   8130
       Width           =   1035
    End
@@ -844,7 +864,7 @@ Begin VB.Form frmVallEntradaOliva
       Caption         =   "&Regresar"
       Height          =   375
       Left            =   9555
-      TabIndex        =   29
+      TabIndex        =   30
       Top             =   8130
       Visible         =   0   'False
       Width           =   1035
@@ -853,7 +873,7 @@ Begin VB.Form frmVallEntradaOliva
       Height          =   540
       Index           =   0
       Left            =   360
-      TabIndex        =   33
+      TabIndex        =   34
       Top             =   8040
       Width           =   2655
       Begin VB.Label lblIndicador 
@@ -870,7 +890,7 @@ Begin VB.Form frmVallEntradaOliva
          EndProperty
          Height          =   240
          Left            =   240
-         TabIndex        =   34
+         TabIndex        =   35
          Top             =   180
          Width           =   2115
       End
@@ -879,7 +899,7 @@ Begin VB.Form frmVallEntradaOliva
       Align           =   1  'Align Top
       Height          =   420
       Left            =   0
-      TabIndex        =   30
+      TabIndex        =   31
       Top             =   0
       Width           =   11475
       _ExtentX        =   20241
@@ -962,7 +982,7 @@ Begin VB.Form frmVallEntradaOliva
          Caption         =   "Vista previa"
          Height          =   315
          Left            =   9720
-         TabIndex        =   32
+         TabIndex        =   33
          Top             =   120
          Width           =   1215
       End
@@ -1074,7 +1094,7 @@ Begin VB.Form frmVallEntradaOliva
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   31
+      TabIndex        =   32
       Top             =   8220
       Visible         =   0   'False
       Width           =   3495
@@ -1151,7 +1171,7 @@ Dim btnPrimero As Byte
 Dim CadenaConsulta As String
 Dim PrimeraVez As Boolean
 Private HaDevueltoDatos As Boolean
-Private mC As CTiposMov
+Private Mc As CTiposMov
 
 
 
@@ -1173,6 +1193,8 @@ End Sub
 
 Private Sub cmdAceptar_Click()
 Dim b As Boolean
+Dim SituarData As Integer
+
 On Error GoTo Error1
     
     Screen.MousePointer = vbHourglass
@@ -1181,15 +1203,22 @@ On Error GoTo Error1
         HacerBusqueda
     Case 3 'INSERTAR
         If DatosOk Then
-            If InsertarDesdeForm(Me) Then PosicionarData
-                'Ponemos la cadena consulta
+            If InsertarDesdeForm(Me) Then
+                CadenaConsulta = "Select * from " & NombreTabla & " WHERE entrada=" & Text1(3).Text & Ordenacion
+                PonerCadenaBusqueda
+                PonerModo 2
+                'Ponerse en Modo Insertar Lineas
+                BotonAlbaranes
+                BotonAnyadirLinea True
+            End If
         End If
         
     Case 4 'MODIFICAR
         If DatosOk Then
              If ModificaDesdeFormulario(Me, 1) Then
                  TerminaBloquear
-                 PosicionarData
+                 PosicionarData2
+                 PonerModo 2
              End If
          End If
          
@@ -1197,13 +1226,13 @@ On Error GoTo Error1
         If DatosOkLinea Then
            If InsertarModificarLinea Then
                 
-                If ModificaLineas = 1 Then mC.IncrementarContador mC.TipoMovimiento
+                If ModificaLineas = 1 Then Mc.IncrementarContador Mc.TipoMovimiento
                     
                 
                 DataGrid1.AllowAddNew = False
-                NumRegElim = Data2.Recordset.AbsolutePosition
+                SituarData = Data2.Recordset.AbsolutePosition
                 CargaGrid True
-                SituarDataPosicion Data2, NumRegElim, Me.lblIndicador.Caption
+                SituarDataPosicion Data2, CLng(SituarData), Me.lblIndicador.Caption
                         
                         
                 b = True
@@ -1246,15 +1275,15 @@ On Error GoTo ECancelar
         
             ModificaLineas = 0
             TerminaBloquear
-            Set mC = Nothing
+            Set Mc = Nothing
                 
             DataGrid1.AllowAddNew = False
            
             PonerDatosForaGrid True
             LLamaLineas2 0
-            NumRegElim = Data2.Recordset.AbsolutePosition
+            kCampo = Data2.Recordset.AbsolutePosition
             CargaGrid True
-            SituarDataPosicion Data2, NumRegElim, Me.lblIndicador.Caption
+            SituarDataPosicion Data2, CLng(kCampo), Me.lblIndicador.Caption
             'If Not Data4.Recordset.EOF Then PonerCamposAlmacenes2
                  
             
@@ -1272,7 +1301,7 @@ On Error GoTo ECancelar
             
             
             
-0            PonerBotonCabecera True
+            PonerBotonCabecera True
             PonerFocoBtn Me.cmdRegresar
         
         
@@ -1409,13 +1438,13 @@ Private Sub CargaGrid(enlaza As Boolean)
 Dim b As Boolean
 Dim i As Byte
 Dim Inicio As Byte
-Dim SQL As String
+Dim Sql As String
 On Error GoTo ECarga
 
     b = DataGrid1.Enabled
     
-    SQL = MontaSQLCarga(enlaza)
-    CargaGridGnral DataGrid1, Me.Data2, SQL, PrimeraVez
+    Sql = MontaSQLCarga(enlaza)
+    CargaGridGnral DataGrid1, Me.Data2, Sql, PrimeraVez
     
     DataGrid1.Columns(0).Caption = "Albaran"
     DataGrid1.Columns(0).Width = 1300
@@ -1558,7 +1587,20 @@ Private Sub mnEliminar_Click()
 End Sub
 
 Private Sub mnModificar_Click()
-    If BLOQUEADesdeFormulario(Me) Then BotonModificar
+Dim anc
+
+    If Modo = 5 Then
+        ModificaLineas = 2
+        PonerDatosForaGrid False
+        PonerBotonCabecera False
+        
+        anc = ObtenerAlto(DataGrid1, 20)
+        LLamaLineas2 CSng(anc)
+        PonerFoco Text3(1)
+
+    Else
+        If BLOQUEADesdeFormulario(Me) Then BotonModificar
+    End If
 End Sub
 
 Private Sub mnNuevo_Click()
@@ -1593,6 +1635,7 @@ End Sub
 
 Private Sub Text1_KeyPress(Index As Integer, KeyAscii As Integer)
         KEYpress KeyAscii
+        
 End Sub
 
 
@@ -1606,12 +1649,13 @@ Dim Tabla As String
         Case 0 'Codigo proveedor
             If PonerFormatoEntero(Text1(Index)) Then
                 Text2(Index).Text = PonerNombreDeCod(Text1(Index), conAri, "sprove", "nomprove")
+                If Text2(Index).Text = "" Then Text1(Index).Text = ""
             Else
                 Text2(Index).Text = ""
             End If
         
-        
-        
+        Case 2
+           
         Case 5, 6 'Pesos Dem momento entero
             If Text1(Index).Text <> "" Then
                  Text1(Index).Text = Replace(Text1(Index).Text, ".", "")
@@ -1637,7 +1681,7 @@ End Sub
 
 Private Sub Text3_LostFocus(Index As Integer)
 Dim CalcularTotales As Boolean
-Dim cad As String
+Dim Cad As String
 Dim i As Byte
 Dim L As Integer
 
@@ -1653,26 +1697,26 @@ Dim L As Integer
     Case 1
         'Producto BASE (OLIVA)
         If Text3(Index).Text = "" Then
-            cad = ""
+            Cad = ""
         Else
-            cad = "sartic.codfamia=sfamia.codfamia and codartic"
+            Cad = "sartic.codfamia=sfamia.codfamia and codartic"
             CadenaConsulta = "tipfamia"
-            cad = DevuelveDesdeBD(conAri, "nomartic", "sartic,sfamia ", cad, Text3(Index).Text, "T", CadenaConsulta)
-            If cad = "" Then
+            Cad = DevuelveDesdeBD(conAri, "nomartic", "sartic,sfamia ", Cad, Text3(Index).Text, "T", CadenaConsulta)
+            If Cad = "" Then
                 MsgBox "No existe el articulo: " & vbCrLf, vbExclamation
             Else
                 If CadenaConsulta <> "30" Then
                     MsgBox "Producto NO es oliva", vbExclamation
-                    cad = ""
+                    Cad = ""
                 End If
             End If
         End If
         i = 2
-        If cad = "" Then
+        If Cad = "" Then
             Text3(Index).Text = ""
             Text2(i).Text = ""
         Else
-            Text2(i).Text = cad
+            Text2(i).Text = Cad
         End If
         
     Case 7, 10, 13, 16
@@ -1680,14 +1724,14 @@ Dim L As Integer
         
           'Producto BASE (OLIVA)
         If Text3(Index).Text = "" Then
-            cad = ""
+            Cad = ""
             CadenaConsulta = ""
             If Index > 7 Then PonerFoco Text3(2)
         Else
-            cad = "sartic left join sarti4 on sartic.codartic=sarti4.codartic"
+            Cad = "sartic left join sarti4 on sartic.codartic=sarti4.codartic"
             CadenaConsulta = "pesobruto"
-            cad = DevuelveDesdeBD(conAri, "nomartic", cad, "sartic.codartic", Text3(Index).Text, "T", CadenaConsulta)
-            If cad = "" Then
+            Cad = DevuelveDesdeBD(conAri, "nomartic", Cad, "sartic.codartic", Text3(Index).Text, "T", CadenaConsulta)
+            If Cad = "" Then
                 MsgBox "No existe el articulo: " & vbCrLf, vbExclamation
                 CadenaConsulta = ""
             Else
@@ -1696,8 +1740,8 @@ Dim L As Integer
         End If
         
         i = IIf(Index = 7, 3, IIf(Index = 10, 4, IIf(Index = 13, 5, 6)))
-        If cad = "" Then Text3(Index).Text = ""
-        Text2(i).Text = cad
+        If Cad = "" Then Text3(Index).Text = ""
+        Text2(i).Text = Cad
                 
                 
         
@@ -1712,7 +1756,7 @@ Dim L As Integer
             Text3(Index).Text = Replace(Text3(Index).Text, ".", "")
             If Not PonerFormatoEntero(Text3(Index)) Then Text3(Index).Text = ""
         End If
-        i = IIf(i < 10, 1, IIf(i < 13, 2, IIf(i < 16, 3, 4)))
+        i = IIf(Index < 10, 1, IIf(Index < 13, 2, IIf(Index < 16, 3, 4)))
         CalcularLineaPesos CInt(i)
         CalcularTotales = True
         
@@ -1728,7 +1772,7 @@ Dim L As Integer
                 
         End If
         CalculoSobreTotales
-    Case 5, 19
+    Case 5, 19, 20
         '% Hoja y rendimiento
         If Text3(Index).Text <> "" Then
             If Not PonerFormatoDecimal(Text3(Index), 4) Then Text3(Index).Text = ""
@@ -1741,27 +1785,27 @@ End Sub
 Private Sub CalcularLineaPesos(linea As Integer)
 Dim Peso As Long
 
-Dim cad As String
+Dim Cad As String
 Dim K As Integer
     
-    K = IIf(linea = 1, 8, IIf(linea = 2, 10, IIf(linea = 12, 12, 14)))
+    K = IIf(linea = 1, 8, IIf(linea = 2, 11, IIf(linea = 3, 14, 17)))
     If Me.Text3(K).Text = "" Or Me.Text3(K + 1) = "" Then
-        cad = ""
+        Cad = ""
     Else
         Peso = Val(Replace(Text3(K).Text, ".", ""))
         K = Val(Replace(Text3(K + 1).Text, ".", ""))
         Peso = Peso * K
-        cad = Format(Peso, "#,##0")
+        Cad = Format(Peso, "#,##0")
     End If
-    Text2(linea + 6) = cad
+    Text2(linea + 6) = Cad
     
     Peso = 0
-    cad = ""
+    Cad = ""
     For K = 7 To 10
         If Text2(K).Text <> "" Then Peso = Peso + Val(Replace(Text2(K).Text, ".", ""))
     Next K
-    If Peso <> 0 Then cad = Format(Peso, "#,##0")
-    Text3(3).Text = cad
+    If Peso <> 0 Then Cad = Format(Peso, "#,##0")
+    Text3(3).Text = Cad
     
     CalculoSobreTotales
 End Sub
@@ -1819,19 +1863,38 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
             If Modo <> 2 Then Exit Sub
             If Data2.Recordset.EOF Then Exit Sub
             
-            If Button.Index = 11 Then
+            Select Case Button.Index
+            Case 11
                 CadenaDesdeOtroForm = Data1.Recordset!entrada & "|" & Text1(0).Text & " " & Text2(0).Text & "|"
-                frmListado2.opcion = 33
+                frmListado2.Opcion = 33
                 frmListado2.Show vbModal
                 CadenaDesdeOtroForm = ""
             
-            ElseIf Button.Index = 11 Then
-                If Data2.Recordset!EntradaFinalizada = 1 Then
+            Case 12
+                'Rendimientos
+            
+            
+            
+            Case 13
+                If Modo <> 2 Then Exit Sub
+                If Data2.Recordset.EOF Then Exit Sub
+                If Val(Data1.Recordset!EntradaFinalizada) = 1 Then
                     MsgBox "Albaranes YA generados!!", vbExclamation
                     Exit Sub
                 End If
-            End If
+                
+                CadenaDesdeOtroForm = Data1.Recordset!entrada
+                frmListado2.Opcion = 34
+                frmListado2.Show vbModal
+                If CadenaDesdeOtroForm <> "" Then
+                    'TerminaBloquear
+                    CadenaConsulta = "Select * from " & NombreTabla & " WHERE entrada=" & Text1(3).Text & Ordenacion
+                    Data1.Refresh
+                    PosicionarData2
+                    
+                End If
             
+            End Select
         Case 15  'Salir
             mnSalir_Click
         Case btnPrimero To btnPrimero + 3 'Flechas de Desplazamiento
@@ -1976,21 +2039,21 @@ Private Function MontaSQLCarga(enlaza As Boolean) As String
 ' Si ENLAZA -> Enlaza con el data1
 '           -> Si no lo cargamos sin enlazar a ningun campo
 '--------------------------------------------------------------------
-Dim SQL As String
+Dim Sql As String
     
-    SQL = "NumAlbar , codartic, codAlmac, bruto, tara, Neto, codartic, bruto, tara, Neto, rendimiento, PorcHoja,pesoprod,"
-    SQL = SQL & " codarti1,udArti1,pesoArti1,codarti2,udArti2,pesoArti2,"
-    SQL = SQL & " codarti3,udArti3,pesoArti3,codarti4,udArti4,pesoArti4"
+    Sql = "NumAlbar , codartic, codAlmac, bruto, tara, Neto, codartic, bruto, tara, Neto, rendimiento, PorcHoja,pesoprod,"
+    Sql = Sql & " codarti1,udArti1,pesoArti1,codarti2,udArti2,pesoArti2,"
+    Sql = Sql & " codarti3,udArti3,pesoArti3,codarti4,udArti4,pesoArti4,rdtoRea"
     
-    SQL = "SELECT " & SQL
-    SQL = SQL & " FROM vallentradacamionlineas"
+    Sql = "SELECT " & Sql
+    Sql = Sql & " FROM vallentradacamionlineas"
     If enlaza Then
-        SQL = SQL & " WHERE entrada=" & Data1.Recordset!entrada
+        Sql = Sql & " WHERE entrada=" & Data1.Recordset!entrada
     Else
-        SQL = SQL & " WHERE entrada = -1"
+        Sql = Sql & " WHERE entrada = -1"
     End If
-    SQL = SQL & " ORDER BY numalbar "
-    MontaSQLCarga = SQL
+    Sql = Sql & " ORDER BY numalbar "
+    MontaSQLCarga = Sql
 End Function
 
 
@@ -2074,7 +2137,7 @@ Private Sub BotonEliminar()
 End Sub
 
 Private Sub BotonEliminar2()
-Dim SQL As String
+Dim Sql As String
 
     'Ciertas comprobaciones
     If Data1.Recordset.EOF Then Exit Sub
@@ -2085,15 +2148,15 @@ Dim SQL As String
         Exit Sub
     End If
     
-    SQL = "Entrada camión." & vbCrLf
-    SQL = SQL & "--------------------------" & vbCrLf & vbCrLf
+    Sql = "Entrada camión." & vbCrLf
+    Sql = Sql & "--------------------------" & vbCrLf & vbCrLf
     
-    SQL = SQL & "Va a Eliminar la entrada de oliva:"
-    SQL = SQL & vbCrLf & "Fecha : " & Text1(7).Text
-    SQL = SQL & vbCrLf & "Proveedor : " & Text1(0).Text & " " & Text2(0).Text
+    Sql = Sql & "Va a eliminar la entrada de oliva:"
+    Sql = Sql & vbCrLf & "Fecha : " & Text1(7).Text
+    Sql = Sql & vbCrLf & "Proveedor : " & Text1(0).Text & " " & Text2(0).Text
     
-    SQL = SQL & vbCrLf & vbCrLf & "¿Desea continuar ? "
-    If MsgBox(SQL, vbQuestion + vbYesNoCancel) = vbYes Then
+    Sql = Sql & vbCrLf & vbCrLf & "¿Desea continuar ? "
+    If MsgBox(Sql, vbQuestion + vbYesNoCancel) = vbYes Then
         'Hay que eliminar
         On Error GoTo Error2
         NumRegElim = Data1.Recordset.AbsolutePosition
@@ -2131,10 +2194,10 @@ Private Sub BotonEliminarLinea()
     CadenaConsulta = CadenaConsulta & " AND numalbar = " & Data2.Recordset!NumAlbar
     If EjecutaSQL(conAri, CadenaConsulta, True) Then
         'Intento devolver contador
-        Set mC = New CTiposMov
-        mC.Leer "PES"
-        mC.DevolverContador mC.TipoMovimiento, CLng(Val(Data2.Recordset!NumAlbar))
-        Set mC = Nothing
+        Set Mc = New CTiposMov
+        Mc.Leer "PES"
+        Mc.DevolverContador Mc.TipoMovimiento, CLng(Val(Data2.Recordset!NumAlbar))
+        Set Mc = Nothing
     
         CargaGrid True
     End If
@@ -2142,18 +2205,18 @@ Private Sub BotonEliminarLinea()
 End Sub
 
 Private Function Eliminar() As Boolean
-Dim SQL As String
+Dim Sql As String
 On Error GoTo FinEliminar
         
         conn.BeginTrans
          
-        SQL = " WHERE entrada=" & Val(Data1.Recordset!entrada)
+        Sql = " WHERE entrada=" & Val(Data1.Recordset!entrada)
         
         'Lineas
-        conn.Execute "Delete  from vallentradacamionlineas " & SQL
+        conn.Execute "Delete  from vallentradacamionlineas " & Sql
         
         'Cabeceras
-        conn.Execute "Delete  from " & NombreTabla & SQL
+        conn.Execute "Delete  from " & NombreTabla & Sql
                       
 FinEliminar:
     If Err.Number <> 0 Then
@@ -2181,7 +2244,7 @@ On Error Resume Next
         Exit Function
     End If
     
-    
+
     
     
     DatosOk = True
@@ -2191,28 +2254,28 @@ End Function
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim cad As String
+Dim Cad As String
 Dim Tabla As String
 Dim Titulo As String
 
     'Llamamos a al form
-    cad = ""
+    Cad = ""
     'Estamos en Modo de Cabeceras
     'Registro de la tabla de cabeceras: slista
-    cad = cad & ParaGrid(Text1(0), 10, "Cliente")
-    cad = cad & "Nombre Cliente|sclien|nomclien|T||36·"
-    cad = cad & ParaGrid(Text1(1), 15, "Cod. Artic")
-    cad = cad & "Desc. Artic|sartic|nomartic|T||38·"
+    Cad = Cad & ParaGrid(Text1(0), 10, "Cliente")
+    Cad = Cad & "Nombre Cliente|sclien|nomclien|T||36·"
+    Cad = Cad & ParaGrid(Text1(1), 15, "Cod. Artic")
+    Cad = Cad & "Desc. Artic|sartic|nomartic|T||38·"
     
     Tabla = "(" & NombreTabla & " LEFT JOIN sclien ON " & NombreTabla & ".codclien=sclien.codclien" & ")"
     Tabla = Tabla & " LEFT JOIN sartic ON " & NombreTabla & ".codartic=sartic.codartic"
     
     Titulo = "Precios Especiales"
            
-    If cad <> "" Then
+    If Cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = cad
+        frmB.vCampos = Cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -2308,7 +2371,7 @@ End Sub
 
 Private Sub BotonActualizar()
 'Actualizar Precios Especiales
-Dim SQL As String
+Dim Sql As String
 
     If Data1.Recordset.EOF Then
         MsgBox "Ningún Precio Especial para actualizar.", vbExclamation
@@ -2317,14 +2380,14 @@ Dim SQL As String
     
     If Data2 Is Nothing Then Exit Sub
    
-    SQL = "Actualización Precios Especiales de Artículos." & vbCrLf
-    SQL = SQL & "---------------------------------------------" & vbCrLf & vbCrLf
+    Sql = "Actualización Precios Especiales de Artículos." & vbCrLf
+    Sql = Sql & "---------------------------------------------" & vbCrLf & vbCrLf
     
-    SQL = SQL & "Va a Actualizar el Precio Especial para:"
-    SQL = SQL & vbCrLf & " Cod. Clien. :  " & CStr(Format(Data1.Recordset.Fields(0), "000000"))
-    SQL = SQL & vbCrLf & " Cod. Artic. :  " & Data1.Recordset.Fields(1)
-    SQL = SQL & vbCrLf & vbCrLf & " ¿Desea continuar ? "
-    If MsgBox(SQL, vbQuestion + vbYesNoCancel) <> vbYes Then
+    Sql = Sql & "Va a Actualizar el Precio Especial para:"
+    Sql = Sql & vbCrLf & " Cod. Clien. :  " & CStr(Format(Data1.Recordset.Fields(0), "000000"))
+    Sql = Sql & vbCrLf & " Cod. Artic. :  " & Data1.Recordset.Fields(1)
+    Sql = Sql & vbCrLf & vbCrLf & " ¿Desea continuar ? "
+    If MsgBox(Sql, vbQuestion + vbYesNoCancel) <> vbYes Then
         Exit Sub
     End If
     
@@ -2339,7 +2402,7 @@ Private Function ActualizarPreEspecial() As Boolean
 'Actualiza los Precios Especiales insertando los precios actuales con la fecha de cambio en el hostórico
 ' y modificando el la tabla de precios especiales pasando los valores nuevos a ser los actuales.
 Dim Donde As String
-Dim SQL As String
+Dim Sql As String
 Dim bol As Boolean
 On Error GoTo EActualizarPreEspecial
     
@@ -2350,10 +2413,10 @@ On Error GoTo EActualizarPreEspecial
 
 EActualizarPreEspecial:
         If Err.Number <> 0 Then
-            SQL = "Actualizar Precio Especial." & vbCrLf & "----------------------------" & vbCrLf
-            SQL = SQL & Donde
+            Sql = "Actualizar Precio Especial." & vbCrLf & "----------------------------" & vbCrLf
+            Sql = Sql & Donde
 '            If OpcionActualizar = 1 Then
-                MuestraError Err.Number, SQL, Err.Description
+                MuestraError Err.Number, Sql, Err.Description
 '            Else
 '                SQL = Donde & " -> " & Err.Description
 '                SQL = Mid(SQL, 1, 200)
@@ -2392,13 +2455,13 @@ End Function
 
 Private Function ModificarCabecera() As Boolean
 'Modifica la tabla de cabeceras de Tarifas
-Dim SQL As String
+Dim Sql As String
 
     On Error Resume Next
 
-    SQL = "UPDATE " & NombreTabla & " SET precioac=precionu, precioa1=precion1, dtoespec=dtoespe1, fechanue=null, precionu=0, precion1=0"
-    SQL = SQL & " WHERE codclien=" & Data1.Recordset!CodClien & " AND codartic=" & DBSet(Data1.Recordset!codartic, "T")
-    conn.Execute SQL
+    Sql = "UPDATE " & NombreTabla & " SET precioac=precionu, precioa1=precion1, dtoespec=dtoespe1, fechanue=null, precionu=0, precion1=0"
+    Sql = Sql & " WHERE codclien=" & Data1.Recordset!CodClien & " AND codartic=" & DBSet(Data1.Recordset!codartic, "T")
+    conn.Execute Sql
     
     If Err.Number <> 0 Then
          'Hay error , almacenamos y salimos
@@ -2410,20 +2473,20 @@ End Function
 
 
 Private Function InsertarLineasHistorico() As Boolean
-Dim SQL As String
+Dim Sql As String
 Dim NumF As String
 On Error Resume Next
 
     'Obtenemos la siguiente numero de linea de tarifa
-    SQL = "codclien=" & Data1.Recordset!CodClien & " AND codartic=" & DBSet(Data1.Recordset!codartic, "T")
-    NumF = SugerirCodigoSiguienteStr("spree1", "numlinea", SQL)
+    Sql = "codclien=" & Data1.Recordset!CodClien & " AND codartic=" & DBSet(Data1.Recordset!codartic, "T")
+    NumF = SugerirCodigoSiguienteStr("spree1", "numlinea", Sql)
 
-    SQL = "INSERT INTO spree1 (codclien, codartic, numlinea, fechanue, precioac, precioa1, dtoespec)"
-    SQL = SQL & " VALUES (" & Data1.Recordset.Fields(0).Value & ", " & DBSet(Data1.Recordset.Fields(1).Value, "T") & ", "
-    SQL = SQL & NumF & ", " & DBSet(Text1(4).Text, "F") & ", "
-    SQL = SQL & DBSet(Data1.Recordset!precioac, "N") & ", " & DBSet(Data1.Recordset!precioa1, "N") & ", "
-    SQL = SQL & DBSet(Data1.Recordset!dtoespec, "N") & ") "
-    conn.Execute SQL
+    Sql = "INSERT INTO spree1 (codclien, codartic, numlinea, fechanue, precioac, precioa1, dtoespec)"
+    Sql = Sql & " VALUES (" & Data1.Recordset.Fields(0).Value & ", " & DBSet(Data1.Recordset.Fields(1).Value, "T") & ", "
+    Sql = Sql & NumF & ", " & DBSet(Text1(4).Text, "F") & ", "
+    Sql = Sql & DBSet(Data1.Recordset!precioac, "N") & ", " & DBSet(Data1.Recordset!precioa1, "N") & ", "
+    Sql = Sql & DBSet(Data1.Recordset!dtoespec, "N") & ") "
+    conn.Execute Sql
     
     If Err.Number <> 0 Then
         'Hay error , almacenamos y salimos
@@ -2445,18 +2508,14 @@ Private Sub PonerOpcionesMenu()
 End Sub
 
 
-Private Sub PosicionarData()
-Dim Indicador As String
+Private Sub PosicionarData2()
 Dim vWhere As String
 
-    vWhere = "(codclien=" & Text1(0).Text & " AND codartic=" & DBSet(Text1(1).Text, "T") & ")"
-    If SituarDataMULTI(Data1, vWhere, Indicador) Then
-        PonerModo 2
-        lblIndicador.Caption = Indicador
-    Else
-        LimpiarCampos
-        PonerModo 0
-    End If
+    vWhere = "entrada=" & Text1(3).Text
+    CadenaConsulta = "Select * from " & NombreTabla & Ordenacion
+    Data1.Refresh
+    Data1.Recordset.Find vWhere
+    PonerCampos
 End Sub
 
 Private Sub Neto()
@@ -2559,7 +2618,7 @@ Dim Limp As Boolean
         For i = 0 To Text3.Count - 1
             Text3(i).Text = ""
         Next i
-        For i = 1 To Text2.Count - 1
+        For i = 2 To Text2.Count - 1
             Text2(i).Text = ""
         Next i
        
@@ -2588,7 +2647,7 @@ Dim Limp As Boolean
         Text3(17).Text = DBLet(Data2.Recordset!codarti4, "T")
         Text3(18).Text = DBLet(Data2.Recordset!pesoArti4, "T")
         Text3(19).Text = DBLet(Data2.Recordset!rendimiento, "T")
-        
+        Text3(20).Text = DBLet(Data2.Recordset!rdtoRea, "T")
         
         
         
@@ -2613,8 +2672,9 @@ Dim K As Integer
             Text3(0).Left = DataGrid1.Columns(0).Left + 340
             Text3(0).Width = DataGrid1.Columns(0).Width
             Text3(0).Top = alto
+            
         End If
-        Text3(0).visible = b
+        Text3(0).visible = b And ModificaLineas = 1
          
         If b Then
             BloquearTxt Text3(0), True
@@ -2636,9 +2696,9 @@ Dim K As Integer
     
 End Sub
 'Para saber si un text 3 es editable, requerido...
-Private Function OpcionesText3(opcion As Byte, Indice As Integer) As Boolean
+Private Function OpcionesText3(Opcion As Byte, Indice As Integer) As Boolean
     
-    If opcion = 0 Then
+    If Opcion = 0 Then
         'Campos editables
         Select Case Indice
         Case 1, 2, 5, 7, 8, 10, 11, 13, 14, 16, 17
@@ -2646,7 +2706,7 @@ Private Function OpcionesText3(opcion As Byte, Indice As Integer) As Boolean
         Case Else
             OpcionesText3 = False
         End Select
-    ElseIf opcion = 1 Then
+    ElseIf Opcion = 1 Then
         'DAtosOK lin
         Select Case Indice
         Case 0, 2, 4, 6
@@ -2665,7 +2725,7 @@ Private Function OpcionesText3(opcion As Byte, Indice As Integer) As Boolean
     End If
 End Function
 
-Private Function BotonAnyadirLinea(DesdeInsercion As Boolean) As Boolean
+Private Function BotonAnyadirLinea(DesdeInsercion2 As Boolean) As Boolean
 Dim anc As Single
 Dim PrimeraLinea As Boolean
 
@@ -2680,7 +2740,7 @@ Dim PrimeraLinea As Boolean
             'Le quitamos lo que suman los anterior  tenemos el disponible
             anc = anc - Val(CadenaConsulta)
             If anc <= 0 Then
-                If Not DesdeInsercion Then
+                If Not DesdeInsercion2 Then
                     MsgBox "Carga excede de la capacidad total", vbExclamation
                 Else
                     Exit Function
@@ -2698,10 +2758,10 @@ Dim PrimeraLinea As Boolean
         LLamaLineas2 anc
         PonerFoco Text3(1)
         
-        Set mC = New CTiposMov
-        mC.Leer "PES"
+        Set Mc = New CTiposMov
+        Mc.Leer "PES"
         
-        Text3(0).Text = Format(mC.ConseguirContador(mC.TipoMovimiento), "00000")
+        Text3(0).Text = Format(Mc.ConseguirContador(Mc.TipoMovimiento), "00000")
         If NumRegElim > 0 Then Text3(2).Text = Format(NumRegElim, "#,##0")
         
        ' If vUsu.Login = "root" Then BloquearTxt Text3(0), False
@@ -2713,11 +2773,26 @@ Private Function DatosOkLinea() As Boolean
     
     DatosOkLinea = False
     CadenaDesdeOtroForm = ""
+    
+    
+    
+    
+            
+    
     For NumRegElim = 0 To Text3.Count - 1
+        
         If OpcionesText3(1, CInt(NumRegElim)) Then
             If Text3(NumRegElim).Text = "" Then
-                MsgBox "Campo requerido", vbExclamation
-                PonerFoco Text3(NumRegElim)
+                If NumRegElim = 0 And ModificaLineas = 2 Then
+                    CadenaConsulta = "NO"  'Modificando NO valor el numalbar
+                Else
+                    CadenaConsulta = ""
+                End If
+                If CadenaConsulta = "" Then
+                    MsgBox "Campo requerido", vbExclamation
+                    PonerFoco Text3(NumRegElim)
+                    Exit Function
+                End If
             End If
         End If
     Next
@@ -2739,6 +2814,22 @@ Private Function DatosOkLinea() As Boolean
         Exit Function
     End If
     
+    
+    '7, 10, 13, 16
+    For NumRegElim = 1 To 4
+        kCampo = CInt(RecuperaValor("7|10|13|16|", CInt(NumRegElim)))
+        If Text3(kCampo).Text <> "" Then
+            CadenaConsulta = DevuelveDesdeBD(conAri, "tipartic", "sartic", "codartic", Text3(kCampo).Text, "T")
+            If CadenaConsulta <> "31" Then
+                MsgBox "Articulos no es de palets: " & Text3(kCampo).Text, "T", vbExclamation
+                Exit Function
+            End If
+        End If
+    Next
+    
+    
+    
+    
     'Sumatorios
     DatosOkLinea = True
 End Function
@@ -2746,22 +2837,22 @@ End Function
 Private Function ColumnasSQL() As String
     ColumnasSQL = "NumAlbar , codartic,  bruto, tara, Neto,PorcHoja,pesoprod,  "
     ColumnasSQL = ColumnasSQL & "codarti1,udArti1,pesoArti1,codarti2,udArti2,pesoArti2,"
-    ColumnasSQL = ColumnasSQL & "codarti3,udArti3,pesoArti3,codarti4,udArti4,pesoArti4,rendimiento"
+    ColumnasSQL = ColumnasSQL & "codarti3,udArti3,pesoArti3,codarti4,udArti4,pesoArti4,rendimiento,rdtoRea"
 End Function
 
 Private Function InsertarModificarLinea() As Boolean
-Dim SQL As String
+Dim Sql As String
     
     CadenaConsulta = ColumnasSQL & "|"
     CadenaConsulta = Replace(CadenaConsulta, ",", "|")
-    SQL = ""
+    Sql = ""
 
     If ModificaLineas = 1 Then
         
         For NumRegElim = 0 To Text3.Count - 1
-            SQL = SQL & "," & RecuperaValor(CadenaConsulta, CInt(NumRegElim) + 1)
+            Sql = Sql & "," & RecuperaValor(CadenaConsulta, CInt(NumRegElim) + 1)
         Next
-        SQL = "INSERT INTO vallentradacamionlineas (entrada,codalmac" & SQL & ") VALUES (" & Text1(3).Text & ",1"
+        Sql = "INSERT INTO vallentradacamionlineas (entrada,codalmac" & Sql & ") VALUES (" & Text1(3).Text & ",1"
         
         CadenaConsulta = ""
         For NumRegElim = 0 To Text3.Count - 1
@@ -2775,17 +2866,18 @@ Dim SQL As String
                 CadenaDesdeOtroForm = DBSet(CadenaDesdeOtroForm, "N", IIf(OpcionesText3(1, CInt(NumRegElim)), "N", "S"))
             End If
 
-            SQL = SQL & "," & CadenaDesdeOtroForm
+            Sql = Sql & "," & CadenaDesdeOtroForm
             
         Next
-        SQL = SQL & ")"
+        Sql = Sql & ")"
     Else
         
         
-        CadenaConsulta = ""
-        SQL = ""
+        
+        Sql = ""
         For NumRegElim = 1 To Text3.Count - 1
             CadenaDesdeOtroForm = Text3(NumRegElim)
+                
             If OpcionesText3(2, CInt(NumRegElim)) Then
                'texto
                CadenaDesdeOtroForm = DBSet(CadenaDesdeOtroForm, "T", IIf(OpcionesText3(1, CInt(NumRegElim)), "N", "S"))
@@ -2794,14 +2886,15 @@ Dim SQL As String
                 CadenaDesdeOtroForm = Replace(CadenaDesdeOtroForm, ".", "")
                 CadenaDesdeOtroForm = DBSet(CadenaDesdeOtroForm, "N", IIf(OpcionesText3(1, CInt(NumRegElim)), "N", "S"))
             End If
-            SQL = SQL & ", " & RecuperaValor(CadenaConsulta, CInt(NumRegElim) + 1) & " = " & CadenaDesdeOtroForm
+            Sql = Sql & ", " & RecuperaValor(CadenaConsulta, CInt(NumRegElim) + 1) & " = " & CadenaDesdeOtroForm
             
         Next
-        SQL = Mid(SQL, 2)
-        SQL = "UPDATE vallentradacamionlineas SET " & SQL & " WHERE entrada =" & Data2.Recordset!entrada
+        Sql = Mid(Sql, 2)
+        Sql = "UPDATE vallentradacamionlineas SET " & Sql & " WHERE entrada =" & Data1.Recordset!entrada
+        Sql = Sql & " AND numalbar = " & Data2.Recordset!NumAlbar
         
         
     End If
     
-    InsertarModificarLinea = EjecutaSQL(conAri, SQL, True)
+    InsertarModificarLinea = EjecutaSQL(conAri, Sql, True)
 End Function

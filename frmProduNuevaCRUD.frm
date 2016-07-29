@@ -2023,7 +2023,7 @@ Private Sub cmdLinExtra_Click()
 
 
     CadenaDesdeOtroForm = Text1(14).Text & "|" & Text1(15).Text & "|"
-    frmListado2.Opcion = 31
+    frmListado2.opcion = 31
     frmListado2.Show vbModal
     
     If CadenaDesdeOtroForm <> "" Then
@@ -2582,7 +2582,7 @@ Dim VolumenProd As Currency
     If ListView2.ListItems.Count = 0 Then Exit Sub
     If ListView2.SelectedItem Is Nothing Then Exit Sub
     
-    If vUsu.Nivel > 0 Then Exit Sub
+    If vUsu.Nivel > 1 Then Exit Sub
     
     If Not (KeyAscii = 112 Or KeyAscii = 80) Then Exit Sub
     
@@ -2753,7 +2753,7 @@ Dim C2 As Currency
             End If
             
             SQL = SQL & Space(CLng(L))
-            SQL = SQL & "Lot:" & miRsAux!numLote & " / "
+            SQL = SQL & "Lot:" & miRsAux!NUmlote & " / "
             C2 = DBLet(miRsAux!cantutili, "N")
             If Int(C2) = C2 Then
                 SQL = SQL & Format(C2, "#,##0")
@@ -2887,7 +2887,7 @@ End Sub
 Private Sub ObtenerLoteAceiteDeposito(articulonecesario As String)
 Dim cad As String
 Dim Depo As Integer
-Dim b As Boolean
+Dim B As Boolean
 Dim I As Integer
 
         

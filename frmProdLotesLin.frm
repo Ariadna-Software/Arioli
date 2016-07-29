@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmProdLotesLin 
@@ -349,7 +349,7 @@ Option Explicit
 Public vIdProd As Long
 Public vCodAlmac As Integer
 Public vCantidad As Currency   'Cantidad de la linea de produccion
-Public vCodartic As String     'articulo para buscar en los lotes
+Public vCodArtic As String     'articulo para buscar en los lotes
 Public vCodarti2 As String     'articul2
 
     'insert into `sliordpr2lotes` (`codigo`,`codalmac`,`codartic`,`codarti2`,`linea`,`numlote`,`cantlote`)
@@ -452,7 +452,7 @@ Dim anc As Single
     'Obtenemos la siguiente numero de código de Marca
     Set miRsAux = New ADODB.Recordset
     CadenaConsulta = "select sum(cantlote) total ,max(linea) ultimo from sliordpr2lotes " & DevWHERE
-    miRsAux.Open CadenaConsulta, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open CadenaConsulta, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
     If miRsAux.EOF Then
         'NInugni, no hay ninguno
@@ -461,7 +461,7 @@ Dim anc As Single
         
     Else
         NumRegElim = DBLet(miRsAux!ultimo, "N")
-        Suma = DBLet(miRsAux!total, "N")
+        Suma = DBLet(miRsAux!Total, "N")
         
     End If
     miRsAux.Close
@@ -525,7 +525,7 @@ End Sub
 Private Sub BotonModificar()
 
 Dim anc As Single
-Dim i As Integer
+Dim I As Integer
 On Error GoTo EModificar
 
     If adodc1.Recordset.EOF Then Exit Sub
@@ -536,8 +536,8 @@ On Error GoTo EModificar
     Screen.MousePointer = vbHourglass
     
     If DataGrid1.Bookmark < DataGrid1.FirstRow Or DataGrid1.Bookmark > (DataGrid1.FirstRow + DataGrid1.VisibleRows - 1) Then
-        i = DataGrid1.Bookmark - DataGrid1.FirstRow
-        DataGrid1.Scroll 0, i
+        I = DataGrid1.Bookmark - DataGrid1.FirstRow
+        DataGrid1.Scroll 0, I
         DataGrid1.Refresh
     End If
     
@@ -558,13 +558,13 @@ EModificar:
 End Sub
 
 Private Function TotalLineas() As Currency
-Dim Cad As String
-    Cad = DevWHERE
-    Cad = Mid(Cad, 8)
-    Cad = Cad & " AND 1 "
-    Cad = DevuelveDesdeBD(conAri, "sum(cantlote)", "sliordpr2lotes", Cad, "1")
-    If Cad = "" Then Cad = "0"
-    TotalLineas = CCur(Cad)
+Dim cad As String
+    cad = DevWHERE
+    cad = Mid(cad, 8)
+    cad = cad & " AND 1 "
+    cad = DevuelveDesdeBD(conAri, "sum(cantlote)", "sliordpr2lotes", cad, "1")
+    If cad = "" Then cad = "0"
+    TotalLineas = CCur(cad)
 End Function
 
 
@@ -598,8 +598,8 @@ On Error GoTo Error2
         'Hay que eliminar
         NumRegElim = Me.adodc1.Recordset.AbsolutePosition
         SQL = DevWHERE
-        SQL = "Delete FROM sliordpr2lotes " & SQL & " AND linea = " & adodc1.Recordset!Linea
-        Conn.Execute SQL
+        SQL = "Delete FROM sliordpr2lotes " & SQL & " AND linea = " & adodc1.Recordset!linea
+        conn.Execute SQL
         CancelaADODC adodc1
         CargaGrid
         CancelaADODC Me.adodc1
@@ -613,7 +613,7 @@ End Sub
 
 
 Private Sub cmdAceptar_Click()
-Dim i As Integer
+Dim I As Integer
 Dim cadB As String
 On Error Resume Next
 
@@ -632,11 +632,11 @@ On Error Resume Next
                 
                 If InsertarModificar_() Then
                     TerminaBloquear
-                    i = adodc1.Recordset.Fields(0)
+                    I = adodc1.Recordset.Fields(0)
                     PonerModo 2
                     CancelaADODC Me.adodc1
                     CargaGrid
-                    adodc1.Recordset.Find (adodc1.Recordset.Fields(0).Name & " =" & i)
+                    adodc1.Recordset.Find (adodc1.Recordset.Fields(0).Name & " =" & I)
                 End If
                 DataGrid1.SetFocus
             End If
@@ -839,11 +839,11 @@ End Sub
 Private Function DevWHERE() As String
     '(`codigo`,`codalmac`,`codartic
     DevWHERE = " where codigo=" & Me.vIdProd & " AND codalmac =" & Me.vCodAlmac
-    DevWHERE = DevWHERE & " AND codartic =" & DBSet(vCodartic, "T") & " AND codarti2 =" & DBSet(vCodarti2, "T")
+    DevWHERE = DevWHERE & " AND codartic =" & DBSet(vCodArtic, "T") & " AND codarti2 =" & DBSet(vCodarti2, "T")
 End Function
 
 Private Sub CargaGrid()
-Dim i As Byte
+Dim I As Byte
 Dim b As Boolean
 Dim SQL As String
     b = DataGrid1.Enabled
@@ -861,15 +861,15 @@ Dim SQL As String
     
     DataGrid1.Columns(0).visible = False
     
-    i = 1
-        DataGrid1.Columns(i).Caption = "Lote PREENVASADO"
-        DataGrid1.Columns(i).Width = 2800
+    I = 1
+        DataGrid1.Columns(I).Caption = "Lote PREENVASADO"
+        DataGrid1.Columns(I).Width = 2800
         
-    i = 2
-        DataGrid1.Columns(i).Caption = "Cantidad"
-        DataGrid1.Columns(i).Width = 1200
-        DataGrid1.Columns(i).NumberFormat = FormatoCantidad
-        DataGrid1.Columns(i).Alignment = dbgRight
+    I = 2
+        DataGrid1.Columns(I).Caption = "Cantidad"
+        DataGrid1.Columns(I).Width = 1200
+        DataGrid1.Columns(I).NumberFormat = FormatoCantidad
+        DataGrid1.Columns(I).Alignment = dbgRight
     
 
             
@@ -890,9 +890,9 @@ Dim SQL As String
     End If
    
    'No permitir cambiar tamaño de columnas
-   For i = 0 To DataGrid1.Columns.Count - 1
-        DataGrid1.Columns(i).AllowSizing = False
-   Next i
+   For I = 0 To DataGrid1.Columns.Count - 1
+        DataGrid1.Columns(I).AllowSizing = False
+   Next I
    
     'Habilitamos botones Modificar y Eliminar
    If Toolbar1.Buttons(6).Enabled = True Then
@@ -1016,7 +1016,7 @@ End Function
 
 
 'Si idPartida <0 entonces estoy insertando a mano
-Private Function InsertarModificar(Lote As String, Cantidad As String, Linea As Integer) As Boolean
+Private Function InsertarModificar(Lote As String, Cantidad As String, linea As Integer) As Boolean
 Dim SQL As String
 Dim Leido As Boolean
 Dim Can As Currency
@@ -1029,16 +1029,16 @@ Dim Can As Currency
     
     If Modo = 3 Then
         SQL = "INSERT INTO `sliordpr2lotes` (`codigo`,`codalmac`,`codartic`,`codarti2`,`linea`,`numlote`,`cantlote`) values ("
-        SQL = SQL & Me.vIdProd & "," & Me.vCodAlmac & ",'" & Me.vCodartic & "','" & Me.vCodarti2 & "',"
-        SQL = SQL & Linea & ",'" & DevNombreSQL(Lote) & "'," & DBSet(Cantidad, "N") & ")"
+        SQL = SQL & Me.vIdProd & "," & Me.vCodAlmac & ",'" & Me.vCodArtic & "','" & Me.vCodarti2 & "',"
+        SQL = SQL & linea & ",'" & DevNombreSQL(Lote) & "'," & DBSet(Cantidad, "N") & ")"
     Else
         'Modificar
 
         SQL = "UPDATE sliordpr2lotes SET numlote = '" & DevNombreSQL(Lote) & "' "
         SQL = SQL & ", cantlote = " & DBSet(Cantidad, "N") & " " & DevWHERE
-        SQL = SQL & " AND linea = " & Linea
+        SQL = SQL & " AND linea = " & linea
     End If
-    Conn.Execute SQL
+    conn.Execute SQL
     InsertarModificar = True
     
     Exit Function
@@ -1053,44 +1053,63 @@ End Function
 
 Private Function buscarNumerosLotes() As Boolean
 Dim Rc As Byte
-Dim CL As Collection
+Dim cL As Collection
 Dim Par As cPartidas
-Dim Cad As String
-Dim i As Integer
+Dim cad As String
+Dim I As Integer
 
+
+    
+
+    
     buscarNumerosLotes = False
     Set Par = New cPartidas
-    Rc = Par.RecuperarLotes(Me.vCodarti2, vCodAlmac, vCantidad, CL)
+    
+    I = 1
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        'Si es asignar lote al aceite, debeb venir del deposito 18
+        cad = DevuelveDesdeBD(conAri, "factorconversion", "sartic", "codartic", vCodarti2, "T")
+        If CCur(cad) <> 1 Then I = 0
+    End If
+    
+    If I = 1 Then
+        'El normal
+        Rc = Par.RecuperarLotes(Me.vCodarti2, vCodAlmac, vCantidad, cL)
+    Else
+        'La vall
+        Rc = Par.RecuperarLotesprodVall(Me.vCodarti2, vCodAlmac, vCantidad, cL)
+    End If
+   
     Set Par = Nothing
     If Rc = 2 Then
         'Error. NO hay ningun numero de lote para el articulo/almacen 003800431513
         
     Else
         'Mensajito
-        Cad = ""
-        For i = 1 To CL.Count
-            Suma = RecuperaValor(CL(i), 2)
-            Cad = Cad & RecuperaValor(CL(i), 3) & Space(10) & Format(Suma, FormatoCantidad) & vbCrLf
-        Next i
+        cad = ""
+        For I = 1 To cL.Count
+            Suma = RecuperaValor(cL(I), 2)
+            cad = cad & RecuperaValor(cL(I), 3) & Space(10) & Format(Suma, FormatoCantidad) & vbCrLf
+        Next I
         Suma = 0
-        Cad = "Asignar los siguientes numeros de lote de preembasado: " & vbCrLf & vbCrLf & Cad & vbCrLf
-        If MsgBox(Cad, vbQuestion + vbYesNo) = vbNo Then Exit Function
+        cad = "Asignar los siguientes numeros de lote de preembasado: " & vbCrLf & vbCrLf & cad & vbCrLf
+        If MsgBox(cad, vbQuestion + vbYesNo) = vbNo Then Exit Function
             
         
         'Si que vamos a asignar los numeros de lote
         Modo = 3
-        For i = 1 To CL.Count
-            Cad = RecuperaValor(CL(i), 1)
-            NumRegElim = CLng(Cad)
+        For I = 1 To cL.Count
+            cad = RecuperaValor(cL(I), 1)
+            NumRegElim = CLng(cad)
             Set Par = New cPartidas
             If Not Par.Leer(NumRegElim) Then
                 MsgBox "Error insesperado leyendo partidas", vbExclamation
             Else
-                Cad = RecuperaValor(CL(i), 3)
-                Suma = RecuperaValor(CL(i), 2)
-                InsertarModificar Cad, CStr(Suma), i
+                cad = RecuperaValor(cL(I), 3)
+                Suma = RecuperaValor(cL(I), 2)
+                InsertarModificar cad, CStr(Suma), I
             End If
-        Next i
+        Next I
         Suma = 0
         Modo = 2
         If Rc = 1 Then

@@ -28,7 +28,7 @@ Private mKilos As Currency
 Private mLote As String
 Private midPartida As Long
 
-Dim SQL As String
+Dim Sql As String
 '------------------------------------------------
 'Propiedades del modulo CArticulo
 '------------------------------------------------
@@ -70,12 +70,12 @@ End Property
 
 
 '**** Lote mlote
-Public Property Let numLote(ByVal vData As String)
+Public Property Let NUmlote(ByVal vData As String)
      mLote = vData
 End Property
 
-Public Property Get numLote() As String
-     numLote = mLote
+Public Property Get NUmlote() As String
+     NUmlote = mLote
 End Property
 
 
@@ -94,41 +94,41 @@ Public Function LeerDatos(NumeroDeposito As Integer, OcutltarMsgbox As Boolean) 
 'Leer los datos de un Articulo dado
 'Lee de la BD: Ariges, Tabla: sartic
 'OUT: True si lee los datos correctamente
-Dim RS As ADODB.Recordset
-Dim SQL As String
+Dim Rs As ADODB.Recordset
+Dim Sql As String
 
     On Error GoTo ELeer
     LeerDatos = False
     
-    SQL = "SELECT numDeposito,Capacidad,kilos,Numlote ,partida"
-    SQL = SQL & " FROM proddepositos "
-    SQL = SQL & " WHERE numDeposito=" & CStr(NumeroDeposito)
+    Sql = "SELECT numDeposito,Capacidad,kilos,Numlote ,partida"
+    Sql = Sql & " FROM proddepositos "
+    Sql = Sql & " WHERE numDeposito=" & CStr(NumeroDeposito)
     
-    Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Set Rs = New ADODB.Recordset
+    Rs.Open Sql, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
 
-    If RS.EOF Then
+    If Rs.EOF Then
         LeerDatos = False
     Else
-        mNumDeposito = CStr(RS!NumDeposito)
+        mNumDeposito = CStr(Rs!NumDeposito)
         
-        mCapacidad = RS!Capacidad
-        mKilos = DBLet(RS!Kilos, "N")
-        mLote = DBLet(RS!numLote, "T")
-        midPartida = DBLet(RS!Partida, "N") 'Puede ser null o cero
+        mCapacidad = Rs!Capacidad
+        mKilos = DBLet(Rs!Kilos, "N")
+        mLote = DBLet(Rs!NUmlote, "T")
+        midPartida = DBLet(Rs!Partida, "N") 'Puede ser null o cero
         LeerDatos = True
     End If
 
-    RS.Close
-    Set RS = Nothing
+    Rs.Close
+    Set Rs = Nothing
     Exit Function
 
 ELeer:
-    SQL = "Se ha producido un error. " & "Datos deposito" & vbCrLf
-    SQL = SQL & "Número: " & Err.Number & vbCrLf
-    SQL = SQL & "Descripción: " & Err.Description
-    If Not OcutltarMsgbox Then MsgBox SQL, vbExclamation
-    Set RS = Nothing
+    Sql = "Se ha producido un error. " & "Datos deposito" & vbCrLf
+    Sql = Sql & "Número: " & Err.Number & vbCrLf
+    Sql = Sql & "Descripción: " & Err.Description
+    If Not OcutltarMsgbox Then MsgBox Sql, vbExclamation
+    Set Rs = Nothing
     LeerDatos = False
 End Function
 
@@ -144,13 +144,13 @@ End Function
 
 
 Public Function InsertarEnDeposito(Accion As Byte) As Boolean
-    SQL = "UPDATE proddepositos SET Kilos = " & DBSet(mKilos, "N")
+    Sql = "UPDATE proddepositos SET Kilos = " & DBSet(mKilos, "N")
     'Litros = " & DBSet(mLitros, "N")
-    SQL = SQL & ", numlote = " & DBSet(mLote, "T")
-    SQL = SQL & ", partida = " & midPartida
-    SQL = SQL & " WHERE numDeposito=" & CStr(mNumDeposito)
+    Sql = Sql & ", numlote = " & DBSet(mLote, "T")
+    Sql = Sql & ", partida = " & midPartida
+    Sql = Sql & " WHERE numDeposito=" & CStr(mNumDeposito)
     
-    InsertarEnDeposito = EjecutaSQL(1, SQL, True)
+    InsertarEnDeposito = EjecutaSQL(1, Sql, True)
     
     'DEsde Filtrado llamamos a esta funcion. Pero no queremos que inserte en hco
     If Kilos <> 0 Then InsertarEnHco Accion
@@ -162,10 +162,10 @@ End Function
 
 'CodigoInsercioHco: 0 NO    1: Coupage  2: Forzar vaciado
 Public Function QuitarAsignacionDeposito_(CodigoInsercioHco As Byte) As Boolean
-    SQL = "UPDATE proddepositos SET Kilos = 0, numlote = NULL,Litros=NULL,Partida=NULL"
-    SQL = SQL & " WHERE numDeposito=" & CStr(mNumDeposito)
+    Sql = "UPDATE proddepositos SET Kilos = 0, numlote = NULL,Litros=NULL,Partida=NULL"
+    Sql = Sql & " WHERE numDeposito=" & CStr(mNumDeposito)
 
-    QuitarAsignacionDeposito_ = EjecutaSQL(1, SQL, True)
+    QuitarAsignacionDeposito_ = EjecutaSQL(1, Sql, True)
         
         
     If CodigoInsercioHco > 0 Then
@@ -185,10 +185,10 @@ End Function
 Public Function VariacionKilosDeposito(Variacion As Currency) As Boolean
     
     Kilos = Kilos + Variacion
-    SQL = "UPDATE proddepositos SET Kilos= " & DBSet(Kilos, "N")
-    SQL = SQL & " WHERE numDeposito=" & CStr(mNumDeposito)
+    Sql = "UPDATE proddepositos SET Kilos= " & DBSet(Kilos, "N")
+    Sql = Sql & " WHERE numDeposito=" & CStr(mNumDeposito)
     
-    VariacionKilosDeposito = EjecutaSQL(1, SQL, True)
+    VariacionKilosDeposito = EjecutaSQL(1, Sql, True)
         
 End Function
 
@@ -197,7 +197,7 @@ End Function
 Public Function HacerTrasiego(ByRef cDest As cDeposito)
     cDest.Kilos = Me.Kilos
     cDest.idPartida = Me.idPartida
-    cDest.numLote = Me.numLote
+    cDest.NUmlote = Me.NUmlote
     
     'Insertamos en hoc la entrada en deposito nuevo
     cDest.InsertarEnDeposito 3
@@ -213,33 +213,33 @@ End Function
 ' Es decir , deposito vacios/llenos
 ' y si ultiza los intermedios tambien
 Public Function HacerFiltrado(ByRef cDest As cDeposito, UtilizaIntermedio8 As Boolean, UtilizaIntermedio9 As Boolean, idFiltrado As Long, FechaHoraProceso As Date)
-Dim aux As String
+Dim Aux As String
 
 
 
-    aux = "Filtrado: " & Format(idFiltrado, "000")
+    Aux = "Filtrado: " & Format(idFiltrado, "000")
 
     'Salida de este deposito
-    InsertarFiltradoHco Me.NumDeposito, 9, aux, FechaHoraProceso
+    InsertarFiltradoHco Me.NumDeposito, 9, Aux, FechaHoraProceso
 
     'Si se utilizan intermedios, insertaremos en HCO de depositos, uno de entrada y otro de salida 8separados un seg
     If UtilizaIntermedio8 Then
         'DEPOSITO 8
         'Entrada
-        InsertarFiltradoHco 8, 8, aux, FechaHoraProceso
+        InsertarFiltradoHco 8, 8, Aux, FechaHoraProceso
         
         'Salida
-        InsertarFiltradoHco 8, 9, aux, FechaHoraProceso
+        InsertarFiltradoHco 8, 9, Aux, FechaHoraProceso
         
     End If
     'Si se utilizan intermedios, insertaremos en HCO de depositos, uno de entrada y otro de salida 8separados un seg
     If UtilizaIntermedio9 Then
         'DEPOSITO 9
         'Entrada
-        InsertarFiltradoHco 9, 8, aux, FechaHoraProceso
+        InsertarFiltradoHco 9, 8, Aux, FechaHoraProceso
         
         'Salida
-        InsertarFiltradoHco 9, 9, aux, FechaHoraProceso
+        InsertarFiltradoHco 9, 9, Aux, FechaHoraProceso
     End If
 
 
@@ -249,10 +249,10 @@ Dim aux As String
     'Insertamos en hoc la entrada en deposito nuevo
     'Por culpa de la fecha HORA
     cDest.idPartida = Me.idPartida
-    cDest.numLote = Me.numLote
+    cDest.NUmlote = Me.NUmlote
     cDest.Kilos = 0
     cDest.InsertarEnDeposito 0
-    InsertarFiltradoHco cDest.NumDeposito, 8, aux, FechaHoraProceso
+    InsertarFiltradoHco cDest.NumDeposito, 8, Aux, FechaHoraProceso
     cDest.VariacionKilosDeposito Me.Kilos
     
     QuitarAsignacionDeposito_ 0  'Lo inserto enhco aqui bajo
@@ -275,14 +275,15 @@ End Function
 '   7 .- Forzar vaciado
 '   8 .- FIltrado entrada
 '   9 .-   "    salida
+'  10 .- Moltruaracion almazar
 Public Function InsertarEnHco(Accion As Byte, Optional LaDescripcion As String)
 
     'proddepositoshco(numDeposito,horamovi,Partida,Numlote,tipoaccion)
-    SQL = "INSERT INTO proddepositoshco(numDeposito,horamovi,Partida,Numlote,tipoaccion,Descripcion)"
-    SQL = SQL & " VALUES (" & mNumDeposito & "," & DBSet(Now, "FH") & "," & midPartida
-    SQL = SQL & "," & DBSet(mLote, "T") & "," & Accion & "," & DBSet(LaDescripcion, "T", "S") & ")"
+    Sql = "INSERT INTO proddepositoshco(numDeposito,horamovi,Partida,Numlote,tipoaccion,Descripcion)"
+    Sql = Sql & " VALUES (" & mNumDeposito & "," & DBSet(Now, "FH") & "," & midPartida
+    Sql = Sql & "," & DBSet(mLote, "T") & "," & Accion & "," & DBSet(LaDescripcion, "T", "S") & ")"
     
-    EjecutaSQL conAri, SQL, True
+    EjecutaSQL conAri, Sql, True
 End Function
 
 'Para los filtrados
@@ -290,11 +291,11 @@ End Function
 Private Function InsertarFiltradoHco(Depos As Integer, Tipoac As Byte, LaDescripcion As String, ByRef FechaH As Date)
 
     'proddepositoshco(numDeposito,horamovi,Partida,Numlote,tipoaccion)
-    SQL = "INSERT INTO proddepositoshco(numDeposito,horamovi,Partida,Numlote,tipoaccion,Descripcion)"
-    SQL = SQL & " VALUES (" & Depos & "," & DBSet(FechaH, "FH") & "," & midPartida
-    SQL = SQL & "," & DBSet(mLote, "T") & "," & Tipoac & "," & DBSet(LaDescripcion, "T", "S") & ")"
+    Sql = "INSERT INTO proddepositoshco(numDeposito,horamovi,Partida,Numlote,tipoaccion,Descripcion)"
+    Sql = Sql & " VALUES (" & Depos & "," & DBSet(FechaH, "FH") & "," & midPartida
+    Sql = Sql & "," & DBSet(mLote, "T") & "," & Tipoac & "," & DBSet(LaDescripcion, "T", "S") & ")"
     
-    EjecutaSQL conAri, SQL, True
+    EjecutaSQL conAri, Sql, True
     
     'Incrementamos un segundo
     FechaH = DateAdd("s", 1, FechaH)

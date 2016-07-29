@@ -914,7 +914,7 @@ End Sub
 
 Private Sub cmdRegresar_Click()
 'Este es el boton Cabecera
-Dim cad As String
+Dim Cad As String
 
     'Quitar lineas y volver a la cabecera
     If Modo = 5 Then  'modo 5: Mantenimientos Lineas
@@ -933,7 +933,7 @@ Dim cad As String
         End If
         'cad = Data1.Recordset.Fields(0) & "|"
         'cad = cad & Data1.Recordset.Fields(1) & "|"
-        cad = Data1.Recordset.Fields(0)
+        Cad = Data1.Recordset.Fields(0)
        ' RaiseEvent DatoSeleccionado2(cad)
         Unload Me
     End If
@@ -1011,7 +1011,7 @@ Private Sub Form_Load()
     Data1.Refresh
     
     
-
+    cmdPesos.visible = vParamAplic.QUE_EMPRESA = 1
 
     'Cargar el DataGrid de lineas de Revisiones inicialmente a nada DATA2
     PrimeraVez = True
@@ -1295,19 +1295,19 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim cad As String
+Dim Cad As String
 Dim Tabla As String
 Dim Titulo As String
 Dim Desc As String, Devuelve As String
     'Llamamos a al form
     '##A mano
-    cad = ""
+    Cad = ""
     
-        cad = cad & ParaGrid(Text1(0), 15, "Id partida")
+        Cad = Cad & ParaGrid(Text1(0), 15, "Id partida")
         
-        cad = cad & ParaGrid(Text1(5), 15, "LOTE ")
-        cad = cad & ParaGrid(Text1(2), 20, "Articulo")
-        cad = cad & "Descripcion|sartic|nomartic|T||40·"
+        Cad = Cad & ParaGrid(Text1(5), 15, "LOTE ")
+        Cad = Cad & ParaGrid(Text1(2), 20, "Articulo")
+        Cad = Cad & "Descripcion|sartic|nomartic|T||40·"
         Tabla = NombreTabla & " inner join sartic on " & NombreTabla & ".codartic = sartic.codartic"
         
         Titulo = "Coupages"
@@ -1316,10 +1316,10 @@ Dim Desc As String, Devuelve As String
    
     
            
-    If cad <> "" Then
+    If Cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = cad
+        frmB.vCampos = Cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -1391,7 +1391,7 @@ Dim T1 As Single
     Set Cp = New cPartidas
     If Cp.Leer(CLng(Data1.Recordset!ID)) Then
         Text1(0).Text = Cp.idPartida
-        Text1(5).Text = Cp.numLote
+        Text1(5).Text = Cp.NUmlote
         Text1(1).Text = Cp.Fecha
         Text1(2).Text = Cp.codartic
         Text1(4).Text = Cp.codAlmac
@@ -1402,10 +1402,12 @@ Dim T1 As Single
         conn.Execute "Delete from tmppartidas where codusu = " & vUsu.Codigo
         Cp.CargaDatosParaListar
         
-        Cp.LeerDatosPesajes
-        If Cp.Desviacion <> 0 Or Cp.PesoMedio <> 0 Then
-            Text2(2).Text = Format(Cp.PesoMedio, FormatoPrecio)
-            Text2(4).Text = Format(Cp.Desviacion, FormatoPrecio)
+        If vParamAplic.QUE_EMPRESA = 1 Then
+            Cp.LeerDatosPesajes
+            If Cp.Desviacion <> 0 Or Cp.PesoMedio <> 0 Then
+                Text2(2).Text = Format(Cp.PesoMedio, FormatoPrecio)
+                Text2(4).Text = Format(Cp.Desviacion, FormatoPrecio)
+            End If
         End If
         
         'Para que cuando vaya mas lento no de la impresion..
@@ -1445,7 +1447,7 @@ End Sub
 '   En PONERMODO se habilitan, o no, los diverso campos del
 '   formulario en funcion del modo en k vayamos a trabajar
 Private Sub PonerModo(Kmodo As Byte)
-Dim I As Byte, NumReg As Byte
+Dim i As Byte, NumReg As Byte
 Dim b As Boolean
 
     On Error GoTo EPonerModo
@@ -1485,8 +1487,8 @@ Dim b As Boolean
     BloquearTxt Text1(0), b, True
 
     b = Modo = 0 Or Modo = 2 Or Modo >= 5
-    For I = 1 To 7
-        BloquearTxt Text1(I), b
+    For i = 1 To 7
+        BloquearTxt Text1(i), b
     Next
     BloquearTxt Text1(8), True  'siempre bloqueado
 
@@ -1496,9 +1498,9 @@ Dim b As Boolean
 
     imgFecha(0).visible = b
      
-    For I = 0 To Me.imgCuentas.Count - 1
-        imgCuentas(I).visible = b
-    Next I
+    For i = 0 To Me.imgCuentas.Count - 1
+        imgCuentas(i).visible = b
+    Next i
 
 
     Me.chkVistaPrevia.Enabled = (Modo <= 2)
@@ -1652,14 +1654,14 @@ Private Sub CargaGrid(enlaza As Boolean)
 'IN: enlaza= si carga el grid con valores de la tabla o lo muestra vacio si no enlaza
 '    conServidas=si enlaza, se muestra la columna de servidas solo cuando se va a generar el Albaran no completo
 Dim b As Boolean
-Dim SQL As String
+Dim Sql As String
 
     On Error GoTo ECargaGrid
 
     b = DataGrid1.Enabled
     
-    SQL = MontaSQLCarga(enlaza)
-    CargaGridGnral DataGrid1, Me.Data2, SQL, PrimeraVez
+    Sql = MontaSQLCarga(enlaza)
+    CargaGridGnral DataGrid1, Me.Data2, Sql, PrimeraVez
     
 
     
@@ -1722,7 +1724,7 @@ End Sub
 
 
 Private Sub CargaGrid2()
-Dim I As Byte
+Dim i As Byte
 
     On Error GoTo ECargaGrid
 
@@ -1758,10 +1760,10 @@ Dim I As Byte
              
     
 
-    For I = 0 To DataGrid1.Columns.Count - 1
-        DataGrid1.Columns(I).Locked = True
-        DataGrid1.Columns(I).AllowSizing = False
-    Next I
+    For i = 0 To DataGrid1.Columns.Count - 1
+        DataGrid1.Columns(i).Locked = True
+        DataGrid1.Columns(i).AllowSizing = False
+    Next i
     DataGrid1.HoldFields
     Exit Sub
 ECargaGrid:
@@ -1824,12 +1826,12 @@ End Sub
 
 Private Function ObtenerWhereCP() As String
 'Obtiene la where de la Clave Primaria de la tabla de Cabecera: scaped
-Dim SQL As String
+Dim Sql As String
 
     On Error Resume Next
     
-    SQL = NombreTabla & ".codigo= " & Val(Text1(0).Text)
-    ObtenerWhereCP = SQL
+    Sql = NombreTabla & ".codigo= " & Val(Text1(0).Text)
+    ObtenerWhereCP = Sql
     
     If Err.Number <> 0 Then Err.Clear
 End Function
@@ -1844,19 +1846,19 @@ Private Function MontaSQLCarga(enlaza As Boolean) As String
 ' Si ENLAZA -> Enlaza con el data2
 '           -> Si no lo cargamos sin enlazar a ningun campo
 '--------------------------------------------------------------------
-Dim SQL As String
+Dim Sql As String
     
-    SQL = "SELECT `fecha`,`idOperacion`,`idNumOperacion`,`idReferencia`,`Referencia`,"
-    SQL = SQL & " if(cantidad<0,""S"",""E""),"
-    SQL = SQL & "abs_cantidad from tmppartidas"
-    SQL = SQL & " WHERE codusu = " & vUsu.Codigo & " AND idpartida =  "
+    Sql = "SELECT `fecha`,`idOperacion`,`idNumOperacion`,`idReferencia`,`Referencia`,"
+    Sql = Sql & " if(cantidad<0,""S"",""E""),"
+    Sql = Sql & "abs_cantidad from tmppartidas"
+    Sql = Sql & " WHERE codusu = " & vUsu.Codigo & " AND idpartida =  "
     If enlaza Then
-        SQL = SQL & Data1.Recordset!ID
+        Sql = Sql & Data1.Recordset!ID
     Else
-        SQL = SQL & " -1"
+        Sql = Sql & " -1"
     End If
-    SQL = SQL & " Order by fecha desc,idNumOperacion desc"
-    MontaSQLCarga = SQL
+    Sql = Sql & " Order by fecha desc,idNumOperacion desc"
+    MontaSQLCarga = Sql
 End Function
 
 
@@ -1932,15 +1934,15 @@ End Sub
 
 
 Private Sub ActualizarPartidas()
-Dim SQL As String
+Dim Sql As String
     If Text1(7).Text <> Text1(8).Text Then
         If MsgBox("¿Actualizar cantidad lote?", vbQuestion + vbYesNo) = vbYes Then
-            SQL = Text1(8).Text
-            If SQL = "" Then SQL = "0"
-            SQL = CStr(ImporteFormateado(SQL))
-            SQL = "UPDATE spartidas set cantotal=" & TransformaComasPuntos(CStr(SQL))
-            SQL = SQL & " WHERE id=" & Text1(0).Text
-            If EjecutaSQL(conAri, SQL, True) Then Text1(7).Text = Text1(8).Text
+            Sql = Text1(8).Text
+            If Sql = "" Then Sql = "0"
+            Sql = CStr(ImporteFormateado(Sql))
+            Sql = "UPDATE spartidas set cantotal=" & TransformaComasPuntos(CStr(Sql))
+            Sql = Sql & " WHERE id=" & Text1(0).Text
+            If EjecutaSQL(conAri, Sql, True) Then Text1(7).Text = Text1(8).Text
         End If
     End If
 End Sub
@@ -1949,7 +1951,7 @@ End Sub
 
 
 Private Function generarMovimientosArticulo() As Boolean
-Dim I As Byte
+Dim i As Byte
 
     'FALTA###
     Exit Function
@@ -1961,8 +1963,8 @@ Dim I As Byte
     
 
     
-    For I = 1 To 8
-        LoteEnTabla I, Text1(2).Text, Text1(4).Text
+    For i = 1 To 8
+        LoteEnTabla i, Text1(2).Text, Text1(4).Text
     Next
     
         
@@ -1975,7 +1977,7 @@ Dim Desc As String
 Dim miSQL As String
 Dim Ca As Currency
 Dim SumaLotes As Boolean
-Dim RS As ADODB.Recordset
+Dim Rs As ADODB.Recordset
 
 
     Select Case Num
@@ -2084,27 +2086,27 @@ Dim RS As ADODB.Recordset
         
         
     End Select
-    Set RS = New ADODB.Recordset
-    RS.Open miSQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Set Rs = New ADODB.Recordset
+    Rs.Open miSQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     ' El insert
 '   `codusu`,`idpartida`,`codartic`,`numlote`,fecha,`idOperacion`,`idNumOperacion`,
 ' `idReferencia`,`Referencia `,`cantidad` ,abs_cantidad    Ref: cliente/proveedor/trabajador
     'SQL = ", (" & vUsu.Codigo & "," & mIdPartida & "," & DBSet(mCodartic, "T") & "," & DBSet(mNumlote, "T") & ","
     miSQL = ""
-    While Not RS.EOF
+    While Not Rs.EOF
         '`tmplotlistado2` (`codusu`,`codartic`,`fecha`,`Lugar`,`cantidad`)
         miSQL = miSQL & ", (" & vUsu.Codigo & "," & DBSet(mCodartic, "T") & ","
     
         'fecha, idoperacion,idnumoperacion
-        miSQL = miSQL & DBSet(RS!mifecha, "F") & "," & DBSet(RS!Clave, "T")
+        miSQL = miSQL & DBSet(Rs!mifecha, "F") & "," & DBSet(Rs!Clave, "T")
 
-        Ca = RS!cantmostrar
+        Ca = Rs!cantmostrar
         If Not SumaLotes Then Ca = -1 * Ca
-        miSQL = miSQL & DBSet(Ca, "N") & "," & DBSet(RS!cantmostrar, "N") & ")"
-        RS.MoveNext
+        miSQL = miSQL & DBSet(Ca, "N") & "," & DBSet(Rs!cantmostrar, "N") & ")"
+        Rs.MoveNext
     Wend
-    RS.Close
+    Rs.Close
     
     If miSQL <> "" Then
         

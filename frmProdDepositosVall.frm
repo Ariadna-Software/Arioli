@@ -148,7 +148,7 @@ Begin VB.Form frmProdDepositosVall
       TabIndex        =   36
       Text            =   "Text1"
       Top             =   6360
-      Width           =   735
+      Width           =   975
    End
    Begin VB.TextBox txtLote 
       Height          =   285
@@ -157,7 +157,7 @@ Begin VB.Form frmProdDepositosVall
       TabIndex        =   35
       Text            =   "Text1"
       Top             =   9480
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
@@ -166,7 +166,7 @@ Begin VB.Form frmProdDepositosVall
       TabIndex        =   34
       Text            =   "Text1"
       Top             =   9480
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
@@ -175,16 +175,16 @@ Begin VB.Form frmProdDepositosVall
       TabIndex        =   33
       Text            =   "Text1"
       Top             =   9480
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
       Index           =   13
-      Left            =   2760
+      Left            =   2640
       TabIndex        =   32
       Text            =   "Text1"
       Top             =   9480
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
@@ -193,48 +193,48 @@ Begin VB.Form frmProdDepositosVall
       TabIndex        =   31
       Text            =   "Text1"
       Top             =   9480
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
       Index           =   11
-      Left            =   600
+      Left            =   720
       TabIndex        =   30
       Text            =   "Text1"
       Top             =   6480
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
       Index           =   10
-      Left            =   2160
+      Left            =   2280
       TabIndex        =   29
       Text            =   "Text1"
       Top             =   6480
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
       Index           =   9
-      Left            =   3720
+      Left            =   3840
       TabIndex        =   28
       Text            =   "Text1"
       Top             =   6480
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
       Index           =   8
-      Left            =   5280
+      Left            =   5400
       TabIndex        =   27
       Text            =   "Text1"
       Top             =   6480
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
       Index           =   7
-      Left            =   6840
+      Left            =   6960
       TabIndex        =   26
       Text            =   "Text1"
       Top             =   6480
@@ -243,11 +243,11 @@ Begin VB.Form frmProdDepositosVall
    Begin VB.TextBox txtLote 
       Height          =   285
       Index           =   6
-      Left            =   8400
+      Left            =   8520
       TabIndex        =   25
       Text            =   "Text1"
       Top             =   6480
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
@@ -256,7 +256,7 @@ Begin VB.Form frmProdDepositosVall
       TabIndex        =   24
       Text            =   "Text1"
       Top             =   2880
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
@@ -265,7 +265,7 @@ Begin VB.Form frmProdDepositosVall
       TabIndex        =   23
       Text            =   "Text1"
       Top             =   2880
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
@@ -274,7 +274,7 @@ Begin VB.Form frmProdDepositosVall
       TabIndex        =   22
       Text            =   "Text1"
       Top             =   2880
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
@@ -283,7 +283,7 @@ Begin VB.Form frmProdDepositosVall
       TabIndex        =   21
       Text            =   "Text1"
       Top             =   2880
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
@@ -292,7 +292,7 @@ Begin VB.Form frmProdDepositosVall
       TabIndex        =   20
       Text            =   "Text1"
       Top             =   2880
-      Width           =   735
+      Width           =   855
    End
    Begin VB.TextBox txtLote 
       Height          =   285
@@ -301,7 +301,7 @@ Begin VB.Form frmProdDepositosVall
       TabIndex        =   19
       Text            =   "Text1"
       Top             =   2880
-      Width           =   855
+      Width           =   975
    End
    Begin VB.CommandButton cmdSalir 
       Cancel          =   -1  'True
@@ -422,7 +422,7 @@ Begin VB.Form frmProdDepositosVall
       Caption         =   "2"
       Height          =   195
       Index           =   11
-      Left            =   360
+      Left            =   480
       TabIndex        =   11
       Top             =   6480
       Width           =   90
@@ -432,7 +432,7 @@ Begin VB.Form frmProdDepositosVall
       Caption         =   "1"
       Height          =   195
       Index           =   10
-      Left            =   1920
+      Left            =   2040
       TabIndex        =   10
       Top             =   6480
       Width           =   90
@@ -1098,7 +1098,7 @@ Dim Lotes As String
         ' o sartic.codartic=null
         ' o factorconverrsion=1
         KMostrar = 2 'todo
-        If DBLet(RS!NumLote, "T") <> "" Then
+        If DBLet(RS!numLote, "T") <> "" Then
             If DBLet(RS!codartic, "T") = "" Then
                 KMostrar = 0 'ERROR
             Else
@@ -1126,7 +1126,7 @@ Dim Lotes As String
             
         Else
             CargarUnDeposito Deposito
-            Lotes = Lotes & ", " & DBSet(RS!NumLote, "T")
+            Lotes = Lotes & ", " & DBSet(RS!numLote, "T")
             
         End If
     
@@ -1149,7 +1149,7 @@ Dim Lotes As String
         RS.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         While Not RS.EOF
             For KMostrar = 0 To MaxNumDepositos_ - 1
-                If Me.txtLote(KMostrar).Text = RS!NumLote Then
+                If Me.txtLote(KMostrar).Text = RS!numLote Then
                     Me.Shape1(KMostrar).BorderWidth = 3
                     Me.Shape1(KMostrar).BorderColor = vbGreen
                     txtLote(KMostrar).Tag = RS!Codigo & "|" & RS!idlin & "|" 'Para cuando pong ver deposito
@@ -1183,7 +1183,7 @@ Private Sub LimpiarDatosDeposito(HayError As Boolean, kDeposito As Integer)
             cad = cad & "Codigo:     " & DBLet(RS!codartic, "T") & vbCrLf
             cad = cad & "Referencia:   " & DBLet(RS!NomArtic, "T") & vbCrLf
             cad = cad & "Factor conversion:      " & DBLet(RS!FactorConversion, "T") & vbCrLf
-            cad = cad & "LOTE:      " & DBLet(RS!NumLote, "T") & vbCrLf
+            cad = cad & "LOTE:      " & DBLet(RS!numLote, "T") & vbCrLf
             
             cad = "Error datos deposito: " & vbCrLf & vbCrLf & cad
     
@@ -1200,7 +1200,7 @@ Dim Cantidad As Currency
 
     
     Me.txtLote(kDeposito).visible = True
-    Me.txtLote(kDeposito).Text = RS!NumLote
+    Me.txtLote(kDeposito).Text = RS!numLote
     Me.txtLote(kDeposito).ToolTipText = RS!codartic & "  " & RS!NomArtic
     Me.txtLote(kDeposito).Alignment = 2
     
@@ -1293,7 +1293,7 @@ Dim QueImage As Integer
         
         
         imgLinea(QueImage).Tag = RS!NumDeposito & "|"
-        If DBLet(RS!NumLote, "T") <> "" Then
+        If DBLet(RS!numLote, "T") <> "" Then
             
             If DBLet(RS!codartic, "T") = "" Then
                 KMostrar = 0 'ERROR
@@ -1325,8 +1325,8 @@ Dim QueImage As Integer
             If KMostrar = 1 Then imgLinea(QueImage).ToolTipText = "Virtual  vacio"
         Else
             Me.imgLinea(QueImage).Picture = Me.Image1(2).Picture
-            Lotes = Lotes & ", " & DBSet(RS!NumLote, "T")
-            imgLinea(QueImage).ToolTipText = "Lote: " & DBSet(RS!NumLote, "T")
+            Lotes = Lotes & ", " & DBSet(RS!numLote, "T")
+            imgLinea(QueImage).ToolTipText = "Lote: " & DBSet(RS!numLote, "T")
         End If
     
     
@@ -1374,6 +1374,3 @@ Private Sub imgLinea_DblClick(Index As Integer)
     End If
 End Sub
 
-Private Sub txtLote_Change(Index As Integer)
-
-End Sub

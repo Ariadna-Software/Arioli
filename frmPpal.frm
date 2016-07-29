@@ -341,7 +341,7 @@ Begin VB.MDIForm frmppal
             Style           =   5
             Object.Width           =   1058
             MinWidth        =   1058
-            TextSave        =   "10:52"
+            TextSave        =   "11:29"
          EndProperty
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -1694,6 +1694,10 @@ Begin VB.MDIForm frmppal
          Caption         =   "Proceso en almazara"
          Index           =   1
       End
+      Begin VB.Menu mnAlmazara1 
+         Caption         =   "Control palets"
+         Index           =   2
+      End
    End
    Begin VB.Menu mnTPV 
       Caption         =   "&Punto de Venta"
@@ -1883,19 +1887,19 @@ Dim TieneEditorDeMenus As Boolean
 
 Private Sub MDIForm_Activate()
 Dim b As Boolean
-Dim I As Integer
+Dim i As Integer
 Dim Permis As String
 
 'Dim AvisosPendientes As Boolean
 'Formulario Principal
    ' AvisosPendientes = False
-    I = 0
+    i = 0
     If PrimeraVez Then
         PrimeraVez = False
         Screen.MousePointer = vbHourglass
        ' AvisosPendientes = TieneAvisosPendientes()
        ComprobarDocumentosPendientes True
-       I = 1
+       i = 1
        
     End If
     If Not vParam Is Nothing Then
@@ -1906,7 +1910,7 @@ Dim Permis As String
         End If
     End If
     
-    If I = 0 Then
+    If i = 0 Then
         Screen.MousePointer = vbDefault
         Exit Sub
     End If
@@ -2004,8 +2008,8 @@ Dim Permis As String
      
     Else
         'Caulqueir otra NO
-        For I = 2 To Me.mnproduccion1.Count - 1
-            PuntoDeMenuVisible mnproduccion1(I), False
+        For i = 2 To Me.mnproduccion1.Count - 1
+            PuntoDeMenuVisible mnproduccion1(i), False
         Next
     
         If vParamAplic.QUE_EMPRESA = 4 Then    'QUATRETONDA ALMAZARA
@@ -2190,11 +2194,11 @@ End Sub
 
 Private Sub MDIForm_Unload(Cancel As Integer)
 'Formulario Principal
-Dim cad As String
+Dim Cad As String
 
     'Alguna cosilla antes de cerrar. Eliminar bloqueos
-    cad = "Delete from zbloqueos where codusu = " & vUsu.Codigo
-    conn.Execute cad
+    Cad = "Delete from zbloqueos where codusu = " & vUsu.Codigo
+    conn.Execute Cad
 
     'Elimnar bloquo BD
     Set vUsu = Nothing
@@ -2269,7 +2273,9 @@ Private Sub mnAlmazara1_Click(Index As Integer)
         frmVallEntradaOliva.Show vbModal
        
     Case 1
-    
+        frmVallAlmazara.Show vbModal
+    Case 2
+        frmVallpalets.Show vbModal
     End Select
 End Sub
 
@@ -3207,7 +3213,7 @@ End Sub
 
 Private Sub mnproduccion1_Click(Index As Integer)
 Dim Permis As String
-Dim I As Integer
+Dim i As Integer
 
     '- Las líneas de producción y la pistola sólo las tiene que poder ver José y Yo.
     '- Autorizar a todos a poder ver: lote de trazabilidad, mantenimiento de palets y mantenimiento de etiquetas.
@@ -3540,21 +3546,21 @@ End Sub
 
 Private Sub mnUtiUsuActivos_Click()
 'Muestra si hay otros usuarios conectados a la Gestion
-Dim SQL As String
-Dim I As Integer
+Dim Sql As String
+Dim i As Integer
 
 
     On Error GoTo eUsacti
 
     CadenaDesdeOtroForm = OtrosPCsContraContabiliad
     If CadenaDesdeOtroForm <> "" Then
-        I = 1
+        i = 1
         Me.Tag = "Los siguientes PC's están conectados a: " & vEmpresa.nomempre & " (" & vUsu.CadenaConexion & ")" & vbCrLf & vbCrLf
         Do
-            SQL = RecuperaValor(CadenaDesdeOtroForm, I)
-            If SQL <> "" Then Me.Tag = Me.Tag & "    - " & SQL & vbCrLf
-            I = I + 1
-        Loop Until SQL = ""
+            Sql = RecuperaValor(CadenaDesdeOtroForm, i)
+            If Sql <> "" Then Me.Tag = Me.Tag & "    - " & Sql & vbCrLf
+            i = i + 1
+        Loop Until Sql = ""
         MsgBox Me.Tag, vbExclamation
     Else
         MsgBox "Ningun usuario, además de usted, conectado a: " & vEmpresa.nomempre & " (" & vUsu.CadenaConexion & ")" & vbCrLf & vbCrLf, vbInformation
@@ -3666,13 +3672,13 @@ End Sub
 
 Private Sub PonerDatosVisiblesForm()
 'Escribe texto de la barra de la aplicación
-Dim cad As String
-    cad = UCase(Mid(Format(Now, "dddd"), 1, 1)) & Mid(Format(Now, "dddd"), 2)
-    cad = cad & ", " & Format(Now, "d")
-    cad = cad & " de " & Format(Now, "mmmm")
-    cad = cad & " de " & Format(Now, "yyyy")
-    cad = "    " & cad & "    "
-    Me.StatusBar1.Panels(5).Text = cad
+Dim Cad As String
+    Cad = UCase(Mid(Format(Now, "dddd"), 1, 1)) & Mid(Format(Now, "dddd"), 2)
+    Cad = Cad & ", " & Format(Now, "d")
+    Cad = Cad & " de " & Format(Now, "mmmm")
+    Cad = Cad & " de " & Format(Now, "yyyy")
+    Cad = "    " & Cad & "    "
+    Me.StatusBar1.Panels(5).Text = Cad
     If vEmpresa Is Nothing Then
         Caption = "ARIGES" & " ver. " & App.Major & "." & App.Minor & "." & App.Revision & "   -  " & "   Usuario: " & vUsu.Nombre & " FALTA CONFIGURAR"
         'Panel con el nombre de la empresa
@@ -3687,11 +3693,11 @@ End Sub
 
 Private Sub HabilitarSoloPrametros_o_Empresas(Habilitar As Boolean)
 Dim T As Control
-Dim cad As String
+Dim Cad As String
 
     
     For Each T In Me
-        cad = T.Name
+        Cad = T.Name
         If Mid(T.Name, 1, 2) = "mn" Then
             If LCase(Mid(T.Caption, 1, 1)) <> "-" Then T.Enabled = Habilitar
         End If
@@ -3760,8 +3766,8 @@ End Sub
 
 
 Private Sub LanzaHome(Opcion As String)
-Dim I As Integer
-Dim cad As String
+Dim i As Integer
+Dim Cad As String
 
     On Error GoTo ELanzaHome
 
@@ -3791,21 +3797,21 @@ Dim cad As String
 '        LanzaHome = True
 '    End If
 ELanzaHome:
-    If Err.Number <> 0 Then MuestraError Err.Number, cad & vbCrLf & Err.Description
+    If Err.Number <> 0 Then MuestraError Err.Number, Cad & vbCrLf & Err.Description
     CadenaDesdeOtroForm = ""
 End Sub
 
 
 
 Private Sub LeerEditorMenus()
-Dim SQL As String
+Dim Sql As String
 Dim miRsAux As ADODB.Recordset
 
     On Error GoTo ELeerEditorMenus
     TieneEditorDeMenus = False
-    SQL = "Select count(*) from usuarios.appmenus where aplicacion='Arioli'"
+    Sql = "Select count(*) from usuarios.appmenus where aplicacion='Arioli'"
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Sql, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If Not miRsAux.EOF Then
         If Not IsNull(miRsAux.Fields(0)) Then
             If miRsAux.Fields(0) > 0 Then TieneEditorDeMenus = True
@@ -3824,36 +3830,36 @@ End Sub
 
 Private Sub PoneMenusDelEditor()
 Dim T As Control
-Dim SQL As String
+Dim Sql As String
 Dim C As String
 Dim miRsAux As ADODB.Recordset
 
     On Error GoTo ELeerEditorMenus
     
-    SQL = "Select * from usuarios.appmenususuario where aplicacion='Ariges" & vEmpresa.codempre & "' and codusu = " & Val(Right(CStr(vUsu.Codigo), 3))
+    Sql = "Select * from usuarios.appmenususuario where aplicacion='Ariges" & vEmpresa.codempre & "' and codusu = " & Val(Right(CStr(vUsu.Codigo), 3))
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    SQL = ""
+    miRsAux.Open Sql, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Sql = ""
 
     While Not miRsAux.EOF
         If Not IsNull(miRsAux.Fields(3)) Then
-            SQL = SQL & miRsAux.Fields(3)
-            If Right(miRsAux.Fields(3), 1) <> "|" Then SQL = SQL & "|"
-            SQL = SQL & "·"
+            Sql = Sql & miRsAux.Fields(3)
+            If Right(miRsAux.Fields(3), 1) <> "|" Then Sql = Sql & "|"
+            Sql = Sql & "·"
         End If
         miRsAux.MoveNext
     Wend
     miRsAux.Close
         
    
-    If SQL <> "" Then
-        SQL = "·" & SQL
+    If Sql <> "" Then
+        Sql = "·" & Sql
         For Each T In Me.Controls
             If TypeOf T Is Menu Then
                 C = DevuelveCadenaMenu(T)
                 C = "·" & C & "·"
                 'Debug.Print C
-                If InStr(1, SQL, C) > 0 Then
+                If InStr(1, Sql, C) > 0 Then
                     
                     'Stop
                     T.visible = False
@@ -4008,9 +4014,9 @@ Private Function ComprobarBotonMenuVisible(objMenu As Menu, Activado As Boolean)
 'esta activada/desactiva o visible/invisible
 '(se comprueba hasta q se encuentra el false o se llega al padre)
 Dim nomMenu As String
-Dim SQL As String
-Dim RS As ADODB.Recordset
-Dim cad As String
+Dim Sql As String
+Dim Rs As ADODB.Recordset
+Dim Cad As String
 Dim b As Boolean
 
 
@@ -4025,39 +4031,39 @@ Dim b As Boolean
     
         nomMenu = objMenu.Name
         
-        Set RS = New ADODB.Recordset
+        Set Rs = New ADODB.Recordset
         
         'Obtener el padre del menu
-        SQL = "select padre from usuarios.appmenus where aplicacion='Arioli' and name=" & DBSet(nomMenu, "T")
-        RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-        If Not RS.EOF Then
-            cad = RS.Fields(0).Value
+        Sql = "select padre from usuarios.appmenus where aplicacion='Arioli' and name=" & DBSet(nomMenu, "T")
+        Rs.Open Sql, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        If Not Rs.EOF Then
+            Cad = Rs.Fields(0).Value
         End If
-        RS.Close
+        Rs.Close
         
         b = True
-        While b And cad <> ""
-                SQL = "Select name,padre from usuarios.appmenus where aplicacion='Arioli' and contador= " & cad
-                RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-                If Not RS.EOF Then
-                    cad = RS!Padre
-                    nomMenu = RS!Name
+        While b And Cad <> ""
+                Sql = "Select name,padre from usuarios.appmenus where aplicacion='Arioli' and contador= " & Cad
+                Rs.Open Sql, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                If Not Rs.EOF Then
+                    Cad = Rs!Padre
+                    nomMenu = Rs!Name
                 End If
-                RS.Close
+                Rs.Close
                 
                 'comprobar si el padre esta bloqueado
-                SQL = "Select count(*) from usuarios.appmenususuario where aplicacion='Ariges" & vEmpresa.codempre & "' and codusu=" & Val(Right(CStr(vUsu.Codigo), 3))
-                SQL = SQL & " and tag='" & nomMenu & "|'"
-                RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-                If RS.Fields(0).Value > 0 Then
+                Sql = "Select count(*) from usuarios.appmenususuario where aplicacion='Ariges" & vEmpresa.codempre & "' and codusu=" & Val(Right(CStr(vUsu.Codigo), 3))
+                Sql = Sql & " and tag='" & nomMenu & "|'"
+                Rs.Open Sql, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                If Rs.Fields(0).Value > 0 Then
                     'Esta bloqueado el menu para el usuario
                     b = False
                 End If
-                RS.Close
-                If cad = "0" Then cad = "" 'terminar si llegamos a la raiz
+                Rs.Close
+                If Cad = "0" Then Cad = "" 'terminar si llegamos a la raiz
         Wend
         ComprobarBotonMenuVisible = b
-        Set RS = Nothing
+        Set Rs = Nothing
     End If
     
 EComprobar:
@@ -4111,7 +4117,7 @@ End Sub
 
 Private Sub ComprobarDocumentosPendientes(DesdeArranqueAplicacion As Boolean)
 Dim F As Date
-Dim cad As String
+Dim Cad As String
 Dim Aux As String
 Dim J As Integer
 
@@ -4135,9 +4141,9 @@ Dim J As Integer
     'Comprobar documentos
     'Aqui tenemos los documentos de LIMPIEZA
     '                                                   k tenga definida la perioricidad
-    cad = "select * from sregistros WHERE diasaviso > 0  and perioricidad >0"
-    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    cad = ""
+    Cad = "select * from sregistros WHERE diasaviso > 0  and perioricidad >0"
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Cad = ""
     While Not miRsAux.EOF
         F = miRsAux!PrimeraFecha
         If Not IsNull(miRsAux!UltimoRealizado) Then F = miRsAux!UltimoRealizado
@@ -4157,12 +4163,12 @@ Dim J As Integer
             F = DateAdd(CadenaDesdeOtroForm, CInt(miRsAux!NumPeriodo), F)
             'Dias de aviso
             F = DateAdd("d", -1 * CInt(miRsAux!diasaviso), F)
-            If F <= Now Then cad = cad & Format(F, "dd/mm/yyyy") & "  " & miRsAux!Descripcion & " (" & miRsAux!idRegistro & ")" & vbCrLf
+            If F <= Now Then Cad = Cad & Format(F, "dd/mm/yyyy") & "  " & miRsAux!Descripcion & " (" & miRsAux!idRegistro & ")" & vbCrLf
             
         miRsAux.MoveNext
     Wend
     miRsAux.Close
-    If cad <> "" Then cad = "LIMPIEZA" & vbCrLf & cad
+    If Cad <> "" Then Cad = "LIMPIEZA" & vbCrLf & Cad
     
     
     'Mantenimiento PREVENTIVO
@@ -4197,7 +4203,7 @@ Dim J As Integer
     miRsAux.Close
     
     If Aux <> "" Then Aux = vbCrLf & "MANTENIMIENTO PREVENTIVO: " & vbCrLf & Aux
-    cad = cad & Aux
+    Cad = Cad & Aux
     
     
     'CLORO
@@ -4216,7 +4222,7 @@ Dim J As Integer
     
     
     If Aux <> "" Then Aux = vbCrLf & "CLORO: " & vbCrLf & Aux
-    cad = cad & Aux
+    Cad = Cad & Aux
     
     
     
@@ -4227,9 +4233,9 @@ Dim J As Integer
     CadenaDesdeOtroForm = ""
     AvisosFechaArranque False, F
     
-    If cad <> "" Then
-        cad = "FECHA    REGISTRO " & vbCrLf & String(30, "=") & vbCrLf & cad & vbCrLf
-        MsgBox cad, vbInformation
+    If Cad <> "" Then
+        Cad = "FECHA    REGISTRO " & vbCrLf & String(30, "=") & vbCrLf & Cad & vbCrLf
+        MsgBox Cad, vbInformation
     End If
 End Sub
 
