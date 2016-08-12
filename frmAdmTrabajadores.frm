@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
@@ -21,9 +21,9 @@ Begin VB.Form frmAdmTrabajadores
    Begin VB.Frame Frame2 
       Height          =   615
       Left            =   240
-      TabIndex        =   79
+      TabIndex        =   77
       Top             =   410
-      Width           =   11175
+      Width           =   11295
       Begin VB.CheckBox Check1 
          Caption         =   "Trabajador presupuestos"
          Height          =   255
@@ -61,7 +61,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   0
          Left            =   280
-         TabIndex        =   81
+         TabIndex        =   79
          Top             =   200
          Width           =   615
       End
@@ -70,7 +70,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   1
          Left            =   2160
-         TabIndex        =   80
+         TabIndex        =   78
          Top             =   200
          Width           =   735
       End
@@ -79,7 +79,7 @@ Begin VB.Form frmAdmTrabajadores
       Caption         =   "&Regresar"
       Height          =   375
       Left            =   9960
-      TabIndex        =   27
+      TabIndex        =   29
       Top             =   5520
       Visible         =   0   'False
       Width           =   1035
@@ -88,7 +88,7 @@ Begin VB.Form frmAdmTrabajadores
       Height          =   555
       Index           =   0
       Left            =   240
-      TabIndex        =   29
+      TabIndex        =   31
       Top             =   5360
       Width           =   2895
       Begin VB.Label lblIndicador 
@@ -96,7 +96,7 @@ Begin VB.Form frmAdmTrabajadores
          Caption         =   "Label2"
          Height          =   240
          Left            =   120
-         TabIndex        =   30
+         TabIndex        =   32
          Top             =   180
          Width           =   2715
       End
@@ -106,7 +106,7 @@ Begin VB.Form frmAdmTrabajadores
       Caption         =   "&Cancelar"
       Height          =   375
       Left            =   9930
-      TabIndex        =   28
+      TabIndex        =   30
       Top             =   5520
       Width           =   1035
    End
@@ -114,7 +114,7 @@ Begin VB.Form frmAdmTrabajadores
       Caption         =   "&Aceptar"
       Height          =   375
       Left            =   8640
-      TabIndex        =   26
+      TabIndex        =   28
       Top             =   5520
       Width           =   1035
    End
@@ -169,7 +169,7 @@ Begin VB.Form frmAdmTrabajadores
       Align           =   1  'Align Top
       Height          =   420
       Left            =   0
-      TabIndex        =   31
+      TabIndex        =   33
       Top             =   0
       Width           =   11640
       _ExtentX        =   20532
@@ -266,7 +266,7 @@ Begin VB.Form frmAdmTrabajadores
          Caption         =   "Vista previa"
          Height          =   195
          Left            =   8400
-         TabIndex        =   32
+         TabIndex        =   34
          Top             =   120
          Width           =   1215
       End
@@ -321,10 +321,10 @@ Begin VB.Form frmAdmTrabajadores
    Begin TabDlg.SSTab SSTab1 
       Height          =   4215
       Left            =   240
-      TabIndex        =   33
+      TabIndex        =   35
       Top             =   1080
-      Width           =   11175
-      _ExtentX        =   19711
+      Width           =   11295
+      _ExtentX        =   19923
       _ExtentY        =   7435
       _Version        =   393216
       Style           =   1
@@ -450,7 +450,7 @@ Begin VB.Form frmAdmTrabajadores
          Left            =   2025
          Locked          =   -1  'True
          MaxLength       =   40
-         TabIndex        =   82
+         TabIndex        =   80
          Text            =   "Text2"
          Top             =   3750
          Width           =   3340
@@ -462,7 +462,7 @@ Begin VB.Form frmAdmTrabajadores
          Left            =   2030
          Locked          =   -1  'True
          MaxLength       =   40
-         TabIndex        =   78
+         TabIndex        =   76
          Text            =   "Text2"
          Top             =   3351
          Width           =   3340
@@ -518,7 +518,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   2
          Left            =   -68160
          MaxLength       =   15
-         TabIndex        =   75
+         TabIndex        =   73
          Tag             =   "Resultado|T|N|||strab5|resforma||N|"
          Text            =   "Resultado"
          Top             =   3720
@@ -532,7 +532,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   1
          Left            =   -72840
          MaxLength       =   50
-         TabIndex        =   74
+         TabIndex        =   72
          Tag             =   "Formación|T|N|||strab5|formaci2||N|"
          Text            =   "Formacion"
          Top             =   3720
@@ -546,7 +546,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   0
          Left            =   -74400
          MaxLength       =   12
-         TabIndex        =   73
+         TabIndex        =   71
          Tag             =   "Fecha Formación|F|N|||strab5|fecforma||N|"
          Text            =   "F. Formac."
          Top             =   3720
@@ -560,7 +560,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   4
          Left            =   -67200
          MaxLength       =   8
-         TabIndex        =   72
+         TabIndex        =   70
          Tag             =   "Evaluación|T|N|||strab4|evaluaci||N|"
          Text            =   "Evaluaci"
          Top             =   3720
@@ -574,7 +574,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   3
          Left            =   -69000
          MaxLength       =   15
-         TabIndex        =   71
+         TabIndex        =   69
          Tag             =   "Centro|T|N|||strab4|codcentr||N|"
          Text            =   "Centro"
          Top             =   3720
@@ -588,7 +588,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   2
          Left            =   -71760
          MaxLength       =   40
-         TabIndex        =   70
+         TabIndex        =   68
          Tag             =   "Formacion|T|N|||strab4|formaci1||N|"
          Text            =   "Formacion"
          Top             =   3720
@@ -602,7 +602,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   1
          Left            =   -72960
          MaxLength       =   12
-         TabIndex        =   69
+         TabIndex        =   67
          Tag             =   "Fecha Evaluación|F|N|||strab4|fecevalu|dd/mm/yyyy|N|"
          Text            =   "F.Evalua."
          Top             =   3720
@@ -616,7 +616,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   0
          Left            =   -74280
          MaxLength       =   12
-         TabIndex        =   68
+         TabIndex        =   66
          Tag             =   "Fecha Formación|F|N|||strab4|fecforma|dd/mm/yyyy|N|"
          Text            =   "F.Formac."
          Top             =   3720
@@ -630,7 +630,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   1
          Left            =   -72360
          MaxLength       =   70
-         TabIndex        =   67
+         TabIndex        =   65
          Tag             =   "Experiencia|T|N|||strab3|experien||N|"
          Text            =   "Experiencia"
          Top             =   3720
@@ -644,7 +644,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   0
          Left            =   -74400
          MaxLength       =   15
-         TabIndex        =   66
+         TabIndex        =   64
          Tag             =   "Periodo|T|N|||strab3|periodo1||N|"
          Text            =   "Periodo"
          Top             =   3720
@@ -657,7 +657,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   315
          Left            =   -74160
          MaxLength       =   70
-         TabIndex        =   65
+         TabIndex        =   63
          Tag             =   "Habilidad|T|N|||strab2|habilida||N|"
          Text            =   "Habilidad"
          Top             =   3720
@@ -682,7 +682,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   1
          Left            =   -72120
          MaxLength       =   70
-         TabIndex        =   59
+         TabIndex        =   57
          Tag             =   "Formación|T|N|||strab1|formacio||N|"
          Text            =   "Formacion Formacion Formacion Formacion Formacion Formacion Formacion "
          Top             =   3660
@@ -696,7 +696,7 @@ Begin VB.Form frmAdmTrabajadores
          Index           =   0
          Left            =   -74160
          MaxLength       =   15
-         TabIndex        =   58
+         TabIndex        =   56
          Tag             =   "Periodo|T|N|||strab1|periodos||N|"
          Text            =   "Periodo"
          Top             =   3660
@@ -717,9 +717,9 @@ Begin VB.Form frmAdmTrabajadores
          ForeColor       =   &H00972E0B&
          Height          =   1635
          Left            =   5760
-         TabIndex        =   40
+         TabIndex        =   42
          Top             =   540
-         Width           =   5175
+         Width           =   5415
          Begin VB.TextBox Text1 
             Alignment       =   1  'Right Justify
             Height          =   315
@@ -770,7 +770,7 @@ Begin VB.Form frmAdmTrabajadores
             Height          =   255
             Index           =   5
             Left            =   2760
-            TabIndex        =   47
+            TabIndex        =   49
             Top             =   840
             Width           =   855
          End
@@ -788,7 +788,7 @@ Begin VB.Form frmAdmTrabajadores
             Height          =   255
             Index           =   3
             Left            =   2760
-            TabIndex        =   46
+            TabIndex        =   48
             Top             =   420
             Width           =   855
          End
@@ -806,7 +806,7 @@ Begin VB.Form frmAdmTrabajadores
             Height          =   255
             Index           =   16
             Left            =   120
-            TabIndex        =   45
+            TabIndex        =   47
             Top             =   420
             Width           =   975
          End
@@ -824,7 +824,7 @@ Begin VB.Form frmAdmTrabajadores
             Height          =   255
             Index           =   40
             Left            =   120
-            TabIndex        =   41
+            TabIndex        =   43
             Top             =   840
             Width           =   975
          End
@@ -843,103 +843,134 @@ Begin VB.Form frmAdmTrabajadores
          ForeColor       =   &H00972E0B&
          Height          =   1635
          Left            =   5760
-         TabIndex        =   42
+         TabIndex        =   44
          Top             =   2460
-         Width           =   5175
+         Width           =   5415
+         Begin VB.TextBox Text1 
+            Height          =   315
+            Index           =   26
+            Left            =   1200
+            MaxLength       =   4
+            TabIndex        =   23
+            Tag             =   "T|T|S|||straba|iban1|||"
+            Text            =   "Text1"
+            Top             =   1080
+            Width           =   645
+         End
+         Begin VB.TextBox Text1 
+            Height          =   315
+            Index           =   25
+            Left            =   1200
+            MaxLength       =   4
+            TabIndex        =   18
+            Tag             =   "Iban|T|S|0|9999|straba|iban|||"
+            Text            =   "Text1"
+            Top             =   600
+            Width           =   645
+         End
          Begin VB.TextBox Text1 
             Height          =   315
             Index           =   15
-            Left            =   1080
+            Left            =   1920
             MaxLength       =   4
-            TabIndex        =   18
+            TabIndex        =   19
             Tag             =   "Código Banco Nómina|N|S|0|9999|straba|codbanco|0000|N|"
             Text            =   "Text1"
-            Top             =   480
+            Top             =   600
             Width           =   645
          End
          Begin VB.TextBox Text1 
             Height          =   315
             Index           =   16
-            Left            =   1755
+            Left            =   2595
             MaxLength       =   4
-            TabIndex        =   19
+            TabIndex        =   20
             Tag             =   "Sucursal Nómina|N|S|0|9999|straba|codsucur|0000|N|"
             Text            =   "Text1"
-            Top             =   480
+            Top             =   600
             Width           =   645
          End
          Begin VB.TextBox Text1 
             Height          =   315
             Index           =   17
-            Left            =   2445
+            Left            =   3285
             MaxLength       =   2
-            TabIndex        =   20
+            TabIndex        =   21
             Tag             =   "Dígito Control Nómina|T|S|||straba|digcontr|00||"
             Text            =   "Text1"
-            Top             =   480
+            Top             =   600
             Width           =   405
          End
          Begin VB.TextBox Text1 
             Height          =   315
             Index           =   18
-            Left            =   2880
+            Left            =   3720
             MaxLength       =   10
-            TabIndex        =   21
+            TabIndex        =   22
             Tag             =   "Cuenta Bancaria Nómina|T|S|||straba|cuentaba|0000000000||"
             Text            =   "Text1"
-            Top             =   480
+            Top             =   600
             Width           =   1485
          End
          Begin VB.TextBox Text1 
             Height          =   315
             Index           =   19
-            Left            =   1080
+            Left            =   1920
             MaxLength       =   4
-            TabIndex        =   22
-            Tag             =   "Código Banco Gastos|N|N|0|9999|straba|codbanc1|0000|N|"
+            TabIndex        =   24
+            Tag             =   "Código Banco Gastos|N|S|0|9999|straba|codbanc1|0000|N|"
             Text            =   "Text1"
-            Top             =   1200
+            Top             =   1080
             Width           =   645
          End
          Begin VB.TextBox Text1 
             Height          =   315
             Index           =   20
-            Left            =   1755
+            Left            =   2595
             MaxLength       =   4
-            TabIndex        =   23
+            TabIndex        =   25
             Tag             =   "Sucursal Gastos|N|S|0|9999|straba|codsucu1|0000|N|"
             Text            =   "Text1"
-            Top             =   1200
+            Top             =   1080
             Width           =   645
          End
          Begin VB.TextBox Text1 
             Height          =   315
             Index           =   21
-            Left            =   2445
+            Left            =   3285
             MaxLength       =   2
-            TabIndex        =   24
+            TabIndex        =   26
             Tag             =   "Dígito Control Gastos|T|S|||straba|digcont1|00||"
             Text            =   "Text1"
-            Top             =   1200
+            Top             =   1080
             Width           =   405
          End
          Begin VB.TextBox Text1 
             Height          =   315
             Index           =   22
-            Left            =   2880
+            Left            =   3720
             MaxLength       =   10
-            TabIndex        =   25
+            TabIndex        =   27
             Tag             =   "Cuenta Bancaria Gastos|T|S|||straba|cuentab1|0000000000||"
             Text            =   "Text1"
-            Top             =   1200
+            Top             =   1080
             Width           =   1485
+         End
+         Begin VB.Label Label1 
+            Caption         =   "Iban"
+            Height          =   255
+            Index           =   4
+            Left            =   1200
+            TabIndex        =   82
+            Top             =   240
+            Width           =   495
          End
          Begin VB.Label Label1 
             Caption         =   "Banco"
             Height          =   255
             Index           =   39
-            Left            =   1080
-            TabIndex        =   56
+            Left            =   1920
+            TabIndex        =   54
             Top             =   240
             Width           =   495
          End
@@ -947,8 +978,8 @@ Begin VB.Form frmAdmTrabajadores
             Caption         =   "Sucursal"
             Height          =   255
             Index           =   35
-            Left            =   1755
-            TabIndex        =   55
+            Left            =   2520
+            TabIndex        =   53
             Top             =   240
             Width           =   615
          End
@@ -956,8 +987,8 @@ Begin VB.Form frmAdmTrabajadores
             Caption         =   "DC"
             Height          =   255
             Index           =   33
-            Left            =   2520
-            TabIndex        =   54
+            Left            =   3360
+            TabIndex        =   52
             Top             =   240
             Width           =   255
          End
@@ -965,8 +996,8 @@ Begin VB.Form frmAdmTrabajadores
             Caption         =   "Cta. Bancaria"
             Height          =   255
             Index           =   29
-            Left            =   2880
-            TabIndex        =   53
+            Left            =   3840
+            TabIndex        =   51
             Top             =   240
             Width           =   975
          End
@@ -976,45 +1007,9 @@ Begin VB.Form frmAdmTrabajadores
             Height          =   255
             Index           =   20
             Left            =   240
-            TabIndex        =   52
-            Top             =   480
-            Width           =   735
-         End
-         Begin VB.Label Label1 
-            Caption         =   "Banco"
-            Height          =   255
-            Index           =   19
-            Left            =   1080
-            TabIndex        =   51
-            Top             =   960
-            Width           =   495
-         End
-         Begin VB.Label Label1 
-            Caption         =   "Sucursal"
-            Height          =   255
-            Index           =   17
-            Left            =   1755
             TabIndex        =   50
-            Top             =   960
-            Width           =   615
-         End
-         Begin VB.Label Label1 
-            Caption         =   "DC"
-            Height          =   255
-            Index           =   7
-            Left            =   2520
-            TabIndex        =   49
-            Top             =   960
-            Width           =   255
-         End
-         Begin VB.Label Label1 
-            Caption         =   "Cta. Bancaria"
-            Height          =   255
-            Index           =   6
-            Left            =   2880
-            TabIndex        =   48
-            Top             =   960
-            Width           =   975
+            Top             =   660
+            Width           =   735
          End
          Begin VB.Label Label1 
             Caption         =   "Gastos"
@@ -1022,8 +1017,8 @@ Begin VB.Form frmAdmTrabajadores
             Height          =   255
             Index           =   43
             Left            =   240
-            TabIndex        =   43
-            Top             =   1200
+            TabIndex        =   45
+            Top             =   1140
             Width           =   735
          End
       End
@@ -1086,7 +1081,7 @@ Begin VB.Form frmAdmTrabajadores
          Bindings        =   "frmAdmTrabajadores.frx":0255
          Height          =   3510
          Left            =   -74520
-         TabIndex        =   57
+         TabIndex        =   55
          Top             =   520
          Width           =   9135
          _ExtentX        =   16113
@@ -1156,7 +1151,7 @@ Begin VB.Form frmAdmTrabajadores
          Bindings        =   "frmAdmTrabajadores.frx":026A
          Height          =   3510
          Left            =   -74520
-         TabIndex        =   61
+         TabIndex        =   59
          Top             =   520
          Width           =   7815
          _ExtentX        =   13785
@@ -1226,7 +1221,7 @@ Begin VB.Form frmAdmTrabajadores
          Bindings        =   "frmAdmTrabajadores.frx":027F
          Height          =   3510
          Left            =   -74520
-         TabIndex        =   62
+         TabIndex        =   60
          Top             =   520
          Width           =   9135
          _ExtentX        =   16113
@@ -1296,7 +1291,7 @@ Begin VB.Form frmAdmTrabajadores
          Bindings        =   "frmAdmTrabajadores.frx":0294
          Height          =   3510
          Left            =   -74520
-         TabIndex        =   63
+         TabIndex        =   61
          Top             =   520
          Width           =   10335
          _ExtentX        =   18230
@@ -1366,7 +1361,7 @@ Begin VB.Form frmAdmTrabajadores
          Bindings        =   "frmAdmTrabajadores.frx":02A9
          Height          =   3510
          Left            =   -74520
-         TabIndex        =   64
+         TabIndex        =   62
          Top             =   520
          Width           =   8655
          _ExtentX        =   15266
@@ -1437,7 +1432,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   2
          Left            =   240
-         TabIndex        =   83
+         TabIndex        =   81
          Top             =   3750
          Width           =   615
       End
@@ -1475,7 +1470,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   26
          Left            =   240
-         TabIndex        =   77
+         TabIndex        =   75
          Top             =   3351
          Width           =   615
       End
@@ -1484,7 +1479,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   25
          Left            =   2880
-         TabIndex        =   76
+         TabIndex        =   74
          Top             =   600
          Width           =   615
       End
@@ -1493,7 +1488,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   24
          Left            =   240
-         TabIndex        =   60
+         TabIndex        =   58
          Top             =   2540
          Width           =   615
       End
@@ -1502,7 +1497,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   12
          Left            =   240
-         TabIndex        =   44
+         TabIndex        =   46
          Top             =   2152
          Width           =   735
       End
@@ -1521,7 +1516,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   37
          Left            =   240
-         TabIndex        =   39
+         TabIndex        =   41
          Top             =   2930
          Width           =   495
       End
@@ -1530,7 +1525,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   36
          Left            =   240
-         TabIndex        =   38
+         TabIndex        =   40
          Top             =   600
          Width           =   375
       End
@@ -1539,7 +1534,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   15
          Left            =   240
-         TabIndex        =   37
+         TabIndex        =   39
          Top             =   1764
          Width           =   735
       End
@@ -1548,7 +1543,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   34
          Left            =   2160
-         TabIndex        =   36
+         TabIndex        =   38
          Top             =   1376
          Width           =   735
       End
@@ -1557,7 +1552,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   14
          Left            =   240
-         TabIndex        =   35
+         TabIndex        =   37
          Top             =   1376
          Width           =   735
       End
@@ -1566,7 +1561,7 @@ Begin VB.Form frmAdmTrabajadores
          Height          =   255
          Index           =   13
          Left            =   240
-         TabIndex        =   34
+         TabIndex        =   36
          Top             =   988
          Width           =   735
       End
@@ -1930,7 +1925,7 @@ Dim Cad As String, Indicador As String
                         Case 1 'Estudios/Formacion - Datos de la tabla strab1
                             CargaGrid DataGrid1, Data2, Cad
                         Case 2 'Habilidades
-                            CargaGrid DataGrid2, Data3, Cad
+                            CargaGrid DataGrid2, data3, Cad
                         Case 3 'Experiencia Laboral
                             CargaGrid DataGrid3, Data4, Cad
                         Case 4 'Formacion Realizada
@@ -1954,11 +1949,11 @@ Dim Cad As String, Indicador As String
                             CargaGrid2 DataGrid1, Data2
                             SituarDataPosicion Data2, NumRegElim, Indicador
                         Case 2 'Habilidades
-                            NumRegElim = Data3.Recordset.AbsolutePosition
+                            NumRegElim = data3.Recordset.AbsolutePosition
                             CargaTxtAux2 False, False
                             'CargaGrid DataGrid2, Data3, cad
-                            CargaGrid2 DataGrid2, Data3
-                            SituarDataPosicion Data3, NumRegElim, Indicador
+                            CargaGrid2 DataGrid2, data3
+                            SituarDataPosicion data3, NumRegElim, Indicador
                         Case 3 'Experiencia Laboral
                             NumRegElim = Data4.Recordset.AbsolutePosition
                             CargaTxtAux3 False, False
@@ -2017,7 +2012,7 @@ Private Sub cmdCancelar_Click()
                     DataGrid2.Enabled = True
                     If ModificaLineas = 1 Then 'INSERTAR
                         DataGrid2.AllowAddNew = False
-                        If Not Data3.Recordset.EOF Then Data3.Recordset.MoveFirst
+                        If Not data3.Recordset.EOF Then data3.Recordset.MoveFirst
                     End If
                 Case 3 'Experiencia Laboral
                     CargaTxtAux3 False, False
@@ -2098,11 +2093,11 @@ Private Sub BotonAnyadirLinea()
                 'Situamos el grid al final
                 AnyadirLinea DataGrid1, Data2
                 CargaTxtAux1 True, True
-                PonerFoco TxtAux1(0)
+                PonerFoco txtAux1(0)
         Case 2 'Habilidades
-                AnyadirLinea DataGrid2, Data3
+                AnyadirLinea DataGrid2, data3
                 CargaTxtAux2 True, True
-                PonerFoco txtAux2
+                PonerFoco txtaux2
         Case 3 'Experiencia Laboral
                 AnyadirLinea DataGrid3, Data4
                 CargaTxtAux3 True, True
@@ -2195,14 +2190,14 @@ Dim vWhere As String
                 If Not BloqueaRegistro(NomTablaLineas, vWhere) Then Exit Sub
                 CargaTxtAux1 True, False
                 DataGrid1.Enabled = False
-                PonerFoco TxtAux1(0)
+                PonerFoco txtAux1(0)
         Case 2 'Habilidades
-                If Data3.Recordset.EOF Then Exit Sub
-                vWhere = vWhere & Data3.Recordset!numlinea
+                If data3.Recordset.EOF Then Exit Sub
+                vWhere = vWhere & data3.Recordset!numlinea
                 If Not BloqueaRegistro(NomTablaLineas, vWhere) Then Exit Sub
                 CargaTxtAux2 True, False
                 DataGrid2.Enabled = False
-                PonerFoco txtAux2
+                PonerFoco txtaux2
         Case 3 'Experiencia Laboral
                 If Data4.Recordset.EOF Then Exit Sub
                 vWhere = vWhere & Data4.Recordset!numlinea
@@ -2296,8 +2291,8 @@ On Error GoTo EEliminarLinea
             If Data2.Recordset.EOF Then Exit Sub
             numlinea = Data2.Recordset!numlinea
         Case 2 'Habilidades
-            If Data3.Recordset.EOF Then Exit Sub
-            numlinea = Data3.Recordset!numlinea
+            If data3.Recordset.EOF Then Exit Sub
+            numlinea = data3.Recordset!numlinea
         Case 3 'Experiencia Laboral
             If Data4.Recordset.EOF Then Exit Sub
             numlinea = Data4.Recordset!numlinea
@@ -2318,7 +2313,7 @@ On Error GoTo EEliminarLinea
         'Hay que eliminar
         SQL = "Delete from " & NomTablaLineas & " where codtraba=" & Data1.Recordset!CodTraba
         SQL = SQL & " and numlinea=" & numlinea
-        Conn.Execute SQL
+        conn.Execute SQL
 
         ModificaLineas = 0
         Select Case Me.SSTab1.Tab
@@ -2327,7 +2322,7 @@ On Error GoTo EEliminarLinea
                 CargaGrid2 DataGrid1, Data2
 '                CancelaADODC (Data2)
             Case 2: 'Habilidades
-                CargaGrid2 DataGrid2, Data3
+                CargaGrid2 DataGrid2, data3
             Case 3: 'Experiencia Laboral
                 CargaGrid2 DataGrid3, Data4
             Case 4 'Formacion Realizada
@@ -2421,7 +2416,7 @@ Private Sub Form_Load()
     chkVistaPrevia.Value = CheckValueLeer(Name)
     
     'ASignamos un SQL al DATA1
-    Data1.ConnectionString = Conn
+    Data1.ConnectionString = conn
     Data1.RecordSource = "Select * from " & NombreTabla & " where codtraba=-1"
     Data1.Refresh
     
@@ -2506,14 +2501,14 @@ End Sub
 Private Sub frmCP_DatoSeleccionado(CadenaSeleccion As String)
 'Formulario Mantenimiento C. Postales
 Dim Indice As Byte
-Dim devuelve As String
+Dim Devuelve As String
     
     Indice = 3
     Text1(Indice).Text = RecuperaValor(CadenaSeleccion, 1) 'CPostal
     'Poblacion
-    Text1(Indice + 1).Text = ObtenerPoblacion(Text1(Indice).Text, devuelve)
+    Text1(Indice + 1).Text = ObtenerPoblacion(Text1(Indice).Text, Devuelve)
     'provincia
-    Text1(Indice + 2).Text = devuelve
+    Text1(Indice + 2).Text = Devuelve
 End Sub
 
 
@@ -2711,7 +2706,7 @@ End Sub
 '----------------------------------------------------------------
 '----------------------------------------------------------------
 Private Sub Text1_LostFocus(Index As Integer)
-Dim devuelve As String
+Dim Devuelve As String
     
     If Not PerderFocoGnral(Text1(Index), Modo) Then Exit Sub
     
@@ -2727,8 +2722,8 @@ Dim devuelve As String
             
         Case 3 'CPostal
              If Not VieneDeBuscar Then
-                Text1(Index + 1).Text = ObtenerPoblacion(Text1(Index).Text, devuelve)
-                Text1(Index + 2).Text = devuelve
+                Text1(Index + 1).Text = ObtenerPoblacion(Text1(Index).Text, Devuelve)
+                Text1(Index + 2).Text = Devuelve
             End If
             VieneDeBuscar = False
             
@@ -2879,7 +2874,7 @@ On Error GoTo EPonerLineas
     'Habilidades
     SQL = "Select * from strab2 " & vWhere 'where codtraba= " & Data1.Recordset!codtraba
     SQL = SQL & " order by numlinea"
-    CargaGrid DataGrid2, Data3, SQL
+    CargaGrid DataGrid2, data3, SQL
 
     'Experiencia Laboral
     SQL = "Select * from strab3 " & vWhere 'where codtraba= " & Data1.Recordset!codtraba
@@ -3087,12 +3082,12 @@ On Error GoTo EDatosOkLinea
 
     Select Case Me.SSTab1.Tab
         Case 1 'Estudios/Formacion
-            If (Not Trim(TxtAux1(0).Text) <> "") And (Not Trim(TxtAux1(1).Text) <> "") Then
+            If (Not Trim(txtAux1(0).Text) <> "") And (Not Trim(txtAux1(1).Text) <> "") Then
                 MsgBox "Los campos Periodo y Formación no pueden ser nulos", vbExclamation
                 b = False
             End If
         Case 2 'Habilidades
-            If Trim(txtAux2.Text) = "" Then
+            If Trim(txtaux2.Text) = "" Then
                 MsgBox "El campo Habilidad no puede ser nulo", vbExclamation
                 b = False
             End If
@@ -3183,12 +3178,12 @@ On Error GoTo EInsertarLinea
                  SQL = "INSERT INTO strab1 "
                  SQL = SQL & "(codtraba, numlinea, periodos, formacio) "
                  SQL = SQL & "VALUES (" & Val(Text1(0).Text) & ", " & NumF & ","
-                 SQL = SQL & DBSet(TxtAux1(0).Text, "T") & "," & DBSet(TxtAux1(1).Text, "T") & ")"
+                 SQL = SQL & DBSet(txtAux1(0).Text, "T") & "," & DBSet(txtAux1(1).Text, "T") & ")"
             Case 2 'Habilidades
                  SQL = "INSERT INTO strab2 "
                  SQL = SQL & "(codtraba, numlinea, habilida) "
                  SQL = SQL & "VALUES (" & Val(Text1(0).Text) & ", " & NumF & ","
-                 SQL = SQL & DBSet(txtAux2.Text, "T") & ")"
+                 SQL = SQL & DBSet(txtaux2.Text, "T") & ")"
             Case 3 'Experiencia Laboral
                  SQL = "INSERT INTO strab3 "
                  SQL = SQL & "(codtraba, numlinea, periodo1, experien) "
@@ -3209,7 +3204,7 @@ On Error GoTo EInsertarLinea
      End If
     
     If SQL <> "" Then
-        Conn.Execute SQL
+        conn.Execute SQL
         InsertarLinea = True
     End If
     Exit Function
@@ -3229,12 +3224,12 @@ On Error GoTo EModificarLinea
          vWhere = "codtraba=" & Val(Text1(0).Text)
          Select Case Me.SSTab1.Tab
             Case 1 'Estudios/Formacion
-                SQL = "UPDATE strab1 Set periodos = " & DBSet(TxtAux1(0).Text, "T")
-                SQL = SQL & ", formacio = " & DBSet(TxtAux1(1).Text, "T")
+                SQL = "UPDATE strab1 Set periodos = " & DBSet(txtAux1(0).Text, "T")
+                SQL = SQL & ", formacio = " & DBSet(txtAux1(1).Text, "T")
                 SQL = SQL & " WHERE " & vWhere & " AND numlinea=" & Data2.Recordset!numlinea
             Case 2 'Habilidades
-                SQL = "UPDATE strab2 Set habilida = " & DBSet(txtAux2.Text, "T")
-                SQL = SQL & " WHERE " & vWhere & " AND numlinea=" & Data3.Recordset!numlinea
+                SQL = "UPDATE strab2 Set habilida = " & DBSet(txtaux2.Text, "T")
+                SQL = SQL & " WHERE " & vWhere & " AND numlinea=" & data3.Recordset!numlinea
             Case 3 'Experiencia Laboral
                 SQL = "UPDATE strab3 Set periodo1 = " & DBSet(txtAux3(0).Text, "T") & ", "
                 SQL = SQL & "experien=" & DBSet(txtAux3(1).Text, "T")
@@ -3252,7 +3247,7 @@ On Error GoTo EModificarLinea
     End If
 
     If SQL <> "" Then
-        Conn.Execute SQL
+        conn.Execute SQL
         ModificarLinea = True
     End If
     Exit Function
@@ -3359,21 +3354,21 @@ Dim I As Byte
 
     If Not visible Then
         'Fijamos el alto (ponerlo en la parte inferior del form)
-        For I = 0 To TxtAux1.Count - 1 'TextBox
-            TxtAux1(I).Top = 290
-            TxtAux1(I).visible = visible
+        For I = 0 To txtAux1.Count - 1 'TextBox
+            txtAux1(I).Top = 290
+            txtAux1(I).visible = visible
         Next I
     Else
         If limpiar Then 'Vaciar los textBox (Vamos a Insertar)
             DeseleccionaGrid DataGrid1
-            For I = 0 To TxtAux1.Count - 1
-                TxtAux1(I).Text = ""
-                BloquearTxt TxtAux1(I), False
+            For I = 0 To txtAux1.Count - 1
+                txtAux1(I).Text = ""
+                BloquearTxt txtAux1(I), False
             Next I
         Else
-            For I = 0 To TxtAux1.Count - 1
-                TxtAux1(I).Text = DataGrid1.Columns(I + 2).Text
-                BloquearTxt TxtAux1(I), False
+            For I = 0 To txtAux1.Count - 1
+                txtAux1(I).Text = DataGrid1.Columns(I + 2).Text
+                BloquearTxt txtAux1(I), False
             Next I
         End If
 
@@ -3382,24 +3377,24 @@ Dim I As Byte
         '-------------------------------
         alto = ObtenerAlto(DataGrid1, 8)
         
-        For I = 0 To TxtAux1.Count - 1
-            TxtAux1(I).Top = alto
-            TxtAux1(I).Height = DataGrid1.RowHeight
+        For I = 0 To txtAux1.Count - 1
+            txtAux1(I).Top = alto
+            txtAux1(I).Height = DataGrid1.RowHeight
         Next I
         
         'Fijamos anchura y posicion Left
         '--------------------------------
         'Periodo
-        TxtAux1(0).Left = DataGrid1.Left + 320
-        TxtAux1(0).Width = DataGrid1.Columns(2).Width - 20
+        txtAux1(0).Left = DataGrid1.Left + 320
+        txtAux1(0).Width = DataGrid1.Columns(2).Width - 20
         'Formacion
-        TxtAux1(1).Left = TxtAux1(0).Left + TxtAux1(0).Width + 20
-        TxtAux1(1).Width = DataGrid1.Columns(3).Width - 20
+        txtAux1(1).Left = txtAux1(0).Left + txtAux1(0).Width + 20
+        txtAux1(1).Width = DataGrid1.Columns(3).Width - 20
         
         'Los ponemos Visibles o No
         '--------------------------
-        For I = 0 To TxtAux1.Count - 1
-            TxtAux1(I).visible = visible
+        For I = 0 To txtAux1.Count - 1
+            txtAux1(I).visible = visible
         Next I
     End If
 End Sub
@@ -3413,16 +3408,16 @@ Dim alto As Single
 
     If Not visible Then
         'Fijamos el alto (ponerlo en la parte inferior del form)
-            txtAux2.Top = 290
-            txtAux2.visible = visible
+            txtaux2.Top = 290
+            txtaux2.visible = visible
     Else
         If limpiar Then 'Vaciar los textBox (Vamos a Insertar)
             DeseleccionaGrid DataGrid2
-            txtAux2.Text = ""
-            BloquearTxt txtAux2, False
+            txtaux2.Text = ""
+            BloquearTxt txtaux2, False
         Else
-            txtAux2.Text = DataGrid2.Columns(2).Text
-            BloquearTxt txtAux2, False
+            txtaux2.Text = DataGrid2.Columns(2).Text
+            BloquearTxt txtaux2, False
         End If
 
 
@@ -3430,18 +3425,18 @@ Dim alto As Single
         '-------------------------------
         alto = ObtenerAlto(DataGrid2, 8)
         
-        txtAux2.Top = alto
-        txtAux2.Height = DataGrid2.RowHeight
+        txtaux2.Top = alto
+        txtaux2.Height = DataGrid2.RowHeight
         
         'Fijamos anchura y posicion Left
         '--------------------------------
         'Habilidad
-        txtAux2.Left = DataGrid2.Left + 320
-        txtAux2.Width = DataGrid2.Columns(2).Width - 20
+        txtaux2.Left = DataGrid2.Left + 320
+        txtaux2.Width = DataGrid2.Columns(2).Width - 20
             
         'Los ponemos Visibles o No
         '--------------------------
-        txtAux2.visible = visible
+        txtaux2.visible = visible
     End If
 End Sub
 
@@ -3616,7 +3611,7 @@ End Sub
 
 
 Private Sub txtAux1_GotFocus(Index As Integer)
-    ConseguirFoco TxtAux1(Index), Modo
+    ConseguirFoco txtAux1(Index), Modo
 End Sub
 
 Private Sub txtAux1_KeyDown(Index As Integer, KeyCode As Integer, Shift As Integer)
@@ -3648,7 +3643,7 @@ Private Sub TxtAux1_LostFocus(Index As Integer)
 End Sub
 
 Private Sub txtAux2_GotFocus()
-    ConseguirFoco txtAux2, Modo
+    ConseguirFoco txtaux2, Modo
 End Sub
 
 Private Sub txtAux2_KeyPress(KeyAscii As Integer)
@@ -3741,29 +3736,29 @@ Private Function Eliminar() As Boolean
 Dim SQL As String
 On Error GoTo FinEliminar
 
-        Conn.BeginTrans
+        conn.BeginTrans
         SQL = " WHERE  codtraba=" & Data1.Recordset!CodTraba
 
         'Lineas Estudios/Formacion
-        Conn.Execute "Delete from strab1 " & SQL
+        conn.Execute "Delete from strab1 " & SQL
         'Lineas Habilidades
-        Conn.Execute "Delete from strab2 " & SQL
+        conn.Execute "Delete from strab2 " & SQL
         'Lineas Experiencia Laboral
-        Conn.Execute "Delete from strab3 " & SQL
+        conn.Execute "Delete from strab3 " & SQL
         'Lineas Formacion Realizada
-        Conn.Execute "Delete from strab4 " & SQL
+        conn.Execute "Delete from strab4 " & SQL
         'Lineas Experiencia Empresa
-        Conn.Execute "Delete from strab5 " & SQL
+        conn.Execute "Delete from strab5 " & SQL
         'Cabeceras
-        Conn.Execute "Delete from straba " & SQL
+        conn.Execute "Delete from straba " & SQL
 
 FinEliminar:
     If Err.Number <> 0 Then
         MuestraError Err.Number, "Eliminar"
-        Conn.RollbackTrans
+        conn.RollbackTrans
         Eliminar = False
     Else
-        Conn.CommitTrans
+        conn.CommitTrans
         Eliminar = True
     End If
 End Function
@@ -3778,7 +3773,7 @@ On Error Resume Next
     Cad = "Select * from strab1 where codtraba= -1"
     CargaGrid DataGrid1, Data2, Cad
     Cad = "Select * from strab2 where codtraba= -1"
-    CargaGrid DataGrid2, Data3, Cad
+    CargaGrid DataGrid2, data3, Cad
     Cad = "Select * from strab3 where codtraba= -1"
     CargaGrid DataGrid3, Data4, Cad
     Cad = "Select * from strab4 where codtraba= -1"

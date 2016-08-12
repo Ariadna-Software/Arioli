@@ -1157,7 +1157,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Const Pruebas = False
+Private Const Pruebas = True
 
 
 
@@ -1172,12 +1172,13 @@ Dim CadenaINsertFinal As String
 Dim Buffer As String
 
 'Es de parametros y para todos los formatos
-Dim Etiqueta As Currency
+Dim EtiquetaEnBD As Currency
+Dim Etiqueta2 As Currency
 Dim VolumenProd As Currency
 Dim PesoBotella As Currency
 Dim PesoTapon As Currency
 Dim Retractil As Currency
-Dim EMP As Integer
+Dim EMP_ As Currency
 
 
 Dim ClaveReferenciaPesada As String
@@ -1195,6 +1196,7 @@ Dim Ok As Boolean
 Dim N As Integer
 Dim VaOK As Boolean
 Dim RT As ADODB.Recordset
+Dim EsUnaLata As Boolean
 
         'Ponemos a pesar
     Set miRsAux = New ADODB.Recordset
@@ -1202,17 +1204,17 @@ Dim RT As ADODB.Recordset
     VaOK = False
     
     
-    If Etiqueta < 0 Then
-        Etiqueta = 0
+    If EtiquetaEnBD < 0 Then
+        EtiquetaEnBD = 0
         SQL = "Select PesoEtiqueta from spara1"
         miRsAux.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-        If Not miRsAux.EOF Then Etiqueta = DBLet(miRsAux!pesoetiqueta, "N")
+        If Not miRsAux.EOF Then EtiquetaEnBD = DBLet(miRsAux!pesoetiqueta, "N")
         miRsAux.Close
     End If
             
     
     
-    SQL = "Select litrosunidad,nomartic from sartic where codartic=" & DBSet(RecuperaValor(cmdLinea(Index).Tag, 1), "T")
+    SQL = "Select litrosunidad,nomartic,codtipar from sartic where codartic=" & DBSet(RecuperaValor(cmdLinea(Index).Tag, 1), "T")
     miRsAux.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If miRsAux.EOF Then MsgBox "EOF Reg": Stop
     
@@ -1221,6 +1223,9 @@ Dim RT As ADODB.Recordset
     txtPesada(0).Tag = ""
     TextoAux = "Volumen " & miRsAux!litrosunidad & " Litros  "
     VolumenProd = miRsAux!litrosunidad * 1000  'Ml, y gramos
+    
+    EsUnaLata = DBLet(miRsAux!codtipar, "T") = "09"
+    
     miRsAux.Close
     
     txtPesada(1).Text = RecuperaValor(cmdLinea(Index).Tag, 2)
@@ -1241,8 +1246,14 @@ Dim RT As ADODB.Recordset
     PesoBotella = -1
     PesoTapon = -1
     Retractil = 0
-    EMP = Val(DiferenciaPermitidaFormato(VolumenProd))
-
+    Etiqueta2 = EtiquetaEnBD  'Valor enla BD
+    'Si el formato es LATA, entonces ponemos el peso a 0
+    If EsUnaLata Then Etiqueta2 = 0
+    
+    EMP_ = DiferenciaPermitidaFormato2(VolumenProd)
+    
+    
+    
     If Not miRsAux.EOF Then
         '  prodlinpesos(codigo,idlin,serie,pesoBotella,pesoTapon,pesoEtiqueta,pesoOtro)
         ParaElInsertSQL = miRsAux!codigo & "," & miRsAux!idlin & ","
@@ -1364,7 +1375,7 @@ Dim RT As ADODB.Recordset
     '  prodlinpesos(codigo,idlin,serie,lotetraza,pesoBotella,pesoTapon,pesoEtiqueta,pesoEtiqueta,secuencial,fechahora,pesoLleno,CumpleEMP,Cumple2EMP)
     ParaElInsertSQL = " (" & RecuperaValor(cmdLinea(Index).Tag, 3) & "," & RecuperaValor(cmdLinea(Index).Tag, 4) & "," & Me.txtPesada(2).Text & ","
     ParaElInsertSQL = ParaElInsertSQL & RecuperaValor(cmdLinea(Index).Tag, 2) & "," & DBSet(PesoBotella, "N") & "," & DBSet(PesoTapon, "N") & ","
-    ParaElInsertSQL = ParaElInsertSQL & DBSet(Etiqueta, "N") & "," & DBSet(Retractil, "N") & ","
+    ParaElInsertSQL = ParaElInsertSQL & DBSet(Etiqueta2, "N") & "," & DBSet(Retractil, "N") & ","
     
     
     
@@ -1567,7 +1578,7 @@ Dim H As Integer
      
      MSComm1.CommPort = Config.kCOMM
      MSComm1.Settings = Config.Velocidad & ",n,8,1"
-     Etiqueta = -1 'para forzar lectura peso la primera vez
+     EtiquetaEnBD = -1 'para forzar lectura peso la primera vez
      Timer2.Enabled = True
 End Sub
 
@@ -1733,7 +1744,10 @@ Private Sub HabilitarPesada(Si As Boolean)
         Timer2.Enabled = False
         FrameResultados.Visible = False
         Conn.Execute "DELETE from tmppesadasBascula"
-        PuertoComm True
+        Buffer = ""
+        If Not Pruebas Then
+            If Not MSComm1.PortOpen Then PuertoComm True
+        End If
     End If
     
 End Sub
@@ -1744,9 +1758,7 @@ End Sub
 
 
 
-Private Sub List2_Click()
-    
-End Sub
+
 
 Private Sub lw1_KeyPress(KeyAscii As Integer)
 Dim cad As String
@@ -1773,14 +1785,14 @@ Dim Ok2 As Boolean
         
         If Me.txtPesada(5).Visible Then
             cad = "UPDATE tmppesadasBascula set pesolleno=" & DBSet(Peso, "N")
-            Peso = (Peso - (PesoBotella + PesoTapon + Etiqueta + Retractil))
+            Peso = (Peso - (PesoBotella + PesoTapon + Etiqueta2 + Retractil))
             Peso = Peso / 0.916
             cad = cad & ", volumenllenado=" & DBSet(Peso, "N")
             Ok1 = True
             Ok2 = True
-            If VolumenProd - Peso > EMP Then
+            If VolumenProd - Peso > EMP_ Then
                 lw1.SelectedItem.Bold = True
-                If VolumenProd - Peso > 2 * EMP Then
+                If VolumenProd - Peso > 2 * EMP_ Then
                     lw1.SelectedItem.ForeColor = vbRed
                     Ok2 = False
                 Else
@@ -1896,7 +1908,7 @@ End Sub
 
 Private Sub PuertoComm(Abrir As Boolean)
         
-    Buffer = ""
+    
     If Pruebas Then Exit Sub
     MSComm1.PortOpen = True
     MSComm1.InputLen = 0
@@ -1936,17 +1948,17 @@ Dim cad As String
             Else
                 'Para cualquier ejemplo
                
-                PesoInterMedio = Retractil + Etiqueta + PesoBotella + PesoTapon
+                PesoInterMedio = Retractil + Etiqueta2 + PesoBotella + PesoTapon
                 
                 
                 'Uno de cada mil casos, 2*E;P
                 If Int((1000 * Rnd) + 1) >= 1000 Then
-                    TeoricoPruebas = VolumenProd - (2 * EMP) - Rnd - 0.45
+                    TeoricoPruebas = VolumenProd - (2 * EMP_) - Rnd - 0.45
 
                 Else
                     'Uno de cada 50 datos es EMP
                     If Int((55 * Rnd) + 1) >= 54 Then
-                        TeoricoPruebas = VolumenProd - EMP - Rnd - 0.1
+                        TeoricoPruebas = VolumenProd - EMP_ - Rnd - 0.1
                         
                     Else
                         'Peso OK
@@ -2098,10 +2110,10 @@ Dim AmpliarNumeroPesadas As Boolean
         
         
         
-        SQL = CStr(DiferenciaPermitidaFormato(VolumenProd))
-        Valor = CInt(SQL)
+        SQL = CStr(DiferenciaPermitidaFormato2(VolumenProd))
+        Valor = CCur(SQL)
         
-        SQL = "UPDATE tmppesadasBascula SET EMP =" & Val(Valor)
+        SQL = "UPDATE tmppesadasBascula SET EMP =" & DBSet(Valor, "N")
         SQL = SQL & ", volumenllenado = (pesolleno- (pesobotella+pesotapon +pesoetiqueta+pesootro)) / 0.916 "
         Conn.Execute SQL
         espera 0.5
@@ -2249,8 +2261,8 @@ Dim AmpliarNumeroPesadas As Boolean
                 
             'La desviacion tuene que ser inferior a 0.25 el maximo por formato
             Valor = Valor * 1000
-            SQL = CStr(DiferenciaPermitidaFormato(Valor))
-            Valor = CInt(SQL) * Valor
+            SQL = CStr(DiferenciaPermitidaFormato2(Valor))
+            Valor = CCur(SQL) * Valor
                 
             If CCur(txtPesada(7).Text) > Valor Then
                 'ERRROR. Se va. NO CONFORME
@@ -2277,23 +2289,26 @@ Dim AmpliarNumeroPesadas As Boolean
     
 End Sub
 
-Private Function DiferenciaPermitidaFormato(Formato As Currency) As Integer
-
-    If Formato = 250 Then
-        DiferenciaPermitidaFormato = 9
+Private Function DiferenciaPermitidaFormato2(Formato As Currency) As Currency
+Dim Aux As Currency
+    'Entre 0.. 499 = 9
+    '      500.1000=15
+    '      1001 en adelante= 15% formato  -->
+    '           2000=30
+    '           2500=37.5
+    '           4000=60
+    '           5000=75
+               
+    
+    If Formato < 500 Then
+        DiferenciaPermitidaFormato2 = 9
     Else
-        If Formato = 5000 Then
-            DiferenciaPermitidaFormato = 75
+        If Formato <= 1000 Then
+            DiferenciaPermitidaFormato2 = 15
         Else
-            If Formato = 2000 Then
-                DiferenciaPermitidaFormato = 30
-            Else
-                If Formato >= 500 And Formato <= 1000 Then
-                    DiferenciaPermitidaFormato = 15
-                Else
-                    MsgBox "Formato no procesado: " & Formato, vbExclamation
-                End If
-            End If
+            Aux = Formato / 1000
+            Aux = Aux * 15  'el 15 %
+            DiferenciaPermitidaFormato2 = Round(Aux, 1)
         End If
     End If
 End Function
@@ -2337,13 +2352,13 @@ Dim K As Integer
             Ok2 = True
             
             Peso = CCur(Buffer)
-            Peso = (Peso - (PesoBotella + PesoTapon + Etiqueta + Retractil))
+            Peso = (Peso - (PesoBotella + PesoTapon + Etiqueta2 + Retractil))
             Peso = Peso / 0.916
             
             
-            If VolumenProd - Peso > EMP Then
+            If VolumenProd - Peso > EMP_ Then
                 Beep
-                If VolumenProd - Peso > 2 * EMP Then
+                If VolumenProd - Peso > 2 * EMP_ Then
                     Me.lblPeso.BackColor = vbRed
                     lblPeso.ForeColor = vbWhite
                     lblPeso.Refresh

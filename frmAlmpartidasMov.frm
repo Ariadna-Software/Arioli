@@ -21,26 +21,88 @@ Begin VB.Form frmAlmpartidasMov
    Begin TabDlg.SSTab SSTab1 
       Height          =   4695
       Left            =   120
-      TabIndex        =   35
+      TabIndex        =   34
       Top             =   2760
       Width           =   12015
       _ExtentX        =   21193
       _ExtentY        =   8281
       _Version        =   393216
-      Tabs            =   1
-      TabsPerRow      =   1
+      Style           =   1
+      MousePointer    =   1
+      Tabs            =   2
+      TabsPerRow      =   2
       TabHeight       =   520
+      WordWrap        =   0   'False
       TabCaption(0)   =   "Movimientos"
       TabPicture(0)   =   "frmAlmpartidasMov.frx":000C
       Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "DataGrid1"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).ControlCount=   1
+      TabCaption(1)   =   "Pesos"
+      TabPicture(1)   =   "frmAlmpartidasMov.frx":0028
+      Tab(1).ControlEnabled=   0   'False
+      Tab(1).Control(0)=   "ListView1"
+      Tab(1).ControlCount=   1
+      Begin MSComctlLib.ListView ListView1 
+         Height          =   3855
+         Left            =   -74280
+         TabIndex        =   36
+         Top             =   600
+         Width           =   10695
+         _ExtentX        =   18865
+         _ExtentY        =   6800
+         View            =   3
+         LabelEdit       =   1
+         LabelWrap       =   -1  'True
+         HideSelection   =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         NumItems        =   7
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "Sec"
+            Object.Width           =   1658
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Fecha/hora"
+            Object.Width           =   4480
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   1
+            SubItemIndex    =   2
+            Text            =   "Peso"
+            Object.Width           =   2187
+         EndProperty
+         BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   3
+            Object.Width           =   4233
+         EndProperty
+         BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   4
+            Text            =   "Sec"
+            Object.Width           =   1658
+         EndProperty
+         BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   5
+            Text            =   "Fecha/Hora"
+            Object.Width           =   4233
+         EndProperty
+         BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   1
+            SubItemIndex    =   6
+            Text            =   "Peso"
+            Object.Width           =   2187
+         EndProperty
+      End
       Begin MSDataGridLib.DataGrid DataGrid1 
-         Bindings        =   "frmAlmpartidasMov.frx":0028
+         Bindings        =   "frmAlmpartidasMov.frx":0044
          Height          =   4200
          Left            =   120
-         TabIndex        =   36
+         TabIndex        =   35
          Top             =   360
          Width           =   11775
          _ExtentX        =   20770
@@ -108,12 +170,12 @@ Begin VB.Form frmAlmpartidasMov
       End
    End
    Begin VB.CommandButton cmdDesdeMovalLotes 
-      Caption         =   "Moviemientos"
+      Caption         =   "Movimientos"
       Height          =   375
       Left            =   2640
       TabIndex        =   29
       Top             =   7680
-      Width           =   1335
+      Width           =   1575
    End
    Begin VB.CommandButton cmdCancelar 
       Caption         =   "Cancelar"
@@ -137,15 +199,6 @@ Begin VB.Form frmAlmpartidasMov
       TabIndex        =   13
       Top             =   410
       Width           =   12015
-      Begin VB.CommandButton cmdPesos 
-         Height          =   495
-         Left            =   10800
-         Picture         =   "frmAlmpartidasMov.frx":003D
-         Style           =   1  'Graphical
-         TabIndex        =   33
-         Top             =   240
-         Width           =   375
-      End
       Begin VB.TextBox Text2 
          Alignment       =   1  'Right Justify
          BackColor       =   &H80000018&
@@ -307,7 +360,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   255
          Index           =   8
          Left            =   9480
-         TabIndex        =   34
+         TabIndex        =   33
          Top             =   120
          Width           =   855
       End
@@ -351,7 +404,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   2
          Left            =   1080
-         Picture         =   "frmAlmpartidasMov.frx":688F
+         Picture         =   "frmAlmpartidasMov.frx":0059
          Tag             =   "-1"
          ToolTipText     =   "Buscar articulo"
          Top             =   1560
@@ -379,7 +432,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   1
          Left            =   7440
-         Picture         =   "frmAlmpartidasMov.frx":6991
+         Picture         =   "frmAlmpartidasMov.frx":015B
          Tag             =   "-1"
          ToolTipText     =   "Buscar almacen"
          Top             =   840
@@ -389,7 +442,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   0
          Left            =   960
-         Picture         =   "frmAlmpartidasMov.frx":6A93
+         Picture         =   "frmAlmpartidasMov.frx":025D
          Tag             =   "-1"
          ToolTipText     =   "Buscar articulo"
          Top             =   840
@@ -426,7 +479,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   0
          Left            =   5880
-         Picture         =   "frmAlmpartidasMov.frx":6B95
+         Picture         =   "frmAlmpartidasMov.frx":035F
          ToolTipText     =   "Buscar fecha"
          Top             =   120
          Width           =   240
@@ -897,20 +950,23 @@ Private Sub cmdDesdeMovalLotes_Click()
     frmAlmpartidasMovNuevo.Show vbModal
 End Sub
 
-Private Sub cmdPesos_Click()
-Dim C As String
-
-    C = DevuelveDesdeBD(conAri, "tipartic", "sartic", "codartic", Data1.Recordset!codartic)
-    If C <> 2 And C <> 3 Then
-        MsgBox "Sistema de pesajes para tapones / envases ", vbExclamation
-        Exit Sub
-    End If
-
-
-    frmProdPesos.Opcion = 0
-    frmProdPesos.Campos = Data1.Recordset!ID
-    frmProdPesos.Show vbModal
-End Sub
+'Private Sub cmdPesos_Click()
+'Dim C As String
+'
+'
+'    If Trim(Text1(2).Text) = "" Then Exit Sub
+'
+'    C = DevuelveDesdeBD(conAri, "tipartic", "sartic", "codartic", Text1(2).Text)
+'    If C <> 2 And C <> 3 Then
+'        MsgBox "Sistema de pesajes para tapones / envases ", vbExclamation
+'        Exit Sub
+'    End If
+'
+'
+'    frmProdPesos.Opcion = 0
+'    frmProdPesos.Campos = Data1.Recordset!ID
+'    frmProdPesos.Show vbModal
+'End Sub
 
 Private Sub cmdRegresar_Click()
 'Este es el boton Cabecera
@@ -1011,8 +1067,10 @@ Private Sub Form_Load()
     Data1.Refresh
     
     
-    cmdPesos.visible = vParamAplic.QUE_EMPRESA = 1
-
+    'cmdPesos.visible = vParamAplic.QUE_EMPRESA = 0
+    Me.SSTab1.TabVisible(1) = vParamAplic.QUE_EMPRESA = 0
+    
+    
     'Cargar el DataGrid de lineas de Revisiones inicialmente a nada DATA2
     PrimeraVez = True
     
@@ -1026,7 +1084,7 @@ On Error Resume Next
 
     limpiar Me   'Metodo general: Limpia los controles TextBox
     lblIndicador.Caption = ""
-
+    ListView1.ListItems.Clear
     If Err.Number <> 0 Then Err.Clear
 End Sub
 
@@ -1388,6 +1446,7 @@ Dim T1 As Single
     Screen.MousePointer = vbHourglass
     T1 = Timer
     limpiar Me
+    ListView1.ListItems.Clear
     Set Cp = New cPartidas
     If Cp.Leer(CLng(Data1.Recordset!ID)) Then
         Text1(0).Text = Cp.idPartida
@@ -1402,7 +1461,7 @@ Dim T1 As Single
         conn.Execute "Delete from tmppartidas where codusu = " & vUsu.Codigo
         Cp.CargaDatosParaListar
         
-        If vParamAplic.QUE_EMPRESA = 1 Then
+        If vParamAplic.QUE_EMPRESA = 0 Then
             Cp.LeerDatosPesajes
             If Cp.Desviacion <> 0 Or Cp.PesoMedio <> 0 Then
                 Text2(2).Text = Format(Cp.PesoMedio, FormatoPrecio)
@@ -1423,6 +1482,7 @@ Dim T1 As Single
     Set Cp = Nothing
     'Para que haga el losffocus bien
     CargaGrid True
+    
     Modo = 3
     Text1_LostFocus 2
     Text1_LostFocus 4
@@ -1430,8 +1490,8 @@ Dim T1 As Single
     Modo = 2
     
     
-    
-
+    'Cargar pesos
+    CargarPesos
     
     
     
@@ -1447,8 +1507,8 @@ End Sub
 '   En PONERMODO se habilitan, o no, los diverso campos del
 '   formulario en funcion del modo en k vayamos a trabajar
 Private Sub PonerModo(Kmodo As Byte)
-Dim i As Byte, NumReg As Byte
-Dim b As Boolean
+Dim I As Byte, NumReg As Byte
+Dim B As Boolean
 
     On Error GoTo EPonerModo
 
@@ -1461,15 +1521,15 @@ Dim b As Boolean
     
     'Modo 2. Hay datos y estamos visualizandolos
     '=========================================
-    b = (Modo = 2)
+    B = (Modo = 2)
     'Ponemos visible, si es formulario de busqueda, el boton regresar cuando hay datos
    ' If DatosADevolverBusqueda2 <> "" Then
    '     cmdRegresar.visible = b
    ' Else
         cmdRegresar.visible = False
    ' End If
-    cmdAceptar.visible = Not b
-    cmdCancelar.visible = Not b
+    cmdAceptar.visible = Not B
+    cmdCancelar.visible = Not B
     
         
         
@@ -1478,44 +1538,44 @@ Dim b As Boolean
     If Not Data1.Recordset.EOF Then
         If Data1.Recordset.RecordCount > 1 Then NumReg = 2 'Solo es para saber q hay + de 1 registro
     End If
-    DesplazamientoVisible Me.Toolbar1, btnPrimero, b, NumReg
+    DesplazamientoVisible Me.Toolbar1, btnPrimero, B, NumReg
         
         
 
     'Campo Numero de Albaran siempre bloqueado, excepto si estamos en modo de busqueda
-    b = (Modo <> 1)
-    BloquearTxt Text1(0), b, True
+    B = (Modo <> 1)
+    BloquearTxt Text1(0), B, True
 
-    b = Modo = 0 Or Modo = 2 Or Modo >= 5
-    For i = 1 To 7
-        BloquearTxt Text1(i), b
+    B = Modo = 0 Or Modo = 2 Or Modo >= 5
+    For I = 1 To 7
+        BloquearTxt Text1(I), B
     Next
     BloquearTxt Text1(8), True  'siempre bloqueado
 
     
     '---------------------------------------------
-    b = (Modo <> 0 And Modo <> 2)
+    B = (Modo <> 0 And Modo <> 2)
 
-    imgFecha(0).visible = b
+    imgFecha(0).visible = B
      
-    For i = 0 To Me.imgCuentas.Count - 1
-        imgCuentas(i).visible = b
-    Next i
+    For I = 0 To Me.imgCuentas.Count - 1
+        imgCuentas(I).visible = B
+    Next I
 
 
     Me.chkVistaPrevia.Enabled = (Modo <= 2)
     
     'Los kilos totatels
-    b = Modo = 2 Or Modo = 4 Or Modo = 5
+    B = Modo = 2 Or Modo = 4 Or Modo = 5
 
     
     
     'Abrir un coupage cerrado solo para admon
-    b = False
+    B = False
     If Modo = 1 Then
-        b = True
+        B = True
     Else
-        If Modo = 4 Then b = vUsu.Nivel < 1
+        If Modo = 4 Then B = vUsu.Nivel < 1
     End If
   
     
@@ -1653,15 +1713,15 @@ End Sub
 Private Sub CargaGrid(enlaza As Boolean)
 'IN: enlaza= si carga el grid con valores de la tabla o lo muestra vacio si no enlaza
 '    conServidas=si enlaza, se muestra la columna de servidas solo cuando se va a generar el Albaran no completo
-Dim b As Boolean
-Dim Sql As String
+Dim B As Boolean
+Dim SQL As String
 
     On Error GoTo ECargaGrid
 
-    b = DataGrid1.Enabled
+    B = DataGrid1.Enabled
     
-    Sql = MontaSQLCarga(enlaza)
-    CargaGridGnral DataGrid1, Me.Data2, Sql, PrimeraVez
+    SQL = MontaSQLCarga(enlaza)
+    CargaGridGnral DataGrid1, Me.Data2, SQL, PrimeraVez
     
 
     
@@ -1674,7 +1734,7 @@ Dim Sql As String
     
     
     
-    DataGrid1.Enabled = b
+    DataGrid1.Enabled = B
     PrimeraVez = False
     gridCargado = True
     
@@ -1724,7 +1784,7 @@ End Sub
 
 
 Private Sub CargaGrid2()
-Dim i As Byte
+Dim I As Byte
 
     On Error GoTo ECargaGrid
 
@@ -1760,10 +1820,10 @@ Dim i As Byte
              
     
 
-    For i = 0 To DataGrid1.Columns.Count - 1
-        DataGrid1.Columns(i).Locked = True
-        DataGrid1.Columns(i).AllowSizing = False
-    Next i
+    For I = 0 To DataGrid1.Columns.Count - 1
+        DataGrid1.Columns(I).Locked = True
+        DataGrid1.Columns(I).AllowSizing = False
+    Next I
     DataGrid1.HoldFields
     Exit Sub
 ECargaGrid:
@@ -1826,12 +1886,12 @@ End Sub
 
 Private Function ObtenerWhereCP() As String
 'Obtiene la where de la Clave Primaria de la tabla de Cabecera: scaped
-Dim Sql As String
+Dim SQL As String
 
     On Error Resume Next
     
-    Sql = NombreTabla & ".codigo= " & Val(Text1(0).Text)
-    ObtenerWhereCP = Sql
+    SQL = NombreTabla & ".codigo= " & Val(Text1(0).Text)
+    ObtenerWhereCP = SQL
     
     If Err.Number <> 0 Then Err.Clear
 End Function
@@ -1846,25 +1906,25 @@ Private Function MontaSQLCarga(enlaza As Boolean) As String
 ' Si ENLAZA -> Enlaza con el data2
 '           -> Si no lo cargamos sin enlazar a ningun campo
 '--------------------------------------------------------------------
-Dim Sql As String
+Dim SQL As String
     
-    Sql = "SELECT `fecha`,`idOperacion`,`idNumOperacion`,`idReferencia`,`Referencia`,"
-    Sql = Sql & " if(cantidad<0,""S"",""E""),"
-    Sql = Sql & "abs_cantidad from tmppartidas"
-    Sql = Sql & " WHERE codusu = " & vUsu.Codigo & " AND idpartida =  "
+    SQL = "SELECT `fecha`,`idOperacion`,`idNumOperacion`,`idReferencia`,`Referencia`,"
+    SQL = SQL & " if(cantidad<0,""S"",""E""),"
+    SQL = SQL & "abs_cantidad from tmppartidas"
+    SQL = SQL & " WHERE codusu = " & vUsu.Codigo & " AND idpartida =  "
     If enlaza Then
-        Sql = Sql & Data1.Recordset!ID
+        SQL = SQL & Data1.Recordset!ID
     Else
-        Sql = Sql & " -1"
+        SQL = SQL & " -1"
     End If
-    Sql = Sql & " Order by fecha desc,idNumOperacion desc"
-    MontaSQLCarga = Sql
+    SQL = SQL & " Order by fecha desc,idNumOperacion desc"
+    MontaSQLCarga = SQL
 End Function
 
 
 Private Sub PonerModoOpcionesMenu(Modo As Byte)
 'Activas unas Opciones de Menu y Toolbar según el Modo en que estemos
-Dim b As Boolean
+Dim B As Boolean
 '
 '        b = False
 '        'Me.mnOpciones.Enabled = (b Or Modo = 0)
@@ -1934,15 +1994,15 @@ End Sub
 
 
 Private Sub ActualizarPartidas()
-Dim Sql As String
+Dim SQL As String
     If Text1(7).Text <> Text1(8).Text Then
         If MsgBox("¿Actualizar cantidad lote?", vbQuestion + vbYesNo) = vbYes Then
-            Sql = Text1(8).Text
-            If Sql = "" Then Sql = "0"
-            Sql = CStr(ImporteFormateado(Sql))
-            Sql = "UPDATE spartidas set cantotal=" & TransformaComasPuntos(CStr(Sql))
-            Sql = Sql & " WHERE id=" & Text1(0).Text
-            If EjecutaSQL(conAri, Sql, True) Then Text1(7).Text = Text1(8).Text
+            SQL = Text1(8).Text
+            If SQL = "" Then SQL = "0"
+            SQL = CStr(ImporteFormateado(SQL))
+            SQL = "UPDATE spartidas set cantotal=" & TransformaComasPuntos(CStr(SQL))
+            SQL = SQL & " WHERE id=" & Text1(0).Text
+            If EjecutaSQL(conAri, SQL, True) Then Text1(7).Text = Text1(8).Text
         End If
     End If
 End Sub
@@ -1951,7 +2011,7 @@ End Sub
 
 
 Private Function generarMovimientosArticulo() As Boolean
-Dim i As Byte
+Dim I As Byte
 
     'FALTA###
     Exit Function
@@ -1963,8 +2023,8 @@ Dim i As Byte
     
 
     
-    For i = 1 To 8
-        LoteEnTabla i, Text1(2).Text, Text1(4).Text
+    For I = 1 To 8
+        LoteEnTabla I, Text1(2).Text, Text1(4).Text
     Next
     
         
@@ -1977,7 +2037,7 @@ Dim Desc As String
 Dim miSQL As String
 Dim Ca As Currency
 Dim SumaLotes As Boolean
-Dim Rs As ADODB.Recordset
+Dim RS As ADODB.Recordset
 
 
     Select Case Num
@@ -2086,27 +2146,27 @@ Dim Rs As ADODB.Recordset
         
         
     End Select
-    Set Rs = New ADODB.Recordset
-    Rs.Open miSQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Set RS = New ADODB.Recordset
+    RS.Open miSQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     ' El insert
 '   `codusu`,`idpartida`,`codartic`,`numlote`,fecha,`idOperacion`,`idNumOperacion`,
 ' `idReferencia`,`Referencia `,`cantidad` ,abs_cantidad    Ref: cliente/proveedor/trabajador
     'SQL = ", (" & vUsu.Codigo & "," & mIdPartida & "," & DBSet(mCodartic, "T") & "," & DBSet(mNumlote, "T") & ","
     miSQL = ""
-    While Not Rs.EOF
+    While Not RS.EOF
         '`tmplotlistado2` (`codusu`,`codartic`,`fecha`,`Lugar`,`cantidad`)
         miSQL = miSQL & ", (" & vUsu.Codigo & "," & DBSet(mCodartic, "T") & ","
     
         'fecha, idoperacion,idnumoperacion
-        miSQL = miSQL & DBSet(Rs!mifecha, "F") & "," & DBSet(Rs!Clave, "T")
+        miSQL = miSQL & DBSet(RS!mifecha, "F") & "," & DBSet(RS!Clave, "T")
 
-        Ca = Rs!cantmostrar
+        Ca = RS!cantmostrar
         If Not SumaLotes Then Ca = -1 * Ca
-        miSQL = miSQL & DBSet(Ca, "N") & "," & DBSet(Rs!cantmostrar, "N") & ")"
-        Rs.MoveNext
+        miSQL = miSQL & DBSet(Ca, "N") & "," & DBSet(RS!cantmostrar, "N") & ")"
+        RS.MoveNext
     Wend
-    Rs.Close
+    RS.Close
     
     If miSQL <> "" Then
         
@@ -2144,7 +2204,46 @@ End Sub
 
 
 
+Private Sub CargarPesos()
 
+Dim It As ListItem
+Dim B As Boolean
+
+     If Not Me.SSTab1.TabVisible(1) Then Exit Sub
+
+
+    On Error GoTo eCargarPesos
+    Set miRsAux = New ADODB.Recordset
+    miRsAux.Open "select * from spartidaspesos where idpartida=" & Data1.Recordset!ID, conn, adOpenKeyset, adLockPessimistic, adCmdText
+
+    While Not miRsAux.EOF
+
+        Set It = ListView1.ListItems.Add(, "Sec" & miRsAux!secuencial, Format(miRsAux!secuencial, "00"))
+        It.SubItems(1) = Format(miRsAux!FechaHora, "dd/mm/yyyy hh:nn:ss")
+        It.SubItems(2) = Format(miRsAux!Peso, FormatoCantidad)
+        It.SubItems(3) = " "
+        miRsAux.MoveNext
+        
+        B = False
+        
+        If Not miRsAux.EOF Then
+            It.SubItems(4) = Format(miRsAux!secuencial, "00")
+            It.SubItems(5) = Format(miRsAux!FechaHora, "dd/mm/yyyy hh:nn:ss")
+            It.SubItems(6) = Format(miRsAux!Peso, FormatoCantidad)
+            miRsAux.MoveNext
+        Else
+            It.SubItems(4) = " "
+            It.SubItems(5) = " "
+            It.SubItems(6) = " "
+        End If
+        
+    Wend
+    miRsAux.Close
+    
+eCargarPesos:
+    If Err.Number <> 0 Then MuestraError Err.Number, Err.Description
+    Set miRsAux = Nothing
+End Sub
 
 
 

@@ -5,7 +5,7 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmProdPesos 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Pesos"
-   ClientHeight    =   7905
+   ClientHeight    =   8955
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   5490
@@ -13,10 +13,17 @@ Begin VB.Form frmProdPesos
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   7905
+   ScaleHeight     =   8955
    ScaleWidth      =   5490
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame Frame2 
+      Height          =   975
+      Left            =   120
+      TabIndex        =   14
+      Top             =   1320
+      Width           =   5295
+   End
    Begin VB.Frame FrameEntradaMercancia 
       Height          =   855
       Left            =   120
@@ -24,28 +31,48 @@ Begin VB.Form frmProdPesos
       Top             =   480
       Width           =   5295
       Begin VB.Label Label1 
+         AutoSize        =   -1  'True
          Caption         =   "Artículo:"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
          Height          =   195
          Index           =   3
          Left            =   120
          TabIndex        =   13
          Top             =   120
-         Width           =   600
+         Width           =   735
       End
       Begin VB.Label Label1 
+         AutoSize        =   -1  'True
          Caption         =   "Lote:"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
          Height          =   195
          Index           =   2
          Left            =   120
          TabIndex        =   12
          Top             =   480
-         Width           =   480
+         Width           =   450
       End
       Begin VB.Label Label1 
          Caption         =   "Label1"
          Height          =   255
          Index           =   1
-         Left            =   840
+         Left            =   960
          TabIndex        =   11
          Top             =   480
          Width           =   4215
@@ -54,7 +81,7 @@ Begin VB.Form frmProdPesos
          Caption         =   "Label1"
          Height          =   255
          Index           =   0
-         Left            =   840
+         Left            =   960
          TabIndex        =   10
          Top             =   120
          Width           =   4215
@@ -70,7 +97,7 @@ Begin VB.Form frmProdPesos
       TabIndex        =   0
       Tag             =   "Código Marca|N|N|0|9999|smarca|codmarca|0000|S|"
       Text            =   "Dat"
-      Top             =   5040
+      Top             =   6000
       Width           =   800
    End
    Begin VB.TextBox txtAux 
@@ -84,7 +111,7 @@ Begin VB.Form frmProdPesos
       TabIndex        =   1
       Tag             =   "Marca|T|N|||smarca|nommarca||N|"
       Text            =   "Dato2"
-      Top             =   5040
+      Top             =   6000
       Width           =   1395
    End
    Begin MSDataGridLib.DataGrid DataGrid1 
@@ -93,7 +120,7 @@ Begin VB.Form frmProdPesos
       Left            =   120
       TabIndex        =   8
       TabStop         =   0   'False
-      Top             =   1440
+      Top             =   2400
       Width           =   5175
       _ExtentX        =   9128
       _ExtentY        =   9975
@@ -161,7 +188,7 @@ Begin VB.Form frmProdPesos
       Height          =   375
       Left            =   4260
       TabIndex        =   3
-      Top             =   7440
+      Top             =   8400
       Width           =   1035
    End
    Begin VB.CommandButton cmdAceptar 
@@ -169,7 +196,7 @@ Begin VB.Form frmProdPesos
       Height          =   375
       Left            =   3060
       TabIndex        =   2
-      Top             =   7440
+      Top             =   8400
       Width           =   1035
    End
    Begin VB.CommandButton cmdRegresar 
@@ -177,7 +204,7 @@ Begin VB.Form frmProdPesos
       Height          =   375
       Left            =   4260
       TabIndex        =   7
-      Top             =   7440
+      Top             =   8400
       Visible         =   0   'False
       Width           =   1035
    End
@@ -185,7 +212,7 @@ Begin VB.Form frmProdPesos
       Height          =   555
       Left            =   90
       TabIndex        =   5
-      Top             =   7260
+      Top             =   8220
       Width           =   1755
       Begin VB.Label lblIndicador 
          Alignment       =   2  'Center

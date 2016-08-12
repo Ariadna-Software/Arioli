@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmListadoNomi 
    BorderStyle     =   3  'Fixed Dialog
@@ -775,26 +775,26 @@ Attribute frmMtoBancosPro.VB_VarHelpID = -1
 
 
 Dim PrimeraVez As Boolean
-Dim indCodigo As Integer
+Dim IndCodigo As Integer
 
 Dim cadFormula As String 'Cadena con la FormulaSelection para Crystal Report
-Dim cadSelect As String 'Cadena para comprobar si hay datos antes de abrir Informe
-Dim cadParam As String 'cadena con los parametros q se pasan a Crystal R.
-Dim numParam As Byte 'numero de parametros
+Dim Cadselect As String 'Cadena para comprobar si hay datos antes de abrir Informe
+Dim Cadparam As String 'cadena con los parametros q se pasan a Crystal R.
+Dim NumParam As Byte 'numero de parametros
 
 
 Private Sub InicializarVbles()
     cadFormula = ""
-    cadSelect = ""
-    cadParam = ""
-    numParam = 0
+    Cadselect = ""
+    Cadparam = ""
+    NumParam = 0
 End Sub
 
 
 
 Private Sub cmdAceptarGen_Click()
 'Generar automaticamente las nominas
-Dim cad As String
+Dim Cad As String
 
     On Error GoTo ErrGen
 
@@ -814,16 +814,16 @@ Dim cad As String
     
     '- montar la cadena de seleccion y comprobar q NO hay datos para el
     '  destino q queremos generar
-    cad = "{snomin.anynomi}=" & Val(txtCodigo(2).Text)
-    If Not AnyadirAFormula(cadFormula, cad) Then Exit Sub
+    Cad = "{snomin.anynomi}=" & Val(txtCodigo(2).Text)
+    If Not AnyadirAFormula(cadFormula, Cad) Then Exit Sub
     
-    cad = "{snomin.mesnomi}=" & Val(txtCodigo(3).Text)
-    If Not AnyadirAFormula(cadFormula, cad) Then Exit Sub
+    Cad = "{snomin.mesnomi}=" & Val(txtCodigo(3).Text)
+    If Not AnyadirAFormula(cadFormula, Cad) Then Exit Sub
     
     '- comprabar si ya hay lineas de nominas generadas para el destino
     '  q queremos generar en ese caso aviso y salir
-    cadSelect = cadFormula
-    If HayRegParaInforme("snomin", cadSelect, True) Then
+    Cadselect = cadFormula
+    If HayRegParaInforme("snomin", Cadselect, True) Then
         Screen.MousePointer = vbDefault
         MsgBox "Ya existen lineas de nómina para el período destino seleccionado.", vbExclamation
         Exit Sub
@@ -833,27 +833,27 @@ Dim cad As String
     
     '- montar la cadena de seleccion y comprobar q hay datos para el
     '  origen y se puede duplicar
-    cad = "{snomin.anynomi}=" & Val(txtCodigo(0).Text)
-    If Not AnyadirAFormula(cadFormula, cad) Then Exit Sub
+    Cad = "{snomin.anynomi}=" & Val(txtCodigo(0).Text)
+    If Not AnyadirAFormula(cadFormula, Cad) Then Exit Sub
     
-    cad = "{snomin.mesnomi}=" & Val(txtCodigo(1).Text)
-    If Not AnyadirAFormula(cadFormula, cad) Then Exit Sub
+    Cad = "{snomin.mesnomi}=" & Val(txtCodigo(1).Text)
+    If Not AnyadirAFormula(cadFormula, Cad) Then Exit Sub
     
     
     '==== comprobar q hay registros para mostrar en el informe ====
-    cadSelect = cadFormula
-    If Not HayRegParaInforme("snomin", cadSelect) Then Exit Sub
+    Cadselect = cadFormula
+    If Not HayRegParaInforme("snomin", Cadselect) Then Exit Sub
     
     
     
     '- duplicar las nominas para el nuevo periodo año/mes
-    cad = "INSERT INTO snomin (codtraba, anynomi, mesnomi, impnomi, impgasto) "
-    cad = cad & "SELECT codtraba," & Val(txtCodigo(2).Text) & " as anynomi, "
-    cad = cad & Val(txtCodigo(3).Text) & " as mesnomi, impnomi, 0 as impgasto "
-    cad = cad & "FROM snomin "
-    cad = cad & "WHERE " & cadSelect
+    Cad = "INSERT INTO snomin (codtraba, anynomi, mesnomi, impnomi, impgasto) "
+    Cad = Cad & "SELECT codtraba," & Val(txtCodigo(2).Text) & " as anynomi, "
+    Cad = Cad & Val(txtCodigo(3).Text) & " as mesnomi, impnomi, 0 as impgasto "
+    Cad = Cad & "FROM snomin "
+    Cad = Cad & "WHERE " & Cadselect
     
-    conn.Execute cad
+    conn.Execute Cad
     Screen.MousePointer = vbDefault
     MsgBox "Se han generado correctamente las lineas de nóminas para el mes destino.", vbInformation
     
@@ -867,7 +867,7 @@ End Sub
 
 Private Sub cmdAceptarLis_Click()
 'abrir el listado de nominas
-Dim cad As String
+Dim Cad As String
 
     If txtCodigo(4).Text = "" And txtCodigo(5).Text = "" And txtCodigo(6).Text = "" And txtCodigo(7).Text = "" Then
         MsgBox "Debe seleccionar algún criterio para el informe.", vbInformation
@@ -880,53 +880,53 @@ Dim cad As String
     
     '============ PARAMETROS ===========================
     'Nombre de la Empresa
-    cadParam = "|pEmpresa=""" & vParam.NombreEmpresa & """|"
-    numParam = numParam + 1
+    Cadparam = "|pEmpresa=""" & vParam.NombreEmpresa & """|"
+    NumParam = NumParam + 1
     
     
     'Cadena para seleccion del año
     '-------------------------------
     If txtCodigo(4).Text <> "" Then
-        cad = "{snomin.anynomi}=" & Val(txtCodigo(4).Text)
-        If Not AnyadirAFormula(cadFormula, cad) Then Exit Sub
+        Cad = "{snomin.anynomi}=" & Val(txtCodigo(4).Text)
+        If Not AnyadirAFormula(cadFormula, Cad) Then Exit Sub
         'Parametro año
-        cadParam = cadParam & "pAnyo=""Año: " & txtCodigo(4).Text & """|"
-        numParam = numParam + 1
+        Cadparam = Cadparam & "pAnyo=""Año: " & txtCodigo(4).Text & """|"
+        NumParam = NumParam + 1
     End If
     
     'Cadena para seleccion del mes
     '-------------------------------
     If txtCodigo(5).Text <> "" Then
-        cad = "{snomin.mesnomi}=" & Val(txtCodigo(5).Text)
-        If Not AnyadirAFormula(cadFormula, cad) Then Exit Sub
+        Cad = "{snomin.mesnomi}=" & Val(txtCodigo(5).Text)
+        If Not AnyadirAFormula(cadFormula, Cad) Then Exit Sub
         'Parametro mes
-        cadParam = cadParam & "pMes=""Mes: " & txtCodigo(5).Text & """|"
-        numParam = numParam + 1
+        Cadparam = Cadparam & "pMes=""Mes: " & txtCodigo(5).Text & """|"
+        NumParam = NumParam + 1
     End If
     
     'Cadena para seleccion del trabajador
     '------------------------------------
     If txtCodigo(6).Text <> "" Or txtCodigo(7).Text <> "" Then
-        cad = CadenaDesdeHasta(txtCodigo(6).Text, txtCodigo(7).Text, "{snomin.codtraba}", "N", "Trabajador")
-        If Not AnyadirAFormula(cadFormula, cad) Then Exit Sub
+        Cad = CadenaDesdeHasta(txtCodigo(6).Text, txtCodigo(7).Text, "{snomin.codtraba}", "N", "Trabajador")
+        If Not AnyadirAFormula(cadFormula, Cad) Then Exit Sub
         'Parametro trabajador
-        cad = "pDHTrabajador=""Trabajador: "
-        cadParam = cadParam & AnyadirParametroDH(cad, 6, 7) & """|"
-        numParam = numParam + 1
+        Cad = "pDHTrabajador=""Trabajador: "
+        Cadparam = Cadparam & AnyadirParametroDH(Cad, 6, 7) & """|"
+        NumParam = NumParam + 1
         
     End If
     
-    cadSelect = cadFormula
+    Cadselect = cadFormula
     
     '==== comprobar q hay registros para mostrar en el informe ====
-    If Not HayRegParaInforme("snomin", cadSelect) Then Exit Sub
+    If Not HayRegParaInforme("snomin", Cadselect) Then Exit Sub
     
     
     '==== abrir el informe ====
     With frmImprimir
         .FormulaSeleccion = cadFormula
-        .OtrosParametros = cadParam
-        .NumeroParametros = numParam
+        .OtrosParametros = Cadparam
+        .NumeroParametros = NumParam
         .SoloImprimir = False
         .EnvioEMail = False
         .Opcion = 501
@@ -939,17 +939,17 @@ End Sub
 
 
 
-Private Function AnyadirParametroDH(cad As String, indD As Byte, indH As Byte) As String
+Private Function AnyadirParametroDH(Cad As String, indD As Byte, indH As Byte) As String
 On Error Resume Next
     If txtCodigo(indD).Text <> "" Then
-        cad = cad & "desde " & txtCodigo(indD).Text
-        If txtNombre(indD).Text <> "" Then cad = cad & " - " & txtNombre(indD).Text
+        Cad = Cad & "desde " & txtCodigo(indD).Text
+        If txtNombre(indD).Text <> "" Then Cad = Cad & " - " & txtNombre(indD).Text
     End If
     If txtCodigo(indH).Text <> "" Then
-        cad = cad & "  hasta " & txtCodigo(indH).Text
-        If txtNombre(indH).Text <> "" Then cad = cad & " - " & txtNombre(indH).Text
+        Cad = Cad & "  hasta " & txtCodigo(indH).Text
+        If txtNombre(indH).Text <> "" Then Cad = Cad & " - " & txtNombre(indH).Text
     End If
-    AnyadirParametroDH = cad
+    AnyadirParametroDH = Cad
     If Err.Number <> 0 Then Err.Clear
 End Function
 
@@ -1027,7 +1027,7 @@ End Function
 
 Private Sub cmdAceptarNorma34_Click()
 'generar el fichero de Norma 34
-Dim cad As String
+Dim Cad As String
 Dim cadAux As String
 
     '- comprobar q el valor introducido en los campos son correctos
@@ -1037,40 +1037,40 @@ Dim cadAux As String
     
     '==== montar la cadena de seleccion de registros ====
     '- seleccionar mes/año
-    cad = "snomin.anynomi=" & Val(txtCodigo(10).Text)
-    If Not AnyadirAFormula(cadSelect, cad) Then Exit Sub
+    Cad = "snomin.anynomi=" & Val(txtCodigo(10).Text)
+    If Not AnyadirAFormula(Cadselect, Cad) Then Exit Sub
     
-    cad = "snomin.mesnomi=" & Val(txtCodigo(11).Text)
-    If Not AnyadirAFormula(cadSelect, cad) Then Exit Sub
+    Cad = "snomin.mesnomi=" & Val(txtCodigo(11).Text)
+    If Not AnyadirAFormula(Cadselect, Cad) Then Exit Sub
     
     
     '- seleccionar los q el importe no sea 0
     If Me.OptImporte(0).Value = True Then 'Nomina
-        cad = "snomin.impnomi<>0"
+        Cad = "snomin.impnomi<>0"
     Else 'Gastos
-        cad = "snomin.impgasto<>0"
+        Cad = "snomin.impgasto<>0"
     End If
-    If Not AnyadirAFormula(cadSelect, cad) Then Exit Sub
+    If Not AnyadirAFormula(Cadselect, Cad) Then Exit Sub
     
     
     '- seleccionar los no pasados ya a norma 34
     If Me.OptImporte(0).Value = True Then 'Nomina
-        cad = "snomin.n34nomi=0"
+        Cad = "snomin.n34nomi=0"
         cadAux = "snomin.n34nomi=1"
     Else 'Gastos
-        cad = "snomin.n34gast=0"
+        Cad = "snomin.n34gast=0"
         cadAux = "snomin.n34nomi=1"
     End If
-    If Not AnyadirAFormula(cadAux, cadSelect) Then Exit Sub
-    If Not AnyadirAFormula(cadSelect, cad) Then Exit Sub
+    If Not AnyadirAFormula(cadAux, Cadselect) Then Exit Sub
+    If Not AnyadirAFormula(Cadselect, Cad) Then Exit Sub
     
     
     '==== comprobar q hay registros para mostrar en el informe ====
-    If HayRegParaInforme("snomin", cadSelect, True) Then
+    If HayRegParaInforme("snomin", Cadselect, True) Then
         Screen.MousePointer = vbHourglass
         MostrarProgreso True
         
-        GenerarNorma34 (cadSelect)
+        GenerarNorma34 (Cadselect)
         
         MostrarProgreso False
         Screen.MousePointer = vbDefault
@@ -1114,7 +1114,7 @@ Private Sub Form_Load()
 Dim H As Integer, W As Integer 'Alto, Ancho
 
     '- Icono del formulario
-    Me.Icon = frmPpal.Icon
+    Me.Icon = frmppal.Icon
     
     '- Iniciar formularios
     PrimeraVez = True
@@ -1162,18 +1162,18 @@ End Sub
 
 Private Sub frmMtoBancosPro_DatoSeleccionado(CadenaSeleccion As String)
 'Form de Mantenimiento de Bancos Propios
-    txtCodigo(indCodigo).Text = Format(RecuperaValor(CadenaSeleccion, 1), "0000")
-    txtNombre(indCodigo).Text = RecuperaValor(CadenaSeleccion, 2)
+    txtCodigo(IndCodigo).Text = Format(RecuperaValor(CadenaSeleccion, 1), "0000")
+    txtNombre(IndCodigo).Text = RecuperaValor(CadenaSeleccion, 2)
 End Sub
 
 Private Sub frmMtoTraba_DatoSeleccionado(CadenaSeleccion As String)
 'Form de Mantenimiento de Trabajadores
-    txtCodigo(indCodigo).Text = Format(RecuperaValor(CadenaSeleccion, 1), "0000")
-    txtNombre(indCodigo).Text = RecuperaValor(CadenaSeleccion, 2)
+    txtCodigo(IndCodigo).Text = Format(RecuperaValor(CadenaSeleccion, 1), "0000")
+    txtNombre(IndCodigo).Text = RecuperaValor(CadenaSeleccion, 2)
 End Sub
 
 Private Sub imgBuscar_Click(Index As Integer)
-    indCodigo = Index
+    IndCodigo = Index
     
     Select Case Index
         Case 6, 7 'TRABAJADOR
@@ -1189,7 +1189,7 @@ Private Sub imgBuscar_Click(Index As Integer)
             Set frmMtoBancosPro = Nothing
     End Select
     
-    PonerFoco Me.txtCodigo(indCodigo)
+    PonerFoco Me.txtCodigo(IndCodigo)
 End Sub
 
 
@@ -1322,7 +1322,7 @@ End Sub
 Private Sub GenerarNorma34(cadWhere As String)
 Dim totReg As Integer
 Dim SQL As String
-Dim cad As String
+Dim Cad As String
 Dim b As Boolean
 Dim RS As ADODB.Recordset
 
@@ -1346,13 +1346,13 @@ Dim DescripTr As String 'descripcion de la orden
     If Me.OptImporte(0).Value = True Then 'Nominas
         SQL = "SELECT snomin.codtraba,sum(impnomi) as Importe"
         SQL = SQL & ",straba.codbanco as entidad,straba.codsucur as oficina"
-        SQL = SQL & ",straba.digcontr as CC,straba.cuentaba as cuentaba "
+        SQL = SQL & ",straba.digcontr as CC,straba.cuentaba as cuentaba,iban "
         ConceptoTr = "1"
         DescripTr = "Pago Nómina"
     Else 'Gastos
         SQL = "SELECT snomin.codtraba,sum(impgasto) as Importe"
         SQL = SQL & ",straba.codbanc1 as entidad,straba.codsucu1 as oficina"
-        SQL = SQL & ",straba.digcont1 as CC,straba.cuentab1 as cuentaba "
+        SQL = SQL & ",straba.digcont1 as CC,straba.cuentab1 as cuentaba,iban1 as iban "
         ConceptoTr = "9"
         DescripTr = "Transferencia"
     End If
@@ -1364,27 +1364,31 @@ Dim DescripTr As String 'descripcion de la orden
 
 
     '-- obtener la cuenta bancaria del banco propio (Ordenante)
-    SQL = "select codbanco, codsucur, digcontr, cuentaba,idnorma34 from sbanpr where codbanpr = " & DBSet(txtCodigo(8).Text, "N")
+    SQL = "select codbanco, codsucur, digcontr, cuentaba,idnorma34,IBAN from sbanpr where codbanpr = " & DBSet(txtCodigo(8).Text, "N")
     Set RS = New ADODB.Recordset
     RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If RS.EOF Then
-        cad = ""
+        Cad = ""
         IdOrdenante = ""
     Else
         IdOrdenante = DBLet(RS!idnorma34, "T")
         If IsNull(RS!codbanco) Then
-            cad = ""
+            Cad = ""
         Else
-            cad = Format(RS!codbanco, "0000") & "|" & Format(DBLet(RS!codsucur, "T"), "0000") & "|" & DBLet(RS!digcontr, "T") & "|" & Format(DBLet(RS!CuentaBa, "T"), "0000000000") & "|"
+            Cad = Format(RS!codbanco, "0000") & "|" & Format(DBLet(RS!codsucur, "T"), "0000") & "|" & DBLet(RS!digcontr, "T") & "|" & Format(DBLet(RS!cuentaba, "T"), "0000000000") & "|" & DBLet(RS!IBAN, "T") & "|"
         End If
     End If
     Set RS = Nothing
-    CuentaPropia = cad
+    CuentaPropia = Cad
     
     '-- generar el fichero
     If Trim(IdOrdenante) = "" Then IdOrdenante = vParam.CifEmpresa
-    b = GeneraFicheroNorma34_ARIGES(IdOrdenante, CDate(txtCodigo(9).Text), CuentaPropia, ConceptoTr, 0, DescripTr, False, CadenaSQL)
     
+    
+    '08/08/16
+    'Para la VALL meto la norma34 XML
+   ' b = GeneraFicheroNorma34_ARIGES(IdOrdenante, CDate(txtCodigo(9).Text), CuentaPropia, ConceptoTr, 0, DescripTr, False, CadenaSQL)
+    b = GeneraFicheroNorma34SEPA_XML(IdOrdenante, CDate(txtCodigo(9).Text), CuentaPropia, CadenaSQL, DescripTr)
     
     '-- marcar los registros procesados de snomin
     If b Then

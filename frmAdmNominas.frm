@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmAdmNominas 
@@ -586,16 +586,16 @@ End Sub
 
 
 Private Sub cmdRegresar_Click()
-Dim cad As String
+Dim Cad As String
 
     If Data1.Recordset.EOF Then
         MsgBox "Ningún registro devuelto.", vbExclamation
         Exit Sub
     End If
 
-    cad = Data1.Recordset.Fields(0) & "|"
-    cad = cad & Data1.Recordset.Fields(1) & "|"
-    RaiseEvent DatoSeleccionado(cad)
+    Cad = Data1.Recordset.Fields(0) & "|"
+    Cad = Cad & Data1.Recordset.Fields(1) & "|"
+    RaiseEvent DatoSeleccionado(Cad)
     Unload Me
 End Sub
 
@@ -626,11 +626,11 @@ End Sub
 
 Private Sub Form_Load()
     'Icono del formulario
-    Me.Icon = frmPpal.Icon
+    Me.Icon = frmppal.Icon
 
     'ICONOS de La toolbar
     With Toolbar1
-        .ImageList = frmPpal.imgListComun
+        .ImageList = frmppal.imgListComun
         'ASignamos botones
         .Buttons(1).Image = 1   'Buscar
         .Buttons(2).Image = 2 'Ver Todos
@@ -705,9 +705,9 @@ Dim b As Boolean
         txtAux(jj).visible = b
     Next jj
     
-    txtAux2(2).Height = DataGrid1.RowHeight
-    txtAux2(2).Top = alto
-    txtAux2(2).visible = b
+    txtaux2(2).Height = DataGrid1.RowHeight
+    txtaux2(2).Top = alto
+    txtaux2(2).visible = b
     
     For jj = 0 To 1
         Me.CmbAux(jj).Height = DataGrid1.RowHeight
@@ -715,6 +715,11 @@ Dim b As Boolean
         Me.CmbAux(jj).visible = b
         BloquearCmb Me.CmbAux(jj), (Modo <> 1)
     Next jj
+    
+    If Modo = 4 Then
+        BloquearCmb Me.CmbAux(0), False
+        BloquearCmb Me.CmbAux(1), False
+    End If
     
     'boton de busqueda
     For jj = 1 To 1
@@ -731,7 +736,7 @@ End Sub
 Private Sub frmT_DatoSeleccionado(CadenaSeleccion As String)
 'Trabajadores
     txtAux(2).Text = Format(RecuperaValor(CadenaSeleccion, 1), "0000") 'Cod traba
-    txtAux2(2).Text = RecuperaValor(CadenaSeleccion, 2) 'Nom traba
+    txtaux2(2).Text = RecuperaValor(CadenaSeleccion, 2) 'Nom traba
 End Sub
 
 Private Sub mnBuscar_Click()
@@ -795,7 +800,7 @@ End Sub
 
 Private Sub PonerModo(Kmodo As Byte)
 Dim b As Boolean
-Dim i As Byte
+Dim I As Byte
     
     Modo = Kmodo
     PonerIndicador lblIndicador, Kmodo
@@ -813,9 +818,9 @@ Dim i As Byte
     If Kmodo = 1 Then PonerFoco txtAux(0)
                       
     'Bloquear los campos de clave primaria al modificar
-    For i = 0 To 2
-        BloquearTxt txtAux(i), (Modo = 4)
-    Next i
+    For I = 0 To 2
+        BloquearTxt txtAux(I), (Modo = 4)
+    Next I
                       
     '-----------------------------------------
     b = Modo <> 0 And Modo <> 2
@@ -982,7 +987,7 @@ End Sub
 
 
 Private Sub BotonModificar()
-Dim i As Integer
+Dim I As Integer
 Dim anc As Single
 
     'Escondemos el navegador y ponemos Modo Modificar
@@ -992,8 +997,8 @@ Dim anc As Single
     
     'Como el campo1, campo2 y campo3 es clave primaria, NO se puede modificar
     If DataGrid1.Bookmark < DataGrid1.FirstRow Or DataGrid1.Bookmark > (DataGrid1.FirstRow + DataGrid1.VisibleRows - 1) Then
-        i = DataGrid1.Bookmark - DataGrid1.FirstRow
-        DataGrid1.Scroll 0, i
+        I = DataGrid1.Bookmark - DataGrid1.FirstRow
+        DataGrid1.Scroll 0, I
         DataGrid1.Refresh
     End If
     anc = ObtenerAlto(Me.DataGrid1, 10)
@@ -1003,7 +1008,7 @@ Dim anc As Single
     txtAux(0).Text = DBLet(DataGrid1.Columns(0).Value, "N")
     txtAux(1).Text = DBLet(DataGrid1.Columns(1).Value, "N")
     txtAux(2).Text = DBLet(DataGrid1.Columns(2).Value, "N")
-    txtAux2(2).Text = DBLet(DataGrid1.Columns(3).Value, "T")
+    txtaux2(2).Text = DBLet(DataGrid1.Columns(3).Value, "T")
     txtAux(3).Text = DBLet(DataGrid1.Columns(4).Value, "N")
     txtAux(4).Text = DBLet(DataGrid1.Columns(5).Value, "N")
     PosicionarCombo Me.CmbAux(0), DBLet(DataGrid1.Columns(6).Value, "N")
@@ -1012,9 +1017,9 @@ Dim anc As Single
     
     FormateaCampo txtAux(1)
     FormateaCampo txtAux(2)
-    For i = 3 To 4
-        FormateaCampo txtAux(i)
-    Next i
+    For I = 3 To 4
+        FormateaCampo txtAux(I)
+    Next I
 
     DataGrid1.Enabled = False
     PonerFoco txtAux(3)
@@ -1111,7 +1116,7 @@ End Sub
 
 
 Private Sub PonerCadenaBusqueda()
-Dim cad As String
+Dim Cad As String
 
     Screen.MousePointer = vbHourglass
     On Error GoTo EEPonerBusq
@@ -1121,10 +1126,10 @@ Dim cad As String
     Data1.Refresh
     If Data1.Recordset.RecordCount <= 0 Then
         CargaGrid False
-        cad = "No hay ningún registro en la tabla " & NombreTabla
-        If EsBusqueda Then cad = cad & " para ese criterio de Búsqueda."
+        Cad = "No hay ningún registro en la tabla " & NombreTabla
+        If EsBusqueda Then Cad = Cad & " para ese criterio de Búsqueda."
         Screen.MousePointer = vbDefault
-        MsgBox cad, vbInformation
+        MsgBox Cad, vbInformation
        
         PonerModo Modo
         Exit Sub
@@ -1189,10 +1194,10 @@ Private Sub txtAux_LostFocus(Index As Integer)
             
         Case 2 'Cod. trabajador
              If PonerFormatoEntero(txtAux(Index)) Then
-                txtAux2(Index).Text = PonerNombreDeCod(txtAux(Index), conAri, "straba", "nomtraba", "codtraba")
-                If txtAux2(Index).Text = "" Then PonerFoco txtAux(Index)
+                txtaux2(Index).Text = PonerNombreDeCod(txtAux(Index), conAri, "straba", "nomtraba", "codtraba")
+                If txtaux2(Index).Text = "" Then PonerFoco txtAux(Index)
             Else
-                txtAux2(Index).Text = ""
+                txtaux2(Index).Text = ""
             End If
             
         Case 3, 4 'Importes

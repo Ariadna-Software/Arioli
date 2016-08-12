@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.03">
+<CstmrCdtTrfInitn>
+   <GrpHdr>
+      <MsgId>TRANPAG000000160808F20160808T124103</MsgId>
+      <CreDtTm>2016-08-08T12:41:03</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>50.00</CtrlSum>
+      <InitgPty>
+         <Nm>Comarcal</Nm>
+         <Id>
+           <OrgId>
+               <Othr>
+                  <Id>A        000</Id>
+               </Othr>
+           </OrgId>
+         </Id>
+      </InitgPty>
+   </GrpHdr>
+   <PmtInf>
+      <PmtInfId>20160808124103A        </PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt>2016-08-08</ReqdExctnDt>
+      <Dbtr>
+         <Nm>Comarcal</Nm>
+         <PstlAdr>
+            <Ctry>ES</Ctry>
+            <AdrLine>VALL 46680 A VALENCIA</AdrLine>
+         </PstlAdr>
+         <Id>
+            <OrgId>
+               <Othr>
+                  <Id>A        000</Id>
+               </Othr>
+            </OrgId>
+         </Id>
+    </Dbtr>
+    <DbtrAcct>
+       <Id>
+          <IBAN>ES3530582269132710000159</IBAN>
+       </Id>
+       <Ccy>EUR</Ccy>
+    </DbtrAcct>
+    <DbtrAgt>
+       <FinInstnId>
+          <BIC>CCRIES2AXXX</BIC>
+       </FinInstnId>
+    </DbtrAgt>
+   <CdtTrfTxInf>
+      <PmtId>
+         <EndToEndId>123</EndToEndId>
+      </PmtId>
+      <PmtTpInf>
+          <SvcLvl><Cd>SEPA</Cd></SvcLvl>
+          <CtgyPurp><Cd>SALA</Cd></CtgyPurp>
+       </PmtTpInf>
+       <Amt>
+          <InstdAmt Ccy="EUR">50</InstdAmt>
+       </Amt>
+       <CdtrAgt>
+          <FinInstnId>
+             <BIC></BIC>
+          </FinInstnId>
+       </CdtrAgt>
+       <Cdtr>
+          <Nm>LORENA</Nm>
+           <Id>
+               <PrvtId>
+                  <Othr>
+                     <Id>123</Id>
+                  </Othr>
+               </PrvtId>
+           </Id>
+        </Cdtr>
+        <CdtrAcct>
+           <Id>
+              <IBAN>ES1300010002030000000004</IBAN>
+           </Id>
+        </CdtrAcct>
+      <Purp>
+         <Cd>SALA</Cd>
+      </Purp>
+      <RmtInf>
+         <Ustrd>Transferencia</Ustrd>
+      </RmtInf>
+   </CdtTrfTxInf>
+   </PmtInf>
+</CstmrCdtTrfInitn></Document>
