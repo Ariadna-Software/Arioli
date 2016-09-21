@@ -1898,7 +1898,7 @@ End Sub
 '   En PONERMODO se habilitan, o no, los diverso campos del
 '   formulario en funcion del modo en k vayamos a trabajar
 Private Sub PonerModo(Kmodo As Byte)
-Dim I As Byte, NumReg As Byte
+Dim i As Byte, NumReg As Byte
 Dim b As Boolean
 
     On Error GoTo EPonerModo
@@ -1941,9 +1941,9 @@ Dim b As Boolean
   
     
     'Si no es modo lineas Boquear los TxtAux
-    For I = 0 To txtAux.Count - 1
-        BloquearTxt txtAux(I), (Modo <> 5)
-    Next I
+    For i = 0 To txtAux.Count - 1
+        BloquearTxt txtAux(i), (Modo <> 5)
+    Next i
   
     
     
@@ -1956,9 +1956,9 @@ Dim b As Boolean
     
     'Las imagenes añadimos el modo 6
     b = b And Modo <> 6
-    For I = 0 To Me.imgFecha.Count - 1
-        Me.imgFecha(I).Enabled = b
-    Next I
+    For i = 0 To Me.imgFecha.Count - 1
+        Me.imgFecha(i).Enabled = b
+    Next i
     imgBuscar(0).visible = b
 
 
@@ -2055,7 +2055,7 @@ Private Function DatosOkLinea() As Boolean
 'Comprueba si los datos de una linea son correctos antes de Insertar o Modificar
 'una linea del Pedido
 Dim b As Boolean
-Dim I As Byte
+Dim i As Byte
 Dim vArtic As CArticulo
 
     On Error GoTo EDatosOkLinea
@@ -2064,14 +2064,14 @@ Dim vArtic As CArticulo
     b = True
 
     'Comprobar que los campos NOT NULL tienen valor
-    For I = 0 To txtAux.Count - 1
-        If txtAux(I).Text = "" And I <> 3 Then
-            MsgBox "El campo " & txtAux(I).Tag & " no puede ser nulo", vbExclamation
+    For i = 0 To txtAux.Count - 1
+        If txtAux(i).Text = "" And i <> 3 Then
+            MsgBox "El campo " & txtAux(i).Tag & " no puede ser nulo", vbExclamation
             b = False
-            PonerFoco txtAux(I)
+            PonerFoco txtAux(i)
             Exit Function
         End If
-    Next I
+    Next i
      
     If Not vUsu.TrabajadorB Then
         If Val(txtAux(0).Text) = vParamAplic.AlmacenB Then
@@ -2177,7 +2177,7 @@ Dim b As Boolean
                 If BLOQUEADesdeFormulario(Me) Then
                 
                     frmProduVarios.Intercambio = Data1.Recordset!Codigo & "|" & Data1.Recordset!feccreacion & "|"
-                    frmProduVarios.Opcion = 0
+                    frmProduVarios.opcion = 0
                     frmProduVarios.Show vbModal
                 
                     'TErminamos de bloquear
@@ -2209,13 +2209,13 @@ Dim b As Boolean
                     .OtrosParametros = "|pNomEmpre=""" & vParam.NombreEmpresa & """|"
                     .NumeroParametros = 1
                     
-                    .Opcion = 2003 'Esta libre
+                    .opcion = 2003 'Esta libre
                     .Show vbModal
                 End With
             End If
         Case 16
             'Imprimir listado produccion con UDS y LITROS
-            frmListado2.Opcion = 29
+            frmListado2.opcion = 29
             frmListado2.Show vbModal
         
         Case 20    'Salir
@@ -2413,7 +2413,7 @@ End Sub
 
 
 Private Sub CargaGrid2(ByRef vDataGrid As DataGrid, ByRef vData As Adodc)
-Dim I As Byte
+Dim i As Byte
 
     On Error GoTo ECargaGrid
 
@@ -2443,10 +2443,10 @@ Dim I As Byte
              
     End Select
 
-    For I = 0 To vDataGrid.Columns.Count - 1
-        vDataGrid.Columns(I).Locked = True
-        vDataGrid.Columns(I).AllowSizing = False
-    Next I
+    For i = 0 To vDataGrid.Columns.Count - 1
+        vDataGrid.Columns(i).Locked = True
+        vDataGrid.Columns(i).AllowSizing = False
+    Next i
     vDataGrid.HoldFields
     Exit Sub
 ECargaGrid:
@@ -2459,30 +2459,30 @@ Private Sub CargaTxtAux(visible As Boolean, limpiar As Boolean)
 'IN: visible: si es true ponerlos visibles en la posición adecuada
 '    limpiar: si es true vaciar los txtAux
 Dim alto As Single
-Dim I As Byte
+Dim i As Byte
 
     On Error Resume Next
 
     If Not visible Then
         'Fijamos el alto (ponerlo en la parte inferior del form)
-        For I = 0 To txtAux.Count - 1 'TextBox
-            txtAux(I).Top = 290
-            txtAux(I).visible = visible
-        Next I
+        For i = 0 To txtAux.Count - 1 'TextBox
+            txtAux(i).Top = 290
+            txtAux(i).visible = visible
+        Next i
         cmdAux(0).visible = visible
         cmdAux(1).visible = visible
     Else
         If limpiar Then 'Vaciar los textBox (Vamos a Insertar)
             DeseleccionaGrid DataGrid1
-            For I = 0 To txtAux.Count - 1
-                txtAux(I).Text = ""
-                BloquearTxt txtAux(I), False
-            Next I
+            For i = 0 To txtAux.Count - 1
+                txtAux(i).Text = ""
+                BloquearTxt txtAux(i), False
+            Next i
         Else 'Vamos a modificar
-            For I = 0 To txtAux.Count - 1
-                txtAux(I).Text = DataGrid1.Columns(I).Text
-                txtAux(I).Locked = False
-            Next I
+            For i = 0 To txtAux.Count - 1
+                txtAux(i).Text = DataGrid1.Columns(i).Text
+                txtAux(i).Locked = False
+            Next i
         End If
                
 
@@ -2492,10 +2492,10 @@ Dim I As Byte
         '-------------------------------
         alto = ObtenerAlto(DataGrid1, 10)
         
-        For I = 0 To txtAux.Count - 1
-            txtAux(I).Top = alto
-            txtAux(I).Height = DataGrid1.RowHeight
-        Next I
+        For i = 0 To txtAux.Count - 1
+            txtAux(i).Top = alto
+            txtAux(i).Height = DataGrid1.RowHeight
+        Next i
         cmdAux(0).Top = alto
         cmdAux(1).Top = alto
         cmdAux(0).Height = DataGrid1.RowHeight
@@ -2524,9 +2524,9 @@ Dim I As Byte
         
         'Los ponemos Visibles o No
         '--------------------------
-        For I = 0 To txtAux.Count - 1
-            txtAux(I).visible = visible
-        Next I
+        For i = 0 To txtAux.Count - 1
+            txtAux(i).visible = visible
+        Next i
         cmdAux(0).visible = visible
         cmdAux(1).visible = visible
     End If
@@ -2576,7 +2576,7 @@ Private Sub txtAux_LostFocus(Index As Integer)
 Dim Devuelve As String, cadMen As String
 Dim codTarif As String
 Dim CPrecioFact As CPreciosFact
-Dim vCStock As CStock
+Dim vCStock As cStock
 Dim NumCajas As Integer, RestoUnid As Integer
 Dim OrigP As String 'De donde viene el precio
 Dim b As Boolean
@@ -2986,21 +2986,13 @@ Dim SQL As String
     SQL = "INSERT INTO sliordpr2"
     SQL = SQL & "( codigo, codalmac, codartic ,codarti2,cantidad ) "
     
-    
-    'ANTERIOR A MAYO 2010. Estaba comentado el trozo de factor conversion
-'    SQL = SQL & "select " & Val(Text1(0).Text) & ", " & Val(txtAux(0).Text) & ","
-'    SQL = SQL & DBSet(txtAux(1).Text, "T") & ",sarti1.codarti1,cantidad * " & DBSet(txtAux(4).Text, "N")
-'    'Factor conversion. Solo se aplica cuando metamos en stock. Ahora no
-'    'SQL = SQL & " * factorconversion FROM sarti1,sartic WHERE sarti1.codarti1=sartic.codartic AND sarti1.codartic ="
-'    SQL = SQL & " * 1 FROM sarti1,sartic WHERE sarti1.codarti1=sartic.codartic AND sarti1.codartic ="
-'    SQL = SQL & DBSet(txtAux(1).Text, "T")
-'    Conn.Execute SQL
-    
+
     SQL = SQL & "select " & Val(Text1(0).Text) & ", " & Val(txtAux(0).Text) & ","
     SQL = SQL & DBSet(txtAux(1).Text, "T") & ",sarti1.codarti1,round(cantidad * " & DBSet(txtAux(4).Text, "N")
     'Factor conversion. Solo se aplica cuando metamos en stock. Ahora no
-    SQL = SQL & " * factorconversion,4) FROM sarti1,sartic WHERE sarti1.codarti1=sartic.codartic AND sarti1.codartic ="
-    'SQL = SQL & " * 1 FROM sarti1,sartic WHERE sarti1.codarti1=sartic.codartic AND sarti1.codartic ="
+    SQL = SQL & " * factorconversion,"
+    SQL = SQL & CStr(IIf(vParamAplic.QUE_EMPRESA = 4, 2, 4))
+    SQL = SQL & ") FROM sarti1,sartic WHERE sarti1.codarti1=sartic.codartic AND sarti1.codartic ="
     SQL = SQL & DBSet(txtAux(1).Text, "T")
     conn.Execute SQL
     
@@ -3081,10 +3073,12 @@ Private Sub LlamaLotes()
         .Show vbModal
     End With
     If CadenaDesdeOtroForm <> "" And ModificaLineas = 1 Then
+        EjecutaSQL conAri, "commit", False
+        Espera 1
         'Cagamos el dagrid
         CargaGrid2 DataGrid1, Data2
-         PosicionaData2
-         Modo = 5
+        PosicionaData2
+        Modo = 5
     End If
 End Sub
 

@@ -62,12 +62,12 @@ Public Property Get codartic() As String
 End Property
 
 
-Public Property Let codalmac(ByVal vData As Integer)
+Public Property Let codAlmac(ByVal vData As Integer)
      mvarCodAlmac = vData
 End Property
 
-Public Property Get codalmac() As Integer
-     codalmac = mvarCodAlmac
+Public Property Get codAlmac() As Integer
+     codAlmac = mvarCodAlmac
 End Property
 
 
@@ -166,7 +166,7 @@ Private Function HayStock2(ByRef ColArt As Collection, vCantidad As Single) As B
 '     False=No hay suficiento stock en el almacen
     Dim stockOrig As Single
     Dim stockTras As Single
-    Dim B As Boolean
+    Dim b As Boolean
 
     
     HayStock2 = False
@@ -177,32 +177,32 @@ Private Function HayStock2(ByRef ColArt As Collection, vCantidad As Single) As B
         If stockTras > 0 Then
             If stockOrig >= stockTras Then
             'Si cantidad en stock > cantidad a traspasar entonces
-                B = True
+                b = True
             Else
-                B = False
+                b = False
             End If
         Else
-            B = True
+            b = True
         End If
-        If Not B Then Exit For
+        If Not b Then Exit For
     Next nI
     
-    HayStock2 = B
+    HayStock2 = b
 End Function
 
 
 Private Function ControlStock2(cL As Collection) As Boolean
 'Si hay control de Stock no se permite realizar el movimiento
 'Sino hay control se pregunta si se permite realizar el movimiento
-Dim devuelve As String
-Dim B As Boolean
+Dim Devuelve As String
+Dim b As Boolean
 Dim NomArtic As String
         
 
-        devuelve = "Control de Stock  "
-        If cL.Count > 1 Then devuelve = devuelve & "(Conjuntos)"
-        devuelve = devuelve & ": " & vbCrLf & "----------------------" & vbCrLf & vbCrLf & vbCrLf
-        devuelve = devuelve & " No hay suficiente Stock en el almacen  para: "
+        Devuelve = "Control de Stock  "
+        If cL.Count > 1 Then Devuelve = Devuelve & "(Conjuntos)"
+        Devuelve = Devuelve & ": " & vbCrLf & "----------------------" & vbCrLf & vbCrLf & vbCrLf
+        Devuelve = Devuelve & " No hay suficiente Stock en el almacen  para: "
         For nI = 1 To cL.Count
 
                 
@@ -212,7 +212,7 @@ Dim NomArtic As String
                 NomArtic = NomArtic & cL(nI).cantidadStock & ")"
                 If nI > 1 Then NomArtic = "       L: " & NomArtic
                 If nI = 2 Then NomArtic = "----------------------------" & vbCrLf & NomArtic
-                devuelve = devuelve & vbCrLf & NomArtic
+                Devuelve = Devuelve & vbCrLf & NomArtic
                 
                 
                 
@@ -222,46 +222,46 @@ Dim NomArtic As String
 
         
         If DetaMov = "OFE" Or DetaMov = "PEV" Then 'No hay control de stock para bloquear solo informa
-            MsgBox devuelve, vbInformation
-            B = False
+            MsgBox Devuelve, vbInformation
+            b = False
         Else
             If vParamAplic.ControlStock Then
                 'Si hay control Stock no permitir traspaso
-                B = True
+                b = True
                 If Not MuestraMenCStock Then
                     Select Case DetaMov
                         Case "REG"
-                            devuelve = devuelve & vbCrLf & vbCrLf & " No se puede realizar el Movimiento de Almacen. "
+                            Devuelve = Devuelve & vbCrLf & vbCrLf & " No se puede realizar el Movimiento de Almacen. "
                         Case "TRA"
-                            devuelve = devuelve & vbCrLf & vbCrLf & " No se puede realizar el Traspaso de Almacen. "
+                            Devuelve = Devuelve & vbCrLf & vbCrLf & " No se puede realizar el Traspaso de Almacen. "
                         Case "ALV", "ALR", "ALC"
-                            devuelve = devuelve & vbCrLf & vbCrLf & " No se puede realizar el Albaran. "
+                            Devuelve = Devuelve & vbCrLf & vbCrLf & " No se puede realizar el Albaran. "
                         Case "TRZ"
-                            devuelve = devuelve & vbCrLf & vbCrLf & " No se puede realizar la produccion trazabilidad. "
+                            Devuelve = Devuelve & vbCrLf & vbCrLf & " No se puede realizar la produccion trazabilidad. "
                     End Select
-                    MsgBox devuelve, vbExclamation
+                    MsgBox Devuelve, vbExclamation
                 End If
             Else
                 Select Case DetaMov
                 Case "REG"
-                    devuelve = devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Movimiento de Almacen? "
+                    Devuelve = Devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Movimiento de Almacen? "
                 Case "TRA"
-                    devuelve = devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Traspaso de Almacen? "
+                    Devuelve = Devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Traspaso de Almacen? "
                 Case "ALV", "ALR", "ALC"
-                    devuelve = devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Albaran? "
+                    Devuelve = Devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Albaran? "
                 Case "PRO"
-                    devuelve = devuelve & vbCrLf & vbCrLf & " ¿Desea realizar continuar con la producción? "
+                    Devuelve = Devuelve & vbCrLf & vbCrLf & " ¿Desea realizar continuar con la producción? "
                 Case "TRZ"
-                    devuelve = devuelve & vbCrLf & vbCrLf & " ¿Desea realizar continuar con la producción trazabilidad? "
+                    Devuelve = Devuelve & vbCrLf & vbCrLf & " ¿Desea realizar continuar con la producción trazabilidad? "
                 End Select
-                If MsgBox(devuelve, vbQuestion + vbYesNo) = vbYes Then
-                    B = False
+                If MsgBox(Devuelve, vbQuestion + vbYesNo) = vbYes Then
+                    b = False
                 Else
-                    B = True
+                    b = True
                 End If
             End If
         End If
-        ControlStock2 = B
+        ControlStock2 = b
 End Function
 
 
@@ -269,18 +269,18 @@ Private Function ObtenerStockNuevo(ByRef ColArticulos As Collection) As Boolean
 'OUT: cantidad de Stock que hay en el almacen vColAlm del articulo vCodArtic
 'Modificacion  19 Nov.  NO msgbox. Ya que si es conjunto lo mostrare al final
 Dim cant As String
-Dim devuelve As String
+Dim Devuelve As String
 
-    devuelve = ""
+    Devuelve = ""
     For nI = 1 To ColArticulos.Count
         Debug.Print ColArticulos.Item(nI).codartic
-        cant = DevuelveDesdeBDNew(conAri, "salmac", "canstock", "codartic", ColArticulos.Item(nI).codartic, "T", , "codalmac", CStr(codalmac), "N")
+        cant = DevuelveDesdeBDNew(conAri, "salmac", "canstock", "codartic", ColArticulos.Item(nI).codartic, "T", , "codalmac", CStr(codAlmac), "N")
         If cant = "" Then 'No hay de ese artículo en Almacen
             cant = vbCrLf & "     .-"
             'Significa que el articulo tiene conjuntos y es del conjunto
-            If nI > 1 Then devuelve = devuelve & "(Lin) "
+            If nI > 1 Then Devuelve = Devuelve & "(Lin) "
             cant = cant & ColArticulos.Item(nI).codartic.codartic
-            devuelve = devuelve & cant
+            Devuelve = Devuelve & cant
         Else
             'SI que tiene estock
             ColArticulos.Item(nI).cantidadStock = CSng(cant)
@@ -290,10 +290,10 @@ Dim devuelve As String
     
     'ANtes solo comprobaba el primero
     'cant = DevuelveDesdeBDNew(conAri, "salmac", "canstock", "codartic", codartic, "T", , "codalmac", CStr(codAlmac), "N")
-    If devuelve <> "" Then 'No hay de ese artículo(s) en Almacen
-        devuelve = "No existe en el Almacen: " & codalmac & vbCrLf
-        devuelve = devuelve & "Artículo " & vbCrLf
-        MsgBox devuelve, vbExclamation
+    If Devuelve <> "" Then 'No hay de ese artículo(s) en Almacen
+        Devuelve = "No existe en el Almacen: " & codAlmac & vbCrLf
+        Devuelve = Devuelve & "Artículo " & vbCrLf
+        MsgBox Devuelve, vbExclamation
         ObtenerStockNuevo = False
     Else
         ObtenerStockNuevo = True
@@ -304,33 +304,33 @@ End Function
 
 Public Function MueveStock() As Boolean
 Dim vArtic As CArticulo
-Dim B As Boolean
+Dim b As Boolean
 
     Set vArtic = New CArticulo
     If vArtic.LeerDatos(codartic) Then
         If vArtic.EsInstalacion Then
             'Si el articulo es una instalacion no mueve stock
-            B = False
+            b = False
         Else
             ' ver si hay control de stock para el articulo
             If vArtic.CtrStock Then
 '                    vStock = ObtenerStock
-                    B = True
+                    b = True
             Else
-                B = False
+                b = False
             End If
         End If
    End If
    Set vArtic = Nothing
-   MueveStock = B
+   MueveStock = b
 End Function
 
 
 
 Public Function MoverStock(YaTieneLeidoLosDatosObjeto As Boolean, Optional NoMenStock As Boolean) As Boolean
 Dim vStock As String
-Dim B As Boolean
-Dim devuelve As String
+Dim b As Boolean
+Dim Devuelve As String
 Dim vArtic As CArticulo
 Dim vD As cLArticulo
 
@@ -343,7 +343,7 @@ Dim vD As cLArticulo
     Set vArtic = New CArticulo
     If vArtic.LeerDatos(codartic) Then
         If vArtic.EsInstalacion Then
-            B = True
+            b = True
         Else
                         
      
@@ -380,13 +380,13 @@ Dim vD As cLArticulo
                 
         
                 If HayStock2(cArticulos, Cantidad) Then
-                    B = True
+                    b = True
                 Else 'No hay stock para el movimiento. Ver control de Stock
-                    B = Not (ControlStock2(cArticulos))
+                    b = Not (ControlStock2(cArticulos))
                  End If
         
             Else
-                B = False
+                b = False
             End If
 
             If Not YaTieneLeidoLosDatosObjeto Then
@@ -396,14 +396,14 @@ Dim vD As cLArticulo
         End If
     End If
     Set vArtic = Nothing
-    MoverStock = B
+    MoverStock = b
 End Function
 
 
 Public Function ActualizarStock(Optional EsTicket As Boolean) As Boolean
 'Actualiza el stock en la tabla smoval y en la tabla salmac
 'EsTicket: si estamos generando un ticket no se comprueba el stock auque se quede negativo
-Dim B As Boolean
+Dim b As Boolean
 Dim ADonde As String, cadMen As String
 Dim CadValues As String 'cadena para la SQL de insertar en la tabla salmac
 Dim vTipoMov As String
@@ -412,7 +412,7 @@ Dim vD As cLArticulo
 Dim miCantidad As Single
 
     ActualizarStock = False
-    B = False
+    b = False
     On Error GoTo EActualizarStock
     
     
@@ -442,41 +442,41 @@ Dim miCantidad As Single
     For nI = 1 To cArticulos.Count
         
         miCantidad = cArticulos(nI).CantidadNecesaria * Cantidad
-        CadValues = "VALUES (" & DBSet(cArticulos(nI).codartic, "T") & ", " & codalmac & ", " & DBSet(Fechamov, "F") & ", '"
-        If HoraMov = "" Then HoraMov = Format(Fechamov, "dd/mm/yyyy") & " " & Format(Now, "hh:mm:ss")
+        CadValues = "VALUES (" & DBSet(cArticulos(nI).codartic, "T") & ", " & codAlmac & ", " & DBSet(Fechamov, "F") & ", '"
+        If HoraMov = "" Then HoraMov = Format(Fechamov, "dd/mm/yyyy") & " " & Format(HoraMov, "hh:mm:ss")
         CadValues = CadValues & Format(HoraMov, "yyyy-mm-dd hh:mm:ss") & "', " & vTipoMov & " , '" & DetaMov & "', " & DBSet(miCantidad, "N") & ", "
         CadValues = CadValues & DBSet(Importe, "N") & ", " & Trabajador & ", " & ValorNulo & ", " & DBSet(Documento, "T") & ", " & LineaDocu & ")"
         
-        B = InsertarMovimArticulos(CadValues)
+        b = InsertarMovimArticulos(CadValues)
         
-        If Not B Then
+        If Not b Then
             ADonde = ADonde & "Linea: " & nI
             Exit For
         End If
     Next nI
     
     '---- Modificar stock del articulo
-    If B Then
+    If b Then
         ADonde = "Actualizando Stocks Almacenes (tabla: salmac)."
         If MueveStock Then
             If vTipoMov = "1" Then 'Entrada: no se comprueba si hay stock
 '                If ActualizarStockAlmacen() Then b = True
-                B = ActualizarStockAlmacen()
+                b = ActualizarStockAlmacen()
             Else
                 'If DetaMov = "FTI" Then
                 If EsTicket Then
                     'En los tickets se actualiza el stock aunque no haya
                     'no se paraliza la venta
 '                    If ActualizarStockAlmacen() Then b = True
-                    B = ActualizarStockAlmacen()
+                    b = ActualizarStockAlmacen()
                 Else
                     'comprobar si hay stock, y si no hay si permito que
                     'se mueva o no.
                     If MoverStock(True) Then
 '                        If ActualizarStockAlmacen() Then b = True
-                        B = ActualizarStockAlmacen()
+                        b = ActualizarStockAlmacen()
                     Else
-                        B = False
+                        b = False
                     End If
                 End If
             End If
@@ -489,7 +489,7 @@ Dim miCantidad As Single
     'if b then b=ActualizarStockLinConjunto
     
     
-    ActualizarStock = B
+    ActualizarStock = b
     Exit Function
     
 EActualizarStock:
@@ -508,7 +508,7 @@ On Error Resume Next
 
     SQL = "INSERT INTO smoval (codartic, codalmac, fechamov, horamovi, tipomovi, detamovi, cantidad, impormov, codigope, letraser, document, numlinea) "
     SQL = SQL & CadValues
-    Conn.Execute SQL
+    conn.Execute SQL
     
     If Err.Number <> 0 Then
         'Hay error , almacenamos y salimos
@@ -534,14 +534,14 @@ On Error Resume Next
                 '==== Aumentar el stock en el Almacen
                 SQL = "UPDATE salmac Set canstock = canstock + " & DBSet(miCantidad, "N")
                 SQL = SQL & " WHERE codartic =" & ElArticulo & " AND "
-                SQL = SQL & " codalmac =" & codalmac
+                SQL = SQL & " codalmac =" & codAlmac
             Else 'Mov. de Salida
                 '==== Disminuir Stock en Almacen Origen
                 SQL = "UPDATE salmac Set canstock = canstock - " & DBSet(miCantidad, "N")
                 SQL = SQL & " WHERE codartic =" & ElArticulo & " AND "
-                SQL = SQL & " codalmac =" & codalmac
+                SQL = SQL & " codalmac =" & codAlmac
             End If
-            Conn.Execute SQL
+            conn.Execute SQL
         End If
         If Err.Number <> 0 Then
             'Hay error , almacenamos y salimos
@@ -558,12 +558,12 @@ Public Function DevolverStock2() As Boolean
 'Cuando se elimina una linea de movimiento de stock:
 'Actualiza el stock en la tabla "salmac" aumentando de nuevo la cantidad de la linea
 'Eliminar la linea que se introdujo en la "smoval"
-Dim B As Boolean
+Dim b As Boolean
 Dim ADonde As String, cadMen As String
 Dim vD As cLArticulo
 
     DevolverStock2 = False
-    B = False
+    b = False
     
     On Error GoTo EDevolverStock
     
@@ -585,18 +585,18 @@ Dim vD As cLArticulo
     'Modificar stock
     ADonde = "Actualizando Stocks Almacenes (tabla: salmac)."
     If MueveStock Then
-        If ActualizarStockAlmacen() Then B = True
+        If ActualizarStockAlmacen() Then b = True
     Else
-        B = True
+        b = True
     End If
     
-    If B Then
+    If b Then
         'Eliminar en Movimientos Artículos
         ADonde = "Eliminando datos en Movimientos de Articulos (tabla: smoval)."
-        If EliminarMovimArticulos Then B = True
+        If EliminarMovimArticulos Then b = True
     End If
     
-    DevolverStock2 = B
+    DevolverStock2 = b
     
 EDevolverStock:
     If Err.Number <> 0 Then
@@ -616,7 +616,7 @@ On Error GoTo EElim
 
     For nI = 1 To cArticulos.Count
         SQL = DBSet(cArticulos(nI).codartic, "T")
-        SQL = "DELETE FROM smoval WHERE codartic=" & SQL & " AND codalmac=" & codalmac
+        SQL = "DELETE FROM smoval WHERE codartic=" & SQL & " AND codalmac=" & codAlmac
         SQL = SQL & " AND detamovi='" & DetaMov & "' AND document= " & DBSet(Documento, "T") & " AND numlinea= " & LineaDocu
         SQL = SQL & " AND fechamov=" & DBSet(Fechamov, "F")
         'en albaranes de compra añadir el proveedor
@@ -625,7 +625,7 @@ On Error GoTo EElim
         End If
         
         
-        Conn.Execute SQL
+        conn.Execute SQL
     
     
     Next nI
@@ -646,21 +646,21 @@ Public Function ModificarStock2(oldCant As Single) As Boolean
 'Cuando se modifica una linea de movimiento de stock:
 'Modificar la linea que se introdujo en la "smoval"
 'Actualiza el stock en la tabla "salmac" aumentando/disminuyendo la diferencia de cantidad de la linea
-Dim B As Boolean
+Dim b As Boolean
 Dim ADonde As String, cadMen As String
 Dim difCant As Single, difTipoM As String
 Dim vD  As cLArticulo
 
     ModificarStock2 = False
-    B = False
+    b = False
     
     On Error GoTo EModificarStock
     
     'Modificar en Movimientos Artículos (tabla: smoval)
     ADonde = "Modificando datos en Movimientos de Articulos (tabla: smoval)."
-    If ModificarMovimArticulos Then B = True
+    If ModificarMovimArticulos Then b = True
     
-    If B Then
+    If b Then
         
         Set vD = New cLArticulo
         Set cArticulos = New Collection
@@ -675,9 +675,9 @@ Dim vD  As cLArticulo
         difCant = ObtenerDiferenciaStock(oldCant, difTipoM)
         mvarCantidad = difCant
         mvarTipoMov = difTipoM
-        B = ActualizarStockAlmacen()
+        b = ActualizarStockAlmacen()
     End If
-    ModificarStock2 = B
+    ModificarStock2 = b
     
 EModificarStock:
     If Err.Number <> 0 Then
@@ -695,7 +695,7 @@ Dim SQL As String
 On Error Resume Next
     
     SQL = "UPDATE smoval SET cantidad=" & DBSet(Cantidad, "N") & ", impormov=" & DBSet(Importe, "N") 'Importe
-    SQL = SQL & " WHERE codartic=" & DBSet(codartic, "T") & " AND codalmac=" & codalmac
+    SQL = SQL & " WHERE codartic=" & DBSet(codartic, "T") & " AND codalmac=" & codAlmac
     SQL = SQL & " AND detamovi='" & DetaMov & "' AND document= " & DBSet(Documento, "T") & " AND numlinea= " & LineaDocu
     'NUEVO 23 NOV 2010
     'Si es albaran PROVEEDOR tengo que meter tb el codprove
@@ -704,7 +704,7 @@ On Error Resume Next
         'Para que no modifuq, por si hubiera, albaranes de años anteriores
         SQL = SQL & " AND fechamov >= '" & Year(Me.Fechamov) & "-01-01'"
     End If
-    Conn.Execute SQL
+    conn.Execute SQL
     
     If Err.Number <> 0 Then
         'Hay error , almacenamos y salimos
@@ -730,11 +730,11 @@ Dim RS As ADODB.Recordset
 
     'Obtener el tipo de movimiento en la smoval
     SQL = "SELECT tipomovi FROM smoval "
-    SQL = SQL & " WHERE codartic=" & DBSet(codartic, "T") & " AND codalmac=" & codalmac
+    SQL = SQL & " WHERE codartic=" & DBSet(codartic, "T") & " AND codalmac=" & codAlmac
     SQL = SQL & " AND detamovi='" & DetaMov & "' AND document= " & DBSet(Documento, "T") & " AND numlinea= " & LineaDocu
     
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If Not RS.EOF Then
         TipoM = RS.Fields(0).Value
     End If
@@ -815,7 +815,7 @@ Dim C As String
     
     C = "Select codarti1,cantidad  from sarti1 where codartic = '" & mvarcodartic & "' order by numlinea"
     Set RS = New ADODB.Recordset
-    RS.Open C, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If RS.EOF Then
         MsgBox "Articulo marcado como conjunto pero no tiene lineas", vbExclamation
     Else

@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmAlmCoupage 
@@ -875,29 +875,45 @@ Dim NomTraba As String
     
     'Añadiremos el boton de aceptar y demas objetos para insertar
     PonerModo 3
-
-    CadenaConsulta = "numlote like '%C' AND 1"
-    CadenaConsulta = DevuelveDesdeBD(conAri, "mid(numlote,1,length(numlote)-1)", "olicoupage", CadenaConsulta, "1 order by 1 desc")
-    If CadenaConsulta <> "" Then
-        If IsNumeric(CadenaConsulta) Then
-            CadenaConsulta = Val(CadenaConsulta) + 1
-            Text1(5).Text = CadenaConsulta & "C"
+    
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        'Para La Vall,cogera el LOV
+        CadenaConsulta = DevuelveDesdeBD(conAri, "contador + 1", "stipom", "codtipom", "LOV", "T")
+        Text1(5).Text = "MOSTRA" & CadenaConsulta
+        'Codalmac
+        Text1(4).Text = "1"
+        Text2(1).Text = DevuelveDesdeBD(conAri, "nomalmac", "salmpr", "codalmac", Text1(4).Text)
+        
+        
+        Text1(2).Text = DevuelveDesdeBD(conAri, "articMolturacion", "vallparam", "1", "1")
+        Text2(0).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", Text1(2).Text, "T")
+    Else
+        CadenaConsulta = "numlote like '%C' AND 1"
+        CadenaConsulta = DevuelveDesdeBD(conAri, "mid(numlote,1,length(numlote)-1)", "olicoupage", CadenaConsulta, "1 order by 1 desc")
+        If CadenaConsulta <> "" Then
+            If IsNumeric(CadenaConsulta) Then
+                CadenaConsulta = Val(CadenaConsulta) + 1
+                Text1(5).Text = CadenaConsulta & "C"
+            End If
         End If
     End If
-        
-
+    
 
     Me.chkCoup.Value = 0
     txtTotal.Tag = 0
 
-    Text1(1).Text = Format(Now, "dd/mm/yyyy hh:mm") 'Fecha Oferta
-    PonerFoco Text1(1)
+    Text1(1).Text = Format(Now, "dd/mm/yyyy hh:mm") 'Fecha
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        PonerFoco Text1(6)
+    Else
+        PonerFoco Text1(1)
+    End If
 End Sub
 
 
 Private Sub BotonAnyadirLinea()
     
-    ObtenerLineCoupage
+    ObtenerLineCoupage False
     Exit Sub
     
     
@@ -1074,7 +1090,7 @@ Dim Eliminar_ As Boolean
     If HacerLaPregunta Then
         SQL = "¿Seguro que desea eliminar la línea de coupage?     "
         SQL = SQL & vbCrLf
-        SQL = SQL & vbCrLf & "Artículo:  " & Data2.Recordset!codArtic & " - " & Data2.Recordset!NomArtic
+        SQL = SQL & vbCrLf & "Artículo:  " & Data2.Recordset!codartic & " - " & Data2.Recordset!NomArtic
         SQL = SQL & vbCrLf & "Kilos:  " & Format(Data2.Recordset!cantlote, FormatoPrecio)
         SQL = SQL & vbCrLf & "Deposito:  " & Format(Data2.Recordset!Deposito, "00")
         If MsgBox(SQL, vbQuestion + vbYesNo) = vbYes Then Eliminar_ = True
@@ -1086,7 +1102,7 @@ Dim Eliminar_ As Boolean
         'Hay que eliminar
         NumRegElim = Data2.Recordset.AbsolutePosition
         
-        SQL = " WHERE codartic = " & DBSet(Data2.Recordset!codArtic, "T")
+        SQL = " WHERE codartic = " & DBSet(Data2.Recordset!codartic, "T")
         SQL = SQL & " and codigo=" & Data1.Recordset!Codigo
         
         'Voy a ver si hay mas de una linea de ese articulo
@@ -1099,16 +1115,16 @@ Dim Eliminar_ As Boolean
         'Las lineas
         CadenaConsulta = "DELETE FROM olicoupagelinlotes  " & SQL
         CadenaConsulta = CadenaConsulta & " AND deposito = " & Data2.Recordset!Deposito
-        Conn.Execute CadenaConsulta
+        conn.Execute CadenaConsulta
         
         If QUitarTambienDeLineas Then
             CadenaConsulta = "DELETE FROM olicoupagelin  " & SQL
-            Conn.Execute CadenaConsulta
+            conn.Execute CadenaConsulta
         Else
             'UPDATEAMOS cantidad
             CadenaConsulta = "UPDATE olicoupagelin set kilos = kilos - " & DBSet(Data2.Recordset!cantlote, "N")
             CadenaConsulta = CadenaConsulta & SQL
-            Conn.Execute CadenaConsulta
+            conn.Execute CadenaConsulta
         End If
         
         
@@ -1240,7 +1256,7 @@ Private Sub Form_Load()
 
     
     'ASignamos un SQL al DATA1
-    Data1.ConnectionString = Conn
+    Data1.ConnectionString = conn
     CadenaConsulta = "Select * from " & NombreTabla & " where codigo= "
     If DatosADevolverBusqueda2 = "" Then
         CadenaConsulta = CadenaConsulta & "-1"
@@ -1578,7 +1594,7 @@ Private Sub MandaBusquedaPrevia(cadB As String)
 Dim cad As String
 Dim Tabla As String
 Dim Titulo As String
-Dim Desc As String, devuelve As String
+Dim Desc As String, Devuelve As String
     'Llamamos a al form
     '##A mano
     cad = ""
@@ -1590,7 +1606,7 @@ Dim Desc As String, devuelve As String
         Tabla = NombreTabla & " inner join sartic on " & NombreTabla & ".codartic = sartic.codartic"
         
         Titulo = "Coupages"
-        devuelve = "0|"
+        Devuelve = "0|"
 
     Else
         If vParamAplic.Departamento Then
@@ -1604,7 +1620,7 @@ Dim Desc As String, devuelve As String
         cad = cad & "Cod. " & Desc & "|sdirec|coddirec|N||15·"
         cad = cad & "Desc. " & Desc & "|sdirec|nomdirec|T||35·"
         Tabla = "sdirec"
-        devuelve = "0|1|"
+        Devuelve = "0|1|"
     End If
     
            
@@ -1617,7 +1633,7 @@ Dim Desc As String, devuelve As String
         HaDevueltoDatos = False
         '###A mano
 '        frmB.vDevuelve = "0|1|"
-        frmB.vDevuelve = devuelve
+        frmB.vDevuelve = Devuelve
         frmB.vTitulo = Titulo
         frmB.vselElem = 0
         frmB.vConexionGrid = conAri 'Conexión a BD: Ariges
@@ -1671,7 +1687,7 @@ End Sub
 
 
 Private Sub PonerCamposLineas()
-Dim B As Boolean
+Dim b As Boolean
 Dim Tot As Currency
 'Carga las Pestañas con las tablas de lineas del Trabajador seleccionado para mostrar
     On Error GoTo EPonerLineas
@@ -1682,7 +1698,7 @@ Dim Tot As Currency
     CargaGrid DataGrid1, Data2, True
         
     'Total
-    B = DataGrid1.Enabled
+    b = DataGrid1.Enabled
     DataGrid1.Enabled = False
     Tot = 0
     If Not Data2.Recordset.EOF Then
@@ -1694,7 +1710,7 @@ Dim Tot As Currency
     End If
     txtTotal.Tag = Tot
     txtTotal.Text = Format(Tot, FormatoPrecio)
-    DataGrid1.Enabled = B
+    DataGrid1.Enabled = b
     
     Screen.MousePointer = vbDefault
     Exit Sub
@@ -1736,7 +1752,7 @@ End Sub
 '   formulario en funcion del modo en k vayamos a trabajar
 Private Sub PonerModo(Kmodo As Byte)
 Dim i As Byte, NumReg As Byte
-Dim B As Boolean
+Dim b As Boolean
 
     On Error GoTo EPonerModo
 
@@ -1749,10 +1765,10 @@ Dim B As Boolean
     
     'Modo 2. Hay datos y estamos visualizandolos
     '=========================================
-    B = (Modo = 2)
+    b = (Modo = 2)
     'Ponemos visible, si es formulario de busqueda, el boton regresar cuando hay datos
     If DatosADevolverBusqueda2 <> "" Then
-        cmdRegresar.visible = B
+        cmdRegresar.visible = b
     Else
         cmdRegresar.visible = False
     End If
@@ -1762,55 +1778,52 @@ Dim B As Boolean
     If Not Data1.Recordset.EOF Then
         If Data1.Recordset.RecordCount > 1 Then NumReg = 2 'Solo es para saber q hay + de 1 registro
     End If
-    DesplazamientoVisible Me.Toolbar1, btnPrimero, B, NumReg
+    DesplazamientoVisible Me.Toolbar1, btnPrimero, b, NumReg
         
         
 
     'Campo Numero de Albaran siempre bloqueado, excepto si estamos en modo de busqueda
-    B = (Modo <> 1)
-    BloquearTxt Text1(0), B, True
+    b = (Modo <> 1)
+    BloquearTxt Text1(0), b, True
 
-    B = Modo = 0 Or Modo = 2 Or Modo >= 5
-    'BloquearTxt Text1(1), B
-    'BloquearTxt Text1(3), B
-    'BloquearTxt Text1(2), B
-    'BloquearTxt Text1(4), B
-    'BloquearTxt Text1(5), B
+    b = Modo = 0 Or Modo = 2 Or Modo >= 5
     For i = 1 To 6
-        BloquearTxt Text1(i), B
+        BloquearTxt Text1(i), b
     Next
     
-
-    
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        'NO dejo cambiar el numero de lote del cupage
+        BloquearTxt Text1(5), Modo <> 1
+    End If
     
     '---------------------------------------------
-    B = (Modo <> 0 And Modo <> 2 And Modo <> 5)
-    cmdCancelar.visible = B
-    cmdAceptar.visible = B
+    b = (Modo <> 0 And Modo <> 2 And Modo <> 5)
+    cmdCancelar.visible = b
+    cmdAceptar.visible = b
     
     'Las imagenes añadimos el modo 6
-    B = B And Modo <> 6
+    b = b And Modo <> 6
     For i = 0 To Me.imgFecha.Count - 1
-        Me.imgFecha(i).Enabled = B
+        Me.imgFecha(i).Enabled = b
     Next i
 
 
     Me.chkVistaPrevia.Enabled = (Modo <= 2)
     
     'Los kilos totatels
-    B = Modo = 2 Or Modo = 4 Or Modo = 5
-    txtTotal.visible = B
-    lblTotal.visible = B
+    b = Modo = 2 Or Modo = 4 Or Modo = 5
+    txtTotal.visible = b
+    lblTotal.visible = b
     
     
     'Abrir un coupage cerrado solo para admon
-    B = False
+    b = False
     If Modo = 1 Then
-        B = True
+        b = True
     Else
-        If Modo = 4 Then B = vUsu.Nivel < 1
+        If Modo = 4 Then b = vUsu.Nivel < 1
     End If
-    Me.chkCoup.Enabled = B
+    Me.chkCoup.Enabled = b
     
     
     'Poner el tamaño de los campos. Si es modo Busqueda el MaxLength del campo
@@ -1835,14 +1848,14 @@ End Sub
 Private Function DatosOk() As Boolean
 'Comprueba si los datos de la cabecera son correctos antes de Insertar o Modificar el
 'Pedido
-Dim B As Boolean
+Dim b As Boolean
 
 
     On Error GoTo EDatosOK
 
     DatosOk = False
-    B = CompForm(Me, 1) 'Comprobar formato datos ok
-    If Not B Then Exit Function
+    b = CompForm(Me, 1) 'Comprobar formato datos ok
+    If Not b Then Exit Function
 
 
     'OCtubre 2014
@@ -1868,14 +1881,14 @@ Dim B As Boolean
     If CadenaConsulta <> "" Then
         If CadenaConsulta <> Text1(2).Text Then
                 MsgBox "Articulo diferente deposito - coupage", vbExclamation
-                B = False
+                b = False
         End If
     End If
    
    
     
    
-    DatosOk = B
+    DatosOk = b
     
 EDatosOK:
     If Err.Number <> 0 Then MsgBox Err.Number & ": " & Err.Description, vbExclamation
@@ -1885,7 +1898,7 @@ End Function
 Private Function DatosOkLinea() As Boolean
 'Comprueba si los datos de una linea son correctos antes de Insertar o Modificar
 'una linea del Pedido
-Dim B As Boolean
+Dim b As Boolean
 Dim i As Byte
 Dim C As String
 
@@ -1894,13 +1907,13 @@ Dim C As String
     On Error GoTo EDatosOkLinea
 
     DatosOkLinea = False
-    B = True
+    b = True
 
     'Comprobar que los campos NOT NULL tienen valor
     For i = 1 To txtAux.Count
         If txtAux(i).Text = "" Then
             MsgBox "El campo " & txtAux(i).Tag & " no puede ser nulo", vbExclamation
-            B = False
+            b = False
             PonerFoco txtAux(i)
             Exit Function
         End If
@@ -1913,12 +1926,12 @@ Dim C As String
     If CCur(C) <= ImporteFormateado(txtAux(1).Text) Then
         If Combo1.ListIndex = 0 Then
             MsgBox "Cantidad mayor(o igual) de la del deposito. Debe marcar Fin deposito", vbExclamation
-            B = False
+            b = False
         End If
     End If
     
     
-    DatosOkLinea = B
+    DatosOkLinea = b
 
 EDatosOkLinea:
     If Err.Number <> 0 Then MsgBox Err.Number & ": " & Err.Description, vbExclamation
@@ -1982,7 +1995,7 @@ Dim C As String
                     If BLOQUEADesdeFormulario(Me) Then
                 
                         frmProduVarios.Intercambio = Data1.Recordset!Codigo & "|" & Data1.Recordset!Fecha & "|" & Data1.Recordset!codAlmac & "|"
-                        frmProduVarios.Opcion = 1
+                        frmProduVarios.opcion = 1
                         frmProduVarios.Show vbModal
                     
                         'TErminamos de bloquear
@@ -2005,7 +2018,7 @@ Dim C As String
                     .OtrosParametros = "|pNomEmpre=""" & vParam.NombreEmpresa & """|"
                     .NumeroParametros = 1
                     .Titulo = "Coupage"
-                    .Opcion = 2003 'Esta libre
+                    .opcion = 2003 'Esta libre
                     .Show vbModal
                 End With
             End If
@@ -2058,7 +2071,7 @@ Dim vWhere As String
     End If
     
     If SQL <> "" Then
-        Conn.Execute SQL
+        conn.Execute SQL
 '
 '        CambiaKilosTotales 0, ImporteFormateado(txtAux(3).Text)
 '
@@ -2088,23 +2101,23 @@ Dim SQL As String
         SQL = "UPDATE olicoupagelinlotes set cantlote  = " & DBSet(txtAux(1).Text, "N")
         SQL = SQL & " ,FinCuba =" & Me.Combo1.ItemData(Combo1.ListIndex)
         SQL = SQL & " WHERE codigo =" & Data1.Recordset!Codigo
-        SQL = SQL & " AND codartic =" & DBSet(Data2.Recordset!codArtic, "T")
-        SQL = SQL & " AND Linea =" & DBSet(Data2.Recordset!Linea, "T")
+        SQL = SQL & " AND codartic =" & DBSet(Data2.Recordset!codartic, "T")
+        SQL = SQL & " AND Linea =" & DBSet(Data2.Recordset!linea, "T")
 
         
     End If
     
     If SQL <> "" Then
-        Conn.Execute SQL
+        conn.Execute SQL
         
         
         'Actualizamos los kilos en olicoupagelin
         Espera 0.5
-        SQL = "codartic =" & DBSet(Data2.Recordset!codArtic, "T") & " AND codigo "
+        SQL = "codartic =" & DBSet(Data2.Recordset!codartic, "T") & " AND codigo "
         SQL = DevuelveDesdeBD(conAri, "sum(cantlote)", "olicoupagelinlotes", SQL, CStr(Data1.Recordset!Codigo))
         SQL = " SET kilos = " & TransformaComasPuntos(SQL)
-        SQL = "UPDATE olicoupagelin " & SQL & " WHERE codartic =" & DBSet(Data2.Recordset!codArtic, "T") & " AND codigo = " & Data1.Recordset!Codigo
-        Conn.Execute SQL
+        SQL = "UPDATE olicoupagelin " & SQL & " WHERE codartic =" & DBSet(Data2.Recordset!codartic, "T") & " AND codigo = " & Data1.Recordset!Codigo
+        conn.Execute SQL
         
         CambiaKilosTotales Data2.Recordset!cantlote, ImporteFormateado(txtAux(1).Text)
         
@@ -2117,16 +2130,16 @@ EModificarLinea:
 End Function
 
 
-Private Sub PonerBotonCabecera(B As Boolean)
+Private Sub PonerBotonCabecera(b As Boolean)
 'Pone el boton de Regresar a la Cabecera si pasamos a MAntenimiento de Lineas
 'o Pone los botones de Aceptar y cancelar en Insert,update o delete lineas
 On Error Resume Next
 
-    Me.cmdAceptar.visible = Not B
-    Me.cmdCancelar.visible = Not B
-    Me.cmdRegresar.visible = B
+    Me.cmdAceptar.visible = Not b
+    Me.cmdCancelar.visible = Not b
+    Me.cmdRegresar.visible = b
     Me.cmdRegresar.Caption = "Cabecera"
-    If B Then
+    If b Then
         Me.lblIndicador.Caption = "Líneas " & TituloLinea
         PonerFocoBtn Me.cmdRegresar
     End If
@@ -2142,12 +2155,12 @@ End Sub
 Private Sub CargaGrid(ByRef vDataGrid As DataGrid, ByRef vData As Adodc, enlaza As Boolean)
 'IN: enlaza= si carga el grid con valores de la tabla o lo muestra vacio si no enlaza
 '    conServidas=si enlaza, se muestra la columna de servidas solo cuando se va a generar el Albaran no completo
-Dim B As Boolean
+Dim b As Boolean
 Dim SQL As String
 
     On Error GoTo ECargaGrid
 
-    B = DataGrid1.Enabled
+    b = DataGrid1.Enabled
     
     SQL = MontaSQLCarga(enlaza)
     CargaGridGnral vDataGrid, vData, SQL, PrimeraVez
@@ -2162,8 +2175,8 @@ Dim SQL As String
     
     
     
-    B = (Modo = 5) And (ModificaLineas = 1 Or ModificaLineas = 2) '5:Modo Mto Lineas (Insertando o Modificando linea)
-    vDataGrid.Enabled = Not B
+    b = (Modo = 5) And (ModificaLineas = 1 Or ModificaLineas = 2) '5:Modo Mto Lineas (Insertando o Modificando linea)
+    vDataGrid.Enabled = Not b
     PrimeraVez = False
     gridCargado = True
     
@@ -2228,6 +2241,7 @@ Dim i As Byte
                 
                 vDataGrid.Columns(1).Caption = "Desc. Artículo"
                 vDataGrid.Columns(1).Width = 3800
+                If vParamAplic.QUE_EMPRESA = 4 Then vDataGrid.Columns(1).Width = 3000
 
                 vDataGrid.Columns(2).Caption = "depósito"
                 vDataGrid.Columns(2).Width = 900
@@ -2237,6 +2251,7 @@ Dim i As Byte
 
                 vDataGrid.Columns(3).Caption = "Lote"
                 vDataGrid.Columns(3).Width = 1050
+                If vParamAplic.QUE_EMPRESA = 4 Then vDataGrid.Columns(3).Width = 1850
                              
                 vDataGrid.Columns(4).Caption = "Kilos"
                 vDataGrid.Columns(4).Width = 1100
@@ -2354,7 +2369,7 @@ Dim cadkey As Integer
 End Sub
 
 
-Private Sub txtAux_KeyDown(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub TxtAux_KeyDown(Index As Integer, KeyCode As Integer, Shift As Integer)
 'Avanzar/Retroceder los campos con las flechas de desplazamiento del teclado.
     If Modo <> 6 Then 'Modo6: Pasar de Pedido a Albaran
         If Not (Index = 0 And KeyCode = 38) Then KEYdown KeyCode
@@ -2405,27 +2420,27 @@ End Sub
 
 
 Private Function Eliminar() As Boolean
-Dim B As Boolean
+Dim b As Boolean
 
 
 
     On Error GoTo FinEliminar
 
-        Conn.BeginTrans
-
-        Conn.Execute "Delete from olicoupagelin where codigo =" & Text1(0).Text
-        Conn.Execute "Delete from olicoupage where codigo =" & Text1(0).Text
-        B = True
+        conn.BeginTrans
+        conn.Execute "Delete from olicoupagelinlotes where codigo =" & Text1(0).Text
+        conn.Execute "Delete from olicoupagelin where codigo =" & Text1(0).Text
+        conn.Execute "Delete from olicoupage where codigo =" & Text1(0).Text
+        b = True
 FinEliminar:
     If Err.Number <> 0 Then
         MuestraError Err.Number, "Eliminar Pedido" & vbCrLf, Err.Description
-        B = False
+        b = False
     End If
-    If Not B Then
-        Conn.RollbackTrans
+    If Not b Then
+        conn.RollbackTrans
         Eliminar = False
     Else
-        Conn.CommitTrans
+        conn.CommitTrans
         Eliminar = True
     End If
 End Function
@@ -2532,42 +2547,42 @@ End Function
 
 Private Sub PonerModoOpcionesMenu(Modo As Byte)
 'Activas unas Opciones de Menu y Toolbar según el Modo en que estemos
-Dim B As Boolean
+Dim b As Boolean
 
-        B = (Modo = 2) Or (Modo = 5 And ModificaLineas = 0)
+        b = (Modo = 2) Or (Modo = 5 And ModificaLineas = 0)
         'Me.mnOpciones.Enabled = (b Or Modo = 0)
         'Insertar
-        Toolbar1.Buttons(5).Enabled = (B Or Modo = 0)
-        Me.mnNuevo.Enabled = (B Or Modo = 0)
+        Toolbar1.Buttons(5).Enabled = (b Or Modo = 0)
+        Me.mnNuevo.Enabled = (b Or Modo = 0)
         'Modificar
-        Toolbar1.Buttons(6).Enabled = B
-        Me.mnModificar.Enabled = B
+        Toolbar1.Buttons(6).Enabled = b
+        Me.mnModificar.Enabled = b
         'eliminar
-        Toolbar1.Buttons(7).Enabled = B
-        Me.mnEliminar.Enabled = B
+        Toolbar1.Buttons(7).Enabled = b
+        Me.mnEliminar.Enabled = b
             
-        B = (Modo = 2)
+        b = (Modo = 2)
         'Mantenimiento lineas
-        Toolbar1.Buttons(10).Enabled = B
-        Me.mnLineas.Enabled = B
+        Toolbar1.Buttons(10).Enabled = b
+        Me.mnLineas.Enabled = b
         'Generar Albaran desde Pedido
-        Toolbar1.Buttons(11).Enabled = B
-        Me.mnGenAlbaran.Enabled = B
+        Toolbar1.Buttons(11).Enabled = b
+        Me.mnGenAlbaran.Enabled = b
         
-        Toolbar1.Buttons(12).Enabled = B
-        Me.mnGeneraFactura.Enabled = B
-        Toolbar1.Buttons(13).Enabled = B
+        Toolbar1.Buttons(12).Enabled = b
+        Me.mnGeneraFactura.Enabled = b
+        Toolbar1.Buttons(13).Enabled = b
         
         
         
       
-        B = (Modo >= 3) Or Modo = 1
+        b = (Modo >= 3) Or Modo = 1
         'Buscar
-        Toolbar1.Buttons(1).Enabled = Not B
-        Me.mnBuscar.Enabled = Not B
+        Toolbar1.Buttons(1).Enabled = Not b
+        Me.mnBuscar.Enabled = Not b
         'Ver Todos
-        Toolbar1.Buttons(2).Enabled = Not B
-        Me.mnVerTodos.Enabled = Not B
+        Toolbar1.Buttons(2).Enabled = Not b
+        Me.mnVerTodos.Enabled = Not b
 End Sub
 
 
@@ -2577,16 +2592,34 @@ End Sub
 
 
 Private Sub InsertarCabecera()
-    
+Dim cT As CTiposMov
     Text1(0).Text = SugerirCodigoSiguienteStr(NombreTabla, "codigo")
     If InsertarDesdeForm(Me) Then
     
             'ActualizarLineasPedido
-    
+            If vParamAplic.QUE_EMPRESA = 4 Then
+                Set cT = New CTiposMov
+                cT.Leer "LOV"
+                cT.IncrementarContador cT.TipoMovimiento
+                Set cT = Nothing
+            End If
             'Si tiene pedido traeremos las lineas del pedido
             CadenaConsulta = "Select * from " & NombreTabla & " WHERE codigo = " & Text1(0).Text & Ordenacion
             PonerCadenaBusqueda
             'Ponerse en Modo Insertar Lineas
+            
+            'Si e s la vall, y el depostio era destibno es el 18, añado YA la linea de deposito
+            If vParamAplic.QUE_EMPRESA = 4 Then
+                If Val(Text1(6).Text) = 18 Then
+                    CadenaConsulta = DevuelveDesdeBD(conAri, "partida", "proddepositos", "numdeposito", "18")
+                    If CadenaConsulta <> "" Then
+                        Espera 0.3
+                        ObtenerLineCoupage True
+                    End If
+                End If
+            End If
+            
+            
             BotonMtoLineas
             BotonAnyadirLinea
     
@@ -2674,7 +2707,7 @@ Dim FinDeposito As String
     Dim cD As cDeposito
     Set cD = New cDeposito
     
-    SQL = DevuelveDesdeBD(conAri, "factorconversion", "sartic", "codartic", Data1.Recordset!codArtic)
+    SQL = DevuelveDesdeBD(conAri, "factorconversion", "sartic", "codartic", Data1.Recordset!codartic)
     
     If cD.LeerDatos(CInt(Data1.Recordset!Deposito), False) Then
 '        If cD.NUmlote <> "" Then
@@ -2732,37 +2765,41 @@ End Function
 
 
 
-Private Sub ObtenerLineCoupage()
+Private Sub ObtenerLineCoupage(Directo As Boolean)
 Dim cad As String
 Dim Depo As Integer
-Dim B As Boolean
+Dim b As Boolean
     
         
         
         Screen.MousePointer = vbHourglass
-        Set frmB2 = New frmBuscaGrid
-        'CAMPOS
-        'numdeposito,nomartic,spartidas.codartic,spartidas.numlote,litros
-        cad = "Deposito|proddepositos|numdeposito|N||5·"
-        cad = cad & "Cod. art|spartidas|codartic|T||20·"
-        cad = cad & "Articulo|sartic|nomartic|T||45·"
-        cad = cad & "Lote|spartidas|numlote|T||12·"
-        cad = cad & "Kilos||kilos|N|" & FormatoPrecio & "|16·"
-        frmB2.vCampos = cad
-        'TABLA
-        cad = " proddepositos left join spartidas on spartidas.numlote=proddepositos.numlote"
-        cad = cad & " inner join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<1"
-        frmB2.vTabla = cad
-        'WHERE
-        frmB2.vSQL = "not spartidas.numlote is null "  'and DepositoVtaDirecta = 0"
-        HaDevueltoDatos = False
-        frmB2.vDevuelve = "0|"
-        frmB2.vTitulo = "Depositos"
-        frmB2.vselElem = 0
-        frmB2.vConexionGrid = conAri 'Conexión a BD: Ariges
-        CadenaConsulta = ""
-        frmB2.Show vbModal
-        Set frmB2 = Nothing
+        If Not Directo Then
+            Set frmB2 = New frmBuscaGrid
+            'CAMPOS
+            'numdeposito,nomartic,spartidas.codartic,spartidas.numlote,litros
+            cad = "Deposito|proddepositos|numdeposito|N||5·"
+            cad = cad & "Cod. art|spartidas|codartic|T||20·"
+            cad = cad & "Articulo|sartic|nomartic|T||45·"
+            cad = cad & "Lote|spartidas|numlote|T||12·"
+            cad = cad & "Kilos||kilos|N|" & FormatoPrecio & "|16·"
+            frmB2.vCampos = cad
+            'TABLA
+            cad = " proddepositos left join spartidas on spartidas.numlote=proddepositos.numlote"
+            cad = cad & " inner join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<1"
+            frmB2.vTabla = cad
+            'WHERE
+            frmB2.vSQL = "not spartidas.numlote is null "  'and DepositoVtaDirecta = 0"
+            HaDevueltoDatos = False
+            frmB2.vDevuelve = "0|"
+            frmB2.vTitulo = "Depositos"
+            frmB2.vselElem = 0
+            frmB2.vConexionGrid = conAri 'Conexión a BD: Ariges
+            CadenaConsulta = ""
+            frmB2.Show vbModal
+            Set frmB2 = Nothing
+        Else
+            CadenaConsulta = "18|"
+        End If
         If CadenaConsulta <> "" Then
         
             'Un par de comprobaciones
@@ -2782,13 +2819,13 @@ Dim B As Boolean
                 '
                 Screen.MousePointer = vbHourglass
                 Depo = CInt(Val(CadenaConsulta))
-                Conn.BeginTrans
-                B = InsertarLineaCoupage(Depo)
-                If Not B Then
-                    Conn.RollbackTrans
+                conn.BeginTrans
+                b = InsertarLineaCoupage(Depo)
+                If Not b Then
+                    conn.RollbackTrans
                     
                 Else
-                    Conn.CommitTrans
+                    conn.CommitTrans
                     Espera 0.2
                     'Ahora, situamos el datagrid en ese y pulsamos modificar
                     CargaGrid DataGrid1, Data2, True
@@ -2828,7 +2865,7 @@ Dim Cantidad As Currency
     Set miRsAux = New ADODB.Recordset
     Aux = "select spartidas.*,factorconversion from spartidas inner join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<1"
     Aux = Aux & " AND numlote = " & DBSet(cDe.NUmlote, "T")
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     'NO pue ser eof
     Cantidad = Round(cDe.Kilos / miRsAux!FactorConversion, 2)
     If miRsAux!cantotal <> cDe.Kilos Then
@@ -2841,13 +2878,13 @@ Dim Cantidad As Currency
      
     'YA TENGO ARTICULO - cantidad
     Cantidad = cDe.Kilos
-    Aux = miRsAux!codArtic
+    Aux = miRsAux!codartic
     miRsAux.Close
     
     
     'Veo si ya esta en olicoupagelin (podria existir YA)
     CadenaConsulta = "Select * from olicoupagelin where codigo = " & Text1(0).Text & " AND codartic=" & DBSet(Aux, "T")
-    miRsAux.Open CadenaConsulta, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open CadenaConsulta, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If miRsAux.EOF Then
         'NIO existe, lo creo
         CadenaConsulta = "INSERT INTO olicoupagelin(codigo,codartic,kilos) VALUES (" & Text1(0).Text & ","
@@ -2862,7 +2899,7 @@ Dim Cantidad As Currency
     End If
     miRsAux.Close
     
-    Conn.Execute CadenaConsulta
+    conn.Execute CadenaConsulta
     
     
     
@@ -2872,7 +2909,7 @@ Dim Cantidad As Currency
     CadenaConsulta = "INSERT INTO olicoupagelinlotes (codigo,codartic,linea,numlote,cantlote,fincuba,deposito) VALUES ("
     CadenaConsulta = CadenaConsulta & Text1(0).Text & "," & DBSet(Aux, "T") & "," & NumRegElim & ","
     CadenaConsulta = CadenaConsulta & DBSet(cDe.NUmlote, "T") & "," & DBSet(Cantidad, "N") & ",0," & cDe.NumDeposito & ")"
-    Conn.Execute CadenaConsulta
+    conn.Execute CadenaConsulta
     
     
     CambiaKilosTotales 0, Cantidad

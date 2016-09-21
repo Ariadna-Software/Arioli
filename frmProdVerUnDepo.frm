@@ -73,11 +73,25 @@ Begin VB.Form frmProdVerUnDepo
       TabCaption(1)   =   "Histórico"
       TabPicture(1)   =   "frmProdVerUnDepo.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "txtFecha(0)"
-      Tab(1).Control(1)=   "ListView2"
-      Tab(1).Control(2)=   "imgFecha(0)"
-      Tab(1).Control(3)=   "Label3(63)"
-      Tab(1).ControlCount=   4
+      Tab(1).Control(0)=   "Label3(63)"
+      Tab(1).Control(0).Enabled=   0   'False
+      Tab(1).Control(1)=   "imgFecha(0)"
+      Tab(1).Control(1).Enabled=   0   'False
+      Tab(1).Control(2)=   "ListView2"
+      Tab(1).Control(2).Enabled=   0   'False
+      Tab(1).Control(3)=   "txtFecha(0)"
+      Tab(1).Control(3).Enabled=   0   'False
+      Tab(1).Control(4)=   "cmdVer"
+      Tab(1).Control(4).Enabled=   0   'False
+      Tab(1).ControlCount=   5
+      Begin VB.CommandButton cmdVer 
+         Caption         =   "Movimientos"
+         Height          =   375
+         Left            =   -71520
+         TabIndex        =   24
+         Top             =   6360
+         Width           =   1215
+      End
       Begin VB.CommandButton cmdModKilos 
          Height          =   375
          Left            =   5880
@@ -275,7 +289,7 @@ Begin VB.Form frmProdVerUnDepo
          NumItems        =   4
          BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             Text            =   "Fecha"
-            Object.Width           =   3775
+            Object.Width           =   3422
          EndProperty
          BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   1
@@ -285,7 +299,7 @@ Begin VB.Form frmProdVerUnDepo
          BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   2
             Text            =   "Lote"
-            Object.Width           =   1587
+            Object.Width           =   2293
          EndProperty
          BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   3
@@ -459,12 +473,12 @@ Begin VB.Form frmProdVerUnDepo
       EndProperty
       Height          =   645
       Index           =   2
-      Left            =   7440
+      Left            =   6600
       Locked          =   -1  'True
       TabIndex        =   3
       Text            =   "Text1"
       Top             =   120
-      Width           =   2295
+      Width           =   3135
    End
    Begin VB.TextBox Text1 
       Alignment       =   2  'Center
@@ -479,7 +493,7 @@ Begin VB.Form frmProdVerUnDepo
       EndProperty
       Height          =   645
       Index           =   0
-      Left            =   4560
+      Left            =   4440
       Locked          =   -1  'True
       TabIndex        =   1
       Text            =   "Text1"
@@ -499,7 +513,7 @@ Begin VB.Form frmProdVerUnDepo
       EndProperty
       Height          =   375
       Index           =   2
-      Left            =   6720
+      Left            =   6000
       TabIndex        =   4
       Top             =   360
       Width           =   855
@@ -576,7 +590,7 @@ Dim It As ListItem
     cad = cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
     cad = cad & " left join sartic on spartidas.codartic=sartic.codartic WHERE numdeposito = " & NumDepo
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
 
         Me.Text1(2).Text = DBLet(miRsAux!NUmlote, "T")
@@ -589,7 +603,7 @@ Dim It As ListItem
       
         If Not IsNull(miRsAux!ID) Then
             Text1(6).Text = miRsAux!ID
-            Text1(7).Text = miRsAux!codArtic
+            Text1(7).Text = miRsAux!codartic
             Text1(1).Text = miRsAux!NomArtic
             PorcentajeLleno = miRsAux!Kilos / miRsAux!FactorConversion
         Else
@@ -627,7 +641,7 @@ Dim It As ListItem
         'Cad = Cad & " and  prodlin.codigo =" & RecuperaValor(idProd, 1)
         'Cad = Cad & " and  prodlin.idlin =" & RecuperaValor(idProd, 2)
        cad = cad & " ORDER BY lineaprod"
-        miRsAux.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         
         
         ListView1.ColumnHeaders(4).Width = 0
@@ -677,13 +691,13 @@ Private Function UpdatearKilos() As Boolean
     miSQL = TransformaComasPuntos(ImporteFormateado(CStr(CadenaDesdeOtroForm)))
     miSQL = "UPDATE proddepositos SET kilos = " & miSQL
     miSQL = miSQL & " WHERE numdeposito=" & Text1(0).Text
-    Conn.Execute miSQL
+    conn.Execute miSQL
     
     'La partida
     miSQL = TransformaComasPuntos(ImporteFormateado(CadenaDesdeOtroForm))
     miSQL = "UPDATE spartidas SET cantotal = " & miSQL
     miSQL = miSQL & " WHERE id=" & Text1(6).Text 'idpartida
-    Conn.Execute miSQL
+    conn.Execute miSQL
     
     
     
@@ -701,6 +715,11 @@ Private Function UpdatearKilos() As Boolean
     
 End Function
 
+
+Private Sub cmdVer_Click()
+    frmAlmpartidasMov.VerPartida = Val(Text1(6).Text)
+    frmAlmpartidasMov.Show vbModal
+End Sub
 
 Private Sub Command1_Click()
     Unload Me
@@ -736,7 +755,11 @@ Private Sub Form_Load()
     
     LeerGuardarFecha True
     txtFecha(0).Tag = txtFecha(0).Text
-    
+    Me.cmdVer.visible = False
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        Me.Text1(2).FontSize = 14
+        Me.cmdVer.visible = True
+    End If
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
@@ -812,7 +835,7 @@ Dim It As ListItem
     miSQL = "select horamovi,numlote,tipoaccion from proddepositoshco where numdeposito=" & NumDepo
     miSQL = miSQL & " AND horamovi >='" & Format(Me.txtFecha(0).Text, "yyyy-mm-dd") & " 00:00:00'"
     miSQL = miSQL & " ORDER BY horamovi"
-    miRsAux.Open miSQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open miSQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
             Set It = ListView2.ListItems.Add
             It.Text = Format(miRsAux!horamovi, "dd/mm/yyyy hh:nn:ss")
@@ -847,7 +870,7 @@ Dim It As ListItem
                 
             Case 5
                 'NO esta en hco, esta en protrazlin
-                
+                miSQL = "Parte produccion"
             Case 6
                 'Venta directa
                 miSQL = "Venta directa"
@@ -864,7 +887,7 @@ Dim It As ListItem
             End Select
             It.SubItems(1) = miSQL
             It.SubItems(2) = miRsAux!NUmlote
-            
+            If vParamAplic.QUE_EMPRESA = 4 Then It.SubItems(2) = Mid(miRsAux!NUmlote, 7)
             
             miRsAux.MoveNext
             
@@ -877,7 +900,7 @@ Dim It As ListItem
     miSQL = "select fhinicio,prodlin.codigo,prodlin.idlin,lotetraza"
     miSQL = miSQL & " from prodlin,prodtrazlin  where prodlin.codigo= prodtrazlin.codigo AND prodlin.idlin = prodtrazlin.idlin"
     miSQL = miSQL & "  and prodtrazlin.depositol = " & NumDepo & "  AND fhinicio >='" & Format(Me.txtFecha(0).Text, "yyyy-mm-dd") & " 00:00:00'"
-    miRsAux.Open miSQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open miSQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         Set It = ListView2.ListItems.Add
         It.Text = Format(miRsAux!fhinicio, "dd/mm/yyyy hh:nn:ss")

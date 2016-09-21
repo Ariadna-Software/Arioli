@@ -38,7 +38,6 @@ Public Property Let NombreMovimiento(ByVal vData As String)
     mvarNombreMov = vData
 End Property
 
-
 Public Property Get NombreMovimiento() As String
     NombreMovimiento = mvarNombreMov
 End Property

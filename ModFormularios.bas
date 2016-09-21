@@ -22,7 +22,7 @@ On Error GoTo ESugerirCodigo
     End If
     
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, , , adCmdText
+    RS.Open SQL, conn, , , adCmdText
     SQL = "1"
     If Not RS.EOF Then
         If Not IsNull(RS.Fields(0)) Then
@@ -64,12 +64,12 @@ Public Sub BloquearText1(ByRef formulario As Form, Modo As Byte)
 'IN ->  formulario: formulario en el que se van a poner los controles textbox en modo visualización
 '       Modo: modo del mantenimiento (Insertar, Modificar,Buscar...)
 Dim i As Byte
-Dim B As Boolean
+Dim b As Boolean
 Dim vtag As CTag
 On Error Resume Next
 
     With formulario
-        B = (Modo = 3 Or Modo = 4 Or Modo = 1) 'And ModoLineas = 1))
+        b = (Modo = 3 Or Modo = 4 Or Modo = 1) 'And ModoLineas = 1))
         
         For i = 0 To .Text1.Count - 1 'En principio todos los TExt1 tiene TAG
             Set vtag = New CTag
@@ -79,8 +79,8 @@ On Error Resume Next
                     .Text1(i).Locked = True
                     .Text1(i).BackColor = &H80000018 'amarillo claro
                 Else
-                    .Text1(i).Locked = Not B  '((Not b) And (Modo <> 1))
-                    If B Then
+                    .Text1(i).Locked = Not b  '((Not b) And (Modo <> 1))
+                    If b Then
                         .Text1(i).BackColor = vbWhite
                     Else
                         .Text1(i).BackColor = &H80000018 'amarillo claro
@@ -88,8 +88,8 @@ On Error Resume Next
                     If Modo = 3 Then .Text1(i).Text = "" 'Modo 3: Insertar (si vamos a Insertar ade+ Limpiamos el campo)
                 End If
             Else
-                .Text1(i).Locked = Not B  '((Not b) And (Modo <> 1))
-                If B Then
+                .Text1(i).Locked = Not b  '((Not b) And (Modo <> 1))
+                If b Then
                     .Text1(i).BackColor = vbWhite
                 Else
                     .Text1(i).BackColor = &H80000018 'amarillo claro
@@ -103,15 +103,15 @@ On Error Resume Next
 End Sub
 
 
-Public Sub BloquearTxt(ByRef Text As TextBox, B As Boolean, Optional EsContador As Boolean)
+Public Sub BloquearTxt(ByRef Text As TextBox, b As Boolean, Optional EsContador As Boolean)
 'Bloquea un control de tipo TextBox
 'Si lo bloquea lo pone de color amarillo claro sino lo pone en color blanco (sino es contador)
 'pero si es contador lo pone color azul claro
 On Error Resume Next
 
-    Text.Locked = B
-    If Not B And Text.Enabled = False Then Text.Enabled = True
-    If B Then
+    Text.Locked = b
+    If Not b And Text.Enabled = False Then Text.Enabled = True
+    If b Then
         If EsContador Then
             'Si Es un campo que se obtiene de un contador poner color azul
 '            Text.BackColor = &H80000013 'Azul Claro
@@ -126,29 +126,29 @@ On Error Resume Next
 End Sub
 
 
-Public Sub BloquearImg(ByRef imgF As Image, B As Boolean)
+Public Sub BloquearImg(ByRef imgF As Image, b As Boolean)
 On Error Resume Next
 
-    imgF.Enabled = Not B
-    imgF.visible = Not B
+    imgF.Enabled = Not b
+    imgF.visible = Not b
     
     If Err.Number <> 0 Then Err.Clear
 End Sub
 
 
-Public Sub BloquearCmb(ByRef cmb As ComboBox, B As Boolean, Optional EsContador As Boolean)
+Public Sub BloquearCmb(ByRef cmb As ComboBox, b As Boolean, Optional EsContador As Boolean)
 'Bloqueja un control de tipo ComboBox
 'Si el bloqueja el posa de color gris claro, sino el posa de color blanc (sino es contador)
 'pero si es contador el posa color blau clar
     On Error Resume Next
 
-    cmb.Locked = B
+    cmb.Locked = b
     cmb.Enabled = True
     
     'cmb.Enabled = Not b
     
     'If Not b And Cmb.Enabled = False Then Cmb.Enabled = True
-    If B Then
+    If b Then
         If EsContador Then
             'Si Es un campo que se obtiene de un contador poner color azul
             cmb.BackColor = &H80000013 'Azul Claro
@@ -168,11 +168,11 @@ Public Sub BloquearChecks(ByRef formulario As Form, Modo As Byte)
 'Bloquea controles  CheckBox si no estamos en Modo: 3.-Insertar, 4.-Modificar
 'IN ->  formulario: formulario en el que se van a poner los controles textbox en modo visualización
 '       Modo: modo del mantenimiento (Insertar, Modificar,Buscar...)
-Dim B As Boolean
+Dim b As Boolean
 Dim Control As Control
 On Error Resume Next
 
-    B = (Modo = 3 Or Modo = 4 Or Modo = 1)
+    b = (Modo = 3 Or Modo = 4 Or Modo = 1)
     With formulario
         For Each Control In formulario.Controls
             If TypeOf Control Is CheckBox Then
@@ -196,14 +196,14 @@ End Sub
 
 
 
-Public Sub PonerLongCamposGnral(ByRef formulario As Form, Modo As Byte, Opcion As Byte)
+Public Sub PonerLongCamposGnral(ByRef formulario As Form, Modo As Byte, opcion As Byte)
     Dim i As Integer
     
     On Error Resume Next
 
     With formulario
         If Modo = 1 Then 'BUSQUEDA
-            Select Case Opcion
+            Select Case opcion
                 Case 1 'Para los TEXT1
                     For i = 0 To .Text1.Count - 1
                         With .Text1(i)
@@ -226,7 +226,7 @@ Public Sub PonerLongCamposGnral(ByRef formulario As Form, Modo As Byte, Opcion A
             End Select
             
         Else 'resto de modos
-            Select Case Opcion
+            Select Case opcion
                 Case 1
                     For i = 0 To .Text1.Count - 1
                         With .Text1(i)
@@ -656,12 +656,12 @@ EDeseleccionaGrid:
 End Sub
 
 
-Public Sub CargaGridGnral(ByRef vDataGrid As DataGrid, ByRef vData As Adodc, SQL As String, Primeravez As Boolean)
+Public Sub CargaGridGnral(ByRef vDataGrid As DataGrid, ByRef vData As Adodc, SQL As String, PrimeraVez As Boolean)
 On Error GoTo ECargaGrid
 
     vDataGrid.Enabled = True
     '    vdata.Recordset.Cancel
-    vData.ConnectionString = Conn
+    vData.ConnectionString = conn
     vData.RecordSource = SQL
     vData.CursorType = adOpenDynamic
     vData.LockType = adLockPessimistic
@@ -672,7 +672,7 @@ On Error GoTo ECargaGrid
     vDataGrid.AllowRowSizing = False
     vDataGrid.RowHeight = 290
 
-    If Primeravez Then
+    If PrimeraVez Then
         vDataGrid.ClearFields
         vDataGrid.ReBind
         vDataGrid.Refresh
@@ -724,7 +724,7 @@ Dim i As Integer
     
 '    If AbrirRecordset(SQL, RS) Then
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     '- si valor del parametro ItemNulo=true hay que añadir linea en blanco
     If Not RS.EOF And ItemNulo Then
@@ -789,7 +789,7 @@ Dim i As Integer
     SQL = SQL & " ORDER BY " & NomCodigo
     
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     '- si valor del parametro ItemNulo=true hay que añadir linea en blanco
     If Not RS.EOF And ItemNulo Then
@@ -873,11 +873,11 @@ End Sub
 Public Sub ActualizarToolbarGnral(ByRef Toolbar1 As Toolbar, Modo As Byte, Kmodo As Byte, posic As Byte)
 'Modo: Modo antiguo
 'Kmodo: Modo que se va a poner
-Dim B As Boolean
+Dim b As Boolean
     
-    B = (Modo = 5 Or Modo = 6 Or Modo = 7)
+    b = (Modo = 5 Or Modo = 6 Or Modo = 7)
     
-    If (B) And (Kmodo <> 5 And Kmodo <> 6 And Kmodo <> 7) Then 'Cabecera
+    If (b) And (Kmodo <> 5 And Kmodo <> 6 And Kmodo <> 7) Then 'Cabecera
         'El modo antigu era modificando las lineas
         'Luego hay que reestablecer los dibujitos y los TIPS
         '-- insertar
@@ -954,7 +954,7 @@ End Sub
 
 
 
-Public Sub SituarCombo(ByRef Cbo As ComboBox, Valor As Byte)
+Public Sub SituarCombo2(ByRef Cbo As ComboBox, Valor As Long)
 Dim i As Byte
 
     On Error Resume Next
@@ -1347,7 +1347,7 @@ End Function
 
 
 
-Public Function PonerFormatoSingle(ByRef T As TextBox, Decimales As Byte) As Boolean
+Public Function PonerFormatoSingle(ByRef T As TextBox, decimales As Byte) As Boolean
 'Decimales
 Dim Valor As Single
 Dim NoOK As Boolean
@@ -1384,7 +1384,7 @@ Dim Formato As String
             Else
                 PonerFormatoSingle = True
             End If
-            Formato = "##,###,##0." & String(Decimales, "0")
+            Formato = "##,###,##0." & String(decimales, "0")
            .Text = Format(Valor, Formato)
            
            'Text = Format(Valor, FormatoTag)
@@ -1399,7 +1399,7 @@ Public Function PonerNombreDeCod(ByRef Txt As TextBox, bd As Byte, Tabla As Stri
 'Devuelve el nombre/Descripción asociado al Código correspondiente
 'Además pone formato al campo txt del código a partir del Tag
 Dim SQL As String
-Dim devuelve As String
+Dim Devuelve As String
 Dim vtag As CTag
 Dim ValorCodigo As String
 On Error GoTo EPonerNombresDeCod
@@ -1411,17 +1411,17 @@ On Error GoTo EPonerNombresDeCod
     If ValorCodigo <> "" Then
         Set vtag = New CTag
         If vtag.Cargar(Txt) Then
-            If Codigo = "" Then Codigo = vtag.columna
+            If Codigo = "" Then Codigo = vtag.Columna
             If Tipo = "" Then Tipo = vtag.TipoDato
             SQL = DevuelveDesdeBD(bd, campo, Tabla, Codigo, ValorCodigo, Tipo)
             If vtag.TipoDato = "N" Then ValorCodigo = Format(ValorCodigo, vtag.Formato)
             If SQL = "" Then
                 If Texto = "" Then
-                    devuelve = "No existe " & vtag.Nombre & ": " & ValorCodigo
+                    Devuelve = "No existe " & vtag.Nombre & ": " & ValorCodigo
                 Else
-                    devuelve = "No existe " & Texto & ": " & ValorCodigo
+                    Devuelve = "No existe " & Texto & ": " & ValorCodigo
                 End If
-                MsgBox devuelve, vbExclamation
+                MsgBox Devuelve, vbExclamation
 '                Txt.Text = ""
                 'si ponemos foco bucle
 '                PonerFoco Txt
@@ -1446,7 +1446,7 @@ Public Function ExisteCP(T As TextBox) As Boolean
 'comprueba para un campo de texto que sea clave primaria, si ya existe un
 'registro con ese valor
 Dim vtag As CTag
-Dim devuelve As String
+Dim Devuelve As String
 On Error GoTo EExiste
 
     ExisteCP = False
@@ -1454,8 +1454,8 @@ On Error GoTo EExiste
         If T.Tag <> "" Then
             Set vtag = New CTag
             If vtag.Cargar(T) Then
-                devuelve = DevuelveDesdeBDNew(conAri, vtag.Tabla, vtag.columna, vtag.columna, T.Text, vtag.TipoDato)
-                If devuelve <> "" Then
+                Devuelve = DevuelveDesdeBDNew(conAri, vtag.Tabla, vtag.Columna, vtag.Columna, T.Text, vtag.TipoDato)
+                If Devuelve <> "" Then
                     MsgBox "Ya existe un registro para " & vtag.Nombre & ": " & T.Text, vbExclamation
                     ExisteCP = True
                 End If
@@ -1471,21 +1471,21 @@ End Function
 
 Public Sub SubirItemList(ByRef LView As ListView)
 'Subir el item seleccionado del listview una posicion
-Dim i As Byte, item As Byte
+Dim i As Byte, Item As Byte
 Dim Aux As String
 On Error Resume Next
    
     For i = 2 To LView.ListItems.Count
         If LView.ListItems(i).Selected Then
-            item = i
+            Item = i
             Aux = LView.ListItems(i).Text
             LView.ListItems(i).Text = LView.ListItems(i - 1).Text
             LView.ListItems(i - 1).Text = Aux
         End If
     Next i
-    If item <> 0 Then
-        LView.ListItems(item).Selected = False
-        LView.ListItems(item - 1).Selected = True
+    If Item <> 0 Then
+        LView.ListItems(Item).Selected = False
+        LView.ListItems(Item - 1).Selected = True
     End If
     LView.SetFocus
     If Err.Number <> 0 Then Err.Clear
@@ -1494,21 +1494,21 @@ End Sub
 
 Public Sub BajarItemList(ByRef LView As ListView)
 'Bajar el item seleccionado del listview una posicion
-Dim i As Byte, item As Byte
+Dim i As Byte, Item As Byte
 Dim Aux As String
 On Error Resume Next
 
     For i = 1 To LView.ListItems.Count - 1
         If LView.ListItems(i).Selected Then
-            item = i
+            Item = i
             Aux = LView.ListItems(i).Text
             LView.ListItems(i).Text = LView.ListItems(i + 1).Text
             LView.ListItems(i + 1).Text = Aux
         End If
     Next i
-    If item <> 0 Then
-        LView.ListItems(item).Selected = False
-        LView.ListItems(item + 1).Selected = True
+    If Item <> 0 Then
+        LView.ListItems(Item).Selected = False
+        LView.ListItems(Item + 1).Selected = True
     End If
     LView.SetFocus
     If Err.Number <> 0 Then Err.Clear
@@ -1646,18 +1646,18 @@ Dim SQL As String
 End Function
 
 'He cambiado el metodo a public
-Public Function InsertarCuentaCble(cuenta As String, cadClien As String, Optional cadProve As String) As Boolean
+Public Function InsertarCuentaCble(Cuenta As String, cadClien As String, Optional CadProve As String) As Boolean
 Dim SQL As String
 Dim vClien As CCliente
 Dim vProve As CProveedor
-Dim B As Boolean
+Dim b As Boolean
 
     On Error GoTo EInsCta
     
     
     'EL insert, sera llamado luego para la cobta en B. OJO!!!
     SQL = "INSERT INTO cuentas(codmacta,nommacta,apudirec,model347,razosoci,dirdatos,codposta,despobla,desprovi,nifdatos,maidatos,webdatos,obsdatos,pais,forpa, ctabanco) "
-    SQL = SQL & " VALUES (" & DBSet(cuenta, "T") & ","
+    SQL = SQL & " VALUES (" & DBSet(Cuenta, "T") & ","
     
     If cadClien <> "" Then
         Set vClien = New CCliente
@@ -1669,39 +1669,39 @@ Dim B As Boolean
             ConnConta.Execute SQL
             InsertaEnContaB SQL
             cadClien = vClien.Nombre
-            B = True
+            b = True
         Else
-            B = False
+            b = False
         End If
         Set vClien = Nothing
     End If
     
-    If cadProve <> "" Then
+    If CadProve <> "" Then
         Set vProve = New CProveedor
-        If vProve.LeerDatos(cadProve) Then
+        If vProve.LeerDatos(CadProve) Then
             SQL = SQL & DBSet(vProve.Nombre, "T") & ",'S',1," & DBSet(vProve.Nombre, "T") & "," & DBSet(vProve.Domicilio, "T") & ","
             SQL = SQL & DBSet(vProve.CPostal, "T") & "," & DBSet(vProve.Poblacion, "T") & "," & DBSet(vProve.Provincia, "T") & "," & DBSet(vProve.NIF, "T") & ","
             SQL = SQL & DBSet(vProve.EMailAdmon, "T") & "," & DBSet(vProve.WebProve, "T") & "," & ValorNulo & "," & ValorNulo
             'Forma pago y cuenta banco por defecto
-            cadProve = DevuelveDesdeBD(conAri, "codmacta", "sbanpr", "codbanpr", vProve.BancoPropio)
-            SQL = SQL & "," & DBSet(vProve.ForPago, "N", "S") & "," & DBSet(cadProve, "N", "S") & ")"
-            cadProve = ""
+            CadProve = DevuelveDesdeBD(conAri, "codmacta", "sbanpr", "codbanpr", vProve.BancoPropio)
+            SQL = SQL & "," & DBSet(vProve.ForPago, "N", "S") & "," & DBSet(CadProve, "N", "S") & ")"
+            CadProve = ""
             ConnConta.Execute SQL
             InsertaEnContaB SQL
-            cadProve = vProve.Nombre
-            B = True
+            CadProve = vProve.Nombre
+            b = True
         Else
-            B = False
+            b = False
         End If
         Set vProve = Nothing
     End If
     
 EInsCta:
     If Err.Number <> 0 Then
-        B = False
+        b = False
         MuestraError Err.Description, "Insertando cuenta contable", Err.Description
     End If
-    InsertarCuentaCble = B
+    InsertarCuentaCble = b
 End Function
 
 Private Sub InsertaEnContaB(ByRef SQ As String)
@@ -1728,14 +1728,14 @@ End Sub
 
 
 'He cambiado el metodo a public
-Public Function InsertarCuentaCbleDescripcion(cuenta As String, Descripcion As String) As Boolean
+Public Function InsertarCuentaCbleDescripcion(Cuenta As String, Descripcion As String) As Boolean
 Dim SQL As String
 
 
    
     
     SQL = "INSERT INTO cuentas (codmacta,nommacta,apudirec,model347,razosoci) "
-    SQL = SQL & " VALUES ('" & cuenta & "','" & DevNombreSQL(Descripcion) & "','S',0,'" & DevNombreSQL(Descripcion) & "')"
+    SQL = SQL & " VALUES ('" & Cuenta & "','" & DevNombreSQL(Descripcion) & "','S',0,'" & DevNombreSQL(Descripcion) & "')"
     ConnConta.Execute SQL
 
 End Function
@@ -1748,50 +1748,50 @@ End Function
 Public Function ComprobarHayStock(stockOrig As Single, stockTras As Single, codartic As String, NomArtic As String, tipoMov As String)
 'IN: stockOrig: stock existente en almacen Origen
 '    stockTras: stock a traspasar del origen a otro almacen
-Dim B As Boolean
-Dim devuelve As String
+Dim b As Boolean
+Dim Devuelve As String
 
     ComprobarHayStock = False
     If stockOrig >= CSng(stockTras) Then
     'Si cantidad en stock > cantidad a traspasar entonces
-        B = True
+        b = True
     Else    'No hay suficiente stock en almacen origen
-        devuelve = "Control de Stock : " & vbCrLf
-        devuelve = devuelve & "---------------------- " & vbCrLf & vbCrLf
-        devuelve = devuelve & " No hay suficiente Stock en el Almacen del Artículo:"
-        devuelve = devuelve & vbCrLf & " Código:   " & codartic & vbCrLf
-        devuelve = devuelve & " Desc.: " & NomArtic & vbCrLf & vbCrLf
-        devuelve = devuelve & "(Stock=" & stockOrig & ")"
+        Devuelve = "Control de Stock : " & vbCrLf
+        Devuelve = Devuelve & "---------------------- " & vbCrLf & vbCrLf
+        Devuelve = Devuelve & " No hay suficiente Stock en el Almacen del Artículo:"
+        Devuelve = Devuelve & vbCrLf & " Código:   " & codartic & vbCrLf
+        Devuelve = Devuelve & " Desc.: " & NomArtic & vbCrLf & vbCrLf
+        Devuelve = Devuelve & "(Stock=" & stockOrig & ")"
 
         If tipoMov = "OFE" Then
-            MsgBox devuelve, vbInformation
+            MsgBox Devuelve, vbInformation
         Else
             If vParamAplic.ControlStock Then
             'Si hay control Stock no permitir traspaso
-                B = False
+                b = False
                 Select Case tipoMov
                     Case "REG"
-                        devuelve = devuelve & vbCrLf & vbCrLf & " No se puede realizar el Movimiento de Almacen. "
+                        Devuelve = Devuelve & vbCrLf & vbCrLf & " No se puede realizar el Movimiento de Almacen. "
                     Case "TRA"
-                        devuelve = devuelve & vbCrLf & vbCrLf & " No se puede realizar el Traspaso de Almacen. "
+                        Devuelve = Devuelve & vbCrLf & vbCrLf & " No se puede realizar el Traspaso de Almacen. "
                 End Select
-                MsgBox devuelve, vbExclamation
+                MsgBox Devuelve, vbExclamation
             Else
                 Select Case tipoMov
                 Case "REG"
-                    devuelve = devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Movimiento de Almacen? "
+                    Devuelve = Devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Movimiento de Almacen? "
                 Case "TRA"
-                    devuelve = devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Traspaso de Almacen? "
+                    Devuelve = Devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Traspaso de Almacen? "
                 End Select
-                If MsgBox(devuelve, vbQuestion + vbYesNo) = vbYes Then
-                    B = True
+                If MsgBox(Devuelve, vbQuestion + vbYesNo) = vbYes Then
+                    b = True
                 Else
-                    B = False
+                    b = False
                 End If
             End If
         End If
     End If
-    ComprobarHayStock = B
+    ComprobarHayStock = b
 End Function
 
 

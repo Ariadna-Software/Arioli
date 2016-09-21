@@ -156,7 +156,7 @@ Private mvarContabilizacionMoixent As Boolean
 ' Identificador de empresa.  Podriamos ver de quitar es empresa AVAB, morales... Con este lo tendriamos todo
 Private mvarqueempresaes As Byte   '0-1 Morales AVAB   2 Bodega Moixent  3 Almazara Moixent
 
-
+Private mvarFechaActiva As Date
 
 Private SQL As String  'Para la sentencia
 Private Mens As String    'Para los mensajes
@@ -880,6 +880,9 @@ Public Property Get QUE_EMPRESA() As Byte
 End Property
 
 
+Public Property Get FechaActiva() As Date
+     FechaActiva = mvarFechaActiva
+End Property
 
 
 
@@ -1027,8 +1030,14 @@ On Error GoTo Err3
         mvarNoUtilizaTOs = DBLet(RS!NoUtilizaTOs, "N") = 1
         mvarContabilizacionMoixent = DBLet(RS!ContabilizacionMoixe, "N") = 1
         
-        '0-1 Morales AVAB   2 Bodega Moxient  3 Almazara Moixent
+        '0-1 Morales AVAB   2 Bodega Moxient  3 Almazara Moixent   'LA VALL
         mvarqueempresaes = DBLet(RS!QueEmpresaEs, "N")
+
+
+
+        'Ficjamos la fecha activa para las producciones, albaranes entrada olivas molturaciones....
+        FijarFechaActiva
+
 
         Leer = 0
     End If
@@ -1315,3 +1324,16 @@ Dim Devuelve As Integer
     End If
     DevuelveTipoIVA_OLD = Devuelve
 End Function
+
+
+Private Sub FijarFechaActiva()
+    mvarFechaActiva = "01/01/1900"
+    'Solo para LA VALL, llevaremos fecha activa con lo cual poniendo 1 de enero de 1900 entraria para todos
+    ' y en la cooperativa leemos del parametro de vallparam
+    If mvarqueempresaes = 4 Then
+        SQL = DevuelveDesdeBD(conAri, "FechaActiva", "vallparam", "1", "1")
+        If SQL <> "" Then
+            mvarFechaActiva = CDate(mvarFechaActiva)
+        End If
+    End If
+End Sub

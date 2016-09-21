@@ -328,6 +328,13 @@ Dim cad As String
             NombreRPT = NombreRPT & ".rpt"
         Case 2032
             
+            
+            
+        Case 2036
+            'LA Vall
+            NombreRPT = RecuperaValor(OtrosParametros, 1)
+            Text1.Text = "Listado entrada oliva/cooperativa"
+            
         End Select
     Else
         'Normal. Los de antes

@@ -495,7 +495,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
  
-Public Opcion As Integer
+Public opcion As Integer
     '0- Desde compra
     '1- desde venta
  
@@ -507,7 +507,7 @@ Dim SQL As String
 
 
 Private Sub cmdCompra_Click()
-    Dim cP As cPartidas
+    Dim Cp As cPartidas
     
     If Text1(0).Text = "" Then Exit Sub
     If Not IsNumeric(Text1(0).Text) Then Exit Sub
@@ -516,11 +516,11 @@ Private Sub cmdCompra_Click()
      
     
     
-    Set cP = New cPartidas
-    If cP.Leer(Val(Text1(0).Text)) Then
+    Set Cp = New cPartidas
+    If Cp.Leer(Val(Text1(0).Text)) Then
         Screen.MousePointer = vbHourglass
-        Conn.Execute "DELETE FROM tmptraza"
-        cP.TrazbilidadDesdeCompra Me.lbIndicador1, chkCoupage.Value = 0
+        conn.Execute "DELETE FROM tmptraza"
+        Cp.TrazbilidadDesdeCompra Me.lbIndicador1, chkCoupage.Value = 0
         lbIndicador1.Caption = ""
         Screen.MousePointer = vbDefault
         'QUITARA
@@ -529,12 +529,12 @@ Private Sub cmdCompra_Click()
         
             With frmImprimir
                 .FormulaSeleccion = "{tmptraza.codusu} = " & vUsu.Codigo
-                .OtrosParametros = ""
-                .NumeroParametros = 0
+                .OtrosParametros = "|pNomEmpre=""" & vEmpresa.nomempre & """|"
+                .NumeroParametros = 1
         
                 .SoloImprimir = False
                 .EnvioEMail = False
-                .Opcion = 2002
+                .opcion = 2002
                 .Titulo = "Trazabilidad(III)"
                 .NombreRPT = "TrazaNueva.rpt"
                 .ConSubInforme = True
@@ -543,17 +543,17 @@ Private Sub cmdCompra_Click()
     Else
         MsgBox "No existe idTraza: " & Text1(0).Text, vbExclamation
     End If
-    Set cP = Nothing
+    Set Cp = Nothing
 End Sub
 
 
 
-Private Sub cmdSalir_Click(index As Integer)
+Private Sub cmdSalir_Click(Index As Integer)
     Unload Me
 End Sub
 
 Private Sub Command1_Click()
-Dim cP As cPartidas
+Dim Cp As cPartidas
 
 '    If Me.txtArticulo(0).Text = "" Or Me.txtDescArticulo(0).Text = "" Or Me.cboLotes.ListIndex < 0 Then
 '        MsgBox "Ponga los datos de consulta", vbExclamation
@@ -565,10 +565,10 @@ Dim cP As cPartidas
         Exit Sub
     End If
     
-    Set cP = New cPartidas
-    If cP.Leer(CLng(Text1(1).Text)) Then
-        Conn.Execute "DELETE FROM tmptraza"
-        cP.TrazbilidadDesdeVenta Me.chkMatePrima.Value = 1, True
+    Set Cp = New cPartidas
+    If Cp.Leer(CLng(Text1(1).Text)) Then
+        conn.Execute "DELETE FROM tmptraza"
+        Cp.TrazbilidadDesdeVenta Me.chkMatePrima.Value = 1, True
         
         'QUITARA
        ' Stop
@@ -581,7 +581,7 @@ Dim cP As cPartidas
         
                 .SoloImprimir = False
                 .EnvioEMail = False
-                .Opcion = 2002
+                .opcion = 2002
                 .Titulo = "Trazabilidad(IV)"
                 .NombreRPT = "TrazaNuevaVenta.rpt"
                 .ConSubInforme = True
@@ -590,7 +590,7 @@ Dim cP As cPartidas
     Else
         MsgBox "No existe valores de trazbilidad", vbExclamation
     End If
-    Set cP = Nothing
+    Set Cp = Nothing
 End Sub
     
     
@@ -607,7 +607,7 @@ Dim W As Integer
     Me.Icon = frmppal.Icon
     Me.FrameDesdeAlbCompra.visible = False
     Me.FrameDesdeVenta.visible = False
-    Select Case Opcion
+    Select Case opcion
     Case 0
         PonerFrameVisible FrameDesdeAlbCompra, H, W
         lbIndicador1.Caption = ""
@@ -617,7 +617,7 @@ Dim W As Integer
     
     Me.Height = H
     Me.Width = W
-    Me.cmdSalir(Opcion).Cancel = True
+    Me.cmdSalir(opcion).Cancel = True
     
 End Sub
 
@@ -639,15 +639,15 @@ Private Sub frmPa_DatoSeleccionado(CadenaSeleccion As String)
     SQL = RecuperaValor(CadenaSeleccion, 1)
 End Sub
 
-Private Sub Image1_Click(index As Integer)
+Private Sub Image1_Click(Index As Integer)
     Set frmPa = New frmAlmPartidas
     frmPa.DatosADevolverBusqueda = "*"
     SQL = ""
     frmPa.Show vbModal
     Set frmPa = Nothing
     If SQL <> "" Then
-        Text1(index).Text = SQL
-        Text1_LostFocus index
+        Text1(Index).Text = SQL
+        Text1_LostFocus Index
     End If
 End Sub
 
@@ -659,7 +659,7 @@ End Sub
 
 
 
-Private Sub Image2_Click(index As Integer)
+Private Sub Image2_Click(Index As Integer)
     SQL = ""
     Set frmA = New frmAlmArticulos
     frmA.DatosADevolverBusqueda2 = "@1@" 'Abrimos en Modo Busqueda
@@ -667,44 +667,44 @@ Private Sub Image2_Click(index As Integer)
     Set frmA = Nothing
     
     If SQL <> "" Then
-        If SQL <> Me.txtArticulo(index).Text Then
-            txtArticulo(index).Text = RecuperaValor(SQL, 1)
-            Me.txtDescArticulo(index).Text = RecuperaValor(SQL, 2)
+        If SQL <> Me.txtArticulo(Index).Text Then
+            txtArticulo(Index).Text = RecuperaValor(SQL, 1)
+            Me.txtDescArticulo(Index).Text = RecuperaValor(SQL, 2)
             CargaLotes
         End If
     End If
 End Sub
 
-Private Sub Option1_Click(index As Integer)
+Private Sub Option1_Click(Index As Integer)
     CargaLotes2
 End Sub
 
-Private Sub Text1_LostFocus(index As Integer)
-Dim cP As cPartidas
+Private Sub Text1_LostFocus(Index As Integer)
+Dim Cp As cPartidas
 Dim FactorConver As String
-    If index = 0 Then
+    If Index = 0 Then
         Me.chkCoupage.Value = 0
         Me.chkCoupage.visible = False
     End If
-    Text1(index).Text = Trim(Text1(index).Text)
-    If Text1(index).Tag = Text1(index).Text Then Exit Sub
+    Text1(Index).Text = Trim(Text1(Index).Text)
+    If Text1(Index).Tag = Text1(Index).Text Then Exit Sub
     
-    If Text1(index).Text = "" Then
+    If Text1(Index).Text = "" Then
         Limpia2
     Else
-        If Not IsNumeric(Text1(index).Text) Then
+        If Not IsNumeric(Text1(Index).Text) Then
             MsgBox "Campo numérico", vbExclamation
-            Text1(index).Text = ""
+            Text1(Index).Text = ""
             Limpia2
         Else
-            Set cP = New cPartidas
-            If cP.Leer(Val(Text1(index).Text)) Then
+            Set Cp = New cPartidas
+            If Cp.Leer(Val(Text1(Index).Text)) Then
                 'OK
-                If index = 0 Then
-                    Text2(0).Text = cP.codartic
+                If Index = 0 Then
+                    Text2(0).Text = Cp.codartic
                     FactorConver = "factorconversion"
-                    Text2(1).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", cP.codartic, "T", FactorConver)
-                    Text2(2).Text = cP.NUmlote
+                    Text2(1).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", Cp.codartic, "T", FactorConver)
+                    Text2(2).Text = Cp.NUmlote
                     
                     
                     If FactorConver <> "1" Then
@@ -712,51 +712,51 @@ Dim FactorConver As String
                         Me.chkCoupage.visible = True
                     End If
                 Else
-                    Text2(3).Text = cP.codartic
-                    Text2(4).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", cP.codartic, "T")
-                    Text2(5).Text = cP.NUmlote
+                    Text2(3).Text = Cp.codartic
+                    Text2(4).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", Cp.codartic, "T")
+                    Text2(5).Text = Cp.NUmlote
                 End If
             Else
-                MsgBox "No existe la partida ID= " & Text1(index).Text, vbExclamation
+                MsgBox "No existe la partida ID= " & Text1(Index).Text, vbExclamation
                 Limpia2
-                Text1(index).Text = ""
+                Text1(Index).Text = ""
             End If
             
             
         End If
     End If
-    Text1(index).Tag = Text1(index).Text
+    Text1(Index).Tag = Text1(Index).Text
 End Sub
 
-Private Sub txtArticulo_GotFocus(index As Integer)
-    ConseguirFoco txtArticulo(index), 3
+Private Sub txtArticulo_GotFocus(Index As Integer)
+    ConseguirFoco txtArticulo(Index), 3
 End Sub
 
-Private Sub txtArticulo_KeyPress(index As Integer, KeyAscii As Integer)
+Private Sub txtArticulo_KeyPress(Index As Integer, KeyAscii As Integer)
     KEYpressGnral KeyAscii, 2, True
     
 End Sub
 
 
-Private Sub txtArticulo_LostFocus(index As Integer)
+Private Sub txtArticulo_LostFocus(Index As Integer)
 Dim T As String
 
-    txtArticulo(index).Text = Trim(txtArticulo(index).Text)
-    If txtArticulo(index).Text = "" Then
+    txtArticulo(Index).Text = Trim(txtArticulo(Index).Text)
+    If txtArticulo(Index).Text = "" Then
         'EN blanco
-        txtDescArticulo(index).Text = ""
+        txtDescArticulo(Index).Text = ""
         Exit Sub
     End If
     
     
     T = "codartic"
-    SQL = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", txtArticulo(index).Text, "T", T)
+    SQL = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", txtArticulo(Index).Text, "T", T)
     If SQL = "" Then
-        MsgBox "No existe el artículo : " & txtArticulo(index).Text, vbExclamation
+        MsgBox "No existe el artículo : " & txtArticulo(Index).Text, vbExclamation
     Else
-        txtArticulo(index).Text = T
+        txtArticulo(Index).Text = T
     End If
-    Me.txtDescArticulo(index).Text = SQL
+    Me.txtDescArticulo(Index).Text = SQL
     SQL = ""
     CargaLotes
 End Sub
@@ -793,7 +793,7 @@ Private Sub CargaLotes2()
     End If
     
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         'Insertamos el lote
         Me.cboLotes.AddItem CStr(miRsAux!NUmlote)
