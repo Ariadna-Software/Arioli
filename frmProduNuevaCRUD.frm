@@ -1771,7 +1771,7 @@ End Sub
 
 
 Private Function DatosOk() As Boolean
-Dim I As Integer
+Dim i As Integer
 Dim CambioLote As Byte  'Si ha cambiado algun lote
 
     
@@ -1794,12 +1794,12 @@ Dim CambioLote As Byte  'Si ha cambiado algun lote
     'Comprobaremos el numero de LOTE de los componentes
     CambioLote = 0
     SQL = ""
-    For I = 1 To ListView1.ListItems.Count
-        If ListView1.ListItems(I).SubItems(3) = "" Then
-            SQL = SQL & "  -" & ListView1.ListItems(I).SubItems(1) & "  --> FALTA LOTE" & vbCrLf
+    For i = 1 To ListView1.ListItems.Count
+        If ListView1.ListItems(i).SubItems(3) = "" Then
+            SQL = SQL & "  -" & ListView1.ListItems(i).SubItems(1) & "  --> FALTA LOTE" & vbCrLf
         Else
             If Modo = 2 Then
-                If ListView1.ListItems(I).SubItems(3) <> ListView1.ListItems(I).SubItems(4) Then CambioLote = CambioLote + 1
+                If ListView1.ListItems(i).SubItems(3) <> ListView1.ListItems(i).SubItems(4) Then CambioLote = CambioLote + 1
             End If
         End If
     Next
@@ -1857,11 +1857,11 @@ End Sub
 
 Private Sub ImprimeEtiquetas(Nuevo As Boolean)
 Dim L As Long
-Dim I As Integer
+Dim i As Integer
 
     L = 0
-    I = cLP.UnidadesCaja
-    If I = 0 Then I = 1
+    i = cLP.UnidadesCaja
+    If i = 0 Then i = 1
     
     SQL = ""
     If Not Nuevo Then
@@ -1870,7 +1870,7 @@ Dim I As Integer
     
     If SQL = "" Then
         If MsgBox("Imprimir etiquetas?", vbQuestion + vbYesNo) = vbNo Then Exit Sub
-        L = cLP.CantidadEstimada \ I
+        L = cLP.CantidadEstimada \ i
         L = Round(L * 1.1, 0)   'Un 10 % mas
         If L = 0 Then L = 1
     Else
@@ -1947,7 +1947,7 @@ Private Sub cmdImprimir_Click()
 End Sub
 
 Private Sub cmdIniciarProduccio_Click()
-Dim I As Byte
+Dim i As Byte
 Dim VaBien As Boolean
 Dim F As Date
 Dim TodasMateriasPrimasAsignadas As Byte
@@ -1962,10 +1962,10 @@ Dim Aux As Integer
     'Asigno los lotes de MP
     CadenaDesdeOtroForm = ""
     VaBien = True
-    For I = 1 To ListView1.ListItems.Count
-        If ListView1.ListItems(I).SubItems(3) <> ListView1.ListItems(I).SubItems(4) Then
-            SQL = ListView1.ListItems(I).SubItems(3)
-            If Not cLP.AsignarLoteLinea(CInt(I), SQL, False) Then
+    For i = 1 To ListView1.ListItems.Count
+        If ListView1.ListItems(i).SubItems(3) <> ListView1.ListItems(i).SubItems(4) Then
+            SQL = ListView1.ListItems(i).SubItems(3)
+            If Not cLP.AsignarLoteLinea(CInt(i), SQL, False) Then
                 VaBien = False
                 Exit For
             End If
@@ -1973,12 +1973,12 @@ Dim Aux As Integer
             
             If ElDeposito = 0 Then
                 'Aun nO ha asignado el deposito
-                SQL = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numlote", ListView1.ListItems(I).SubItems(3), "T")
+                SQL = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numlote", ListView1.ListItems(i).SubItems(3), "T")
                 If SQL <> "" Then ElDeposito = Val(SQL)
 
             End If
         End If
-    Next I
+    Next i
     
     
     
@@ -2023,7 +2023,7 @@ Private Sub cmdLinExtra_Click()
 
 
     CadenaDesdeOtroForm = Text1(14).Text & "|" & Text1(15).Text & "|"
-    frmListado2.opcion = 31
+    frmListado2.Opcion = 31
     frmListado2.Show vbModal
     
     If CadenaDesdeOtroForm <> "" Then
@@ -2117,7 +2117,7 @@ End Sub
 
 Private Sub Command1_Click()
 
-Dim I As Integer
+Dim i As Integer
 Dim C As String
 Dim Peso As Currency
 Dim PesoLlena As Currency
@@ -2129,13 +2129,13 @@ Dim Emp As Currency
     
     Emp = 500 * 0.03   'Formato * constante dependiente formato
 
-    For I = 1 To 50
+    For i = 1 To 50
         C = "INSERT INTO  prodlinpesos(codigo,idlin,serie,secuencial,fechahora,"
         C = C & "pesoLleno,pesoBotella,pesoTapon,pesoEtiqueta,pesoOtro,volumenLlenado"
         C = C & ",EMP,CumpleEMP,Cumple2EMP) VALUES ("
         
         C = C & cLP.CodProduccion & "," & cLP.idLiProd & "," & Me.cboSerie.ListCount + 1
-        C = C & "," & I & "," & DBSet(Now, "FH") & ","
+        C = C & "," & i & "," & DBSet(Now, "FH") & ","
 
                 
                 
@@ -2177,7 +2177,7 @@ Dim Emp As Currency
             C = C & "1)"
         End If
         conn.Execute C
-    Next I
+    Next i
     CargaSeries
 End Sub
 
@@ -2354,7 +2354,7 @@ End Sub
 Private Sub PonerCampos()
 Dim It As ListItem
 Dim L As cLineaProCompo
-Dim I As Long
+Dim i As Long
 
 
 
@@ -2364,10 +2364,10 @@ Dim I As Long
     Text1(1).Text = cLP.idLiProd
     
     Text1(3).Text = Format(cLP.CantidadEstimada, FormatoCantidad)
-    I = cLP.UnidadesCaja
-    If I = 0 Then I = 1
-    I = CLng(cLP.CantidadEstimada \ I)
-    Text1(9).Text = I
+    i = cLP.UnidadesCaja
+    If i = 0 Then i = 1
+    i = CLng(cLP.CantidadEstimada \ i)
+    Text1(9).Text = i
     
     If Modo = 0 Then
         Text1(2).Text = ""  'lot trazabilidad
@@ -2393,8 +2393,8 @@ Dim I As Long
     Me.chkFin.visible = False
     chkFindepositoEnCierreLinea.visible = Modo = 3
     chkFindepositoEnCierreLinea.Value = 0
-    For I = 1 To cLP.CuantasMP
-        If cLP.DevuelveComponenteLinea(CInt(I), L) Then
+    For i = 1 To cLP.CuantasMP
+        If cLP.DevuelveComponenteLinea(CInt(i), L) Then
             Set It = ListView1.ListItems.Add()
             It.Text = L.codarticCompo
             It.SubItems(1) = L.NomArticCompo
@@ -2406,7 +2406,7 @@ Dim I As Long
             
             If Modo = 2 Then
                 'Esta modificando
-                If I = SubLinea Then
+                If i = SubLinea Then
                     'Esta es la linea que vamos a modificar
                     Text1(6).Text = L.codarticCompo
                     Text4.Text = L.NomArticCompo
@@ -2440,7 +2440,7 @@ End Sub
 Private Sub LeerPesos()
 Dim RT As ADODB.Recordset
 Dim SQL As String
-Dim I As Integer
+Dim i As Integer
 Dim J As Integer
 Dim K As Integer
 Dim cLinPro As cLineaProCompo
@@ -2825,19 +2825,19 @@ End Sub
 
 
 Private Sub CargaPalets()
-Dim I As Integer
+Dim i As Integer
 Dim C As Integer
 Dim It
     Set miRsAux = New ADODB.Recordset
     SQL = "select * from prodpalets where idpalet in (select distinct(idpalet)"
     SQL = SQL & " from prodcajas where lotetraza=" & cLP.LoteTrazabilidad & ") ORDER BY idpalet "
     lwPalet.ListItems.Clear
-    I = 0
+    i = 0
     C = 0
     miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     SQL = ""
     While Not miRsAux.EOF
-            I = I + 1
+            i = i + 1
             Set It = lwPalet.ListItems.Add()
             It.Text = Format(miRsAux!IdPalet, "0000")
             
@@ -2853,20 +2853,20 @@ Dim It
             miRsAux.MoveNext
     Wend
     miRsAux.Close
-    If I > 0 Then
+    If i > 0 Then
             Set It = lwPalet.ListItems.Add()
             It.Text = "TOTAL"
-            It.SubItems(1) = I
+            It.SubItems(1) = i
             It.SubItems(2) = Format(C, "#,##0")
             It.Bold = True
             C = 0
-            For I = 1 To lwPalet.ListItems.Count - 1
+            For i = 1 To lwPalet.ListItems.Count - 1
                 SQL = "Select count(*) from prodcajas where lotetraza=" & cLP.LoteTrazabilidad
-                SQL = SQL & " AND idpalet =" & lwPalet.ListItems(I).Text
+                SQL = SQL & " AND idpalet =" & lwPalet.ListItems(i).Text
                 miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 If Not miRsAux.EOF Then
                     If Not IsNull(miRsAux.Fields(0)) Then
-                        lwPalet.ListItems(I).SubItems(3) = Format(miRsAux.Fields(0), "#,##0")
+                        lwPalet.ListItems(i).SubItems(3) = Format(miRsAux.Fields(0), "#,##0")
                         C = C + miRsAux.Fields(0)
                     End If
                 End If
@@ -2887,8 +2887,8 @@ End Sub
 Private Sub ObtenerLoteAceiteDeposito(articulonecesario As String)
 Dim cad As String
 Dim Depo As Integer
-Dim B As Boolean
-Dim I As Integer
+Dim b As Boolean
+Dim i As Integer
 
         
         
@@ -2927,9 +2927,9 @@ Dim I As Integer
         If SQL <> "" Then
 
             
-            I = InStr(1, SQL, "|")
-            NumDeposito = CByte(Mid(SQL, 1, I - 1))
-            SQL = Mid(SQL, I + 1)
+            i = InStr(1, SQL, "|")
+            NumDeposito = CByte(Mid(SQL, 1, i - 1))
+            SQL = Mid(SQL, i + 1)
             
                         
             
@@ -3036,14 +3036,14 @@ End Sub
 
 'De cada SERIE
 Private Sub ValoresEstadisticosMuestra2()
-Dim I As Integer
+Dim i As Integer
 Dim V As Currency
 Dim MedidaCorrecta As Boolean
 Dim LitrosUnidadMiles As Integer
 
 
-    For I = 0 To 12
-        Text5(I).Text = ""
+    For i = 0 To 12
+        Text5(i).Text = ""
     Next
     
     
@@ -3054,10 +3054,10 @@ Dim LitrosUnidadMiles As Integer
     SQL = SQL & " AND lotetraza = " & cLP.LoteTrazabilidad
     SQL = SQL & " AND serie =" & cboSerie.Text
     miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    I = 0
-    If Not miRsAux.EOF Then I = DBLet(miRsAux!Cuantos, "N")
+    i = 0
+    If Not miRsAux.EOF Then i = DBLet(miRsAux!Cuantos, "N")
     MedidaCorrecta = False
-    If I > 0 Then
+    If i > 0 Then
         'Hay datos. Vamos a mostrarlos
         MedidaCorrecta = True
         Text5(1).Text = Format(miRsAux!PesoBotella, FormatoPrecio)
@@ -3111,7 +3111,7 @@ Dim LitrosUnidadMiles As Integer
         LitrosUnidadMiles = 1000 * CCur(SQL)
         
         'B13>=B2-0,379*B14
-        V = miRsAux!Desviacion * 0.397
+        V = miRsAux!Desviacion * 0.379
         V = LitrosUnidadMiles - V
         
         

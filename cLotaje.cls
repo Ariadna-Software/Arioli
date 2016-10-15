@@ -69,12 +69,12 @@ Public Property Get codartic() As String
 End Property
 
 
-Public Property Let codalmac(ByVal vData As Integer)
+Public Property Let codAlmac(ByVal vData As Integer)
      mvarCodAlmac = vData
 End Property
 
-Public Property Get codalmac() As Integer
-     codalmac = mvarCodAlmac
+Public Property Get codAlmac() As Integer
+     codAlmac = mvarCodAlmac
 End Property
 
 
@@ -105,11 +105,9 @@ Public Property Get tipoMov() As String
      tipoMov = mvarTipoMov
 End Property
 
-
 Public Property Let DetaMov(ByVal vData As String)
      mvarDetaMov = vData
 End Property
-
 Public Property Get DetaMov() As String
      DetaMov = mvarDetaMov
 End Property
@@ -175,12 +173,12 @@ End Property
 
 
 
-Public Property Let NumLote(ByVal vData As String)
+Public Property Let NUmlote(ByVal vData As String)
      mvarNumLote = vData
 End Property
 
-Public Property Get NumLote() As String
-     NumLote = mvarNumLote
+Public Property Get NUmlote() As String
+     NUmlote = mvarNumLote
 End Property
 
 
@@ -189,8 +187,8 @@ End Property
 Private Function MontaWHERE(DesdeElDocumento As Boolean) As String
 Dim SQL As String
     SQL = " codartic = " & DBSet(Me.codartic, "T")
-    If Not DesdeElDocumento Then SQL = SQL & " AND numlote = " & DBSet(Me.NumLote, "T")
-    SQL = SQL & " AND codalmac = " & Me.codalmac
+    If Not DesdeElDocumento Then SQL = SQL & " AND numlote = " & DBSet(Me.NUmlote, "T")
+    SQL = SQL & " AND codalmac = " & Me.codAlmac
     SQL = SQL & " AND detamovi = " & DBSet(Me.DetaMov, "T")
     'En funcion del tipo
     Select Case Me.DetaMov
@@ -241,7 +239,7 @@ On Error Resume Next
     SQL = "UPDATE smovalotes SET cantidad=" & DBSet(Cantidad, "N")
     If ModificaHoramov Then SQL = SQL & ", Horamovi = " & DBSet(mvarHoraMov, "FH")
     SQL = SQL & " WHERE " & MontaWHERE(False)  'Lee lote y lineas
-    Conn.Execute SQL
+    conn.Execute SQL
     
     If Err.Number <> 0 Then
         'Hay error ,
@@ -270,7 +268,7 @@ Dim Tipo
     SQL = "select * from smovalotes WHERE " & SQL
     
     Set RT = New ADODB.Recordset
-    RT.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RT.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If RT.EOF Then
         'NO EXISTE
     
@@ -310,7 +308,7 @@ Dim SQL As String
     SQL = SQL & ", " & mvarSubLinea
     SQL = SQL & ", " & DBSet(mvarcodArti2, "T", "S")
     SQL = SQL & ", " & ProvCliTra & ")"
-    Conn.Execute SQL
+    conn.Execute SQL
     If Err.Number <> 0 Then
         MuestraError Err.Number
     Else
@@ -328,7 +326,7 @@ On Error Resume Next
     
     SQL = MontaWHERE(DesdeElDocumento)
     SQL = "DELETE FROM smovalotes  WHERE " & SQL
-    Conn.Execute SQL
+    conn.Execute SQL
     
     If Err.Number <> 0 Then
         'Hay error ,

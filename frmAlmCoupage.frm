@@ -1995,7 +1995,7 @@ Dim C As String
                     If BLOQUEADesdeFormulario(Me) Then
                 
                         frmProduVarios.Intercambio = Data1.Recordset!Codigo & "|" & Data1.Recordset!Fecha & "|" & Data1.Recordset!codAlmac & "|"
-                        frmProduVarios.opcion = 1
+                        frmProduVarios.Opcion = 1
                         frmProduVarios.Show vbModal
                     
                         'TErminamos de bloquear
@@ -2018,7 +2018,7 @@ Dim C As String
                     .OtrosParametros = "|pNomEmpre=""" & vParam.NombreEmpresa & """|"
                     .NumeroParametros = 1
                     .Titulo = "Coupage"
-                    .opcion = 2003 'Esta libre
+                    .Opcion = 2003 'Esta libre
                     .Show vbModal
                 End With
             End If
@@ -2719,6 +2719,7 @@ Dim FinDeposito As String
                 SQL = SQL & vbCrLf & "Coupage: " & CadenaConsulta
                 
                 MsgBox "Cantidad excede del capacidad del deposito:" & SQL, vbExclamation
+                
             Else
                 ComprobarNumeroLoteLineas = True
             End If
@@ -2742,7 +2743,7 @@ Dim FinDeposito As String
                 SQL = "codigo = " & Data1.Recordset!Codigo & " AND deposito "
                 SQL = DevuelveDesdeBD(conAri, "linea", "olicoupagelinlotes", SQL, cD.NumDeposito, "N", FinDeposito)
                 If SQL = "" Then
-                    CadenaConsulta = CadenaConsulta & vbCrLf & "-En las lineas deberia aparecer el deposito destino del cupage"
+                    CadenaConsulta = CadenaConsulta & vbCrLf & "-Deposito NO vacio. En las lineas deberia aparecer el deposito destino del cupage"
                 Else
                     'OK. El deposito esta marcado destino y en las lineas.
                     'En las lineas tiene que aparecer con la marca findeposito (fincuba)

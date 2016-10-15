@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmAlmPartidas 
@@ -542,7 +542,7 @@ Dim Cp As cPartidas
                     'Si no, no cuadrara el total con la suma de lineas
                     AnyadirLineaLotaje
                     
-                    txtAux(0).Text = Cp.IdPartida
+                    txtAux(0).Text = Cp.idPartida
                     InsertaLog
                     CargaGrid True
                     BotonAnyadir
@@ -687,13 +687,13 @@ Dim limpiar As Boolean
     If Modo = 2 Then
         If Not (Data1.Recordset.EOF Or Data1.Recordset.BOF) Then
             txtAux(7).Text = DBLet(Data1.Recordset!codProve, "T")
-            txtAux2(7).Text = DBLet(Data1.Recordset!nomprove, "T")
+            txtaux2(7).Text = DBLet(Data1.Recordset!nomprove, "T")
             limpiar = False
         End If
     End If
     If limpiar Then
         txtAux(7).Text = ""
-        txtAux2(7).Text = ""
+        txtaux2(7).Text = ""
     End If
 End Sub
 
@@ -729,7 +729,7 @@ End Sub
 Private Sub Form_Activate()
 
     If PrimVez Then
-        PrimVez = True
+        PrimVez = False
         If Modo = 1 Then
             Modo = 2
             BotonBuscar
@@ -757,6 +757,7 @@ Dim enlaza As Boolean
         .Buttons(5).Image = 3 'Añadir
         .Buttons(6).Image = 4 'Modificar
         .Buttons(7).Image = 5 'Eliminar
+       
         .Buttons(10).Image = 10 'Generar mes aut.
         .Buttons(11).Image = 24 'Generar Norma 34
         .Buttons(12).Image = 16 'Imprimir
@@ -835,7 +836,7 @@ Dim tots As String
     If Not Data1.Recordset.EOF Then
    
           txtAux(7).Text = DBLet(Data1.Recordset!codProve, "T")
-          txtAux2(7).Text = DBLet(Data1.Recordset!nomprove, "T")
+          txtaux2(7).Text = DBLet(Data1.Recordset!nomprove, "T")
     
     End If
    
@@ -867,9 +868,9 @@ Dim b As Boolean
     
     txtAux(7).Enabled = b  'siempre esta visible
     
-    txtAux2(1).Height = DataGrid1.RowHeight
-    txtAux2(1).Top = alto
-    txtAux2(1).visible = b
+    txtaux2(1).Height = DataGrid1.RowHeight
+    txtaux2(1).Top = alto
+    txtaux2(1).visible = b
     
 
     'boton de busqueda
@@ -897,13 +898,13 @@ End Sub
 
 Private Sub frmArt_DatoSeleccionado(CadenaSeleccion As String)
     txtAux(1).Text = RecuperaValor(CadenaSeleccion, 1)
-    txtAux2(1).Text = RecuperaValor(CadenaSeleccion, 2)
+    txtaux2(1).Text = RecuperaValor(CadenaSeleccion, 2)
     HaDevueltoDatos = True
 End Sub
 
 Private Sub frmP_DatoSeleccionado(CadenaSeleccion As String)
     txtAux(7).Text = RecuperaValor(CadenaSeleccion, 1)
-    txtAux2(7).Text = RecuperaValor(CadenaSeleccion, 2)
+    txtaux2(7).Text = RecuperaValor(CadenaSeleccion, 2)
     HaDevueltoDatos = True
 End Sub
 
@@ -967,7 +968,7 @@ End Sub
 
 Private Sub PonerModo(Kmodo As Byte)
 Dim b As Boolean
-Dim I As Byte
+Dim i As Byte
     
     Modo = Kmodo
     PonerIndicador lblIndicador, Kmodo
@@ -985,9 +986,9 @@ Dim I As Byte
     If Kmodo = 1 Then PonerFoco txtAux(0)
                       
     'Bloquear los campos de clave primaria al modificar
-    For I = 0 To 2
-        BloquearTxt txtAux(I), (Modo = 4)
-    Next I
+    For i = 0 To 2
+        BloquearTxt txtAux(i), (Modo = 4)
+    Next i
                       
     '-----------------------------------------
     b = Modo <> 0 And Modo <> 2
@@ -1164,7 +1165,7 @@ End Sub
 
 
 Private Sub BotonModificar()
-Dim I As Integer
+Dim i As Integer
 Dim anc As Single
 
     'Escondemos el navegador y ponemos Modo Modificar
@@ -1174,8 +1175,8 @@ Dim anc As Single
     
     'Como el campo1, campo2 y campo3 es clave primaria, NO se puede modificar
     If DataGrid1.Bookmark < DataGrid1.FirstRow Or DataGrid1.Bookmark > (DataGrid1.FirstRow + DataGrid1.VisibleRows - 1) Then
-        I = DataGrid1.Bookmark - DataGrid1.FirstRow
-        DataGrid1.Scroll 0, I
+        i = DataGrid1.Bookmark - DataGrid1.FirstRow
+        DataGrid1.Scroll 0, i
         DataGrid1.Refresh
     End If
     anc = ObtenerAlto(Me.DataGrid1, 10)
@@ -1184,7 +1185,7 @@ Dim anc As Single
     'poner valores grabados
     txtAux(0).Text = DBLet(DataGrid1.Columns(0).Value, "N")
     txtAux(1).Text = DBLet(DataGrid1.Columns(1).Value, "N")
-    txtAux2(1).Text = DBLet(DataGrid1.Columns(2).Value, "T")
+    txtaux2(1).Text = DBLet(DataGrid1.Columns(2).Value, "T")
     txtAux(2).Text = DBLet(DataGrid1.Columns(3).Value, "N")
     
     txtAux(3).Text = DBLet(DataGrid1.Columns(4).Value, "N")
@@ -1192,7 +1193,7 @@ Dim anc As Single
     txtAux(5).Text = DBLet(DataGrid1.Columns(6).Value, "N")
     txtAux(6).Text = DBLet(DataGrid1.Columns(7).Value, "N")
     txtAux(7).Text = DBLet(DataGrid1.Columns(8).Value, "N")
-    txtAux2(7).Text = DBLet(DataGrid1.Columns(9).Value, "T")
+    txtaux2(7).Text = DBLet(DataGrid1.Columns(9).Value, "T")
 
 
     DataGrid1.Enabled = False
@@ -1218,9 +1219,9 @@ Dim SQL As String
     If MsgBox(SQL, vbQuestion + vbYesNo) = vbYes Then
         'Hay que eliminar
         NumRegElim = Me.Data1.Recordset.AbsolutePosition
-        Conn.BeginTrans
+        conn.BeginTrans
         If Eliminar(SQL) Then
-            Conn.CommitTrans
+            conn.CommitTrans
             InsertaLog
             
             CancelaADODC Me.Data1
@@ -1230,7 +1231,7 @@ Dim SQL As String
     '        SituarDataPosicion Me.Data1, NumRegElim, SQL
             SituarDataTrasEliminar Me.Data1, NumRegElim, True
         Else
-            Conn.RollbackTrans
+            conn.RollbackTrans
         End If
     End If
     Exit Function
@@ -1265,7 +1266,7 @@ Dim b As Boolean
     CadenaBusqueda = "select * from spartidas where codartic = " & DBSet(txtAux(1).Text, "T")
     CadenaBusqueda = CadenaBusqueda & " and numlote = " & DBSet(txtAux(5).Text, "T")
     If Modo <> 3 Then CadenaBusqueda = CadenaBusqueda & " and id <> " & txtAux(0).Text
-    miRsAux.Open CadenaBusqueda, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open CadenaBusqueda, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
     CadenaBusqueda = ""
     While Not miRsAux.EOF
@@ -1411,7 +1412,7 @@ Dim cad As String
                     End If
                 End If
   
-            txtAux2(Index).Text = cad
+            txtaux2(Index).Text = cad
             
 
         Case 2
@@ -1442,7 +1443,7 @@ Dim cad As String
                     If cad = "" Then MsgBox "No existe el proveedor"
                 End If
             End If
-            txtAux2(7).Text = cad
+            txtaux2(7).Text = cad
         
     End Select
     Exit Sub
@@ -1524,7 +1525,7 @@ Dim Col As Collection
     Set Col = New Collection
     Col.Add CStr(Data1.Recordset!ID)
     
-    ImpirmirEtiquetas2 Col, txtAux(7).Text & " " & txtAux2(7).Text, True, 1
+    ImpirmirEtiquetas2 Col, txtAux(7).Text & " " & txtaux2(7).Text, True, 1
     Set Col = Nothing
     
 End Sub

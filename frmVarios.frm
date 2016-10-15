@@ -6,13 +6,95 @@ Begin VB.Form frmVarios
    ClientHeight    =   6975
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   7770
+   ClientWidth     =   8955
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   6975
-   ScaleWidth      =   7770
+   ScaleWidth      =   8955
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame FramePaletMovimImprimir 
+      Height          =   2895
+      Left            =   2160
+      TabIndex        =   112
+      Top             =   1080
+      Visible         =   0   'False
+      Width           =   5055
+      Begin VB.TextBox Text1 
+         Height          =   285
+         Left            =   2160
+         TabIndex        =   118
+         Text            =   "Text1"
+         Top             =   1680
+         Visible         =   0   'False
+         Width           =   2415
+      End
+      Begin VB.OptionButton optMovPalot 
+         Caption         =   "Documento carga"
+         Height          =   255
+         Index           =   1
+         Left            =   2520
+         TabIndex        =   117
+         Top             =   1200
+         Width           =   1695
+      End
+      Begin VB.OptionButton optMovPalot 
+         Caption         =   "Albarán"
+         Height          =   255
+         Index           =   0
+         Left            =   600
+         TabIndex        =   116
+         Top             =   1200
+         Value           =   -1  'True
+         Width           =   975
+      End
+      Begin VB.CommandButton cmdImpresionMovPalet 
+         Caption         =   "Aceptar"
+         Height          =   375
+         Left            =   2400
+         TabIndex        =   114
+         Top             =   2280
+         Width           =   1095
+      End
+      Begin VB.CommandButton cmdCancelar 
+         Caption         =   "Salir"
+         Height          =   375
+         Index           =   13
+         Left            =   3720
+         TabIndex        =   113
+         Top             =   2280
+         Width           =   1095
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Destino"
+         Height          =   255
+         Left            =   1320
+         TabIndex        =   119
+         Top             =   1680
+         Visible         =   0   'False
+         Width           =   855
+      End
+      Begin VB.Label lblTitulo 
+         Alignment       =   2  'Center
+         Caption         =   "Impresión movimiento palot"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   15.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   465
+         Index           =   12
+         Left            =   240
+         TabIndex        =   115
+         Top             =   360
+         Width           =   4515
+      End
+   End
    Begin VB.Frame FrameModificaKilosDeposito 
       Height          =   3735
       Left            =   2520
@@ -1642,6 +1724,9 @@ Public opcion As Byte
 
     '12.-  Modificar kilos deposito
 
+    '13.- Movimiento palots
+    
+    
 Private WithEvents frmC As frmCal
 Attribute frmC.VB_VarHelpID = -1
 Private WithEvents frmA As frmAlmArticulos
@@ -1755,10 +1840,10 @@ Dim T1 As Single
         If ListView1.ListItems(NumRegElim).Checked Then
             T1 = Timer
             ListView1.ListItems(NumRegElim).EnsureVisible
-            Conn.BeginTrans
+            conn.BeginTrans
             If EliminarArticulo(ListView1.ListItems(NumRegElim).Text, lblElim(1)) Then
                 LOG.Insertar 7, vUsu, ListView1.ListItems(NumRegElim).Text & " " & ListView1.ListItems(NumRegElim).SubItems(1)
-                Conn.CommitTrans
+                conn.CommitTrans
                 'QUitamos del nodo
                 ListView1.ListItems.Remove ListView1.ListItems(NumRegElim).Index
                 T1 = 1.5 - (Timer - T1)
@@ -1766,7 +1851,7 @@ Dim T1 As Single
                 
             Else
                 'NO se ha podido eliminar
-                Conn.RollbackTrans
+                conn.RollbackTrans
                 ListView1.ListItems(NumRegElim).Bold = True
                 ListView1.ListItems(NumRegElim).ForeColor = vbRed
                 ListView1.ListItems(NumRegElim).Checked = False
@@ -1858,7 +1943,7 @@ Dim It As ListItem
     lblElim(0).Refresh
     
     'Eliminamos los datos de tmpnseries
-    Conn.Execute "DELETE FROM tmpnseries where codusu = " & vUsu.Codigo
+    conn.Execute "DELETE FROM tmpnseries where codusu = " & vUsu.Codigo
     
     
     'Cargamos tmpnseries con los articulos del desde hasta
@@ -1871,7 +1956,7 @@ Dim It As ListItem
     If SQL <> "" Then SQL = " WHERE " & SQL
     SQL = " SELECT " & vUsu.Codigo & ",codartic,0,0 FROM sartic " & SQL
     SQL = "insert into `tmpnseries` (`codusu`,`codartic`,`numlinealb`,`numlinea`) " & SQL
-    Conn.Execute SQL
+    conn.Execute SQL
     
     
     Set miRsAux = New ADODB.Recordset
@@ -1887,7 +1972,7 @@ Dim It As ListItem
     
     SQL = "Select tmpnseries.codartic,nomartic from tmpnseries,sartic where codusu = " & vUsu.Codigo
     SQL = SQL & " AND tmpnseries.codartic=sartic.codartic"
-    miRsAux.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If miRsAux.EOF Then
         lblElim(0).Caption = ""
         MsgBox "No existen registros", vbExclamation
@@ -1910,7 +1995,7 @@ Dim It As ListItem
     'Vamos cargando los registros
     While Not miRsAux.EOF
         Set It = ListView1.ListItems.Add()
-        It.Text = miRsAux!codArtic
+        It.Text = miRsAux!codartic
         It.SubItems(1) = miRsAux!NomArtic
         It.Checked = True
         'Sig
@@ -1957,6 +2042,20 @@ Private Sub cmdHomologacion_Click()
     
     CadenaDesdeOtroForm = txtFecha(7).Text & "|" & Me.txtHomologa.Text & "|"
     Unload Me
+End Sub
+
+Private Sub cmdImpresionMovPalet_Click()
+    Codigo = "vallPalot.rpt"
+    Cadparam = ""
+    NumRegElim = 0
+    If Me.optMovPalot(1).Value Then
+        Codigo = "vallAlbaDocControlPalot.rpt"
+        Cadparam = "|Destino=""" & Text1.Text & """|"
+        NumRegElim = 1
+    End If
+    cad = "{tmprutas.codusu} = " & vUsu.Codigo
+    LlamaImprimirGral cad, Cadparam, CInt(NumRegElim), Codigo, "PALOTS"
+
 End Sub
 
 Private Sub cmdKilosDeposito_Click()
@@ -2063,7 +2162,7 @@ Dim F As Date
     End If
         
     cad = "DELETE from tmpinformes WHERE codusu = " & vUsu.Codigo
-    Conn.Execute cad
+    conn.Execute cad
     
     F = CDate(txtFecha(3).Text)
     NumRegElim = 1
@@ -2075,7 +2174,7 @@ Dim F As Date
     Wend
     NumRegElim = Len(cad)
     cad = Mid(cad, 1, NumRegElim - 2)  'quito la ulimta coma
-    Conn.Execute cad
+    conn.Execute cad
     
     cad = "{tmpinformes.codusu} = " & vUsu.Codigo
     LlamaImprimirGral cad, "", 0, "morRegCloro.rpt", "Registro cloro: " & txtFecha(3).Text & " - " & txtFecha(4).Text
@@ -2087,7 +2186,7 @@ Dim F As Date
     cad = "," & DBSet(Now, "F") & "," & NumRegElim & "," & DBSet(cad, "T") & ")"
     cad = DBSet(txtFecha(3).Text, "F") & "," & DBSet(txtFecha(4).Text, "F") & cad
     cad = "insert into `sregcloro` (`Fech1`,`Fech2`,`FechaCreacion`,`codusu`,`pc`) values (" & cad
-    Conn.Execute cad
+    conn.Execute cad
     
     Unload Me
 End Sub
@@ -2152,6 +2251,7 @@ Private Sub Form_Load()
     Me.FrameAccionesRealizadas.visible = False
     FrameHomologa.visible = False
     FrameModificaKilosDeposito.visible = False
+    FramePaletMovimImprimir.visible = False
     
     Select Case opcion
     Case 0
@@ -2192,6 +2292,12 @@ Private Sub Form_Load()
     
     Case 12
         PonerFrameVisible FrameModificaKilosDeposito
+        
+    Case 13
+        PonerFrameVisible FramePaletMovimImprimir
+        
+        Text1.Text = DevuelveDesdeBD(conAri, "pobclien", "tmprutas", "codusu", CStr(vUsu.Codigo))
+        
     End Select
     cmdCancelar(opcion).Cancel = True
     SePuedeCerrar = True
@@ -2220,7 +2326,7 @@ Dim Fin As Boolean
     Espera 0.25
     Set miRsAux = New ADODB.Recordset
     
-    miRsAux.Open "Select count(*) from scafac WHERE " & CadenaDesdeOtroForm, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open "Select count(*) from scafac WHERE " & CadenaDesdeOtroForm, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     NumRegElim = 0
     If Not miRsAux.EOF Then NumRegElim = DBLet(miRsAux.Fields(0), "N")
     miRsAux.Close
@@ -2229,7 +2335,7 @@ Dim Fin As Boolean
     CadenaDesdeOtroForm = "Select codtipom, numfactu, fecfactu, nomclien from scafac where " & CadenaDesdeOtroForm
     CadenaDesdeOtroForm = CadenaDesdeOtroForm & " ORDER BY fecfactu,numfactu"
     
-    miRsAux.Open CadenaDesdeOtroForm, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open CadenaDesdeOtroForm, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     i = 0
     Fin = False
     While Not Fin
@@ -2328,6 +2434,11 @@ Private Sub imgFecha_Click(Index As Integer)
     If cad <> "" Then txtFecha(Index).Text = cad
 End Sub
 
+Private Sub optMovPalot_Click(Index As Integer)
+    Label7.visible = optMovPalot(1).Value
+    Text1.visible = optMovPalot(1).Value
+End Sub
+
 Private Sub txtArt_GotFocus(Index As Integer)
  PonerFoco txtArt(Index)
 End Sub
@@ -2358,7 +2469,7 @@ Private Sub EliminandoArticulos_Paso1()
 Dim C As String
 Dim SQL As String
 Dim Aux As String
-Dim NT As Integer
+Dim nt As Integer
 Dim J As Byte
 
     If Me.txtArt(0).Text <> "" Then SQL = SQL & " codartic >=" & DBSet(txtArt(0).Text, "T")
@@ -2373,17 +2484,17 @@ Dim J As Byte
     lblElim(0).Caption = "Almacenes"
     lblElim(0).Refresh
     C = "select codartic,sum(canstock) from salmac " & SQL & " group by codartic having sum(canstock) <> 0"
-    miRsAux.Open C, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
-         Conn.Execute "DELETE FROM tmpnseries where codusu = " & vUsu.Codigo & " AND codartic = " & DBSet(miRsAux.Fields(0), "T")
+         conn.Execute "DELETE FROM tmpnseries where codusu = " & vUsu.Codigo & " AND codartic = " & DBSet(miRsAux.Fields(0), "T")
         miRsAux.MoveNext
     Wend
     miRsAux.Close
      
     
     For J = 0 To 2
-        DevuelveTablasBorre J, C, Aux, NT
-        For NumRegElim = 1 To NT
+        DevuelveTablasBorre J, C, Aux, nt
+        For NumRegElim = 1 To nt
             
             lblElim(0).Caption = RecuperaValor(Aux, CInt(NumRegElim)) & "   -"
             If J = 0 Then
@@ -2396,9 +2507,9 @@ Dim J As Byte
             lblElim(0).Refresh
             
             
-            miRsAux.Open "Select codartic from " & RecuperaValor(C, CInt(NumRegElim)) & SQL & " GROUP BY codartic", Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            miRsAux.Open "Select codartic from " & RecuperaValor(C, CInt(NumRegElim)) & SQL & " GROUP BY codartic", conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             While Not miRsAux.EOF
-                 Conn.Execute "DELETE FROM tmpnseries where codusu = " & vUsu.Codigo & " AND codartic = " & DBSet(miRsAux.Fields(0), "T")
+                 conn.Execute "DELETE FROM tmpnseries where codusu = " & vUsu.Codigo & " AND codartic = " & DBSet(miRsAux.Fields(0), "T")
                 miRsAux.MoveNext
             Wend
             miRsAux.Close
@@ -2486,7 +2597,7 @@ Dim It As ListItem
     ListView2.ListItems.Clear
     cad = "Select * from smarca order by nommarca"
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         Set It = ListView2.ListItems.Add()
         It.Text = miRsAux!Codmarca
@@ -2600,7 +2711,7 @@ Dim It
     'Lo primero en poner el stock y luego pedcli y pedpro
     
     cad = "Select * from salmac where codartic='" & CadenaDesdeOtroForm & "' AND codalmac = 1"
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         
     Set It = ListView3.ListItems.Add()
     It.Text = " "
@@ -2619,7 +2730,7 @@ Dim It
     cad = cad & " sliped.codartic=sartic.codartic and sarti1.codArtic = sartic.codArtic"
     cad = cad & " and codarti1='" & CadenaDesdeOtroForm & "'"
     
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     cad = ""
     
     While Not miRsAux.EOF
@@ -2639,7 +2750,7 @@ Dim It
     
     cad = "select scappr.numpedpr,fecpedpr,nomprove,cantidad from scappr,slippr where scappr.numpedpr =slippr.numpedpr "
     cad = cad & " and codartic='" & CadenaDesdeOtroForm & "'"
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         Set It = ListView3.ListItems.Add()
         It.Text = " "
@@ -2693,7 +2804,7 @@ Dim It As ListItem
     'Los usuarios
     cad = "select distinct(usuario) from slog order by 1"
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         If miRsAux.Fields(0) <> "root" Then
             Set It = Me.ListView4(1).ListItems.Add()
@@ -2722,7 +2833,7 @@ Dim OtrosDatos As String
     Label3(18).Caption = "Inicio proceso"
     Label3(18).Refresh
     
-    Conn.Execute "DELETE FROM tmpinformes WHERE codusu = " & vUsu.Codigo
+    conn.Execute "DELETE FROM tmpinformes WHERE codusu = " & vUsu.Codigo
     
     
     miSQL = ""
@@ -2743,7 +2854,7 @@ Dim OtrosDatos As String
     
 
     miSQL = "Select * from slog WHERE " & miSQL
-    miRsAux.Open miSQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open miSQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     NumRegElim = 0
     miSQL = ""
     Codigo = "INSERT INTO tmpinformes( codusu,codigo1,campo1,nombre2,nombre3,fecha1, obser) VALUES "
@@ -2784,7 +2895,7 @@ Dim OtrosDatos As String
         If (NumRegElim Mod 100) = 0 Then
             miSQL = Mid(miSQL, 2)
             miSQL = Codigo & miSQL
-            Conn.Execute miSQL
+            conn.Execute miSQL
             miSQL = ""
         End If
         
@@ -2794,7 +2905,7 @@ Dim OtrosDatos As String
     If miSQL <> "" Then
         miSQL = Mid(miSQL, 2)
         miSQL = Codigo & miSQL
-        Conn.Execute miSQL
+        conn.Execute miSQL
         miSQL = ""
     End If
     OtrosDatos = ""
@@ -2805,7 +2916,7 @@ Dim OtrosDatos As String
     Label3(18).Refresh
         
     miSQL = "Select nombre2 from tmpinformes where codusu = " & vUsu.Codigo & " GROUP BY 1"
-    miRsAux.Open miSQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open miSQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         
         Label3(18).Caption = miRsAux.Fields(0)
@@ -2815,7 +2926,7 @@ Dim OtrosDatos As String
         If miSQL <> "" Then
             miSQL = "UPDATE tmpinformes SET nombre2 = " & DBSet(miSQL, "T")
             miSQL = miSQL & " WHERE codusu = " & vUsu.Codigo & " AND nombre2 = " & DBSet(miRsAux.Fields(0), "T")
-            Conn.Execute miSQL
+            conn.Execute miSQL
         End If
         miRsAux.MoveNext
     Wend
@@ -2831,7 +2942,7 @@ Dim OtrosDatos As String
             
                 miSQL = "UPDATE tmpinformes SET nombre1 = " & DBSet(ListView4(0).ListItems(i).Text, "T")
                 miSQL = miSQL & " WHERE codusu = " & vUsu.Codigo & " AND campo1 = " & Mid(ListView4(0).ListItems(i).Key, 2)
-                Conn.Execute miSQL
+                conn.Execute miSQL
             
             
         End If

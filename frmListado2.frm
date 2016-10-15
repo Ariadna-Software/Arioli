@@ -6010,20 +6010,20 @@ Begin VB.Form frmListado2
          TabCaption(1)   =   "Datos carta"
          TabPicture(1)   =   "frmListado2.frx":4966
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "txtFecha(32)"
-         Tab(1).Control(1)=   "txtCarta(2)"
-         Tab(1).Control(2)=   "chkCartaTO"
-         Tab(1).Control(3)=   "cmdGuardar"
-         Tab(1).Control(4)=   "txtCarta(4)"
-         Tab(1).Control(5)=   "txtCarta(5)"
-         Tab(1).Control(6)=   "txtCarta(3)"
-         Tab(1).Control(7)=   "txtCarta(1)"
-         Tab(1).Control(8)=   "txtCarta(0)"
-         Tab(1).Control(9)=   "Label6(4)"
-         Tab(1).Control(10)=   "Label6(3)"
-         Tab(1).Control(11)=   "Label6(2)"
-         Tab(1).Control(12)=   "Label6(1)"
-         Tab(1).Control(13)=   "Label6(0)"
+         Tab(1).Control(0)=   "Label6(0)"
+         Tab(1).Control(1)=   "Label6(1)"
+         Tab(1).Control(2)=   "Label6(2)"
+         Tab(1).Control(3)=   "Label6(3)"
+         Tab(1).Control(4)=   "Label6(4)"
+         Tab(1).Control(5)=   "txtCarta(0)"
+         Tab(1).Control(6)=   "txtCarta(1)"
+         Tab(1).Control(7)=   "txtCarta(3)"
+         Tab(1).Control(8)=   "txtCarta(5)"
+         Tab(1).Control(9)=   "txtCarta(4)"
+         Tab(1).Control(10)=   "cmdGuardar"
+         Tab(1).Control(11)=   "chkCartaTO"
+         Tab(1).Control(12)=   "txtCarta(2)"
+         Tab(1).Control(13)=   "txtFecha(32)"
          Tab(1).ControlCount=   14
          Begin VB.TextBox txtFecha 
             Height          =   285
@@ -7348,12 +7348,12 @@ Private Sub cmdDeclaraAlmazara_Click()
     
     InicializarVbles
     Screen.MousePointer = vbHourglass
-    
+    Set miRsAux = New ADODB.Recordset
     If GenerarListadoAlmazara Then
     
     
     End If
-    
+    Set miRsAux = Nothing
     Screen.MousePointer = vbDefault
     
     
@@ -12511,6 +12511,8 @@ End Function
 
 Private Function GenerarListadoAlmazara() As Boolean
 Dim FechaInicioCampaña As Date
+Dim ArticulosTratar As String   'aceite|orujo|
+
 
     On Error GoTo eGenerarListadoAlmazara
     GenerarListadoAlmazara = False
@@ -12532,6 +12534,10 @@ Dim FechaInicioCampaña As Date
 
     'Aqui
     'Descomentar y empezar a programas
+    miSQL = "Select articMolturacion,articOrujo from vallparam "
+        
+    
+    
 'miSQL = "INSERT INTO tmpstockfec(codusu,codartic,codalmac,stock) "
 '    '                                                       * factorconversion
 '    miSQL = miSQL & " select " & vUsu.Codigo & ",salmac.codartic,0,sum(stockinv)  from salmac,sartic"

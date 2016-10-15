@@ -30,23 +30,25 @@ Begin VB.Form frmAlmpartidasMov
       Style           =   1
       MousePointer    =   1
       Tabs            =   2
+      Tab             =   1
       TabsPerRow      =   2
       TabHeight       =   520
       WordWrap        =   0   'False
       TabCaption(0)   =   "Movimientos"
       TabPicture(0)   =   "frmAlmpartidasMov.frx":000C
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "DataGrid1"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).ControlCount=   1
       TabCaption(1)   =   "Pesos"
       TabPicture(1)   =   "frmAlmpartidasMov.frx":0028
-      Tab(1).ControlEnabled=   0   'False
+      Tab(1).ControlEnabled=   -1  'True
       Tab(1).Control(0)=   "ListView1"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       Begin MSComctlLib.ListView ListView1 
          Height          =   3855
-         Left            =   -74280
+         Left            =   720
          TabIndex        =   36
          Top             =   600
          Width           =   10695
@@ -79,7 +81,7 @@ Begin VB.Form frmAlmpartidasMov
          EndProperty
          BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   3
-            Object.Width           =   4233
+            Object.Width           =   2469
          EndProperty
          BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   4
@@ -101,7 +103,7 @@ Begin VB.Form frmAlmpartidasMov
       Begin MSDataGridLib.DataGrid DataGrid1 
          Bindings        =   "frmAlmpartidasMov.frx":0044
          Height          =   4200
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   35
          Top             =   360
          Width           =   11775
@@ -632,7 +634,7 @@ Begin VB.Form frmAlmpartidasMov
             Object.ToolTipText     =   "Imprimir seleccion"
          EndProperty
          BeginProperty Button16 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
+            Object.ToolTipText     =   "Pesos"
          EndProperty
          BeginProperty Button17 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.ToolTipText     =   "Salir"
@@ -970,7 +972,7 @@ End Sub
 
 Private Sub cmdRegresar_Click()
 'Este es el boton Cabecera
-Dim Cad As String
+Dim cad As String
 
     'Quitar lineas y volver a la cabecera
     If Modo = 5 Then  'modo 5: Mantenimientos Lineas
@@ -989,7 +991,7 @@ Dim Cad As String
         End If
         'cad = Data1.Recordset.Fields(0) & "|"
         'cad = cad & Data1.Recordset.Fields(1) & "|"
-        Cad = Data1.Recordset.Fields(0)
+        cad = Data1.Recordset.Fields(0)
        ' RaiseEvent DatoSeleccionado2(cad)
         Unload Me
     End If
@@ -1039,6 +1041,7 @@ Private Sub Form_Load()
         
         .Buttons(14).Image = 16 'Imprimir Pedido
         .Buttons(15).Image = 27 'Imprimir Orden Instalacion
+        .Buttons(16).Image = 48
         .Buttons(17).Image = 15  'Salir
         .Buttons(btnPrimero).Image = 6  'Primero
         .Buttons(btnPrimero + 1).Image = 7 'Anterior
@@ -1353,19 +1356,19 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim Cad As String
+Dim cad As String
 Dim Tabla As String
 Dim Titulo As String
 Dim Desc As String, Devuelve As String
     'Llamamos a al form
     '##A mano
-    Cad = ""
+    cad = ""
     
-        Cad = Cad & ParaGrid(Text1(0), 15, "Id partida")
+        cad = cad & ParaGrid(Text1(0), 15, "Id partida")
         
-        Cad = Cad & ParaGrid(Text1(5), 15, "LOTE ")
-        Cad = Cad & ParaGrid(Text1(2), 20, "Articulo")
-        Cad = Cad & "Descripcion|sartic|nomartic|T||40·"
+        cad = cad & ParaGrid(Text1(5), 15, "LOTE ")
+        cad = cad & ParaGrid(Text1(2), 20, "Articulo")
+        cad = cad & "Descripcion|sartic|nomartic|T||40·"
         Tabla = NombreTabla & " inner join sartic on " & NombreTabla & ".codartic = sartic.codartic"
         
         Titulo = "Coupages"
@@ -1374,10 +1377,10 @@ Dim Desc As String, Devuelve As String
    
     
            
-    If Cad <> "" Then
+    If cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = Cad
+        frmB.vCampos = cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -1507,8 +1510,8 @@ End Sub
 '   En PONERMODO se habilitan, o no, los diverso campos del
 '   formulario en funcion del modo en k vayamos a trabajar
 Private Sub PonerModo(Kmodo As Byte)
-Dim I As Byte, NumReg As Byte
-Dim B As Boolean
+Dim i As Byte, NumReg As Byte
+Dim b As Boolean
 
     On Error GoTo EPonerModo
 
@@ -1521,15 +1524,15 @@ Dim B As Boolean
     
     'Modo 2. Hay datos y estamos visualizandolos
     '=========================================
-    B = (Modo = 2)
+    b = (Modo = 2)
     'Ponemos visible, si es formulario de busqueda, el boton regresar cuando hay datos
    ' If DatosADevolverBusqueda2 <> "" Then
    '     cmdRegresar.visible = b
    ' Else
         cmdRegresar.visible = False
    ' End If
-    cmdAceptar.visible = Not B
-    cmdCancelar.visible = Not B
+    cmdAceptar.visible = Not b
+    cmdCancelar.visible = Not b
     
         
         
@@ -1538,44 +1541,44 @@ Dim B As Boolean
     If Not Data1.Recordset.EOF Then
         If Data1.Recordset.RecordCount > 1 Then NumReg = 2 'Solo es para saber q hay + de 1 registro
     End If
-    DesplazamientoVisible Me.Toolbar1, btnPrimero, B, NumReg
+    DesplazamientoVisible Me.Toolbar1, btnPrimero, b, NumReg
         
         
 
     'Campo Numero de Albaran siempre bloqueado, excepto si estamos en modo de busqueda
-    B = (Modo <> 1)
-    BloquearTxt Text1(0), B, True
+    b = (Modo <> 1)
+    BloquearTxt Text1(0), b, True
 
-    B = Modo = 0 Or Modo = 2 Or Modo >= 5
-    For I = 1 To 7
-        BloquearTxt Text1(I), B
+    b = Modo = 0 Or Modo = 2 Or Modo >= 5
+    For i = 1 To 7
+        BloquearTxt Text1(i), b
     Next
     BloquearTxt Text1(8), True  'siempre bloqueado
 
     
     '---------------------------------------------
-    B = (Modo <> 0 And Modo <> 2)
+    b = (Modo <> 0 And Modo <> 2)
 
-    imgFecha(0).visible = B
+    imgFecha(0).visible = b
      
-    For I = 0 To Me.imgCuentas.Count - 1
-        imgCuentas(I).visible = B
-    Next I
+    For i = 0 To Me.imgCuentas.Count - 1
+        imgCuentas(i).visible = b
+    Next i
 
 
     Me.chkVistaPrevia.Enabled = (Modo <= 2)
     
     'Los kilos totatels
-    B = Modo = 2 Or Modo = 4 Or Modo = 5
+    b = Modo = 2 Or Modo = 4 Or Modo = 5
 
     
     
     'Abrir un coupage cerrado solo para admon
-    B = False
+    b = False
     If Modo = 1 Then
-        B = True
+        b = True
     Else
-        If Modo = 4 Then B = vUsu.Nivel < 1
+        If Modo = 4 Then b = vUsu.Nivel < 1
     End If
   
     
@@ -1675,8 +1678,11 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
            End With
     
 
-        Case 15 '
-          
+        Case 16 '
+            If Data1.Recordset.EOF Then Exit Sub
+            If ListView1.ListItems.Count = 0 Then Exit Sub
+            LlamaImprimirGral "{spartidas.id}=" & Data1.Recordset!ID, "", 0, "morPesosPartidas.rpt", "Pesajes partida"
+           
         Case 17    'Salir
             mnSalir_Click
         Case btnPrimero To btnPrimero + 3 'Flechas Desplazamiento
@@ -1713,12 +1719,12 @@ End Sub
 Private Sub CargaGrid(enlaza As Boolean)
 'IN: enlaza= si carga el grid con valores de la tabla o lo muestra vacio si no enlaza
 '    conServidas=si enlaza, se muestra la columna de servidas solo cuando se va a generar el Albaran no completo
-Dim B As Boolean
+Dim b As Boolean
 Dim SQL As String
 
     On Error GoTo ECargaGrid
 
-    B = DataGrid1.Enabled
+    b = DataGrid1.Enabled
     
     SQL = MontaSQLCarga(enlaza)
     CargaGridGnral DataGrid1, Me.Data2, SQL, PrimeraVez
@@ -1734,7 +1740,7 @@ Dim SQL As String
     
     
     
-    DataGrid1.Enabled = B
+    DataGrid1.Enabled = b
     PrimeraVez = False
     gridCargado = True
     
@@ -1784,7 +1790,7 @@ End Sub
 
 
 Private Sub CargaGrid2()
-Dim I As Byte
+Dim i As Byte
 
     On Error GoTo ECargaGrid
 
@@ -1820,10 +1826,10 @@ Dim I As Byte
              
     
 
-    For I = 0 To DataGrid1.Columns.Count - 1
-        DataGrid1.Columns(I).Locked = True
-        DataGrid1.Columns(I).AllowSizing = False
-    Next I
+    For i = 0 To DataGrid1.Columns.Count - 1
+        DataGrid1.Columns(i).Locked = True
+        DataGrid1.Columns(i).AllowSizing = False
+    Next i
     DataGrid1.HoldFields
     Exit Sub
 ECargaGrid:
@@ -1924,7 +1930,7 @@ End Function
 
 Private Sub PonerModoOpcionesMenu(Modo As Byte)
 'Activas unas Opciones de Menu y Toolbar según el Modo en que estemos
-Dim B As Boolean
+Dim b As Boolean
 '
 '        b = False
 '        'Me.mnOpciones.Enabled = (b Or Modo = 0)
@@ -2011,7 +2017,7 @@ End Sub
 
 
 Private Function generarMovimientosArticulo() As Boolean
-Dim I As Byte
+Dim i As Byte
 
     'FALTA###
     Exit Function
@@ -2023,8 +2029,8 @@ Dim I As Byte
     
 
     
-    For I = 1 To 8
-        LoteEnTabla I, Text1(2).Text, Text1(4).Text
+    For i = 1 To 8
+        LoteEnTabla i, Text1(2).Text, Text1(4).Text
     Next
     
         
@@ -2207,7 +2213,7 @@ End Sub
 Private Sub CargarPesos()
 
 Dim It As ListItem
-Dim B As Boolean
+Dim b As Boolean
 
      If Not Me.SSTab1.TabVisible(1) Then Exit Sub
 
@@ -2224,7 +2230,7 @@ Dim B As Boolean
         It.SubItems(3) = " "
         miRsAux.MoveNext
         
-        B = False
+        b = False
         
         If Not miRsAux.EOF Then
             It.SubItems(4) = Format(miRsAux!secuencial, "00")

@@ -38,20 +38,20 @@ Begin VB.Form frmProdNueTraza2
       TabCaption(1)   =   "Pesajes"
       TabPicture(1)   =   "frmProdNueTraza.frx":0028
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label5(0)"
-      Tab(1).Control(1)=   "Label5(11)"
-      Tab(1).Control(2)=   "Label5(10)"
-      Tab(1).Control(3)=   "Label5(7)"
-      Tab(1).Control(4)=   "Label5(12)"
-      Tab(1).Control(5)=   "Label5(13)"
-      Tab(1).Control(6)=   "ListView2"
-      Tab(1).Control(7)=   "cboSerie"
-      Tab(1).Control(8)=   "Text5(9)"
-      Tab(1).Control(9)=   "Text5(8)"
-      Tab(1).Control(10)=   "Text5(5)"
-      Tab(1).Control(11)=   "Text5(10)"
-      Tab(1).Control(12)=   "Text5(11)"
-      Tab(1).Control(13)=   "Text5(12)"
+      Tab(1).Control(0)=   "Text5(12)"
+      Tab(1).Control(1)=   "Text5(11)"
+      Tab(1).Control(2)=   "Text5(10)"
+      Tab(1).Control(3)=   "Text5(5)"
+      Tab(1).Control(4)=   "Text5(8)"
+      Tab(1).Control(5)=   "Text5(9)"
+      Tab(1).Control(6)=   "cboSerie"
+      Tab(1).Control(7)=   "ListView2"
+      Tab(1).Control(8)=   "Label5(13)"
+      Tab(1).Control(9)=   "Label5(12)"
+      Tab(1).Control(10)=   "Label5(7)"
+      Tab(1).Control(11)=   "Label5(10)"
+      Tab(1).Control(12)=   "Label5(11)"
+      Tab(1).Control(13)=   "Label5(0)"
       Tab(1).ControlCount=   14
       Begin VB.TextBox Text5 
          Alignment       =   2  'Center
@@ -1325,7 +1325,7 @@ End Sub
 '----------------------------------------------------------------
 '----------------------------------------------------------------
 Private Sub Text1_LostFocus(Index As Integer)
-Dim devuelve As String
+Dim Devuelve As String
       
     'en el campo ID de norma 34 no se hace Trim ni nada. Lo q pongan
     If Index = 18 Then Exit Sub
@@ -1484,7 +1484,7 @@ EEPonerBusq:
 End Sub
 
 Private Sub PonerCampos()
-Dim I As Byte
+Dim i As Byte
     
     If Data1.Recordset.EOF Then Exit Sub
     Screen.MousePointer = vbHourglass
@@ -1523,19 +1523,19 @@ End Sub
 '   formulario en funcion del modo en k vayamos a trabajar
 '
 Private Sub PonerModo(Kmodo As Byte)
-Dim B As Boolean
+Dim b As Boolean
 Dim NumReg As Byte
    
     Modo = Kmodo
         
     '----------------------------------------------
     'Modo 2. Hay datos y estamos visualizandolos
-    B = (Kmodo = 2)
+    b = (Kmodo = 2)
     PonerIndicador lblIndicador, Modo
     
     'Ponemos visible, si es formulario de busqueda, el boton regresar cuando hay datos
     If DatosADevolverBusqueda <> "" Then
-        cmdRegresar.visible = B
+        cmdRegresar.visible = b
     Else
         cmdRegresar.visible = False
     End If
@@ -1545,14 +1545,14 @@ Dim NumReg As Byte
     If Not Data1.Recordset.EOF Then
         If Data1.Recordset.RecordCount > 1 Then NumReg = 2 'Solo es para saber q hay + de 1 registro
     End If
-    DesplazamientoVisible Me.Toolbar1, btnPrimero, B, NumReg
+    DesplazamientoVisible Me.Toolbar1, btnPrimero, b, NumReg
     
     
     '------------------------------------------------------
     'Modo insertar o modificar
-    B = (Kmodo >= 3) '-->Luego not b sera kmodo<3
-    cmdAceptar.visible = B Or Modo = 1
-    cmdCancelar.visible = B Or Modo = 1
+    b = (Kmodo >= 3) '-->Luego not b sera kmodo<3
+    cmdAceptar.visible = b Or Modo = 1
+    cmdCancelar.visible = b Or Modo = 1
     If cmdCancelar.visible Then
         cmdCancelar.Cancel = True
     Else
@@ -1583,51 +1583,51 @@ End Sub
 
 Private Sub PonerModoOpcionesMenu()
 'Activa botones de la Toolbar segun el Modo
-Dim B As Boolean
+Dim b As Boolean
 
-    B = False
+    b = False
     'Lo comento
     'B = (Modo = 2)
     'Modificar
-    Toolbar1.Buttons(6).Enabled = B
-    mnModificar.Enabled = B
+    Toolbar1.Buttons(6).Enabled = b
+    mnModificar.Enabled = b
     'eliminar
-    Toolbar1.Buttons(7).Enabled = B
-    mnEliminar.Enabled = B
+    Toolbar1.Buttons(7).Enabled = b
+    mnEliminar.Enabled = b
     
     '-----------------------------------------
     'B = (Modo >= 3) 'Insertar/Modificar
-    B = True
+    b = True
     'Insertar
-    Toolbar1.Buttons(5).Enabled = Not B
-    Me.mnNuevo.Enabled = Not B
+    Toolbar1.Buttons(5).Enabled = Not b
+    Me.mnNuevo.Enabled = Not b
     
-    B = (Modo >= 3) 'Insertar/Modificar
+    b = (Modo >= 3) 'Insertar/Modificar
     'Buscar
-    Toolbar1.Buttons(1).Enabled = Not B
-    Me.mnBuscar.Enabled = Not B
+    Toolbar1.Buttons(1).Enabled = Not b
+    Me.mnBuscar.Enabled = Not b
     'Ver Todos
-    Toolbar1.Buttons(2).Enabled = Not B
-    Me.mnVerTodos.Enabled = Not B
+    Toolbar1.Buttons(2).Enabled = Not b
+    Me.mnVerTodos.Enabled = Not b
 End Sub
 
 
 Private Function DatosOk() As Boolean
-Dim B As Boolean
+Dim b As Boolean
 
     DatosOk = False
-    B = CompForm(Me, 1)
-    If Not B Then Exit Function
+    b = CompForm(Me, 1)
+    If Not b Then Exit Function
     
     If Not Comprueba_CC(Text1(10).Text & Text1(11).Text & Text1(12).Text & Text1(13).Text) Then
-        If MsgBox("La cuenta bancaria no es correcta. ¿Continuar?", vbQuestion + vbYesNo) = vbNo Then B = False
+        If MsgBox("La cuenta bancaria no es correcta. ¿Continuar?", vbQuestion + vbYesNo) = vbNo Then b = False
     End If
  
     If Modo = 3 Then 'Insertar
-        If ExisteCP(Text1(0)) Then B = False
+        If ExisteCP(Text1(0)) Then b = False
     End If
 
-    DatosOk = B
+    DatosOk = b
 End Function
 
 
@@ -1643,7 +1643,7 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
         Case 9: Imprimir
         Case 10:
                 'Imprime resume diario produccion
-                frmListado2.opcion = 27
+                frmListado2.Opcion = 27
                 frmListado2.Show vbModal
         Case 11
             'De momento
@@ -1924,7 +1924,7 @@ End Sub
 
 'De cada SERIE
 Private Sub ValoresEstadisticosMuestra2()
-Dim I As Integer
+Dim i As Integer
 Dim V As Currency
 Dim MedidaCorrecta As Boolean
 Dim LitrosUnidadMiles As Integer
@@ -1942,10 +1942,10 @@ Dim T As TextBox
     SQL = SQL & " AND lotetraza =" & Text1(9).Text
     SQL = SQL & " AND serie =" & cboSerie.Text
     miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    I = 0
-    If Not miRsAux.EOF Then I = DBLet(miRsAux!Cuantos, "N")
+    i = 0
+    If Not miRsAux.EOF Then i = DBLet(miRsAux!Cuantos, "N")
     MedidaCorrecta = False
-    If I > 0 Then
+    If i > 0 Then
         'Hay datos. Vamos a mostrarlos
         MedidaCorrecta = True
 '        Text5(1).Text = Format(miRsAux!PesoBotella, FormatoPrecio)
@@ -1999,7 +1999,7 @@ Dim T As TextBox
         LitrosUnidadMiles = 1000 * CCur(SQL)
         
         'B13>=B2-0,379*B14
-        V = miRsAux!Desviacion * 0.397
+        V = miRsAux!Desviacion * 0.379
         V = LitrosUnidadMiles - V
         
         

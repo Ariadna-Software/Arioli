@@ -17,6 +17,97 @@ Begin VB.Form frmVallpalets
    ScaleWidth      =   8235
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin MSComctlLib.Toolbar Toolbar1 
+      Align           =   1  'Align Top
+      Height          =   420
+      Left            =   0
+      TabIndex        =   4
+      Top             =   0
+      Width           =   8235
+      _ExtentX        =   14526
+      _ExtentY        =   741
+      ButtonWidth     =   609
+      ButtonHeight    =   582
+      AllowCustomize  =   0   'False
+      Appearance      =   1
+      _Version        =   393216
+      BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
+         NumButtons      =   20
+         BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Buscar"
+         EndProperty
+         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Ver Todos"
+         EndProperty
+         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Nuevo"
+            Object.Tag             =   "2"
+         EndProperty
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Modificar"
+            Object.Tag             =   "2"
+         EndProperty
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Eliminar"
+            Object.Tag             =   "2"
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.Visible         =   0   'False
+            Style           =   3
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Imprime Movimiento"
+            Object.Tag             =   "2"
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Imprimir"
+         EndProperty
+         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.Visible         =   0   'False
+         EndProperty
+         BeginProperty Button14 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.Visible         =   0   'False
+         EndProperty
+         BeginProperty Button15 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Salir"
+         EndProperty
+         BeginProperty Button16 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button17 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Primero"
+         EndProperty
+         BeginProperty Button18 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Anterior"
+         EndProperty
+         BeginProperty Button19 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Siguiente"
+         EndProperty
+         BeginProperty Button20 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.ToolTipText     =   "Último"
+         EndProperty
+      EndProperty
+      Begin VB.CheckBox chkVistaPrevia 
+         Caption         =   "Vista previa"
+         Height          =   315
+         Left            =   6960
+         TabIndex        =   7
+         Top             =   0
+         Width           =   1215
+      End
+   End
    Begin VB.TextBox Text1 
       Alignment       =   1  'Right Justify
       Height          =   315
@@ -112,100 +203,6 @@ Begin VB.Form frmVallpalets
       Text            =   "Text1"
       Top             =   600
       Width           =   855
-   End
-   Begin MSComctlLib.Toolbar Toolbar1 
-      Align           =   1  'Align Top
-      Height          =   420
-      Left            =   0
-      TabIndex        =   4
-      Top             =   0
-      Width           =   8235
-      _ExtentX        =   14526
-      _ExtentY        =   741
-      ButtonWidth     =   609
-      ButtonHeight    =   582
-      AllowCustomize  =   0   'False
-      Appearance      =   1
-      _Version        =   393216
-      BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   20
-         BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Buscar"
-         EndProperty
-         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Ver Todos"
-         EndProperty
-         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Nuevo"
-            Object.Tag             =   "2"
-         EndProperty
-         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.Visible         =   0   'False
-            Object.ToolTipText     =   "Modificar"
-            Object.Tag             =   "2"
-         EndProperty
-         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Eliminar"
-            Object.Tag             =   "2"
-         EndProperty
-         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.Visible         =   0   'False
-            Style           =   3
-         EndProperty
-         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.Visible         =   0   'False
-            Style           =   3
-         EndProperty
-         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.Visible         =   0   'False
-            Object.ToolTipText     =   "Lineas"
-            Object.Tag             =   "2"
-         EndProperty
-         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Imprimir"
-         EndProperty
-         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.Visible         =   0   'False
-         EndProperty
-         BeginProperty Button14 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.Visible         =   0   'False
-         EndProperty
-         BeginProperty Button15 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Salir"
-         EndProperty
-         BeginProperty Button16 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button17 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Primero"
-         EndProperty
-         BeginProperty Button18 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Anterior"
-         EndProperty
-         BeginProperty Button19 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Siguiente"
-         EndProperty
-         BeginProperty Button20 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.ToolTipText     =   "Último"
-         EndProperty
-      EndProperty
-      Begin VB.CheckBox chkVistaPrevia 
-         Caption         =   "Vista previa"
-         Height          =   315
-         Left            =   6960
-         TabIndex        =   7
-         Top             =   0
-         Width           =   1215
-      End
    End
    Begin MSAdodcLib.Adodc Data1 
       Height          =   330
@@ -517,6 +514,8 @@ Private Sub Form_Load()
         .Buttons(5).Image = 3 'Añadir
         .Buttons(6).Image = 4 'Modificar
         .Buttons(7).Image = 5 'Eliminar
+        
+        .Buttons(10).Image = 40 'impriir
         .Buttons(11).Image = 16 'impriir
         
 
@@ -728,7 +727,7 @@ Private Sub mnNuevo_Click()
     
     CadenaDesdeOtroForm = ""
     If Text1(1).Text <> "" Then CadenaDesdeOtroForm = Text1(1).Text & "|" & Text2(1).Text & "|"
-    frmListado2.Opcion = 35
+    frmListado2.opcion = 35
     frmListado2.Show vbModal
     If CadenaDesdeOtroForm <> "" Then
         CadenaConsulta = RecuperaValor(CadenaDesdeOtroForm, 1)
@@ -859,7 +858,7 @@ End Sub
 
 
 Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
-    
+Dim cad As String
 '    'If Button.Index = 10 Or Button.Index = 11 Or Button.Index = 13 Or Button.Index = 14 Then
 '    If Button.Index >= 10 And Button.Index <= 15 Then
 '        If Data1.Recordset Is Nothing Then Exit Sub
@@ -878,6 +877,52 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
             
         Case 7 'Eliminar
             
+            
+        Case 10
+        
+        Case 11
+            If ListView1.SelectedItem Is Nothing Then Exit Sub
+            If ListView1.SelectedItem.SubItems(1) <> "PAL" Then Exit Sub
+            
+            conn.Execute "Delete from tmprutas where codusu=" & vUsu.Codigo
+            Set miRsAux = New ADODB.Recordset
+            If Val(Data1.Recordset!Codigo1) = 0 Then
+                cad = "Select codprove codigo, nomprove nombre, domprove direc, pobprove pobla from sprove where codprove=" & Data1.Recordset!campo2
+            Else
+                cad = "Select codclien codigo,nomclien nombre, domclien direc, pobclien pobla from sclien where codclien=" & Data1.Recordset!Codigo1
+            End If
+            miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            
+            'tmprutas(codusu,idruta,idalb,nomclien,domclien,pobclien,codartic,nomartic,cajas,fecha2,codigo)  'codigo=1 o 2
+            cad = "(" & vUsu.Codigo & ",'" & ListView1.SelectedItem.SubItems(2) & "'," & miRsAux!Codigo & ","
+            cad = cad & DBSet(miRsAux!Nombre, "T") & "," & DBSet(miRsAux!direc, "T") & "," & DBSet(miRsAux!pobla, "T") & ","
+            cad = cad & DBSet(Text1(1).Text, "T") & "," & DBSet(Text2(1).Text, "T") & ","
+            If Trim(ListView1.SelectedItem.SubItems(3)) = "" Then
+                kCampo = -1 * CInt(ImporteFormateado(ListView1.SelectedItem.SubItems(4)))
+            Else
+                kCampo = CInt(ImporteFormateado(ListView1.SelectedItem.SubItems(3)))
+            End If
+            cad = cad & kCampo & "," & DBSet(ListView1.SelectedItem.Text, "F") & ","
+             
+ 
+            cad = cad & "1)"
+            cad = "INSERT INTO tmprutas(codusu,idruta,idalb,nomclien,domclien,pobclien,codartic,nomartic,cajas,fecha2,codigo) VALUES " & cad
+            conn.Execute cad
+            
+            miRsAux.Close
+            Set miRsAux = Nothing
+            
+ 
+ 
+ 
+            'tmprutas(codusu,idruta,codigo,nomclien,domclien,pobclien,codartic,nomartic,cajas,fecha2)
+ 
+ 
+ 
+            
+            frmVarios.opcion = 13
+            frmVarios.Show vbModal
+            kCampo = 0
         Case 15
             mnSalir_Click
         Case 21  'Salir
@@ -910,7 +955,7 @@ End Sub
 
 
 Private Sub PonerModo(Kmodo As Byte)
-Dim I As Byte
+Dim i As Byte
 Dim b As Boolean
 Dim NumReg As Byte
 
@@ -939,9 +984,9 @@ Dim NumReg As Byte
     cmdCancelar.visible = b
     cmdAceptar.visible = b
     cmdRegresar.visible = (Modo = 5)
-    For I = 0 To Me.imgBuscar.Count - 1
-        Me.imgBuscar(I).Enabled = b
-    Next I
+    For i = 0 To Me.imgBuscar.Count - 1
+        Me.imgBuscar(i).Enabled = b
+    Next i
     
     
 
@@ -1082,26 +1127,26 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim Cad As String
+Dim cad As String
 Dim Tabla As String
 Dim Titulo As String
 
     'Llamamos a al form
-    Cad = ""
+    cad = ""
     'Estamos en Modo de Cabeceras
     'Registro de la tabla de cabeceras: scapla
-    Cad = Cad & ParaGrid(Text1(0), 10, "Código")
-    Cad = Cad & ParaGrid(Text1(3), 14, "Fecha")
-    Cad = Cad & ParaGrid(Text1(1), 43, "Observaciones")
-    Cad = Cad & "Conductor||conductor|T||33·"
+    cad = cad & ParaGrid(Text1(0), 10, "Código")
+    cad = cad & ParaGrid(Text1(3), 14, "Fecha")
+    cad = cad & ParaGrid(Text1(1), 43, "Observaciones")
+    cad = cad & "Conductor||conductor|T||33·"
     
     Tabla = "smoval"
     Titulo = "Control palets"
            
-    If Cad <> "" Then
+    If cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = Cad
+        frmB.vCampos = cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -1234,8 +1279,8 @@ End Sub
 
 
 Private Sub Imprimir(SinVentanaOk As Boolean)
-Dim I As Integer
-Dim Cad As String
+Dim i As Integer
+Dim cad As String
 Dim SQL As String
 Dim Litros As Currency
 
@@ -1251,37 +1296,37 @@ Dim Litros As Currency
 
     Set miRsAux = New ADODB.Recordset
     NumRegElim = 0
-    For I = 1 To ListView1.ListItems.Count
+    For i = 1 To ListView1.ListItems.Count
         lblIndicador.Caption = 1 & " de " & ListView1.ListItems.Count
         lblIndicador.Refresh
-        If ListView1.ListItems(I).SmallIcon = 43 Then
+        If ListView1.ListItems(i).SmallIcon = 43 Then
             '************************************   ALBARANES
             SQL = "select scaalb.codtipom,scaalb.numalbar,scaalb.fechaalb,slialb.codartic,slialb.nomartic,cantidad,cajas,nomclien,"
             SQL = SQL & "domclien, codpobla, pobclien, proclien,LitrosUnidad from slialb,scaalb,sartic where slialb.codtipom=scaalb.codtipom and scaalb.numalbar=slialb.numalbar"
             SQL = SQL & " AND slialb.codartic=sartic.codartic"
             SQL = SQL & " and slialb.codartic<>'" & vParamAplic.ArtReciclado & "'"  'Que no salgal el punto verde
             'Ahora el albaran en cuetion
-            SQL = SQL & " AND scaalb.codtipom='" & ListView1.ListItems(I).Text & "' "
-            SQL = SQL & " AND scaalb.numalbar=" & ListView1.ListItems(I).SubItems(1) & " "
+            SQL = SQL & " AND scaalb.codtipom='" & ListView1.ListItems(i).Text & "' "
+            SQL = SQL & " AND scaalb.numalbar=" & ListView1.ListItems(i).SubItems(1) & " "
             miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             SQL = ""
-            Cad = ""
+            cad = ""
             While Not miRsAux.EOF
                ' (`codusu`,`idruta`,,`idalb`,`nomclien`,`domclien`,`pobclien`,`proclien`,`fecha2`
                '`codigo` `codartic`,`nomartic`,`cajas`,)
 
                 NumRegElim = NumRegElim + 1
-                If Cad = "" Then
-                    Cad = ", (" & vUsu.Codigo & "," & Text1(0).Text & ",'"
-                    Cad = Cad & miRsAux!Codtipom & Format(miRsAux!NumAlbar, "0000000") & "',"
-                    Cad = Cad & DBSet(miRsAux!nomclien, "T") & "," & DBSet(miRsAux!domclien, "T") & ","
-                    Cad = Cad & DBSet(miRsAux!pobclien, "T") & ",'"
+                If cad = "" Then
+                    cad = ", (" & vUsu.Codigo & "," & Text1(0).Text & ",'"
+                    cad = cad & miRsAux!Codtipom & Format(miRsAux!NumAlbar, "0000000") & "',"
+                    cad = cad & DBSet(miRsAux!nomclien, "T") & "," & DBSet(miRsAux!domclien, "T") & ","
+                    cad = cad & DBSet(miRsAux!pobclien, "T") & ",'"
                     'cppos, provinci
-                    Cad = Cad & DevNombreSQL(Trim(DBLet(miRsAux!codpobla, "T") & "   " & DBLet(miRsAux!proclien, "T"))) & "','"
-                    Cad = Cad & Format(miRsAux!FechaAlb, FormatoFecha) & "',"
+                    cad = cad & DevNombreSQL(Trim(DBLet(miRsAux!codpobla, "T") & "   " & DBLet(miRsAux!proclien, "T"))) & "','"
+                    cad = cad & Format(miRsAux!FechaAlb, FormatoFecha) & "',"
                 End If
                 'Faltan: `codigo` `codartic`,`nomartic`,`cajas`,)
-                SQL = SQL & Cad & NumRegElim & "," & DBSet(miRsAux!codartic, "T") & ","
+                SQL = SQL & cad & NumRegElim & "," & DBSet(miRsAux!codartic, "T") & ","
                 Litros = DBLet(miRsAux!LitrosUnidad, "N")
                 Litros = Litros * miRsAux!Cantidad
                 SQL = SQL & DBSet(miRsAux!NomArtic, "T") & "," & miRsAux!Cajas & "," & DBSet(Litros, "N") & ")"
@@ -1290,11 +1335,11 @@ Dim Litros As Currency
             miRsAux.Close
             If SQL <> "" Then
                 'Tiene datos
-                Cad = "INSERT INTO tmprutas (`codusu`,`idruta`,`idalb`,`nomclien`,`domclien`,"
-                Cad = Cad & "`pobclien`,`proclien`,`fecha2`,`codigo`,`codartic`,`nomartic`,`cajas`,litros) VALUES "
-                Cad = Cad & Mid(SQL, 2) 'quito la primera coma
+                cad = "INSERT INTO tmprutas (`codusu`,`idruta`,`idalb`,`nomclien`,`domclien`,"
+                cad = cad & "`pobclien`,`proclien`,`fecha2`,`codigo`,`codartic`,`nomartic`,`cajas`,litros) VALUES "
+                cad = cad & Mid(SQL, 2) 'quito la primera coma
 
-                conn.Execute Cad
+                conn.Execute cad
                 
                 
                 
@@ -1308,29 +1353,29 @@ Dim Litros As Currency
             SQL = SQL & " AND slifac.codartic=sartic.codartic"
             SQL = SQL & " and slifac.codartic<>'" & vParamAplic.ArtReciclado & "'"  'Que no salgal el punto verde
             'Ahora el albaran en cuetion
-            SQL = SQL & " AND scafac.codtipom='" & ListView1.ListItems(I).Text & "' "
-            SQL = SQL & " AND scafac.numfactu=" & ListView1.ListItems(I).SubItems(1) & " "
-            SQL = SQL & " AND scafac.fecfactu='" & Format(ListView1.ListItems(I).SubItems(2), FormatoFecha) & "' "
-            SQL = SQL & " AND slifac.numalbar=" & ListView1.ListItems(I).Tag & " "
+            SQL = SQL & " AND scafac.codtipom='" & ListView1.ListItems(i).Text & "' "
+            SQL = SQL & " AND scafac.numfactu=" & ListView1.ListItems(i).SubItems(1) & " "
+            SQL = SQL & " AND scafac.fecfactu='" & Format(ListView1.ListItems(i).SubItems(2), FormatoFecha) & "' "
+            SQL = SQL & " AND slifac.numalbar=" & ListView1.ListItems(i).Tag & " "
             miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             SQL = ""
-            Cad = ""
+            cad = ""
             While Not miRsAux.EOF
                ' (`codusu`,`idruta`,,`idalb`,`nomclien`,`domclien`,`pobclien`,`proclien`,`fecha2`
                '`codigo` `codartic`,`nomartic`,`cajas`,)
 
                 NumRegElim = NumRegElim + 1
-                If Cad = "" Then
-                    Cad = ", (" & vUsu.Codigo & "," & Text1(0).Text & ",'"
-                    Cad = Cad & miRsAux!Codtipom & Format(miRsAux!NumFactu, "0000000") & "',"
-                    Cad = Cad & DBSet(miRsAux!nomclien, "T") & "," & DBSet(miRsAux!domclien, "T") & ","
-                    Cad = Cad & DBSet(miRsAux!pobclien, "T") & ",'"
+                If cad = "" Then
+                    cad = ", (" & vUsu.Codigo & "," & Text1(0).Text & ",'"
+                    cad = cad & miRsAux!Codtipom & Format(miRsAux!NumFactu, "0000000") & "',"
+                    cad = cad & DBSet(miRsAux!nomclien, "T") & "," & DBSet(miRsAux!domclien, "T") & ","
+                    cad = cad & DBSet(miRsAux!pobclien, "T") & ",'"
                     'cppos, provinci
-                    Cad = Cad & DevNombreSQL(Trim(DBLet(miRsAux!codpobla, "T") & "   " & DBLet(miRsAux!proclien, "T"))) & "','"
-                    Cad = Cad & Format(miRsAux!FecFactu, FormatoFecha) & "',"
+                    cad = cad & DevNombreSQL(Trim(DBLet(miRsAux!codpobla, "T") & "   " & DBLet(miRsAux!proclien, "T"))) & "','"
+                    cad = cad & Format(miRsAux!FecFactu, FormatoFecha) & "',"
                 End If
                 'Faltan: `codigo` `codartic`,`nomartic`,`cajas`,)
-                SQL = SQL & Cad & NumRegElim & "," & DBSet(miRsAux!codartic, "T") & ","
+                SQL = SQL & cad & NumRegElim & "," & DBSet(miRsAux!codartic, "T") & ","
                 SQL = SQL & DBSet(miRsAux!NomArtic, "T") & ","
                 If DBLet(miRsAux!Unicajas, "N") = 0 Then
                     SQL = SQL & Round(miRsAux!Cantidad, 0)
@@ -1347,11 +1392,11 @@ Dim Litros As Currency
             miRsAux.Close
             If SQL <> "" Then
                 'Tiene datos
-                Cad = "INSERT INTO tmprutas (`codusu`,`idruta`,`idalb`,`nomclien`,`domclien`,"
-                Cad = Cad & "`pobclien`,`proclien`,`fecha2`,`codigo`,`codartic`,`nomartic`,`cajas`,litros) VALUES "
-                Cad = Cad & Mid(SQL, 2) 'quito la primera coma
+                cad = "INSERT INTO tmprutas (`codusu`,`idruta`,`idalb`,`nomclien`,`domclien`,"
+                cad = cad & "`pobclien`,`proclien`,`fecha2`,`codigo`,`codartic`,`nomartic`,`cajas`,litros) VALUES "
+                cad = cad & Mid(SQL, 2) 'quito la primera coma
 
-                conn.Execute Cad
+                conn.Execute cad
             End If
         
         
@@ -1362,7 +1407,7 @@ Dim Litros As Currency
     
     If NumRegElim > 0 Then
             
-            Cad = DevuelveNombreReport(40)
+            cad = DevuelveNombreReport(40)
             
     
             With frmImprimir
@@ -1377,9 +1422,9 @@ Dim Litros As Currency
                     .SoloImprimir = False
                 End If
                 .EnvioEMail = False
-                .Opcion = 2016
+                .opcion = 2016
                 .Titulo = Me.Caption
-                .NombreRPT = Cad
+                .NombreRPT = cad
                 .ConSubInforme = True
                 .Show vbModal
             End With
