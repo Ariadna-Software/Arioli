@@ -25,7 +25,7 @@ Begin VB.Form frmVallAlmazara
       Index           =   6
       Left            =   8640
       MaxLength       =   10
-      TabIndex        =   60
+      TabIndex        =   61
       Tag             =   "Código Almacen"
       Text            =   "codalmac"
       Top             =   4320
@@ -40,7 +40,7 @@ Begin VB.Form frmVallAlmazara
       Index           =   5
       Left            =   7800
       MaxLength       =   10
-      TabIndex        =   59
+      TabIndex        =   60
       Tag             =   "Código Almacen"
       Text            =   "codalmac"
       Top             =   4320
@@ -55,7 +55,7 @@ Begin VB.Form frmVallAlmazara
       Index           =   4
       Left            =   7080
       MaxLength       =   10
-      TabIndex        =   58
+      TabIndex        =   59
       Tag             =   "Código Almacen"
       Text            =   "codalmac"
       Top             =   4320
@@ -70,7 +70,7 @@ Begin VB.Form frmVallAlmazara
       Left            =   12360
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
-      TabIndex        =   21
+      TabIndex        =   22
       Text            =   "frmVallAlmazara.frx":000C
       Top             =   4920
       Visible         =   0   'False
@@ -83,7 +83,7 @@ Begin VB.Form frmVallAlmazara
       Height          =   315
       Index           =   3
       Left            =   5160
-      TabIndex        =   24
+      TabIndex        =   25
       Tag             =   "Lote"
       Text            =   "lot"
       Top             =   4320
@@ -95,7 +95,7 @@ Begin VB.Form frmVallAlmazara
       Height          =   285
       Index           =   0
       Left            =   12480
-      TabIndex        =   20
+      TabIndex        =   21
       Text            =   "Text2"
       Top             =   4920
       Visible         =   0   'False
@@ -151,7 +151,7 @@ Begin VB.Form frmVallAlmazara
    Begin MSDataGridLib.DataGrid DataGrid2 
       Height          =   3135
       Left            =   11880
-      TabIndex        =   37
+      TabIndex        =   38
       Top             =   4440
       Width           =   5415
       _ExtentX        =   9551
@@ -223,7 +223,7 @@ Begin VB.Form frmVallAlmazara
       Index           =   0
       Left            =   240
       MaxLength       =   10
-      TabIndex        =   17
+      TabIndex        =   18
       Tag             =   "Código Almacen"
       Text            =   "codalmac"
       Top             =   4320
@@ -238,7 +238,7 @@ Begin VB.Form frmVallAlmazara
       Index           =   1
       Left            =   1080
       MaxLength       =   18
-      TabIndex        =   18
+      TabIndex        =   19
       Tag             =   "Código Artículo"
       Text            =   "Artic Artic Artic5"
       Top             =   4320
@@ -254,7 +254,7 @@ Begin VB.Form frmVallAlmazara
       Left            =   2520
       Locked          =   -1  'True
       MaxLength       =   40
-      TabIndex        =   19
+      TabIndex        =   20
       Tag             =   "Nombre Artículo"
       Text            =   "nomArtic"
       Top             =   4320
@@ -267,7 +267,7 @@ Begin VB.Form frmVallAlmazara
       Height          =   315
       Index           =   0
       Left            =   840
-      TabIndex        =   34
+      TabIndex        =   35
       ToolTipText     =   "Buscar almacen"
       Top             =   4380
       Visible         =   0   'False
@@ -276,15 +276,37 @@ Begin VB.Form frmVallAlmazara
    Begin VB.Frame Frame2 
       Height          =   3375
       Left            =   120
-      TabIndex        =   30
+      TabIndex        =   31
       Top             =   480
       Width           =   17175
+      Begin VB.TextBox Text1 
+         Alignment       =   1  'Right Justify
+         Height          =   315
+         Index           =   16
+         Left            =   6360
+         MaxLength       =   10
+         TabIndex        =   68
+         Tag             =   " fin|F|S|||vallalmazaraproceso|FechaFin|dd/mm/yyyy|N|"
+         Top             =   2760
+         Width           =   1185
+      End
+      Begin VB.TextBox Text1 
+         Alignment       =   1  'Right Justify
+         Height          =   315
+         Index           =   17
+         Left            =   2760
+         MaxLength       =   10
+         TabIndex        =   2
+         Tag             =   "Hora inicio|H|N|||vallalmazaraproceso|horainicio|hh:nn:ss|N|"
+         Top             =   360
+         Width           =   1185
+      End
       Begin VB.TextBox Text1 
          Height          =   315
          Index           =   15
          Left            =   10920
          MaxLength       =   16
-         TabIndex        =   63
+         TabIndex        =   64
          Tag             =   "Loteproducido|T|S|||vallalmazaraproceso|loteproducido||N|"
          Top             =   2760
          Width           =   2265
@@ -295,7 +317,7 @@ Begin VB.Form frmVallAlmazara
          Index           =   14
          Left            =   13560
          MaxLength       =   10
-         TabIndex        =   61
+         TabIndex        =   62
          Tag             =   "Litros|N|S|||vallalmazaraproceso|litros|#,##0.00|N|"
          Top             =   2760
          Width           =   1185
@@ -306,7 +328,7 @@ Begin VB.Form frmVallAlmazara
          Index           =   13
          Left            =   15360
          MaxLength       =   10
-         TabIndex        =   56
+         TabIndex        =   57
          Tag             =   "Kilos|N|S|||vallalmazaraproceso|kilos|#,##0.00|N|"
          Top             =   2760
          Width           =   1185
@@ -317,7 +339,7 @@ Begin VB.Form frmVallAlmazara
          Index           =   12
          Left            =   9720
          MaxLength       =   10
-         TabIndex        =   5
+         TabIndex        =   6
          Tag             =   "Dep|N|S|0||vallalmazaraproceso|deposito|00|N|"
          Top             =   2760
          Width           =   825
@@ -326,19 +348,19 @@ Begin VB.Form frmVallAlmazara
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   11
-         Left            =   7680
+         Left            =   7920
          MaxLength       =   10
-         TabIndex        =   4
+         TabIndex        =   5
          Tag             =   "Hora fin|H|S|||vallalmazaraproceso|HoraFin|hh:nn:ss|N|"
          Top             =   2760
-         Width           =   1545
+         Width           =   1425
       End
       Begin VB.ComboBox cboAlmazara 
          Height          =   315
          Index           =   3
          Left            =   3960
          Style           =   2  'Dropdown List
-         TabIndex        =   15
+         TabIndex        =   16
          Tag             =   "Aspecto|N|S|||vallalmazaraproceso|CantidadSobreNada|||"
          Top             =   2880
          Width           =   1935
@@ -348,7 +370,7 @@ Begin VB.Form frmVallAlmazara
          Index           =   2
          Left            =   3960
          Style           =   2  'Dropdown List
-         TabIndex        =   14
+         TabIndex        =   15
          Tag             =   "Aspecto|N|S|||vallalmazaraproceso|AspectoMasa|||"
          Top             =   2400
          Width           =   1935
@@ -360,7 +382,7 @@ Begin VB.Form frmVallAlmazara
          Left            =   15360
          Locked          =   -1  'True
          MaxLength       =   10
-         TabIndex        =   12
+         TabIndex        =   13
          Tag             =   "Temp. caldera |N|S|||vallalmazaraproceso|AguaDecanter|#0.00|N|"
          Top             =   360
          Width           =   945
@@ -370,7 +392,7 @@ Begin VB.Form frmVallAlmazara
          Index           =   1
          Left            =   3960
          Style           =   2  'Dropdown List
-         TabIndex        =   13
+         TabIndex        =   14
          Tag             =   "Aspecto|N|S|||vallalmazaraproceso|AspectoSalida|||"
          Top             =   1920
          Width           =   1935
@@ -382,7 +404,7 @@ Begin VB.Form frmVallAlmazara
          Left            =   13560
          Locked          =   -1  'True
          MaxLength       =   15
-         TabIndex        =   11
+         TabIndex        =   12
          Tag             =   "Fecha producción|T|S|||vallalmazaraproceso|numlote|||"
          Top             =   360
          Width           =   1185
@@ -394,7 +416,7 @@ Begin VB.Form frmVallAlmazara
          Left            =   12120
          Locked          =   -1  'True
          MaxLength       =   10
-         TabIndex        =   10
+         TabIndex        =   11
          Tag             =   "Dosis |N|S||100|vallalmazaraproceso|Dosis|#0.00|N|"
          Top             =   360
          Width           =   945
@@ -406,7 +428,7 @@ Begin VB.Form frmVallAlmazara
          Left            =   7440
          Locked          =   -1  'True
          MaxLength       =   10
-         TabIndex        =   9
+         TabIndex        =   10
          Tag             =   "Temp. caldera |N|S|||vallalmazaraproceso|TempMasa|#0.00|N|"
          Top             =   1080
          Width           =   945
@@ -418,7 +440,7 @@ Begin VB.Form frmVallAlmazara
          Left            =   6240
          Locked          =   -1  'True
          MaxLength       =   10
-         TabIndex        =   8
+         TabIndex        =   9
          Tag             =   "Temp. caldera |N|S|||vallalmazaraproceso|TempAceite|#0.00|N|"
          Top             =   1080
          Width           =   945
@@ -430,7 +452,7 @@ Begin VB.Form frmVallAlmazara
          Left            =   1200
          Locked          =   -1  'True
          MaxLength       =   40
-         TabIndex        =   43
+         TabIndex        =   44
          Text            =   "nomArtic"
          Top             =   1080
          Width           =   3525
@@ -442,7 +464,7 @@ Begin VB.Form frmVallAlmazara
          Left            =   240
          Locked          =   -1  'True
          MaxLength       =   10
-         TabIndex        =   6
+         TabIndex        =   7
          Tag             =   "Trabajador almazara|N|N|||vallalmazaraproceso|codtrabaAlm|0000|N|"
          Top             =   1080
          Width           =   825
@@ -451,10 +473,10 @@ Begin VB.Form frmVallAlmazara
          BackColor       =   &H80000018&
          Height          =   315
          Index           =   5
-         Left            =   5880
+         Left            =   6840
          Locked          =   -1  'True
          MaxLength       =   40
-         TabIndex        =   41
+         TabIndex        =   42
          Text            =   "nomArtic"
          Top             =   360
          Width           =   4245
@@ -466,7 +488,7 @@ Begin VB.Form frmVallAlmazara
          Left            =   4920
          Locked          =   -1  'True
          MaxLength       =   10
-         TabIndex        =   7
+         TabIndex        =   8
          Tag             =   "Temp. caldera |N|S|||vallalmazaraproceso|TempCaldera|#0.00|N|"
          Top             =   1080
          Width           =   1065
@@ -474,9 +496,9 @@ Begin VB.Form frmVallAlmazara
       Begin VB.ComboBox cboAlmazara 
          Height          =   315
          Index           =   0
-         Left            =   3240
+         Left            =   4200
          Style           =   2  'Dropdown List
-         TabIndex        =   2
+         TabIndex        =   3
          Tag             =   "Tipo oliva|N|N|||vallalmazaraproceso|tipoOliva|||"
          Top             =   360
          Width           =   1335
@@ -485,10 +507,10 @@ Begin VB.Form frmVallAlmazara
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   4
-         Left            =   4920
+         Left            =   5880
          Locked          =   -1  'True
          MaxLength       =   10
-         TabIndex        =   3
+         TabIndex        =   4
          Tag             =   "Operario recep|N|N|||vallalmazaraproceso|codtrabaRec|0000||"
          Top             =   360
          Width           =   825
@@ -500,7 +522,7 @@ Begin VB.Form frmVallAlmazara
          MaxLength       =   255
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
-         TabIndex        =   16
+         TabIndex        =   17
          Tag             =   "Obs|T|S|||vallalmazaraproceso|Observa|||"
          Top             =   1080
          Width           =   7545
@@ -509,7 +531,7 @@ Begin VB.Form frmVallAlmazara
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   1
-         Left            =   1590
+         Left            =   1350
          MaxLength       =   10
          TabIndex        =   1
          Tag             =   "Fecha creación|F|N|||vallalmazaraproceso|fecha|dd/mm/yyyy|N|"
@@ -527,14 +549,41 @@ Begin VB.Form frmVallAlmazara
          Tag             =   "Nº proc almazara|N|S|0||vallalmazaraproceso|id|00000|S|"
          Text            =   "Text1 7"
          Top             =   360
-         Width           =   1125
+         Width           =   885
+      End
+      Begin VB.Label Label1 
+         Caption         =   "Fecha fin"
+         Height          =   255
+         Index           =   22
+         Left            =   6480
+         TabIndex        =   69
+         Top             =   2490
+         Width           =   1335
+      End
+      Begin VB.Label Label1 
+         Caption         =   "Hora inicio"
+         Height          =   255
+         Index           =   21
+         Left            =   2760
+         TabIndex        =   67
+         Top             =   120
+         Width           =   855
+      End
+      Begin VB.Label Label1 
+         Caption         =   "Hora fin"
+         Height          =   255
+         Index           =   20
+         Left            =   2880
+         TabIndex        =   66
+         Top             =   360
+         Width           =   1335
       End
       Begin VB.Label Label1 
          Caption         =   "Lote producido"
          Height          =   255
          Index           =   18
          Left            =   10920
-         TabIndex        =   64
+         TabIndex        =   65
          Top             =   2490
          Width           =   2175
       End
@@ -543,7 +592,7 @@ Begin VB.Form frmVallAlmazara
          Height          =   255
          Index           =   19
          Left            =   13560
-         TabIndex        =   62
+         TabIndex        =   63
          Top             =   2490
          Width           =   1335
       End
@@ -552,22 +601,22 @@ Begin VB.Form frmVallAlmazara
          Height          =   255
          Index           =   17
          Left            =   15360
-         TabIndex        =   57
+         TabIndex        =   58
          Top             =   2490
          Width           =   855
       End
       Begin VB.Shape Shape1 
          Height          =   735
-         Left            =   7320
+         Left            =   6240
          Top             =   2400
-         Width           =   9615
+         Width           =   10695
       End
       Begin VB.Label Label1 
          Caption         =   "Deposito"
          Height          =   255
          Index           =   16
          Left            =   9720
-         TabIndex        =   55
+         TabIndex        =   56
          Top             =   2490
          Width           =   855
       End
@@ -575,8 +624,8 @@ Begin VB.Form frmVallAlmazara
          Caption         =   "Hora fin"
          Height          =   255
          Index           =   15
-         Left            =   7800
-         TabIndex        =   54
+         Left            =   7920
+         TabIndex        =   55
          Top             =   2490
          Width           =   1335
       End
@@ -585,7 +634,7 @@ Begin VB.Form frmVallAlmazara
          Height          =   255
          Index           =   13
          Left            =   240
-         TabIndex        =   53
+         TabIndex        =   54
          Top             =   2880
          Width           =   3495
       End
@@ -594,7 +643,7 @@ Begin VB.Form frmVallAlmazara
          Height          =   255
          Index           =   12
          Left            =   240
-         TabIndex        =   52
+         TabIndex        =   53
          Top             =   2400
          Width           =   3495
       End
@@ -604,7 +653,7 @@ Begin VB.Form frmVallAlmazara
          Height          =   195
          Index           =   11
          Left            =   15240
-         TabIndex        =   51
+         TabIndex        =   52
          Top             =   120
          Width           =   1050
       End
@@ -613,7 +662,7 @@ Begin VB.Form frmVallAlmazara
          Height          =   255
          Index           =   10
          Left            =   240
-         TabIndex        =   50
+         TabIndex        =   51
          Top             =   1920
          Width           =   3495
       End
@@ -623,7 +672,7 @@ Begin VB.Form frmVallAlmazara
          Height          =   195
          Index           =   9
          Left            =   13560
-         TabIndex        =   49
+         TabIndex        =   50
          Top             =   120
          Width           =   315
       End
@@ -641,8 +690,8 @@ Begin VB.Form frmVallAlmazara
          EndProperty
          Height          =   195
          Index           =   8
-         Left            =   11280
-         TabIndex        =   48
+         Left            =   11400
+         TabIndex        =   49
          Top             =   120
          Width           =   495
       End
@@ -652,7 +701,7 @@ Begin VB.Form frmVallAlmazara
          Height          =   195
          Index           =   2
          Left            =   12120
-         TabIndex        =   47
+         TabIndex        =   48
          Top             =   120
          Width           =   390
       End
@@ -662,7 +711,7 @@ Begin VB.Form frmVallAlmazara
          Height          =   195
          Index           =   7
          Left            =   7440
-         TabIndex        =   46
+         TabIndex        =   47
          Top             =   840
          Width           =   870
       End
@@ -672,7 +721,7 @@ Begin VB.Form frmVallAlmazara
          Height          =   195
          Index           =   6
          Left            =   6240
-         TabIndex        =   45
+         TabIndex        =   46
          Top             =   840
          Width           =   930
       End
@@ -682,7 +731,7 @@ Begin VB.Form frmVallAlmazara
          Height          =   195
          Index           =   5
          Left            =   4920
-         TabIndex        =   44
+         TabIndex        =   45
          Top             =   840
          Width           =   1020
       End
@@ -691,7 +740,7 @@ Begin VB.Form frmVallAlmazara
          Height          =   195
          Index           =   4
          Left            =   240
-         TabIndex        =   42
+         TabIndex        =   43
          Top             =   840
          Width           =   1350
       End
@@ -708,15 +757,15 @@ Begin VB.Form frmVallAlmazara
          Caption         =   "Tipo oliva"
          Height          =   255
          Index           =   3
-         Left            =   3240
-         TabIndex        =   40
+         Left            =   4200
+         TabIndex        =   41
          Top             =   120
          Width           =   1215
       End
       Begin VB.Image imgBuscar 
          Height          =   240
          Index           =   0
-         Left            =   6360
+         Left            =   7320
          Picture         =   "frmVallAlmazara.frx":0114
          ToolTipText     =   "Buscar Nº Serie"
          Top             =   120
@@ -726,8 +775,8 @@ Begin VB.Form frmVallAlmazara
          Caption         =   "Operario recepción"
          Height          =   195
          Index           =   1
-         Left            =   4920
-         TabIndex        =   36
+         Left            =   5880
+         TabIndex        =   37
          Top             =   120
          Width           =   1350
       End
@@ -736,23 +785,23 @@ Begin VB.Form frmVallAlmazara
          Height          =   255
          Index           =   0
          Left            =   8760
-         TabIndex        =   35
+         TabIndex        =   36
          Top             =   840
          Width           =   1215
       End
       Begin VB.Label Label1 
-         Caption         =   "Fecha"
+         Caption         =   "Fecha inicio"
          Height          =   255
          Index           =   14
-         Left            =   1590
-         TabIndex        =   32
-         Top             =   165
+         Left            =   1350
+         TabIndex        =   33
+         Top             =   120
          Width           =   855
       End
       Begin VB.Image imgFecha 
          Height          =   240
          Index           =   0
-         Left            =   2520
+         Left            =   2280
          Picture         =   "frmVallAlmazara.frx":0216
          ToolTipText     =   "Buscar fecha"
          Top             =   120
@@ -763,8 +812,8 @@ Begin VB.Form frmVallAlmazara
          Height          =   255
          Index           =   50
          Left            =   240
-         TabIndex        =   31
-         Top             =   165
+         TabIndex        =   32
+         Top             =   120
          Width           =   735
       End
    End
@@ -772,7 +821,7 @@ Begin VB.Form frmVallAlmazara
       Height          =   475
       Index           =   0
       Left            =   0
-      TabIndex        =   26
+      TabIndex        =   27
       Top             =   7935
       Width           =   2175
       Begin VB.Label lblIndicador 
@@ -780,7 +829,7 @@ Begin VB.Form frmVallAlmazara
          Caption         =   "Label2"
          Height          =   240
          Left            =   240
-         TabIndex        =   27
+         TabIndex        =   28
          Top             =   180
          Width           =   1755
       End
@@ -790,7 +839,7 @@ Begin VB.Form frmVallAlmazara
       Caption         =   "&Cancelar"
       Height          =   375
       Left            =   16080
-      TabIndex        =   23
+      TabIndex        =   24
       Top             =   7920
       Width           =   1035
    End
@@ -798,7 +847,7 @@ Begin VB.Form frmVallAlmazara
       Caption         =   "&Aceptar"
       Height          =   375
       Left            =   14760
-      TabIndex        =   22
+      TabIndex        =   23
       Top             =   7920
       Width           =   1035
    End
@@ -853,7 +902,7 @@ Begin VB.Form frmVallAlmazara
       Align           =   1  'Align Top
       Height          =   420
       Left            =   0
-      TabIndex        =   28
+      TabIndex        =   29
       Top             =   0
       Width           =   17415
       _ExtentX        =   30718
@@ -959,7 +1008,7 @@ Begin VB.Form frmVallAlmazara
          Caption         =   "Vista previa"
          Height          =   195
          Left            =   7800
-         TabIndex        =   29
+         TabIndex        =   30
          Top             =   120
          Width           =   1215
       End
@@ -1015,7 +1064,7 @@ Begin VB.Form frmVallAlmazara
       Caption         =   "&Regresar"
       Height          =   375
       Left            =   16080
-      TabIndex        =   25
+      TabIndex        =   26
       Top             =   7920
       Visible         =   0   'False
       Width           =   1035
@@ -1024,7 +1073,7 @@ Begin VB.Form frmVallAlmazara
       Bindings        =   "frmVallAlmazara.frx":02A1
       Height          =   3120
       Left            =   120
-      TabIndex        =   33
+      TabIndex        =   34
       Top             =   4440
       Width           =   11415
       _ExtentX        =   20135
@@ -1103,7 +1152,7 @@ Begin VB.Form frmVallAlmazara
       EndProperty
       Height          =   240
       Left            =   11880
-      TabIndex        =   38
+      TabIndex        =   39
       Top             =   4080
       Width           =   1530
    End
@@ -1120,7 +1169,7 @@ Begin VB.Form frmVallAlmazara
       EndProperty
       Height          =   255
       Left            =   120
-      TabIndex        =   39
+      TabIndex        =   40
       Top             =   3960
       Width           =   3375
    End
@@ -1936,7 +1985,7 @@ Dim Indice As Byte
         Indice = IIf(Index = 0, 4, 6)
         Text1(Index).Text = RecuperaValor(CadenaConsulta, 1)
         Indice = IIf(Index = 0, 5, 0)
-        Text2(Indice).Text = RecuperaValor(CadenaConsulta, 2)
+        text2(Indice).Text = RecuperaValor(CadenaConsulta, 2)
         CadenaConsulta = ""
     End If
     
@@ -2092,7 +2141,8 @@ Dim Devuelve As String
             If Text1(Index).Text = "" Then Exit Sub
             PonerFormatoFecha Text1(Index)
             
-            
+        Case 17
+            PonerFormatoHora Text1(Index)
     
         Case 4, 6 '
             Devuelve = ""
@@ -2102,7 +2152,7 @@ Dim Devuelve As String
                     If Devuelve = "" Then MsgBox "No existe trabajador " & Text1(Index).Text, vbExclamation
                 End If
             End If
-            Text2(IIf(Index = 4, 5, 0)).Text = Devuelve
+            text2(IIf(Index = 4, 5, 0)).Text = Devuelve
             
         Case 2, 5, 7, 8, 10
              
@@ -2268,8 +2318,8 @@ On Error Resume Next
     If Data1.Recordset.EOF Then Exit Sub
     PonerCamposForma Me, Data1
     
-    If Text1(4).Text <> "" Then Text2(5).Text = DevuelveDesdeBD(conAri, "nomtraba", "straba", "CodTraba", Text1(4).Text)
-    If Text1(6).Text <> "" Then Text2(0).Text = DevuelveDesdeBD(conAri, "nomtraba", "straba", "CodTraba", Text1(6).Text)
+    If Text1(4).Text <> "" Then text2(5).Text = DevuelveDesdeBD(conAri, "nomtraba", "straba", "CodTraba", Text1(4).Text)
+    If Text1(6).Text <> "" Then text2(0).Text = DevuelveDesdeBD(conAri, "nomtraba", "straba", "CodTraba", Text1(6).Text)
        
     PonerCamposLineas 'Pone los datos de las tablas de lineas de Ofertas
     
@@ -2320,16 +2370,18 @@ Dim b As Boolean
     'Campo ID, fechafin y deposito siempre bloqueado, excepto si estamos en modo de busqueda
     b = (Modo <> 1)
     BloquearTxt Text1(0), b, True
-    For NumReg_ = 11 To 15
+    For NumReg_ = 11 To 16
         BloquearTxt Text1(NumReg_), b
     Next
+    BloquearTxt Text1(NumReg_), b
+    
     
     b = Modo = 0 Or Modo = 2 Or Modo >= 5
     For NumReg_ = 1 To 10
         If NumReg_ < 5 Then BloquearCmb cboAlmazara(NumReg_ - 1), b
         BloquearTxt Text1(NumReg_), b
     Next
-    
+    BloquearTxt Text1(17), b
     Me.imgFecha(i).Enabled = Not b
     
     

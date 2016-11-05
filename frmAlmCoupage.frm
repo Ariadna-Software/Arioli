@@ -865,6 +865,20 @@ Private Sub cmdCancelar_Click()
 End Sub
 
 
+Private Sub PonerLote()
+        CadenaConsulta = DevuelveDesdeBD(conAri, "contador + 1", "stipom", "codtipom", "LOV", "T")
+        Text1(5).Text = "MOSTRA" & CadenaConsulta & "-"
+        
+        CadenaConsulta = Text1(1).Text
+        If CadenaConsulta = "" Then CadenaConsulta = Now
+        If Month(CDate(CadenaConsulta)) < 10 Then
+            Text1(5).Text = Text1(5).Text & Year(Now) - 1
+        Else
+            Text1(5).Text = Text1(5).Text & Year(Now)
+        End If
+End Sub
+
+
 Private Sub BotonAnyadir()
 'Añadir registro en tabla de cabecera de Pedidos: scaped (Cabecera)
 Dim NomTraba As String
@@ -878,8 +892,8 @@ Dim NomTraba As String
     
     If vParamAplic.QUE_EMPRESA = 4 Then
         'Para La Vall,cogera el LOV
-        CadenaConsulta = DevuelveDesdeBD(conAri, "contador + 1", "stipom", "codtipom", "LOV", "T")
-        Text1(5).Text = "MOSTRA" & CadenaConsulta
+        PonerLote
+        
         'Codalmac
         Text1(4).Text = "1"
         Text2(1).Text = DevuelveDesdeBD(conAri, "nomalmac", "salmpr", "codalmac", Text1(4).Text)
@@ -1539,7 +1553,7 @@ Dim vArtic As CArticulo
             If Text1(Index).Text = "" Then Exit Sub
             
             PonerFormatoFecha Text1(Index)
-            
+            If Modo = 3 Then PonerLote
         Case 2
             
             Text2(0).Text = ""

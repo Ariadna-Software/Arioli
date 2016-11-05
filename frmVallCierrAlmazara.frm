@@ -19,13 +19,35 @@ Begin VB.Form frmVallCierrAlmazara
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
+   Begin VB.TextBox Text1 
+      Alignment       =   1  'Right Justify
+      Height          =   315
+      Index           =   1
+      Left            =   10680
+      MaxLength       =   10
+      TabIndex        =   18
+      Tag             =   "Hora fin|H|S|||vallalmazaraproceso|HoraFin|hh:nn:ss|N|"
+      Top             =   720
+      Width           =   1305
+   End
+   Begin VB.TextBox Text1 
+      Alignment       =   1  'Right Justify
+      Height          =   315
+      Index           =   0
+      Left            =   9360
+      MaxLength       =   10
+      TabIndex        =   17
+      Tag             =   "Hora fin|H|S|||vallalmazaraproceso|HoraFin|hh:nn:ss|N|"
+      Top             =   720
+      Width           =   1305
+   End
    Begin VB.TextBox txtLote 
       Alignment       =   2  'Center
       BackColor       =   &H80000018&
       Height          =   315
       Left            =   4200
       Locked          =   -1  'True
-      TabIndex        =   16
+      TabIndex        =   15
       Text            =   "Text2"
       Top             =   720
       Width           =   1965
@@ -37,9 +59,9 @@ Begin VB.Form frmVallCierrAlmazara
       Index           =   1
       Left            =   11760
       Locked          =   -1  'True
-      TabIndex        =   13
+      TabIndex        =   12
       Text            =   "Text2"
-      Top             =   5160
+      Top             =   5280
       Width           =   1245
    End
    Begin VB.TextBox Text2 
@@ -51,14 +73,14 @@ Begin VB.Form frmVallCierrAlmazara
       Locked          =   -1  'True
       TabIndex        =   3
       Text            =   "Text2"
-      Top             =   5160
+      Top             =   5280
       Width           =   1245
    End
    Begin VB.ComboBox Combo1 
       Height          =   315
       Left            =   1320
       Style           =   2  'Dropdown List
-      TabIndex        =   12
+      TabIndex        =   11
       Top             =   720
       Width           =   2055
    End
@@ -91,7 +113,7 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   540
       Index           =   0
       Left            =   120
-      TabIndex        =   8
+      TabIndex        =   7
       Top             =   5595
       Width           =   3255
       Begin VB.Label lblIndicador 
@@ -99,7 +121,7 @@ Begin VB.Form frmVallCierrAlmazara
          Caption         =   "Label2"
          Height          =   240
          Left            =   240
-         TabIndex        =   9
+         TabIndex        =   8
          Top             =   180
          Width           =   2355
       End
@@ -280,6 +302,15 @@ Begin VB.Form frmVallCierrAlmazara
       EndProperty
       _Version        =   393216
    End
+   Begin VB.Label Label1 
+      Caption         =   "Fecha - Hora finalización"
+      Height          =   195
+      Index           =   2
+      Left            =   7440
+      TabIndex        =   19
+      Top             =   720
+      Width           =   1755
+   End
    Begin VB.Label Label2 
       Alignment       =   1  'Right Justify
       Caption         =   "Litros"
@@ -295,8 +326,8 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   255
       Index           =   1
       Left            =   10680
-      TabIndex        =   17
-      Top             =   5160
+      TabIndex        =   16
+      Top             =   5280
       Width           =   975
    End
    Begin VB.Label Label1 
@@ -304,7 +335,7 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   375
       Index           =   1
       Left            =   3720
-      TabIndex        =   15
+      TabIndex        =   14
       Top             =   720
       Width           =   615
    End
@@ -322,8 +353,8 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   255
       Index           =   0
       Left            =   8400
-      TabIndex        =   14
-      Top             =   5160
+      TabIndex        =   13
+      Top             =   5280
       Width           =   615
    End
    Begin VB.Label Label1 
@@ -331,34 +362,16 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   255
       Index           =   0
       Left            =   120
-      TabIndex        =   11
+      TabIndex        =   10
       Top             =   720
       Width           =   975
    End
    Begin VB.Label lblInfInv 
       Height          =   255
       Left            =   3600
-      TabIndex        =   10
+      TabIndex        =   9
       Top             =   5760
       Width           =   2055
-   End
-   Begin VB.Label Label10 
-      Caption         =   "Cargando datos ........."
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   255
-      Left            =   240
-      TabIndex        =   7
-      Top             =   8220
-      Visible         =   0   'False
-      Width           =   3495
    End
 End
 Attribute VB_Name = "frmVallCierrAlmazara"
@@ -406,7 +419,17 @@ Dim cad As String
                     MsgBox "Seleccione el deposito destino", vbExclamation
                     cad = "No"
                 Else
-                    cad = ""
+                    If Trim(Text1(0).Text) = "" Or Trim(Text1(1).Text) = "" Then
+                        MsgBox "Indique la fecha y hora de la finalizacion del proceso", vbExclamation
+                        cad = "NO"
+                    Else
+                        If CDate(Text1(0).Text) < vParamAplic.FechaActiva Then
+                            MsgBox "Menor que fecha activa", vbExclamation
+                            cad = "NO"
+                        Else
+                            cad = ""
+                        End If
+                    End If
                 End If
             End If
             
@@ -432,9 +455,14 @@ Dim cad As String
                 cad = cad & vbCrLf & "Litros deposito: " & Format(CadenaConsulta, FormatoCantidad) & "   Maximo: " & miRsAux!Capacidad
                 CadenaConsulta = CCur(CadenaConsulta) + ImporteFormateado(Text2(1).Text)
                 If CCur(CadenaConsulta) > miRsAux!Capacidad Then cad = cad & vbCrLf & "         --EXCEDE--"
+                
+                'Fecha hora
+                cad = cad & vbCrLf & "FIN proceso: " & Text1(0).Text & " " & Text1(1).Text
+                
+                
                 miRsAux.Close
                 Set miRsAux = Nothing
-                cad = cad & vbCrLf & vbCrLf & "¿Cerrar proceso almazara?"
+                cad = cad & vbCrLf & vbCrLf & vbCrLf & "¿Cerrar proceso almazara?"
                 If MsgBox(cad, vbQuestion + vbYesNoCancel) = vbYes Then
                     NumRegElim = 0
                     'hacemos el proceso de obtencion de aceite
@@ -689,6 +717,20 @@ End Sub
 
 Private Sub ImageCombo1_Change()
 
+End Sub
+
+
+
+Private Sub Text1_KeyPress(Index As Integer, KeyAscii As Integer)
+    KEYpressGnral KeyAscii, 3, False
+End Sub
+
+Private Sub Text1_LostFocus(Index As Integer)
+    If Index = 0 Then
+        PonerFormatoFecha Text1(0)
+    Else
+        PonerFormatoHora Text1(1)
+    End If
 End Sub
 
 Private Sub txtAux_GotFocus()
@@ -968,7 +1010,7 @@ Dim KilosTotales As Currency
         CP1.NUmlote = vT.ConseguirContador(vT.TipoMovimiento)
         
         CP1.NUmlote = "MOSTRA" & CP1.NUmlote & "-"
-        If Month(Now) < 11 Then
+        If Month(Now) < 10 Then
             CP1.NUmlote = CP1.NUmlote & Year(Now) - 1
         Else
             CP1.NUmlote = CP1.NUmlote & Year(Now)
@@ -1158,7 +1200,7 @@ Dim KilosTotales As Currency
         Set cP2 = New cPartidas
         cP2.NUmlote = vT.ConseguirContador(vT.TipoMovimiento)
         cP2.NUmlote = "MOSTRA" & cP2.NUmlote & "-"
-        If Month(Now) < 11 Then
+        If Month(Now) < 10 Then
             cP2.NUmlote = cP2.NUmlote & Year(Now) - 1
         Else
             cP2.NUmlote = cP2.NUmlote & Year(Now)

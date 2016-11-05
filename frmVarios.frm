@@ -14,15 +14,36 @@ Begin VB.Form frmVarios
    ScaleWidth      =   8955
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame FramePaletMovimImprimir 
-      Height          =   2895
-      Left            =   2160
+      Height          =   3975
+      Left            =   840
       TabIndex        =   112
       Top             =   1080
       Visible         =   0   'False
-      Width           =   5055
-      Begin VB.TextBox Text1 
+      Width           =   6375
+      Begin VB.TextBox txtPalot 
          Height          =   285
-         Left            =   2160
+         Index           =   2
+         Left            =   3600
+         TabIndex        =   122
+         Text            =   "Text1"
+         Top             =   2640
+         Visible         =   0   'False
+         Width           =   1815
+      End
+      Begin VB.TextBox txtPalot 
+         Height          =   285
+         Index           =   1
+         Left            =   3600
+         TabIndex        =   120
+         Text            =   "Text1"
+         Top             =   2160
+         Visible         =   0   'False
+         Width           =   2415
+      End
+      Begin VB.TextBox txtPalot 
+         Height          =   285
+         Index           =   0
+         Left            =   3600
          TabIndex        =   118
          Text            =   "Text1"
          Top             =   1680
@@ -51,24 +72,45 @@ Begin VB.Form frmVarios
       Begin VB.CommandButton cmdImpresionMovPalet 
          Caption         =   "Aceptar"
          Height          =   375
-         Left            =   2400
+         Left            =   3000
          TabIndex        =   114
-         Top             =   2280
+         Top             =   3240
          Width           =   1095
       End
       Begin VB.CommandButton cmdCancelar 
          Caption         =   "Salir"
          Height          =   375
          Index           =   13
-         Left            =   3720
+         Left            =   4680
          TabIndex        =   113
-         Top             =   2280
+         Top             =   3240
          Width           =   1095
+      End
+      Begin VB.Label Label7 
+         Caption         =   "DNI"
+         Height          =   255
+         Index           =   2
+         Left            =   2640
+         TabIndex        =   123
+         Top             =   2640
+         Visible         =   0   'False
+         Width           =   855
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Conductor"
+         Height          =   255
+         Index           =   1
+         Left            =   2640
+         TabIndex        =   121
+         Top             =   2160
+         Visible         =   0   'False
+         Width           =   855
       End
       Begin VB.Label Label7 
          Caption         =   "Destino"
          Height          =   255
-         Left            =   1320
+         Index           =   0
+         Left            =   2640
          TabIndex        =   119
          Top             =   1680
          Visible         =   0   'False
@@ -1705,7 +1747,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Public opcion As Byte
+Public Opcion As Byte
     ' 0.-   Impresion de facturas directas (tipo 4tonda)
     ' 1.-   Eliminar articulos masiva
     ' 2.-   Estadisticas consultas (archivo-facturacion-pedidos-consulta precio/cliente
@@ -1789,9 +1831,9 @@ Dim NumParam As Integer
             .ConSubInforme = False
             
             If Me.optVarios(0).Value Then
-                .opcion = 2022
+                .Opcion = 2022
             Else
-                .opcion = 2023
+                .Opcion = 2023
             End If
             
 
@@ -1914,14 +1956,14 @@ End Sub
 
 Private Sub cmdCancelar_Click(Index As Integer)
     
-    If opcion = 0 Then
+    If Opcion = 0 Then
         'Esta haciendo cosas. Preguntar si cerrar
         If Not SePuedeCerrar Then
             If MsgBox("Seguro que desea finalizar el proceso?", vbQuestion + vbYesNo) = vbYes Then SePuedeCerrar = True
             Exit Sub
         End If
     
-    ElseIf opcion = 5 Or opcion = 6 Or opcion = 11 Or opcion = 12 Then
+    ElseIf Opcion = 5 Or Opcion = 6 Or Opcion = 11 Or Opcion = 12 Then
         CadenaDesdeOtroForm = ""
     End If
     
@@ -2023,7 +2065,7 @@ Private Sub cmdGeneListaRevision_Click()
     
             .SoloImprimir = False
             .EnvioEMail = False
-            .opcion = 2002
+            .Opcion = 2002
             .Titulo = "Listado revision"
             .NombreRPT = "morListaRevision.rpt"
             .ConSubInforme = False
@@ -2050,7 +2092,10 @@ Private Sub cmdImpresionMovPalet_Click()
     NumRegElim = 0
     If Me.optMovPalot(1).Value Then
         Codigo = "vallAlbaDocControlPalot.rpt"
-        Cadparam = "|Destino=""" & Text1.Text & """|"
+         
+        Cadparam = "|Destino=""" & txtPalot(0).Text & """|"
+        Cadparam = Cadparam & "Conductor=""" & txtPalot(1).Text & """|"
+        Cadparam = Cadparam & "DNI=""" & txtPalot(2).Text & """|"
         NumRegElim = 1
     End If
     cad = "{tmprutas.codusu} = " & vUsu.Codigo
@@ -2109,7 +2154,7 @@ Dim Aux As String
 
         .SoloImprimir = False
         .EnvioEMail = False
-        .opcion = 2002
+        .Opcion = 2002
         .Titulo = "Estadistica consultas pedidos"
         .NombreRPT = "rFacConsuPrecioArt.rpt"
         .ConSubInforme = False
@@ -2195,7 +2240,7 @@ Private Sub Form_Activate()
     If PrimeraVez Then
         PrimeraVez = False
         
-        Select Case opcion
+        Select Case Opcion
         Case 0
             'Se pone a imprimir las facturas
             HacerImpresionFacturas
@@ -2253,7 +2298,7 @@ Private Sub Form_Load()
     FrameModificaKilosDeposito.visible = False
     FramePaletMovimImprimir.visible = False
     
-    Select Case opcion
+    Select Case Opcion
     Case 0
         PonerFrameVisible Me.FrameImpresionFacturasDirectas
     Case 1
@@ -2296,10 +2341,10 @@ Private Sub Form_Load()
     Case 13
         PonerFrameVisible FramePaletMovimImprimir
         
-        Text1.Text = DevuelveDesdeBD(conAri, "pobclien", "tmprutas", "codusu", CStr(vUsu.Codigo))
+        txtPalot(0).Text = DevuelveDesdeBD(conAri, "pobclien", "tmprutas", "codusu", CStr(vUsu.Codigo))
         
     End Select
-    cmdCancelar(opcion).Cancel = True
+    cmdCancelar(Opcion).Cancel = True
     SePuedeCerrar = True
 End Sub
 
@@ -2435,8 +2480,10 @@ Private Sub imgFecha_Click(Index As Integer)
 End Sub
 
 Private Sub optMovPalot_Click(Index As Integer)
-    Label7.visible = optMovPalot(1).Value
-    Text1.visible = optMovPalot(1).Value
+    For NumRegElim = 0 To 2
+        Label7(NumRegElim).visible = optMovPalot(1).Value
+        txtPalot(NumRegElim).visible = optMovPalot(1).Value
+    Next
 End Sub
 
 Private Sub txtArt_GotFocus(Index As Integer)
@@ -2526,7 +2573,7 @@ Dim clmX As ColumnHeader
     ListView1.ListItems.Clear
     ListView1.ColumnHeaders.Clear
     
-    Select Case opcion
+    Select Case Opcion
 
     Case 1
         Me.ListView1.Checkboxes = True

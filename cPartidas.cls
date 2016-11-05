@@ -515,9 +515,10 @@ Dim J As Integer
     Set RS = New ADODB.Recordset
 
     
-    For J = 1 To 13
+    For J = 1 To 14
         'olicoupage,olicoupagelinlotes , slialblotes, slifaclotes, sliordpr2lotes, sliordprlotes, slialp,
         'slifpc,slhmov,prodtrazalin,prodtrazcompo,smovalotes, smovallotes para MLTs
+        '
         LoteEnTabla2 J
     Next
     Set RS = Nothing
@@ -800,6 +801,16 @@ Dim SumaLotes As Boolean
         miSQL = miSQL & " detamovi='MLT' AND codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
         miSQL = miSQL & " and smovalotes.codalmac = " & mCodalmac
         SumaLotes = True
+        
+    Case 14
+        Desc = "'TRASIEGO'"
+      
+        miSQL = "select document clave,if(tipomovi=1,cantidad,-cantidad) cantmostrar,fechamov mifecha ,codprocliope idRefd,nomtraba vRefd"
+        miSQL = miSQL & " FROM smovalotes left join straba on codtraba=codprocliope WHERE  "
+        miSQL = miSQL & " detamovi='TRO' AND codartic = " & DBSet(mCodartic, "T") & " AND numlote = " & DBSet(mNumlote, "T")
+        miSQL = miSQL & " and smovalotes.codalmac = " & mCodalmac
+        SumaLotes = True
+        
         
     End Select
     RS.Open miSQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
@@ -1555,7 +1566,7 @@ Dim MiNivel As Integer
 Dim Embasado As Boolean
 Dim Produccion As Long
 Dim RCompo As ADODB.Recordset
-Dim Cad As String
+Dim cad As String
 Dim Art1 As String
 
 
@@ -1570,36 +1581,36 @@ Dim LinProd As Integer
     vContador = 0
     'Vamos por caso
     'Si es materia embasada:
-    Cad = DevuelveDesdeBD(conAri, "conjunto", "sartic", "codartic", Me.codartic, "T")
-    If Cad = "" Then Cad = "0"
-    Embasado = Cad = "1"
+    cad = DevuelveDesdeBD(conAri, "conjunto", "sartic", "codartic", Me.codartic, "T")
+    If cad = "" Then cad = "0"
+    Embasado = cad = "1"
     
     If Embasado Then
     
         'Proceso de envasado
         ' vemos la produccion donde esta
         SQL = "codalmac"
-        Cad = "codartic ='" & codartic & "' and numlote"
-        Cad = DevuelveDesdeBD(conAri, "codigo", "sliordprlotes", Cad, Me.NUmlote, "T", SQL)
+        cad = "codartic ='" & codartic & "' and numlote"
+        cad = DevuelveDesdeBD(conAri, "codigo", "sliordprlotes", cad, Me.NUmlote, "T", SQL)
         Encontrado = False
         BUscarEnNuevaProduccion = False
-        If Cad = "" Then
+        If cad = "" Then
             'NO encontramos la produccion
             
             BUscarEnNuevaProduccion = True
         Else
             Encontrado = True
-            Produccion = Val(Cad)
+            Produccion = Val(cad)
             codAlmac = Val(SQL)
         End If
         
         Set RCompo = New ADODB.Recordset
         If BUscarEnNuevaProduccion Then
             'Vemos si hay que buscar en nueva produccion
-            Cad = "select * from prodlin,prodtrazlin,prodtrazcompo where prodtrazlin.codigo=prodtrazcompo.codigo and"
-            Cad = Cad & " prodtrazlin.idlin = prodtrazcompo.idlin And prodtrazlin.Codigo = prodlin.Codigo And prodtrazlin.idlin = prodlin.idlin"
-            Cad = Cad & " AND prodlin.codartic = " & DBSet(codartic, "T") & "  AND prodtrazcompo.lotetraza = " & DBSet(NUmlote, "T")
-            RCompo.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            cad = "select * from prodlin,prodtrazlin,prodtrazcompo where prodtrazlin.codigo=prodtrazcompo.codigo and"
+            cad = cad & " prodtrazlin.idlin = prodtrazcompo.idlin And prodtrazlin.Codigo = prodlin.Codigo And prodtrazlin.idlin = prodlin.idlin"
+            cad = cad & " AND prodlin.codartic = " & DBSet(codartic, "T") & "  AND prodtrazcompo.lotetraza = " & DBSet(NUmlote, "T")
+            RCompo.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             If Not RCompo.EOF Then
                 Encontrado = True
                 Produccion = RCompo!Codigo
@@ -1622,12 +1633,12 @@ Dim LinProd As Integer
                 '   Esta en produccion
             
             
-                Cad = "select * from sliordpr2lotes,sartic  where sliordpr2lotes.codarti2=sartic.codartic"
-                Cad = Cad & " AND codigo=" & Produccion & " and sliordpr2lotes.codartic=" & DBSet(codartic, "T") & " AND codalmac= " & codAlmac
-                Cad = Cad & " ORDER BY FactorConversion desc"
-                RCompo.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                cad = "select * from sliordpr2lotes,sartic  where sliordpr2lotes.codarti2=sartic.codartic"
+                cad = cad & " AND codigo=" & Produccion & " and sliordpr2lotes.codartic=" & DBSet(codartic, "T") & " AND codalmac= " & codAlmac
+                cad = cad & " ORDER BY FactorConversion desc"
+                RCompo.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 While Not RCompo.EOF
-                    Cad = ""
+                    cad = ""
                     
                     If RCompo!FactorConversion <> 1 Then
         
@@ -1650,13 +1661,13 @@ Dim LinProd As Integer
                 
         
             Else
-                Cad = "select prodtrazcompo.*,FactorConversion from prodtrazcompo,sartic where "
-                Cad = Cad & " sartic.codartic=prodtrazcompo.codartic and codigo=" & Produccion
-                Cad = Cad & " and idlin=" & LinProd & " and lotetraza=" & DBSet(NUmlote, "T")
-                Cad = Cad & " ORDER BY FactorConversion desc"
-                RCompo.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                cad = "select prodtrazcompo.*,FactorConversion from prodtrazcompo,sartic where "
+                cad = cad & " sartic.codartic=prodtrazcompo.codartic and codigo=" & Produccion
+                cad = cad & " and idlin=" & LinProd & " and lotetraza=" & DBSet(NUmlote, "T")
+                cad = cad & " ORDER BY FactorConversion desc"
+                RCompo.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 While Not RCompo.EOF
-                    Cad = ""
+                    cad = ""
                     
                     If RCompo!FactorConversion <> 1 Then
         
@@ -1758,7 +1769,7 @@ End Sub
 Private Sub ComprobarAceite(ByRef Art As String, ByRef NLote As String, ComprobarCoupaje As Boolean, Nivel As Integer, ByRef contador As Long)
 Dim T As ADODB.Recordset
 Dim Col As Collection
-Dim I As Integer
+Dim i As Integer
 Dim Seguir As Boolean
 Dim C As String
     'Veo si esta en coupaje
@@ -1797,10 +1808,10 @@ Dim C As String
                     SQL = "CUP " & SQL
                     InsertarLinea SQL, Nivel, Art, NLote, contador, 0, ""
                     Nivel = Nivel + 1
-                    For I = 1 To Col.Count
-                        C = Col.Item(I)
+                    For i = 1 To Col.Count
+                        C = Col.Item(i)
                         ComprobarAceite RecuperaValor(C, 1), RecuperaValor(C, 2), True, Nivel, contador
-                    Next I
+                    Next i
                 End If
                 Set Col = Nothing
                 Seguir = False
@@ -1850,15 +1861,15 @@ End Sub
 '-----------------------------------------------------------------------------------
 '-----------------------------------------------------------------------------------
 Public Sub EstablecerEtiquetas(CuantasEtiquetas As Integer)
-Dim I As Integer
+Dim i As Integer
 
     SQL = "DELETE FROM spartidaslin WHERE id = " & midPartida
     conn.Execute SQL
     If CuantasEtiquetas = 0 Then Exit Sub  'Si no hay salgo
     
     SQL = ""
-    For I = 1 To CuantasEtiquetas
-        SQL = SQL & ", (" & midPartida & "," & I & ",0)"
+    For i = 1 To CuantasEtiquetas
+        SQL = SQL & ", (" & midPartida & "," & i & ",0)"
     Next
     SQL = Mid(SQL, 2) 'QUITO la primera coma
     SQL = "INSERT INTO spartidaslin(id,bulto,cantidad) VALUES " & SQL
@@ -1872,7 +1883,7 @@ End Sub
 
 
 Public Function CuantasEtiquetas() As Integer
-Dim I As Integer
+Dim i As Integer
 
     Set RS = New ADODB.Recordset
     SQL = "select count(*) from spartidaslin WHERE id = " & midPartida
@@ -1886,7 +1897,7 @@ End Function
 
 
 Public Function TieneEtiquetasYAenProduccion() As Boolean
-Dim I As Integer
+Dim i As Integer
 
     Set RS = New ADODB.Recordset
     SQL = "select count(*) from spartidaslin WHERE id = " & midPartida & " AND fechaulizada > '1900-01-01'"

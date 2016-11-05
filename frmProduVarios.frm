@@ -33,99 +33,157 @@ Begin VB.Form frmProduVarios
          Left            =   480
          TabIndex        =   53
          Top             =   2400
-         Width           =   7575
+         Width           =   8055
+         Begin VB.CommandButton cmdLote 
+            Caption         =   "+"
+            Height          =   255
+            Index           =   2
+            Left            =   5160
+            TabIndex        =   70
+            Top             =   1560
+            Width           =   135
+         End
+         Begin VB.CommandButton cmdLote 
+            Caption         =   "+"
+            Height          =   255
+            Index           =   1
+            Left            =   5160
+            TabIndex        =   69
+            Top             =   1080
+            Width           =   135
+         End
+         Begin VB.CommandButton cmdLote 
+            Caption         =   "+"
+            Height          =   255
+            Index           =   0
+            Left            =   5160
+            TabIndex        =   68
+            Top             =   600
+            Width           =   135
+         End
+         Begin VB.TextBox txtLote 
+            Height          =   285
+            Index           =   2
+            Left            =   5280
+            Locked          =   -1  'True
+            TabIndex        =   67
+            Text            =   "Text1"
+            Top             =   1560
+            Width           =   1215
+         End
+         Begin VB.TextBox txtLote 
+            Height          =   285
+            Index           =   1
+            Left            =   5280
+            Locked          =   -1  'True
+            TabIndex        =   66
+            Text            =   "Text1"
+            Top             =   1080
+            Width           =   1215
+         End
+         Begin VB.TextBox txtLote 
+            Height          =   285
+            Index           =   0
+            Left            =   5280
+            Locked          =   -1  'True
+            TabIndex        =   65
+            Text            =   "Text1"
+            Top             =   600
+            Width           =   1215
+         End
          Begin VB.TextBox txtArtFiltrado 
             Height          =   285
             Index           =   5
-            Left            =   1920
+            Left            =   1800
             TabIndex        =   62
             Text            =   "Text1"
             Top             =   1560
-            Width           =   3735
+            Width           =   3255
          End
          Begin VB.TextBox txtArtFiltrado 
             Height          =   285
             Index           =   3
-            Left            =   1920
+            Left            =   1800
             TabIndex        =   61
             Text            =   "Text1"
             Top             =   600
-            Width           =   3735
+            Width           =   3255
          End
          Begin VB.TextBox txtArtFiltrado 
             Height          =   285
             Index           =   2
-            Left            =   360
+            Left            =   120
             TabIndex        =   60
             Text            =   "Text1"
             Top             =   1560
-            Width           =   1215
+            Width           =   1575
          End
          Begin VB.TextBox txtArtFiltrado 
             Height          =   285
             Index           =   1
-            Left            =   360
+            Left            =   120
             TabIndex        =   59
             Text            =   "Text1"
             Top             =   1080
-            Width           =   1215
+            Width           =   1575
          End
          Begin VB.TextBox txtArtFiltrado 
             Height          =   285
             Index           =   0
-            Left            =   360
+            Left            =   120
             TabIndex        =   58
             Text            =   "Text1"
             Top             =   600
-            Width           =   1215
+            Width           =   1575
          End
          Begin VB.TextBox txtArtFiltrado 
             Height          =   285
             Index           =   4
-            Left            =   1920
+            Left            =   1800
             TabIndex        =   57
             Text            =   "Text1"
             Top             =   1080
-            Width           =   3735
+            Width           =   3255
          End
          Begin VB.TextBox txtNumeroDec 
             Alignment       =   1  'Right Justify
             Height          =   285
             Index           =   3
-            Left            =   6000
+            Left            =   6720
             TabIndex        =   39
             Text            =   "Text1"
             Top             =   1560
-            Width           =   1215
+            Width           =   975
          End
          Begin VB.TextBox txtNumeroDec 
             Alignment       =   1  'Right Justify
             Height          =   285
             Index           =   2
-            Left            =   6000
+            Left            =   6720
             TabIndex        =   38
             Text            =   "Text1"
             Top             =   1080
-            Width           =   1215
+            Width           =   975
          End
          Begin VB.TextBox txtNumeroDec 
             Alignment       =   1  'Right Justify
             Height          =   285
             Index           =   1
-            Left            =   6000
+            Left            =   6720
             TabIndex        =   37
             Text            =   "Text1"
             Top             =   600
-            Width           =   1215
+            Width           =   975
          End
          Begin VB.Label Label2 
+            AutoSize        =   -1  'True
             Caption         =   "Kilos"
             Height          =   195
             Index           =   2
-            Left            =   6240
+            Left            =   7080
             TabIndex        =   56
             Top             =   240
-            Width           =   1125
+            Width           =   330
          End
          Begin VB.Label Label2 
             Caption         =   "Descripcion"
@@ -140,7 +198,7 @@ Begin VB.Form frmProduVarios
             Caption         =   "Producto"
             Height          =   195
             Index           =   0
-            Left            =   360
+            Left            =   240
             TabIndex        =   54
             Top             =   240
             Width           =   1125
@@ -810,6 +868,8 @@ Private WithEvents frmC As frmCal
 Attribute frmC.VB_VarHelpID = -1
 Private WithEvents frmB As frmBuscaGrid
 Attribute frmB.VB_VarHelpID = -1
+Private WithEvents frmL As frmAlmPartidas
+Attribute frmL.VB_VarHelpID = -1
 
 Dim cad As String  'multi proposito
 Dim i As Integer
@@ -933,17 +993,24 @@ Private Sub cmdFiltrar_Click()
 Dim C1 As cDeposito
 Dim C2 As cDeposito
 Dim CC As CTiposMov
-Dim FechaHora As Date
+Dim FechaHora2 As Date
 
     cad = ""
     If txtFecha(2).Text = "" Then cad = "-Fecha"
     If vParamAplic.QUE_EMPRESA = 4 Then If Me.txtHora(2).Text = "" Then cad = "   -Hora"
     If cboDeposito(3).ListIndex < 0 Or cboDeposito(4).ListIndex < 0 Then cad = cad & "  -Deposito"
+    For i = 0 To 2
+        
+        If Me.txtArtFiltrado(i).Text <> "" And Me.txtNumeroDec(i + 1).Text <> "" And Me.txtLote(i).Text = "" Then cad = cad & vbCrLf & "  -Lote para " & txtArtFiltrado(i).Text
+    Next
     If cad <> "" Then
         cad = "Campos requeridos: " & vbCrLf & cad
         MsgBox cad, vbExclamation
         Exit Sub
     End If
+        
+        
+        
         
     If CDate(txtFecha(2).Text) < vParamAplic.FechaActiva Then
         MsgBox "Menor que fecha activa", vbExclamation
@@ -990,7 +1057,7 @@ Dim FechaHora As Date
     
     
     'Fecha hora la indica
-    FechaHora = CDate(txtFecha(2).Text & " " & Me.txtHora(2).Text)
+    FechaHora2 = CDate(txtFecha(2).Text & " " & Me.txtHora(2).Text)
     
     If vParamAplic.QUE_EMPRESA = 4 Then
         Me.chkFiltrado(0).Value = 0
@@ -1027,13 +1094,13 @@ Dim FechaHora As Date
         
         If C1.LeerDatos(cboDeposito(4).ItemData(cboDeposito(4).ListIndex), False) Then
             If C2.LeerDatos(cboDeposito(3).ItemData(cboDeposito(3).ListIndex), False) Then
-                C1.HacerFiltrado C2, Me.chkFiltrado(0).Value = 1, Me.chkFiltrado(1).Value = 1, CC.contador + 1, FechaHora
+                C1.HacerFiltrado C2, Me.chkFiltrado(0).Value = 1, Me.chkFiltrado(1).Value = 1, CC.contador + 1, FechaHora2
                 
                 CC.IncrementarContador CC.TipoMovimiento
                 
                 
                 'sfiltradoaceite(idFiltrado,Trabajador,FechaHora,DepositoInicial,DepositoFinal,Kilos,usaAux8,usaAux9,idPartida)
-                cad = "(" & CC.contador & "," & TrabajadorConectado_ & "," & DBSet(FechaHora, "FH") & "," & C1.NumDeposito & ","
+                cad = "(" & CC.contador & "," & TrabajadorConectado_ & "," & DBSet(FechaHora2, "FH") & "," & C1.NumDeposito & ","
                 cad = cad & C2.NumDeposito & "," & DBSet(C2.Kilos, "N") & "," & Abs(Me.chkFiltrado(0).Value)
                 cad = cad & "," & Abs(Me.chkFiltrado(0).Value) & "," & C2.idPartida & ")"
                 cad = "insert into sfiltradoaceite(idFiltrado,Trabajador,FechaHora,DepositoInicial,DepositoFinal,Kilos,usaAux8,usaAux9,idPartida) values " & cad
@@ -1052,7 +1119,7 @@ Dim FechaHora As Date
         'productos filtrado
         If cad = "OK" Then
             '                           el mas uno ya esta hecho
-            HacerStockProductosFiltrados CC.contador, FechaHora
+            HacerStockProductosFiltrados CC.contador, FechaHora2
             
         End If
         
@@ -1070,11 +1137,15 @@ End Sub
 
 Private Sub HacerStockProductosFiltrados(idFil As Long, Fecha As Date)
 Dim vCStock As cStock
+Dim cPar As cPartidas
+Dim cLot As cLotaje
+Dim Aux As String
+Dim Cantidad As Currency
 
     
     
-    
-    Set vCStock = New cStock
+    Set cLot = New cLotaje
+   Set vCStock = New cStock
     vCStock.tipoMov = "S"
     vCStock.DetaMov = "TRO"
     vCStock.Trabajador = TrabajadorConectado_
@@ -1082,6 +1153,14 @@ Dim vCStock As cStock
     vCStock.Fechamov = Format(Fecha, "dd/mm/yyyy")
     vCStock.HoraMov = Fecha
     vCStock.codAlmac = 1
+    
+    
+    cLot.codAlmac = vCStock.codAlmac
+    cLot.DetaMov = vCStock.DetaMov
+    cLot.Fechamov = vCStock.Fechamov
+    cLot.HoraMov = vCStock.HoraMov
+    cLot.Documento = vCStock.Documento
+    cLot.ProvCliTra = vCStock.Trabajador
     
     
     For i = 1 To 3
@@ -1094,11 +1173,36 @@ Dim vCStock As cStock
             If cad = "" Then
                 MsgBox "Error obteniendo articulo filtrado:" & IIf(i = 1, "diatomeasRojas", IIf(i = 2, "diatomeasVerdas", "celulosa")), vbExclamation
             Else
+                
                 vCStock.codartic = RecuperaValor(cad, 1)
                 cad = RecuperaValor(cad, 2)
                 vCStock.Importe = TransformaPuntosComas(cad)
                 vCStock.Importe = vCStock.Importe * vCStock.Cantidad
                 vCStock.ActualizarStock False
+                
+                cLot.codartic = vCStock.codartic
+                
+                Aux = "spartidas.codartic=sartic.codartic"
+                Aux = Aux & " AND spartidas.codartic= " & DBSet(vCStock.codartic, "T") & " AND numlote"
+                cad = DevuelveDesdeBD(conAri, "id", "spartidas,sartic", Aux, Me.txtLote(i - 1).Text, "T")
+                If cad = "" Then
+                    MsgBox "No se encuentra la partida" & Aux, vbExclamation
+                Else
+                    Set cPar = New cPartidas
+                    cPar.Leer CLng(cad)
+                                    
+                                    
+                    cLot.NUmlote = cPar.NUmlote
+        
+                    cLot.Cantidad = vCStock.Cantidad
+                    cLot.LineaDocu = i
+                   
+                    
+                    cLot.InsertarLote
+                
+                    cPar.IncrementarCantidad -vCStock.Cantidad
+                    Set cPar = Nothing
+                End If
             End If
             
         End If
@@ -1145,13 +1249,31 @@ Private Sub cmdImpreFiltrado_Click()
             i = CInt(RecuperaValor(cad, 1))
             
             cad = DevuelveDesdeBDNew(conAri, "scryst", "documrpt", "codcryst", "41", "N")
-            
+ 
             LlamaImprimirGral "{sfiltradoaceite.idFiltrado}=" & i, "", 0, cad, "Filtrado"
             
             
            
         End If
         
+End Sub
+
+Private Sub cmdLote_Click(Index As Integer)
+    If Me.txtArtFiltrado(Index) = "" Then Exit Sub
+    
+    
+    cad = ""
+    Set frmL = New frmAlmPartidas
+    frmL.DatosADevolverBusqueda = txtArtFiltrado(Index).Text
+    frmL.Show vbModal
+    Set frmL = Nothing
+    If cad <> "" Then
+        'Comprobamos cantidad
+        
+        Me.txtLote(Index).Text = RecuperaValor(cad, 1)
+        
+   End If
+    
 End Sub
 
 Private Sub cmdtrasiego_Click()
@@ -1420,6 +1542,10 @@ End Sub
 
 Private Sub frmC_Selec(vFecha As Date)
     txtFecha(i).Text = Format(vFecha, "dd/mm/yyyy")
+End Sub
+
+Private Sub frmL_DatoSeleccionado(CadenaSeleccion As String)
+    cad = CadenaSeleccion
 End Sub
 
 Private Sub imgFecha_Click(Index As Integer)
