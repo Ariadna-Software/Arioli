@@ -195,7 +195,7 @@ End Function
 
 
 Public Function HacerTrasiego(ByRef cDest As cDeposito, MueveLoteCompleto As Boolean, CuantosKilos As Currency, FechaHora As Date) As Boolean
-Dim cP As cPartidas
+Dim Cp As cPartidas
 Dim cL As cLotaje
 Dim vC As CTiposMov
 Dim J As Integer
@@ -219,25 +219,25 @@ Dim J As Integer
     
     Else
         'Va a crear nuevo lotaje, a que no mueve el lote completo
-        Set cP = New cPartidas
+        Set Cp = New cPartidas
         Set cL = New cLotaje
          
         'NO VA A MOVER STOCK, ya que el articulo es el mismo. Lo unico es que lo pasa de un deposito a otro
         'Creando un numero de lote
         
-        cP.Cantidad = CuantosKilos
-        cP.codAlmac = 1
-        cP.codartic = DevuelveDesdeBD(conAri, "codartic", "spartidas", "id", Me.idPartida)
-        cP.codProve = 0
-        cP.Fecha = CDate(FechaHora)
+        Cp.Cantidad = CuantosKilos
+        Cp.codAlmac = 1
+        Cp.codartic = DevuelveDesdeBD(conAri, "codartic", "spartidas", "id", Me.idPartida)
+        Cp.codProve = 0
+        Cp.Fecha = CDate(FechaHora)
         Set vC = New CTiposMov
         If Not vC.Leer("TRS") Then Err.Raise 513, "Conseguir contador"
-        cP.NumAlbar = "TRS" & Format(vC.contador + 1, "0000000")
+        Cp.NumAlbar = "TRS" & Format(vC.contador + 1, "0000000")
                 
         J = InStrRev(Me.NUmlote, "T")
         If J < 5 Then J = 0
         If J > 0 Then
-            Stop
+            
             SQL = Mid(Me.NUmlote, J + 1)
             If Not IsNumeric(SQL) Then Err.Raise "ERROR Obteniendo nuevo lote (Trasiego)"
             SQL = Mid(Me.NUmlote, 1, J) & Val(SQL) + 1
@@ -246,27 +246,27 @@ Dim J As Integer
             SQL = Me.NUmlote & "T1"
         End If
          
-        cP.NUmlote = SQL
-        If Not cP.Insertar Then Err.Raise 513, "Error insertando partidas/lotes: " & cP.codartic
+        Cp.NUmlote = SQL
+        If Not Cp.Insertar Then Err.Raise 513, "Error insertando partidas/lotes: " & Cp.codartic
                                     
         cDest.Kilos = CuantosKilos
-        cDest.idPartida = cP.idPartida
-        cDest.NUmlote = cP.NUmlote
+        cDest.idPartida = Cp.idPartida
+        cDest.NUmlote = Cp.NUmlote
                                     
                                     
         
         cL.DetaMov = vC.TipoMovimiento
-        cL.Documento = cP.NumAlbar
-        cL.Fechamov = cP.Fecha
+        cL.Documento = Cp.NumAlbar
+        cL.Fechamov = Cp.Fecha
         cL.HoraMov = FechaHora
         cL.ProvCliTra = "1"
         cL.LineaDocu = 0
         cL.SubLinea = 0
-        cL.codartic = cP.codartic
-        cL.codAlmac = cP.codAlmac
+        cL.codartic = Cp.codartic
+        cL.codAlmac = Cp.codAlmac
         cL.tipoMov = 1
         cL.Cantidad = CuantosKilos
-        cL.NUmlote = cP.NUmlote
+        cL.NUmlote = Cp.NUmlote
         If Not cL.InsertarLote Then Err.Raise 513, "Insertar lote1"
         
         'Damos de baja en el lote anterior
@@ -275,11 +275,11 @@ Dim J As Integer
         Espera 0.5
         If Not cL.InsertarLote Then Err.Raise 513, "Insertar lote"
         'Damos de baja en la partida
-        Set cP = Nothing
-        Set cP = New cPartidas
-        If Not cP.Leer(Me.idPartida) Then Err.Raise 513, "Error insertando partidas/lotes: " & idPartida
+        Set Cp = Nothing
+        Set Cp = New cPartidas
+        If Not Cp.Leer(Me.idPartida) Then Err.Raise 513, "Error insertando partidas/lotes: " & idPartida
        
-        cP.IncrementarCantidad -CuantosKilos
+        Cp.IncrementarCantidad -CuantosKilos
         
         'Ahora los depositos
         
@@ -307,7 +307,7 @@ Dim J As Integer
     
 eHacerTrasiego:
     If Err.Number <> 0 Then MuestraError Err.Number, Err.Description
-    Set cP = Nothing
+    Set Cp = Nothing
     Set cL = Nothing
     Set vC = Nothing
 End Function

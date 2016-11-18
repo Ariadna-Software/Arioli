@@ -385,7 +385,7 @@ Public ID As Long
 
 Private Modo As Byte
 
-Dim kCampo As Integer
+Dim Kcampo As Integer
 
 Dim CadenaConsulta As String
 
@@ -395,7 +395,7 @@ Dim gridCargado As Boolean 'Si el DataGrid ya tiene todos los Datos cargados.
 Dim PrimeraVez As Boolean
 
 Private HaDevueltoDatos As Boolean
-
+Dim HorasProceso As Currency
 
 Private Sub cmdAceptar_Click()
 Dim cad As String
@@ -433,6 +433,10 @@ Dim cad As String
                 End If
             End If
             
+            
+            If cad = "" Then
+                If Not DatosOKCierre Then cad = "No"
+            End If
             If cad = "" Then
                 
                 'Preguntaremos si cerramos el parte
@@ -457,8 +461,9 @@ Dim cad As String
                 If CCur(CadenaConsulta) > miRsAux!Capacidad Then cad = cad & vbCrLf & "         --EXCEDE--"
                 
                 'Fecha hora
-                cad = cad & vbCrLf & "FIN proceso: " & Text1(0).Text & " " & Text1(1).Text
-                
+                cad = cad & vbCrLf & "FIN proceso:    " & Text1(0).Text & " " & Text1(1).Text
+                'Duracion
+                cad = cad & vbCrLf & "Duracion: " & (HorasProceso \ 60) & ":" & Format(HorasProceso Mod 60, "00")
                 
                 miRsAux.Close
                 Set miRsAux = Nothing
@@ -883,9 +888,11 @@ End Sub
 
 
 Private Function DatosOk() As Boolean
-'Solo se actualiza el campo de Existencia Real
-    txtAux.Text = Trim(txtAux.Text)
 
+'Solo se actualiza el campo de Existencia Real
+    
+    txtAux.Text = Trim(txtAux.Text)
+    
     If txtAux.Text <> "" And EsNumerico(txtAux.Text) Then
         If PonerFormatoDecimal(txtAux, 4) Then
             DatosOk = True
@@ -896,7 +903,11 @@ Private Function DatosOk() As Boolean
     Else
         DatosOk = False
     End If
+    
+    If Not DatosOk Then Exit Function
+    
 End Function
+
 
 
 Private Sub PonerBotonCabecera(b As Boolean)
@@ -1036,17 +1047,17 @@ Dim KilosTotales As Currency
     'Metemos los moviimientos
     'Tanto en smoval como en smovallotes
     cStock.DetaMov = "MLT" 'Molturacion
-    cStock.codAlmac = 1
+    cStock.codalmac = 1
     cad = DevuelveDesdeBD(conAri, "articMolturacion", "vallparam", "1", "1")
     cStock.codartic = cad
     cStock.Documento = Format(ID, "00000")
-    cStock.Fechamov = Format(Now, "dd/mm/yyyy")
-    cStock.HoraMov = Now
+    cStock.Fechamov = Text1(0).Text
+    cStock.HoraMov = Text1(0).Text & " " & Text1(1).Text
     cStock.Importe = 0
     cStock.LineaDocu = 1
     cStock.tipoMov = "E"
     cStock.Trabajador = vUsu.CodigoTrabajador
-    cLot.codAlmac = cStock.codAlmac
+    cLot.codalmac = cStock.codalmac
     cLot.codartic = cStock.codartic
     cLot.DetaMov = cStock.DetaMov
     cLot.Documento = cStock.Documento
@@ -1068,7 +1079,7 @@ Dim KilosTotales As Currency
     
     If NuevaPartida Then
         CP1.Cantidad = 0  'Luego los incremento
-        CP1.codAlmac = cStock.codAlmac
+        CP1.codalmac = cStock.codalmac
         CP1.codartic = cStock.codartic
         CP1.codProve = 1
         CP1.Fecha = cStock.Fechamov
@@ -1088,7 +1099,7 @@ Dim KilosTotales As Currency
     Kilos = ImporteFormateado(Text2(0).Text) - ImporteFormateado(Text2(1).Text)
     cP2.NUmlote = "Orujo" & Format(ID, "0000")
     cP2.Cantidad = Kilos
-    cP2.codAlmac = cStock.codAlmac
+    cP2.codalmac = cStock.codalmac
     cad = DevuelveDesdeBD(conAri, "articOrujo", "vallparam", "1", "1")
     cStock.codartic = cad
     cStock.Cantidad = Kilos
@@ -1146,7 +1157,7 @@ Dim KilosTotales As Currency
     
     
     
-    'Faltaria ver el talco
+    'La dosis es en kilos hora
     '-----------------------------------------------------------------
     articuloTalco = ""
     cad = "Select dosis , numlote from vallalmazaraproceso where id =" & ID
@@ -1157,8 +1168,13 @@ Dim KilosTotales As Currency
             If articuloTalco = "" Then
                 MsgBox "Pone dosis talco y no esta configurado proceso continua sin tratar talco", vbExclamation
             Else
-                Kilos = ImporteFormateado(Text2(0).Text)
-                Kilos = Round((Kilos * RT!dosis) / 100, 2)
+                'Los minutos los pasamos a decimal
+                Kilos = (HorasProceso Mod 60)
+                Kilos = Round2((Kilos / 60), 2) 'minutos en decimal
+                
+                Kilos = (HorasProceso \ 60) + Kilos 'Horas proceso + minutos   DECIAML
+                
+                Kilos = Round2((Kilos * RT!dosis), 2)
                 Set cP2 = Nothing
                 Set cP2 = New cPartidas
                 
@@ -1208,8 +1224,8 @@ Dim KilosTotales As Currency
         
         
         cad = "INSERT INTO olicoupage(codigo,codartic,fecha,descripcion,YaCreado,codalmac,numlote,Deposito) VALUES ("
-        cad = cad & NumRegElim & ",'" & CP1.codartic & "'," & DBSet(Now, "FH") & ",'"
-        cad = cad & "Molturacion. ID: " & CP1.NumAlbar & "',0, " & CP1.codAlmac & "," & DBSet(cP2.NUmlote, "T") & ","
+        cad = cad & NumRegElim & ",'" & CP1.codartic & "'," & DBSet(cStock.HoraMov, "FH") & ",'"
+        cad = cad & "Molturacion. ID: " & CP1.NumAlbar & "',0, " & CP1.codalmac & "," & DBSet(cP2.NUmlote, "T") & ","
         cad = cad & Combo1.ListIndex + 1 & ")"
         conn.Execute cad
         
@@ -1253,8 +1269,13 @@ Dim KilosTotales As Currency
     End If
     
     
+    
+    
     'En la tablaproceso guardo el dato de deposito y fecha fin
-    cad = "UPDATE vallalmazaraproceso SET HoraFin =" & DBSet(Now, "H") & ",  deposito=" & Combo1.ListIndex + 1
+    cad = "UPDATE vallalmazaraproceso SET "
+    cad = cad & " HoraFin =" & DBSet(cStock.HoraMov, "H")
+    cad = cad & ",  FechaFin =" & DBSet(cStock.Fechamov, "F")
+    cad = cad & ",  deposito=" & Combo1.ListIndex + 1
     'Litros producidos y kilos utlizados
     cad = cad & ", kilos =" & DBSet(Text2(0).Text, "N")
     cad = cad & ", Litros =" & DBSet(Text2(1).Text, "N")
@@ -1289,4 +1310,54 @@ eCerrarProcesoAlm:
     Set cLot = Nothing
     Set RT = Nothing
     Set vT = Nothing
+End Function
+
+
+
+
+Private Function DatosOKCierre() As Boolean
+Dim TFin As Date
+Dim TIni As Date
+
+    'Hora fecha
+    DatosOKCierre = False
+    If Not EsFechaOK(Me.Text1(0).Text) Then Exit Function
+    If Not EsHoraOK(Me.Text1(1).Text) Then Exit Function
+    
+    'Vemaos si la hora de inicio >= que la de fin
+    TFin = CDate(Text1(0).Text & " " & Text1(1).Text)
+    TIni = "01/01/1900 00:00:01"
+    CadenaDesdeOtroForm = "Select Fecha ,horainicio from vallalmazaraproceso where Id = " & ID
+    Set miRsAux = New ADODB.Recordset
+    miRsAux.Open CadenaDesdeOtroForm, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If miRsAux.EOF Then
+        MsgBox "No se encuentra el registro ID: " & ID, vbExclamation
+    Else
+        If Not IsNull(miRsAux!Fecha) Then
+            If Not IsNull(miRsAux!horainicio) Then TIni = miRsAux!Fecha & " " & Format(miRsAux!horainicio, "hh:mm:ss")
+        End If
+    End If
+    miRsAux.Close
+    
+    If TIni = "01/01/1900 00:00:01" Then Exit Function
+    HorasProceso = 0
+    If TFin <= TIni Then
+        MsgBox "Fecha fin mayor o igual que fecha inicio", vbExclamation
+    Else
+        If TFin < vParamAplic.FechaActiva Then
+            MsgBox "Fecha fin menor  que fecha activa", vbExclamation
+        Else
+            HorasProceso = DateDiff("n", TIni, TFin)
+            
+            NumRegElim = HorasProceso \ 60
+            
+            If NumRegElim > 5 Then
+                If MsgBox("Total horas proceso: " & NumRegElim & ":" & Format(HorasProceso Mod 60, "00") & ".   ¿Continuar?", vbQuestion + vbYesNo) = vbYes Then DatosOKCierre = True
+            Else
+                DatosOKCierre = True
+            End If
+        End If
+    End If
+    
+    
 End Function

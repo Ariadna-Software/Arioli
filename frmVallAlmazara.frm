@@ -697,13 +697,13 @@ Begin VB.Form frmVallAlmazara
       End
       Begin VB.Label Label1 
          AutoSize        =   -1  'True
-         Caption         =   "Dosis"
+         Caption         =   "Dosis (Kg/h)"
          Height          =   195
          Index           =   2
          Left            =   12120
          TabIndex        =   48
          Top             =   120
-         Width           =   390
+         Width           =   885
       End
       Begin VB.Label Label1 
          AutoSize        =   -1  'True
@@ -1277,7 +1277,7 @@ Private CadenaConsulta As String
 
 Private Ordenacion As String
 Private NombreTabla As String  'Nombre de la tabla de Cabecera
-Private kCampo As Integer
+Private Kcampo As Integer
 '-------------------------------------------------------------------------
 Private HaDevueltoDatos As Boolean
 
@@ -1531,9 +1531,9 @@ Private Sub BotonBuscar()
     Else
         HacerBusqueda
         If Data1.Recordset.EOF Then
-            Text1(kCampo).Text = ""
-            Text1(kCampo).BackColor = vbYellow
-            PonerFoco Text1(kCampo)
+            Text1(Kcampo).Text = ""
+            Text1(Kcampo).BackColor = vbYellow
+            PonerFoco Text1(Kcampo)
         End If
     End If
 End Sub
@@ -1615,7 +1615,7 @@ End Sub
 Private Sub BotonEliminar()
 'Eliminar Registro de la Cabecera: Tabla de Pedidos (scaped)
 ' y los registros correspondientes de las tablas de lineas (sliped)
-Dim cad As String
+Dim Cad As String
 
     On Error GoTo EEliminar
 
@@ -1627,17 +1627,17 @@ Dim cad As String
         Exit Sub
     End If
 
-    cad = "Almazara." & vbCrLf
-    cad = cad & "----------------------------------" & vbCrLf & vbCrLf
-    cad = cad & "Va a eliminar el proceso:"
-    cad = cad & vbCrLf & "Nº:  " & Format(Text1(0).Text, "0000000")
-    cad = cad & vbCrLf & "Fecha:  " & Format(Text1(1).Text, "dd/mm/yyyy")
-    cad = cad & vbCrLf & vbCrLf & "¿Desea continuar? "
+    Cad = "Almazara." & vbCrLf
+    Cad = Cad & "----------------------------------" & vbCrLf & vbCrLf
+    Cad = Cad & "Va a eliminar el proceso:"
+    Cad = Cad & vbCrLf & "Nº:  " & Format(Text1(0).Text, "0000000")
+    Cad = Cad & vbCrLf & "Fecha:  " & Format(Text1(1).Text, "dd/mm/yyyy")
+    Cad = Cad & vbCrLf & vbCrLf & "¿Desea continuar? "
     
     Screen.MousePointer = vbHourglass
     
     'Borramos
-    If MsgBox(cad, vbQuestion + vbYesNo) = vbYes Then
+    If MsgBox(Cad, vbQuestion + vbYesNo) = vbYes Then
         'Hay que eliminar
         NumRegElim = Data1.Recordset.AbsolutePosition
         
@@ -1714,7 +1714,7 @@ End Sub
 
 Private Sub cmdRegresar_Click()
 'Este es el boton Cabecera
-Dim cad As String
+Dim Cad As String
 
     'Quitar lineas y volver a la cabecera
     If Modo = 5 Or Modo = 6 Then 'modo 5: Mantenimientos Lineas
@@ -1735,8 +1735,8 @@ Dim cad As String
         End If
         'cad = Data1.Recordset.Fields(0) & "|"
         'cad = cad & Data1.Recordset.Fields(1) & "|"
-        cad = Data1.Recordset.Fields(0)
-        RaiseEvent DatoSeleccionado2(cad)
+        Cad = Data1.Recordset.Fields(0)
+        RaiseEvent DatoSeleccionado2(Cad)
         Unload Me
     End If
 End Sub
@@ -1985,7 +1985,7 @@ Dim Indice As Byte
         Indice = IIf(Index = 0, 4, 6)
         Text1(Index).Text = RecuperaValor(CadenaConsulta, 1)
         Indice = IIf(Index = 0, 5, 0)
-        text2(Indice).Text = RecuperaValor(CadenaConsulta, 2)
+        Text2(Indice).Text = RecuperaValor(CadenaConsulta, 2)
         CadenaConsulta = ""
     End If
     
@@ -2102,7 +2102,7 @@ End Sub
 'Los metodos del text tendran que estar
 'Los descomentamos cuando esten puestos ya los controles
 Private Sub Text1_GotFocus(Index As Integer)
-    kCampo = Index
+    Kcampo = Index
     ConseguirFoco Text1(Index), Modo
 End Sub
 
@@ -2152,7 +2152,7 @@ Dim Devuelve As String
                     If Devuelve = "" Then MsgBox "No existe trabajador " & Text1(Index).Text, vbExclamation
                 End If
             End If
-            text2(IIf(Index = 4, 5, 0)).Text = Devuelve
+            Text2(IIf(Index = 4, 5, 0)).Text = Devuelve
             
         Case 2, 5, 7, 8, 10
              
@@ -2183,17 +2183,17 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim cad As String
+Dim Cad As String
 Dim Tabla As String
 Dim Titulo As String
 Dim Desc As String, Devuelve As String
     'Llamamos a al form
     '##A mano
-    cad = ""
+    Cad = ""
     If EsCabecera Then
-        cad = cad & ParaGrid(Text1(0), 20, "Id")
-        cad = cad & ParaGrid(Text1(1), 20, "Fecha")
-        cad = cad & "Tipo|scaalp|if(tipooliva=1,'Arbol','Tierra') |N||45·"
+        Cad = Cad & ParaGrid(Text1(0), 20, "Id")
+        Cad = Cad & ParaGrid(Text1(1), 20, "Fecha")
+        Cad = Cad & "Tipo|scaalp|if(tipooliva=1,'Arbol','Tierra') |N||45·"
         Tabla = NombreTabla
       
         Titulo = "Proceso almazara"
@@ -2201,11 +2201,11 @@ Dim Desc As String, Devuelve As String
 
     Else
         Titulo = "Albaranes proveedor"
-        cad = cad & "Nº Albaran " & "|scaalp|numalbar|N||15·"
-        cad = cad & "Fecha " & "|scaalp|fechaalb|T||15·"
-        cad = cad & "C.Prov" & "|scaalp|codprove|N|0000|10·"
-        cad = cad & "Proveedor" & "|scaalp|nomprove|N||40·"
-        cad = cad & "Producto" & "|slialp|codartic|N||20·"
+        Cad = Cad & "Nº Albaran " & "|scaalp|numalbar|N||15·"
+        Cad = Cad & "Fecha " & "|scaalp|fechaalb|T||15·"
+        Cad = Cad & "C.Prov" & "|scaalp|codprove|N|0000|10·"
+        Cad = Cad & "Proveedor" & "|scaalp|nomprove|N||40·"
+        Cad = Cad & "Producto" & "|slialp|codartic|N||20·"
         Tabla = "scaalp,slialp,sartic,sfamia"
         Devuelve = "0|1|2|3|"
         
@@ -2232,10 +2232,10 @@ Dim Desc As String, Devuelve As String
     End If
     
            
-    If cad <> "" Then
+    If Cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = cad
+        frmB.vCampos = Cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -2274,7 +2274,7 @@ Private Sub PonerCadenaBusqueda()
         Screen.MousePointer = vbDefault
         If Modo = 1 Then
           
-            PonerFoco Text1(kCampo)
+            PonerFoco Text1(Kcampo)
 '            Text1(0).BackColor = vbYellow
         End If
         Exit Sub
@@ -2318,8 +2318,8 @@ On Error Resume Next
     If Data1.Recordset.EOF Then Exit Sub
     PonerCamposForma Me, Data1
     
-    If Text1(4).Text <> "" Then text2(5).Text = DevuelveDesdeBD(conAri, "nomtraba", "straba", "CodTraba", Text1(4).Text)
-    If Text1(6).Text <> "" Then text2(0).Text = DevuelveDesdeBD(conAri, "nomtraba", "straba", "CodTraba", Text1(6).Text)
+    If Text1(4).Text <> "" Then Text2(5).Text = DevuelveDesdeBD(conAri, "nomtraba", "straba", "CodTraba", Text1(4).Text)
+    If Text1(6).Text <> "" Then Text2(0).Text = DevuelveDesdeBD(conAri, "nomtraba", "straba", "CodTraba", Text1(6).Text)
        
     PonerCamposLineas 'Pone los datos de las tablas de lineas de Ofertas
     
@@ -2484,7 +2484,7 @@ Private Function DatosOkLinea() As Boolean
 'Comprueba si los datos de una linea son correctos antes de Insertar o Modificar
 'una linea del Pedido
 Dim b As Boolean
-Dim cad As String
+Dim Cad As String
 Dim i As Integer
     On Error GoTo EDatosOkLinea
 
@@ -2505,11 +2505,11 @@ Dim i As Integer
              
             'Ahora veremos dos cosas:
             '1.- Existe el albaran
-            cad = "numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
-            cad = cad & " AND codprove "
+            Cad = "numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
+            Cad = Cad & " AND codprove "
             
-            cad = DevuelveDesdeBD(conAri, "numalbar", "scaalp", cad, txtAux(2).Text)
-            If cad = "" Then
+            Cad = DevuelveDesdeBD(conAri, "numalbar", "scaalp", Cad, txtAux(2).Text)
+            If Cad = "" Then
                 'No existe el albarán
                 MsgBox " No existe el albaran", vbExclamation
                 b = False
@@ -2520,13 +2520,13 @@ Dim i As Integer
              
              
             'Vemos que no esta asignado en ningun otro parte molturacion
-            cad = "numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
-            If ModificaLineas = 2 Then cad = cad & " AND id<>" & Data1.Recordset!ID
-            cad = cad & " AND codprove "
-            cad = DevuelveDesdeBD(conAri, "id", "vallalmazaraprocesoalb", cad, txtAux(2).Text)
-            If cad <> "" Then
+            Cad = "numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
+            If ModificaLineas = 2 Then Cad = Cad & " AND id<>" & Data1.Recordset!ID
+            Cad = Cad & " AND codprove "
+            Cad = DevuelveDesdeBD(conAri, "id", "vallalmazaraprocesoalb", Cad, txtAux(2).Text)
+            If Cad <> "" Then
                 'No existe el albarán
-                MsgBox " Ya esta asignado el albaran. Codigo: " & cad, vbExclamation
+                MsgBox " Ya esta asignado el albaran. Codigo: " & Cad, vbExclamation
                 b = False
             End If
              
@@ -2535,11 +2535,11 @@ Dim i As Integer
             'Lineas de oliva, la familia tiene que ser OLIVA
             'Es decir, el tipfamia=30
             If b Then
-                cad = "slialp.codartic=sartic.codartic and sfamia.codfamia=sartic.codfamia and tipfamia=30 and numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
-                cad = cad & " AND slialp.codprove "
+                Cad = "slialp.codartic=sartic.codartic and sfamia.codfamia=sartic.codfamia and tipfamia=30 and numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
+                Cad = Cad & " AND slialp.codprove "
                 
-                cad = DevuelveDesdeBD(conAri, "numalbar", "slialp,sartic,sfamia", cad, txtAux(2).Text)
-                If cad = "" Then
+                Cad = DevuelveDesdeBD(conAri, "numalbar", "slialp,sartic,sfamia", Cad, txtAux(2).Text)
+                If Cad = "" Then
                     MsgBox "Ningun articulo en el albaran es oliva", vbExclamation
                     b = False
                 End If
@@ -2635,6 +2635,28 @@ Dim b As Boolean
                 CadenaDesdeOtroForm = CadenaDesdeOtroForm & " AND (numalbar,fechaalb,codprove) IN (select numalbar,fechaalb,codprove"
                 CadenaDesdeOtroForm = CadenaDesdeOtroForm & " FROM  vallalmazaraprocesoalb WHERE id =" & Data1.Recordset!ID & ")"
                 conn.Execute CadenaDesdeOtroForm
+                
+                
+                
+                Set miRsAux = New ADODB.Recordset
+                'rendimiento
+                CadenaDesdeOtroForm = "select numalbar,FechaEntrada,codprove,rendimiento  from vallentradacamion,vallentradacamionlineas"
+                CadenaDesdeOtroForm = CadenaDesdeOtroForm & " Where vallentradacamionlineas.entrada = vallentradacamion.entrada"
+                CadenaDesdeOtroForm = CadenaDesdeOtroForm & " AND rendimiento >0 and (numalbar,FechaEntrada,codprove) IN"
+                CadenaDesdeOtroForm = CadenaDesdeOtroForm & " (select numalbar,fechaalb,codprove  FROM  vallalmazaraprocesoalb WHERE id ="
+                CadenaDesdeOtroForm = CadenaDesdeOtroForm & Data1.Recordset!ID & ")"
+                miRsAux.Open CadenaDesdeOtroForm, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                While Not miRsAux.EOF
+                    CadenaDesdeOtroForm = "UPDATE tmpnlotes Set cantidad =" & DBSet(miRsAux!rendimiento, "N")
+                    CadenaDesdeOtroForm = CadenaDesdeOtroForm & " WHERE codusu =" & vUsu.Codigo & " AND numalbar=" & DBSet(miRsAux!NumAlbar, "T")
+                    CadenaDesdeOtroForm = CadenaDesdeOtroForm & " AND codprove=" & miRsAux!codProve & " AND fechaalb=" & DBSet(miRsAux!FechaEntrada, "F")
+                    conn.Execute CadenaDesdeOtroForm
+                    miRsAux.MoveNext
+                Wend
+                miRsAux.Close
+                Set miRsAux = Nothing
+                Espera 0.2
+                
                 
                 frmVallCierrAlmazara.ID = CLng(Data1.Recordset!ID)
                 frmVallCierrAlmazara.Show vbModal
@@ -3054,8 +3076,8 @@ End Sub
 Private Sub txtAux_GotFocus(Index As Integer)
 Dim cadkey As Integer
 
-    cadkey = ObtenerCadKey(kCampo, Index)
-    kCampo = Index
+    cadkey = ObtenerCadKey(Kcampo, Index)
+    Kcampo = Index
     ConseguirFocoLin txtAux(Index), cadkey
 End Sub
 

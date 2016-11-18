@@ -14,10 +14,243 @@ Begin VB.Form frmListado2
    ScaleHeight     =   8655
    ScaleWidth      =   10965
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame FrameEntradaOliva 
+      Height          =   4935
+      Left            =   1080
+      TabIndex        =   472
+      Top             =   0
+      Visible         =   0   'False
+      Width           =   4815
+      Begin VB.ComboBox cboAlbarEntradaOliva 
+         Height          =   315
+         Left            =   1320
+         Style           =   2  'Dropdown List
+         TabIndex        =   537
+         Top             =   3480
+         Width           =   2415
+      End
+      Begin VB.TextBox txtNumeroEntero 
+         Height          =   285
+         Index           =   6
+         Left            =   3120
+         TabIndex        =   478
+         Text            =   "Text3"
+         Top             =   3000
+         Width           =   735
+      End
+      Begin VB.TextBox txtNumeroEntero 
+         Height          =   285
+         Index           =   5
+         Left            =   1320
+         TabIndex        =   477
+         Text            =   "Text3"
+         Top             =   3000
+         Width           =   735
+      End
+      Begin VB.TextBox txtNumeroEntero 
+         Height          =   285
+         Index           =   2
+         Left            =   3360
+         TabIndex        =   475
+         Text            =   "Text3"
+         Top             =   1560
+         Width           =   735
+      End
+      Begin VB.OptionButton optTransporte 
+         Caption         =   "Albaranes"
+         Height          =   255
+         Index           =   4
+         Left            =   360
+         TabIndex        =   476
+         Top             =   2160
+         Width           =   2295
+      End
+      Begin VB.OptionButton optTransporte 
+         Caption         =   "Etiquetas albaranes"
+         Height          =   255
+         Index           =   3
+         Left            =   360
+         TabIndex        =   474
+         Top             =   1560
+         Width           =   2055
+      End
+      Begin VB.OptionButton optTransporte 
+         Caption         =   "Resumen carga"
+         Height          =   255
+         Index           =   2
+         Left            =   360
+         TabIndex        =   473
+         Top             =   960
+         Value           =   -1  'True
+         Width           =   2295
+      End
+      Begin VB.CommandButton cmd4TondaAlbaranOliva 
+         Caption         =   "Aceptar"
+         Height          =   375
+         Left            =   2160
+         TabIndex        =   479
+         Top             =   4320
+         Width           =   1215
+      End
+      Begin VB.CommandButton cmdCancel 
+         Caption         =   "&Cancelar"
+         Height          =   375
+         Index           =   33
+         Left            =   3480
+         TabIndex        =   480
+         Top             =   4320
+         Width           =   1215
+      End
+      Begin VB.Label Label8 
+         Caption         =   "Albaranes"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Index           =   4
+         Left            =   240
+         TabIndex        =   538
+         Top             =   3480
+         Width           =   1815
+      End
+      Begin VB.Label Label8 
+         Caption         =   "Entrada oliva"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Index           =   3
+         Left            =   240
+         TabIndex        =   536
+         Top             =   2640
+         Width           =   1815
+      End
+      Begin VB.Label Label8 
+         Caption         =   "hasta"
+         Height          =   255
+         Index           =   2
+         Left            =   2520
+         TabIndex        =   535
+         Top             =   3000
+         Width           =   615
+      End
+      Begin VB.Label Label8 
+         Caption         =   "Desde"
+         Height          =   255
+         Index           =   1
+         Left            =   600
+         TabIndex        =   534
+         Top             =   3000
+         Width           =   615
+      End
+      Begin VB.Label Label8 
+         Caption         =   "Vacias"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   -1  'True
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Index           =   0
+         Left            =   2640
+         TabIndex        =   482
+         Top             =   1560
+         Width           =   615
+      End
+      Begin VB.Label lblTitulo 
+         Alignment       =   2  'Center
+         Caption         =   "Impresión entrada oliva"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   13.5
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   360
+         Index           =   26
+         Left            =   360
+         TabIndex        =   481
+         Top             =   240
+         Width           =   3735
+      End
+   End
+   Begin VB.Frame FrameOliva 
+      Height          =   2415
+      Left            =   4920
+      TabIndex        =   483
+      Top             =   3960
+      Width           =   5175
+      Begin VB.CommandButton cmdGenerAlbOliva 
+         Caption         =   "Aceptar"
+         Height          =   375
+         Left            =   2280
+         TabIndex        =   486
+         Top             =   1800
+         Width           =   1215
+      End
+      Begin VB.CommandButton cmdCancel 
+         Caption         =   "&Cancelar"
+         Height          =   375
+         Index           =   34
+         Left            =   3720
+         TabIndex        =   484
+         Top             =   1800
+         Width           =   1215
+      End
+      Begin VB.Label Label3 
+         Caption         =   "Generar albaranes  desde  la entrada de camiones"
+         Height          =   315
+         Index           =   92
+         Left            =   360
+         TabIndex        =   487
+         Top             =   1200
+         Width           =   4305
+      End
+      Begin VB.Label lblTitulo 
+         Alignment       =   2  'Center
+         Caption         =   "Generar albaranes"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   18
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   360
+         Index           =   27
+         Left            =   240
+         TabIndex        =   485
+         Top             =   480
+         Width           =   4695
+      End
+   End
    Begin VB.Frame FramePalets 
       Height          =   3855
       Left            =   2040
-      TabIndex        =   486
+      TabIndex        =   488
       Top             =   2040
       Visible         =   0   'False
       Width           =   6975
@@ -25,7 +258,7 @@ Begin VB.Form frmListado2
          Caption         =   "Aceptar"
          Height          =   375
          Left            =   4080
-         TabIndex        =   495
+         TabIndex        =   497
          Top             =   3240
          Width           =   1215
       End
@@ -33,14 +266,14 @@ Begin VB.Form frmListado2
          Height          =   1335
          Index           =   3
          Left            =   120
-         TabIndex        =   501
+         TabIndex        =   503
          Top             =   1920
          Width           =   6615
          Begin VB.TextBox txtHora 
             Height          =   285
             Index           =   0
             Left            =   5400
-            TabIndex        =   494
+            TabIndex        =   496
             Text            =   "Text3"
             Top             =   840
             Width           =   1095
@@ -49,7 +282,7 @@ Begin VB.Form frmListado2
             Height          =   285
             Index           =   42
             Left            =   3120
-            TabIndex        =   493
+            TabIndex        =   495
             Text            =   "Text1"
             Top             =   840
             Width           =   1335
@@ -58,7 +291,7 @@ Begin VB.Form frmListado2
             Height          =   285
             Index           =   3
             Left            =   960
-            TabIndex        =   492
+            TabIndex        =   494
             Text            =   "Text3"
             Top             =   840
             Width           =   735
@@ -69,7 +302,7 @@ Begin VB.Form frmListado2
             Index           =   12
             Left            =   3000
             Locked          =   -1  'True
-            TabIndex        =   504
+            TabIndex        =   506
             Text            =   "Text5"
             Top             =   240
             Width           =   3495
@@ -79,7 +312,7 @@ Begin VB.Form frmListado2
             Index           =   12
             Left            =   1440
             MaxLength       =   16
-            TabIndex        =   491
+            TabIndex        =   493
             Top             =   240
             Width           =   1455
          End
@@ -88,7 +321,7 @@ Begin VB.Form frmListado2
             Height          =   195
             Index           =   95
             Left            =   4680
-            TabIndex        =   510
+            TabIndex        =   512
             Top             =   840
             Width           =   675
          End
@@ -97,7 +330,7 @@ Begin VB.Form frmListado2
             Height          =   195
             Index           =   94
             Left            =   2160
-            TabIndex        =   509
+            TabIndex        =   511
             Top             =   840
             Width           =   675
          End
@@ -114,7 +347,7 @@ Begin VB.Form frmListado2
             Height          =   195
             Index           =   93
             Left            =   120
-            TabIndex        =   508
+            TabIndex        =   510
             Top             =   840
             Width           =   675
          End
@@ -142,7 +375,7 @@ Begin VB.Form frmListado2
             Height          =   195
             Index           =   16
             Left            =   120
-            TabIndex        =   505
+            TabIndex        =   507
             Top             =   240
             Width           =   660
          End
@@ -151,7 +384,7 @@ Begin VB.Form frmListado2
          Height          =   495
          Index           =   2
          Left            =   120
-         TabIndex        =   500
+         TabIndex        =   502
          Top             =   1200
          Visible         =   0   'False
          Width           =   6615
@@ -161,7 +394,7 @@ Begin VB.Form frmListado2
             Index           =   13
             Left            =   2640
             Locked          =   -1  'True
-            TabIndex        =   506
+            TabIndex        =   508
             Text            =   "Text5"
             Top             =   240
             Width           =   3855
@@ -170,7 +403,7 @@ Begin VB.Form frmListado2
             Height          =   285
             Index           =   13
             Left            =   1440
-            TabIndex        =   490
+            TabIndex        =   492
             Top             =   240
             Width           =   1095
          End
@@ -190,7 +423,7 @@ Begin VB.Form frmListado2
             Height          =   195
             Index           =   17
             Left            =   120
-            TabIndex        =   507
+            TabIndex        =   509
             Top             =   240
             Width           =   885
          End
@@ -207,7 +440,7 @@ Begin VB.Form frmListado2
          Height          =   735
          Index           =   1
          Left            =   120
-         TabIndex        =   499
+         TabIndex        =   501
          Top             =   1200
          Width           =   6615
          Begin VB.TextBox txtDescClie 
@@ -216,7 +449,7 @@ Begin VB.Form frmListado2
             Index           =   8
             Left            =   2640
             Locked          =   -1  'True
-            TabIndex        =   502
+            TabIndex        =   504
             Text            =   "Text1"
             Top             =   240
             Width           =   3855
@@ -225,7 +458,7 @@ Begin VB.Form frmListado2
             Height          =   285
             Index           =   8
             Left            =   1440
-            TabIndex        =   489
+            TabIndex        =   491
             Text            =   "Text1"
             Top             =   240
             Width           =   1095
@@ -254,7 +487,7 @@ Begin VB.Form frmListado2
             Height          =   195
             Index           =   42
             Left            =   120
-            TabIndex        =   503
+            TabIndex        =   505
             Top             =   240
             Width           =   585
          End
@@ -263,7 +496,7 @@ Begin VB.Form frmListado2
          Height          =   495
          Index           =   0
          Left            =   120
-         TabIndex        =   498
+         TabIndex        =   500
          Top             =   840
          Width           =   6615
          Begin VB.OptionButton optPalets 
@@ -271,7 +504,7 @@ Begin VB.Form frmListado2
             Height          =   255
             Index           =   1
             Left            =   3720
-            TabIndex        =   488
+            TabIndex        =   490
             Top             =   120
             Width           =   1935
          End
@@ -280,7 +513,7 @@ Begin VB.Form frmListado2
             Height          =   255
             Index           =   0
             Left            =   1200
-            TabIndex        =   487
+            TabIndex        =   489
             Top             =   120
             Value           =   -1  'True
             Width           =   1935
@@ -291,7 +524,7 @@ Begin VB.Form frmListado2
          Height          =   375
          Index           =   35
          Left            =   5400
-         TabIndex        =   496
+         TabIndex        =   498
          Top             =   3240
          Width           =   1215
       End
@@ -311,7 +544,7 @@ Begin VB.Form frmListado2
          Height          =   360
          Index           =   28
          Left            =   1920
-         TabIndex        =   497
+         TabIndex        =   499
          Top             =   240
          Width           =   3735
       End
@@ -600,7 +833,7 @@ Begin VB.Form frmListado2
    Begin VB.Frame FrameDeclaraAlmazara 
       Height          =   2895
       Left            =   2400
-      TabIndex        =   523
+      TabIndex        =   525
       Top             =   4560
       Visible         =   0   'False
       Width           =   5295
@@ -608,7 +841,7 @@ Begin VB.Form frmListado2
          Caption         =   "Aceptar"
          Height          =   375
          Left            =   2400
-         TabIndex        =   527
+         TabIndex        =   529
          Top             =   2280
          Width           =   1215
       End
@@ -617,7 +850,7 @@ Begin VB.Form frmListado2
          Height          =   255
          Index           =   2
          Left            =   360
-         TabIndex        =   526
+         TabIndex        =   528
          Top             =   1560
          Width           =   2175
       End
@@ -625,7 +858,7 @@ Begin VB.Form frmListado2
          Height          =   285
          Index           =   4
          Left            =   3240
-         TabIndex        =   525
+         TabIndex        =   527
          Text            =   "Text3"
          Top             =   1080
          Width           =   735
@@ -635,7 +868,7 @@ Begin VB.Form frmListado2
          Index           =   0
          Left            =   1440
          Style           =   2  'Dropdown List
-         TabIndex        =   524
+         TabIndex        =   526
          Top             =   1080
          Width           =   1695
       End
@@ -644,7 +877,7 @@ Begin VB.Form frmListado2
          Height          =   375
          Index           =   37
          Left            =   3840
-         TabIndex        =   528
+         TabIndex        =   530
          Top             =   2280
          Width           =   1215
       End
@@ -653,7 +886,7 @@ Begin VB.Form frmListado2
          Height          =   195
          Index           =   98
          Left            =   360
-         TabIndex        =   531
+         TabIndex        =   533
          Top             =   1920
          Width           =   4425
       End
@@ -673,7 +906,7 @@ Begin VB.Form frmListado2
          Height          =   195
          Index           =   19
          Left            =   960
-         TabIndex        =   530
+         TabIndex        =   532
          Top             =   1080
          Width           =   345
       End
@@ -693,7 +926,7 @@ Begin VB.Form frmListado2
          Height          =   360
          Index           =   30
          Left            =   120
-         TabIndex        =   529
+         TabIndex        =   531
          Top             =   360
          Width           =   5055
       End
@@ -701,7 +934,7 @@ Begin VB.Form frmListado2
    Begin VB.Frame FrameAlbaranesVall 
       Height          =   3975
       Left            =   2160
-      TabIndex        =   511
+      TabIndex        =   513
       Top             =   1320
       Visible         =   0   'False
       Width           =   6495
@@ -710,7 +943,7 @@ Begin VB.Form frmListado2
          Height          =   255
          Index           =   1
          Left            =   1200
-         TabIndex        =   514
+         TabIndex        =   516
          Top             =   2520
          Value           =   1  'Checked
          Width           =   2175
@@ -719,7 +952,7 @@ Begin VB.Form frmListado2
          Caption         =   "Aceptar"
          Height          =   375
          Left            =   3480
-         TabIndex        =   515
+         TabIndex        =   517
          Top             =   3240
          Width           =   975
       End
@@ -727,7 +960,7 @@ Begin VB.Form frmListado2
          Height          =   285
          Index           =   15
          Left            =   1200
-         TabIndex        =   513
+         TabIndex        =   515
          Top             =   1920
          Width           =   1095
       End
@@ -737,7 +970,7 @@ Begin VB.Form frmListado2
          Index           =   15
          Left            =   2400
          Locked          =   -1  'True
-         TabIndex        =   520
+         TabIndex        =   522
          Text            =   "Text5"
          Top             =   1920
          Width           =   3855
@@ -746,7 +979,7 @@ Begin VB.Form frmListado2
          Height          =   285
          Index           =   14
          Left            =   1200
-         TabIndex        =   512
+         TabIndex        =   514
          Top             =   1440
          Width           =   1095
       End
@@ -756,7 +989,7 @@ Begin VB.Form frmListado2
          Index           =   14
          Left            =   2400
          Locked          =   -1  'True
-         TabIndex        =   519
+         TabIndex        =   521
          Text            =   "Text5"
          Top             =   1440
          Width           =   3855
@@ -766,7 +999,7 @@ Begin VB.Form frmListado2
          Height          =   375
          Index           =   36
          Left            =   4680
-         TabIndex        =   516
+         TabIndex        =   518
          Top             =   3240
          Width           =   1215
       End
@@ -775,7 +1008,7 @@ Begin VB.Form frmListado2
          Height          =   195
          Index           =   97
          Left            =   360
-         TabIndex        =   522
+         TabIndex        =   524
          Top             =   1440
          Width           =   465
       End
@@ -784,7 +1017,7 @@ Begin VB.Form frmListado2
          Height          =   195
          Index           =   96
          Left            =   360
-         TabIndex        =   521
+         TabIndex        =   523
          Top             =   1920
          Width           =   465
       End
@@ -820,7 +1053,7 @@ Begin VB.Form frmListado2
          Height          =   195
          Index           =   18
          Left            =   120
-         TabIndex        =   518
+         TabIndex        =   520
          Top             =   1080
          Width           =   885
       End
@@ -840,160 +1073,8 @@ Begin VB.Form frmListado2
          Height          =   360
          Index           =   29
          Left            =   1200
-         TabIndex        =   517
+         TabIndex        =   519
          Top             =   360
-         Width           =   3735
-      End
-   End
-   Begin VB.Frame FrameOliva 
-      Height          =   2415
-      Left            =   4920
-      TabIndex        =   481
-      Top             =   3960
-      Width           =   5175
-      Begin VB.CommandButton cmdGenerAlbOliva 
-         Caption         =   "Aceptar"
-         Height          =   375
-         Left            =   2280
-         TabIndex        =   484
-         Top             =   1800
-         Width           =   1215
-      End
-      Begin VB.CommandButton cmdCancel 
-         Caption         =   "&Cancelar"
-         Height          =   375
-         Index           =   34
-         Left            =   3720
-         TabIndex        =   482
-         Top             =   1800
-         Width           =   1215
-      End
-      Begin VB.Label Label3 
-         Caption         =   "Generar albaranes  desde  la entrada de camiones"
-         Height          =   315
-         Index           =   92
-         Left            =   360
-         TabIndex        =   485
-         Top             =   1200
-         Width           =   4305
-      End
-      Begin VB.Label lblTitulo 
-         Alignment       =   2  'Center
-         Caption         =   "Generar albaranes"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   18
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00800000&
-         Height          =   360
-         Index           =   27
-         Left            =   240
-         TabIndex        =   483
-         Top             =   480
-         Width           =   4695
-      End
-   End
-   Begin VB.Frame FrameEntradaOliva 
-      Height          =   3615
-      Left            =   5760
-      TabIndex        =   472
-      Top             =   240
-      Visible         =   0   'False
-      Width           =   4815
-      Begin VB.TextBox txtNumeroEntero 
-         Height          =   285
-         Index           =   2
-         Left            =   2640
-         TabIndex        =   475
-         Text            =   "Text3"
-         Top             =   1560
-         Width           =   735
-      End
-      Begin VB.OptionButton optTransporte 
-         Caption         =   "Albaranes"
-         Height          =   255
-         Index           =   4
-         Left            =   600
-         TabIndex        =   476
-         Top             =   2160
-         Width           =   2295
-      End
-      Begin VB.OptionButton optTransporte 
-         Caption         =   "Etiquetas albaranes"
-         Height          =   255
-         Index           =   3
-         Left            =   600
-         TabIndex        =   474
-         Top             =   1560
-         Width           =   2295
-      End
-      Begin VB.OptionButton optTransporte 
-         Caption         =   "Resumen carga"
-         Height          =   255
-         Index           =   2
-         Left            =   600
-         TabIndex        =   473
-         Top             =   960
-         Value           =   -1  'True
-         Width           =   2295
-      End
-      Begin VB.CommandButton cmd4TondaAlbaranOliva 
-         Caption         =   "Aceptar"
-         Height          =   375
-         Left            =   1920
-         TabIndex        =   477
-         Top             =   3000
-         Width           =   1215
-      End
-      Begin VB.CommandButton cmdCancel 
-         Caption         =   "&Cancelar"
-         Height          =   375
-         Index           =   33
-         Left            =   3360
-         TabIndex        =   478
-         Top             =   3000
-         Width           =   1215
-      End
-      Begin VB.Label Label8 
-         Caption         =   "Vacias"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   -1  'True
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   3480
-         TabIndex        =   480
-         Top             =   1590
-         Width           =   615
-      End
-      Begin VB.Label lblTitulo 
-         Alignment       =   2  'Center
-         Caption         =   "Impresión entrada oliva"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   13.5
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00800000&
-         Height          =   360
-         Index           =   26
-         Left            =   360
-         TabIndex        =   479
-         Top             =   240
          Width           =   3735
       End
    End
@@ -6890,26 +6971,27 @@ Private Sub cmbRecargaMov_KeyPress(Index As Integer, KeyAscii As Integer)
 End Sub
 
 Private Sub cmd4TondaAlbaranOliva_Click()
-    If Me.optTransporte(2).Value Then
         
-        miSQL = RecuperaValor(Codigo, 1)
-        Devuelve = RecuperaValor(Codigo, 2)
-        miSQL = "{vallentradacamion.entrada}=" & miSQL
-        LlamaImprimirGral miSQL, "", 0, "vallEntradaOliva.rpt", "Entrada oliva: " & Devuelve
-        
-        
-    ElseIf Me.optTransporte(3).Value Then
+    If Me.optTransporte(3).Value Then
         If ImprimirEtiquetasAlbaranes Then
             miSQL = "{tmpinformes.codusu}=" & vUsu.Codigo
             LlamaImprimirGral miSQL, "", 0, "vallEtiqEntradaOliva.rpt", "Etiqueta entrada  " & Devuelve
         End If
     Else
-        'Albaranes
-        miSQL = RecuperaValor(Codigo, 1)
-        Devuelve = RecuperaValor(Codigo, 2)
-        miSQL = "{vallentradacamion.entrada}=" & miSQL
-        LlamaImprimirGral miSQL, "", 0, "vallEntradaOlivaAlb.rpt", "Albaranes entrada  " & Devuelve
+            
+        miSQL = Val(Me.txtNumeroEntero(5).Text)
+        miSQL = "{vallentradacamion.entrada} >=" & miSQL
+        If Me.txtNumeroEntero(6).Text <> "" Then miSQL = miSQL & " AND {vallentradacamion.entrada} <=" & Me.txtNumeroEntero(6).Text
         
+        If Me.cboAlbarEntradaOliva.ListIndex > 0 Then miSQL = miSQL & " AND {vallentradacamionlineas.numalbar} =" & cboAlbarEntradaOliva.Text
+        
+        
+        If Me.optTransporte(2).Value Then
+            LlamaImprimirGral miSQL, "", 0, "vallEntradaOliva.rpt", "Entrada oliva: "
+        Else
+            'Albaranes
+            LlamaImprimirGral miSQL, "", 0, "vallEntradaOlivaAlb.rpt", "Albaranes entrada  "
+        End If
     End If
 End Sub
 
@@ -7583,7 +7665,7 @@ Dim TipoM As CTiposMov
     'AHora vamos a ir facturando los diversos proveedores
     For IndiceImg = 1 To Conjunto.Count
         'Facturamos al proveedor
-        FacturarProveedor CLng(RecuperaValor(Conjunto.Item(IndiceImg), 1)), Val(RecuperaValor(Conjunto.Item(IndiceImg), 2)) = 1, TipoM
+        FacturarProveedor CLng(RecuperaValor(Conjunto.item(IndiceImg), 1)), Val(RecuperaValor(Conjunto.item(IndiceImg), 2)) = 1, TipoM
     Next IndiceImg
     
     Label1.Caption = ""
@@ -7674,7 +7756,7 @@ Dim J As Integer
         
     
         'Obtengo los totales mediante el cadselect
-        Cad = "Select sum(importel) FROM slialp WHERE " & ColFacturar.Item(J)
+        Cad = "Select sum(importel) FROM slialp WHERE " & ColFacturar.item(J)
         miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         If Not miRsAux.EOF Then
             ImpTot = DBLet(miRsAux.Fields(0), "N")
@@ -7700,13 +7782,13 @@ Dim J As Integer
         
 
          'El select
-         Cad = ColFacturar.Item(J)
+         Cad = ColFacturar.item(J)
          
          If Not vFactu.TraspasoAlbaranesAFactura(Cad, (chkFacturPorv(1).Value = 1), (chkFacturPorv(0).Value = 1), True) Then
             'Para salir y finalizar el procesode facturacion de el proveedor
             Cad = "Finalizacion de la facturacion para: " & vProve.Nombre & vbCrLf
             Cad = Cad & "Proceso: " & J & " / " & ColFacturar.Count & vbCrLf
-            Cad = Cad & vbCrLf & "SQL: " & ColFacturar.Item(J)
+            Cad = Cad & vbCrLf & "SQL: " & ColFacturar.item(J)
             MsgBox Cad, vbExclamation
             J = ColFacturar.Count + 1  'Para que se salga
         Else
@@ -7814,7 +7896,7 @@ Dim MensajeError As String
         campo = ""
         For NumRegElim = 1 To AlbaranesGenerados.Count
             If campo <> "" Then campo = campo & ","
-            campo = campo & AlbaranesGenerados.Item(NumRegElim)
+            campo = campo & AlbaranesGenerados.item(NumRegElim)
         Next NumRegElim
         campo = "scaalb.codtipom = 'ALV' AND scaalb.numalbar IN (" & campo & ")"
         miSQL = "SELECT scaalb.*,sclien.nomclien FROM scaalb INNER JOIN sclien ON scaalb.codclien=sclien.codclien "
@@ -9323,9 +9405,6 @@ End Sub
 
 
 
-Private Sub Combo1_KeyPress(Index As Integer, KeyAscii As Integer)
-    KEYpressGnral KeyAscii, 2, True
-End Sub
 
 Private Sub Form_Activate()
     If PrimeraVez Then
@@ -9578,7 +9657,9 @@ Dim IndiceCancel As Integer
     Case 33
         PonerFrameVisible FrameEntradaOliva, H, W
         Codigo = CadenaDesdeOtroForm  'Lo guardo en codigo pq despues se vacia
-        
+        txtNumeroEntero(5).Text = RecuperaValor(Codigo, 1)
+        txtNumeroEntero(6).Text = RecuperaValor(Codigo, 1)
+        cargacboAlbarEntradaOliva
     Case 34
         PonerFrameVisible FrameOliva, H, W
         Caption = "Generar"
@@ -10120,6 +10201,7 @@ Private Sub txtCodProve_LostFocus(Index As Integer)
         If IsNumeric(txtCodProve(Index).Text) Then
             Codigo = DevuelveDesdeBD(conAri, "nomprove", "sprove", "codprove", txtCodProve(Index).Text, "N")
             If Codigo = "" Then MsgBox "El codigo no pertence a ningun proveedor", vbExclamation
+            If Index = 13 Then txtCodProve(Index).Text = ""
         Else
             miSQL = "Campo numerico"
         End If
@@ -10276,6 +10358,33 @@ Private Sub txtNumeroEntero_LostFocus(Index As Integer)
     If Not PonerFormatoEntero(txtNumeroEntero(Index)) Then
         txtNumeroEntero(Index).Text = ""
         PonerFoco txtNumeroEntero(Index)
+    End If
+    
+    If Index = 5 Or Index = 6 Then cargacboAlbarEntradaOliva
+End Sub
+
+Private Sub cargacboAlbarEntradaOliva()
+   cboAlbarEntradaOliva.Clear
+   cboAlbarEntradaOliva.AddItem "Todos"
+    cboAlbarEntradaOliva.ListIndex = 0
+   If txtNumeroEntero(5).Text = txtNumeroEntero(6).Text Then
+        Set miRsAux = New ADODB.Recordset
+        miRsAux.Open "Select numalbar from vallentradacamionlineas WHERE entrada =" & txtNumeroEntero(6).Text, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        NumParam = 0
+        While Not miRsAux.EOF
+            campo = miRsAux!NumAlbar
+            NumParam = NumParam + 1
+            
+            miRsAux.MoveNext
+            If NumParam > 1 Then
+                'Lo metemos seguro
+                cboAlbarEntradaOliva.AddItem campo
+            Else
+                If Not miRsAux.EOF Then Me.cboAlbarEntradaOliva.AddItem campo
+            End If
+        Wend
+        miRsAux.Close
+        Set miRsAux = Nothing
     End If
 End Sub
 
@@ -11691,8 +11800,8 @@ Private Sub AñadirMarcas()
             Set miRsAux = New ADODB.Recordset
             miRsAux.Open miSQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             While Not miRsAux.EOF
-                List1.AddItem miRsAux!nommarca & "   (" & miRsAux!Codmarca & ")"
-                List1.ItemData(List1.NewIndex) = miRsAux!Codmarca
+                List1.AddItem miRsAux!nommarca & "   (" & miRsAux!codmarca & ")"
+                List1.ItemData(List1.NewIndex) = miRsAux!codmarca
                 miRsAux.MoveNext
             Wend
             miRsAux.Close
@@ -12291,6 +12400,8 @@ End Function
 
 
 Private Function ImprimirEtiquetasAlbaranes() As Boolean
+Dim RN As ADODB.Recordset
+
     ImprimirEtiquetasAlbaranes = False
     'NO puedes tocar codigo (la variable)
 
@@ -12309,44 +12420,77 @@ Private Function ImprimirEtiquetasAlbaranes() As Boolean
     If Val(Me.txtNumeroEntero(2).Text) > 0 Then
         For NumParam = 1 To Val(Me.txtNumeroEntero(2).Text)
             'tmpinformes(codusu,campo1,codigo1,nombre1,nombre2,campo2,importe1,fecha1,porcen1)"
-            miSQL = miSQL & ", (" & vUsu.Codigo & ",0," & 100000 + NumParam & ",null,null,null,null,null)"
+            miSQL = miSQL & ", (" & vUsu.Codigo & ",0," & 100000 + NumParam & ",null,null,null,null,null,null)"
         Next
     End If
     
-    Devuelve = "Select * from vallentradacamion where entrada =" & RecuperaValor(Codigo, 1)
-    miRsAux.Open Devuelve, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    cadFrom = miRsAux!FechaEntrada
-    miRsAux.Close
     
-    Devuelve = "Select * from vallentradacamionlineas where entrada =" & RecuperaValor(Codigo, 1)
-    miRsAux.Open Devuelve, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    While Not miRsAux.EOF
-        miSQL = miSQL & ", (" & vUsu.Codigo & ",1," & miRsAux!NumAlbar & ","
-       
-        Devuelve = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", miRsAux!codartic, "T")
-        miSQL = miSQL & DBSet(Devuelve, "T") & ","
-        
-        'Palets, palots...
-        
-        Devuelve = ""
-        If DBLet(miRsAux!codarti1, "T") <> "" Then Devuelve = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", miRsAux!codarti1, "T")
-        
-        If DBLet(miRsAux!codarti2, "T") <> "" Then
-            If Len(Devuelve) > 20 Then Devuelve = Mid(Devuelve, 1, 20)
-            MsgBox "Lleva mas de un tipo de envase", vbExclamation
-            Devuelve = Devuelve & " *+1*"
-        End If
-        miSQL = miSQL & DBSet(Devuelve, "T") & ","
     
-        Devuelve = CStr(Val(DBLet(miRsAux!udArti1, "N") + DBLet(miRsAux!udArti2, "N") + DBLet(miRsAux!udArti3, "N") + DBLet(miRsAux!udArti4, "N")))
-        miSQL = miSQL & DBSet(Devuelve, "N") & "," & DBSet(miRsAux!pesoprod, "N") & "," & DBSet(cadFrom, "F") & ")"
-        miRsAux.MoveNext
-    Wend
-    miRsAux.Close
-    miSQL = Mid(miSQL, 2)
-    miSQL = "INSERT INTO tmpinformes(codusu,campo1,codigo1,nombre1,nombre2,campo2,importe1,fecha1) VALUES " & miSQL
-    conn.Execute miSQL
-    ImprimirEtiquetasAlbaranes = True
+    Set RN = New ADODB.Recordset
+    Devuelve = "Select entrada from vallentradacamion where 1=1 "
+    If Me.txtNumeroEntero(5).Text <> "" Then Devuelve = Devuelve & " AND entrada >=" & Me.txtNumeroEntero(5).Text
+    If Me.txtNumeroEntero(6).Text <> "" Then Devuelve = Devuelve & " AND entrada <=" & Me.txtNumeroEntero(6).Text
+    
+    
+        
+    
+    
+    RN.Open Devuelve, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If RN.EOF Then
+        MsgBox "Ninguna etiqueta en el rango seleccionado", vbExclamation
+    Else
+        While Not RN.EOF
+            Devuelve = "Select * from vallentradacamion where entrada =" & RN!entrada
+            
+            
+            
+            miRsAux.Open Devuelve, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            cadFrom = miRsAux!FechaEntrada
+            miRsAux.Close
+            
+            Devuelve = "Select * from vallentradacamionlineas where entrada =" & RN!entrada
+            If Me.cboAlbarEntradaOliva.ListIndex > 0 Then Devuelve = Devuelve & " AND numalbar =" & cboAlbarEntradaOliva.Text
+            
+            
+            miRsAux.Open Devuelve, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            While Not miRsAux.EOF
+                miSQL = miSQL & ", (" & vUsu.Codigo & ",1," & miRsAux!NumAlbar & ","
+               
+                Devuelve = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", miRsAux!codartic, "T")
+                miSQL = miSQL & DBSet(Devuelve, "T") & ","
+                
+                'Palets, palots...
+                
+                Devuelve = ""
+                If DBLet(miRsAux!codarti1, "T") <> "" Then Devuelve = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", miRsAux!codarti1, "T")
+                
+                If DBLet(miRsAux!codarti2, "T") <> "" Then
+                    If Len(Devuelve) > 20 Then Devuelve = Mid(Devuelve, 1, 20)
+                    MsgBox "Lleva mas de un tipo de envase", vbExclamation
+                    Devuelve = Devuelve & " *+1*"
+                End If
+                miSQL = miSQL & DBSet(Devuelve, "T") & ","
+            
+                Devuelve = CStr(Val(DBLet(miRsAux!udArti1, "N") + DBLet(miRsAux!udArti2, "N") + DBLet(miRsAux!udArti3, "N") + DBLet(miRsAux!udArti4, "N")))
+                miSQL = miSQL & DBSet(Devuelve, "N") & "," & DBSet(miRsAux!pesoprod, "N") & "," & DBSet(cadFrom, "F")
+                miSQL = miSQL & "," & DBSet(miRsAux!porchoja, "N") & ")"
+                miRsAux.MoveNext
+            Wend
+            miRsAux.Close
+        
+            RN.MoveNext
+        Wend
+        
+        
+        miSQL = Mid(miSQL, 2)
+        miSQL = "INSERT INTO tmpinformes(codusu,campo1,codigo1,nombre1,nombre2,campo2,importe1,fecha1,porcen1) VALUES " & miSQL
+        conn.Execute miSQL
+        ImprimirEtiquetasAlbaranes = True
+
+    End If  'de rn.eof
+    RN.Close
+    Set RN = Nothing
+    Set miRsAux = Nothing
 End Function
 
 
@@ -12356,6 +12500,8 @@ Private Function GenerarAlbaranesOliva() As Boolean
 Dim RT As ADODB.Recordset
 Dim cSt As cStock
 Dim J As Integer
+Dim Cantidad As Currency
+
     'cadFormula:  Lleva el codigo de la entrada de camion a traspasar. NO tocar
     'Cadparam:    Proveedor
     On Error GoTo eGenerarAlbaranesOliva
@@ -12397,9 +12543,10 @@ Dim J As Integer
     cSt.DetaMov = "ALC"
     cSt.Fechamov = miRsAux!FechaEntrada
     cSt.Importe = 0
-    cSt.HoraMov = miRsAux!FechaEntrada & " " & Format(Now, "hh:mm:ss")
+    cSt.HoraMov = miRsAux!FechaEntrada & " " & Format(miRsAux!hora, "hh:mm:ss")
     
     While Not RT.EOF
+    
         'Cabecera albaran
         miSQL = "INSERT INTO scaalp(numalbar,fechaalb,codprove,nomprove,domprove,codpobla,pobprove,proprove,"
         miSQL = miSQL & "nifprove,telprove,codforpa,codtraba,codtrab1,dtoppago,dtognral,observa1) VALUES ("
@@ -12418,7 +12565,11 @@ Dim J As Integer
         
         'La lineas
         cSt.codAlmac = RT!codAlmac
-        cSt.Cantidad = RT!Neto
+        Cantidad = 0
+        If DBLet(RT!porchoja, "N") > 0 Then Cantidad = RT!porchoja / 100
+        Cantidad = Round2((1 - Cantidad) * RT!Neto, 0)
+        
+        cSt.Cantidad = Cantidad
         cSt.codartic = RT!codartic
         cSt.Documento = RT!NumAlbar
         cSt.LineaDocu = 1
@@ -12432,7 +12583,8 @@ Dim J As Integer
         miSQL = miSQL & "cantidad,precioar,dtoline1,dtoline2,importel) VALUES ("
         miSQL = miSQL & DBSet(RT!NumAlbar, "T") & "," & DBSet(miRsAux!FechaEntrada, "F") & "," & miRsAux!codProve & ",1,"
         miSQL = miSQL & DBSet(RT!codartic, "T") & "," & RT!codAlmac & "," & DBSet(RT!NomArtic, "T") & ",'Entrada: " & RT!entrada & "  " & miRsAux!matricula & "',"
-        miSQL = miSQL & DBSet(RT!Neto, "N") & ",0,0,0,0)"
+        
+        miSQL = miSQL & DBSet(cSt.Cantidad, "N") & ",0,0,0,0)"
         conn.Execute miSQL
             
         'Si lleva palets....

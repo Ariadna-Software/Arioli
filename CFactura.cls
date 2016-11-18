@@ -2145,7 +2145,7 @@ Dim vClien As CCliente
 Dim Nulo2 As String
 Dim Nulo3 As String
 Dim ctaDpto As Boolean
-Dim cad As String, cad2 As String
+Dim Cad As String, cad2 As String
 
     On Error GoTo EInsertar
 
@@ -2174,18 +2174,18 @@ Dim cad As String, cad2 As String
             If Me.DirDpto <> "" Then
                 'comprobar que el dpto del cliente tiene cta bancaria
                 cad2 = "digcontr"
-                cad = DevuelveDesdeBDNew(conAri, "sdirec", "cuentaba", "codclien", Me.Cliente, "N", cad2, "coddirec", Me.DirDpto, "N")
-                If cad <> "" And cad2 <> "" Then ctaDpto = True
+                Cad = DevuelveDesdeBDNew(conAri, "sdirec", "cuentaba", "codclien", Me.Cliente, "N", cad2, "coddirec", Me.DirDpto, "N")
+                If Cad <> "" And cad2 <> "" Then ctaDpto = True
             End If
         End If
         
         If ctaDpto Then 'cogemos la cta bancaria del departamento
-            Me.CuentaBan = cad
+            Me.CuentaBan = Cad
 '            cad = DevuelveDesdeBDNew(conAri, "sdirec", "digcontr", "codclien", Me.Cliente, "N", , "coddirec", Me.DirDpto, "N")
             Me.DigControl = cad2
             cad2 = "codsucur"
-            cad = DevuelveDesdeBDNew(conAri, "sdirec", "codbanco", "codclien", Me.Cliente, "N", cad2, "coddirec", Me.DirDpto, "N")
-            Me.Banco = cad
+            Cad = DevuelveDesdeBDNew(conAri, "sdirec", "codbanco", "codclien", Me.Cliente, "N", cad2, "coddirec", Me.DirDpto, "N")
+            Me.Banco = Cad
             Me.Sucursal = cad2
             Me.IBAN = ""
         Else 'cuenta bancaria del cliente
@@ -2271,7 +2271,7 @@ Dim MantenimientoObservacion As String
     'Junio16
     SQL = SQL & ",FechaCarga , Muestra, Deposito, TransEmpresa, TransMatricula, TransConductor, TransCondDNI, TransNumBocas, TransBruto,"
     SQL = SQL & "TransTara, TransObsPrecintos, TransMatRemolque, TransMercancia, TransAcidez, TransDestino, TransLacradasCoop,"
-    SQL = SQL & "TransLacradasCompr, TransTicketBas, TransCMR, TransCertLim, TransOtros)"
+    SQL = SQL & "TransLacradasCompr, TransTicketBas, TransCMR, TransCertLim, TransOtros,hora)"
     
     If (Codtipom = "FAV" And NumTicket <> "") Then
         'Facturas generadas desde una venta de tickets: en numalbar guardamos numticket
@@ -2297,7 +2297,7 @@ Dim MantenimientoObservacion As String
         
         SQL = SQL & ",FechaCarga , Muestra, Deposito, TransEmpresa, TransMatricula, TransConductor, TransCondDNI, TransNumBocas, TransBruto,"
         SQL = SQL & "TransTara, TransObsPrecintos, TransMatRemolque, TransMercancia, TransAcidez, TransDestino, TransLacradasCoop,"
-        SQL = SQL & "TransLacradasCompr, TransTicketBas, TransCMR, TransCertLim, TransOtros)"
+        SQL = SQL & "TransLacradasCompr, TransTicketBas, TransCMR, TransCertLim, TransOtros,hora)"
         
     ElseIf (Codtipom <> "FAM" And Codtipom <> "FTI") And cadSQL <> "" Then 'Facturas de VEnta
         'Dic 2009
@@ -2307,7 +2307,7 @@ Dim MantenimientoObservacion As String
         
         SQL = SQL & ",FechaCarga , Muestra, Deposito, TransEmpresa, TransMatricula, TransConductor, TransCondDNI, TransNumBocas, TransBruto,"
         SQL = SQL & "TransTara, TransObsPrecintos, TransMatRemolque, TransMercancia, TransAcidez, TransDestino, TransLacradasCoop,"
-        SQL = SQL & "TransLacradasCompr, TransTicketBas, TransCMR, TransCertLim, TransOtros"
+        SQL = SQL & "TransLacradasCompr, TransTicketBas, TransCMR, TransCertLim, TransOtros,hora"
         
         
         SQL = SQL & " FROM scaalb WHERE " & cadSQL
@@ -2373,7 +2373,7 @@ Dim MantenimientoObservacion As String
         
         SQL = SQL & ",NULL , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,"
         SQL = SQL & "NULL, NULL, NULL, NULL, NULL, NULL, NULL,"
-        SQL = SQL & "NULL, NULL, NULL, NULL, NULL)"
+        SQL = SQL & "NULL, NULL, NULL, NULL, NULL,NULL)"
         
         
         
@@ -2396,7 +2396,7 @@ End Function
 Private Function InsertarLineasFactu(cadSQL As String) As Boolean
 'Insertar las lineas de los Albaranes de la factura en la tabla: slifac
 Dim SQL As String
-Dim cad As String
+Dim Cad As String
 Dim cad2 As String
 Dim cArt As CArticulo
 Dim InsertaTbLotes As Boolean
@@ -2432,16 +2432,16 @@ Dim InsertaTbLotes As Boolean
         If ArticFac <> "" Then
             Set cArt = New CArticulo
             If cArt.LeerDatos(ArticFac) Then
-                cad = cArt.Nombre   'Aunque luego machaco cad con la nueva amplicacion: contrato + numerocontrato
+                Cad = cArt.Nombre   'Aunque luego machaco cad con la nueva amplicacion: contrato + numerocontrato
             End If
 '            cad2 = "preciomp"
 '            cad = DevuelveDesdeBDNew(conAri, "sartic", "nomartic", "codartic", ArticFac, "T", cad2)
         End If
         
-        cad = DevuelveDesdeBDNew(conAri, "stipco", "nomtipco", "codtipco", TipCoMan, "T")
-        cad = cad & "  Nº: " & numMante
+        Cad = DevuelveDesdeBDNew(conAri, "stipco", "nomtipco", "codtipco", TipCoMan, "T")
+        Cad = Cad & "  Nº: " & numMante
         
-        SQL = SQL & DBSet(cad, "T") & ","
+        SQL = SQL & DBSet(Cad, "T") & ","
             
         'campo Ampliacion linea segun el tipopago del mantenimientos
         '-----------------------
@@ -2459,9 +2459,9 @@ Dim InsertaTbLotes As Boolean
 '            cad = MonthName(CLng(MesFactu)) & " de " & Year(FecFactu)
 '            cad = UCase(cad)
 '        End If
-        cad = mObservacion
+        Cad = mObservacion
         
-        SQL = SQL & DBSet(cad, "T") & ","
+        SQL = SQL & DBSet(Cad, "T") & ","
             
         'cantidad, precio, dtos
         SQL = SQL & "1," & DBSet(BrutoFac, "N") & ", 0,0, "
@@ -2588,7 +2588,7 @@ End Function
 
 Private Function InsertarDetEquip() As Boolean
 Dim SQL As String
-Dim cad As String
+Dim Cad As String
 
     'si son facturas de MAntenimiento y parametro de stipco: detallar equipos en la factura=true
     'guardar en una tabla el resumen por tipo de articulo de los Nº Series de equipos
@@ -2600,11 +2600,11 @@ Dim cad As String
     SQL = DevuelveDesdeBDNew(conAri, "stipco", "detequip", "codtipco", TipCoMan, "T")
     
     If SQL = "1" Then 'Detalla Equipo
-        cad = ObtenerSQLcomponentes(" WHERE codclien=" & Cliente & " AND nummante=" & DBSet(numMante, "T"))
+        Cad = ObtenerSQLcomponentes(" WHERE codclien=" & Cliente & " AND nummante=" & DBSet(numMante, "T"))
         SQL = "Select distinct '" & Codtipom & "' as codtipom," & NumFactu & " as numfactu,'" & Format(FecFactu, FormatoFecha) & "' as fecfactu,"
-        cad = Replace(cad, "Select distinct", SQL)
+        Cad = Replace(Cad, "Select distinct", SQL)
         SQL = "INSERT INTO srecom (codtipom,numfactu,fecfactu,codtipar,nomtipar,cantidad) "
-        SQL = SQL & cad
+        SQL = SQL & Cad
 
         conn.Execute SQL
     End If
@@ -2641,7 +2641,7 @@ Private Function InsertarDesplaz() As Boolean
 'Añadir cantkm * preciokm al bruto de la factura
 'Insertar linea en tabla slifac con el importe del desplazamiento
 Dim SQL As String
-Dim cad As String
+Dim Cad As String
 Dim b As Boolean
 
     On Error GoTo EDesplaz
@@ -2665,8 +2665,8 @@ Dim b As Boolean
         SQL = SQL & DBSet(AlmFactu, "N") & ","
             
         'codartic,nomartic,ampliaci
-        cad = DevuelveDesdeBDNew(conAri, "sartic", "nomartic", "codartic", codartic, "T")
-        SQL = SQL & DBSet(codartic, "T") & "," & DBSet(cad, "T") & "," & DBSet(Ampliacion, "T") & ","
+        Cad = DevuelveDesdeBDNew(conAri, "sartic", "nomartic", "codartic", codartic, "T")
+        SQL = SQL & DBSet(codartic, "T") & "," & DBSet(Cad, "T") & "," & DBSet(Ampliacion, "T") & ","
         'cantidad,precioar,dtoline1,dtoline2,importel,origpre
         SQL = SQL & DBSet(TotalKm, "N") & "," & DBSet(PrecioKm, "N") & ",0,0," & DBSet(ImporteL, "N") & ",'M')"
         

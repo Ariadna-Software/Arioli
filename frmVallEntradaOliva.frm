@@ -32,7 +32,7 @@ Begin VB.Form frmVallEntradaOliva
       ForeColor       =   &H00000080&
       Height          =   4815
       Left            =   120
-      TabIndex        =   43
+      TabIndex        =   45
       Top             =   3120
       Width           =   11175
       Begin VB.TextBox Text3 
@@ -41,7 +41,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   20
          Left            =   9840
          MaxLength       =   12
-         TabIndex        =   12
+         TabIndex        =   14
          Text            =   "Text1"
          Top             =   600
          Width           =   855
@@ -52,7 +52,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   5
          Left            =   7200
          MaxLength       =   12
-         TabIndex        =   28
+         TabIndex        =   30
          Text            =   "Text1"
          Top             =   4080
          Width           =   855
@@ -63,7 +63,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   6
          Left            =   9240
          MaxLength       =   12
-         TabIndex        =   29
+         TabIndex        =   31
          Text            =   "Text1"
          Top             =   4080
          Width           =   1095
@@ -74,7 +74,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   12
          Left            =   8760
          MaxLength       =   12
-         TabIndex        =   18
+         TabIndex        =   20
          Text            =   "Text1"
          Top             =   1920
          Width           =   855
@@ -86,7 +86,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   10
          Left            =   9720
          Locked          =   -1  'True
-         TabIndex        =   68
+         TabIndex        =   70
          Text            =   "Text2"
          Top             =   2880
          Width           =   1245
@@ -98,7 +98,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   9
          Left            =   9720
          Locked          =   -1  'True
-         TabIndex        =   67
+         TabIndex        =   69
          Text            =   "Text2"
          Top             =   2400
          Width           =   1245
@@ -110,7 +110,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   8
          Left            =   9720
          Locked          =   -1  'True
-         TabIndex        =   66
+         TabIndex        =   68
          Text            =   "Text2"
          Top             =   1920
          Width           =   1245
@@ -122,7 +122,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   7
          Left            =   9720
          Locked          =   -1  'True
-         TabIndex        =   65
+         TabIndex        =   67
          Text            =   "Text2"
          Top             =   1440
          Width           =   1245
@@ -133,7 +133,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   18
          Left            =   8760
          MaxLength       =   12
-         TabIndex        =   24
+         TabIndex        =   26
          Text            =   "Text1"
          Top             =   2880
          Width           =   855
@@ -144,7 +144,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   6
          Left            =   5160
          Locked          =   -1  'True
-         TabIndex        =   64
+         TabIndex        =   66
          Text            =   "Text2"
          Top             =   2880
          Width           =   2805
@@ -155,7 +155,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   17
          Left            =   8040
          MaxLength       =   12
-         TabIndex        =   23
+         TabIndex        =   25
          Text            =   "Text1"
          Top             =   2880
          Width           =   615
@@ -166,7 +166,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   16
          Left            =   3600
          MaxLength       =   12
-         TabIndex        =   22
+         TabIndex        =   24
          Text            =   "Text1"
          Top             =   2880
          Width           =   1215
@@ -177,7 +177,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   15
          Left            =   8760
          MaxLength       =   12
-         TabIndex        =   21
+         TabIndex        =   23
          Text            =   "Text1"
          Top             =   2400
          Width           =   855
@@ -188,7 +188,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   5
          Left            =   5160
          Locked          =   -1  'True
-         TabIndex        =   63
+         TabIndex        =   65
          Text            =   "Text2"
          Top             =   2400
          Width           =   2805
@@ -199,7 +199,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   14
          Left            =   8040
          MaxLength       =   12
-         TabIndex        =   20
+         TabIndex        =   22
          Text            =   "Text1"
          Top             =   2400
          Width           =   615
@@ -210,7 +210,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   13
          Left            =   3600
          MaxLength       =   12
-         TabIndex        =   19
+         TabIndex        =   21
          Text            =   "Text1"
          Top             =   2400
          Width           =   1215
@@ -221,7 +221,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   4
          Left            =   5160
          Locked          =   -1  'True
-         TabIndex        =   62
+         TabIndex        =   64
          Text            =   "Text2"
          Top             =   1920
          Width           =   2805
@@ -232,7 +232,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   11
          Left            =   8040
          MaxLength       =   12
-         TabIndex        =   17
+         TabIndex        =   19
          Text            =   "Text1"
          Top             =   1920
          Width           =   615
@@ -243,7 +243,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   10
          Left            =   3600
          MaxLength       =   12
-         TabIndex        =   16
+         TabIndex        =   18
          Text            =   "Text1"
          Top             =   1920
          Width           =   1215
@@ -254,7 +254,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   9
          Left            =   8760
          MaxLength       =   12
-         TabIndex        =   15
+         TabIndex        =   17
          Text            =   "Text1"
          Top             =   1440
          Width           =   855
@@ -265,7 +265,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   3
          Left            =   5160
          Locked          =   -1  'True
-         TabIndex        =   55
+         TabIndex        =   57
          Text            =   "Text2"
          Top             =   1440
          Width           =   2805
@@ -276,7 +276,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   8
          Left            =   8040
          MaxLength       =   12
-         TabIndex        =   14
+         TabIndex        =   16
          Text            =   "Text1"
          Top             =   1440
          Width           =   615
@@ -287,7 +287,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   7
          Left            =   3600
          MaxLength       =   12
-         TabIndex        =   13
+         TabIndex        =   15
          Text            =   "Text1"
          Top             =   1440
          Width           =   1215
@@ -298,7 +298,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   19
          Left            =   8760
          MaxLength       =   12
-         TabIndex        =   11
+         TabIndex        =   13
          Text            =   "Text1"
          Top             =   600
          Width           =   855
@@ -309,7 +309,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   4
          Left            =   6000
          MaxLength       =   12
-         TabIndex        =   27
+         TabIndex        =   29
          Text            =   "Text1"
          Top             =   4080
          Width           =   975
@@ -320,7 +320,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   3
          Left            =   4920
          MaxLength       =   12
-         TabIndex        =   26
+         TabIndex        =   28
          Text            =   "Text1"
          Top             =   4080
          Width           =   975
@@ -331,7 +331,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   2
          Left            =   3600
          MaxLength       =   12
-         TabIndex        =   25
+         TabIndex        =   27
          Text            =   "Text1"
          Top             =   4080
          Width           =   1095
@@ -342,7 +342,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   1
          Left            =   3600
          MaxLength       =   12
-         TabIndex        =   10
+         TabIndex        =   12
          Text            =   "Text1"
          Top             =   600
          Width           =   1215
@@ -353,7 +353,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   2
          Left            =   5160
          Locked          =   -1  'True
-         TabIndex        =   52
+         TabIndex        =   54
          Text            =   "Text2"
          Top             =   600
          Width           =   3165
@@ -373,7 +373,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   0
          Left            =   720
          MaxLength       =   12
-         TabIndex        =   9
+         TabIndex        =   11
          Text            =   "Text1"
          Top             =   720
          Width           =   1335
@@ -382,7 +382,7 @@ Begin VB.Form frmVallEntradaOliva
          Bindings        =   "frmVallEntradaOliva.frx":000C
          Height          =   3975
          Left            =   360
-         TabIndex        =   44
+         TabIndex        =   46
          Top             =   480
          Width           =   2895
          _ExtentX        =   5106
@@ -452,7 +452,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   10
          Left            =   10080
-         TabIndex        =   74
+         TabIndex        =   76
          Top             =   360
          Width           =   330
       End
@@ -461,7 +461,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   15
          Left            =   8760
-         TabIndex        =   73
+         TabIndex        =   75
          Top             =   360
          Width           =   885
       End
@@ -470,7 +470,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   14
          Left            =   7320
-         TabIndex        =   72
+         TabIndex        =   74
          Top             =   3840
          Width           =   735
       End
@@ -479,7 +479,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   13
          Left            =   9480
-         TabIndex        =   71
+         TabIndex        =   73
          Top             =   3840
          Width           =   735
       End
@@ -488,7 +488,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   12
          Left            =   6240
-         TabIndex        =   70
+         TabIndex        =   72
          Top             =   3840
          Width           =   735
       End
@@ -498,7 +498,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   11
          Left            =   4920
-         TabIndex        =   69
+         TabIndex        =   71
          Top             =   3840
          Width           =   975
       End
@@ -547,7 +547,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   9
          Left            =   10080
-         TabIndex        =   61
+         TabIndex        =   63
          Top             =   1200
          Width           =   285
       End
@@ -556,7 +556,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   8
          Left            =   8880
-         TabIndex        =   60
+         TabIndex        =   62
          Top             =   1200
          Width           =   405
       End
@@ -565,7 +565,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   7
          Left            =   8160
-         TabIndex        =   59
+         TabIndex        =   61
          Top             =   1200
          Width           =   285
       End
@@ -574,7 +574,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   195
          Index           =   6
          Left            =   3720
-         TabIndex        =   58
+         TabIndex        =   60
          Top             =   3840
          Width           =   810
       End
@@ -583,7 +583,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   5
          Left            =   3600
-         TabIndex        =   57
+         TabIndex        =   59
          Top             =   1200
          Width           =   735
       End
@@ -592,7 +592,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   4
          Left            =   3600
-         TabIndex        =   56
+         TabIndex        =   58
          Top             =   360
          Width           =   855
       End
@@ -600,9 +600,21 @@ Begin VB.Form frmVallEntradaOliva
    Begin VB.Frame Frame2 
       Height          =   1155
       Left            =   120
-      TabIndex        =   39
+      TabIndex        =   41
       Top             =   480
       Width           =   11175
+      Begin VB.TextBox Text1 
+         Alignment       =   1  'Right Justify
+         Height          =   315
+         Index           =   8
+         Left            =   5280
+         MaxLength       =   10
+         TabIndex        =   2
+         Tag             =   "Hora|H|N|||vallentradacamion|hora|hh:mm:ss||"
+         Text            =   "Text1"
+         Top             =   240
+         Width           =   1095
+      End
       Begin VB.TextBox Text2 
          Alignment       =   1  'Right Justify
          BackColor       =   &H80000018&
@@ -610,7 +622,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   1
          Left            =   9840
          Locked          =   -1  'True
-         TabIndex        =   53
+         TabIndex        =   55
          Text            =   "Text2"
          Top             =   720
          Width           =   1125
@@ -621,7 +633,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   6
          Left            =   8040
          MaxLength       =   12
-         TabIndex        =   4
+         TabIndex        =   5
          Tag             =   "Tara|N|N|0||vallentradacamion|Tara|#,##0||"
          Text            =   "Text1"
          Top             =   720
@@ -633,7 +645,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   5
          Left            =   6600
          MaxLength       =   12
-         TabIndex        =   3
+         TabIndex        =   4
          Tag             =   "Bruto|N|N|0||vallentradacamion|Bruto|#,##0||"
          Text            =   "Text1"
          Top             =   720
@@ -655,7 +667,7 @@ Begin VB.Form frmVallEntradaOliva
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   7
-         Left            =   3960
+         Left            =   3840
          MaxLength       =   10
          TabIndex        =   1
          Tag             =   "Fecha|F|N|||vallentradacamion|FechaEntrada|||"
@@ -669,7 +681,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   0
          Left            =   1320
          MaxLength       =   6
-         TabIndex        =   2
+         TabIndex        =   3
          Tag             =   "Proveedor|N|N|0||vallentradacamion|codprove|0000||"
          Text            =   "Text1"
          Top             =   720
@@ -681,7 +693,7 @@ Begin VB.Form frmVallEntradaOliva
          Index           =   0
          Left            =   2280
          Locked          =   -1  'True
-         TabIndex        =   41
+         TabIndex        =   43
          Text            =   "Text2"
          Top             =   720
          Width           =   3645
@@ -690,7 +702,7 @@ Begin VB.Form frmVallEntradaOliva
          Caption         =   "Generación finalizada"
          Height          =   195
          Left            =   8520
-         TabIndex        =   40
+         TabIndex        =   42
          Tag             =   "Fin|N|N|0||vallentradacamion|EntradaFinalizada|||"
          Top             =   240
          Width           =   2295
@@ -700,7 +712,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   2
          Left            =   9240
-         TabIndex        =   54
+         TabIndex        =   56
          Top             =   750
          Width           =   495
       End
@@ -709,7 +721,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   1
          Left            =   7680
-         TabIndex        =   51
+         TabIndex        =   53
          Top             =   750
          Width           =   495
       End
@@ -718,7 +730,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   0
          Left            =   6120
-         TabIndex        =   50
+         TabIndex        =   52
          Top             =   750
          Width           =   495
       End
@@ -727,7 +739,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   0
          Left            =   240
-         TabIndex        =   46
+         TabIndex        =   48
          Top             =   240
          Width           =   855
       End
@@ -744,7 +756,7 @@ Begin VB.Form frmVallEntradaOliva
          Caption         =   "Fecha "
          Height          =   255
          Left            =   2760
-         TabIndex        =   45
+         TabIndex        =   47
          Top             =   285
          Width           =   735
       End
@@ -753,7 +765,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   0
          Left            =   240
-         TabIndex        =   42
+         TabIndex        =   44
          Top             =   720
          Width           =   855
       End
@@ -780,17 +792,30 @@ Begin VB.Form frmVallEntradaOliva
       ForeColor       =   &H00972E0B&
       Height          =   1335
       Left            =   120
-      TabIndex        =   38
+      TabIndex        =   40
       Top             =   1680
       Width           =   11175
-      Begin VB.ComboBox cboEmpresa 
+      Begin VB.TextBox Text1 
          Height          =   315
-         Left            =   960
-         Style           =   2  'Dropdown List
-         TabIndex        =   8
-         Tag             =   "Empresa|N|S|||vallentradacamion|EmpresaTransporte|||"
+         Index           =   10
+         Left            =   7200
+         MaxLength       =   12
+         TabIndex        =   10
+         Tag             =   "Ve|T|S|||vallentradacamion|DNIConductor|||"
+         Text            =   "   "
          Top             =   840
-         Width           =   4335
+         Width           =   1455
+      End
+      Begin VB.TextBox Text1 
+         Height          =   315
+         Index           =   9
+         Left            =   1440
+         MaxLength       =   12
+         TabIndex        =   6
+         Tag             =   "Ve|T|S|||vallentradacamion|EmpresaTransporte|||"
+         Text            =   "   "
+         Top             =   330
+         Width           =   4215
       End
       Begin VB.TextBox Text1 
          Height          =   315
@@ -800,45 +825,54 @@ Begin VB.Form frmVallEntradaOliva
          TabIndex        =   7
          Tag             =   "Ve|T|S|||vallentradacamion|Conductor|||"
          Text            =   "Text1"
-         Top             =   360
+         Top             =   330
          Width           =   3735
       End
       Begin VB.TextBox Text1 
          Height          =   315
          Index           =   4
-         Left            =   3840
+         Left            =   4200
          MaxLength       =   12
-         TabIndex        =   6
+         TabIndex        =   9
          Tag             =   "Ve|T|S|||vallentradacamion|Matricula|||"
          Text            =   "Text1"
-         Top             =   360
+         Top             =   840
          Width           =   1455
       End
       Begin VB.TextBox Text1 
          Height          =   315
          Index           =   1
-         Left            =   960
+         Left            =   1440
          MaxLength       =   12
-         TabIndex        =   5
+         TabIndex        =   8
          Tag             =   "Ve|T|S|||vallentradacamion|TipoVehiculo|||"
          Text            =   "   "
-         Top             =   360
+         Top             =   840
          Width           =   1455
+      End
+      Begin VB.Label Label1 
+         Caption         =   "DNI"
+         Height          =   255
+         Index           =   16
+         Left            =   6240
+         TabIndex        =   78
+         Top             =   840
+         Width           =   855
       End
       Begin VB.Image imgEmpresasTransporte 
          Height          =   240
-         Left            =   5400
+         Left            =   960
          ToolTipText     =   "Buscar cliente"
-         Top             =   840
+         Top             =   360
          Width           =   240
       End
       Begin VB.Label Label3 
          Caption         =   "Empresa"
          Height          =   255
          Index           =   1
-         Left            =   120
-         TabIndex        =   75
-         Top             =   840
+         Left            =   240
+         TabIndex        =   77
+         Top             =   360
          Width           =   855
       End
       Begin VB.Label Label1 
@@ -846,7 +880,7 @@ Begin VB.Form frmVallEntradaOliva
          Height          =   255
          Index           =   3
          Left            =   6240
-         TabIndex        =   49
+         TabIndex        =   51
          Top             =   360
          Width           =   855
       End
@@ -854,18 +888,18 @@ Begin VB.Form frmVallEntradaOliva
          Caption         =   "Matrícula"
          Height          =   255
          Index           =   2
-         Left            =   2880
-         TabIndex        =   48
-         Top             =   360
+         Left            =   3240
+         TabIndex        =   50
+         Top             =   840
          Width           =   855
       End
       Begin VB.Label Label1 
          Caption         =   "Vehiculo"
          Height          =   255
          Index           =   1
-         Left            =   120
-         TabIndex        =   47
-         Top             =   360
+         Left            =   240
+         TabIndex        =   49
+         Top             =   840
          Width           =   855
       End
    End
@@ -873,7 +907,7 @@ Begin VB.Form frmVallEntradaOliva
       Caption         =   "&Aceptar"
       Height          =   375
       Left            =   8400
-      TabIndex        =   30
+      TabIndex        =   32
       Top             =   8130
       Width           =   1035
    End
@@ -882,7 +916,7 @@ Begin VB.Form frmVallEntradaOliva
       Caption         =   "&Cancelar"
       Height          =   375
       Left            =   9555
-      TabIndex        =   31
+      TabIndex        =   33
       Top             =   8130
       Width           =   1035
    End
@@ -890,7 +924,7 @@ Begin VB.Form frmVallEntradaOliva
       Caption         =   "&Regresar"
       Height          =   375
       Left            =   9555
-      TabIndex        =   32
+      TabIndex        =   34
       Top             =   8130
       Visible         =   0   'False
       Width           =   1035
@@ -899,7 +933,7 @@ Begin VB.Form frmVallEntradaOliva
       Height          =   540
       Index           =   0
       Left            =   360
-      TabIndex        =   36
+      TabIndex        =   38
       Top             =   8040
       Width           =   2655
       Begin VB.Label lblIndicador 
@@ -916,7 +950,7 @@ Begin VB.Form frmVallEntradaOliva
          EndProperty
          Height          =   240
          Left            =   240
-         TabIndex        =   37
+         TabIndex        =   39
          Top             =   180
          Width           =   2115
       End
@@ -925,7 +959,7 @@ Begin VB.Form frmVallEntradaOliva
       Align           =   1  'Align Top
       Height          =   420
       Left            =   0
-      TabIndex        =   33
+      TabIndex        =   35
       Top             =   0
       Width           =   11475
       _ExtentX        =   20241
@@ -1008,7 +1042,7 @@ Begin VB.Form frmVallEntradaOliva
          Caption         =   "Vista previa"
          Height          =   315
          Left            =   9720
-         TabIndex        =   35
+         TabIndex        =   37
          Top             =   120
          Width           =   1215
       End
@@ -1120,7 +1154,7 @@ Begin VB.Form frmVallEntradaOliva
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   34
+      TabIndex        =   36
       Top             =   8220
       Visible         =   0   'False
       Width           =   3495
@@ -1183,12 +1217,15 @@ Private WithEvents frmA As frmAlmArticulos  'Form Mantenimiento Articulos
 Attribute frmA.VB_VarHelpID = -1
 Private WithEvents frmT As frmVallTransOliva
 Attribute frmT.VB_VarHelpID = -1
+Private WithEvents frmVh As frmFacVehiculos
+Attribute frmVh.VB_VarHelpID = -1
+
 
 Dim NombreTabla As String
 Dim Ordenacion As String
 Private Modo As Byte
 Private ModoAnterior As Byte
-Dim kCampo As Integer
+Dim Kcampo As Integer
 
 '1.- Añadir,  2.- Modificar,  3.- Borrar,  0.-Pasar control a Lineas
 Dim ModificaLineas As Byte
@@ -1314,10 +1351,10 @@ On Error GoTo ECancelar
            
             PonerDatosForaGrid True
             LLamaLineas2 0
-            kCampo = Data2.Recordset.AbsolutePosition
-            If kCampo < 0 Then QueRegistro
+            Kcampo = Data2.Recordset.AbsolutePosition
+            If Kcampo < 0 Then QueRegistro
             CargaGrid True
-            SituarDataPosicion Data2, CLng(kCampo), Me.lblIndicador.Caption
+            SituarDataPosicion Data2, CLng(Kcampo), Me.lblIndicador.Caption
             'If Not Data4.Recordset.EOF Then PonerCamposAlmacenes2
             
             PonerBotonCabecera True
@@ -1331,8 +1368,8 @@ End Sub
 
 Private Sub QueRegistro()
     On Error Resume Next
-    kCampo = Data2.Recordset.RecordCount
-    If kCampo < 0 Then kCampo = 1
+    Kcampo = Data2.Recordset.RecordCount
+    If Kcampo < 0 Then Kcampo = 1
     Err.Clear
 End Sub
 
@@ -1404,9 +1441,9 @@ Private Sub Form_Load()
     Me.Icon = frmppal.Icon
     
     'Icono de busqueda
-    For kCampo = 0 To Me.imgBuscar.Count - 1
-        Me.imgBuscar(kCampo).Picture = frmppal.imgListComun.ListImages(19).Picture
-    Next kCampo
+    For Kcampo = 0 To Me.imgBuscar.Count - 1
+        Me.imgBuscar(Kcampo).Picture = frmppal.imgListComun.ListImages(19).Picture
+    Next Kcampo
     imgEmpresasTransporte.Picture = frmppal.imgListComun.ListImages(19).Picture
     
     'La toolbar
@@ -1441,7 +1478,7 @@ Private Sub Form_Load()
     'Vemos como esta guardado el valor del check
     chkVistaPrevia.Value = CheckValueLeer(Name)
     
-    CargarCombo_Tabla cboEmpresa, "vallempresatransoliva", "codEmpre", "NomEmpre"
+    
         
     
     NombreTabla = "vallentradacamion" 'Tabla Precios Especiales de Articulos
@@ -1496,6 +1533,10 @@ ECarga:
     If Err.Number <> 0 Then MuestraError Err.Number, "Cargando datos grid: " & DataGrid1.Tag, Err.Description
 End Sub
 
+Private Sub Form_Unload(Cancel As Integer)
+    CheckValueGuardar Me.Name, Me.chkVistaPrevia.Value
+End Sub
+
 Private Sub frmA_DatoSeleccionado(CadenaSeleccion As String)
     'Formulario Mantenimiento Articulos
     CadenaConsulta = CadenaSeleccion
@@ -1505,7 +1546,7 @@ End Sub
 Private Sub frmB_Selecionado(CadenaDevuelta As String)
 'Formulario para Busqueda
 Dim cadB As String
-Dim Aux As String
+
       
     If CadenaDevuelta <> "" Then
         HaDevueltoDatos = True
@@ -1515,11 +1556,9 @@ Dim Aux As String
         'Recupera todo el registro de Tarifas de Precios
         'Sabemos que campos son los que nos devuelve
         'Creamos una cadena consulta y ponemos los datos
-        cadB = ""
-        Aux = ValorDevueltoFormGrid(Text1(0), CadenaDevuelta, 1)
-        cadB = Aux
-        Aux = ValorDevueltoFormGrid(Text1(1), CadenaDevuelta, 2)
-        cadB = cadB & " and " & Aux
+       
+        cadB = ValorDevueltoFormGrid(Text1(3), CadenaDevuelta, 1)
+      
         CadenaConsulta = "select * from " & NombreTabla & " WHERE " & cadB & " " & Ordenacion
         PonerCadenaBusqueda
     End If
@@ -1543,6 +1582,10 @@ End Sub
 
 
 Private Sub frmT_DatoSeleccionado(CadenaSeleccion As String)
+    CadenaConsulta = CadenaSeleccion
+End Sub
+
+Private Sub frmVh_DatoSeleccionado(CadenaSeleccion As String)
     CadenaConsulta = CadenaSeleccion
 End Sub
 
@@ -1594,17 +1637,62 @@ End Sub
 
 Private Sub imgEmpresasTransporte_Click()
     If Modo = 2 Or Modo = 0 Then Exit Sub
+    
     CadenaConsulta = ""
-    Set frmT = New frmVallTransOliva
-    frmT.DatosADevolverBusqueda = "0|"
-    frmT.Show vbModal
-    Set frmT = Nothing
+'    Set frmT = New frmVallTransOliva
+'    frmT.DatosADevolverBusqueda = "0|"
+'    frmT.Show vbModal
+'    Set frmT = Nothing
+'    If CadenaConsulta <> "" Then
+'        If RecuperaValor(CadenaConsulta, 1) = 1 Then CargarCombo_Tabla cboEmpresa, "vallempresatransoliva", "codEmpre", "NomEmpre"
+'        CadenaConsulta = RecuperaValor(CadenaConsulta, 2)
+'        SituarCombo2 Me.cboEmpresa, Val(CadenaConsulta)
+'        CadenaConsulta = ""
+'    End If
+    
+    
+    
+    
+    
+    CadenaConsulta = ""
+    Set frmVh = New frmFacVehiculos
+    frmVh.DatosADevolverBusqueda = "0"
+    frmVh.Show vbModal
+    Set frmVh = Nothing
     If CadenaConsulta <> "" Then
-        If RecuperaValor(CadenaConsulta, 1) = 1 Then CargarCombo_Tabla cboEmpresa, "vallempresatransoliva", "codEmpre", "NomEmpre"
-        CadenaConsulta = RecuperaValor(CadenaConsulta, 2)
-        SituarCombo2 Me.cboEmpresa, Val(CadenaConsulta)
+        Set miRsAux = New ADODB.Recordset
+        CadenaConsulta = "select * from svehiculos where codigo=" & RecuperaValor(CadenaConsulta, 1)
+        miRsAux.Open CadenaConsulta, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        If Not miRsAux.EOF Then
+            'matricula  Empresa   Conductor   DNIConductor
+            If Not IsNull(miRsAux!Empresa) Then Text1(9).Text = miRsAux!Empresa
+            If Not IsNull(miRsAux!matricula) Then Text1(4).Text = miRsAux!matricula
+            If Not IsNull(miRsAux!conductor) Then Text1(2).Text = miRsAux!conductor
+            If Not IsNull(miRsAux!DNIConductor) Then Text1(10).Text = miRsAux!DNIConductor
+        End If
+        miRsAux.Close
+        Set miRsAux = Nothing
         CadenaConsulta = ""
     End If
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 End Sub
 
 Private Sub imgFecha_Click(Index As Integer)
@@ -1673,8 +1761,8 @@ End Sub
 
 Private Sub Text1_GotFocus(Index As Integer)
 Dim cadkey As Integer
-    cadkey = ObtenerCadKey(kCampo, Index)
-    kCampo = Index
+    cadkey = ObtenerCadKey(Kcampo, Index)
+    Kcampo = Index
     ConseguirFoco Text1(Index), Modo, cadkey
 End Sub
 
@@ -1718,7 +1806,8 @@ Dim Tabla As String
             Neto
         Case 7 'Fecha Cambio
             PonerFormatoFecha Text1(Index)
-            
+        Case 8
+            PonerFormatoHora Text1(Index)
         Case 4
             Text1(Index).Text = UCase(Text1(Index))
     End Select
@@ -1735,7 +1824,7 @@ End Sub
 
 Private Sub Text3_LostFocus(Index As Integer)
 Dim CalcularTotales As Boolean
-Dim cad As String
+Dim Cad As String
 Dim i As Byte
 Dim L As Integer
 
@@ -1751,26 +1840,26 @@ Dim L As Integer
     Case 1
         'Producto BASE (OLIVA)
         If Text3(Index).Text = "" Then
-            cad = ""
+            Cad = ""
         Else
-            cad = "sartic.codfamia=sfamia.codfamia and codartic"
+            Cad = "sartic.codfamia=sfamia.codfamia and codartic"
             CadenaConsulta = "tipfamia"
-            cad = DevuelveDesdeBD(conAri, "nomartic", "sartic,sfamia ", cad, Text3(Index).Text, "T", CadenaConsulta)
-            If cad = "" Then
+            Cad = DevuelveDesdeBD(conAri, "nomartic", "sartic,sfamia ", Cad, Text3(Index).Text, "T", CadenaConsulta)
+            If Cad = "" Then
                 MsgBox "No existe el articulo: " & vbCrLf, vbExclamation
             Else
                 If CadenaConsulta <> "30" Then
                     MsgBox "Producto NO es oliva", vbExclamation
-                    cad = ""
+                    Cad = ""
                 End If
             End If
         End If
         i = 2
-        If cad = "" Then
+        If Cad = "" Then
             Text3(Index).Text = ""
             Text2(i).Text = ""
         Else
-            Text2(i).Text = cad
+            Text2(i).Text = Cad
         End If
         
     Case 7, 10, 13, 16
@@ -1778,14 +1867,14 @@ Dim L As Integer
         
           'Producto BASE (OLIVA)
         If Text3(Index).Text = "" Then
-            cad = ""
+            Cad = ""
             CadenaConsulta = ""
             If Index > 7 Then PonerFoco Text3(2)
         Else
-            cad = "sartic left join sarti4 on sartic.codartic=sarti4.codartic"
+            Cad = "sartic left join sarti4 on sartic.codartic=sarti4.codartic"
             CadenaConsulta = "pesobruto"
-            cad = DevuelveDesdeBD(conAri, "nomartic", cad, "sartic.codartic", Text3(Index).Text, "T", CadenaConsulta)
-            If cad = "" Then
+            Cad = DevuelveDesdeBD(conAri, "nomartic", Cad, "sartic.codartic", Text3(Index).Text, "T", CadenaConsulta)
+            If Cad = "" Then
                 MsgBox "No existe el articulo: " & vbCrLf, vbExclamation
                 CadenaConsulta = ""
             Else
@@ -1794,8 +1883,8 @@ Dim L As Integer
         End If
         
         i = IIf(Index = 7, 3, IIf(Index = 10, 4, IIf(Index = 13, 5, 6)))
-        If cad = "" Then Text3(Index).Text = ""
-        Text2(i).Text = cad
+        If Cad = "" Then Text3(Index).Text = ""
+        Text2(i).Text = Cad
                 
                 
         
@@ -1839,27 +1928,27 @@ End Sub
 Private Sub CalcularLineaPesos(linea As Integer)
 Dim Peso As Long
 
-Dim cad As String
+Dim Cad As String
 Dim K As Integer
     
     K = IIf(linea = 1, 8, IIf(linea = 2, 11, IIf(linea = 3, 14, 17)))
     If Me.Text3(K).Text = "" Or Me.Text3(K + 1) = "" Then
-        cad = ""
+        Cad = ""
     Else
         Peso = Val(Replace(Text3(K).Text, ".", ""))
         K = Val(Replace(Text3(K + 1).Text, ".", ""))
         Peso = Peso * K
-        cad = Format(Peso, "#,##0")
+        Cad = Format(Peso, "#,##0")
     End If
-    Text2(linea + 6) = cad
+    Text2(linea + 6) = Cad
     
     Peso = 0
-    cad = ""
+    Cad = ""
     For K = 7 To 10
         If Text2(K).Text <> "" Then Peso = Peso + Val(Replace(Text2(K).Text, ".", ""))
     Next K
-    If Peso <> 0 Then cad = Format(Peso, "#,##0")
-    Text3(3).Text = cad
+    If Peso <> 0 Then Cad = Format(Peso, "#,##0")
+    Text3(3).Text = Cad
     
     CalculoSobreTotales
 End Sub
@@ -1903,6 +1992,7 @@ End Sub
 
 
 Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
+Dim Cad As String
     Select Case Button.Index
         Case 1 'Busqueda
             mnBuscar_Click
@@ -1933,9 +2023,37 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
             
             Case 12
                 'Rendimientos
-            
-            
-            
+                
+                
+                If Modo <> 2 Then Exit Sub
+                If Data1.Recordset.EOF Then Exit Sub
+                If Data2.Recordset.EOF Then Exit Sub
+                
+               
+                Cad = InputBox("Introduzca rendimiento", "Oliva")
+                If Cad <> "" Then
+                    If InStr(1, Cad, ",") > 0 Then
+                        MsgBox "Escriba punto decimal", vbExclamation
+                    Else
+                        If IsNumeric(Cad) Then
+                            Cad = TransformaPuntosComas(Cad)
+                            If CCur(Cad) > 100 Or CCur(Cad) < 0 Then
+                                MsgBox "Rendimiento entre 0 y 100", vbExclamation
+                            Else
+                                Cad = "UPDATE vallentradacamionlineas set rendimiento=" & DBSet(Cad, "N")
+                                Cad = Cad & " WHERE entrada=" & Data1.Recordset!entrada
+                                Cad = Cad & " AND numalbar=" & Data2.Recordset!NumAlbar
+                                
+                                If EjecutaSQL(conAri, Cad) Then
+                                    Cad = "numalbar = " & Data2.Recordset!NumAlbar
+                                    PosicionarData2
+                                    Data2.Recordset.Find Cad
+                                End If
+                                
+                            End If
+                        End If
+                    End If
+                End If
             Case 13
                 If Modo <> 2 Then Exit Sub
                 If Data2.Recordset.EOF Then Exit Sub
@@ -2008,7 +2126,7 @@ Dim NumReg As Byte
     'Si estamos en Insertar además limpia los campos Text1
     BloquearText1 Me, Modo
     BloquearTxt Text1(3), Modo <> 1
-    BloquearCmb Me.cboEmpresa, Modo = 0 Or Modo = 2
+   
      
     BloquearChecks Me, IIf(Modo = 1, 1, 2)
     
@@ -2085,7 +2203,7 @@ Private Sub LimpiarCampos()
     'Aqui va el especifico de cada form es
     '### a mano
     Me.chkCerrado.Value = 0
-    Me.cboEmpresa.ListIndex = -1
+
 End Sub
 
 
@@ -2139,9 +2257,9 @@ Private Sub BotonBuscar()
     Else
         HacerBusqueda
         If Data1.Recordset.EOF Then
-            Text1(kCampo).Text = ""
-            Text1(kCampo).BackColor = vbYellow
-            PonerFoco Text1(kCampo)
+            Text1(Kcampo).Text = ""
+            Text1(Kcampo).BackColor = vbYellow
+            PonerFoco Text1(Kcampo)
         End If
     End If
 End Sub
@@ -2177,8 +2295,8 @@ Private Sub BotonAnyadir()
     CargaGrid False
     Text1(3).Text = SugerirCodigoSiguienteStr(NombreTabla, "entrada")
     Text1(7).Text = Format(Now, "dd/mm/yyyy")
-    SituarCombo2 Me.cboEmpresa, 0  'Cero es el valore por defecto
-    PonerFoco Text1(0)
+    
+    PonerFoco Text1(7)
 End Sub
 
 
@@ -2329,33 +2447,39 @@ End Function
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim cad As String
+Dim Cad As String
 Dim Tabla As String
 Dim Titulo As String
 
     'Llamamos a al form
-    cad = ""
+    Cad = ""
     'Estamos en Modo de Cabeceras
     'Registro de la tabla de cabeceras: slista
-    cad = cad & ParaGrid(Text1(0), 10, "Cliente")
-    cad = cad & "Nombre Cliente|sclien|nomclien|T||36·"
-    cad = cad & ParaGrid(Text1(1), 15, "Cod. Artic")
-    cad = cad & "Desc. Artic|sartic|nomartic|T||38·"
+    Cad = Cad & ParaGrid(Text1(3), 9, "ID")
+    Cad = Cad & ParaGrid(Text1(7), 14, "Fecha")
+    Cad = Cad & ParaGrid(Text1(0), 12, "Prov")
+    Cad = Cad & "Nombre|sprove|nomprove|T||38·"
+    Cad = Cad & "Albaran|vallentradacamionlineas|numalbar|T||18·"
+    Cad = Cad & "Cerr.|vallentradacamion|if(EntradaFinalizada=1,'*','')|T||7·"
     
-    Tabla = "(" & NombreTabla & " LEFT JOIN sclien ON " & NombreTabla & ".codclien=sclien.codclien" & ")"
-    Tabla = Tabla & " LEFT JOIN sartic ON " & NombreTabla & ".codartic=sartic.codartic"
+    'select vallentradacamion.entrada,vallentradacamion.codprove,nomprove,fechaentrada,numalbar
+    'from vallentradacamion left join sprove on vallentradacamion.codprove=sprove.codprove
+    'left join vallentradacamionlineas on vallentradacamion.entrada=vallentradacamionlineas.entrada
     
-    Titulo = "Precios Especiales"
+    Tabla = " vallentradacamion left join sprove on vallentradacamion.codprove=sprove.codprove"
+    Tabla = Tabla & " left join vallentradacamionlineas on vallentradacamion.entrada=vallentradacamionlineas.entrada"
+    
+    Titulo = "Entrada oliva"
            
-    If cad <> "" Then
+    If Cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = cad
+        frmB.vCampos = Cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
         '###A mano
-        frmB.vDevuelve = "0|2|"
+        frmB.vDevuelve = "0|"
         frmB.vTitulo = Titulo
         frmB.vselElem = 0
         frmB.vConexionGrid = conAri
@@ -2372,7 +2496,7 @@ Dim Titulo As String
 '            If Modo = 5 Then
 '                PonerFoco txtAux(0)
 '            Else
-                PonerFoco Text1(kCampo)
+                PonerFoco Text1(Kcampo)
 '            End If
         End If
     End If
@@ -2710,7 +2834,7 @@ Dim Limp As Boolean
         Text3(2).Text = DBLet(Data2.Recordset!bruto, "T")
         Text3(3).Text = DBLet(Data2.Recordset!TARA, "T")
         Text3(4).Text = DBLet(Data2.Recordset!Neto, "T")
-        Text3(5).Text = DBLet(Data2.Recordset!PorcHoja, "T")
+        Text3(5).Text = DBLet(Data2.Recordset!porchoja, "T")
         Text3(6).Text = DBLet(Data2.Recordset!pesoprod, "T")
         
         Text3(8).Text = DBLet(Data2.Recordset!udArti1, "T")
@@ -2776,7 +2900,7 @@ Private Function OpcionesText3(Opcion As Byte, Indice As Integer) As Boolean
     If Opcion = 0 Then
         'Campos editables
         Select Case Indice
-        Case 1, 2, 5, 7, 8, 10, 11, 13, 14, 16, 17
+        Case 1, 2, 5, 7, 8, 10, 11, 13, 14, 16, 17, 19
             OpcionesText3 = True
         Case Else
             OpcionesText3 = False
@@ -2895,11 +3019,11 @@ Private Function DatosOkLinea() As Boolean
     
     '7, 10, 13, 16
     For NumRegElim = 1 To 4
-        kCampo = CInt(RecuperaValor("7|10|13|16|", CInt(NumRegElim)))
-        If Text3(kCampo).Text <> "" Then
-            CadenaConsulta = DevuelveDesdeBD(conAri, "tipartic", "sartic", "codartic", Text3(kCampo).Text, "T")
+        Kcampo = CInt(RecuperaValor("7|10|13|16|", CInt(NumRegElim)))
+        If Text3(Kcampo).Text <> "" Then
+            CadenaConsulta = DevuelveDesdeBD(conAri, "tipartic", "sartic", "codartic", Text3(Kcampo).Text, "T")
             If CadenaConsulta <> "31" Then
-                MsgBox "Articulos no es de palets: " & Text3(kCampo).Text, "T", vbExclamation
+                MsgBox "Articulos no es de palets: " & Text3(Kcampo).Text, vbExclamation
                 Exit Function
             End If
         End If

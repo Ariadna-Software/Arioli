@@ -14,21 +14,41 @@ Begin VB.Form frmVarios
    ScaleWidth      =   8955
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame FramePaletMovimImprimir 
-      Height          =   3975
+      Height          =   4455
       Left            =   840
       TabIndex        =   112
       Top             =   1080
       Visible         =   0   'False
-      Width           =   6375
+      Width           =   7815
+      Begin VB.TextBox txtPalot 
+         Height          =   285
+         Index           =   4
+         Left            =   6000
+         TabIndex        =   126
+         Text            =   "Text1"
+         Top             =   3120
+         Visible         =   0   'False
+         Width           =   1455
+      End
+      Begin VB.TextBox txtPalot 
+         Height          =   285
+         Index           =   3
+         Left            =   3600
+         TabIndex        =   124
+         Text            =   "Text1"
+         Top             =   2160
+         Visible         =   0   'False
+         Width           =   3855
+      End
       Begin VB.TextBox txtPalot 
          Height          =   285
          Index           =   2
          Left            =   3600
          TabIndex        =   122
          Text            =   "Text1"
-         Top             =   2640
+         Top             =   3120
          Visible         =   0   'False
-         Width           =   1815
+         Width           =   1215
       End
       Begin VB.TextBox txtPalot 
          Height          =   285
@@ -36,9 +56,9 @@ Begin VB.Form frmVarios
          Left            =   3600
          TabIndex        =   120
          Text            =   "Text1"
-         Top             =   2160
+         Top             =   2640
          Visible         =   0   'False
-         Width           =   2415
+         Width           =   3855
       End
       Begin VB.TextBox txtPalot 
          Height          =   285
@@ -72,19 +92,46 @@ Begin VB.Form frmVarios
       Begin VB.CommandButton cmdImpresionMovPalet 
          Caption         =   "Aceptar"
          Height          =   375
-         Left            =   3000
+         Left            =   4680
          TabIndex        =   114
-         Top             =   3240
+         Top             =   3840
          Width           =   1095
       End
       Begin VB.CommandButton cmdCancelar 
          Caption         =   "Salir"
          Height          =   375
          Index           =   13
-         Left            =   4680
+         Left            =   6000
          TabIndex        =   113
-         Top             =   3240
+         Top             =   3840
          Width           =   1095
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Matricula"
+         Height          =   255
+         Index           =   4
+         Left            =   5160
+         TabIndex        =   127
+         Top             =   3120
+         Visible         =   0   'False
+         Width           =   855
+      End
+      Begin VB.Image ImgTransporte 
+         Height          =   255
+         Left            =   3360
+         Top             =   2160
+         Visible         =   0   'False
+         Width           =   255
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Empresa"
+         Height          =   255
+         Index           =   3
+         Left            =   2640
+         TabIndex        =   125
+         Top             =   2160
+         Visible         =   0   'False
+         Width           =   735
       End
       Begin VB.Label Label7 
          Caption         =   "DNI"
@@ -92,7 +139,7 @@ Begin VB.Form frmVarios
          Index           =   2
          Left            =   2640
          TabIndex        =   123
-         Top             =   2640
+         Top             =   3120
          Visible         =   0   'False
          Width           =   855
       End
@@ -102,7 +149,7 @@ Begin VB.Form frmVarios
          Index           =   1
          Left            =   2640
          TabIndex        =   121
-         Top             =   2160
+         Top             =   2640
          Visible         =   0   'False
          Width           =   855
       End
@@ -1773,7 +1820,8 @@ Private WithEvents frmC As frmCal
 Attribute frmC.VB_VarHelpID = -1
 Private WithEvents frmA As frmAlmArticulos
 Attribute frmA.VB_VarHelpID = -1
-
+Private WithEvents frmVh As frmFacVehiculos
+Attribute frmVh.VB_VarHelpID = -1
 
 Private cad As String
 Private SePuedeCerrar As Boolean   'Puede llevar DoEvents
@@ -2092,15 +2140,20 @@ Private Sub cmdImpresionMovPalet_Click()
     NumRegElim = 0
     If Me.optMovPalot(1).Value Then
         Codigo = "vallAlbaDocControlPalot.rpt"
-         
-        Cadparam = "|Destino=""" & txtPalot(0).Text & """|"
-        Cadparam = Cadparam & "Conductor=""" & txtPalot(1).Text & """|"
-        Cadparam = Cadparam & "DNI=""" & txtPalot(2).Text & """|"
+        'Updateo siempre
+        cad = "REPLACE INTO spalots(codigo,anyo,fecha,Destino,TransConductor,TransCondDNI,TransEmpresa,TransMatricula) VALUES ("
+        cad = cad & RecuperaValor(CadenaDesdeOtroForm, 1) & "," & Year(CDate(RecuperaValor(CadenaDesdeOtroForm, 2))) & ","
+        cad = cad & DBSet(RecuperaValor(CadenaDesdeOtroForm, 2), "F")
+        For NumRegElim = 0 To 4
+            cad = cad & ", " & DBSet(Me.txtPalot(NumRegElim).Text, "T")
+        Next
+        cad = cad & ")"
+        EjecutaSQL conAri, cad
         NumRegElim = 1
     End If
     cad = "{tmprutas.codusu} = " & vUsu.Codigo
     LlamaImprimirGral cad, Cadparam, CInt(NumRegElim), Codigo, "PALOTS"
-
+    Unload Me
 End Sub
 
 Private Sub cmdKilosDeposito_Click()
@@ -2260,6 +2313,9 @@ Private Sub Form_Activate()
         Case 12
             Label5.Caption = "Ajustará los kilos del deposito y los del lote asociado a los kilos introducidos" & vbCrLf & vbCrLf
             Label5.Caption = Label5.Caption & "No generará movimiento de regularizacion."
+        Case 13
+            PonerDatosTransportePalot
+            
         End Select
     End If
 End Sub
@@ -2342,7 +2398,7 @@ Private Sub Form_Load()
         PonerFrameVisible FramePaletMovimImprimir
         
         txtPalot(0).Text = DevuelveDesdeBD(conAri, "pobclien", "tmprutas", "codusu", CStr(vUsu.Codigo))
-        
+        Me.ImgTransporte.Picture = frmppal.imgListComun.ListImages(19).Picture
     End Select
     cmdCancelar(Opcion).Cancel = True
     SePuedeCerrar = True
@@ -2436,6 +2492,10 @@ Private Sub frmC_Selec(vFecha As Date)
     cad = Format(vFecha, "dd/mm/yyyy")
 End Sub
 
+Private Sub frmVh_DatoSeleccionado(CadenaSeleccion As String)
+    cad = CadenaSeleccion
+End Sub
+
 Private Sub imgArticulo_Click(Index As Integer)
         cad = ""
         Set frmA = New frmAlmArticulos
@@ -2479,11 +2539,35 @@ Private Sub imgFecha_Click(Index As Integer)
     If cad <> "" Then txtFecha(Index).Text = cad
 End Sub
 
+Private Sub ImgTransporte_Click()
+    cad = ""
+    Set frmVh = New frmFacVehiculos
+    frmVh.DatosADevolverBusqueda = "0"
+    frmVh.Show vbModal
+    Set frmVh = Nothing
+    If cad <> "" Then
+        Set miRsAux = New ADODB.Recordset
+        cad = "select * from svehiculos where codigo=" & RecuperaValor(cad, 1)
+        miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        If Not miRsAux.EOF Then
+            'matricula  Empresa   Conductor   DNIConductor
+            If Not IsNull(miRsAux!Empresa) Then txtPalot(3).Text = miRsAux!Empresa
+            If Not IsNull(miRsAux!matricula) Then txtPalot(4).Text = miRsAux!matricula
+            If Not IsNull(miRsAux!conductor) Then txtPalot(1).Text = miRsAux!conductor
+            If Not IsNull(miRsAux!DNIConductor) Then txtPalot(2).Text = miRsAux!DNIConductor
+        End If
+        miRsAux.Close
+        Set miRsAux = Nothing
+        cad = ""
+    End If
+End Sub
+
 Private Sub optMovPalot_Click(Index As Integer)
-    For NumRegElim = 0 To 2
+    For NumRegElim = 0 To 4
         Label7(NumRegElim).visible = optMovPalot(1).Value
         txtPalot(NumRegElim).visible = optMovPalot(1).Value
     Next
+    Me.ImgTransporte.visible = optMovPalot(1).Value
 End Sub
 
 Private Sub txtArt_GotFocus(Index As Integer)
@@ -2647,9 +2731,9 @@ Dim It As ListItem
     miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         Set It = ListView2.ListItems.Add()
-        It.Text = miRsAux!Codmarca
+        It.Text = miRsAux!codmarca
         It.SubItems(1) = DBLet(miRsAux!nommarca, "T")
-        cad = "|" & miRsAux!Codmarca & "|"
+        cad = "|" & miRsAux!codmarca & "|"
         If InStr(1, CadenaDesdeOtroForm, cad) > 0 Then It.Checked = True
             
         miRsAux.MoveNext
@@ -2832,7 +2916,7 @@ Dim It As ListItem
     Set LOG = New cLOG
     If LOG.DevuelveAcciones(L) Then
         For NumRegElim = 1 To L.Count
-            cad = L.Item(NumRegElim)
+            cad = L.item(NumRegElim)
             i = RecuperaValor(cad, 1)
             'Acciones que no van a entrar en el log
 '            If i = 10 Or i = 6 Or i = 5 Or i = 3 Or i = 2 Then
@@ -3092,4 +3176,24 @@ Private Sub CargaHomologacion()
         Me.txtHomologa.Text = RecuperaValor(CadenaDesdeOtroForm, 2)
     End If
     CadenaDesdeOtroForm = ""
+End Sub
+
+
+
+Private Sub PonerDatosTransportePalot()
+    'SQL = "spalots(codigo,anyo,fecha,TransEmpresa,TransMatricula,TransConductor,TransCondDNI,Destino)"
+    Set miRsAux = New ADODB.Recordset
+    cad = "Select codigo,anyo,fecha,TransEmpresa,TransMatricula,TransConductor,TransCondDNI,Destino from spalots"
+    cad = cad & " WHERE codigo =" & RecuperaValor(CadenaDesdeOtroForm, 1)
+    cad = cad & " AND anyo =" & Year(CDate(RecuperaValor(CadenaDesdeOtroForm, 2)))
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If Not miRsAux.EOF Then
+            If Not IsNull(miRsAux!TransEmpresa) Then txtPalot(3).Text = miRsAux!TransEmpresa
+            If Not IsNull(miRsAux!TransMatricula) Then txtPalot(4).Text = miRsAux!TransMatricula
+            If Not IsNull(miRsAux!TransConductor) Then txtPalot(1).Text = miRsAux!TransConductor
+            If Not IsNull(miRsAux!TransCondDNI) Then txtPalot(2).Text = miRsAux!TransCondDNI
+            If Not IsNull(miRsAux!Destino) Then txtPalot(0).Text = miRsAux!Destino
+    End If
+    miRsAux.Close
+    Set miRsAux = Nothing
 End Sub

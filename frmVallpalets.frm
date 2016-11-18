@@ -416,7 +416,7 @@ Option Explicit
 Private WithEvents frmB As frmBuscaGrid 'Form para busquedas (frmBuscaGrid)
 Attribute frmB.VB_VarHelpID = -1
 
-Private kCampo As Integer
+Private Kcampo As Integer
 
 Private Modo As Byte
 
@@ -725,57 +725,71 @@ End Sub
 
 
 Private Sub mnEliminar_Click()
-Dim Cad As String
+Dim cad As String
 
         If ListView1.SelectedItem Is Nothing Then Exit Sub
         If ListView1.SelectedItem.SubItems(1) <> "PAL" Then Exit Sub
             
-        Cad = "¿Desea eliminar el movimiento de palet seleccionado?" & vbCrLf & vbCrLf
+        cad = "¿Desea eliminar el movimiento de palet seleccionado?" & vbCrLf & vbCrLf
         If Trim(ListView1.SelectedItem.SubItems(3)) = "" Then
-            Cad = Cad & "- ENTRADA " & vbCrLf & "-Unidades: " & ListView1.SelectedItem.SubItems(4)
+            cad = cad & "- ENTRADA " & vbCrLf & "-Unidades: " & ListView1.SelectedItem.SubItems(4)
         Else
-            Cad = Cad & "- SALIDA " & vbCrLf & "-Unidades: " & ListView1.SelectedItem.SubItems(3)
+            cad = cad & "- SALIDA " & vbCrLf & "-Unidades: " & ListView1.SelectedItem.SubItems(3)
         End If
         
-        If MsgBox(Cad, vbQuestion + vbYesNoCancel) <> vbYes Then Exit Sub
+        If MsgBox(cad, vbQuestion + vbYesNoCancel) <> vbYes Then Exit Sub
         eliminarMovimiento
         CargaGrid True
 End Sub
 
 Private Sub mnNuevo_Click()
-    
+Dim b As Boolean
     CadenaDesdeOtroForm = ""
     If Text1(1).Text <> "" Then CadenaDesdeOtroForm = Text1(1).Text & "|" & Text2(1).Text & "|"
     frmListado2.Opcion = 35
     frmListado2.Show vbModal
     If CadenaDesdeOtroForm <> "" Then
         CadenaConsulta = RecuperaValor(CadenaDesdeOtroForm, 1)
-        kCampo = 1
-        If Data1.Recordset!nombre2 = CadenaConsulta Then
-            'Ok es el mismo
-            CadenaConsulta = RecuperaValor(CadenaDesdeOtroForm, 2)
-            If Val(Data1.Recordset!Codigo1) = Val(CadenaConsulta) Then
-                kCampo = 0
-            Else
+        Kcampo = 1
+        If Not Data1.Recordset.EOF Then
+            If Data1.Recordset!nombre2 = CadenaConsulta Then
+                'Ok es el mismo
                 CadenaConsulta = RecuperaValor(CadenaDesdeOtroForm, 2)
-                If Val(Data1.Recordset!campo2) = Val(CadenaConsulta) Then kCampo = 0
+                If Val(Data1.Recordset!Codigo1) = Val(CadenaConsulta) Then
+                    Kcampo = 0
+                Else
+                    CadenaConsulta = RecuperaValor(CadenaDesdeOtroForm, 2)
+                    If Val(Data1.Recordset!campo2) = Val(CadenaConsulta) Then Kcampo = 0
+                End If
             End If
         End If
-        If kCampo = 0 Then
+        If Kcampo = 0 Then
             'Solo hay que cargar estos items
             CargaGrid True
         Else
             'Hay que cargarlo todo y situar el DATA
+            'Hay que poner en los campos lo que toca
+            'CadenaDesdeOtroForm
+            Text1(1).Text = RecuperaValor(CadenaDesdeOtroForm, 1)
             
             Screen.MousePointer = vbHourglass
             CargarDatosEnTemporal
             
             
             'Refrescamos
-            CadenaConsulta = "Select * from tmpinformes  WHERE codusu =" & vUsu.Codigo & " ORDER BY nombre2,codigo1"
+            CadenaConsulta = "Select * from tmpinformes  WHERE codusu =" & vUsu.Codigo
+            If RecuperaValor(CadenaDesdeOtroForm, 2) = "" Then
+                CadenaConsulta = CadenaConsulta & " AND campo2=" & RecuperaValor(CadenaDesdeOtroForm, 3)
+                Text1(0).Text = RecuperaValor(CadenaDesdeOtroForm, 3)
+            Else
+                CadenaConsulta = CadenaConsulta & " AND Codigo1=" & RecuperaValor(CadenaDesdeOtroForm, 2)
+                Text1(0).Text = RecuperaValor(CadenaDesdeOtroForm, 2)
+            End If
+            CadenaConsulta = CadenaConsulta & " ORDER BY nombre2,codigo1"
+            
             Data1.RecordSource = CadenaConsulta
             Data1.Refresh
-            kCampo = 0
+            Kcampo = 0
             Modo = 0
             While Modo = 0
                 If Data1.Recordset.EOF Then
@@ -785,12 +799,12 @@ Private Sub mnNuevo_Click()
                     If Data1.Recordset!nombre2 = Text1(1).Text Then
                         'Ok es el mismo
                         If Val(Data1.Recordset!Codigo1) = Val(Text1(0).Text) Then
-                            kCampo = 1
+                            Kcampo = 1
                             Modo = 1
                         Else
                             If Val(Data1.Recordset!campo2) = Val(Text1(0).Text) Then
                                 Modo = 1
-                                kCampo = 1
+                                Kcampo = 1
                             End If
                         End If
                     End If
@@ -798,7 +812,8 @@ Private Sub mnNuevo_Click()
                     If Modo = 0 Then Data1.Recordset.MoveNext
                 End If
             Wend
-            If kCampo = 1 Then
+            If Kcampo = 1 Then
+                PonerModo 2
                 PonerCampos               'Ok. Ya hemos situado el data
             Else
                 LimpiarCampos
@@ -877,7 +892,7 @@ End Sub
 
 
 Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
-Dim Cad As String
+Dim cad As String
 '    'If Button.Index = 10 Or Button.Index = 11 Or Button.Index = 13 Or Button.Index = 14 Then
 '    If Button.Index >= 10 And Button.Index <= 15 Then
 '        If Data1.Recordset Is Nothing Then Exit Sub
@@ -908,27 +923,27 @@ Dim Cad As String
             conn.Execute "Delete from tmprutas where codusu=" & vUsu.Codigo
             Set miRsAux = New ADODB.Recordset
             If Val(Data1.Recordset!Codigo1) = 0 Then
-                Cad = "Select codprove codigo, nomprove nombre, domprove direc, pobprove pobla from sprove where codprove=" & Data1.Recordset!campo2
+                cad = "Select codprove codigo, nomprove nombre, domprove direc, pobprove pobla from sprove where codprove=" & Data1.Recordset!campo2
             Else
-                Cad = "Select codclien codigo,nomclien nombre, domclien direc, pobclien pobla from sclien where codclien=" & Data1.Recordset!Codigo1
+                cad = "Select codclien codigo,nomclien nombre, domclien direc, pobclien pobla from sclien where codclien=" & Data1.Recordset!Codigo1
             End If
-            miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             
             'tmprutas(codusu,idruta,idalb,nomclien,domclien,pobclien,codartic,nomartic,cajas,fecha2,codigo)  'codigo=1 o 2
-            Cad = "(" & vUsu.Codigo & ",'" & ListView1.SelectedItem.SubItems(2) & "'," & miRsAux!Codigo & ","
-            Cad = Cad & DBSet(miRsAux!Nombre, "T") & "," & DBSet(miRsAux!direc, "T") & "," & DBSet(miRsAux!pobla, "T") & ","
-            Cad = Cad & DBSet(Text1(1).Text, "T") & "," & DBSet(Text2(1).Text, "T") & ","
+            cad = "(" & vUsu.Codigo & ",'" & ListView1.SelectedItem.SubItems(2) & "'," & miRsAux!Codigo & ","
+            cad = cad & DBSet(miRsAux!Nombre, "T") & "," & DBSet(miRsAux!direc, "T") & "," & DBSet(miRsAux!pobla, "T") & ","
+            cad = cad & DBSet(Text1(1).Text, "T") & "," & DBSet(Text2(1).Text, "T") & ","
             If Trim(ListView1.SelectedItem.SubItems(3)) = "" Then
-                kCampo = -1 * CInt(ImporteFormateado(ListView1.SelectedItem.SubItems(4)))
+                Kcampo = -1 * CInt(ImporteFormateado(ListView1.SelectedItem.SubItems(4)))
             Else
-                kCampo = CInt(ImporteFormateado(ListView1.SelectedItem.SubItems(3)))
+                Kcampo = CInt(ImporteFormateado(ListView1.SelectedItem.SubItems(3)))
             End If
-            Cad = Cad & kCampo & "," & DBSet(ListView1.SelectedItem.Text, "F") & ","
+            cad = cad & Kcampo & "," & DBSet(ListView1.SelectedItem.Text, "F") & ","
              
  
-            Cad = Cad & "1)"
-            Cad = "INSERT INTO tmprutas(codusu,idruta,idalb,nomclien,domclien,pobclien,codartic,nomartic,cajas,fecha2,codigo) VALUES " & Cad
-            conn.Execute Cad
+            cad = cad & "1)"
+            cad = "INSERT INTO tmprutas(codusu,idruta,idalb,nomclien,domclien,pobclien,codartic,nomartic,cajas,fecha2,codigo) VALUES " & cad
+            conn.Execute cad
             
             miRsAux.Close
             Set miRsAux = Nothing
@@ -940,10 +955,10 @@ Dim Cad As String
  
  
  
-            
+            CadenaDesdeOtroForm = ListView1.SelectedItem.SubItems(2) & "|" & Format(ListView1.SelectedItem.Text, "dd/mm/yyyy") & "|"
             frmVarios.Opcion = 13
             frmVarios.Show vbModal
-            kCampo = 0
+            Kcampo = 0
         Case 15
             mnSalir_Click
         Case 21  'Salir
@@ -1116,9 +1131,9 @@ Private Sub BotonBuscar()
     Else
         HacerBusqueda
         If Data1.Recordset.EOF Then
-            Text1(kCampo).Text = ""
-            Text1(kCampo).BackColor = vbYellow
-            PonerFoco Text1(kCampo)
+            Text1(Kcampo).Text = ""
+            Text1(Kcampo).BackColor = vbYellow
+            PonerFoco Text1(Kcampo)
         End If
     End If
 End Sub
@@ -1148,26 +1163,26 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim Cad As String
+Dim cad As String
 Dim Tabla As String
 Dim Titulo As String
 
     'Llamamos a al form
-    Cad = ""
+    cad = ""
     'Estamos en Modo de Cabeceras
     'Registro de la tabla de cabeceras: scapla
-    Cad = Cad & ParaGrid(Text1(0), 10, "Código")
-    Cad = Cad & ParaGrid(Text1(3), 14, "Fecha")
-    Cad = Cad & ParaGrid(Text1(1), 43, "Observaciones")
-    Cad = Cad & "Conductor||conductor|T||33·"
+    cad = cad & ParaGrid(Text1(0), 10, "Código")
+    cad = cad & ParaGrid(Text1(3), 14, "Fecha")
+    cad = cad & ParaGrid(Text1(1), 43, "Observaciones")
+    cad = cad & "Conductor||conductor|T||33·"
     
     Tabla = "smoval"
     Titulo = "Control palets"
            
-    If Cad <> "" Then
+    If cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = Cad
+        frmB.vCampos = cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -1187,7 +1202,7 @@ Dim Titulo As String
 '            If Modo = 5 Then
 '                PonerFoco txtAux(0)
 '            Else
-                PonerFoco Text1(kCampo)
+                PonerFoco Text1(Kcampo)
 '            End If
         End If
     End If
@@ -1301,7 +1316,7 @@ End Sub
 
 Private Sub Imprimir(SinVentanaOk As Boolean)
 Dim i As Integer
-Dim Cad As String
+Dim cad As String
 Dim SQL As String
 Dim Litros As Currency
 
@@ -1331,23 +1346,23 @@ Dim Litros As Currency
             SQL = SQL & " AND scaalb.numalbar=" & ListView1.ListItems(i).SubItems(1) & " "
             miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             SQL = ""
-            Cad = ""
+            cad = ""
             While Not miRsAux.EOF
                ' (`codusu`,`idruta`,,`idalb`,`nomclien`,`domclien`,`pobclien`,`proclien`,`fecha2`
                '`codigo` `codartic`,`nomartic`,`cajas`,)
 
                 NumRegElim = NumRegElim + 1
-                If Cad = "" Then
-                    Cad = ", (" & vUsu.Codigo & "," & Text1(0).Text & ",'"
-                    Cad = Cad & miRsAux!Codtipom & Format(miRsAux!NumAlbar, "0000000") & "',"
-                    Cad = Cad & DBSet(miRsAux!nomclien, "T") & "," & DBSet(miRsAux!domclien, "T") & ","
-                    Cad = Cad & DBSet(miRsAux!pobclien, "T") & ",'"
+                If cad = "" Then
+                    cad = ", (" & vUsu.Codigo & "," & Text1(0).Text & ",'"
+                    cad = cad & miRsAux!Codtipom & Format(miRsAux!NumAlbar, "0000000") & "',"
+                    cad = cad & DBSet(miRsAux!nomclien, "T") & "," & DBSet(miRsAux!domclien, "T") & ","
+                    cad = cad & DBSet(miRsAux!pobclien, "T") & ",'"
                     'cppos, provinci
-                    Cad = Cad & DevNombreSQL(Trim(DBLet(miRsAux!codpobla, "T") & "   " & DBLet(miRsAux!proclien, "T"))) & "','"
-                    Cad = Cad & Format(miRsAux!FechaAlb, FormatoFecha) & "',"
+                    cad = cad & DevNombreSQL(Trim(DBLet(miRsAux!codpobla, "T") & "   " & DBLet(miRsAux!proclien, "T"))) & "','"
+                    cad = cad & Format(miRsAux!FechaAlb, FormatoFecha) & "',"
                 End If
                 'Faltan: `codigo` `codartic`,`nomartic`,`cajas`,)
-                SQL = SQL & Cad & NumRegElim & "," & DBSet(miRsAux!codartic, "T") & ","
+                SQL = SQL & cad & NumRegElim & "," & DBSet(miRsAux!codartic, "T") & ","
                 Litros = DBLet(miRsAux!LitrosUnidad, "N")
                 Litros = Litros * miRsAux!Cantidad
                 SQL = SQL & DBSet(miRsAux!NomArtic, "T") & "," & miRsAux!Cajas & "," & DBSet(Litros, "N") & ")"
@@ -1356,11 +1371,11 @@ Dim Litros As Currency
             miRsAux.Close
             If SQL <> "" Then
                 'Tiene datos
-                Cad = "INSERT INTO tmprutas (`codusu`,`idruta`,`idalb`,`nomclien`,`domclien`,"
-                Cad = Cad & "`pobclien`,`proclien`,`fecha2`,`codigo`,`codartic`,`nomartic`,`cajas`,litros) VALUES "
-                Cad = Cad & Mid(SQL, 2) 'quito la primera coma
+                cad = "INSERT INTO tmprutas (`codusu`,`idruta`,`idalb`,`nomclien`,`domclien`,"
+                cad = cad & "`pobclien`,`proclien`,`fecha2`,`codigo`,`codartic`,`nomartic`,`cajas`,litros) VALUES "
+                cad = cad & Mid(SQL, 2) 'quito la primera coma
 
-                conn.Execute Cad
+                conn.Execute cad
                 
                 
                 
@@ -1380,23 +1395,23 @@ Dim Litros As Currency
             SQL = SQL & " AND slifac.numalbar=" & ListView1.ListItems(i).Tag & " "
             miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             SQL = ""
-            Cad = ""
+            cad = ""
             While Not miRsAux.EOF
                ' (`codusu`,`idruta`,,`idalb`,`nomclien`,`domclien`,`pobclien`,`proclien`,`fecha2`
                '`codigo` `codartic`,`nomartic`,`cajas`,)
 
                 NumRegElim = NumRegElim + 1
-                If Cad = "" Then
-                    Cad = ", (" & vUsu.Codigo & "," & Text1(0).Text & ",'"
-                    Cad = Cad & miRsAux!Codtipom & Format(miRsAux!NumFactu, "0000000") & "',"
-                    Cad = Cad & DBSet(miRsAux!nomclien, "T") & "," & DBSet(miRsAux!domclien, "T") & ","
-                    Cad = Cad & DBSet(miRsAux!pobclien, "T") & ",'"
+                If cad = "" Then
+                    cad = ", (" & vUsu.Codigo & "," & Text1(0).Text & ",'"
+                    cad = cad & miRsAux!Codtipom & Format(miRsAux!NumFactu, "0000000") & "',"
+                    cad = cad & DBSet(miRsAux!nomclien, "T") & "," & DBSet(miRsAux!domclien, "T") & ","
+                    cad = cad & DBSet(miRsAux!pobclien, "T") & ",'"
                     'cppos, provinci
-                    Cad = Cad & DevNombreSQL(Trim(DBLet(miRsAux!codpobla, "T") & "   " & DBLet(miRsAux!proclien, "T"))) & "','"
-                    Cad = Cad & Format(miRsAux!FecFactu, FormatoFecha) & "',"
+                    cad = cad & DevNombreSQL(Trim(DBLet(miRsAux!codpobla, "T") & "   " & DBLet(miRsAux!proclien, "T"))) & "','"
+                    cad = cad & Format(miRsAux!FecFactu, FormatoFecha) & "',"
                 End If
                 'Faltan: `codigo` `codartic`,`nomartic`,`cajas`,)
-                SQL = SQL & Cad & NumRegElim & "," & DBSet(miRsAux!codartic, "T") & ","
+                SQL = SQL & cad & NumRegElim & "," & DBSet(miRsAux!codartic, "T") & ","
                 SQL = SQL & DBSet(miRsAux!NomArtic, "T") & ","
                 If DBLet(miRsAux!Unicajas, "N") = 0 Then
                     SQL = SQL & Round(miRsAux!Cantidad, 0)
@@ -1413,11 +1428,11 @@ Dim Litros As Currency
             miRsAux.Close
             If SQL <> "" Then
                 'Tiene datos
-                Cad = "INSERT INTO tmprutas (`codusu`,`idruta`,`idalb`,`nomclien`,`domclien`,"
-                Cad = Cad & "`pobclien`,`proclien`,`fecha2`,`codigo`,`codartic`,`nomartic`,`cajas`,litros) VALUES "
-                Cad = Cad & Mid(SQL, 2) 'quito la primera coma
+                cad = "INSERT INTO tmprutas (`codusu`,`idruta`,`idalb`,`nomclien`,`domclien`,"
+                cad = cad & "`pobclien`,`proclien`,`fecha2`,`codigo`,`codartic`,`nomartic`,`cajas`,litros) VALUES "
+                cad = cad & Mid(SQL, 2) 'quito la primera coma
 
-                conn.Execute Cad
+                conn.Execute cad
             End If
         
         
@@ -1428,7 +1443,7 @@ Dim Litros As Currency
     
     If NumRegElim > 0 Then
             
-            Cad = DevuelveNombreReport(40)
+            cad = DevuelveNombreReport(40)
             
     
             With frmImprimir
@@ -1445,7 +1460,7 @@ Dim Litros As Currency
                 .EnvioEMail = False
                 .Opcion = 2016
                 .Titulo = Me.Caption
-                .NombreRPT = Cad
+                .NombreRPT = cad
                 .ConSubInforme = True
                 .Show vbModal
             End With
@@ -1505,9 +1520,22 @@ Private Sub CargarDatosEnTemporal()
         Wend
         miRsAux.Close
         
+        'Quitamos duplicidades
+        lblIndicador.Caption = "Clie/prov palets"
+        lblIndicador.Refresh
         
+        miRsAux.Open " select codigo1,campo2,nombre2 from tmpinformes group by 1,2,3", conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        CadenaConsulta = ""
+        While Not miRsAux.EOF
+            CadenaConsulta = CadenaConsulta & ", (" & vUsu.Codigo & "," & miRsAux!Codigo1 & "," & miRsAux!campo2 & "," & DBSet(miRsAux!nombre2, "T") & ")"
+            miRsAux.MoveNext
+        Wend
+        miRsAux.Close
         
-        
+        conn.Execute "DELETE FROM tmpinformes where codusu=" & vUsu.Codigo
+        Espera 0.15
+        CadenaConsulta = "INSERT INTO tmpinformes(codusu,codigo1,campo2,nombre2) VALUES  " & Mid(CadenaConsulta, 2)
+        conn.Execute CadenaConsulta
         Set miRsAux = Nothing
 
         

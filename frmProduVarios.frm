@@ -1152,10 +1152,10 @@ Dim Cantidad As Currency
     vCStock.Documento = Format(idFil, "00000")
     vCStock.Fechamov = Format(Fecha, "dd/mm/yyyy")
     vCStock.HoraMov = Fecha
-    vCStock.codAlmac = 1
+    vCStock.codalmac = 1
     
     
-    cLot.codAlmac = vCStock.codAlmac
+    cLot.codalmac = vCStock.codalmac
     cLot.DetaMov = vCStock.DetaMov
     cLot.Fechamov = vCStock.Fechamov
     cLot.HoraMov = vCStock.HoraMov
@@ -1451,8 +1451,11 @@ Private Sub Form_Activate()
         
         If Opcion = 5 Then
             Screen.MousePointer = vbHourglass
+            cmdCoupage.visible = False
+            cmdCancelar(1).visible = False
             DoEvents
             Me.Refresh
+            
             cmdCoupage_Click
             Screen.MousePointer = vbDefault
         End If
@@ -1482,9 +1485,11 @@ Private Sub Form_Load()
         Me.Caption = "Hacer coupage"
         lbFec(1).Caption = lbFec(1).Caption & ": " & RecuperaValor(Intercambio, 1) & " " & RecuperaValor(Intercambio, 2)
         If Opcion = 5 Then
+            lbFec(1).Caption = lbFec(1).Caption & "   ---> Desde molturacion"
             cad = DevuelveDesdeBD(conAri, "fecha", "olicoupage", "codigo", RecuperaValor(Intercambio, 1))
             txtFecha(1).Text = Format(cad, "dd/mm/yyyy")
-            txtHora(1).Text = Format(cad, "hh:mm:ss")
+            cad = Format(cad, "hh:mm:ss")
+            txtHora(1).Text = DateAdd("s", 1, cad)
                        
         End If
                        
@@ -1929,7 +1934,7 @@ Dim MateriaPrima As Boolean
     vCStock.Trabajador = TrabajadorConectado_
     vCStock.Documento = RecuperaValor(Intercambio, 1)
     vCStock.Fechamov = txtFecha(0).Text '
-    vCStock.codAlmac = CInt(miRsAux!codAlmac)
+    vCStock.codalmac = CInt(miRsAux!codalmac)
         
     If vParamAplic.QUE_EMPRESA = 4 Then vCStock.HoraMov = vCStock.Fechamov & " " & Format(txtHora(0).Text, "hh:mm:ss")
    
@@ -1945,10 +1950,10 @@ Dim MateriaPrima As Boolean
     CantidadNecesaria = 1  'YA hemos grabado la sliordpr
     
     If Sublineas Then
-        If vCStock.codAlmac = 2 And Not MateriaPrima Then
+        If vCStock.codalmac = 2 And Not MateriaPrima Then
             'Es el del B
             'Solo el aceite vendra de las garrafas de B. Lo demas todo del limpio
-             vCStock.codAlmac = 1
+             vCStock.codalmac = 1
         End If
     End If
     vCStock.codartic = miRsAux!codarti2
@@ -1982,7 +1987,7 @@ Dim Impor As Currency
     If vParamAplic.QUE_EMPRESA = 4 Then vCStock.HoraMov = vCStock.Fechamov & " " & Format(txtHora(1).Text, "hh:mm:ss")
    
     vCStock.codartic = miRsAux!codartic
-    vCStock.codAlmac = RecuperaValor(Intercambio, 3)
+    vCStock.codalmac = RecuperaValor(Intercambio, 3)
 '    CantidadNecesaria = miRsAux!FactorConversion
 '    If CantidadNecesaria = 0 Then CantidadNecesaria = 1 'PARA QUE NO DE ERROR
 '    CantidadNecesaria = Round2(miRsAux!kilos / CantidadNecesaria, 5)
@@ -2091,7 +2096,7 @@ Dim ParaDeposito As String
                 TieneLotesMP = False
             Else
                 Aux = "Select * from sliordpr2lotes WHERE  codigo = " & RecuperaValor(Intercambio, 1)
-                Aux = Aux & " AND codalmac =" & vvCstock.codAlmac & " AND codArtic = " & DBSet(miRsAux!codartic, "T")
+                Aux = Aux & " AND codalmac =" & vvCstock.codalmac & " AND codArtic = " & DBSet(miRsAux!codartic, "T")
                 Aux = Aux & " AND codArti2 = " & DBSet(vvCstock.codartic, "T")
                 Set RL = New ADODB.Recordset
                 RL.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
@@ -2135,7 +2140,7 @@ Dim ParaDeposito As String
                     Cant2 = CCur(RecuperaValor(Aux, 2))
                     Aux = RecuperaValor(Aux, 1)
                     Aux = "  AND numlote = '" & DevNombreSQL(Aux) & "'"
-                    Aux = " AND codalmac =" & vvCstock.codAlmac & Aux
+                    Aux = " AND codalmac =" & vvCstock.codalmac & Aux
                     Aux = " where codartic = " & DBSet(vvCstock.codartic, "T") & Aux
                     Aux = "Select id,cantotal from spartidas " & Aux
                     RL.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
@@ -2145,7 +2150,7 @@ Dim ParaDeposito As String
                         cad = "NO existe LOTE: " & RecuperaValor(LotesNecesartios(II), 1)
                         If Not SoloComprobar Then
                             Cp.Cantidad = -1 * CantidadNecesaria
-                            Cp.codAlmac = vvCstock.codAlmac
+                            Cp.codalmac = vvCstock.codalmac
                             Cp.codartic = vvCstock.codartic
                             Cp.codProve = 0
                             Cp.Fecha = vvCstock.Fechamov
@@ -2230,7 +2235,7 @@ Dim ParaDeposito As String
             Else
                 
                 'Asi es como estaba antes
-                Rc = Cp.RecuperarLotes(vvCstock.codartic, vvCstock.codAlmac, CantidadNecesaria, LotesNecesartios)
+                Rc = Cp.RecuperarLotes(vvCstock.codartic, vvCstock.codalmac, CantidadNecesaria, LotesNecesartios)
             
                 If Rc = 2 Then
                     'No tengo el articulo dado de alta
@@ -2245,7 +2250,7 @@ Dim ParaDeposito As String
                         'Deberian existir. Como No existe lo damos de alta
                         
                         Cp.Cantidad = -1 * CantidadNecesaria
-                        Cp.codAlmac = vvCstock.codAlmac
+                        Cp.codalmac = vvCstock.codalmac
                         Cp.codartic = vvCstock.codartic
                         Cp.codProve = 0
                         Cp.Fecha = vvCstock.Fechamov
@@ -2357,13 +2362,13 @@ Dim ParaDeposito As String
                                 Set Cp = New cPartidas
                                 'Vemos si ya existe
                                 LoteReal = RL!NUmlote & " " & Format(txtFecha(0).Text, "yyyy/mm/dd")
-                                If Cp.LeerDesdeArticulo(miRsAux!codarti2, miRsAux!codAlmac, LoteReal) Then
+                                If Cp.LeerDesdeArticulo(miRsAux!codarti2, miRsAux!codalmac, LoteReal) Then
                                     'Ya existia(por algun motivo)
                                     Cp.IncrementarCantidad RL!cantlote
                                     
                                 Else
                                     Cp.Cantidad = RL!cantlote
-                                    Cp.codAlmac = vvCstock.codAlmac
+                                    Cp.codalmac = vvCstock.codalmac
                                     Cp.codartic = vvCstock.codartic
                                     Cp.codProve = 0
                                     Cp.Fecha = CDate(txtFecha(0).Text)
@@ -2379,7 +2384,7 @@ Dim ParaDeposito As String
                                 'En movimientos lote
                                 cL.tipoMov = 1
                                 cL.Cantidad = Cp.Cantidad
-                                cL.codAlmac = Cp.codAlmac
+                                cL.codalmac = Cp.codalmac
                                 cL.codartic = Cp.codartic
                                 cL.codarti2 = ""
                                 cL.NUmlote = Cp.NUmlote
@@ -2438,7 +2443,7 @@ Private Sub InsertarMovientosLotesProduccion(ByRef cLot As cLotaje, cPar As cPar
     
     cLot.tipoMov = 0  'Salida
     cLot.Cantidad = Abs(Cantidad)
-    cLot.codAlmac = cPar.codAlmac
+    cLot.codalmac = cPar.codalmac
     cLot.codartic = cPar.codartic
     cLot.codarti2 = ArticuloProduccion
     cLot.NUmlote = cPar.NUmlote
@@ -2457,7 +2462,7 @@ Dim SQL As String
 
     SQL = SQL & RecuperaValor(Intercambio, 1) & ","
     'En misraux tengo los datos que necesito
-    SQL = SQL & miRsAux!codAlmac & ",'" & miRsAux!codartic & "','" & miRsAux!codarti2 & "',"
+    SQL = SQL & miRsAux!codalmac & ",'" & miRsAux!codartic & "','" & miRsAux!codarti2 & "',"
     SQL = SQL & LineaLote & ",'" & DevNombreSQL(Par.NUmlote) & "'," & TransformaComasPuntos(CStr(Cantidad)) & ")"
     EjecutaSQL conAri, SQL, True
     
@@ -2588,7 +2593,7 @@ Dim cL As cLotaje
             b = True
             '// NUmeros de LOTE
             cad = ""
-            If Cp.LeerDesdeArticulo(vvCstock.codartic, vvCstock.codAlmac, miRsAux!NUmlote) Then
+            If Cp.LeerDesdeArticulo(vvCstock.codartic, vvCstock.codalmac, miRsAux!NUmlote) Then
             
                 If Cp.Cantidad >= CantidadNecesaria Then
                     'PERFECTO. NO HAgo nada
@@ -2639,7 +2644,7 @@ Dim cL As cLotaje
                 If Not b Then
                     'NO existe. Lo creo
                     Cp.Cantidad = CantidadNecesaria
-                    Cp.codAlmac = vvCstock.codAlmac
+                    Cp.codalmac = vvCstock.codalmac
                     Cp.codartic = vvCstock.codartic
                     Cp.codProve = 0
                     Cp.Fecha = CDate(txtFecha(1).Text)
@@ -2660,7 +2665,7 @@ Dim cL As cLotaje
                 'Insertamos en la linea de smoval
                 cL.tipoMov = 0
                 cL.Cantidad = Abs(CantidadNecesaria)
-                cL.codAlmac = vvCstock.codAlmac
+                cL.codalmac = vvCstock.codalmac
                 cL.codartic = vvCstock.codartic
                 cL.NUmlote = Cp.NUmlote
                 cL.InsertarLote
@@ -2757,13 +2762,13 @@ Dim cL As cLotaje
                 
                 
                                                         'Vemos si ya existe
-                If Cp.LeerDesdeArticulo(miRsAux!codartic, miRsAux!codAlmac, miRsAux!NUmlote) Then
+                If Cp.LeerDesdeArticulo(miRsAux!codartic, miRsAux!codalmac, miRsAux!NUmlote) Then
                     'Ya existia(por algun motivo)
                     Cp.IncrementarCantidad CantidadNecesaria
                     
                 Else
                     Cp.Cantidad = CantidadNecesaria
-                    Cp.codAlmac = miRsAux!codAlmac
+                    Cp.codalmac = miRsAux!codalmac
                     Cp.codartic = vvCstock.codartic
                     Cp.codProve = 0
                     Cp.Fecha = CDate(txtFecha(1).Text)
@@ -2776,7 +2781,7 @@ Dim cL As cLotaje
                 'Insertamos en la linea de smoval
                 cL.tipoMov = 1
                 cL.Cantidad = Abs(CantidadNecesaria)
-                cL.codAlmac = vvCstock.codAlmac
+                cL.codalmac = vvCstock.codalmac
                 cL.codartic = vvCstock.codartic
                 cL.NUmlote = Cp.NUmlote
                 cL.InsertarLote
@@ -2904,7 +2909,7 @@ End Function
 
 
 
-Private Sub ActualizarPrecioCosteArticulo(ByRef Pre As Currency, ByRef codArt As String)
+Private Sub ActualizarPrecioCosteArticulo(ByRef Pre As Currency, ByRef codart As String)
 
 
 On Error GoTo EActualizarPrecioCosteArt
@@ -2912,7 +2917,7 @@ On Error GoTo EActualizarPrecioCosteArt
 
     cad = "UPDATE sartic set PrecioUC = " & TransformaComasPuntos(CStr(Pre))
     cad = cad & ", ultfecco = '" & Format(txtFecha(1).Text, FormatoFecha) & "'"
-    cad = cad & " WHERE codartic = '" & codArt & "'"
+    cad = cad & " WHERE codartic = '" & codart & "'"
     
     'Ejecutar
     conn.Execute cad
@@ -2928,7 +2933,7 @@ On Error GoTo EActualizarPrecioCosteArt
     'AHora va el meollo. Si el articulo es materia prima, todos los artiuclos
     'de venta en los que el entra como materia prima deben sera actualizados
     cad = "select sartic.codartic,nomartic,codunida from sarti1,sartic where sarti1.codartic = sartic.codartic"
-    cad = cad & " AND codarti1 = '" & codArt & "'"
+    cad = cad & " AND codarti1 = '" & codart & "'"
     miRsAux.Open cad, conn, adOpenKeyset, adLockPessimistic, adCmdText
     If Not miRsAux.EOF Then
         NumRegElim = 0
@@ -3182,12 +3187,12 @@ Dim Cantidad As Currency
     'vCStock.Documento = RecuperaValor(Intercambio, 1)
     vvCstock.Fechamov = Format(Now, "dd/mm/yyyy")
     vvCstock.HoraMov = Now
-    vvCstock.codAlmac = cPar.codAlmac
+    vvCstock.codalmac = cPar.codalmac
     vvCstock.codartic = cPar.codartic
     vvCstock.Importe = 0
     vvCstock.Documento = "FIN" & Format(cPar.idPartida, "0000000")
     
-    cLot.codAlmac = vvCstock.codAlmac
+    cLot.codalmac = vvCstock.codalmac
     cLot.codartic = vvCstock.codartic
     cLot.DetaMov = vvCstock.DetaMov
     cLot.Fechamov = vvCstock.Fechamov
