@@ -1504,7 +1504,7 @@ End Sub
 
 Private Sub CargaGrid(enlaza As Boolean)
 Dim b As Boolean
-Dim i As Byte
+Dim I As Byte
 Dim Inicio As Byte
 Dim SQL As String
 On Error GoTo ECarga
@@ -1728,6 +1728,9 @@ Private Sub mnModificar_Click()
 Dim anc
 
     If Modo = 5 Then
+    
+        If Data2.Recordset.EOF Then Exit Sub
+    
         ModificaLineas = 2
         PonerDatosForaGrid False
         PonerBotonCabecera False
@@ -1824,8 +1827,8 @@ End Sub
 
 Private Sub Text3_LostFocus(Index As Integer)
 Dim CalcularTotales As Boolean
-Dim Cad As String
-Dim i As Byte
+Dim cad As String
+Dim I As Byte
 Dim L As Integer
 
    ' If Modo <> 5 Then Exit Sub
@@ -1840,26 +1843,26 @@ Dim L As Integer
     Case 1
         'Producto BASE (OLIVA)
         If Text3(Index).Text = "" Then
-            Cad = ""
+            cad = ""
         Else
-            Cad = "sartic.codfamia=sfamia.codfamia and codartic"
+            cad = "sartic.codfamia=sfamia.codfamia and codartic"
             CadenaConsulta = "tipfamia"
-            Cad = DevuelveDesdeBD(conAri, "nomartic", "sartic,sfamia ", Cad, Text3(Index).Text, "T", CadenaConsulta)
-            If Cad = "" Then
+            cad = DevuelveDesdeBD(conAri, "nomartic", "sartic,sfamia ", cad, Text3(Index).Text, "T", CadenaConsulta)
+            If cad = "" Then
                 MsgBox "No existe el articulo: " & vbCrLf, vbExclamation
             Else
                 If CadenaConsulta <> "30" Then
                     MsgBox "Producto NO es oliva", vbExclamation
-                    Cad = ""
+                    cad = ""
                 End If
             End If
         End If
-        i = 2
-        If Cad = "" Then
+        I = 2
+        If cad = "" Then
             Text3(Index).Text = ""
-            Text2(i).Text = ""
+            Text2(I).Text = ""
         Else
-            Text2(i).Text = Cad
+            Text2(I).Text = cad
         End If
         
     Case 7, 10, 13, 16
@@ -1867,40 +1870,44 @@ Dim L As Integer
         
           'Producto BASE (OLIVA)
         If Text3(Index).Text = "" Then
-            Cad = ""
+            cad = ""
             CadenaConsulta = ""
             If Index > 7 Then PonerFoco Text3(2)
         Else
-            Cad = "sartic left join sarti4 on sartic.codartic=sarti4.codartic"
+            cad = "sartic left join sarti4 on sartic.codartic=sarti4.codartic"
             CadenaConsulta = "pesobruto"
-            Cad = DevuelveDesdeBD(conAri, "nomartic", Cad, "sartic.codartic", Text3(Index).Text, "T", CadenaConsulta)
-            If Cad = "" Then
+            cad = DevuelveDesdeBD(conAri, "nomartic", cad, "sartic.codartic", Text3(Index).Text, "T", CadenaConsulta)
+            If cad = "" Then
                 MsgBox "No existe el articulo: " & vbCrLf, vbExclamation
                 CadenaConsulta = ""
             Else
-               If CadenaConsulta <> "" Then CadenaConsulta = Format(CCur(CadenaConsulta), "#,##0")
+               If CadenaConsulta <> "" Then CadenaConsulta = Format(CCur(CadenaConsulta), FormatoCantidad)
             End If
         End If
         
-        i = IIf(Index = 7, 3, IIf(Index = 10, 4, IIf(Index = 13, 5, 6)))
-        If Cad = "" Then Text3(Index).Text = ""
-        Text2(i).Text = Cad
+        I = IIf(Index = 7, 3, IIf(Index = 10, 4, IIf(Index = 13, 5, 6)))
+        If cad = "" Then Text3(Index).Text = ""
+        Text2(I).Text = cad
                 
                 
         
         'I = IIf(Index = 7, 2, IIf(Index = 10, 3, IIf(Index = 13, 4, 5)))
         Text3(Index + 2).Text = CadenaConsulta
         
-        CalcularLineaPesos i - 2
+        CalcularLineaPesos I - 2
         
-    Case 8, 9, 11, 12, 14, 15, 17, 18
-        'UDS , peso (kg entero)
+    Case 9, 12, 15, 18
+        ' peso (kg deciaml)
+        If Not PonerFormatoDecimal(Text3(Index), 3) Then Text3(Index).Text = ""
+    
+    Case 8, 11, 14, 17
+        'UDS
         If Text3(Index).Text <> "" Then
             Text3(Index).Text = Replace(Text3(Index).Text, ".", "")
             If Not PonerFormatoEntero(Text3(Index)) Then Text3(Index).Text = ""
         End If
-        i = IIf(Index < 10, 1, IIf(Index < 13, 2, IIf(Index < 16, 3, 4)))
-        CalcularLineaPesos CInt(i)
+        I = IIf(Index < 10, 1, IIf(Index < 13, 2, IIf(Index < 16, 3, 4)))
+        CalcularLineaPesos CInt(I)
         CalcularTotales = True
         
     Case 2, 3, 4
@@ -1927,28 +1934,30 @@ Dim L As Integer
 End Sub
 Private Sub CalcularLineaPesos(linea As Integer)
 Dim Peso As Long
-
-Dim Cad As String
+Dim PesoAux As Currency
+Dim cad As String
 Dim K As Integer
     
     K = IIf(linea = 1, 8, IIf(linea = 2, 11, IIf(linea = 3, 14, 17)))
     If Me.Text3(K).Text = "" Or Me.Text3(K + 1) = "" Then
-        Cad = ""
+        cad = ""
     Else
         Peso = Val(Replace(Text3(K).Text, ".", ""))
-        K = Val(Replace(Text3(K + 1).Text, ".", ""))
-        Peso = Peso * K
-        Cad = Format(Peso, "#,##0")
+        PesoAux = ImporteFormateado(Text3(K + 1))
+        '
+        'K = Val(Replace(Text3(K + 1).Text, ".", ""))
+        Peso = Round2(Peso * PesoAux, 0)
+        cad = Format(Peso, "#,##0")
     End If
-    Text2(linea + 6) = Cad
+    Text2(linea + 6) = cad
     
     Peso = 0
-    Cad = ""
+    cad = ""
     For K = 7 To 10
         If Text2(K).Text <> "" Then Peso = Peso + Val(Replace(Text2(K).Text, ".", ""))
     Next K
-    If Peso <> 0 Then Cad = Format(Peso, "#,##0")
-    Text3(3).Text = Cad
+    If Peso <> 0 Then cad = Format(Peso, "#,##0")
+    Text3(3).Text = cad
     
     CalculoSobreTotales
 End Sub
@@ -1992,7 +2001,7 @@ End Sub
 
 
 Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
-Dim Cad As String
+Dim cad As String
     Select Case Button.Index
         Case 1 'Busqueda
             mnBuscar_Click
@@ -2030,24 +2039,24 @@ Dim Cad As String
                 If Data2.Recordset.EOF Then Exit Sub
                 
                
-                Cad = InputBox("Introduzca rendimiento", "Oliva")
-                If Cad <> "" Then
-                    If InStr(1, Cad, ",") > 0 Then
+                cad = InputBox("Introduzca rendimiento", "Oliva")
+                If cad <> "" Then
+                    If InStr(1, cad, ",") > 0 Then
                         MsgBox "Escriba punto decimal", vbExclamation
                     Else
-                        If IsNumeric(Cad) Then
-                            Cad = TransformaPuntosComas(Cad)
-                            If CCur(Cad) > 100 Or CCur(Cad) < 0 Then
+                        If IsNumeric(cad) Then
+                            cad = TransformaPuntosComas(cad)
+                            If CCur(cad) > 100 Or CCur(cad) < 0 Then
                                 MsgBox "Rendimiento entre 0 y 100", vbExclamation
                             Else
-                                Cad = "UPDATE vallentradacamionlineas set rendimiento=" & DBSet(Cad, "N")
-                                Cad = Cad & " WHERE entrada=" & Data1.Recordset!entrada
-                                Cad = Cad & " AND numalbar=" & Data2.Recordset!NumAlbar
+                                cad = "UPDATE vallentradacamionlineas set rendimiento=" & DBSet(cad, "N")
+                                cad = cad & " WHERE entrada=" & Data1.Recordset!entrada
+                                cad = cad & " AND numalbar=" & Data2.Recordset!NumAlbar
                                 
-                                If EjecutaSQL(conAri, Cad) Then
-                                    Cad = "numalbar = " & Data2.Recordset!NumAlbar
+                                If EjecutaSQL(conAri, cad) Then
+                                    cad = "numalbar = " & Data2.Recordset!NumAlbar
                                     PosicionarData2
-                                    Data2.Recordset.Find Cad
+                                    Data2.Recordset.Find cad
                                 End If
                                 
                             End If
@@ -2057,17 +2066,18 @@ Dim Cad As String
             Case 13
                 If Modo <> 2 Then Exit Sub
                 If Data2.Recordset.EOF Then Exit Sub
-                If Val(Data1.Recordset!EntradaFinalizada) = 1 Then
-                    MsgBox "Albaranes YA generados!!", vbExclamation
-                    Exit Sub
-                End If
+               '
+                CadenaDesdeOtroForm = "0"
+                If Val(Data1.Recordset!EntradaFinalizada) = 0 Then CadenaDesdeOtroForm = Data1.Recordset!entrada
                 
-                CadenaDesdeOtroForm = Data1.Recordset!entrada
+                
                 frmListado2.Opcion = 34
                 frmListado2.Show vbModal
                 If CadenaDesdeOtroForm <> "" Then
                     'TerminaBloquear
-                    CadenaConsulta = "Select * from " & NombreTabla & " WHERE entrada=" & Text1(3).Text & Ordenacion
+                    CadenaDesdeOtroForm = Mid(CadenaDesdeOtroForm, 2) 'quitamos la primera coma
+                    CadenaConsulta = "Select * from " & NombreTabla & " WHERE entrada in (" & CadenaDesdeOtroForm & ")" & Ordenacion
+                    Data1.RecordSource = CadenaConsulta
                     Data1.Refresh
                     PosicionarData2
                     
@@ -2098,7 +2108,7 @@ End Sub
 
 
 Private Sub PonerModo(Kmodo As Byte)
-Dim i As Byte
+Dim I As Byte
 Dim b As Boolean
 Dim NumReg As Byte
 
@@ -2153,9 +2163,9 @@ Dim NumReg As Byte
     
     End If
     
-    For i = 1 To Me.imgBuscar.Count - 1
-        Me.imgBuscar(i).Enabled = b
-    Next i
+    For I = 1 To Me.imgBuscar.Count - 1
+        Me.imgBuscar(I).Enabled = b
+    Next I
     
     b = False
     If Modo = 2 Then
@@ -2439,7 +2449,13 @@ On Error Resume Next
         Exit Function
     End If
     
-    
+    If Modo = 3 Then
+        If Text1(9).Text = "" Then
+            MsgBox "Medio/empresa transporte no puede estar vacia", vbExclamation
+            PonerFoco Text1(9)
+            Exit Function
+        End If
+    End If
     DatosOk = True
 End Function
 
@@ -2447,20 +2463,20 @@ End Function
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim Cad As String
+Dim cad As String
 Dim Tabla As String
 Dim Titulo As String
 
     'Llamamos a al form
-    Cad = ""
+    cad = ""
     'Estamos en Modo de Cabeceras
     'Registro de la tabla de cabeceras: slista
-    Cad = Cad & ParaGrid(Text1(3), 9, "ID")
-    Cad = Cad & ParaGrid(Text1(7), 14, "Fecha")
-    Cad = Cad & ParaGrid(Text1(0), 12, "Prov")
-    Cad = Cad & "Nombre|sprove|nomprove|T||38·"
-    Cad = Cad & "Albaran|vallentradacamionlineas|numalbar|T||18·"
-    Cad = Cad & "Cerr.|vallentradacamion|if(EntradaFinalizada=1,'*','')|T||7·"
+    cad = cad & ParaGrid(Text1(3), 9, "ID")
+    cad = cad & ParaGrid(Text1(7), 14, "Fecha")
+    cad = cad & ParaGrid(Text1(0), 12, "Prov")
+    cad = cad & "Nombre|sprove|nomprove|T||38·"
+    cad = cad & "Albaran|vallentradacamionlineas|numalbar|T||18·"
+    cad = cad & "Cerr.|vallentradacamion|if(EntradaFinalizada=1,'*','')|T||7·"
     
     'select vallentradacamion.entrada,vallentradacamion.codprove,nomprove,fechaentrada,numalbar
     'from vallentradacamion left join sprove on vallentradacamion.codprove=sprove.codprove
@@ -2471,10 +2487,10 @@ Dim Titulo As String
     
     Titulo = "Entrada oliva"
            
-    If Cad <> "" Then
+    If cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = Cad
+        frmB.vCampos = cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -2800,7 +2816,7 @@ End Sub
 
 
 Private Sub PonerDatosForaGrid(ForzarLimpiar As Boolean)
-Dim i As Integer
+Dim I As Integer
 Dim Limp As Boolean
 
     Limp = True
@@ -2814,12 +2830,12 @@ Dim Limp As Boolean
     If Limp Then
 
         'Limpiamos
-        For i = 0 To Text3.Count - 1
-            Text3(i).Text = ""
-        Next i
-        For i = 2 To Text2.Count - 1
-            Text2(i).Text = ""
-        Next i
+        For I = 0 To Text3.Count - 1
+            Text3(I).Text = ""
+        Next I
+        For I = 2 To Text2.Count - 1
+            Text2(I).Text = ""
+        Next I
        
         
     Else
@@ -2832,7 +2848,7 @@ Dim Limp As Boolean
         Text3(16).Text = DBLet(Data2.Recordset!codarti4, "T")
          
         Text3(2).Text = DBLet(Data2.Recordset!bruto, "T")
-        Text3(3).Text = DBLet(Data2.Recordset!TARA, "T")
+        Text3(3).Text = DBLet(Data2.Recordset!tara, "T")
         Text3(4).Text = DBLet(Data2.Recordset!Neto, "T")
         Text3(5).Text = DBLet(Data2.Recordset!porchoja, "T")
         Text3(6).Text = DBLet(Data2.Recordset!pesoprod, "T")
@@ -2851,9 +2867,9 @@ Dim Limp As Boolean
         
         
         
-        For i = 1 To Text3.Count - 1
-            Text3_LostFocus i
-        Next i
+        For I = 1 To Text3.Count - 1
+            Text3_LostFocus I
+        Next I
         
     End If
 End Sub
@@ -2934,7 +2950,7 @@ Dim PrimeraLinea As Boolean
         NumRegElim = 0
         If Not PrimeraLinea Then
             CadenaConsulta = DevuelveDesdeBD(conAri, "sum(bruto)", "vallentradacamionlineas", "entrada", Data1.Recordset!entrada)
-            anc = Data1.Recordset!bruto - Data1.Recordset!TARA
+            anc = Data1.Recordset!bruto - Data1.Recordset!tara
             'Anc son los kilos totales de carga
             'Le quitamos lo que suman los anterior  tenemos el disponible
             anc = anc - Val(CadenaConsulta)
@@ -2996,7 +3012,7 @@ Private Function DatosOkLinea() As Boolean
         End If
     Next
     
-    NumRegElim = Data1.Recordset!bruto - Data1.Recordset!TARA  'Disponible
+    NumRegElim = Data1.Recordset!bruto - Data1.Recordset!tara  'Disponible
     CadenaConsulta = DevuelveDesdeBD(conAri, "sum(bruto)", "vallentradacamionlineas", "entrada", Data1.Recordset!entrada)
     If ModificaLineas = 2 Then
         'Esta modificando la linea. Por lo tanto le resto la cantidad en data2
@@ -3005,11 +3021,11 @@ Private Function DatosOkLinea() As Boolean
         CadenaConsulta = "0"
     End If
     NumRegElim = NumRegElim - Val(CadenaConsulta)
-    NumRegElim = Data1.Recordset!bruto - Data1.Recordset!TARA - ImporteFormateado(Text3(6).Text)
+    NumRegElim = Data1.Recordset!bruto - Data1.Recordset!tara - ImporteFormateado(Text3(6).Text)
     
     
     'Si no ha indicado peso camion (ni tara) entonces no hace sumatorio pesos
-    If Not (Data1.Recordset!bruto = 0 And Data1.Recordset!TARA = 0) Then
+    If Not (Data1.Recordset!bruto = 0 And Data1.Recordset!tara = 0) Then
         If NumRegElim < 0 Then
             'MALLLL, execede
             MsgBox "Excede del peso maximo", vbExclamation

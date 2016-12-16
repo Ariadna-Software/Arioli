@@ -80,17 +80,17 @@ End Property
 
 
 
-Public Property Let CodArtic(ByVal vData As String)
+Public Property Let codartic(ByVal vData As String)
 'se usa al asignar un valor a la propiedad, en la parte izquierda de una asignación.
 'Syntax: X.codartic = 5
     mvarcodartic = vData
 End Property
 
 
-Public Property Get CodArtic() As String
+Public Property Get codartic() As String
 'se usa al recuperar un valor de una propiedad, en la parte derecha de una asignación.
 'Syntax: Debug.Print X.codartic
-    CodArtic = mvarcodartic
+    codartic = mvarcodartic
 End Property
 
 
@@ -242,7 +242,7 @@ Public Function AsignarA_LineaProduccion(Deposito As Integer) As Boolean
     Set vRs = New ADODB.Recordset
     SQL = "Select * from prodtrazlin where cantprodu is null "
     SQL = SQL & " and lineaprod = " & linea
-    vRs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If Not vRs.EOF Then
         'MAL ya hay algo en la linea.
         SQL = "Hay produccion en marcha en esa linea:"
@@ -251,13 +251,13 @@ Public Function AsignarA_LineaProduccion(Deposito As Integer) As Boolean
         MsgBox SQL, vbExclamation
     Else
         'Insertaremos en las tablas de produccion  . La transaccion estara AQUI
-        Conn.BeginTrans
+        conn.BeginTrans
         mvarDepo = Deposito
         If PonerArticuloEnCadenaProduccion Then
-            Conn.CommitTrans
+            conn.CommitTrans
             AsignarA_LineaProduccion = True
         Else
-            Conn.RollbackTrans
+            conn.RollbackTrans
         End If
         
     End If
@@ -286,14 +286,14 @@ Dim Can As Currency
     SQL = SQL & " AND prodlin.codartic=Sartic.codartic "
     SQL = SQL & " AND prodtrazlin.codigo = " & CodigoProduccion & " AND prodtrazlin.idlin = " & idSubLinProd
     
-    vRs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     LeerDesdeTrazabilidad = False
     If Not vRs.EOF Then
-           mvarcodartic = vRs!CodArtic
+           mvarcodartic = vRs!codartic
            mvarCodProduccion = CodigoProduccion
            mvaridLiProd = idSubLinProd
            mvarNomArtic = vRs!NomArtic
-           mvarUdsCaja = vRs!UniCajas
+           mvarUdsCaja = vRs!Unicajas
            mvarCantidadEstimada = vRs!cantesti
            mvarLinea = lineaprod
            mvarLoteTrazabilidad = lotetraza
@@ -330,12 +330,12 @@ Dim Can As Currency
     'si no que cruzo con codartic
     SQL = "Select prodtrazcompo.*,nomartic,factorconversion,cantidad from prodtrazcompo,sartic,sarti1 WHERE"
     SQL = SQL & " prodtrazcompo.codartic=Sartic.codartic AND "
-    SQL = SQL & " sarti1.codarti1=prodtrazcompo.codartic AND sarti1.codartic='" & Me.CodArtic & "' AND"
+    SQL = SQL & " sarti1.codarti1=prodtrazcompo.codartic AND sarti1.codartic='" & Me.codartic & "' AND"
     SQL = SQL & " prodtrazcompo.codigo =" & CodigoProduccion & " AND idlin = " & idSubLinProd
     SQL = SQL & " AND prodtrazcompo.lineaprod =" & lineaprod & " and prodtrazcompo.lotetraza=" & lotetraza
     SQL = SQL & " ORDER BY factorconversion,codartic "
     
-    vRs.Open SQL, Conn, adOpenKeyset, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
     If vRs.EOF Then
         MsgBox "Error abriendo componentes desde trazabilidad: " & mvarcodartic
     Else
@@ -354,7 +354,7 @@ Dim Can As Currency
             Can = CCur(vRs!FactorConversion)
             Can = Round2(Can * mvarCantidadEstimada, 2)
             If vRs!Cantidad <> 1 Then Can = Round2(Can * vRs!Cantidad, 2)
-            vectorComponentes(J).AsignarValoresComponentes vRs!CodArtic, vRs!NomArtic, Can, CCur(vRs!FactorConversion), vRs!Cantidad
+            vectorComponentes(J).AsignarValoresComponentes vRs!codartic, vRs!NomArtic, Can, CCur(vRs!FactorConversion), vRs!Cantidad
             vectorComponentes(J).AsignarLote vRs!NUmlote
             vRs.MoveNext
             J = J + 1
@@ -378,7 +378,7 @@ Public Function LecturaComprobacion() As Boolean
     Set vRs = New ADODB.Recordset
     SQL = "Select * from prodtrazlin where cantprodu is null "
     SQL = SQL & " and lineaprod = " & linea
-    vRs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If Not vRs.EOF Then
         'MAL ya hay algo en la linea.
     
@@ -400,14 +400,14 @@ Dim cant As Currency
     Set vRs = New ADODB.Recordset
     SQL = "Select prodlin.*,nomartic,UniCajas from prodlin,sartic WHERE prodlin.codartic=Sartic.codartic AND "
     SQL = SQL & " codigo = " & CodigoProduccion & " AND idlin = " & idSubLinProd
-    vRs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     LeerDeOrdenProduccion = False
     If Not vRs.EOF Then
-           mvarcodartic = vRs!CodArtic
+           mvarcodartic = vRs!codartic
            mvarCodProduccion = CodigoProduccion
            mvaridLiProd = idSubLinProd
            mvarNomArtic = vRs!NomArtic
-           mvarUdsCaja = vRs!UniCajas
+           mvarUdsCaja = vRs!Unicajas
            mvarCantidadEstimada = vRs!cantesti
            mvarTipoImpresionPalet = vRs!TipoImpresionPalet
            LeerDeOrdenProduccion = True
@@ -421,7 +421,7 @@ Dim cant As Currency
     'si no que cruzo con codartic
     SQL = "Select sarti1.*,nomartic,cantidad,factorconversion from sarti1,sartic WHERE sarti1.codarti1=Sartic.codartic AND "
     SQL = SQL & " sarti1.codartic = " & mvarcodartic & " AND trazabilidad=1 ORDER BY factorconversion,codartic"
-    vRs.Open SQL, Conn, adOpenKeyset, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
     If vRs.EOF Then
         MsgBox "Error abriendo componentes de: " & mvarcodartic
     Else
@@ -469,7 +469,7 @@ Private Sub CargarArticulosNoTrazabilidad()
     Set MateriaSinTrazabilidad = New Collection
     SQL = "Select sarti1.*,nomartic,cantidad from sarti1,sartic WHERE sarti1.codarti1=Sartic.codartic AND "
     SQL = SQL & " sarti1.codartic = " & mvarcodartic & " AND trazabilidad=0"
-    vRs.Open SQL, Conn, adOpenKeyset, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
     While Not vRs.EOF
         'Codartic, nomartic , cantidad
         SQL = vRs!codarti1 & "|" & vRs!NomArtic & "|" & vRs!Cantidad & "|"
@@ -521,7 +521,7 @@ Dim C As Integer
         SQL = SQL & " WHERE codigo= " & Me.CodProduccion & " AND idlin= " & Me.idLiProd & " AND lotetraza = " & mvarLoteTrazabilidad
         SQL = SQL & " AND lineaprod = " & Me.linea & " AND codartic = " & DBSet(vectorComponentes(V - 1).codarticCompo, "T")
         
-        Conn.Execute SQL
+        conn.Execute SQL
         
         SQL = "" 'todas
         For C = 1 To Me.CuantasMP
@@ -534,7 +534,7 @@ Dim C As Integer
             'Si ya estan todas las mataux asignadas entonces esta "en produccion"
             SQL = "UPDATE prodlin set estado = 1"
             SQL = SQL & " WHERE codigo =" & Me.CodProduccion & " AND  idlin  = " & Me.idLiProd
-            Conn.Execute SQL
+            conn.Execute SQL
         End If
     End If
     
@@ -560,7 +560,7 @@ On Error GoTo EPonerArticuloEnCadenaProduccion
     'Bloqueo EL status de prodlin
     Set R = New ADODB.Recordset
     SQL = "Select estado from prodlin where codigo =" & Me.CodProduccion & " AND  idlin  = " & Me.idLiProd & " FOR UPDATE"
-    R.Open SQL, Conn, adOpenKeyset, adLockPessimistic, adCmdText
+    R.Open SQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
     
     If R.EOF Then
         MsgBox "Error bloqueando linea ", vbExclamation
@@ -604,7 +604,7 @@ On Error GoTo EPonerArticuloEnCadenaProduccion
             'Insertamo en prodtrazlin
             SQL = "INSERT INTO prodtrazlin(codigo ,idlin ,lineaprod ,lotetraza,DepositoL) VALUES ("
             SQL = SQL & Me.CodProduccion & "," & Me.idLiProd & "," & Me.linea & "," & mvarLoteTrazabilidad & "," & mvarDepo & ")"
-            Conn.Execute SQL
+            conn.Execute SQL
             
             'insertamos en prodtraza componentes
             SQL = ""
@@ -619,7 +619,7 @@ On Error GoTo EPonerArticuloEnCadenaProduccion
             Next
             SQL = Mid(SQL, 2) '1ªcoma fuera
             SQL = "INSERT INTO prodtrazcompo( codigo,idlin,lineaprod,lotetraza,codartic,numlote) VALUES " & SQL
-            Conn.Execute SQL
+            conn.Execute SQL
             
             'updateo prodlin
             '0.- Pendiente    1.- Iniciado     10.-Finalizado
@@ -652,7 +652,7 @@ On Error GoTo EPonerArticuloEnCadenaProduccion
 
             
             SQL = SQL & " WHERE codigo =" & Me.CodProduccion & " AND  idlin  = " & Me.idLiProd
-            Conn.Execute SQL
+            conn.Execute SQL
             
             
             vTipoMov.IncrementarContador vTipoMov.TipoMovimiento
@@ -690,7 +690,7 @@ On Error GoTo ECerrarParaCambioLote
     CerrarParaCambioLote = False
     Set vRs = New ADODB.Recordset
     SQL = "Select estado from prodlin where codigo =" & Me.CodProduccion & " AND  idlin  = " & Me.idLiProd & " FOR UPDATE"
-    vRs.Open SQL, Conn, adOpenKeyset, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
     Seguir = False
     If vRs.EOF Then
         MsgBox "Error obteniendo la linea de produccion", vbCritical
@@ -704,7 +704,7 @@ On Error GoTo ECerrarParaCambioLote
     vRs.Close
     
     If Seguir Then
-            Conn.BeginTrans
+            conn.BeginTrans
             
             AntiguaTraza = mvarLoteTrazabilidad  'Para el pase a hco de datos
             mvarDepo = NumeroDeposito
@@ -712,13 +712,13 @@ On Error GoTo ECerrarParaCambioLote
             b = ActualizaTrazabilidadLinea(CantidadProducida, Cajas, idLINCambioLote, NuevoLote, EsFinalLoteDeposito)
             
             If b Then
-                Conn.CommitTrans
+                conn.CommitTrans
                 CerrarParaCambioLote = True
                 
                 InsertarEnHcoProduccion AntiguaTraza
                 
             Else
-                Conn.RollbackTrans
+                conn.RollbackTrans
             End If
         End If
     
@@ -747,7 +747,7 @@ On Error GoTo ECerrarProduccion
     CerrarProduccion = False
     Set vRs = New ADODB.Recordset
     SQL = "Select estado from prodlin where codigo =" & Me.CodProduccion & " AND  idlin  = " & Me.idLiProd & " FOR UPDATE"
-    vRs.Open SQL, Conn, adOpenKeyset, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
     Seguir = False
     If vRs.EOF Then
         MsgBox "Error obteniendo la linea de produccion", vbCritical
@@ -760,11 +760,11 @@ On Error GoTo ECerrarProduccion
     End If
     vRs.Close
     If Seguir Then
-            Conn.BeginTrans
+            conn.BeginTrans
             b = ActualizaTrazabilidadLinea(CantidadProducida, Cajas, 0, "", EsFinalLoteDeposito) 'Eso significa cierre produccion
             
             If b Then
-                Conn.CommitTrans
+                conn.CommitTrans
                 CerrarProduccion = True
                 
                 InsertarEnHcoProduccion mvarLoteTrazabilidad
@@ -788,7 +788,7 @@ On Error GoTo ECerrarProduccion
                 
                 
             Else
-                Conn.RollbackTrans
+                conn.RollbackTrans
             End If
         
     End If
@@ -852,7 +852,7 @@ Dim cDepo As cDeposito
         SQL = "UPDATE prodtrazlin set cantprodu = " & TransformaComasPuntos(CStr(Cantidad))
         SQL = SQL & " , cajasprod = " & CStr(CajasR)
         SQL = SQL & " WHERE codigo = " & Me.CodProduccion & " AND idlin = " & Me.idLiProd & " AND lineaprod = " & Me.linea & " AND lotetraza = " & mvarLoteTrazabilidad
-        Conn.Execute SQL
+        conn.Execute SQL
 
 
         'Los componentes
@@ -865,7 +865,7 @@ Dim cDepo As cDeposito
             ' codigo,idlin,lineaprod,lotetraza,codartic"
             SQL = SQL & " WHERE codigo = " & Me.CodProduccion & " AND idlin = " & Me.idLiProd & " AND lineaprod = " & Me.linea
             SQL = SQL & " AND lotetraza = " & mvarLoteTrazabilidad & " AND codartic = " & DBSet(vectorComponentes(i - 1).codarticCompo, "T")
-            Conn.Execute SQL
+            conn.Execute SQL
             
             'Para cerrar la produccion
             vectorComponentes(i - 1).CantidadUtilizada = CanAux
@@ -941,7 +941,7 @@ Dim cDepo As cDeposito
                 SQL = SQL & " ,cantprodu = " & DBSet(CanAux, "N")
                 SQL = SQL & " ,cajasprod = " & CStr(IdPalet)
                 SQL = SQL & " WHERE codigo =" & Me.CodProduccion & " AND  idlin  = " & Me.idLiProd
-                Conn.Execute SQL
+                conn.Execute SQL
                     
          
                     
@@ -969,7 +969,7 @@ Dim cDepo As cDeposito
                     'Pongo el palet/traza a finalizado
                     SQL = "UPDATE prodpaletstraza set ffin= " & DBSet(Now, "FH")
                     SQL = SQL & " WHERE lotetraza=" & mvarLoteTrazabilidad & " AND idpalet=" & IdPalet
-                    Conn.Execute SQL
+                    conn.Execute SQL
                     
                     
                 End If
@@ -982,13 +982,13 @@ Dim cDepo As cDeposito
                 'Insertamo en prodtrazlin
                 SQL = "INSERT INTO prodtrazlin(codigo ,idlin ,lineaprod ,lotetraza,depositol) VALUES ("
                 SQL = SQL & Me.CodProduccion & "," & Me.idLiProd & "," & Me.linea & "," & mvarLoteTrazabilidad & "," & mvarDepo & ")"
-                Conn.Execute SQL
+                conn.Execute SQL
         
                 'Meto el palet de produccion
                 If IdPalet > 0 Then
                     SQL = "INSERT INTO prodpaletstraza (idpalet, lotetraza ,fh) VALUES "
                     SQL = SQL & " (" & IdPalet & "," & mvarLoteTrazabilidad & ",'" & Format(Now, FormatoFechaHora) & "')"
-                    Conn.Execute SQL
+                    conn.Execute SQL
                 End If
                 
                 
@@ -1008,7 +1008,7 @@ Dim cDepo As cDeposito
                 Next
                 SQL = Mid(SQL, 2) '1ªcoma fuera
                 SQL = "INSERT INTO prodtrazcompo( codigo,idlin,lineaprod,lotetraza,codartic,numlote) VALUES " & SQL
-                Conn.Execute SQL
+                conn.Execute SQL
         
                 'Updateo en el obejto este
                 vectorComponentes(idLINCambio - 1).AsignarLote NuevoLotePro
@@ -1031,7 +1031,7 @@ Dim cDepo As cDeposito
                                 'UPDATEAMOS
                                 SQL = "UPDATE prodlin set LineaExtraEtiqueta = " & DBSet(Cadena, "T", "S")
                                 SQL = SQL & " WHERE codigo =" & Me.CodProduccion & " AND  idlin  = " & Me.idLiProd
-                                Conn.Execute SQL
+                                conn.Execute SQL
                                         
                             
                             End If
@@ -1063,7 +1063,7 @@ End Function
 '       movimientos de entrada/salida en la smoval
 '       movimientos de entrada/salida en los LOTES
 Private Function CerrarProduccionCantidades(SoloComprobar As Boolean, CantidadProducida_ As Currency, Cajasprod As Integer) As Boolean
-Dim vCStock2 As CStock
+Dim vCStock2 As cStock
 Dim b As Boolean
 Dim cad As String
 Dim i As Integer
@@ -1079,7 +1079,7 @@ Dim canti As Currency
     'Damos de baja   "        "        las sublineas
     CerrarProduccionCantidades = False
 
-    Set vCStock2 = New CStock
+    Set vCStock2 = New cStock
     
     
     
@@ -1176,7 +1176,7 @@ Dim canti As Currency
     End If
 
 
-        Set vCStock2 = New CStock
+        Set vCStock2 = New cStock
         b = False
         If InicializarCStock(vCStock2, "E", False, CantidadProducida_, "") Then 'Las lineas son de netrada
             If vCStock2.MueveStock Then
@@ -1213,7 +1213,7 @@ End Function
 
 
 'Si DesdeMateraNoTrazable tiene valor sera el codartic de la materia axuliar NO trazable (etiquetas,rejillas....)
-Private Function InicializarCStock(ByRef vCStock As CStock, TipoM As String, Sublineas As Byte, vcantidadpro As Currency, DesdeMateraNoTrazable As String) As Boolean
+Private Function InicializarCStock(ByRef vCStock As cStock, TipoM As String, Sublineas As Byte, vcantidadpro As Currency, DesdeMateraNoTrazable As String) As Boolean
 
     On Error Resume Next
 
@@ -1229,13 +1229,13 @@ Private Function InicializarCStock(ByRef vCStock As CStock, TipoM As String, Sub
     vCStock.Cantidad = vcantidadpro
     If TipoM = "E" Then
         'articulo producido
-        vCStock.CodArtic = Me.CodArtic
+        vCStock.codartic = Me.codartic
     Else
         If DesdeMateraNoTrazable <> "" Then
-            vCStock.CodArtic = DesdeMateraNoTrazable
+            vCStock.codartic = DesdeMateraNoTrazable
         Else
             'Materia trazabilidad
-            vCStock.CodArtic = vectorComponentes(Sublineas).codarticCompo
+            vCStock.codartic = vectorComponentes(Sublineas).codarticCompo
         End If
     End If
     
@@ -1312,13 +1312,13 @@ Dim K As Byte
                         ElseIf Len(cad) < 25 Then
                             cad = cad & Space(28)
                         End If
-                        cad = cad & "    idPartida: " & Cp.IdPartida & " Lote: " & vectorComponentes(K - 1).LoteMateria & "        Cantidad INSUFICIENTE (" & vCan & "/" & Cp.Cantidad & ")"
+                        cad = cad & "    idPartida: " & Cp.idPartida & " Lote: " & vectorComponentes(K - 1).LoteMateria & "        Cantidad INSUFICIENTE (" & vCan & "/" & Cp.Cantidad & ")"
                     End If
                 Else
                    
                     Cp.IncrementarCantidad -1 * vCan
                     
-                    InsertarMovientosLotesProduccion cL, Cp, vCan, Me.CodArtic
+                    InsertarMovientosLotesProduccion cL, Cp, vCan, Me.codartic
                 End If
             End If
             
@@ -1335,10 +1335,10 @@ Dim K As Byte
    'ENTRADA DE PRODUCTO
                     'Vemos si ya existe
                     'LoteReal = RL!Numlote & " " & Format(txtFecha(0).Text, "yyyy/mm/dd")
-                    If Cp.LeerDesdeArticulo(Me.CodArtic, vCodAlmac, Format(Me.LoteTrazabilidad, "0000000000")) Then
+                    If Cp.LeerDesdeArticulo(Me.codartic, vCodAlmac, Format(Me.LoteTrazabilidad, "0000000000")) Then
                         If SoloComprobar Then
                             cad = "     -YA EXISTE el lote de produccion para el articulo de venta:" & vbCrLf
-                            cad = cad & Space(20) & Me.NomArtic & "   Lote " & Me.LoteTrazabilidad & "    idPartida: " & Cp.IdPartida
+                            cad = cad & Space(20) & Me.NomArtic & "   Lote " & Me.LoteTrazabilidad & "    idPartida: " & Cp.idPartida
                             
                             ErroresEnPartidas = cad & vbCrLf & ErroresEnPartidas & vbCrLf
                         Else
@@ -1352,14 +1352,14 @@ Dim K As Byte
                         If Not SoloComprobar Then
                             Cp.Cantidad = CantidadProducida
                             Cp.codAlmac = vCodAlmac
-                            Cp.CodArtic = Me.CodArtic
+                            Cp.codartic = Me.codartic
                             Cp.codProve = 0
                             Cp.Fecha = FH_Incio
                             'Si cambiamos esto hay que mirar el packing list
                             Cp.NumAlbar = "NP" & Format(Me.CodProduccion, "00000") & Format(Me.idLiProd, "00")
                             Cp.NUmlote = Format(Me.LoteTrazabilidad, "0000000000")
                             If Not Cp.Insertar Then
-                                cad = "Error insertando partidas/lotes: " & Cp.CodArtic
+                                cad = "Error insertando partidas/lotes: " & Cp.codartic
                                 Err.Raise 513, , cad
                             End If
                         
@@ -1369,10 +1369,10 @@ Dim K As Byte
                         cL.tipoMov = 1
                         cL.Cantidad = Cp.Cantidad
                         cL.codAlmac = Cp.codAlmac
-                        cL.CodArtic = Cp.CodArtic
+                        cL.codartic = Cp.codartic
                         cL.codarti2 = ""
                         cL.NUmlote = Cp.NUmlote
-                        If Not cL.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & Cp.CodArtic
+                        If Not cL.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & Cp.codartic
                         
                         
                         '13/12/2010
@@ -1423,11 +1423,11 @@ Private Sub InsertarMovientosLotesProduccion(ByRef cLot As cLotaje, cPar As cPar
     cLot.tipoMov = 0  'Salida
     cLot.Cantidad = Abs(Cantidad)
     cLot.codAlmac = cPar.codAlmac
-    cLot.CodArtic = cPar.CodArtic
+    cLot.codartic = cPar.codartic
     cLot.codarti2 = ArticuloProduccion
     cLot.NUmlote = cPar.NUmlote
 
-    If Not cLot.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & cPar.CodArtic
+    If Not cLot.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & cPar.codartic
     
 End Sub
 
@@ -1443,7 +1443,7 @@ Public Function LeerLineaDondeEstaPaletizando() As String
     SQL = "select * from prodpalets where fhfin is null and "
     'Segun la linea
     SQL = SQL & " L" & mvarLinea & " = 1"
-    vRs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If Not vRs.EOF Then LeerLineaDondeEstaPaletizando = "L" & vRs!LineaPeletiza & "  - " & Format(vRs!IdPalet, "0000")
     vRs.Close
     Set vRs = Nothing
@@ -1454,7 +1454,7 @@ Public Function CajasLeidasLector() As Integer
     CajasLeidasLector = 0
     Set vRs = New ADODB.Recordset
     SQL = "select count(*) from prodcajas where lotetraza =" & mvarLoteTrazabilidad
-    vRs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If Not vRs.EOF Then CajasLeidasLector = DBLet(vRs.Fields(0), "N")
     vRs.Close
     Set vRs = Nothing
@@ -1468,13 +1468,13 @@ Public Sub EstablecerEtiquetasImpresas(MaximaImpresion As Long)
     mvarEtiquetasImpresas = MaximaImpresion
     SQL = "UPDATE prodlin set etiquetas = " & MaximaImpresion
     SQL = SQL & " WHERE codigo =" & Me.CodProduccion & " AND  idlin  = " & Me.idLiProd
-    Conn.Execute SQL
+    conn.Execute SQL
 End Sub
 
 
 Private Sub ComprobarSiguePaletizando()
     SQL = "select * from prodpaletstraza  where lotetraza=" & mvarLoteTrazabilidad
-    vRs.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    vRs.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If Not vRs.EOF Then
         'OK
     
@@ -1513,7 +1513,7 @@ Private Sub RegularizarFinLote_Partida(IndiceDelArray As Integer)
 Dim cPar As cPartidas
 Dim cDEP As cDeposito
 Dim cLot As cLotaje
-Dim vvCstock As CStock
+Dim vvCstock As cStock
 Dim Aux As String
 Dim Donde As String
 Dim Cantidad As Currency
@@ -1526,7 +1526,7 @@ Dim Cantidad As Currency
     Set cPar = New cPartidas
     Set cDEP = New cDeposito
     Set cLot = New cLotaje
-    Set vvCstock = New CStock
+    Set vvCstock = New cStock
     
     Donde = "Leyendo clases"
     Aux = "numlote = " & DBSet(vectorComponentes(IndiceDelArray - 1).LoteMateria, "T") & " AND codartic "
@@ -1544,7 +1544,7 @@ Dim Cantidad As Currency
     
         
     Set cLot = New cLotaje
-    Set vvCstock = New CStock
+    Set vvCstock = New cStock
         
    
     
@@ -1565,12 +1565,12 @@ Dim Cantidad As Currency
     vvCstock.Fechamov = Format(Now, "dd/mm/yyyy")
     vvCstock.HoraMov = Now
     vvCstock.codAlmac = vCodAlmac
-    vvCstock.CodArtic = cPar.CodArtic
+    vvCstock.codartic = cPar.codartic
     vvCstock.Importe = 0
-    vvCstock.Documento = "FIN" & Format(cPar.IdPartida, "0000000")
+    vvCstock.Documento = "FIN" & Format(cPar.idPartida, "0000000")
     
     cLot.codAlmac = vvCstock.codAlmac
-    cLot.CodArtic = vvCstock.CodArtic
+    cLot.codartic = vvCstock.codartic
     cLot.DetaMov = vvCstock.DetaMov
     cLot.Fechamov = vvCstock.Fechamov
     cLot.HoraMov = vvCstock.HoraMov
@@ -1582,7 +1582,7 @@ Dim Cantidad As Currency
     
     cLot.InsertarLote
     vvCstock.MoverStock False
-    cDEP.QuitarAsignacionDeposito_ 0  'Veremos este codigo
+    cDEP.QuitarAsignacionDeposito_ 0, Now 'Veremos este codigo
     cPar.AjustarFinPartida
     
     

@@ -38,14 +38,26 @@ Begin VB.Form frmAlmpartidasMov
       TabPicture(0)   =   "frmAlmpartidasMov.frx":000C
       Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "DataGrid1"
-      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).ControlCount=   1
       TabCaption(1)   =   "Pesos"
       TabPicture(1)   =   "frmAlmpartidasMov.frx":0028
       Tab(1).ControlEnabled=   -1  'True
       Tab(1).Control(0)=   "ListView1"
       Tab(1).Control(0).Enabled=   0   'False
-      Tab(1).ControlCount=   1
+      Tab(1).Control(1)=   "cmdBorrarPesos"
+      Tab(1).Control(1).Enabled=   0   'False
+      Tab(1).ControlCount=   2
+      Begin VB.CommandButton cmdBorrarPesos 
+         Height          =   375
+         Left            =   240
+         Picture         =   "frmAlmpartidasMov.frx":0044
+         Style           =   1  'Graphical
+         TabIndex        =   37
+         ToolTipText     =   "Eliminar pesaje"
+         Top             =   600
+         Visible         =   0   'False
+         Width           =   375
+      End
       Begin MSComctlLib.ListView ListView1 
          Height          =   3855
          Left            =   720
@@ -71,17 +83,17 @@ Begin VB.Form frmAlmpartidasMov
          BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   1
             Text            =   "Fecha/hora"
-            Object.Width           =   4480
+            Object.Width           =   4128
          EndProperty
          BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             Alignment       =   1
             SubItemIndex    =   2
             Text            =   "Peso"
-            Object.Width           =   2187
+            Object.Width           =   2011
          EndProperty
          BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   3
-            Object.Width           =   2469
+            Object.Width           =   2645
          EndProperty
          BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   4
@@ -101,7 +113,7 @@ Begin VB.Form frmAlmpartidasMov
          EndProperty
       End
       Begin MSDataGridLib.DataGrid DataGrid1 
-         Bindings        =   "frmAlmpartidasMov.frx":0044
+         Bindings        =   "frmAlmpartidasMov.frx":6896
          Height          =   4200
          Left            =   -74880
          TabIndex        =   35
@@ -406,7 +418,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   2
          Left            =   1080
-         Picture         =   "frmAlmpartidasMov.frx":0059
+         Picture         =   "frmAlmpartidasMov.frx":68AB
          Tag             =   "-1"
          ToolTipText     =   "Buscar articulo"
          Top             =   1560
@@ -434,7 +446,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   1
          Left            =   7440
-         Picture         =   "frmAlmpartidasMov.frx":015B
+         Picture         =   "frmAlmpartidasMov.frx":69AD
          Tag             =   "-1"
          ToolTipText     =   "Buscar almacen"
          Top             =   840
@@ -444,7 +456,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   0
          Left            =   960
-         Picture         =   "frmAlmpartidasMov.frx":025D
+         Picture         =   "frmAlmpartidasMov.frx":6AAF
          Tag             =   "-1"
          ToolTipText     =   "Buscar articulo"
          Top             =   840
@@ -481,7 +493,7 @@ Begin VB.Form frmAlmpartidasMov
          Height          =   240
          Index           =   0
          Left            =   5880
-         Picture         =   "frmAlmpartidasMov.frx":035F
+         Picture         =   "frmAlmpartidasMov.frx":6BB1
          ToolTipText     =   "Buscar fecha"
          Top             =   120
          Width           =   240
@@ -853,7 +865,7 @@ Private CadenaConsulta As String
 
 Private Ordenacion As String
 Private NombreTabla As String  'Nombre de la tabla de Cabecera
-Private kCampo As Integer
+Private Kcampo As Integer
 '-------------------------------------------------------------------------
 Private HaDevueltoDatos As Boolean
 
@@ -893,9 +905,9 @@ Private Sub BotonBuscar()
     Else
         HacerBusqueda
         If Data1.Recordset.EOF Then
-            Text1(kCampo).Text = ""
-            Text1(kCampo).BackColor = vbYellow
-            PonerFoco Text1(kCampo)
+            Text1(Kcampo).Text = ""
+            Text1(Kcampo).BackColor = vbYellow
+            PonerFoco Text1(Kcampo)
         End If
     End If
 End Sub
@@ -933,6 +945,13 @@ End Sub
 
 Private Sub cmdAceptar_Click()
     If Modo = 1 Then HacerBusqueda
+End Sub
+
+Private Sub cmdBorrarPesos_Click()
+    If Modo <> 2 Then Exit Sub
+    If MsgBox("¿Desea eliminar la serie de pesaje de la referencia : " & Text2(0).Text & "?", vbQuestion + vbYesNoCancel) <> vbYes Then Exit Sub
+    EjecutaSQL conAri, "DELETE FROM spartidaspesos WHERE idpartida =" & Text1(0).Text
+    PonerCampos
 End Sub
 
 Private Sub cmdCancelar_Click()
@@ -1250,7 +1269,7 @@ End Sub
 'Los metodos del text tendran que estar
 'Los descomentamos cuando esten puestos ya los controles
 Private Sub Text1_GotFocus(Index As Integer)
-    kCampo = Index
+    Kcampo = Index
     ConseguirFoco Text1(Index), Modo
 End Sub
 
@@ -1420,7 +1439,7 @@ Private Sub PonerCadenaBusqueda()
         Screen.MousePointer = vbDefault
         If Modo = 1 Then
           
-            PonerFoco Text1(kCampo)
+            PonerFoco Text1(Kcampo)
 '            Text1(0).BackColor = vbYellow
         End If
         Exit Sub
@@ -1581,7 +1600,7 @@ Dim b As Boolean
         If Modo = 4 Then b = vUsu.Nivel < 1
     End If
   
-    
+    cmdBorrarPesos.visible = False
     
 
     PonerModoOpcionesMenu (Modo) 'Activar opciones de menu según modo
@@ -2215,8 +2234,9 @@ Private Sub CargarPesos()
 Dim It As ListItem
 Dim b As Boolean
 
-     If Not Me.SSTab1.TabVisible(1) Then Exit Sub
-
+    
+    If Not Me.SSTab1.TabVisible(1) Then Exit Sub
+    cmdBorrarPesos.visible = False
 
     On Error GoTo eCargarPesos
     Set miRsAux = New ADODB.Recordset
@@ -2245,7 +2265,7 @@ Dim b As Boolean
         
     Wend
     miRsAux.Close
-    
+    cmdBorrarPesos.visible = ListView1.ListItems.Count > 0
 eCargarPesos:
     If Err.Number <> 0 Then MuestraError Err.Number, Err.Description
     Set miRsAux = Nothing

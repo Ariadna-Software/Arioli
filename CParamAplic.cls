@@ -1333,7 +1333,7 @@ Private Sub FijarFechaActiva()
     If mvarqueempresaes = 4 Then
         SQL = DevuelveDesdeBD(conAri, "FechaActiva", "vallparam", "1", "1")
         If SQL <> "" Then
-            mvarFechaActiva = CDate(mvarFechaActiva)
+            mvarFechaActiva = CDate(SQL)
         End If
     End If
 End Sub

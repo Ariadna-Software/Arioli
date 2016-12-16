@@ -379,13 +379,13 @@ Begin VB.Form frmVallAlmazara
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   10
-         Left            =   15360
+         Left            =   15120
          Locked          =   -1  'True
          MaxLength       =   10
          TabIndex        =   13
-         Tag             =   "Temp. caldera |N|S|||vallalmazaraproceso|AguaDecanter|#0.00|N|"
+         Tag             =   "Agua decanter |N|S|||vallalmazaraproceso|AguaDecanter|#0.00|N|"
          Top             =   360
-         Width           =   945
+         Width           =   1185
       End
       Begin VB.ComboBox cboAlmazara 
          Height          =   315
@@ -649,13 +649,13 @@ Begin VB.Form frmVallAlmazara
       End
       Begin VB.Label Label1 
          AutoSize        =   -1  'True
-         Caption         =   "Agua decanter"
+         Caption         =   "Agua decanter L/h"
          Height          =   195
          Index           =   11
-         Left            =   15240
+         Left            =   15000
          TabIndex        =   52
          Top             =   120
-         Width           =   1050
+         Width           =   1350
       End
       Begin VB.Label Label1 
          Caption         =   "Aspecto del aceite a la salida del decanter"
@@ -1615,7 +1615,7 @@ End Sub
 Private Sub BotonEliminar()
 'Eliminar Registro de la Cabecera: Tabla de Pedidos (scaped)
 ' y los registros correspondientes de las tablas de lineas (sliped)
-Dim Cad As String
+Dim cad As String
 
     On Error GoTo EEliminar
 
@@ -1627,17 +1627,17 @@ Dim Cad As String
         Exit Sub
     End If
 
-    Cad = "Almazara." & vbCrLf
-    Cad = Cad & "----------------------------------" & vbCrLf & vbCrLf
-    Cad = Cad & "Va a eliminar el proceso:"
-    Cad = Cad & vbCrLf & "Nº:  " & Format(Text1(0).Text, "0000000")
-    Cad = Cad & vbCrLf & "Fecha:  " & Format(Text1(1).Text, "dd/mm/yyyy")
-    Cad = Cad & vbCrLf & vbCrLf & "¿Desea continuar? "
+    cad = "Almazara." & vbCrLf
+    cad = cad & "----------------------------------" & vbCrLf & vbCrLf
+    cad = cad & "Va a eliminar el proceso:"
+    cad = cad & vbCrLf & "Nº:  " & Format(Text1(0).Text, "0000000")
+    cad = cad & vbCrLf & "Fecha:  " & Format(Text1(1).Text, "dd/mm/yyyy")
+    cad = cad & vbCrLf & vbCrLf & "¿Desea continuar? "
     
     Screen.MousePointer = vbHourglass
     
     'Borramos
-    If MsgBox(Cad, vbQuestion + vbYesNo) = vbYes Then
+    If MsgBox(cad, vbQuestion + vbYesNo) = vbYes Then
         'Hay que eliminar
         NumRegElim = Data1.Recordset.AbsolutePosition
         
@@ -1714,7 +1714,7 @@ End Sub
 
 Private Sub cmdRegresar_Click()
 'Este es el boton Cabecera
-Dim Cad As String
+Dim cad As String
 
     'Quitar lineas y volver a la cabecera
     If Modo = 5 Or Modo = 6 Then 'modo 5: Mantenimientos Lineas
@@ -1735,8 +1735,8 @@ Dim Cad As String
         End If
         'cad = Data1.Recordset.Fields(0) & "|"
         'cad = cad & Data1.Recordset.Fields(1) & "|"
-        Cad = Data1.Recordset.Fields(0)
-        RaiseEvent DatoSeleccionado2(Cad)
+        cad = Data1.Recordset.Fields(0)
+        RaiseEvent DatoSeleccionado2(cad)
         Unload Me
     End If
 End Sub
@@ -2183,17 +2183,17 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim Cad As String
+Dim cad As String
 Dim Tabla As String
 Dim Titulo As String
 Dim Desc As String, Devuelve As String
     'Llamamos a al form
     '##A mano
-    Cad = ""
+    cad = ""
     If EsCabecera Then
-        Cad = Cad & ParaGrid(Text1(0), 20, "Id")
-        Cad = Cad & ParaGrid(Text1(1), 20, "Fecha")
-        Cad = Cad & "Tipo|scaalp|if(tipooliva=1,'Arbol','Tierra') |N||45·"
+        cad = cad & ParaGrid(Text1(0), 20, "Id")
+        cad = cad & ParaGrid(Text1(1), 20, "Fecha")
+        cad = cad & "Tipo|scaalp|if(tipooliva=1,'Arbol','Tierra') |N||45·"
         Tabla = NombreTabla
       
         Titulo = "Proceso almazara"
@@ -2201,11 +2201,11 @@ Dim Desc As String, Devuelve As String
 
     Else
         Titulo = "Albaranes proveedor"
-        Cad = Cad & "Nº Albaran " & "|scaalp|numalbar|N||15·"
-        Cad = Cad & "Fecha " & "|scaalp|fechaalb|T||15·"
-        Cad = Cad & "C.Prov" & "|scaalp|codprove|N|0000|10·"
-        Cad = Cad & "Proveedor" & "|scaalp|nomprove|N||40·"
-        Cad = Cad & "Producto" & "|slialp|codartic|N||20·"
+        cad = cad & "Nº Albaran " & "|scaalp|numalbar|N||15·"
+        cad = cad & "Fecha " & "|scaalp|fechaalb|T||15·"
+        cad = cad & "C.Prov" & "|scaalp|codprove|N|0000|10·"
+        cad = cad & "Proveedor" & "|scaalp|nomprove|N||40·"
+        cad = cad & "Producto" & "|slialp|codartic|N||20·"
         Tabla = "scaalp,slialp,sartic,sfamia"
         Devuelve = "0|1|2|3|"
         
@@ -2232,10 +2232,10 @@ Dim Desc As String, Devuelve As String
     End If
     
            
-    If Cad <> "" Then
+    If cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = Cad
+        frmB.vCampos = cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -2484,7 +2484,7 @@ Private Function DatosOkLinea() As Boolean
 'Comprueba si los datos de una linea son correctos antes de Insertar o Modificar
 'una linea del Pedido
 Dim b As Boolean
-Dim Cad As String
+Dim cad As String
 Dim i As Integer
     On Error GoTo EDatosOkLinea
 
@@ -2505,11 +2505,11 @@ Dim i As Integer
              
             'Ahora veremos dos cosas:
             '1.- Existe el albaran
-            Cad = "numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
-            Cad = Cad & " AND codprove "
+            cad = "numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
+            cad = cad & " AND codprove "
             
-            Cad = DevuelveDesdeBD(conAri, "numalbar", "scaalp", Cad, txtAux(2).Text)
-            If Cad = "" Then
+            cad = DevuelveDesdeBD(conAri, "numalbar", "scaalp", cad, txtAux(2).Text)
+            If cad = "" Then
                 'No existe el albarán
                 MsgBox " No existe el albaran", vbExclamation
                 b = False
@@ -2520,13 +2520,13 @@ Dim i As Integer
              
              
             'Vemos que no esta asignado en ningun otro parte molturacion
-            Cad = "numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
-            If ModificaLineas = 2 Then Cad = Cad & " AND id<>" & Data1.Recordset!ID
-            Cad = Cad & " AND codprove "
-            Cad = DevuelveDesdeBD(conAri, "id", "vallalmazaraprocesoalb", Cad, txtAux(2).Text)
-            If Cad <> "" Then
+            cad = "numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
+            If ModificaLineas = 2 Then cad = cad & " AND id<>" & Data1.Recordset!ID
+            cad = cad & " AND codprove "
+            cad = DevuelveDesdeBD(conAri, "id", "vallalmazaraprocesoalb", cad, txtAux(2).Text)
+            If cad <> "" Then
                 'No existe el albarán
-                MsgBox " Ya esta asignado el albaran. Codigo: " & Cad, vbExclamation
+                MsgBox " Ya esta asignado el albaran. Codigo: " & cad, vbExclamation
                 b = False
             End If
              
@@ -2535,11 +2535,11 @@ Dim i As Integer
             'Lineas de oliva, la familia tiene que ser OLIVA
             'Es decir, el tipfamia=30
             If b Then
-                Cad = "slialp.codartic=sartic.codartic and sfamia.codfamia=sartic.codfamia and tipfamia=30 and numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
-                Cad = Cad & " AND slialp.codprove "
+                cad = "slialp.codartic=sartic.codartic and sfamia.codfamia=sartic.codfamia and tipfamia=30 and numalbar=" & DBSet(txtAux(0).Text, "T") & " AND fechaalb =" & DBSet(txtAux(1).Text, "F")
+                cad = cad & " AND slialp.codprove "
                 
-                Cad = DevuelveDesdeBD(conAri, "numalbar", "slialp,sartic,sfamia", Cad, txtAux(2).Text)
-                If Cad = "" Then
+                cad = DevuelveDesdeBD(conAri, "numalbar", "slialp,sartic,sfamia", cad, txtAux(2).Text)
+                If cad = "" Then
                     MsgBox "Ningun articulo en el albaran es oliva", vbExclamation
                     b = False
                 End If
@@ -2649,7 +2649,7 @@ Dim b As Boolean
                 While Not miRsAux.EOF
                     CadenaDesdeOtroForm = "UPDATE tmpnlotes Set cantidad =" & DBSet(miRsAux!rendimiento, "N")
                     CadenaDesdeOtroForm = CadenaDesdeOtroForm & " WHERE codusu =" & vUsu.Codigo & " AND numalbar=" & DBSet(miRsAux!NumAlbar, "T")
-                    CadenaDesdeOtroForm = CadenaDesdeOtroForm & " AND codprove=" & miRsAux!codProve & " AND fechaalb=" & DBSet(miRsAux!FechaEntrada, "F")
+                    CadenaDesdeOtroForm = CadenaDesdeOtroForm & " AND codprove=" & miRsAux!codProve & " AND fechaalb=" & DBSet(miRsAux!fechaentrada, "F")
                     conn.Execute CadenaDesdeOtroForm
                     miRsAux.MoveNext
                 Wend

@@ -1,6 +1,7 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "comctl32.ocx"
 Begin VB.Form frmProdVerUnDepo 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Deposito"
@@ -32,58 +33,43 @@ Begin VB.Form frmProdVerUnDepo
       _ExtentX        =   11456
       _ExtentY        =   12091
       _Version        =   393216
-      Tabs            =   2
+      Tab             =   2
       TabHeight       =   520
       TabCaption(0)   =   "Datos depósito"
       TabPicture(0)   =   "frmProdVerUnDepo.frx":0000
-      Tab(0).ControlEnabled=   -1  'True
-      Tab(0).Control(0)=   "Label1(5)"
-      Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "Label1(4)"
-      Tab(0).Control(1).Enabled=   0   'False
-      Tab(0).Control(2)=   "Label1(3)"
-      Tab(0).Control(2).Enabled=   0   'False
-      Tab(0).Control(3)=   "Label1(7)"
-      Tab(0).Control(3).Enabled=   0   'False
-      Tab(0).Control(4)=   "Label1(6)"
-      Tab(0).Control(4).Enabled=   0   'False
-      Tab(0).Control(5)=   "Label1(1)"
-      Tab(0).Control(5).Enabled=   0   'False
-      Tab(0).Control(6)=   "Line1"
-      Tab(0).Control(6).Enabled=   0   'False
-      Tab(0).Control(7)=   "Label1(10)"
-      Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).Control(8)=   "Text1(5)"
-      Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "Text1(4)"
-      Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "Text1(3)"
-      Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).Control(11)=   "Text1(7)"
-      Tab(0).Control(11).Enabled=   0   'False
-      Tab(0).Control(12)=   "Text1(6)"
-      Tab(0).Control(12).Enabled=   0   'False
-      Tab(0).Control(13)=   "Text1(1)"
-      Tab(0).Control(13).Enabled=   0   'False
-      Tab(0).Control(14)=   "ListView1"
-      Tab(0).Control(14).Enabled=   0   'False
-      Tab(0).Control(15)=   "cmdModKilos"
-      Tab(0).Control(15).Enabled=   0   'False
+      Tab(0).ControlEnabled=   0   'False
+      Tab(0).Control(0)=   "cmdModKilos"
+      Tab(0).Control(1)=   "ListView1"
+      Tab(0).Control(2)=   "Text1(1)"
+      Tab(0).Control(3)=   "Text1(6)"
+      Tab(0).Control(4)=   "Text1(7)"
+      Tab(0).Control(5)=   "Text1(3)"
+      Tab(0).Control(6)=   "Text1(4)"
+      Tab(0).Control(7)=   "Text1(5)"
+      Tab(0).Control(8)=   "Label1(10)"
+      Tab(0).Control(9)=   "Line1"
+      Tab(0).Control(10)=   "Label1(1)"
+      Tab(0).Control(11)=   "Label1(6)"
+      Tab(0).Control(12)=   "Label1(7)"
+      Tab(0).Control(13)=   "Label1(3)"
+      Tab(0).Control(14)=   "Label1(4)"
+      Tab(0).Control(15)=   "Label1(5)"
       Tab(0).ControlCount=   16
       TabCaption(1)   =   "Histórico"
       TabPicture(1)   =   "frmProdVerUnDepo.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label3(63)"
-      Tab(1).Control(0).Enabled=   0   'False
-      Tab(1).Control(1)=   "imgFecha(0)"
-      Tab(1).Control(1).Enabled=   0   'False
+      Tab(1).Control(0)=   "cmdVer"
+      Tab(1).Control(1)=   "txtFecha(0)"
       Tab(1).Control(2)=   "ListView2"
-      Tab(1).Control(2).Enabled=   0   'False
-      Tab(1).Control(3)=   "txtFecha(0)"
-      Tab(1).Control(3).Enabled=   0   'False
-      Tab(1).Control(4)=   "cmdVer"
-      Tab(1).Control(4).Enabled=   0   'False
+      Tab(1).Control(3)=   "imgFecha(0)"
+      Tab(1).Control(4)=   "Label3(63)"
       Tab(1).ControlCount=   5
+      TabCaption(2)   =   "Albaranes"
+      TabPicture(2)   =   "frmProdVerUnDepo.frx":0038
+      Tab(2).ControlEnabled=   -1  'True
+      Tab(2).Control(0)=   "TreeView1"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).ControlCount=   1
       Begin VB.CommandButton cmdVer 
          Caption         =   "Movimientos"
          Height          =   375
@@ -94,8 +80,8 @@ Begin VB.Form frmProdVerUnDepo
       End
       Begin VB.CommandButton cmdModKilos 
          Height          =   375
-         Left            =   5880
-         Picture         =   "frmProdVerUnDepo.frx":0038
+         Left            =   -69120
+         Picture         =   "frmProdVerUnDepo.frx":0054
          Style           =   1  'Graphical
          TabIndex        =   23
          ToolTipText     =   "Ajustar cantidad en deposito"
@@ -113,7 +99,7 @@ Begin VB.Form frmProdVerUnDepo
       End
       Begin MSComctlLib.ListView ListView1 
          Height          =   1695
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   19
          Top             =   4440
          Width           =   6135
@@ -162,7 +148,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   1
-         Left            =   240
+         Left            =   -74760
          Locked          =   -1  'True
          TabIndex        =   14
          Text            =   "Text1"
@@ -182,7 +168,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   6
-         Left            =   240
+         Left            =   -74760
          Locked          =   -1  'True
          TabIndex        =   13
          Text            =   "Text1"
@@ -201,7 +187,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   7
-         Left            =   2040
+         Left            =   -72960
          Locked          =   -1  'True
          TabIndex        =   12
          Text            =   "Text1"
@@ -221,7 +207,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   3
-         Left            =   240
+         Left            =   -74760
          Locked          =   -1  'True
          TabIndex        =   8
          Text            =   "Text1"
@@ -241,7 +227,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   4
-         Left            =   2400
+         Left            =   -72600
          Locked          =   -1  'True
          TabIndex        =   7
          Text            =   "Text1"
@@ -261,7 +247,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   5
-         Left            =   4200
+         Left            =   -70800
          Locked          =   -1  'True
          TabIndex        =   6
          Text            =   "Text1"
@@ -307,11 +293,33 @@ Begin VB.Form frmProdVerUnDepo
             Object.Width           =   0
          EndProperty
       End
+      Begin ComctlLib.TreeView TreeView1 
+         Height          =   5295
+         Left            =   360
+         TabIndex        =   25
+         Top             =   720
+         Width           =   5775
+         _ExtentX        =   10186
+         _ExtentY        =   9340
+         _Version        =   327682
+         LabelEdit       =   1
+         Style           =   7
+         Appearance      =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
       Begin VB.Image imgFecha 
          Height          =   240
          Index           =   0
          Left            =   -74280
-         Picture         =   "frmProdVerUnDepo.frx":0A3A
+         Picture         =   "frmProdVerUnDepo.frx":0A56
          Top             =   6480
          Width           =   240
       End
@@ -338,7 +346,7 @@ Begin VB.Form frmProdVerUnDepo
          ForeColor       =   &H000000C0&
          Height          =   375
          Index           =   10
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   18
          Top             =   3960
          Width           =   1575
@@ -346,8 +354,8 @@ Begin VB.Form frmProdVerUnDepo
       Begin VB.Line Line1 
          BorderColor     =   &H000000C0&
          BorderWidth     =   3
-         X1              =   120
-         X2              =   6120
+         X1              =   -74880
+         X2              =   -68880
          Y1              =   4080
          Y2              =   4080
       End
@@ -364,7 +372,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   1
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   17
          Top             =   2760
          Width           =   1215
@@ -382,7 +390,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   6
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   16
          Top             =   1680
          Width           =   1215
@@ -400,7 +408,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   7
-         Left            =   2040
+         Left            =   -72960
          TabIndex        =   15
          Top             =   1680
          Width           =   2295
@@ -418,7 +426,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   3
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   11
          Top             =   600
          Width           =   1575
@@ -436,7 +444,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   4
-         Left            =   2400
+         Left            =   -72600
          TabIndex        =   10
          Top             =   600
          Width           =   1215
@@ -454,7 +462,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   5
-         Left            =   4200
+         Left            =   -70800
          TabIndex        =   9
          Top             =   600
          Width           =   1215
@@ -581,16 +589,16 @@ Dim miSQL As String
 Dim PrimVe As Boolean
 
 Private Sub CargarUnDeposito()
-Dim cad As String
+Dim Cad As String
 Dim PorcentajeLleno As Currency
 Dim It As ListItem
     
     
-    cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote,spartidas.id"
-    cad = cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
-    cad = cad & " left join sartic on spartidas.codartic=sartic.codartic WHERE numdeposito = " & NumDepo
+    Cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote,spartidas.id"
+    Cad = Cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
+    Cad = Cad & " left join sartic on spartidas.codartic=sartic.codartic WHERE numdeposito = " & NumDepo
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
 
         Me.Text1(2).Text = DBLet(miRsAux!NUmlote, "T")
@@ -611,7 +619,8 @@ Dim It As ListItem
             SSTab1.TabVisible(0) = False
         End If
         Text1(4).Text = Format(PorcentajeLleno, FormatoCantidad)
-        Text1(5).Text = Format(miRsAux!Kilos, FormatoCantidad)
+        
+         Text1(5).Text = Format(miRsAux!Kilos, FormatoCantidad)
         
         
         'PorcentajeLleno = miRsAux!Kilos / miRsAux!FactorConversion   --> esta arriba
@@ -635,13 +644,13 @@ Dim It As ListItem
     If idProd <> "" Then
         'Esta en produccion
         
-        cad = "select prodlin.codartic,cantesti,lineaprod,lotetraza,nomartic,cantesti from prodlin,prodtrazcompo,sartic"
-        cad = cad & " where prodlin.codigo= prodtrazcompo.codigo AND prodlin.codartic=sartic.codartic AND prodlin.idlin = prodtrazcompo.idlin"
-        cad = cad & " AND numlote = " & DBSet(Text1(2).Text, "T") & " and cantutili is null"
+        Cad = "select prodlin.codartic,cantesti,lineaprod,lotetraza,nomartic,cantesti from prodlin,prodtrazcompo,sartic"
+        Cad = Cad & " where prodlin.codigo= prodtrazcompo.codigo AND prodlin.codartic=sartic.codartic AND prodlin.idlin = prodtrazcompo.idlin"
+        Cad = Cad & " AND numlote = " & DBSet(Text1(2).Text, "T") & " and cantutili is null"
         'Cad = Cad & " and  prodlin.codigo =" & RecuperaValor(idProd, 1)
         'Cad = Cad & " and  prodlin.idlin =" & RecuperaValor(idProd, 2)
-       cad = cad & " ORDER BY lineaprod"
-        miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+       Cad = Cad & " ORDER BY lineaprod"
+        miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         
         
         ListView1.ColumnHeaders(4).Width = 0
@@ -667,7 +676,7 @@ Private Sub cmdModKilos_Click()
     
     
     CadenaDesdeOtroForm = ""
-    frmVarios.opcion = 12
+    frmVarios.Opcion = 12
     frmVarios.Show vbModal
     If CadenaDesdeOtroForm <> "" Then
         'OK. Ajustamos
@@ -727,9 +736,10 @@ End Sub
 
 Private Sub Form_Activate()
     If PrimVe Then
-        PrimVe = False
+        
         CargarUnDeposito
         CargaHco
+        PrimVe = False
         If Val(Text1(0).Text) >= 100 Then
             Me.Label1(0).ForeColor = &H4080&
         Else
@@ -756,9 +766,11 @@ Private Sub Form_Load()
     LeerGuardarFecha True
     txtFecha(0).Tag = txtFecha(0).Text
     Me.cmdVer.visible = False
+    SSTab1.TabVisible(2) = False
     If vParamAplic.QUE_EMPRESA = 4 Then
         Me.Text1(2).FontSize = 14
         Me.cmdVer.visible = True
+        SSTab1.TabVisible(2) = True
     End If
 End Sub
 
@@ -792,6 +804,15 @@ Private Sub imgFecha_Click(Index As Integer)
     End If
         
     
+End Sub
+
+Private Sub SSTab1_Click(PreviousTab As Integer)
+    
+    If Not PrimVe Then
+        Screen.MousePointer = vbHourglass
+        If Me.TreeView1.Nodes.Count = 0 Then PonerCamposTraza
+        Screen.MousePointer = vbDefault
+    End If
 End Sub
 
 Private Sub txtFecha_GotFocus(Index As Integer)
@@ -884,6 +905,8 @@ Dim It As ListItem
             Case 9
                 'VACIADO
                 miSQL = "Filtrado salida"
+            Case 10
+                miSQL = "Molturacion"
             End Select
             It.SubItems(1) = miSQL
             It.SubItems(2) = miRsAux!NUmlote
@@ -949,3 +972,247 @@ Dim F1 As Date
 eLeerGruadarFecha:
     Err.Clear
 End Sub
+
+
+'--------------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------------
+'
+'       Ver albaranes para generear ese aceite PonerCamposTraza
+'
+'--------------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------------
+Private Sub PonerCamposTraza()
+Dim SQL As String
+Dim Cp As cPartidas
+Dim N
+Dim CargaDesdeTmpTraza As Boolean
+
+    
+    TreeView1.Nodes.Clear
+    Set Cp = New cPartidas
+    
+    conn.Execute "DELETE FROM tmptraza"
+    If Cp.LeerDesdeArticulo(Text1(7).Text, 1, Text1(2).Text) Then
+        Cp.GeneracionHastaMolturacion_
+        
+    End If
+    
+    
+    
+    Set miRsAux = New ADODB.Recordset
+    SQL = DBLet(Cp.NumAlbar, "T")
+    If SQL <> "" Then
+        'AQUI VERE SI ES UN COUPAGE, PRODUCCION u otro
+        CargaDesdeTmpTraza = True
+    
+        If CargaDesdeTmpTraza Then
+                'PRODUCCION
+                'Cargar datos produccion
+                CargarDatosProduccion
+        Else
+                SQL = Cp.NumAlbar
+                
+                Set N = TreeView1.Nodes.Add(, , "C" & CStr(TreeView1.Nodes.Count + 1), SQL)
+        End If
+        
+    
+    End If
+    
+    Set miRsAux = Nothing
+    Set Cp = Nothing
+End Sub
+
+
+
+
+
+
+Private Sub CargarArbol(padre, NivelPintando As Integer)
+Dim N
+Dim C As String
+Dim Aux As String
+Dim contador As Integer
+Dim Fin As Boolean
+Dim NivelActual As Integer
+   
+        
+            
+    
+            Fin = False
+            Do
+                
+                If Not miRsAux.EOF Then
+                    If NivelPintando = miRsAux!nivle Then
+                    
+                        
+                        
+                        C = miRsAux!artic2 & " " & miRsAux!NomArtic & " [" & miRsAux!NUmlote2 & "]"
+                        
+                        Aux = ""
+                        If Mid(miRsAux!idOperacion, 3, 1) = "/" Then
+                            If Mid(miRsAux!idOperacion, 6, 1) = "/" Then
+                                Aux = "MOLT"
+                                C = miRsAux!NUmlote2 & "(" & miRsAux!Cantidad & ") " & miRsAux!nomclien
+                            End If
+                        End If
+                        If Aux = "" Then
+                            If Me.Text1(7).Text = miRsAux!artic2 Then
+                                C = miRsAux!NUmlote2
+                            Else
+                                Aux = DevuelveAlbaran(miRsAux!NUmlote2, miRsAux!artic2)
+                                C = Trim(DevuelveCadena(C, Aux, NivelPintando))
+                            End If
+                        End If
+                       
+                     
+                        
+                        'C = DevuelveCadena(C, miRsAux!cantutili)
+                        contador = TreeView1.Nodes.Count + 1
+                        Set N = TreeView1.Nodes.Add(padre, tvwChild, "C" & contador, C)
+                        'Set N = TreeView1.Nodes.Add(padre, tvwChild, "C" & Contador, miRsAux!Contador)
+                        
+                        NivelActual = miRsAux!nivle
+                        miRsAux.MoveNext
+                    Else
+                        'Stop
+                    End If
+                End If
+                If miRsAux.EOF Then
+                    Fin = True
+                Else
+                    If miRsAux!nivle > NivelActual Then
+                        CargarArbol N, miRsAux!nivle
+                        Fin = False
+                    Else
+                        
+                        Fin = True
+                    End If
+                End If
+            Loop Until Fin
+        
+End Sub
+
+
+
+Private Sub CargarDatosProduccion()
+Dim C As String
+Dim N
+Dim contador As Integer
+Dim Nivel As Integer
+Dim padre As String
+Dim Aux As String
+
+
+    
+
+    C = "select tmptraza.*,nomartic from tmptraza,sartic where codartic=artic2 AND codusu =" & vUsu.Codigo
+    miRsAux.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Nivel = -1
+        
+   
+    C = miRsAux!artic2 & " " & miRsAux!NomArtic & " [" & miRsAux!NUmlote2 & "]"
+    Aux = DevuelveAlbaran(miRsAux!NUmlote2, miRsAux!artic2)
+    C = Trim(DevuelveCadena(C, Aux, 0))
+
+                
+    contador = TreeView1.Nodes.Count + 1
+    Set N = TreeView1.Nodes.Add(, , "C" & contador, C)
+                
+    Nivel = 0
+    miRsAux.MoveNext
+    If Not miRsAux.EOF Then
+        Nivel = miRsAux!nivle
+        CargarArbol N, Nivel
+        'Llamamos a un recursivo para cargar el arbol
+    End If
+            
+    miRsAux.Close
+    
+    If Not N Is Nothing Then
+        If Not N.Child Is Nothing Then
+            Set N = N.Child
+            N.EnsureVisible
+        End If
+    End If
+    
+End Sub
+
+
+
+
+
+Private Function DevuelveAlbaran(NUmlote As String, vArtic As String) As String
+'Dim RT As ADODB.Recordset
+'Dim Cad As String
+'Dim PalWhere As String  'numalbar
+'    DevuelveAlbaran = ""
+'    Set RT = New ADODB.Recordset
+'    Cad = "select * from spartidas where numlote=" & DBSet(NUmlote, "T") & " and codartic='" & vArtic & "'"
+'    RT.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+'    Cad = ""
+'    If Not RT.EOF Then
+'
+'        Cad = "select nomprove ,scafpc.numfactu idDoc ,scafpc.fecfactu fecha from scafpc,slifpc where scafpc.codprove=slifpc.codprove and"
+'        Cad = Cad & " scafpc.numfactu=slifpc.numfactu and scafpc.fecfactu=slifpc.fecfactu"
+'        Cad = Cad & " AND slifpc.numalbar=" & DBSet(RT!NumAlbar, "T") & " and codartic=" & DBSet(RT!codartic, "T")
+'        Cad = Cad & " AND scafpc.codprove =" & RT!codProve
+'
+'    End If
+'    RT.Close
+'
+'
+'    If Cad <> "" Then
+'        RT.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+'        If RT.EOF Then
+'
+'            RT.Close
+'
+'            Cad = Mid(RT.Source, InStr(1, UCase(RT.Source), "WHERE") + 6)
+'            'Reemplazamos
+'
+'            Cad = Replace(Cad, "scafpc", "scaalp")
+'            Cad = Replace(Cad, "slifpc", "slialp")
+'            Cad = Replace(Cad, "fecfactu", "fechaalb")
+'            Cad = Replace(Cad, "numfactu", "numalbar")
+'            Cad = " from scaalp,slialp where " & Cad
+'            Cad = "select nomprove ,scaalp.numalbar idDoc ,scaalp.fechaalb fecha " & Cad
+'
+            
+'            RT.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+'
+'
+'
+'        End If
+        
+'        If Not RT.EOF Then
+'            DevuelveAlbaran = "Alb: " & RT!iddoc & "  " & RT!Fecha & "   " & RT!nomprove
+'
+'
+'
+'
+'        End If
+'        RT.Close
+'    End If
+    
+'    Set RT = Nothing
+End Function
+
+
+Private Function DevuelveCadena(Cadena As String, cad2 As String, Nivel As Integer) As String
+Dim J As Integer
+    
+        
+    DevuelveCadena = cad2
+    J = 124 - (Nivel * 5)
+    
+    J = J - Len(DevuelveCadena) - Len(Cadena)
+    If J < 0 Then J = 0
+    DevuelveCadena = Cadena & Space(J) & DevuelveCadena
+    
+End Function
+
+

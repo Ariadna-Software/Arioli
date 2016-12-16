@@ -341,7 +341,7 @@ Begin VB.MDIForm frmppal
             Style           =   5
             Object.Width           =   1058
             MinWidth        =   1058
-            TextSave        =   "13:21"
+            TextSave        =   "18:51"
          EndProperty
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -1682,6 +1682,14 @@ Begin VB.MDIForm frmppal
             Caption         =   "Destino lotes"
             Index           =   5
          End
+         Begin VB.Menu mnTrazaNueva 
+            Caption         =   "-"
+            Index           =   6
+         End
+         Begin VB.Menu mnTrazaNueva 
+            Caption         =   "Desde entrada oliva"
+            Index           =   7
+         End
       End
    End
    Begin VB.Menu mnAlmazara 
@@ -1903,19 +1911,19 @@ Dim TieneEditorDeMenus As Boolean
 
 Private Sub MDIForm_Activate()
 Dim b As Boolean
-Dim i As Integer
+Dim I As Integer
 Dim Permis As String
 
 'Dim AvisosPendientes As Boolean
 'Formulario Principal
    ' AvisosPendientes = False
-    i = 0
+    I = 0
     If PrimeraVez Then
         PrimeraVez = False
         Screen.MousePointer = vbHourglass
        ' AvisosPendientes = TieneAvisosPendientes()
        ComprobarDocumentosPendientes True
-       i = 1
+       I = 1
        
     End If
     If Not vParam Is Nothing Then
@@ -1926,7 +1934,7 @@ Dim Permis As String
         End If
     End If
     
-    If i = 0 Then
+    If I = 0 Then
         Screen.MousePointer = vbDefault
         Exit Sub
     End If
@@ -2004,6 +2012,9 @@ Dim Permis As String
         
     mnproduccion1(4).visible = False   'Disponible para poner
     mnAlmazara.visible = False
+    mnTrazaNueva(5).visible = False
+    mnTrazaNueva(6).visible = False
+    
     
     'Si no tiene NUEVA PRODUCCION no dejamos ver los puntos de las lineas...
     'El 4 de momento NO ES VISIBLE, esta disponible. Empiezo en el 5
@@ -2024,8 +2035,8 @@ Dim Permis As String
      
     Else
         'Caulqueir otra NO
-        For i = 2 To Me.mnproduccion1.Count - 1
-            PuntoDeMenuVisible mnproduccion1(i), False
+        For I = 2 To Me.mnproduccion1.Count - 1
+            PuntoDeMenuVisible mnproduccion1(I), False
         Next
     
         If vParamAplic.QUE_EMPRESA = 4 Then    'QUATRETONDA ALMAZARA
@@ -2048,6 +2059,11 @@ Dim Permis As String
 
             mnAlmazara.visible = True
 
+
+
+
+            mnTrazaNueva(5).visible = True
+            mnTrazaNueva(6).visible = True
         End If
         
     End If
@@ -2210,11 +2226,11 @@ End Sub
 
 Private Sub MDIForm_Unload(Cancel As Integer)
 'Formulario Principal
-Dim cad As String
+Dim Cad As String
 
     'Alguna cosilla antes de cerrar. Eliminar bloqueos
-    cad = "Delete from zbloqueos where codusu = " & vUsu.Codigo
-    conn.Execute cad
+    Cad = "Delete from zbloqueos where codusu = " & vUsu.Codigo
+    conn.Execute Cad
 
     'Elimnar bloquo BD
     Set vUsu = Nothing
@@ -2286,7 +2302,7 @@ End Sub
 Private Sub mnAlmazara1_Click(Index As Integer)
     Select Case Index
     Case 0
-frmVallEntradaOliva.Show vbModal
+        frmVallEntradaOliva.Show vbModal
        
     Case 1
         frmVallAlmazara.Show vbModal
@@ -3234,7 +3250,7 @@ End Sub
 
 Private Sub mnproduccion1_Click(Index As Integer)
 Dim Permis As String
-Dim i As Integer
+Dim I As Integer
 
     '- Las líneas de producción y la pistola sólo las tiene que poder ver José y Yo.
     '- Autorizar a todos a poder ver: lote de trazabilidad, mantenimiento de palets y mantenimiento de etiquetas.
@@ -3519,6 +3535,9 @@ Private Sub mnTrazaNueva_Click(Index As Integer)
     Case 5
          frmFacTrazabilidad2.Show vbModal
      
+     Case 7
+        'Desde entrada de oliva
+        
      End Select
         
 End Sub
@@ -3568,19 +3587,19 @@ End Sub
 Private Sub mnUtiUsuActivos_Click()
 'Muestra si hay otros usuarios conectados a la Gestion
 Dim SQL As String
-Dim i As Integer
+Dim I As Integer
 
 
     On Error GoTo eUsacti
 
     CadenaDesdeOtroForm = OtrosPCsContraContabiliad
     If CadenaDesdeOtroForm <> "" Then
-        i = 1
+        I = 1
         Me.Tag = "Los siguientes PC's están conectados a: " & vEmpresa.nomempre & " (" & vUsu.CadenaConexion & ")" & vbCrLf & vbCrLf
         Do
-            SQL = RecuperaValor(CadenaDesdeOtroForm, i)
+            SQL = RecuperaValor(CadenaDesdeOtroForm, I)
             If SQL <> "" Then Me.Tag = Me.Tag & "    - " & SQL & vbCrLf
-            i = i + 1
+            I = I + 1
         Loop Until SQL = ""
         MsgBox Me.Tag, vbExclamation
     Else
@@ -3693,13 +3712,13 @@ End Sub
 
 Private Sub PonerDatosVisiblesForm()
 'Escribe texto de la barra de la aplicación
-Dim cad As String
-    cad = UCase(Mid(Format(Now, "dddd"), 1, 1)) & Mid(Format(Now, "dddd"), 2)
-    cad = cad & ", " & Format(Now, "d")
-    cad = cad & " de " & Format(Now, "mmmm")
-    cad = cad & " de " & Format(Now, "yyyy")
-    cad = "    " & cad & "    "
-    Me.StatusBar1.Panels(5).Text = cad
+Dim Cad As String
+    Cad = UCase(Mid(Format(Now, "dddd"), 1, 1)) & Mid(Format(Now, "dddd"), 2)
+    Cad = Cad & ", " & Format(Now, "d")
+    Cad = Cad & " de " & Format(Now, "mmmm")
+    Cad = Cad & " de " & Format(Now, "yyyy")
+    Cad = "    " & Cad & "    "
+    Me.StatusBar1.Panels(5).Text = Cad
     If vEmpresa Is Nothing Then
         Caption = "ARIGES" & " ver. " & App.Major & "." & App.Minor & "." & App.Revision & "   -  " & "   Usuario: " & vUsu.Nombre & " FALTA CONFIGURAR"
         'Panel con el nombre de la empresa
@@ -3714,11 +3733,11 @@ End Sub
 
 Private Sub HabilitarSoloPrametros_o_Empresas(Habilitar As Boolean)
 Dim T As Control
-Dim cad As String
+Dim Cad As String
 
     
     For Each T In Me
-        cad = T.Name
+        Cad = T.Name
         If Mid(T.Name, 1, 2) = "mn" Then
             If LCase(Mid(T.Caption, 1, 1)) <> "-" Then T.Enabled = Habilitar
         End If
@@ -3787,8 +3806,8 @@ End Sub
 
 
 Private Sub LanzaHome(Opcion As String)
-Dim i As Integer
-Dim cad As String
+Dim I As Integer
+Dim Cad As String
 
     On Error GoTo ELanzaHome
 
@@ -3818,7 +3837,7 @@ Dim cad As String
 '        LanzaHome = True
 '    End If
 ELanzaHome:
-    If Err.Number <> 0 Then MuestraError Err.Number, cad & vbCrLf & Err.Description
+    If Err.Number <> 0 Then MuestraError Err.Number, Cad & vbCrLf & Err.Description
     CadenaDesdeOtroForm = ""
 End Sub
 
@@ -4037,7 +4056,7 @@ Private Function ComprobarBotonMenuVisible(objMenu As Menu, Activado As Boolean)
 Dim nomMenu As String
 Dim SQL As String
 Dim RS As ADODB.Recordset
-Dim cad As String
+Dim Cad As String
 Dim b As Boolean
 
 
@@ -4058,16 +4077,16 @@ Dim b As Boolean
         SQL = "select padre from usuarios.appmenus where aplicacion='Arioli' and name=" & DBSet(nomMenu, "T")
         RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         If Not RS.EOF Then
-            cad = RS.Fields(0).Value
+            Cad = RS.Fields(0).Value
         End If
         RS.Close
         
         b = True
-        While b And cad <> ""
-                SQL = "Select name,padre from usuarios.appmenus where aplicacion='Arioli' and contador= " & cad
+        While b And Cad <> ""
+                SQL = "Select name,padre from usuarios.appmenus where aplicacion='Arioli' and contador= " & Cad
                 RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 If Not RS.EOF Then
-                    cad = RS!Padre
+                    Cad = RS!padre
                     nomMenu = RS!Name
                 End If
                 RS.Close
@@ -4081,7 +4100,7 @@ Dim b As Boolean
                     b = False
                 End If
                 RS.Close
-                If cad = "0" Then cad = "" 'terminar si llegamos a la raiz
+                If Cad = "0" Then Cad = "" 'terminar si llegamos a la raiz
         Wend
         ComprobarBotonMenuVisible = b
         Set RS = Nothing
@@ -4138,7 +4157,7 @@ End Sub
 
 Private Sub ComprobarDocumentosPendientes(DesdeArranqueAplicacion As Boolean)
 Dim F As Date
-Dim cad As String
+Dim Cad As String
 Dim Aux As String
 Dim J As Integer
 
@@ -4162,9 +4181,9 @@ Dim J As Integer
     'Comprobar documentos
     'Aqui tenemos los documentos de LIMPIEZA
     '                                                   k tenga definida la perioricidad
-    cad = "select * from sregistros WHERE diasaviso > 0  and perioricidad >0"
-    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    cad = ""
+    Cad = "select * from sregistros WHERE diasaviso > 0  and perioricidad >0"
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Cad = ""
     While Not miRsAux.EOF
         F = miRsAux!PrimeraFecha
         If Not IsNull(miRsAux!UltimoRealizado) Then F = miRsAux!UltimoRealizado
@@ -4184,12 +4203,12 @@ Dim J As Integer
             F = DateAdd(CadenaDesdeOtroForm, CInt(miRsAux!NumPeriodo), F)
             'Dias de aviso
             F = DateAdd("d", -1 * CInt(miRsAux!diasaviso), F)
-            If F <= Now Then cad = cad & Format(F, "dd/mm/yyyy") & "  " & miRsAux!Descripcion & " (" & miRsAux!idRegistro & ")" & vbCrLf
+            If F <= Now Then Cad = Cad & Format(F, "dd/mm/yyyy") & "  " & miRsAux!Descripcion & " (" & miRsAux!idRegistro & ")" & vbCrLf
             
         miRsAux.MoveNext
     Wend
     miRsAux.Close
-    If cad <> "" Then cad = "LIMPIEZA" & vbCrLf & cad
+    If Cad <> "" Then Cad = "LIMPIEZA" & vbCrLf & Cad
     
     
     'Mantenimiento PREVENTIVO
@@ -4224,7 +4243,7 @@ Dim J As Integer
     miRsAux.Close
     
     If Aux <> "" Then Aux = vbCrLf & "MANTENIMIENTO PREVENTIVO: " & vbCrLf & Aux
-    cad = cad & Aux
+    Cad = Cad & Aux
     
     
     'CLORO
@@ -4243,7 +4262,7 @@ Dim J As Integer
     
     
     If Aux <> "" Then Aux = vbCrLf & "CLORO: " & vbCrLf & Aux
-    cad = cad & Aux
+    Cad = Cad & Aux
     
     
     
@@ -4254,9 +4273,9 @@ Dim J As Integer
     CadenaDesdeOtroForm = ""
     AvisosFechaArranque False, F
     
-    If cad <> "" Then
-        cad = "FECHA    REGISTRO " & vbCrLf & String(30, "=") & vbCrLf & cad & vbCrLf
-        MsgBox cad, vbInformation
+    If Cad <> "" Then
+        Cad = "FECHA    REGISTRO " & vbCrLf & String(30, "=") & vbCrLf & Cad & vbCrLf
+        MsgBox Cad, vbInformation
     End If
 End Sub
 
@@ -4561,9 +4580,9 @@ End Sub
 
 Private Sub InmovilizadoLaVall()
 Dim NF  As Integer
-Dim cad As String
+Dim Cad As String
 
-    cad = "C:\Users\David\Desktop\Inmovilizado.csv"
+    Cad = "C:\Users\David\Desktop\Inmovilizado.csv"
     
 
 

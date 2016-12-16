@@ -143,7 +143,7 @@ End Function
 '   6 .- Venta directa
 
 
-Public Function InsertarEnDeposito(Accion As Byte) As Boolean
+Public Function InsertarEnDeposito(Accion As Byte, FechaHora As Date) As Boolean
     SQL = "UPDATE proddepositos SET Kilos = " & DBSet(mKilos, "N")
     'Litros = " & DBSet(mLitros, "N")
     SQL = SQL & ", numlote = " & DBSet(mLote, "T")
@@ -153,7 +153,7 @@ Public Function InsertarEnDeposito(Accion As Byte) As Boolean
     InsertarEnDeposito = EjecutaSQL(1, SQL, True)
     
     'DEsde Filtrado llamamos a esta funcion. Pero no queremos que inserte en hco
-    If Kilos <> 0 Then InsertarEnHco Accion
+    If Kilos <> 0 Then InsertarEnHco Accion, FechaHora
     
 End Function
 
@@ -161,7 +161,7 @@ End Function
 'y buscaremos el HCO de acciones
 
 'CodigoInsercioHco: 0 NO    1: Coupage  2: Forzar vaciado
-Public Function QuitarAsignacionDeposito_(CodigoInsercioHco As Byte) As Boolean
+Public Function QuitarAsignacionDeposito_(CodigoInsercioHco As Byte, FechaHora As Date) As Boolean
     SQL = "UPDATE proddepositos SET Kilos = 0, numlote = NULL,Litros=NULL,Partida=NULL"
     SQL = SQL & " WHERE numDeposito=" & CStr(mNumDeposito)
 
@@ -171,10 +171,10 @@ Public Function QuitarAsignacionDeposito_(CodigoInsercioHco As Byte) As Boolean
     If CodigoInsercioHco > 0 Then
         'Es fin cuba de coupage
         If CodigoInsercioHco = 1 Then
-            InsertarEnHco 2
+            InsertarEnHco 2, FechaHora
         Else
             'Vaciado
-            InsertarEnHco 7
+            InsertarEnHco 7, FechaHora
         End If
         
     End If
@@ -210,11 +210,11 @@ Dim J As Integer
         cDest.NUmlote = Me.NUmlote
         
         'Insertamos en hoc la entrada en deposito nuevo
-        cDest.InsertarEnDeposito 3
+        cDest.InsertarEnDeposito 3, FechaHora
         
         
-        QuitarAsignacionDeposito_ 0  'Lo inserto enhco aqui bajo
-        InsertarEnHco 4
+        QuitarAsignacionDeposito_ 0, FechaHora 'Lo inserto enhco aqui bajo
+        InsertarEnHco 4, FechaHora
 
     
     Else
@@ -292,11 +292,11 @@ Dim J As Integer
         'Ahora daremos de baja
         
         'Insertamos en hoc la entrada en deposito nuevo
-        cDest.InsertarEnDeposito 3
+        cDest.InsertarEnDeposito 3, FechaHora
         
         
         Me.VariacionKilosDeposito -CuantosKilos
-        InsertarEnHco 4
+        InsertarEnHco 4, FechaHora
         
         
         vC.IncrementarContador vC.TipoMovimiento
@@ -359,11 +359,11 @@ Dim Aux As String
     cDest.idPartida = Me.idPartida
     cDest.NUmlote = Me.NUmlote
     cDest.Kilos = 0
-    cDest.InsertarEnDeposito 0
+    cDest.InsertarEnDeposito 0, FechaHoraProceso
     InsertarFiltradoHco cDest.NumDeposito, 8, Aux, FechaHoraProceso
     cDest.VariacionKilosDeposito Me.Kilos
     
-    QuitarAsignacionDeposito_ 0  'Lo inserto enhco aqui bajo
+    QuitarAsignacionDeposito_ 0, FechaHoraProceso 'Lo inserto enhco aqui bajo
     
 
 End Function
@@ -384,11 +384,11 @@ End Function
 '   8 .- FIltrado entrada
 '   9 .-   "    salida
 '  10 .- Moltruaracion almazar
-Public Function InsertarEnHco(Accion As Byte, Optional LaDescripcion As String)
+Public Function InsertarEnHco(Accion As Byte, Fecha As Date, Optional LaDescripcion As String)
 
     'proddepositoshco(numDeposito,horamovi,Partida,Numlote,tipoaccion)
     SQL = "INSERT INTO proddepositoshco(numDeposito,horamovi,Partida,Numlote,tipoaccion,Descripcion)"
-    SQL = SQL & " VALUES (" & mNumDeposito & "," & DBSet(Now, "FH") & "," & midPartida
+    SQL = SQL & " VALUES (" & mNumDeposito & "," & DBSet(Fecha, "FH") & "," & midPartida
     SQL = SQL & "," & DBSet(mLote, "T") & "," & Accion & "," & DBSet(LaDescripcion, "T", "S") & ")"
     
     EjecutaSQL conAri, SQL, True

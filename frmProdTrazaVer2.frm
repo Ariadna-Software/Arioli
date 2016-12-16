@@ -5,7 +5,7 @@ Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "comctl32.ocx"
 Begin VB.Form frmProdTrazaVer2 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Trazabilidad"
-   ClientHeight    =   8940
+   ClientHeight    =   10575
    ClientLeft      =   45
    ClientTop       =   1035
    ClientWidth     =   13845
@@ -13,7 +13,7 @@ Begin VB.Form frmProdTrazaVer2
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   8940
+   ScaleHeight     =   10575
    ScaleWidth      =   13845
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
@@ -73,7 +73,7 @@ Begin VB.Form frmProdTrazaVer2
       Height          =   375
       Left            =   12540
       TabIndex        =   5
-      Top             =   8355
+      Top             =   10035
       Visible         =   0   'False
       Width           =   1155
    End
@@ -81,7 +81,7 @@ Begin VB.Form frmProdTrazaVer2
       Height          =   540
       Left            =   150
       TabIndex        =   7
-      Top             =   8235
+      Top             =   9915
       Width           =   3135
       Begin VB.Label lblIndicador 
          Alignment       =   2  'Center
@@ -99,7 +99,7 @@ Begin VB.Form frmProdTrazaVer2
       Height          =   375
       Left            =   12600
       TabIndex        =   6
-      Top             =   8355
+      Top             =   10035
       Width           =   1035
    End
    Begin VB.CommandButton cmdAceptar 
@@ -107,13 +107,13 @@ Begin VB.Form frmProdTrazaVer2
       Height          =   375
       Left            =   11280
       TabIndex        =   4
-      Top             =   8355
+      Top             =   10035
       Width           =   1035
    End
    Begin MSAdodcLib.Adodc Data1 
       Height          =   375
       Left            =   150
-      Top             =   8475
+      Top             =   10155
       Visible         =   0   'False
       Width           =   2055
       _ExtentX        =   3625
@@ -245,13 +245,13 @@ Begin VB.Form frmProdTrazaVer2
       End
    End
    Begin ComctlLib.TreeView TreeView1 
-      Height          =   3135
+      Height          =   5295
       Left            =   240
       TabIndex        =   12
       Top             =   1320
       Width           =   13335
       _ExtentX        =   23521
-      _ExtentY        =   5530
+      _ExtentY        =   9340
       _Version        =   327682
       LabelEdit       =   1
       Style           =   7
@@ -267,13 +267,13 @@ Begin VB.Form frmProdTrazaVer2
       EndProperty
    End
    Begin MSComctlLib.ListView ListView2 
-      Height          =   3615
+      Height          =   3015
       Left            =   240
       TabIndex        =   13
-      Top             =   4560
+      Top             =   6840
       Width           =   13455
       _ExtentX        =   23733
-      _ExtentY        =   6376
+      _ExtentY        =   5318
       View            =   3
       LabelEdit       =   1
       LabelWrap       =   -1  'True
@@ -438,12 +438,16 @@ Dim btnPrimero As Byte
 Private CadenaConsulta As String
 Private Ordenacion As String
 Private NombreTabla As String  'Nombre de la tabla o de la
-Private kCampo As Integer
+Private Kcampo As Integer
+
+
+
+Private DatosImpresionGenerados As Boolean
 
 
 
 Private Sub cmdAceptar_Click()
-Dim cad As String, Indicador As String
+Dim Cad As String, Indicador As String
 
     Screen.MousePointer = vbHourglass
     On Error GoTo Error1
@@ -490,9 +494,9 @@ Private Sub BotonBuscar()
     Else
         HacerBusqueda
         If Data1.Recordset.EOF Then
-            Text1(kCampo).Text = ""
-            Text1(kCampo).BackColor = vbYellow
-            PonerFoco Text1(kCampo)
+            Text1(Kcampo).Text = ""
+            Text1(Kcampo).BackColor = vbYellow
+            PonerFoco Text1(Kcampo)
         End If
     End If
 End Sub
@@ -524,16 +528,16 @@ End Sub
 
 
 Private Sub cmdRegresar_Click()
-Dim cad As String
+Dim Cad As String
 
     If Data1.Recordset.EOF Then
         MsgBox "Ningún registro devuelto.", vbExclamation
         Exit Sub
     End If
 
-    cad = Data1.Recordset.Fields(0) & "|"
-    cad = cad & Data1.Recordset.Fields(1) & "|"
-    RaiseEvent DatoSeleccionado(cad)
+    Cad = Data1.Recordset.Fields(0) & "|"
+    Cad = Cad & Data1.Recordset.Fields(1) & "|"
+    RaiseEvent DatoSeleccionado(Cad)
     Unload Me
 End Sub
 
@@ -575,7 +579,7 @@ Private Sub Form_Load()
     chkVistaPrevia.Value = CheckValueLeer(Name)
     
     'ASignamos un SQL al DATA1
-    Data1.ConnectionString = Conn
+    Data1.ConnectionString = conn
     '## A mano
     Data1.RecordSource = "Select * from " & NombreTabla & " where id=-1"
     Data1.Refresh
@@ -640,7 +644,7 @@ End Sub
 'Los metodos del text tendran que estar
 'Los descomentamos cuando esten puestos ya los controles
 Private Sub Text1_GotFocus(Index As Integer)
-    kCampo = Index
+    Kcampo = Index
     ConseguirFoco Text1(Index), Modo
 End Sub
 
@@ -696,21 +700,21 @@ End Sub
 
 
 Private Sub MandaBusquedaPrevia(cadB As String)
-Dim cad As String
+Dim Cad As String
 
         'Llamamos a al form
         '##A mano
-        cad = ParaGrid(Text1(0), 20, "Lote")
-        cad = cad & ParaGrid(Text1(1), 19, "Articulo")
-        cad = cad & "Referencia|sartic|nomartic|T||50·"
-        cad = cad & ParaGrid(Text1(2), 11, "Partida")
+        Cad = ParaGrid(Text1(0), 20, "Lote")
+        Cad = Cad & ParaGrid(Text1(1), 19, "Articulo")
+        Cad = Cad & "Referencia|sartic|nomartic|T||50·"
+        Cad = Cad & ParaGrid(Text1(2), 11, "Partida")
         
         If cadB <> "" Then cadB = " AND " & cadB
         cadB = "sartic.codartic = spartidas.codartic" & cadB
-        If cad <> "" Then
+        If Cad <> "" Then
             Screen.MousePointer = vbHourglass
             Set frmB = New frmBuscaGrid
-            frmB.vCampos = cad
+            frmB.vCampos = Cad
             frmB.vTabla = NombreTabla & ",sartic"
             frmB.vSQL = cadB
             
@@ -724,8 +728,8 @@ Dim cad As String
             Set frmB = Nothing
         
             If CadenaConsulta <> "" Then
-                cad = "id = " & RecuperaValor(CadenaConsulta, 1)
-                CadenaConsulta = "select * from " & NombreTabla & " WHERE " & cad & " " & Ordenacion
+                Cad = "id = " & RecuperaValor(CadenaConsulta, 1)
+                CadenaConsulta = "select * from " & NombreTabla & " WHERE " & Cad & " " & Ordenacion
                 PonerCadenaBusqueda
             End If
         End If
@@ -774,21 +778,8 @@ Private Sub PonerCampos()
   
     Text2.Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", Text1(1).Text, "T")
   
-  
-  
     PonerCampos2
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+    DatosImpresionGenerados = False
   
   
   
@@ -803,13 +794,14 @@ Private Sub PonerCampos2()
 Dim SQL As String
 Dim Cp As cPartidas
 Dim N
+Dim CargaDesdeTmpTraza As Boolean
 
     PonerCamposForma Me, Data1
     TreeView1.Nodes.Clear
     ListView2.ListItems.Clear
     Set Cp = New cPartidas
-    Conn.Execute "DELETE FROM tmptraza"
-    If Cp.LeerDesdeArticulo(Text1(1).Text, Data1.Recordset!codAlmac, Data1.Recordset!NUmlote) Then
+    conn.Execute "DELETE FROM tmptraza"
+    If Cp.LeerDesdeArticulo(Text1(1).Text, Data1.Recordset!codalmac, Data1.Recordset!NUmlote) Then
         Cp.TrazbilidadDesdeVenta False, False
         
     End If
@@ -820,17 +812,26 @@ Dim N
     SQL = DBLet(Data1.Recordset!NumAlbar, "T")
     If SQL <> "" Then
         'AQUI VERE SI ES UN COUPAGE, PRODUCCION u otro
+        CargaDesdeTmpTraza = False
         If Val(Data1.Recordset!codProve) = 0 And Mid(SQL, 1, 2) = "NP" Then
+            CargaDesdeTmpTraza = True
+        Else
+            If vParamAplic.QUE_EMPRESA = 4 Then
+                If Val(Data1.Recordset!codProve) = 0 And Mid(SQL, 1, 2) = "PR" Then CargaDesdeTmpTraza = True
+            End If
+        End If
+        If CargaDesdeTmpTraza Then
                 'PRODUCCION
                 'Cargar datos produccion
                 CargarDatosProduccion
         Else
-                SQL = DevuelveAlbaran(Data1.Recordset!NUmlote, Data1.Recordset!codArtic)
+                SQL = DevuelveAlbaran(Data1.Recordset!NUmlote, Data1.Recordset!codartic)
                 
                 Set N = TreeView1.Nodes.Add(, , "C" & CStr(TreeView1.Nodes.Count + 1), SQL)
         End If
         
-    
+        If TreeView1.Nodes.Count > 1 Then TreeView1.Nodes(2).EnsureVisible
+            
     End If
     'Todos cargaran si hay ventas
     CargarDatosVentas
@@ -846,7 +847,7 @@ End Sub
 '   En PONERMODO se habilitan, o no, los diverso campos del
 '   formulario en funcion del modo en k vayamos a trabajar
 Private Sub PonerModo(Kmodo As Byte)
-Dim i As Byte
+Dim I As Byte
 Dim b As Boolean
 Dim NumReg As Byte
 
@@ -894,9 +895,9 @@ Dim NumReg As Byte
     b = (Modo = 3) 'Insertar
     'Campos Importe Mínimo y % Adelantado
     If b Then
-        For i = 8 To 9
-            BloquearTxt Text1(i), True
-        Next i
+        For I = 8 To 9
+            BloquearTxt Text1(I), True
+        Next I
     End If
 
      chkVistaPrevia.Enabled = (Modo <= 2)
@@ -972,60 +973,142 @@ End Sub
 
 
 
+
+Private Sub CargarArbol(padre, NivelPintando As Integer)
+Dim N
+Dim C As String
+Dim Aux As String
+Dim contador As Integer
+Dim Fin As Boolean
+Dim NivelActual As Integer
+   
+Dim NOdoErroneo As Boolean
+Dim Fin2 As Boolean
+    
+            Fin = False
+            Do
+                
+                If Not miRsAux.EOF Then
+                    If NivelPintando = miRsAux!nivle Then
+                        
+                        C = miRsAux!artic2 & " " & miRsAux!NomArtic & " [" & miRsAux!NUmlote2 & "]"
+                        If vParamAplic.QUE_EMPRESA = 4 Then
+                            If miRsAux!nivle > 1 Then
+                                C = miRsAux!idoperacion & " [" & miRsAux!NUmlote2 & "]"
+                                If InStr(1, miRsAux!idoperacion, "Id:") > 0 And InStr(1, miRsAux!idoperacion, "Dep:") > 0 Then
+                                  C = "MOLT." & miRsAux!idoperacion & " [" & miRsAux!NUmlote2 & "]"
+                                End If
+                            End If
+                        End If
+                         
+                        Aux = ""
+                        If Mid(miRsAux!idoperacion, 3, 1) = "/" Then
+                            If Mid(miRsAux!idoperacion, 6, 1) = "/" Then
+                                Aux = "MOLT"
+                                C = miRsAux!NUmlote2 & "(" & miRsAux!Cantidad & ") " & miRsAux!nomclien
+                            End If
+                        End If
+                        If Aux = "" Then
+                            Aux = DevuelveAlbaran(miRsAux!NUmlote2, miRsAux!artic2)
+                            C = DevuelveCadena(C, Aux, NivelPintando)
+                        End If
+                       
+                        NOdoErroneo = False
+                        If LCase(Mid(miRsAux!idoperacion, 1, 3)) = "err" Then
+                            'NO LO PINTO
+                            NOdoErroneo = True
+                            'Y ademas, lo borro
+                            C = "DELETE from tmptraza where codusu =" & vUsu.Codigo & " AND contador =" & miRsAux!contador
+                            conn.Execute C
+                               
+                            
+                        End If
+                        
+                        If Not NOdoErroneo Then
+                            
+                            contador = TreeView1.Nodes.Count + 1
+                            Set N = TreeView1.Nodes.Add(padre, tvwChild, "C" & contador, C)
+                            N.Tag = miRsAux!contador 'Clave
+                        End If
+                        
+                        NivelActual = miRsAux!nivle
+                        miRsAux.MoveNext
+                    Else
+                        'Stop
+                    End If
+                End If
+                If miRsAux.EOF Then
+                    Fin = True
+                Else
+                
+                    If miRsAux!nivle > NivelActual Then
+                        'Si habia nodo erroneo, entonces tengo que matar los sub nodos ya que no los voy a pintar
+                        If Not NOdoErroneo Then
+                        CargarArbol N, miRsAux!nivle
+                        Fin = False
+                        
+                        Else
+                            Fin2 = False
+                            While Not Fin2
+                                C = "DELETE from tmptraza where codusu =" & vUsu.Codigo & " AND contador =" & miRsAux!contador
+                                conn.Execute C
+                                miRsAux.MoveNext
+                                
+                                If miRsAux.EOF Then
+                                    Fin2 = True
+                                    Fin = True
+                                Else
+                                    If miRsAux!nivle > NivelActual Then
+                                        'QUe siga en este borrado
+                                    Else
+                                        Fin2 = True
+                                    End If
+                                End If
+                            Wend
+                        End If
+                    Else
+                        
+                        Fin = True
+                    End If
+                End If
+            Loop Until Fin
+        
+End Sub
+
+
+
 Private Sub CargarDatosProduccion()
 Dim C As String
 Dim N
 Dim contador As Integer
 Dim Nivel As Integer
-Dim Padre As String
+Dim padre As String
 Dim Aux As String
 
+
+    
+
     C = "select tmptraza.*,nomartic from tmptraza,sartic where codartic=artic2 AND codusu =" & vUsu.Codigo
-    miRsAux.Open C, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Nivel = -1
-    While Not miRsAux.EOF
         
-        
-        
-        
-            'El albaran de compra del lote
-            If miRsAux!nivle = 0 Then
-                C = miRsAux!artic2 & " " & miRsAux!NomArtic & " [" & miRsAux!NUmlote2 & "]"
-                Aux = DevuelveAlbaran(miRsAux!NUmlote2, miRsAux!artic2)
-                C = DevuelveCadena(C, Aux, 0)
+    
+    C = miRsAux!artic2 & " " & miRsAux!NomArtic & " [" & miRsAux!NUmlote2 & "]"
+    Aux = DevuelveAlbaran(miRsAux!NUmlote2, miRsAux!artic2)
+    C = DevuelveCadena(C, Aux, 0)
 
                 
-                'C = DevuelveCadena(C, miRsAux!cantutili)
-                contador = TreeView1.Nodes.Count + 1
-                Set N = TreeView1.Nodes.Add(, , "C" & contador, C)
+    contador = TreeView1.Nodes.Count + 1
+    Set N = TreeView1.Nodes.Add(, , "C" & contador, C)
                 
-                
-                
-                
-                'PonAlbaran N.Key, ,
-                            
-                Nivel = 0
-                
-            Else
-                If Nivel <> miRsAux!nivle Then
-                    Padre = N.Key
-                    Nivel = miRsAux!nivle
-                End If
-                C = miRsAux!artic2 & " " & miRsAux!NomArtic & " [" & miRsAux!NUmlote2 & "]"
-                
-                Aux = DevuelveAlbaran(miRsAux!NUmlote2, miRsAux!artic2)
-                C = DevuelveCadena(C, Aux, Nivel)
-
-             
-                
-                'C = DevuelveCadena(C, miRsAux!cantutili)
-                contador = TreeView1.Nodes.Count + 1
-                Set N = TreeView1.Nodes.Add(Padre, tvwChild, "C" & contador, C)
-            'PonAlbaran N.Key, miRsAux!NUmlote2, miRsAux!artic2
-            End If
-        
-        miRsAux.MoveNext
-    Wend
+    Nivel = 0
+    miRsAux.MoveNext
+    If Not miRsAux.EOF Then
+        Nivel = miRsAux!nivle
+        CargarArbol N, Nivel
+        'Llamamos a un recursivo para cargar el arbol
+    End If
+            
     miRsAux.Close
     
     If Not N Is Nothing Then N.EnsureVisible
@@ -1043,7 +1126,7 @@ Dim It
     C = C & " slifaclotes.codTipoM = scafac.codTipoM And slifaclotes.NumFactu = scafac.NumFactu"
     C = C & " and slifaclotes.fecfactu=scafac.fecfactu AND numlote=" & DBSet(Text1(0).Text, "T")
     C = C & " ORDER BY fecfactu,lafact"
-    miRsAux.Open C, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         Set It = ListView2.ListItems.Add()
         It.Text = miRsAux!lafact
@@ -1064,7 +1147,7 @@ Dim It
     C = C & " slialblotes.codTipoM = scaalb.codTipoM And slialblotes.numalbar = scaalb.numalbar"
     C = C & "  AND numlote=" & DBSet(Text1(0).Text, "T")
     C = C & " ORDER BY fechaalb,lafact"
-    miRsAux.Open C, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         Set It = ListView2.ListItems.Add()
         It.Text = miRsAux!lafact
@@ -1083,42 +1166,42 @@ End Sub
 
 Private Function DevuelveAlbaran(NUmlote As String, vArtic As String) As String
 Dim RT As ADODB.Recordset
-Dim cad As String
+Dim Cad As String
 Dim PalWhere As String  'numalbar
     DevuelveAlbaran = ""
     Set RT = New ADODB.Recordset
-    cad = "select * from spartidas where numlote=" & DBSet(NUmlote, "T") & " and codartic='" & vArtic & "'"
-    RT.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    cad = ""
+    Cad = "select * from spartidas where numlote=" & DBSet(NUmlote, "T") & " and codartic='" & vArtic & "'"
+    RT.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Cad = ""
     If Not RT.EOF Then
         
-        cad = "select nomprove ,scafpc.numfactu idDoc ,scafpc.fecfactu fecha from scafpc,slifpc where scafpc.codprove=slifpc.codprove and"
-        cad = cad & " scafpc.numfactu=slifpc.numfactu and scafpc.fecfactu=slifpc.fecfactu"
-        cad = cad & " AND slifpc.numalbar=" & DBSet(RT!NumAlbar, "T") & " and codartic=" & DBSet(RT!codArtic, "T")
-        cad = cad & " AND scafpc.codprove =" & RT!codProve
+        Cad = "select nomprove ,scafpc.numfactu idDoc ,scafpc.fecfactu fecha from scafpc,slifpc where scafpc.codprove=slifpc.codprove and"
+        Cad = Cad & " scafpc.numfactu=slifpc.numfactu and scafpc.fecfactu=slifpc.fecfactu"
+        Cad = Cad & " AND slifpc.numalbar=" & DBSet(RT!NumAlbar, "T") & " and codartic=" & DBSet(RT!codartic, "T")
+        Cad = Cad & " AND scafpc.codprove =" & RT!codProve
         
     End If
     RT.Close
     
         
-    If cad <> "" Then
-        RT.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If Cad <> "" Then
+        RT.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         If RT.EOF Then
             
             RT.Close
             
-            cad = Mid(RT.Source, InStr(1, UCase(RT.Source), "WHERE") + 6)
+            Cad = Mid(RT.Source, InStr(1, UCase(RT.Source), "WHERE") + 6)
             'Reemplazamos
             
-            cad = Replace(cad, "scafpc", "scaalp")
-            cad = Replace(cad, "slifpc", "slialp")
-            cad = Replace(cad, "fecfactu", "fechaalb")
-            cad = Replace(cad, "numfactu", "numalbar")
-            cad = " from scaalp,slialp where " & cad
-            cad = "select nomprove ,scaalp.numalbar idDoc ,scaalp.fechaalb fecha " & cad
+            Cad = Replace(Cad, "scafpc", "scaalp")
+            Cad = Replace(Cad, "slifpc", "slialp")
+            Cad = Replace(Cad, "fecfactu", "fechaalb")
+            Cad = Replace(Cad, "numfactu", "numalbar")
+            Cad = " from scaalp,slialp where " & Cad
+            Cad = "select nomprove ,scaalp.numalbar idDoc ,scaalp.fechaalb fecha " & Cad
             
             
-            RT.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            RT.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             
             
             
@@ -1163,15 +1246,15 @@ Dim vLote As String
     
     Screen.MousePointer = vbHourglass
     
-    Conn.Execute "delete from tmpinformes WHERE codusu =" & vUsu.Codigo
-    Conn.Execute "delete from tmppartidas WHERE codusu =" & vUsu.Codigo
+    conn.Execute "delete from tmpinformes WHERE codusu =" & vUsu.Codigo
+    conn.Execute "delete from tmppartidas WHERE codusu =" & vUsu.Codigo
     
     
     
     Set miRsAux = New ADODB.Recordset
     
     CadenaConsulta = "select * from spartidas where id=" & Text1(2).Text
-    miRsAux.Open CadenaConsulta, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open CadenaConsulta, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     CadenaConsulta = ""
     Producida = 0
     If Not miRsAux.EOF Then
@@ -1197,12 +1280,12 @@ Dim vLote As String
                 CadenaConsulta = CadenaConsulta & " GROUP BY 1"
                
             End If
-            miRsAux.Open CadenaConsulta, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            miRsAux.Open CadenaConsulta, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             CadenaConsulta = ""
             If miRsAux.EOF Then
                 CadenaConsulta = "No se encuentra la produccion "
             Else
-                If miRsAux!codArtic <> Text1(1).Text Then
+                If miRsAux!codartic <> Text1(1).Text Then
                     CadenaConsulta = "No coincide articulo "
                 Else
                     'OK. Este es el bueno
@@ -1235,9 +1318,18 @@ Dim vLote As String
     CadenaConsulta = CadenaConsulta & vUsu.Codigo & "," & Text1(2).Text & ",'" & Text1(1).Text & "',"
     CadenaConsulta = CadenaConsulta & DBSet(Text2.Text, "T") & "," & DBSet(Text1(0).Text, "T")
     CadenaConsulta = CadenaConsulta & ",'" & Producida & "'," & DBSet(Text1(3).Text, "N", "N") & "," & DBSet(CantidadVenta, "N", "N") & ")"
-    Conn.Execute CadenaConsulta
+    conn.Execute CadenaConsulta
     
-    
+      
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        If Not DatosImpresionGenerados Then
+            HacerTrazaLaVall
+            DatosImpresionGenerados = True
+        End If
+    End If
+      
+      
+      
 
     'tmpinformes campo1,codigo1,nombre2,importe1
     CadenaConsulta = ""
@@ -1250,7 +1342,7 @@ Dim vLote As String
     Next
     If CadenaConsulta <> "" Then
         CadenaConsulta = Mid(CadenaConsulta, 2)
-        Conn.Execute "INSERT INTO tmpinformes (codusu,codigo1,nombre1,campo1,nombre2,importe1,fecha1) VALUES " & CadenaConsulta
+        conn.Execute "INSERT INTO tmpinformes (codusu,codigo1,nombre1,campo1,nombre2,importe1,fecha1) VALUES " & CadenaConsulta
     End If
     Screen.MousePointer = vbDefault
     CadenaConsulta = "{tmppartidas.codusu}=" & vUsu.Codigo
@@ -1258,3 +1350,281 @@ Dim vLote As String
     CadenaConsulta = Data1.RecordSource
     
 End Sub
+
+Private Sub TreeView1_DblClick()
+Dim I As Integer
+Dim Cad As String
+
+    If TreeView1.Nodes.Count = 0 Then Exit Sub
+    If TreeView1.SelectedItem Is Nothing Then Exit Sub
+    
+    If vParamAplic.QUE_EMPRESA <> 4 Then Exit Sub
+    
+    'El primero no hago nada, todavia
+    If TreeView1.SelectedItem.Index = 1 Then Exit Sub
+    
+    If Mid(TreeView1.SelectedItem.Text, 1, 3) = "CUP" Then
+        I = InStr(TreeView1.SelectedItem.Text, "(")
+        If I = 0 Then Exit Sub
+        Cad = Mid(TreeView1.SelectedItem.Text, 1, I - 1)
+        Cad = Mid(Cad, 4)
+         
+         With frmAlmCoupage
+            .DatosADevolverBusqueda2 = Trim(Cad)
+            .Show vbModal
+         End With
+         
+    Else
+    
+        If Mid(TreeView1.SelectedItem.Text, 1, 3) = "MOL" Then
+            
+            I = InStr(1, TreeView1.SelectedItem.Text, "Id:")
+            If I = 0 Then Exit Sub
+            Cad = Mid(TreeView1.SelectedItem.Text, I + 3)
+            I = InStr(1, Cad, "Dep")
+            If I = 0 Then Exit Sub
+            Cad = Mid(Cad, 1, I - 1)
+            frmVallAlmazara.DatosADevolverBusqueda2 = Trim(Cad)
+            frmVallAlmazara.Show vbModal
+        Else
+        
+        End If
+    End If
+End Sub
+
+
+
+Private Sub HacerTrazaLaVall()
+Dim N As Node
+Dim Fin As Boolean
+Dim I As Integer
+Dim Aux As String
+Dim Cad As String
+Dim Depo As Integer
+
+    Kcampo = 1
+    Fin = False
+    Do
+    
+        I = InStr(1, TreeView1.Nodes(Kcampo).Text, " ")
+        If I > 0 Then
+            Aux = Trim(Mid(TreeView1.Nodes(Kcampo).Text, 1, I))
+            Cad = "factorconversion<1 and codartic"
+            Cad = DevuelveDesdeBD(conAri, "codartic", "sartic", Cad, Aux, "T")
+            If Cad <> "" Then
+                Depo = -1
+                
+                'Veo el deposito
+                
+                'OK. Este es el primero de la serie
+                HacerNodImpresionRecursivo Kcampo, Depo, False
+                
+                Fin = True
+            Else
+                Kcampo = Kcampo + 1
+            End If
+        Else
+            Kcampo = Kcampo + 1
+            If Kcampo > 3 Then
+                MsgBox "No se encuentra aceite", vbExclamation
+                Fin = True
+            End If
+        End If
+    Loop Until Fin
+    
+End Sub
+
+
+
+
+Private Function HacerNodImpresionRecursivo(ByVal QueNodo As Integer, DepositoOrigen As Integer, PuedeSolapar As Boolean) As Boolean
+Dim N1
+Dim N2
+Dim Aux2 As String
+Dim J As Integer
+Dim Depos1 As Integer
+Dim Depos2 As Integer
+Dim tipo1 As Byte  '0, nada  '1. Coup  2 Molt
+Dim tipo2 As Byte  '0, nada  '1. Coup  2 Molt
+Dim Solapar As Boolean
+    
+Dim DosHijos As Boolean
+    
+    
+    
+    If TreeView1.Nodes(QueNodo).Children > 0 Then
+        
+        
+            DosHijos = False
+            If TreeView1.Nodes(QueNodo).Children = 2 Then DosHijos = True
+            'If Not DosHijos Then Stop
+           
+            Depos1 = -1
+            Depos2 = 0
+                
+            'MI caso
+            Set N1 = TreeView1.Nodes(QueNodo).Child
+            tipo1 = EsMolturacionOCoupage(N1.Text)
+            If tipo1 > 0 Then
+                Depos1 = DepositoMolturacionCoupage(N1.Text, tipo1 = 1)
+                Set N2 = N1.Next
+                
+                
+                If DosHijos Then
+                    tipo2 = EsMolturacionOCoupage(N2.Text)
+                    If tipo2 > 0 Then Depos2 = DepositoMolturacionCoupage(N2.Text, tipo2 = 1)
+                Else
+                    'Le pongo que tiene el mismo deposito y todo igual
+                    tipo2 = 2   'Le digo que es una molturacion , de nmentiras, para que solapa ahi abajo
+                    Depos2 = Depos1
+                End If
+            End If
+            
+            'If N2.Tag = 37 Then Stop
+            
+            '----------------------------
+            
+            'Solaparemos SI son dos molturaciones o coupages y molturacion
+            Solapar = False
+            If tipo1 = 2 And tipo2 = 2 Then
+                Solapar = True
+            Else
+                If tipo1 = 1 And tipo2 = 2 Then
+                    Solapar = True
+                Else
+                    If tipo1 = 2 And tipo2 = 1 Then Solapar = True
+                End If
+            End If
+            
+            'Si puede solapar, Y, repito, Y, el deposito son los mismos que el origen
+            If Solapar Then
+                If Depos1 = Depos2 And Depos1 = DepositoOrigen Then
+                    Solapar = True
+                Else
+                    Solapar = False
+                End If
+            End If
+            
+            
+            'Si fuerzo NO juntar, significa que este NO
+            
+            
+            'Si son coupage. Lanzo a ver si podemos resumir lo que cuelga
+            If tipo1 = 1 Then
+                HacerNodImpresionRecursivo N1.Index, Depos1, Solapar
+                
+            End If
+            If tipo2 = 1 Then
+                If DosHijos Then HacerNodImpresionRecursivo N2.Index, Depos2, Solapar
+            End If
+            
+            
+            
+            
+            If Solapar Then
+                
+                If Not PuedeSolapar Then Solapar = False
+            End If
+            
+            
+            
+            
+            
+            'Solapamos
+            If Solapar Then
+               
+                
+                'Bajamos un nivel, para que no se desplaze
+                
+                BajarUnNivel N1.Index
+                If DosHijos Then BajarUnNivel N2.Index
+                
+                
+                Aux2 = TreeView1.Nodes(QueNodo).Tag
+                Aux2 = "Delete from tmptraza where codusu =" & vUsu.Codigo & " AND contador =" & Aux2
+                conn.Execute Aux2
+                
+                Espera 0.1
+                
+                
+                
+                
+            End If
+            
+        Else
+            MsgBox "+ de uno"
+            HacerNodImpresionRecursivo = False
+        End If
+    
+End Function
+
+Private Sub BajarUnNivel(QueNodo As Integer)
+Dim C As String
+Dim N1
+    'Bajamos un nivel su subnodo
+    
+    If TreeView1.Nodes(QueNodo).Children > 0 Then
+        Set N1 = TreeView1.Nodes(QueNodo).Child
+        Do
+            'Debug.Print "Tag: " & N1.Tag
+            BajarUnNivel N1.Index
+            Set N1 = N1.Next
+        Loop Until N1 Is Nothing
+        
+        'Este tambien lo bajamos
+        C = TreeView1.Nodes(QueNodo).Tag
+        C = "Update tmptraza set nivle=nivle -1 WHERE codusu = " & vUsu.Codigo & " AND contador= " & C
+        conn.Execute C
+        
+    Else
+        C = "Update tmptraza set nivle=nivle -1 WHERE codusu = " & vUsu.Codigo & " AND contador= " & TreeView1.Nodes(QueNodo).Tag
+        conn.Execute C
+        
+    End If
+    
+End Sub
+
+
+Private Function EsMolturacionOCoupage(Texto As String) As Byte
+Dim I As Integer
+    
+    EsMolturacionOCoupage = 0
+    If Mid(Texto, 1, 3) = "CUP" Then
+        EsMolturacionOCoupage = 1
+    Else
+        
+        If Mid(Texto, 1, 4) = "MOLT" Then EsMolturacionOCoupage = 2
+    End If
+End Function
+
+Private Function DepositoMolturacionCoupage(Texto As String, Coupage As Boolean) As Integer
+Dim J As Integer
+Dim Cad As String
+
+    
+    DepositoMolturacionCoupage = -2
+    If Coupage Then
+        'El coupage viene el deposito asin: CUP 26 (Dep:1 ) [MOSTRA51-2016]
+        J = InStr(1, Texto, "(Dep:")
+        If J > 0 Then
+            Cad = Mid(Texto, J + 5)
+            J = InStr(1, Cad, " ")
+            If J > 0 Then
+                Cad = Trim(Mid(Cad, 1, J - 1))
+                DepositoMolturacionCoupage = CInt(Val(Cad))
+            End If
+        End If
+    Else
+        'Molturacion. El deposito;:  MOLT.Id:1  Dep:1  F:28/10 10:12 [MOSTRA1-2016]
+        J = InStr(1, Texto, "Dep:")
+        If J > 0 Then
+            Cad = Mid(Texto, J + 4)
+            J = InStr(1, Cad, " ")
+            If J > 0 Then
+                Cad = Trim(Mid(Cad, 1, J - 1))
+                DepositoMolturacionCoupage = CInt(Val(Cad))
+            End If
+        End If
+        
+    End If
+End Function

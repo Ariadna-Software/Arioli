@@ -439,8 +439,16 @@ Dim cad As String
             End If
             If cad = "" Then
                 
+                cad = DevuelveDesdeBD(conAri, "tipoOliva", "vallalmazaraproceso", "id", CStr(ID))    'Oliva arbol o terra
+                CadenaConsulta = "Tipo oliva: "
+                If cad = "1" Then
+                    CadenaConsulta = CadenaConsulta & "TERRA"
+                Else
+                    CadenaConsulta = CadenaConsulta & "ARBOL"
+                End If
+                
                 'Preguntaremos si cerramos el parte
-                cad = "Almazara." & vbCrLf & "Nº Albaranes: " & Data1.Recordset.RecordCount & vbCrLf & "Kg olivas:  " & Text2(0).Text
+                cad = CadenaConsulta & vbCrLf & vbCrLf & "Almazara." & vbCrLf & "Nº Albaranes: " & Data1.Recordset.RecordCount & vbCrLf & "Kg olivas:  " & Text2(0).Text
                 cad = cad & vbCrLf & "Litros producidos: " & Text2(1).Text & vbCrLf & "Destino: " & Combo1.Text
                 cad = cad & "       " & "Lote :"
                 'Veremos si el deposito esta vacio. Crearemos nuevo lote
@@ -990,7 +998,7 @@ Dim vT As CTiposMov
 Dim articuloTalco As String
 Dim NumDeposito As Integer
 Dim KilosTotales As Currency
-
+Dim AuxCantidad As Currency
 
     On Error GoTo eCerrarProcesoAlm
     
@@ -1042,13 +1050,21 @@ Dim KilosTotales As Currency
     
     'Incrementamos la cantidad del deposito
     cD.VariacionKilosDeposito Kilos   'Si tenia o no, da lo mismo. Esta sumando los nuevos
-    If Not cD.InsertarEnDeposito(10) Then Err.Raise 513, , "Insertando datos nuevos deposito: " & cD.NUmlote
+    If Not cD.InsertarEnDeposito(10, Text1(0).Text & " " & Text1(1).Text) Then Err.Raise 513, , "Insertando datos nuevos deposito: " & cD.NUmlote
     
     'Metemos los moviimientos
     'Tanto en smoval como en smovallotes
     cStock.DetaMov = "MLT" 'Molturacion
-    cStock.codalmac = 1
-    cad = DevuelveDesdeBD(conAri, "articMolturacion", "vallparam", "1", "1")
+    cStock.codAlmac = 1
+    
+    'Si es de tarra el articulo sera el de parametros en artMolturaTerra , si no en articMolturacion
+    cad = DevuelveDesdeBD(conAri, "tipoOliva", "vallalmazaraproceso", "id", CStr(ID))   'Oliva arbol o terra
+    If cad = "1" Then
+        cad = "artMolturaTerra"
+    Else
+        cad = "articMolturacion"
+    End If
+    cad = DevuelveDesdeBD(conAri, cad, "vallparam", "1", "1")
     cStock.codartic = cad
     cStock.Documento = Format(ID, "00000")
     cStock.Fechamov = Text1(0).Text
@@ -1057,7 +1073,7 @@ Dim KilosTotales As Currency
     cStock.LineaDocu = 1
     cStock.tipoMov = "E"
     cStock.Trabajador = vUsu.CodigoTrabajador
-    cLot.codalmac = cStock.codalmac
+    cLot.codAlmac = cStock.codAlmac
     cLot.codartic = cStock.codartic
     cLot.DetaMov = cStock.DetaMov
     cLot.Documento = cStock.Documento
@@ -1079,7 +1095,7 @@ Dim KilosTotales As Currency
     
     If NuevaPartida Then
         CP1.Cantidad = 0  'Luego los incremento
-        CP1.codalmac = cStock.codalmac
+        CP1.codAlmac = cStock.codAlmac
         CP1.codartic = cStock.codartic
         CP1.codProve = 1
         CP1.Fecha = cStock.Fechamov
@@ -1090,16 +1106,43 @@ Dim KilosTotales As Currency
     CP1.IncrementarCantidad Kilos
     
     
+    
+    
+    
+    
+    
     'El orujo
     '------------------------------------------------------
     'Que es el resto de producto
     'Crearemos partida nueva
     Set cP2 = New cPartidas
     
+    
+    '07/12/16
+    ' Al orujo le sumamos el agua del decanter
+    'Es litros /hora. Con lo cual habra que multiplicar litroshora x tiempor
+    cad = DevuelveDesdeBD(conAri, "AguaDecanter", "vallalmazaraproceso ", "id", CStr(ID))
+    AuxCantidad = 0
+    If cad <> "" Then
+        If cad <> "0" Then
+            AuxCantidad = CCur(cad)
+            Kilos = (HorasProceso Mod 60)
+            Kilos = Round2((Kilos / 60), 2) 'minutos en decimal
+            
+            Kilos = (HorasProceso \ 60) + Kilos 'Horas proceso + minutos   DECIAML
+            
+            AuxCantidad = Round(AuxCantidad * Kilos, 2)
+           
+        End If
+    End If
+    
     Kilos = ImporteFormateado(Text2(0).Text) - ImporteFormateado(Text2(1).Text)
-    cP2.NUmlote = "Orujo" & Format(ID, "0000")
+    Kilos = Kilos + AuxCantidad
+    
+    
     cP2.Cantidad = Kilos
-    cP2.codalmac = cStock.codalmac
+    cP2.NUmlote = "Orujo" & Format(ID, "0000")
+    cP2.codAlmac = cStock.codAlmac
     cad = DevuelveDesdeBD(conAri, "articOrujo", "vallparam", "1", "1")
     cStock.codartic = cad
     cStock.Cantidad = Kilos
@@ -1225,7 +1268,7 @@ Dim KilosTotales As Currency
         
         cad = "INSERT INTO olicoupage(codigo,codartic,fecha,descripcion,YaCreado,codalmac,numlote,Deposito) VALUES ("
         cad = cad & NumRegElim & ",'" & CP1.codartic & "'," & DBSet(cStock.HoraMov, "FH") & ",'"
-        cad = cad & "Molturacion. ID: " & CP1.NumAlbar & "',0, " & CP1.codalmac & "," & DBSet(cP2.NUmlote, "T") & ","
+        cad = cad & "Molturacion. ID: " & CP1.NumAlbar & "',0, " & CP1.codAlmac & "," & DBSet(cP2.NUmlote, "T") & ","
         cad = cad & Combo1.ListIndex + 1 & ")"
         conn.Execute cad
         

@@ -1524,7 +1524,11 @@ Private Sub CargarDatosEnTemporal()
         lblIndicador.Caption = "Clie/prov palets"
         lblIndicador.Refresh
         
-        miRsAux.Open " select codigo1,campo2,nombre2 from tmpinformes group by 1,2,3", conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        
+        CadenaConsulta = " select codigo1,campo2,nombre2 from tmpinformes"
+        CadenaConsulta = CadenaConsulta & " WHERE codusu = " & vUsu.Codigo & " group by 1,2,3"
+        
+        miRsAux.Open CadenaConsulta, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         CadenaConsulta = ""
         While Not miRsAux.EOF
             CadenaConsulta = CadenaConsulta & ", (" & vUsu.Codigo & "," & miRsAux!Codigo1 & "," & miRsAux!campo2 & "," & DBSet(miRsAux!nombre2, "T") & ")"

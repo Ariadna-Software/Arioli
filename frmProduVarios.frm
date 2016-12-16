@@ -12,6 +12,175 @@ Begin VB.Form frmProduVarios
    ScaleHeight     =   6300
    ScaleWidth      =   9300
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame FrCierreOrdenProduccion 
+      Height          =   2175
+      Left            =   0
+      TabIndex        =   5
+      Top             =   0
+      Width           =   5295
+      Begin VB.TextBox txtHora 
+         Height          =   285
+         Index           =   0
+         Left            =   2520
+         TabIndex        =   1
+         Text            =   "Text1"
+         Top             =   720
+         Width           =   1215
+      End
+      Begin VB.TextBox txtMeses 
+         Height          =   285
+         Left            =   1920
+         TabIndex        =   2
+         Text            =   "Text1"
+         Top             =   1200
+         Width           =   495
+      End
+      Begin VB.CommandButton cmdCierreOrdProd 
+         Caption         =   "Cerrar orden"
+         Height          =   375
+         Left            =   2880
+         TabIndex        =   3
+         Top             =   1560
+         Width           =   1095
+      End
+      Begin VB.CommandButton cmdCancelar 
+         Caption         =   "&Cancelar"
+         Height          =   375
+         Index           =   0
+         Left            =   4080
+         TabIndex        =   4
+         Top             =   1560
+         Width           =   975
+      End
+      Begin VB.TextBox txtFecha 
+         Height          =   285
+         Index           =   0
+         Left            =   1200
+         TabIndex        =   0
+         Text            =   "Text1"
+         Top             =   705
+         Width           =   1215
+      End
+      Begin VB.Label Label1 
+         Caption         =   "Meses caducidad"
+         Height          =   255
+         Index           =   1
+         Left            =   240
+         TabIndex        =   14
+         Top             =   1200
+         Width           =   1335
+      End
+      Begin VB.Label Label1 
+         Caption         =   "Fecha"
+         Height          =   255
+         Index           =   0
+         Left            =   240
+         TabIndex        =   13
+         Top             =   720
+         Width           =   615
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Cierre orden de producción"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   0
+         Left            =   240
+         TabIndex        =   6
+         Top             =   240
+         Width           =   2280
+      End
+      Begin VB.Image imgFecha 
+         Height          =   240
+         Index           =   0
+         Left            =   960
+         Picture         =   "frmProduVarios.frx":0000
+         Top             =   720
+         Width           =   240
+      End
+   End
+   Begin VB.Frame FrameVaciado 
+      Height          =   2175
+      Left            =   0
+      TabIndex        =   26
+      Top             =   0
+      Width           =   7695
+      Begin VB.CommandButton cmdVaciadoDeposito 
+         Caption         =   "Aceptar"
+         Height          =   375
+         Left            =   5160
+         TabIndex        =   31
+         Top             =   1440
+         Width           =   975
+      End
+      Begin VB.CommandButton cmdCancelar 
+         Caption         =   "&Cancelar"
+         Height          =   375
+         Index           =   3
+         Left            =   6360
+         TabIndex        =   30
+         Top             =   1440
+         Width           =   975
+      End
+      Begin VB.ComboBox cboDeposito 
+         Height          =   315
+         Index           =   2
+         Left            =   240
+         Style           =   2  'Dropdown List
+         TabIndex        =   27
+         Top             =   960
+         Width           =   7095
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Forzar vaciado depósito"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   14.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   345
+         Index           =   6
+         Left            =   1920
+         TabIndex        =   29
+         Top             =   240
+         Width           =   3420
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Depósito"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   5
+         Left            =   240
+         TabIndex        =   28
+         Top             =   720
+         Width           =   750
+      End
+   End
    Begin VB.Frame FrameFiltrado 
       Height          =   5655
       Left            =   0
@@ -22,7 +191,7 @@ Begin VB.Form frmProduVarios
       Begin VB.CommandButton cmdImpreFiltrado 
          Height          =   495
          Left            =   7920
-         Picture         =   "frmProduVarios.frx":0000
+         Picture         =   "frmProduVarios.frx":008B
          Style           =   1  'Graphical
          TabIndex        =   64
          Top             =   480
@@ -346,7 +515,7 @@ Begin VB.Form frmProduVarios
          Height          =   240
          Index           =   2
          Left            =   840
-         Picture         =   "frmProduVarios.frx":0A02
+         Picture         =   "frmProduVarios.frx":0A8D
          Top             =   1080
          Width           =   240
       End
@@ -532,7 +701,7 @@ Begin VB.Form frmProduVarios
          Height          =   240
          Index           =   3
          Left            =   1560
-         Picture         =   "frmProduVarios.frx":0A8D
+         Picture         =   "frmProduVarios.frx":0B18
          Top             =   840
          Width           =   240
       End
@@ -642,7 +811,7 @@ Begin VB.Form frmProduVarios
          Height          =   240
          Index           =   1
          Left            =   480
-         Picture         =   "frmProduVarios.frx":0B18
+         Picture         =   "frmProduVarios.frx":0BA3
          Top             =   720
          Width           =   240
       End
@@ -665,175 +834,6 @@ Begin VB.Form frmProduVarios
          TabIndex        =   12
          Top             =   240
          Width           =   4620
-      End
-   End
-   Begin VB.Frame FrCierreOrdenProduccion 
-      Height          =   2175
-      Left            =   0
-      TabIndex        =   5
-      Top             =   0
-      Width           =   5295
-      Begin VB.TextBox txtHora 
-         Height          =   285
-         Index           =   0
-         Left            =   2520
-         TabIndex        =   1
-         Text            =   "Text1"
-         Top             =   720
-         Width           =   1215
-      End
-      Begin VB.TextBox txtMeses 
-         Height          =   285
-         Left            =   1920
-         TabIndex        =   2
-         Text            =   "Text1"
-         Top             =   1200
-         Width           =   495
-      End
-      Begin VB.CommandButton cmdCierreOrdProd 
-         Caption         =   "Cerrar orden"
-         Height          =   375
-         Left            =   2880
-         TabIndex        =   3
-         Top             =   1560
-         Width           =   1095
-      End
-      Begin VB.CommandButton cmdCancelar 
-         Caption         =   "&Cancelar"
-         Height          =   375
-         Index           =   0
-         Left            =   4080
-         TabIndex        =   4
-         Top             =   1560
-         Width           =   975
-      End
-      Begin VB.TextBox txtFecha 
-         Height          =   285
-         Index           =   0
-         Left            =   1200
-         TabIndex        =   0
-         Text            =   "Text1"
-         Top             =   705
-         Width           =   1215
-      End
-      Begin VB.Label Label1 
-         Caption         =   "Meses caducidad"
-         Height          =   255
-         Index           =   1
-         Left            =   240
-         TabIndex        =   14
-         Top             =   1200
-         Width           =   1335
-      End
-      Begin VB.Label Label1 
-         Caption         =   "Fecha"
-         Height          =   255
-         Index           =   0
-         Left            =   240
-         TabIndex        =   13
-         Top             =   720
-         Width           =   615
-      End
-      Begin VB.Label lbFec 
-         AutoSize        =   -1  'True
-         Caption         =   "Cierre orden de producción"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00000080&
-         Height          =   195
-         Index           =   0
-         Left            =   240
-         TabIndex        =   6
-         Top             =   240
-         Width           =   2280
-      End
-      Begin VB.Image imgFecha 
-         Height          =   240
-         Index           =   0
-         Left            =   960
-         Picture         =   "frmProduVarios.frx":0BA3
-         Top             =   720
-         Width           =   240
-      End
-   End
-   Begin VB.Frame FrameVaciado 
-      Height          =   2175
-      Left            =   0
-      TabIndex        =   26
-      Top             =   0
-      Width           =   7695
-      Begin VB.CommandButton cmdVaciadoDeposito 
-         Caption         =   "Aceptar"
-         Height          =   375
-         Left            =   5160
-         TabIndex        =   31
-         Top             =   1440
-         Width           =   975
-      End
-      Begin VB.CommandButton cmdCancelar 
-         Caption         =   "&Cancelar"
-         Height          =   375
-         Index           =   3
-         Left            =   6360
-         TabIndex        =   30
-         Top             =   1440
-         Width           =   975
-      End
-      Begin VB.ComboBox cboDeposito 
-         Height          =   315
-         Index           =   2
-         Left            =   240
-         Style           =   2  'Dropdown List
-         TabIndex        =   27
-         Top             =   960
-         Width           =   7095
-      End
-      Begin VB.Label lbFec 
-         AutoSize        =   -1  'True
-         Caption         =   "Forzar vaciado depósito"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00800000&
-         Height          =   345
-         Index           =   6
-         Left            =   1920
-         TabIndex        =   29
-         Top             =   240
-         Width           =   3420
-      End
-      Begin VB.Label lbFec 
-         AutoSize        =   -1  'True
-         Caption         =   "Depósito"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00000080&
-         Height          =   195
-         Index           =   5
-         Left            =   240
-         TabIndex        =   28
-         Top             =   720
-         Width           =   750
       End
    End
 End
@@ -1152,10 +1152,10 @@ Dim Cantidad As Currency
     vCStock.Documento = Format(idFil, "00000")
     vCStock.Fechamov = Format(Fecha, "dd/mm/yyyy")
     vCStock.HoraMov = Fecha
-    vCStock.codalmac = 1
+    vCStock.codAlmac = 1
     
     
-    cLot.codalmac = vCStock.codalmac
+    cLot.codAlmac = vCStock.codAlmac
     cLot.DetaMov = vCStock.DetaMov
     cLot.Fechamov = vCStock.Fechamov
     cLot.HoraMov = vCStock.HoraMov
@@ -1438,7 +1438,7 @@ Dim C1 As cDeposito
             
             RegularizarFinLote_Partida C1
         End If
-        C1.QuitarAsignacionDeposito_ 2
+        C1.QuitarAsignacionDeposito_ 2, Now
         cad = ""
     End If
     Set C1 = Nothing
@@ -1934,7 +1934,7 @@ Dim MateriaPrima As Boolean
     vCStock.Trabajador = TrabajadorConectado_
     vCStock.Documento = RecuperaValor(Intercambio, 1)
     vCStock.Fechamov = txtFecha(0).Text '
-    vCStock.codalmac = CInt(miRsAux!codalmac)
+    vCStock.codAlmac = CInt(miRsAux!codAlmac)
         
     If vParamAplic.QUE_EMPRESA = 4 Then vCStock.HoraMov = vCStock.Fechamov & " " & Format(txtHora(0).Text, "hh:mm:ss")
    
@@ -1950,10 +1950,10 @@ Dim MateriaPrima As Boolean
     CantidadNecesaria = 1  'YA hemos grabado la sliordpr
     
     If Sublineas Then
-        If vCStock.codalmac = 2 And Not MateriaPrima Then
+        If vCStock.codAlmac = 2 And Not MateriaPrima Then
             'Es el del B
             'Solo el aceite vendra de las garrafas de B. Lo demas todo del limpio
-             vCStock.codalmac = 1
+             vCStock.codAlmac = 1
         End If
     End If
     vCStock.codartic = miRsAux!codarti2
@@ -1987,7 +1987,7 @@ Dim Impor As Currency
     If vParamAplic.QUE_EMPRESA = 4 Then vCStock.HoraMov = vCStock.Fechamov & " " & Format(txtHora(1).Text, "hh:mm:ss")
    
     vCStock.codartic = miRsAux!codartic
-    vCStock.codalmac = RecuperaValor(Intercambio, 3)
+    vCStock.codAlmac = RecuperaValor(Intercambio, 3)
 '    CantidadNecesaria = miRsAux!FactorConversion
 '    If CantidadNecesaria = 0 Then CantidadNecesaria = 1 'PARA QUE NO DE ERROR
 '    CantidadNecesaria = Round2(miRsAux!kilos / CantidadNecesaria, 5)
@@ -2035,7 +2035,7 @@ Dim cL As cLotaje
 Dim LoteReal As String  'Con fecha
 Dim cDe As cDeposito
 Dim ParaDeposito As String
-
+Dim Secuencia As Integer
 
     On Error GoTo ERealizarProduccionLOTES
 
@@ -2050,7 +2050,11 @@ Dim ParaDeposito As String
         cL.DetaMov = "PRO"
         cL.Documento = RecuperaValor(Intercambio, 1)
         cL.Fechamov = CDate(Me.txtFecha(0).Text)
-        cL.HoraMov = CDate(Me.txtFecha(0).Text & " " & Format(Now, "hh:nn:ss"))
+        If vParamAplic.QUE_EMPRESA = 4 Then
+            cL.HoraMov = CDate(Me.txtFecha(0).Text & " " & txtHora(0).Text)
+        Else
+            cL.HoraMov = CDate(Me.txtFecha(0).Text & " " & Format(Now, "hh:nn:ss"))
+        End If
         cL.ProvCliTra = TrabajadorConectado_
         cL.LineaDocu = 0
         cL.SubLinea = 0
@@ -2067,8 +2071,11 @@ Dim ParaDeposito As String
 
 
     AuxPartida = ""
+    Secuencia = 0
     Set vvCstock = New cStock
     While Not miRsAux.EOF
+        Secuencia = Secuencia + 1 'Para la hora de insercion en le deposito
+        
         If Err_x_Articulo <> miRsAux!codartic Then
             'Han habido errores en el articulo anterior.
             If AuxPartida <> "" Then
@@ -2096,7 +2103,7 @@ Dim ParaDeposito As String
                 TieneLotesMP = False
             Else
                 Aux = "Select * from sliordpr2lotes WHERE  codigo = " & RecuperaValor(Intercambio, 1)
-                Aux = Aux & " AND codalmac =" & vvCstock.codalmac & " AND codArtic = " & DBSet(miRsAux!codartic, "T")
+                Aux = Aux & " AND codalmac =" & vvCstock.codAlmac & " AND codArtic = " & DBSet(miRsAux!codartic, "T")
                 Aux = Aux & " AND codArti2 = " & DBSet(vvCstock.codartic, "T")
                 Set RL = New ADODB.Recordset
                 RL.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
@@ -2140,7 +2147,7 @@ Dim ParaDeposito As String
                     Cant2 = CCur(RecuperaValor(Aux, 2))
                     Aux = RecuperaValor(Aux, 1)
                     Aux = "  AND numlote = '" & DevNombreSQL(Aux) & "'"
-                    Aux = " AND codalmac =" & vvCstock.codalmac & Aux
+                    Aux = " AND codalmac =" & vvCstock.codAlmac & Aux
                     Aux = " where codartic = " & DBSet(vvCstock.codartic, "T") & Aux
                     Aux = "Select id,cantotal from spartidas " & Aux
                     RL.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
@@ -2150,7 +2157,7 @@ Dim ParaDeposito As String
                         cad = "NO existe LOTE: " & RecuperaValor(LotesNecesartios(II), 1)
                         If Not SoloComprobar Then
                             Cp.Cantidad = -1 * CantidadNecesaria
-                            Cp.codalmac = vvCstock.codalmac
+                            Cp.codAlmac = vvCstock.codAlmac
                             Cp.codartic = vvCstock.codartic
                             Cp.codProve = 0
                             Cp.Fecha = vvCstock.Fechamov
@@ -2201,7 +2208,7 @@ Dim ParaDeposito As String
                                     Else
                                         If Not SoloComprobar Then
                                             cDe.VariacionKilosDeposito -Cant2
-                                            cDe.InsertarEnHco 5, "Prod: " & Format(RecuperaValor(Intercambio, 1), "00") & " - " & RecuperaValor(Intercambio, 2)
+                                            cDe.InsertarEnHco 5, DateAdd("s", Secuencia, cL.HoraMov), "Prod: " & Format(RecuperaValor(Intercambio, 1), "00") & " - " & RecuperaValor(Intercambio, 2)
                                             Espera 0.95 'porque si no puede dar entrada duplicada
                                         End If
                                     End If
@@ -2235,7 +2242,7 @@ Dim ParaDeposito As String
             Else
                 
                 'Asi es como estaba antes
-                Rc = Cp.RecuperarLotes(vvCstock.codartic, vvCstock.codalmac, CantidadNecesaria, LotesNecesartios)
+                Rc = Cp.RecuperarLotes(vvCstock.codartic, vvCstock.codAlmac, CantidadNecesaria, LotesNecesartios)
             
                 If Rc = 2 Then
                     'No tengo el articulo dado de alta
@@ -2250,7 +2257,7 @@ Dim ParaDeposito As String
                         'Deberian existir. Como No existe lo damos de alta
                         
                         Cp.Cantidad = -1 * CantidadNecesaria
-                        Cp.codalmac = vvCstock.codalmac
+                        Cp.codAlmac = vvCstock.codAlmac
                         Cp.codartic = vvCstock.codartic
                         Cp.codProve = 0
                         Cp.Fecha = vvCstock.Fechamov
@@ -2362,13 +2369,13 @@ Dim ParaDeposito As String
                                 Set Cp = New cPartidas
                                 'Vemos si ya existe
                                 LoteReal = RL!NUmlote & " " & Format(txtFecha(0).Text, "yyyy/mm/dd")
-                                If Cp.LeerDesdeArticulo(miRsAux!codarti2, miRsAux!codalmac, LoteReal) Then
+                                If Cp.LeerDesdeArticulo(miRsAux!codarti2, miRsAux!codAlmac, LoteReal) Then
                                     'Ya existia(por algun motivo)
                                     Cp.IncrementarCantidad RL!cantlote
                                     
                                 Else
                                     Cp.Cantidad = RL!cantlote
-                                    Cp.codalmac = vvCstock.codalmac
+                                    Cp.codAlmac = vvCstock.codAlmac
                                     Cp.codartic = vvCstock.codartic
                                     Cp.codProve = 0
                                     Cp.Fecha = CDate(txtFecha(0).Text)
@@ -2384,7 +2391,7 @@ Dim ParaDeposito As String
                                 'En movimientos lote
                                 cL.tipoMov = 1
                                 cL.Cantidad = Cp.Cantidad
-                                cL.codalmac = Cp.codalmac
+                                cL.codAlmac = Cp.codAlmac
                                 cL.codartic = Cp.codartic
                                 cL.codarti2 = ""
                                 cL.NUmlote = Cp.NUmlote
@@ -2443,7 +2450,7 @@ Private Sub InsertarMovientosLotesProduccion(ByRef cLot As cLotaje, cPar As cPar
     
     cLot.tipoMov = 0  'Salida
     cLot.Cantidad = Abs(Cantidad)
-    cLot.codalmac = cPar.codalmac
+    cLot.codAlmac = cPar.codAlmac
     cLot.codartic = cPar.codartic
     cLot.codarti2 = ArticuloProduccion
     cLot.NUmlote = cPar.NUmlote
@@ -2462,7 +2469,7 @@ Dim SQL As String
 
     SQL = SQL & RecuperaValor(Intercambio, 1) & ","
     'En misraux tengo los datos que necesito
-    SQL = SQL & miRsAux!codalmac & ",'" & miRsAux!codartic & "','" & miRsAux!codarti2 & "',"
+    SQL = SQL & miRsAux!codAlmac & ",'" & miRsAux!codartic & "','" & miRsAux!codarti2 & "',"
     SQL = SQL & LineaLote & ",'" & DevNombreSQL(Par.NUmlote) & "'," & TransformaComasPuntos(CStr(Cantidad)) & ")"
     EjecutaSQL conAri, SQL, True
     
@@ -2489,7 +2496,7 @@ Dim RegularizacionDeposito As Currency
 Dim cDEP As cDeposito
 
 Dim T1 As Single
-
+Dim FLin As Date
 Dim CantidadQueLLevo As Currency
 Dim cL As cLotaje
 
@@ -2593,7 +2600,7 @@ Dim cL As cLotaje
             b = True
             '// NUmeros de LOTE
             cad = ""
-            If Cp.LeerDesdeArticulo(vvCstock.codartic, vvCstock.codalmac, miRsAux!NUmlote) Then
+            If Cp.LeerDesdeArticulo(vvCstock.codartic, vvCstock.codAlmac, miRsAux!NUmlote) Then
             
                 If Cp.Cantidad >= CantidadNecesaria Then
                     'PERFECTO. NO HAgo nada
@@ -2644,7 +2651,7 @@ Dim cL As cLotaje
                 If Not b Then
                     'NO existe. Lo creo
                     Cp.Cantidad = CantidadNecesaria
-                    Cp.codalmac = vvCstock.codalmac
+                    Cp.codAlmac = vvCstock.codAlmac
                     Cp.codartic = vvCstock.codartic
                     Cp.codProve = 0
                     Cp.Fecha = CDate(txtFecha(1).Text)
@@ -2665,7 +2672,7 @@ Dim cL As cLotaje
                 'Insertamos en la linea de smoval
                 cL.tipoMov = 0
                 cL.Cantidad = Abs(CantidadNecesaria)
-                cL.codalmac = vvCstock.codalmac
+                cL.codAlmac = vvCstock.codAlmac
                 cL.codartic = vvCstock.codartic
                 cL.NUmlote = Cp.NUmlote
                 cL.InsertarLote
@@ -2715,7 +2722,7 @@ Dim cL As cLotaje
                     'Ponemos vacios los campos del deposito
                     'Fuera numero de lote y fuera kilos
                     
-                    cDEP.QuitarAsignacionDeposito_ 1
+                    cDEP.QuitarAsignacionDeposito_ 1, vvCstock.HoraMov
                     Espera 0.75
                 End If
             End If
@@ -2762,13 +2769,13 @@ Dim cL As cLotaje
                 
                 
                                                         'Vemos si ya existe
-                If Cp.LeerDesdeArticulo(miRsAux!codartic, miRsAux!codalmac, miRsAux!NUmlote) Then
+                If Cp.LeerDesdeArticulo(miRsAux!codartic, miRsAux!codAlmac, miRsAux!NUmlote) Then
                     'Ya existia(por algun motivo)
                     Cp.IncrementarCantidad CantidadNecesaria
                     
                 Else
                     Cp.Cantidad = CantidadNecesaria
-                    Cp.codalmac = miRsAux!codalmac
+                    Cp.codAlmac = miRsAux!codAlmac
                     Cp.codartic = vvCstock.codartic
                     Cp.codProve = 0
                     Cp.Fecha = CDate(txtFecha(1).Text)
@@ -2781,7 +2788,7 @@ Dim cL As cLotaje
                 'Insertamos en la linea de smoval
                 cL.tipoMov = 1
                 cL.Cantidad = Abs(CantidadNecesaria)
-                cL.codalmac = vvCstock.codalmac
+                cL.codAlmac = vvCstock.codAlmac
                 cL.codartic = vvCstock.codartic
                 cL.NUmlote = Cp.NUmlote
                 cL.InsertarLote
@@ -2801,10 +2808,12 @@ Dim cL As cLotaje
                 cDEP.NUmlote = Cp.NUmlote
                 cDEP.idPartida = Cp.idPartida
                 Espera 0.5
-                cDEP.InsertarEnDeposito 1
                 
-                T1 = Timer - T1
-                Espera T1
+                FLin = DateAdd("s", 1, vvCstock.HoraMov)
+                cDEP.InsertarEnDeposito 1, FLin
+                
+                
+                Espera 0.8
         End If
     End If
         
@@ -3187,12 +3196,12 @@ Dim Cantidad As Currency
     'vCStock.Documento = RecuperaValor(Intercambio, 1)
     vvCstock.Fechamov = Format(Now, "dd/mm/yyyy")
     vvCstock.HoraMov = Now
-    vvCstock.codalmac = cPar.codalmac
+    vvCstock.codAlmac = cPar.codAlmac
     vvCstock.codartic = cPar.codartic
     vvCstock.Importe = 0
     vvCstock.Documento = "FIN" & Format(cPar.idPartida, "0000000")
     
-    cLot.codalmac = vvCstock.codalmac
+    cLot.codAlmac = vvCstock.codAlmac
     cLot.codartic = vvCstock.codartic
     cLot.DetaMov = vvCstock.DetaMov
     cLot.Fechamov = vvCstock.Fechamov
