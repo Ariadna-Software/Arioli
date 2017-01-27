@@ -732,7 +732,7 @@ Private CadenaConsulta As String
 
 Private Ordenacion As String
 Private NombreTabla As String  'Nombre de la tabla de Cabecera
-Private kCampo As Integer
+Private Kcampo As Integer
 '-------------------------------------------------------------------------
 Private HaDevueltoDatos As Boolean
 
@@ -968,9 +968,9 @@ Private Sub BotonBuscar()
     Else
         HacerBusqueda
         If Data1.Recordset.EOF Then
-            Text1(kCampo).Text = ""
-            Text1(kCampo).BackColor = vbYellow
-            PonerFoco Text1(kCampo)
+            Text1(Kcampo).Text = ""
+            Text1(Kcampo).BackColor = vbYellow
+            PonerFoco Text1(Kcampo)
         End If
     End If
 End Sub
@@ -1044,7 +1044,7 @@ End Sub
 Private Sub BotonEliminar()
 'Eliminar Registro de la Cabecera: Tabla de Pedidos (scaped)
 ' y los registros correspondientes de las tablas de lineas (sliped)
-Dim cad As String
+Dim Cad As String
 
     On Error GoTo EEliminar
 
@@ -1058,18 +1058,18 @@ Dim cad As String
         End If
     End If
 
-    cad = "Coupage." & vbCrLf
-    cad = cad & "----------------------------------" & vbCrLf & vbCrLf
-    cad = cad & "Va a eliminar el coupage:"
-    cad = cad & vbCrLf & "Nº:  " & Format(Text1(0).Text, "0000000")
-    cad = cad & vbCrLf & "Fecha:  " & Format(Text1(1).Text, "dd/mm/yyyy")
-    cad = cad & vbCrLf & "Artículo:  " & Text1(2).Text & " - " & Text2(0).Text
-    cad = cad & vbCrLf & vbCrLf & "¿Desea Eliminarlo? "
+    Cad = "Coupage." & vbCrLf
+    Cad = Cad & "----------------------------------" & vbCrLf & vbCrLf
+    Cad = Cad & "Va a eliminar el coupage:"
+    Cad = Cad & vbCrLf & "Nº:  " & Format(Text1(0).Text, "0000000")
+    Cad = Cad & vbCrLf & "Fecha:  " & Format(Text1(1).Text, "dd/mm/yyyy")
+    Cad = Cad & vbCrLf & "Artículo:  " & Text1(2).Text & " - " & Text2(0).Text
+    Cad = Cad & vbCrLf & vbCrLf & "¿Desea Eliminarlo? "
     
     Screen.MousePointer = vbHourglass
     
     'Borramos
-    If MsgBox(cad, vbQuestion + vbYesNo) = vbYes Then
+    If MsgBox(Cad, vbQuestion + vbYesNo) = vbYes Then
         'Hay que eliminar
         NumRegElim = Data1.Recordset.AbsolutePosition
         
@@ -1172,7 +1172,7 @@ Dim K As Currency
 End Sub
 Private Sub cmdRegresar_Click()
 'Este es el boton Cabecera
-Dim cad As String
+Dim Cad As String
 
     'Quitar lineas y volver a la cabecera
     If Modo = 5 Then  'modo 5: Mantenimientos Lineas
@@ -1191,8 +1191,8 @@ Dim cad As String
         End If
         'cad = Data1.Recordset.Fields(0) & "|"
         'cad = cad & Data1.Recordset.Fields(1) & "|"
-        cad = Data1.Recordset.Fields(0)
-        RaiseEvent DatoSeleccionado2(cad)
+        Cad = Data1.Recordset.Fields(0)
+        RaiseEvent DatoSeleccionado2(Cad)
         Unload Me
     End If
 End Sub
@@ -1307,7 +1307,7 @@ On Error Resume Next
 
     limpiar Me   'Metodo general: Limpia los controles TextBox
     lblIndicador.Caption = ""
-
+    Me.chkCoup.Value = 0
     If Err.Number <> 0 Then Err.Clear
 End Sub
 
@@ -1514,7 +1514,7 @@ End Sub
 'Los metodos del text tendran que estar
 'Los descomentamos cuando esten puestos ya los controles
 Private Sub Text1_GotFocus(Index As Integer)
-    kCampo = Index
+    Kcampo = Index
     ConseguirFoco Text1(Index), Modo
 End Sub
 
@@ -1605,18 +1605,18 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim cad As String
+Dim Cad As String
 Dim Tabla As String
 Dim Titulo As String
 Dim Desc As String, Devuelve As String
     'Llamamos a al form
     '##A mano
-    cad = ""
+    Cad = ""
     If EsCabecera Then
-        cad = cad & ParaGrid(Text1(0), 15, "Nº Orden")
-        cad = cad & ParaGrid(Text1(1), 15, "Fecha ")
-        cad = cad & ParaGrid(Text1(2), 20, "Articulo")
-        cad = cad & "Descripcion|sartic|nomartic|T||40·"
+        Cad = Cad & ParaGrid(Text1(0), 15, "Nº Orden")
+        Cad = Cad & ParaGrid(Text1(1), 15, "Fecha ")
+        Cad = Cad & ParaGrid(Text1(2), 20, "Articulo")
+        Cad = Cad & "Descripcion|sartic|nomartic|T||40·"
         Tabla = NombreTabla & " inner join sartic on " & NombreTabla & ".codartic = sartic.codartic"
         
         Titulo = "Coupages"
@@ -1631,17 +1631,17 @@ Dim Desc As String, Devuelve As String
             Desc = "Direc."
         End If
         Titulo = Titulo & Text1(4).Text & " - " & Text1(5).Text
-        cad = cad & "Cod. " & Desc & "|sdirec|coddirec|N||15·"
-        cad = cad & "Desc. " & Desc & "|sdirec|nomdirec|T||35·"
+        Cad = Cad & "Cod. " & Desc & "|sdirec|coddirec|N||15·"
+        Cad = Cad & "Desc. " & Desc & "|sdirec|nomdirec|T||35·"
         Tabla = "sdirec"
         Devuelve = "0|1|"
     End If
     
            
-    If cad <> "" Then
+    If Cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = cad
+        frmB.vCampos = Cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -1681,7 +1681,7 @@ Private Sub PonerCadenaBusqueda()
         Screen.MousePointer = vbDefault
         If Modo = 1 Then
           
-            PonerFoco Text1(kCampo)
+            PonerFoco Text1(Kcampo)
 '            Text1(0).BackColor = vbYellow
         End If
         Exit Sub
@@ -1765,7 +1765,7 @@ End Sub
 '   En PONERMODO se habilitan, o no, los diverso campos del
 '   formulario en funcion del modo en k vayamos a trabajar
 Private Sub PonerModo(Kmodo As Byte)
-Dim i As Byte, NumReg As Byte
+Dim I As Byte, NumReg As Byte
 Dim b As Boolean
 
     On Error GoTo EPonerModo
@@ -1801,8 +1801,8 @@ Dim b As Boolean
     BloquearTxt Text1(0), b, True
 
     b = Modo = 0 Or Modo = 2 Or Modo >= 5
-    For i = 1 To 6
-        BloquearTxt Text1(i), b
+    For I = 1 To 6
+        BloquearTxt Text1(I), b
     Next
     
     If vParamAplic.QUE_EMPRESA = 4 Then
@@ -1817,9 +1817,9 @@ Dim b As Boolean
     
     'Las imagenes añadimos el modo 6
     b = b And Modo <> 6
-    For i = 0 To Me.imgFecha.Count - 1
-        Me.imgFecha(i).Enabled = b
-    Next i
+    For I = 0 To Me.imgFecha.Count - 1
+        Me.imgFecha(I).Enabled = b
+    Next I
 
 
     Me.chkVistaPrevia.Enabled = (Modo <= 2)
@@ -1913,7 +1913,7 @@ Private Function DatosOkLinea() As Boolean
 'Comprueba si los datos de una linea son correctos antes de Insertar o Modificar
 'una linea del Pedido
 Dim b As Boolean
-Dim i As Byte
+Dim I As Byte
 Dim C As String
 
 
@@ -1924,14 +1924,14 @@ Dim C As String
     b = True
 
     'Comprobar que los campos NOT NULL tienen valor
-    For i = 1 To txtAux.Count
-        If txtAux(i).Text = "" Then
-            MsgBox "El campo " & txtAux(i).Tag & " no puede ser nulo", vbExclamation
+    For I = 1 To txtAux.Count
+        If txtAux(I).Text = "" Then
+            MsgBox "El campo " & txtAux(I).Tag & " no puede ser nulo", vbExclamation
             b = False
-            PonerFoco txtAux(i)
+            PonerFoco txtAux(I)
             Exit Function
         End If
-    Next i
+    Next I
         
   
     
@@ -2008,7 +2008,7 @@ Dim C As String
 
                     If BLOQUEADesdeFormulario(Me) Then
                 
-                        frmProduVarios.Intercambio = Data1.Recordset!Codigo & "|" & Data1.Recordset!Fecha & "|" & Data1.Recordset!codAlmac & "|"
+                        frmProduVarios.Intercambio = Data1.Recordset!Codigo & "|" & Data1.Recordset!Fecha & "|" & Data1.Recordset!codalmac & "|"
                         frmProduVarios.Opcion = 1
                         frmProduVarios.Show vbModal
                     
@@ -2240,7 +2240,7 @@ End Sub
 
 
 Private Sub CargaGrid2(ByRef vDataGrid As DataGrid, ByRef vData As Adodc)
-Dim i As Byte
+Dim I As Byte
 
     On Error GoTo ECargaGrid
 
@@ -2281,10 +2281,10 @@ Dim i As Byte
 
     End Select
 
-    For i = 0 To vDataGrid.Columns.Count - 1
-        vDataGrid.Columns(i).Locked = True
-        vDataGrid.Columns(i).AllowSizing = False
-    Next i
+    For I = 0 To vDataGrid.Columns.Count - 1
+        vDataGrid.Columns(I).Locked = True
+        vDataGrid.Columns(I).AllowSizing = False
+    Next I
     vDataGrid.HoldFields
     Exit Sub
 ECargaGrid:
@@ -2297,8 +2297,8 @@ Private Sub CargaTxtAux(visible As Boolean, limpiar As Boolean)
 'IN: visible: si es true ponerlos visibles en la posición adecuada
 '    limpiar: si es true vaciar los txtAux
 Dim alto As Single
-Dim i As Byte
-  i = 1
+Dim I As Byte
+  I = 1
     'On Error Resume Next
     On Error GoTo Quitar
     If Not visible Then
@@ -2340,8 +2340,8 @@ Dim i As Byte
         
        ' For I = 1 To txtAux.Count
      
-            txtAux(i).Top = alto
-            txtAux(i).Height = DataGrid1.RowHeight
+            txtAux(I).Top = alto
+            txtAux(I).Height = DataGrid1.RowHeight
        ' Next I
         'cmdAux(0).Top = alto
     '    cmdAux2(1).Top = alto
@@ -2377,8 +2377,8 @@ End Sub
 Private Sub txtAux_GotFocus(Index As Integer)
 Dim cadkey As Integer
 
-    cadkey = ObtenerCadKey(kCampo, Index)
-    kCampo = Index
+    cadkey = ObtenerCadKey(Kcampo, Index)
+    Kcampo = Index
     ConseguirFocoLin txtAux(Index), cadkey
 End Sub
 
@@ -2781,7 +2781,7 @@ End Function
 
 
 Private Sub ObtenerLineCoupage(Directo As Boolean)
-Dim cad As String
+Dim Cad As String
 Dim Depo As Integer
 Dim b As Boolean
     
@@ -2792,16 +2792,16 @@ Dim b As Boolean
             Set frmB2 = New frmBuscaGrid
             'CAMPOS
             'numdeposito,nomartic,spartidas.codartic,spartidas.numlote,litros
-            cad = "Deposito|proddepositos|numdeposito|N||5·"
-            cad = cad & "Cod. art|spartidas|codartic|T||20·"
-            cad = cad & "Articulo|sartic|nomartic|T||45·"
-            cad = cad & "Lote|spartidas|numlote|T||12·"
-            cad = cad & "Kilos||kilos|N|" & FormatoPrecio & "|16·"
-            frmB2.vCampos = cad
+            Cad = "Deposito|proddepositos|numdeposito|N||5·"
+            Cad = Cad & "Cod. art|spartidas|codartic|T||20·"
+            Cad = Cad & "Articulo|sartic|nomartic|T||45·"
+            Cad = Cad & "Lote|spartidas|numlote|T||12·"
+            Cad = Cad & "Kilos||kilos|N|" & FormatoPrecio & "|16·"
+            frmB2.vCampos = Cad
             'TABLA
-            cad = " proddepositos left join spartidas on spartidas.numlote=proddepositos.numlote"
-            cad = cad & " inner join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<1"
-            frmB2.vTabla = cad
+            Cad = " proddepositos left join spartidas on spartidas.numlote=proddepositos.numlote"
+            Cad = Cad & " inner join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<1"
+            frmB2.vTabla = Cad
             'WHERE
             frmB2.vSQL = "not spartidas.numlote is null "  'and DepositoVtaDirecta = 0"
             HaDevueltoDatos = False
@@ -2820,10 +2820,10 @@ Dim b As Boolean
             'Un par de comprobaciones
             'El deposito NO esta para este coupage
             CadenaConsulta = RecuperaValor(CadenaConsulta, 1)
-            cad = "codigo = " & Text1(0).Text & " AND deposito"
-            cad = DevuelveDesdeBD(conAri, "deposito", "olicoupagelinlotes", cad, CadenaConsulta)
+            Cad = "codigo = " & Text1(0).Text & " AND deposito"
+            Cad = DevuelveDesdeBD(conAri, "deposito", "olicoupagelinlotes", Cad, CadenaConsulta)
         
-            If cad <> "" Then
+            If Cad <> "" Then
                 MsgBox "Ya esta este deposito asignado al coupage actual", vbExclamation
             Else
         

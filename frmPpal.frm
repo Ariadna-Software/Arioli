@@ -341,7 +341,7 @@ Begin VB.MDIForm frmppal
             Style           =   5
             Object.Width           =   1058
             MinWidth        =   1058
-            TextSave        =   "18:51"
+            TextSave        =   "14:13"
          EndProperty
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -3536,8 +3536,7 @@ Private Sub mnTrazaNueva_Click(Index As Integer)
          frmFacTrazabilidad2.Show vbModal
      
      Case 7
-        'Desde entrada de oliva
-        
+            frmVallTrazaDesdeEntrada.Show vbModal
      End Select
         
 End Sub

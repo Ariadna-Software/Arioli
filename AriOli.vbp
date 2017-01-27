@@ -244,6 +244,7 @@ Form=frmVallCierrAlmazara.frm
 Form=frmVallpalets.frm
 Form=frmVallTransOliva.frm
 Form=frmVallDeclara.frm
+Form=frmPpalNuevo.frm
 IconForm="frmppal"
 Startup="Sub Main"
 HelpFile=""
