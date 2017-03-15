@@ -2,7 +2,6 @@ VERSION 5.00
 Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "MSCOMM32.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form Form1 
-   Caption         =   "Aceites Morales. Bascula producción"
    ClientHeight    =   12930
    ClientLeft      =   120
    ClientTop       =   450
@@ -1196,7 +1195,7 @@ Dim Ok As Boolean
 Dim N As Integer
 Dim VaOK As Boolean
 Dim RT As ADODB.Recordset
-Dim EsUnaLata As Boolean
+Dim EsUnaLata2 As Boolean
 
         'Ponemos a pesar
     Set miRsAux = New ADODB.Recordset
@@ -1224,7 +1223,7 @@ Dim EsUnaLata As Boolean
     TextoAux = "Volumen " & miRsAux!litrosunidad & " Litros  "
     VolumenProd = miRsAux!litrosunidad * 1000  'Ml, y gramos
     
-    EsUnaLata = DBLet(miRsAux!codtipar, "T") = "09"
+    EsUnaLata2 = DBLet(miRsAux!codtipar, "T") = "09"
     
     miRsAux.Close
     
@@ -1248,7 +1247,7 @@ Dim EsUnaLata As Boolean
     Retractil = 0
     Etiqueta2 = EtiquetaEnBD  'Valor enla BD
     'Si el formato es LATA, entonces ponemos el peso a 0
-    If EsUnaLata Then Etiqueta2 = 0
+    If EsUnaLata2 Then Etiqueta2 = 0
     
     EMP_ = DiferenciaPermitidaFormato2(VolumenProd)
     
@@ -1564,6 +1563,9 @@ End Sub
 Private Sub Form_Load()
 Dim H As Integer
      HabilitarPesada False
+     
+     
+     Me.Caption = "Aceites Morales. Bascula producción   Ver: " & App.Major & "." & App.Minor & "." & App.Revision
      
      H = Me.Height - Me.FramelecturaBascula.Height
      H = H / 2

@@ -1153,6 +1153,7 @@ Private Sub cmdCerrar_Click()
     '1.- Todas las entradas de oliva estan "albaranadas"
     
     Cad = "Select count(*) from vallentradacamion where year(fechaentrada)=" & Year(LabelFechaMes.Tag)
+    Cad = Cad & " AND entradafinalizada=0 "
     Cad = Cad & " AND month(fechaentrada)=" & Month(LabelFechaMes.Tag)
     miRsAux.Open Cad, conn, adOpenKeyset, adCmdText
     Cad = ""
@@ -1173,7 +1174,7 @@ Private Sub cmdCerrar_Click()
     'Todos los procesos de molturacin INICIO en el mes estan cerrados
     
     Cad = "Select count(*) from vallalmazaraproceso where year(fecha)=" & Year(LabelFechaMes.Tag)
-    Cad = Cad & " AND month(fecha)=" & Month(LabelFechaMes.Tag)
+    Cad = Cad & " AND month(fecha)=" & Month(LabelFechaMes.Tag) & " and fechafin<>null"
     miRsAux.Open Cad, conn, adOpenKeyset, adCmdText
     Cad = ""
     If Not miRsAux.EOF Then
