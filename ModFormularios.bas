@@ -1,5 +1,5 @@
 Attribute VB_Name = "ModFormularios"
-Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hWnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
+Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
 
 '============================================================
 '====== FUNCIONES GENERALES  ================================
@@ -63,7 +63,7 @@ Public Sub BloquearText1(ByRef formulario As Form, Modo As Byte)
 'si estamos en modo modificar bloquea solo los campos que son clave primaria
 'IN ->  formulario: formulario en el que se van a poner los controles textbox en modo visualización
 '       Modo: modo del mantenimiento (Insertar, Modificar,Buscar...)
-Dim i As Byte
+Dim I As Byte
 Dim b As Boolean
 Dim vtag As CTag
 On Error Resume Next
@@ -71,32 +71,32 @@ On Error Resume Next
     With formulario
         b = (Modo = 3 Or Modo = 4 Or Modo = 1) 'And ModoLineas = 1))
         
-        For i = 0 To .Text1.Count - 1 'En principio todos los TExt1 tiene TAG
+        For I = 0 To .Text1.Count - 1 'En principio todos los TExt1 tiene TAG
             Set vtag = New CTag
-            vtag.Cargar .Text1(i)
+            vtag.Cargar .Text1(I)
             If vtag.Cargado Then
                 If vtag.EsClave And (Modo = 2 Or Modo = 4 Or Modo = 5) Then
-                    .Text1(i).Locked = True
-                    .Text1(i).BackColor = &H80000018 'amarillo claro
+                    .Text1(I).Locked = True
+                    .Text1(I).BackColor = &H80000018 'amarillo claro
                 Else
-                    .Text1(i).Locked = Not b  '((Not b) And (Modo <> 1))
+                    .Text1(I).Locked = Not b  '((Not b) And (Modo <> 1))
                     If b Then
-                        .Text1(i).BackColor = vbWhite
+                        .Text1(I).BackColor = vbWhite
                     Else
-                        .Text1(i).BackColor = &H80000018 'amarillo claro
+                        .Text1(I).BackColor = &H80000018 'amarillo claro
                     End If
-                    If Modo = 3 Then .Text1(i).Text = "" 'Modo 3: Insertar (si vamos a Insertar ade+ Limpiamos el campo)
+                    If Modo = 3 Then .Text1(I).Text = "" 'Modo 3: Insertar (si vamos a Insertar ade+ Limpiamos el campo)
                 End If
             Else
-                .Text1(i).Locked = Not b  '((Not b) And (Modo <> 1))
+                .Text1(I).Locked = Not b  '((Not b) And (Modo <> 1))
                 If b Then
-                    .Text1(i).BackColor = vbWhite
+                    .Text1(I).BackColor = vbWhite
                 Else
-                    .Text1(i).BackColor = &H80000018 'amarillo claro
+                    .Text1(I).BackColor = &H80000018 'amarillo claro
                 End If
             End If
         Set vtag = Nothing
-        Next i
+        Next I
         
     End With
     If Err.Number <> 0 Then Err.Clear
@@ -196,55 +196,55 @@ End Sub
 
 
 
-Public Sub PonerLongCamposGnral(ByRef formulario As Form, Modo As Byte, opcion As Byte)
-    Dim i As Integer
+Public Sub PonerLongCamposGnral(ByRef formulario As Form, Modo As Byte, Opcion As Byte)
+    Dim I As Integer
     
     On Error Resume Next
 
     With formulario
         If Modo = 1 Then 'BUSQUEDA
-            Select Case opcion
+            Select Case Opcion
                 Case 1 'Para los TEXT1
-                    For i = 0 To .Text1.Count - 1
-                        With .Text1(i)
+                    For I = 0 To .Text1.Count - 1
+                        With .Text1(I)
                             If .MaxLength <> 0 Then
                                .HelpContextID = .MaxLength 'guardamos es maxlenth para reestablecerlo despues
                                 .MaxLength = (.HelpContextID * 2) + 1 'el doble + 1
                             End If
                         End With
-                    Next i
+                    Next I
                 
                 Case 3 'para los TXTAUX
-                    For i = 0 To .txtAux.Count - 1
-                        With .txtAux(i)
+                    For I = 0 To .txtAux.Count - 1
+                        With .txtAux(I)
                             If .MaxLength <> 0 Then
                                .HelpContextID = .MaxLength 'guardamos es maxlenth para reestablecerlo despues
                                 .MaxLength = (.HelpContextID * 2) + 1 'el doble + 1
                             End If
                         End With
-                    Next i
+                    Next I
             End Select
             
         Else 'resto de modos
-            Select Case opcion
+            Select Case Opcion
                 Case 1
-                    For i = 0 To .Text1.Count - 1
-                        With .Text1(i)
+                    For I = 0 To .Text1.Count - 1
+                        With .Text1(I)
                             If .HelpContextID <> 0 Then
                                 .MaxLength = .HelpContextID 'volvemos a poner el valor real del maxlenth
                                 .HelpContextID = 0
                             End If
                         End With
-                    Next i
+                    Next I
                 Case 3
-                    For i = 0 To .txtAux.Count - 1
-                        With .txtAux(i)
+                    For I = 0 To .txtAux.Count - 1
+                        With .txtAux(I)
                             If .HelpContextID <> 0 Then
                                 .MaxLength = .HelpContextID 'volvemos a poner el valor real del maxlenth
                                 .HelpContextID = 0
                             End If
                         End With
-                    Next i
+                    Next I
             End Select
         End If
     End With
@@ -455,9 +455,9 @@ On Error Resume Next
     If Err.Number <> 0 Then Err.Clear
 End Sub
 
-Public Sub PonerFocoCbo(ByRef Cbo As ComboBox)
+Public Sub PonerFocoCbo(ByRef CBO As ComboBox)
 On Error Resume Next
-    Cbo.SetFocus
+    CBO.SetFocus
     If Err.Number <> 0 Then Err.Clear
 End Sub
 
@@ -683,17 +683,17 @@ ECargaGrid:
 End Sub
 
 
-Public Sub CargarCombo_SiNo(ByRef Cbo As ComboBox)
+Public Sub CargarCombo_SiNo(ByRef CBO As ComboBox)
 'Carga un combo con los valores de opcion SI/NO
     On Error GoTo ErrCarga
     
-    Cbo.Clear
+    CBO.Clear
     
-    Cbo.AddItem "NO"
-    Cbo.ItemData(Cbo.NewIndex) = 0
+    CBO.AddItem "NO"
+    CBO.ItemData(CBO.NewIndex) = 0
     
-    Cbo.AddItem "SI"
-    Cbo.ItemData(Cbo.NewIndex) = 1
+    CBO.AddItem "SI"
+    CBO.ItemData(CBO.NewIndex) = 1
     
     Exit Sub
     
@@ -702,7 +702,7 @@ ErrCarga:
 End Sub
 
 
-Public Sub CargarCombo_Tabla(ByRef Cbo As ComboBox, NomTabla As String, NomCodigo As String, nomDescrip As String, Optional strWhere As String, Optional ItemNulo As Boolean)
+Public Sub CargarCombo_Tabla(ByRef CBO As ComboBox, NomTabla As String, NomCodigo As String, nomDescrip As String, Optional strWhere As String, Optional ItemNulo As Boolean)
 'Carga un objeto ComboBox con los registros de una Tabla
 '(IN) cbo: ComboBox en el q se van a cargar los datos
 '(IN) nomTabla: nombre de la tabla de la q leeremos los datos a cargar
@@ -712,11 +712,11 @@ Public Sub CargarCombo_Tabla(ByRef Cbo As ComboBox, NomTabla As String, NomCodig
 '(IN) ItemNulo: si es true se añade el primer item con linea en blanco
 Dim SQL As String
 Dim RS As ADODB.Recordset
-Dim i As Integer
+Dim I As Integer
 
     On Error GoTo ErrCombo
     
-    Cbo.Clear
+    CBO.Clear
     
     SQL = "SELECT " & NomCodigo & "," & nomDescrip & " FROM " & NomTabla
     If strWhere <> "" Then SQL = SQL & " WHERE " & strWhere
@@ -728,8 +728,8 @@ Dim i As Integer
     
     '- si valor del parametro ItemNulo=true hay que añadir linea en blanco
     If Not RS.EOF And ItemNulo Then
-        Cbo.AddItem "  "
-        Cbo.ItemData(Cbo.NewIndex) = 0
+        CBO.AddItem "  "
+        CBO.ItemData(CBO.NewIndex) = 0
     End If
     
     If Not RS.EOF Then
@@ -737,19 +737,19 @@ Dim i As Integer
             '- si el codigo NomCodigo es numerico en el ItemData se carga el campo clave primaria
             '- y en List la descripcion NomDescrip
             While Not RS.EOF
-              Cbo.AddItem RS.Fields(1).Value 'descrip
-              Cbo.ItemData(Cbo.NewIndex) = RS.Fields(0).Value 'codigo
+              CBO.AddItem RS.Fields(1).Value 'descrip
+              CBO.ItemData(CBO.NewIndex) = RS.Fields(0).Value 'codigo
               RS.MoveNext
             Wend
         Else
             '- si el codigo NomCodigo en alfanumerico no se puede cargar
             '- el codigo en ItemData y cargamos un indice ficticio
             '- y en el List el campo codigo NomCodigo
-            i = 1
+            I = 1
             While Not RS.EOF
-              Cbo.AddItem RS.Fields(0).Value 'campo del codigo
-              Cbo.ItemData(Cbo.NewIndex) = i
-              i = i + 1
+              CBO.AddItem RS.Fields(0).Value 'campo del codigo
+              CBO.ItemData(CBO.NewIndex) = I
+              I = I + 1
               RS.MoveNext
             Wend
         End If
@@ -768,7 +768,7 @@ End Sub
 
 
 
-Public Sub CargarCombo_TipMov(ByRef Cbo As ComboBox, NomTabla As String, NomCodigo As String, nomDescrip As String, Optional strWhere As String, Optional ItemNulo As Boolean)
+Public Sub CargarCombo_TipMov(ByRef CBO As ComboBox, NomTabla As String, NomCodigo As String, nomDescrip As String, Optional strWhere As String, Optional ItemNulo As Boolean)
 'Carga un objeto ComboBox con los registros de una Tabla
 '(IN) cbo: ComboBox en el q se van a cargar los datos
 '(IN) nomTabla: nombre de la tabla de la q leeremos los datos a cargar
@@ -778,11 +778,11 @@ Public Sub CargarCombo_TipMov(ByRef Cbo As ComboBox, NomTabla As String, NomCodi
 '(IN) ItemNulo: si es true se añade el primer item con linea en blanco
 Dim SQL As String
 Dim RS As ADODB.Recordset
-Dim i As Integer
+Dim I As Integer
 
     On Error GoTo ErrCombo
     
-    Cbo.Clear
+    CBO.Clear
     
     SQL = "SELECT " & NomCodigo & "," & nomDescrip & " FROM " & NomTabla
     If strWhere <> "" Then SQL = SQL & " WHERE " & strWhere
@@ -793,17 +793,17 @@ Dim i As Integer
     
     '- si valor del parametro ItemNulo=true hay que añadir linea en blanco
     If Not RS.EOF And ItemNulo Then
-        Cbo.AddItem "  "
-        Cbo.ItemData(Cbo.NewIndex) = 0
+        CBO.AddItem "  "
+        CBO.ItemData(CBO.NewIndex) = 0
     End If
        
-    i = 1
+    I = 1
     While Not RS.EOF
         SQL = Replace(RS.Fields(1).Value, "Factura", "Fac.")
         SQL = RS.Fields(0).Value & " - " & SQL
-        Cbo.AddItem SQL 'campo del codigo
-        Cbo.ItemData(Cbo.NewIndex) = i
-        i = i + 1
+        CBO.AddItem SQL 'campo del codigo
+        CBO.ItemData(CBO.NewIndex) = I
+        I = I + 1
         RS.MoveNext
     Wend
 
@@ -835,17 +835,17 @@ End Function
 
 Public Sub DesplazamientoVisible(ByRef toolb As Toolbar, iniBoton As Byte, bol As Boolean, nreg As Byte)
 'Oculta o Muestra las botones de  flechas de desplazamiento de la toolbar
-Dim i As Byte
+Dim I As Byte
 
     Select Case nreg
         Case 0, 1 '0 o 1 registro no mostrar los botones despl.
-            For i = iniBoton To iniBoton + 3
-                toolb.Buttons(i).visible = False
-            Next i
+            For I = iniBoton To iniBoton + 3
+                toolb.Buttons(I).visible = False
+            Next I
         Case Else '>1 reg, mostrar si bol
-            For i = iniBoton To iniBoton + 3
-                toolb.Buttons(i).visible = bol
-            Next i
+            For I = iniBoton To iniBoton + 3
+                toolb.Buttons(I).visible = bol
+            Next I
     End Select
 End Sub
 
@@ -954,21 +954,21 @@ End Sub
 
 
 
-Public Sub SituarCombo2(ByRef Cbo As ComboBox, Valor As Long)
-Dim i As Byte
+Public Sub SituarCombo2(ByRef CBO As ComboBox, Valor As Long)
+Dim I As Byte
 
     On Error Resume Next
 
-        For i = 0 To Cbo.ListCount - 1
-            If Cbo.ItemData(i) = Val(Valor) Then
-                Cbo.ListIndex = i
+        For I = 0 To CBO.ListCount - 1
+            If CBO.ItemData(I) = Val(Valor) Then
+                CBO.ListIndex = I
                 Exit For
             End If
-        Next i
-        If i = Cbo.ListCount Then Cbo.ListIndex = -1
+        Next I
+        If I = CBO.ListCount Then CBO.ListIndex = -1
     
     If Err.Number <> 0 Then
-        Cbo.ListIndex = -1
+        CBO.ListIndex = -1
         Err.Clear
     End If
 End Sub
@@ -988,7 +988,7 @@ End Function
 
 '*********** LAURA : 13/09/2005
 Public Function EsEnteroNew(Texto As String) As Boolean
-Dim i As Integer
+Dim I As Integer
 Dim C As Integer
 Dim L As Integer
 Dim res As Boolean
@@ -1003,24 +1003,24 @@ Dim res As Boolean
         C = 0
         L = 1
         Do
-            i = InStr(L, Texto, ".")
-            If i > 0 Then
-                L = i + 1
+            I = InStr(L, Texto, ".")
+            If I > 0 Then
+                L = I + 1
                 C = C + 1
             End If
-        Loop Until i = 0
+        Loop Until I = 0
         If C > 0 Then res = False
         
         'Si ha puesto mas de una coma y no tiene puntos
         If C = 0 Then
             L = 1
             Do
-                i = InStr(L, Texto, ",")
-                If i > 0 Then
-                    L = i + 1
+                I = InStr(L, Texto, ",")
+                If I > 0 Then
+                    L = I + 1
                     C = C + 1
                 End If
-            Loop Until i = 0
+            Loop Until I = 0
             If C > 0 Then res = False
         End If
     End If
@@ -1033,7 +1033,7 @@ End Function
 '=================================
 '******** DAVID (NO LA USO)
 Public Function EsEntero(Texto As String) As Boolean
-Dim i As Integer
+Dim I As Integer
 Dim C As Integer
 Dim L As Integer
 Dim res As Boolean
@@ -1048,24 +1048,24 @@ Dim res As Boolean
         C = 0
         L = 1
         Do
-            i = InStr(L, Texto, ".")
-            If i > 0 Then
-                L = i + 1
+            I = InStr(L, Texto, ".")
+            If I > 0 Then
+                L = I + 1
                 C = C + 1
             End If
-        Loop Until i = 0
+        Loop Until I = 0
         If C > 1 Then res = False
         
         'Si ha puesto mas de una coma y no tiene puntos
         If C = 0 Then
             L = 1
             Do
-                i = InStr(L, Texto, ",")
-                If i > 0 Then
-                    L = i + 1
+                I = InStr(L, Texto, ",")
+                If I > 0 Then
+                    L = I + 1
                     C = C + 1
                 End If
-            Loop Until i = 0
+            Loop Until I = 0
             If C > 1 Then res = False
         End If
         
@@ -1078,7 +1078,7 @@ End Function
 Public Function PonerFormatoEntero(ByRef T As TextBox) As Boolean
 'Comprueba que el valor del textbox es un entero y le pone el formato
 Dim mTag As CTag
-Dim cad As String
+Dim Cad As String
 Dim Formato As String
 On Error GoTo EPonerFormato
 
@@ -1088,14 +1088,14 @@ On Error GoTo EPonerFormato
     Set mTag = New CTag
     mTag.Cargar T
     If mTag.Cargado Then
-       cad = mTag.Nombre 'descripcion del campo
+       Cad = mTag.Nombre 'descripcion del campo
        Formato = mTag.Formato
     End If
     Set mTag = Nothing
 
     If Not EsEnteroNew(T.Text) Then
         PonerFormatoEntero = False
-        MsgBox "El campo " & cad & " tiene que ser un número entero.", vbExclamation
+        MsgBox "El campo " & Cad & " tiene que ser un número entero.", vbExclamation
         PonerFoco T
     Else
          T.Text = Format(T.Text, Formato)
@@ -1471,18 +1471,18 @@ End Function
 
 Public Sub SubirItemList(ByRef LView As ListView)
 'Subir el item seleccionado del listview una posicion
-Dim i As Byte, Item As Byte
+Dim I As Byte, Item As Byte
 Dim Aux As String
 On Error Resume Next
    
-    For i = 2 To LView.ListItems.Count
-        If LView.ListItems(i).Selected Then
-            Item = i
-            Aux = LView.ListItems(i).Text
-            LView.ListItems(i).Text = LView.ListItems(i - 1).Text
-            LView.ListItems(i - 1).Text = Aux
+    For I = 2 To LView.ListItems.Count
+        If LView.ListItems(I).Selected Then
+            Item = I
+            Aux = LView.ListItems(I).Text
+            LView.ListItems(I).Text = LView.ListItems(I - 1).Text
+            LView.ListItems(I - 1).Text = Aux
         End If
-    Next i
+    Next I
     If Item <> 0 Then
         LView.ListItems(Item).Selected = False
         LView.ListItems(Item - 1).Selected = True
@@ -1494,18 +1494,18 @@ End Sub
 
 Public Sub BajarItemList(ByRef LView As ListView)
 'Bajar el item seleccionado del listview una posicion
-Dim i As Byte, Item As Byte
+Dim I As Byte, Item As Byte
 Dim Aux As String
 On Error Resume Next
 
-    For i = 1 To LView.ListItems.Count - 1
-        If LView.ListItems(i).Selected Then
-            Item = i
-            Aux = LView.ListItems(i).Text
-            LView.ListItems(i).Text = LView.ListItems(i + 1).Text
-            LView.ListItems(i + 1).Text = Aux
+    For I = 1 To LView.ListItems.Count - 1
+        If LView.ListItems(I).Selected Then
+            Item = I
+            Aux = LView.ListItems(I).Text
+            LView.ListItems(I).Text = LView.ListItems(I + 1).Text
+            LView.ListItems(I + 1).Text = Aux
         End If
-    Next i
+    Next I
     If Item <> 0 Then
         LView.ListItems(Item).Selected = False
         LView.ListItems(Item + 1).Selected = True
@@ -1548,16 +1548,16 @@ End Sub
 
 
 
-Public Sub PosicionarComboDes(ByRef Cbo As ComboBox, Valor As String)
-Dim i As Byte
+Public Sub PosicionarComboDes(ByRef CBO As ComboBox, Valor As String)
+Dim I As Byte
 
-    For i = 0 To Cbo.ListCount - 1
-        If Trim(Cbo.List(i)) = Trim(Valor) Then
-            Cbo.ListIndex = i
+    For I = 0 To CBO.ListCount - 1
+        If Trim(CBO.List(I)) = Trim(Valor) Then
+            CBO.ListIndex = I
             Exit For
         End If
-    Next i
-    If i = Cbo.ListCount Then Cbo.ListIndex = -1
+    Next I
+    If I = CBO.ListCount Then CBO.ListIndex = -1
     
 End Sub
 
@@ -1646,28 +1646,141 @@ Dim SQL As String
 End Function
 
 'He cambiado el metodo a public
-Public Function InsertarCuentaCble(Cuenta As String, cadClien As String, Optional CadProve As String) As Boolean
+
+
+
+'Private Function InsertarCuentaContaOLD(Cuenta As String, cadClien As String, Optional CadProve As String) As Boolean
+'Dim SQL As String
+'Dim vClien As CCliente
+'Dim vProve As CProveedor
+'Dim b As Boolean
+'
+'    On Error GoTo EInsCta
+'
+'
+'    'EL insert, sera llamado luego para la cobta en B. OJO!!!
+'    SQL = "INSERT INTO cuentas(codmacta,nommacta,apudirec,model347,razosoci,dirdatos,codposta,despobla,desprovi,nifdatos,maidatos,webdatos,obsdatos,pais,forpa, ctabanco) "
+'    SQL = SQL & " VALUES (" & DBSet(Cuenta, "T") & ","
+'
+'    If cadClien <> "" Then
+'        Set vClien = New CCliente
+'        If vClien.LeerDatos(cadClien) Then
+'            SQL = SQL & DBSet(vClien.Nombre, "T") & ",'S',1," & DBSet(vClien.Nombre, "T") & "," & DBSet(vClien.Domicilio, "T") & ","
+'            SQL = SQL & DBSet(vClien.CPostal, "T") & "," & DBSet(vClien.Poblacion, "T") & "," & DBSet(vClien.Provincia, "T") & "," & DBSet(vClien.NIF, "T") & "," & DBSet(vClien.EMailAdm, "T") & "," & DBSet(vClien.WebClien, "T") & "," & ValorNulo & "," & ValorNulo
+'            'Forma pago y cuenta banco por defecto
+'            SQL = SQL & "," & DBSet(vClien.ForPago, "N", "S") & "," & ValorNulo & ")"
+'            ConnConta.Execute SQL
+'            InsertaEnContaB SQL
+'            cadClien = vClien.Nombre
+'            b = True
+'        Else
+'            b = False
+'        End If
+'        Set vClien = Nothing
+'    End If
+'
+'    If CadProve <> "" Then
+'        Set vProve = New CProveedor
+'        If vProve.LeerDatos(CadProve) Then
+'            SQL = SQL & DBSet(vProve.Nombre, "T") & ",'S',1," & DBSet(vProve.Nombre, "T") & "," & DBSet(vProve.Domicilio, "T") & ","
+'            SQL = SQL & DBSet(vProve.CPostal, "T") & "," & DBSet(vProve.Poblacion, "T") & "," & DBSet(vProve.Provincia, "T") & "," & DBSet(vProve.NIF, "T") & ","
+'            SQL = SQL & DBSet(vProve.EMailAdmon, "T") & "," & DBSet(vProve.WebProve, "T") & "," & ValorNulo & "," & ValorNulo
+'            'Forma pago y cuenta banco por defecto
+'            CadProve = DevuelveDesdeBD(conAri, "codmacta", "sbanpr", "codbanpr", vProve.BancoPropio)
+'            SQL = SQL & "," & DBSet(vProve.ForPago, "N", "S") & "," & DBSet(CadProve, "N", "S") & ")"
+'            CadProve = ""
+'            ConnConta.Execute SQL
+'            InsertaEnContaB SQL
+'            CadProve = vProve.Nombre
+'            b = True
+'        Else
+'            b = False
+'        End If
+'        Set vProve = Nothing
+'    End If
+'
+'EInsCta:
+'    If Err.Number <> 0 Then
+'        b = False
+'        MuestraError Err.Description, "Insertando cuenta contable", Err.Description
+'    End If
+'    InsertarCuentaCble = b
+'End Function
+
+
+'**************************************************
+' Copiado de ARIGES
+Public Function InsertarCuentaCble(Cuenta As String, cadClien As String, Optional cadProve As String, Optional cadFamia As String) As Boolean
 Dim SQL As String
 Dim vClien As CCliente
 Dim vProve As CProveedor
+Dim Aux As String
 Dim b As Boolean
 
     On Error GoTo EInsCta
     
+    SQL = ""
     
-    'EL insert, sera llamado luego para la cobta en B. OJO!!!
-    SQL = "INSERT INTO cuentas(codmacta,nommacta,apudirec,model347,razosoci,dirdatos,codposta,despobla,desprovi,nifdatos,maidatos,webdatos,obsdatos,pais,forpa, ctabanco) "
-    SQL = SQL & " VALUES (" & DBSet(Cuenta, "T") & ","
+    SQL = "INSERT INTO cuentas(codmacta,nommacta,apudirec,model347,razosoci,dirdatos,codposta,despobla,desprovi,nifdatos,maidatos,webdatos,obsdatos,forpa, ctabanco, "
+    If vParamAplic.ContabilidadNueva Then
+        SQL = SQL & "codpais,iban"
+    Else
+        SQL = SQL & "pais,entidad, oficina, CC, CuentaBa,iban"
+    End If
+    SQL = SQL & ") VALUES (" & DBSet(Cuenta, "T") & ","
     
     If cadClien <> "" Then
         Set vClien = New CCliente
         If vClien.LeerDatos(cadClien) Then
             SQL = SQL & DBSet(vClien.Nombre, "T") & ",'S',1," & DBSet(vClien.Nombre, "T") & "," & DBSet(vClien.Domicilio, "T") & ","
-            SQL = SQL & DBSet(vClien.CPostal, "T") & "," & DBSet(vClien.Poblacion, "T") & "," & DBSet(vClien.Provincia, "T") & "," & DBSet(vClien.NIF, "T") & "," & DBSet(vClien.EMailAdm, "T") & "," & DBSet(vClien.WebClien, "T") & "," & ValorNulo & "," & ValorNulo
+            SQL = SQL & DBSet(vClien.CPostal, "T") & "," & DBSet(vClien.Poblacion, "T") & "," & DBSet(vClien.Provincia, "T") & "," & DBSet(vClien.NIF, "T") & "," & DBSet(vClien.EMailAdm, "T") & "," & DBSet(vClien.WebClien, "T") & "," & ValorNulo
             'Forma pago y cuenta banco por defecto
-            SQL = SQL & "," & DBSet(vClien.ForPago, "N", "S") & "," & ValorNulo & ")"
+            SQL = SQL & "," & DBSet(vClien.ForPago, "N", "S") & "," & ValorNulo & "," & DBSet(vClien.Pais, "T", "S") & ","
+            
+            'PAIS
+            If vParamAplic.ContabilidadNueva Then
+                Aux = MiFormat(vClien.IBAN, "") & MiFormat(vClien.Banco, "0000") & MiFormat(vClien.Sucursal, "0000") & MiFormat(vClien.DigControl, "00") & MiFormat(vClien.CuentaBan, "0000000000")
+                SQL = SQL & DBSet(Aux, "T")
+
+            Else
+                
+                If vClien.Banco = "" Then
+                    SQL = SQL & "NULL"
+                Else
+                    SQL = SQL & "'" & Format(vClien.Banco, "0000") & "'"
+                End If
+                SQL = SQL & ","
+                If vClien.Sucursal = "" Then
+                    SQL = SQL & "NULL"
+                Else
+                    SQL = SQL & "'" & Format(vClien.Sucursal, "0000") & "'"
+                End If
+                SQL = SQL & ","
+                If vClien.DigControl = "" Then
+                    SQL = SQL & "NULL"
+                Else
+                    SQL = SQL & "'" & Format(vClien.DigControl, "00") & "'"
+                End If
+                SQL = SQL & ","
+                If vClien.CuentaBan = "" Then
+                    SQL = SQL & "NULL"
+                Else
+                    SQL = SQL & "'" & Format(vClien.CuentaBan, "0000000000") & "'"
+                End If
+                            
+                SQL = SQL & ","
+                If vClien.IBAN = "" Then
+                    SQL = SQL & "NULL"
+                Else
+                    SQL = SQL & "'" & vClien.IBAN & "'"
+                End If
+            End If
+            SQL = SQL & ")"
+            
             ConnConta.Execute SQL
             InsertaEnContaB SQL
+            
+            
             cadClien = vClien.Nombre
             b = True
         Else
@@ -1676,33 +1789,109 @@ Dim b As Boolean
         Set vClien = Nothing
     End If
     
-    If CadProve <> "" Then
+    If cadProve <> "" Then
         Set vProve = New CProveedor
-        If vProve.LeerDatos(CadProve) Then
+        If vProve.LeerDatos(cadProve) Then
             SQL = SQL & DBSet(vProve.Nombre, "T") & ",'S',1," & DBSet(vProve.Nombre, "T") & "," & DBSet(vProve.Domicilio, "T") & ","
             SQL = SQL & DBSet(vProve.CPostal, "T") & "," & DBSet(vProve.Poblacion, "T") & "," & DBSet(vProve.Provincia, "T") & "," & DBSet(vProve.NIF, "T") & ","
-            SQL = SQL & DBSet(vProve.EMailAdmon, "T") & "," & DBSet(vProve.WebProve, "T") & "," & ValorNulo & "," & ValorNulo
+            SQL = SQL & DBSet(vProve.EMailAdmon, "T") & "," & DBSet(vProve.WebProve, "T") & "," & ValorNulo
             'Forma pago y cuenta banco por defecto
-            CadProve = DevuelveDesdeBD(conAri, "codmacta", "sbanpr", "codbanpr", vProve.BancoPropio)
-            SQL = SQL & "," & DBSet(vProve.ForPago, "N", "S") & "," & DBSet(CadProve, "N", "S") & ")"
-            CadProve = ""
+            cadProve = DevuelveDesdeBD(conAri, "codmacta", "sbanpr", "codbanpr", vProve.BancoPropio)
+            SQL = SQL & "," & DBSet(vProve.ForPago, "N", "S") & "," & DBSet(cadProve, "N", "S") & ","
+            cadProve = ""
+            
+            'PAIS
+            If vParamAplic.ContabilidadNueva Then
+                Aux = DevuelveDesdeBD(conAri, "codpais", "sprove", "codprove", vProve.Codigo)
+                If Aux = "" Then
+                    Aux = ValorNulo
+                Else
+                    Aux = DBSet(Aux, "T")
+                End If
+            Else
+                Aux = ValorNulo
+            End If
+            SQL = SQL & Aux & ","
+            
+            'CuentaBAnco
+            If vParamAplic.ContabilidadNueva Then
+                Aux = MiFormat(vProve.IBAN, "") & MiFormat(vProve.Banco, "0000") & MiFormat(vProve.Sucursal, "0000") & MiFormat(vProve.DigControl, "00") & MiFormat(vProve.CuentaBan, "0000000000")
+                SQL = SQL & DBSet(Aux, "T")
+
+            Else
+                
+                If vProve.Banco = "" Then
+                    SQL = SQL & "NULL"
+                Else
+                    SQL = SQL & "'" & Format(vProve.Banco, "0000") & "'"
+                End If
+                SQL = SQL & ","
+                If vProve.Sucursal = "" Then
+                    SQL = SQL & "NULL"
+                Else
+                    SQL = SQL & "'" & Format(vProve.Sucursal, "0000") & "'"
+                End If
+                SQL = SQL & ","
+                If vProve.DigControl = "" Then
+                    SQL = SQL & "NULL"
+                Else
+                    SQL = SQL & "'" & Format(vProve.DigControl, "00") & "'"
+                End If
+                SQL = SQL & ","
+                If vProve.CuentaBan = "" Then
+                    SQL = SQL & "NULL"
+                Else
+                    SQL = SQL & "'" & Format(vProve.CuentaBan, "0000000000") & "'"
+                End If
+                            
+                SQL = SQL & ","
+                If vProve.IBAN = "" Then
+                    SQL = SQL & "NULL"
+                Else
+                    SQL = SQL & "'" & vProve.IBAN & "'"
+                End If
+            End If
+            SQL = SQL & ")"
+            
+            
+            
             ConnConta.Execute SQL
-            InsertaEnContaB SQL
-            CadProve = vProve.Nombre
+            cadProve = vProve.Nombre
             b = True
         Else
             b = False
         End If
         Set vProve = Nothing
+    
+    ' ---- [02/10/2009] (LAURA): crear cuenta en familias articulos
+    ElseIf cadFamia <> "" Then 'cuentas familias articulos
+        SQL = SQL & DBSet(cadFamia, "T") & ",'S',0," & DBSet(cadFamia, "T") & "," & ValorNulo & ","
+        SQL = SQL & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo & ","
+        SQL = SQL & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo & ","
+        'Forma pago y cuenta banco por defecto
+        If Not vParamAplic.ContabilidadNueva Then SQL = SQL & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo & ","
+        SQL = SQL & ValorNulo & "," & ValorNulo & ")"
+        
+        ConnConta.Execute SQL
+        b = True
+    ' ----
     End If
     
 EInsCta:
     If Err.Number <> 0 Then
         b = False
-        MuestraError Err.Description, "Insertando cuenta contable", Err.Description
+        MuestraError Err.Number, "Insertando cuenta contable", Err.Description
     End If
     InsertarCuentaCble = b
 End Function
+
+
+
+
+
+
+
+
 
 Private Sub InsertaEnContaB(ByRef SQ As String)
 Dim C As String
@@ -1716,7 +1905,11 @@ Dim J As Integer
         MsgBox "NO se ha podido comprobar para la CONTA.......   El proceso continua", vbExclamation
     Else
         C = Mid(SQ, J + 20) '20=len(INSERT INTO cuentas("
-        C = "INSERT INTO conta" & vParamAplic.ContabilidadB & ".cuentas(" & C
+        If vParamAplic.ContabilidadNueva Then
+            C = "INSERT INTO ariconta" & vParamAplic.ContabilidadB & ".cuentas(" & C
+        Else
+            C = "INSERT INTO conta" & vParamAplic.ContabilidadB & ".cuentas(" & C
+        End If
         If vParamAplic.ContabilidadB > 0 Then ConnConta.Execute C
     End If
     If Err.Number <> 0 Then
@@ -1727,18 +1920,18 @@ End Sub
 
 
 
-'He cambiado el metodo a public
-Public Function InsertarCuentaCbleDescripcion(Cuenta As String, Descripcion As String) As Boolean
-Dim SQL As String
-
-
-   
-    
-    SQL = "INSERT INTO cuentas (codmacta,nommacta,apudirec,model347,razosoci) "
-    SQL = SQL & " VALUES ('" & Cuenta & "','" & DevNombreSQL(Descripcion) & "','S',0,'" & DevNombreSQL(Descripcion) & "')"
-    ConnConta.Execute SQL
-
-End Function
+''He cambiado el metodo a public
+'Public Function InsertarCuentaCbleDescripcion(Cuenta As String, Descripcion As String) As Boolean
+'Dim SQL As String
+'
+'
+'
+'
+'    SQL = "INSERT INTO cuentas (codmacta,nommacta,apudirec,model347,razosoci) "
+'    SQL = SQL & " VALUES ('" & Cuenta & "','" & DevNombreSQL(Descripcion) & "','S',0,'" & DevNombreSQL(Descripcion) & "')"
+'    ConnConta.Execute SQL
+'
+'End Function
 
 
 
@@ -1831,7 +2024,7 @@ On Error GoTo ELanzaHome
         Exit Function
     End If
 
-    Call ShellExecute(hWnd, "Open", "mailto: " & dirMail, "", "", vbNormalFocus)
+    Call ShellExecute(hwnd, "Open", "mailto: " & dirMail, "", "", vbNormalFocus)
     LanzaMailGnral = True
     
 ELanzaHome:
@@ -1839,15 +2032,15 @@ ELanzaHome:
 End Function
 
 
-Public Function PonerArticuloEan(ByRef txtCod As TextBox, ByRef txtNom As TextBox, codAlm As String, tipoMov As String, Optional Modo As Byte, Optional AntCodArtic As String, Optional sConLotes As Boolean, Optional ByRef TxTProv As String) As Boolean
+Public Function PonerArticuloEAN(ByRef txtCod As TextBox, ByRef txtNom As TextBox, codAlm As String, tipoMov As String, Optional Modo As Byte, Optional AntCodArtic As String, Optional sConLotes As Boolean, Optional ByRef TxTProv As String) As Boolean
 Dim C As String
-    PonerArticuloEan = False
+    PonerArticuloEAN = False
     C = DevuelveDesdeBD(conAri, "codartic", "sartic", "codigoea", txtCod.Text, "T")
     If C = "" Then
         MsgBox "El codigo EAN no corresponde con ningun articulo", vbExclamation
     Else
         txtCod.Text = C
-        PonerArticuloEan = PonerArticulo(txtCod, txtNom, codAlm, tipoMov, Modo, AntCodArtic, sConLotes, TxTProv)
+        PonerArticuloEAN = PonerArticulo(txtCod, txtNom, codAlm, tipoMov, Modo, AntCodArtic, sConLotes, TxTProv)
     End If
 End Function
 
@@ -1931,4 +2124,18 @@ Dim Bloquea As Boolean
 End Function
 
 
+
+
+'Si es "" devuelve "" , si no, devuelve el campo formateado
+Private Function MiFormat(Valor As String, Formato As String) As String
+    If Trim(Valor) = "" Then
+       MiFormat = ""
+    Else
+        If Formato = "" Then
+            MiFormat = Valor
+        Else
+            MiFormat = Format(Valor, Formato)
+        End If
+    End If
+End Function
 

@@ -25,7 +25,7 @@ Private mvarDirFich As String 'copia local
 Private mvarNivel As Long 'copia local
 Private mvarCadenaConexion As String
 Private mvarPC As String
-
+Private mvarId As Integer
 
 Private mvarTrabajadorB As Boolean
 
@@ -170,7 +170,6 @@ Public Property Get CodigoTrabajador() As Integer
     CodigoTrabajador = mvarCodigoTrabajador
 End Property
 
-
 Public Property Let CodigoTrabajador(ByVal vData As Integer)
 'se usa cuando se asigna un valor a una propiedad, en el lado izquierdo de la asignación.
 'Syntax: X.Nombre= 5
@@ -178,21 +177,31 @@ Public Property Let CodigoTrabajador(ByVal vData As Integer)
 End Property
 
 
+
+Public Property Get Id_Usu() As Integer
+'se usa cuando se asigna un valor a una propiedad, en el lado derecho de la asignación.
+'Syntax: Debug.Print X.Codigo
+    Id_Usu = mvarId
+End Property
+
+
+
 Public Function Leer(ByVal vlogin As String) As Byte
 Attribute Leer.VB_Description = "Lee un grupo de formas de cobro en función del código que se le ha pasado. Si devuelve 0 se ha conseguido leer el dato."
-Dim i As Long
+Dim I As Long
     On Error GoTo Err1
     SQL = "SELECT * FROM usuarios.usuarios WHERE login = '" & vlogin & "'"
     SQL = SQL & " AND niveloli >=0"
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     If RS.EOF Then
         Leer = 1
     Else
-        i = DevuelveAumentoPC
+        I = DevuelveAumentoPC
         
-        mvarCodigo = Val(DBLet(RS!CodUsu)) + i
+        mvarCodigo = Val(DBLet(RS!CodUsu)) + I
+        mvarId = RS!CodUsu
         mvarNombre = DBLet(RS!nomusu)
         mvarNivel = Val(DBLet(RS!niveloli))
         mvarPasswdPROPIO = RS!passwordpropio

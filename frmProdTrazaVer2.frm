@@ -792,18 +792,18 @@ End Sub
 
 Private Sub PonerCampos2()
 Dim SQL As String
-Dim Cp As cPartidas
+Dim cP As cPartidas
 Dim N
 Dim CargaDesdeTmpTraza As Boolean
 
     PonerCamposForma Me, Data1
     TreeView1.Nodes.Clear
     ListView2.ListItems.Clear
-    Set Cp = New cPartidas
+    Set cP = New cPartidas
     conn.Execute "DELETE FROM tmptraza"
-    If Cp.LeerDesdeArticulo(Text1(1).Text, Data1.Recordset!codalmac, Data1.Recordset!NUmlote) Then
-        Cp.TrazbilidadDesdeVenta False, False
-        
+    If cP.LeerDesdeArticulo(Text1(1).Text, Data1.Recordset!codalmac, Data1.Recordset!NUmlote) Then
+        cP.TrazbilidadDesdeVenta False, False
+     
     End If
     
     
@@ -818,6 +818,8 @@ Dim CargaDesdeTmpTraza As Boolean
         Else
             If vParamAplic.QUE_EMPRESA = 4 Then
                 If Val(Data1.Recordset!codProve) = 0 And Mid(SQL, 1, 2) = "PR" Then CargaDesdeTmpTraza = True
+                If Val(Data1.Recordset!codProve) = 0 And Mid(SQL, 1, 3) = "CUP" Then CargaDesdeTmpTraza = True
+                If Val(Data1.Recordset!codProve) = 0 And Mid(SQL, 1, 3) = "TRS" Then CargaDesdeTmpTraza = True
             End If
         End If
         If CargaDesdeTmpTraza Then
@@ -836,7 +838,7 @@ Dim CargaDesdeTmpTraza As Boolean
     'Todos cargaran si hay ventas
     CargarDatosVentas
     Set miRsAux = Nothing
-    Set Cp = Nothing
+    Set cP = Nothing
 End Sub
 
 
@@ -1029,6 +1031,7 @@ Dim Fin2 As Boolean
                             contador = TreeView1.Nodes.Count + 1
                             Set N = TreeView1.Nodes.Add(padre, tvwChild, "C" & contador, C)
                             N.Tag = miRsAux!contador 'Clave
+                           
                         End If
                         
                         NivelActual = miRsAux!nivle
@@ -1302,7 +1305,7 @@ Dim vLote As String
     End If
     miRsAux.Close
     
-    If CadenaConsulta <> "" Then MsgBox CadenaConsulta, vbExclamation
+    'If CadenaConsulta <> "" Then MsgBox CadenaConsulta, vbExclamation
         
     
     
@@ -1314,10 +1317,25 @@ Dim vLote As String
     
     
     
-    CadenaConsulta = "INSERT INTO tmppartidas(codusu,idpartida,codartic,numlote,idOperacion,Referencia,cantidad,abs_cantidad) VALUES ("
+    CadenaConsulta = "INSERT INTO tmppartidas(codusu,idpartida,codartic,numlote,idOperacion,Referencia,cantidad,abs_cantidad,idNumOperacion) VALUES ("
     CadenaConsulta = CadenaConsulta & vUsu.Codigo & "," & Text1(2).Text & ",'" & Text1(1).Text & "',"
     CadenaConsulta = CadenaConsulta & DBSet(Text2.Text, "T") & "," & DBSet(Text1(0).Text, "T")
-    CadenaConsulta = CadenaConsulta & ",'" & Producida & "'," & DBSet(Text1(3).Text, "N", "N") & "," & DBSet(CantidadVenta, "N", "N") & ")"
+    CadenaConsulta = CadenaConsulta & ",'" & Producida & "'," & DBSet(Text1(3).Text, "N", "N") & "," & DBSet(CantidadVenta, "N", "N") & ","
+    CadenaDesdeOtroForm = DevuelveDesdeBD(conAri, "numalbar", "spartidas", "id", Text1(2).Text)
+    If Mid(CadenaDesdeOtroForm, 1, 3) = "CUP" Then
+        CadenaDesdeOtroForm = Mid(CadenaDesdeOtroForm, 4)
+        CadenaDesdeOtroForm = Val(CadenaDesdeOtroForm)
+        CadenaDesdeOtroForm = DevuelveDesdeBD(conAri, "deposito", "olicoupage", "codigo", CadenaDesdeOtroForm)
+        If CadenaDesdeOtroForm = "" Then
+            CadenaDesdeOtroForm = "null"
+        Else
+            CadenaDesdeOtroForm = "'Deposito " & CadenaDesdeOtroForm & "'"
+        End If
+    Else
+        CadenaDesdeOtroForm = "null"
+    End If
+        
+    CadenaConsulta = CadenaConsulta & CadenaDesdeOtroForm & ")"
     conn.Execute CadenaConsulta
     
       
@@ -1377,7 +1395,7 @@ Dim Cad As String
     Else
     
         If Mid(TreeView1.SelectedItem.Text, 1, 3) = "MOL" Then
-            
+            MsgBox TreeView1.SelectedItem.Tag
             I = InStr(1, TreeView1.SelectedItem.Text, "Id:")
             If I = 0 Then Exit Sub
             Cad = Mid(TreeView1.SelectedItem.Text, I + 3)
@@ -1451,13 +1469,14 @@ Dim Solapar As Boolean
 Dim DosHijos As Boolean
     
     
+    'If InStr(1, TreeView1.Nodes(QueNodo).Text, "UP 239") > 0 Then Stop
     
     If TreeView1.Nodes(QueNodo).Children > 0 Then
         
         
             DosHijos = False
-            If TreeView1.Nodes(QueNodo).Children = 2 Then DosHijos = True
-            'If Not DosHijos Then Stop
+            If TreeView1.Nodes(QueNodo).Children >= 2 Then DosHijos = True
+            
            
             Depos1 = -1
             Depos2 = 0
@@ -1467,8 +1486,20 @@ Dim DosHijos As Boolean
             tipo1 = EsMolturacionOCoupage(N1.Text)
             If tipo1 > 0 Then
                 Depos1 = DepositoMolturacionCoupage(N1.Text, tipo1 = 1)
-                Set N2 = N1.Next
                 
+                If TreeView1.Nodes(QueNodo).Children > 1 Then
+                    Set N2 = N1.Next
+                Else
+                    Set N2 = Nothing
+                    
+                End If
+                
+               
+                If Not N2 Is Nothing Then
+                    'Debug.Print TreeView1.Nodes(QueNodo).Text
+                    'If N1.Text = N2.Text Then Stop
+                    'If InStr(1, N2.Text, "UP 115") > 0 Then Stop
+                End If
                 
                 If DosHijos Then
                     tipo2 = EsMolturacionOCoupage(N2.Text)
@@ -1477,7 +1508,14 @@ Dim DosHijos As Boolean
                     'Le pongo que tiene el mismo deposito y todo igual
                     tipo2 = 2   'Le digo que es una molturacion , de nmentiras, para que solapa ahi abajo
                     Depos2 = Depos1
+                    If QueNodo = 1 And Not N2 Is Nothing Then
+                        If TreeView1.Nodes(QueNodo).Children > 2 Then
+                            If EsMolturacionOCoupage(N2.Next.Text) Then Depos2 = -1
+                        End If
+                    End If
                 End If
+            Else
+                
             End If
             
             'If N2.Tag = 37 Then Stop
@@ -1498,10 +1536,22 @@ Dim DosHijos As Boolean
             
             'Si puede solapar, Y, repito, Y, el deposito son los mismos que el origen
             If Solapar Then
-                If Depos1 = Depos2 And Depos1 = DepositoOrigen Then
-                    Solapar = True
+                If Depos1 = Depos2 Then
+                    If Depos1 = DepositoOrigen Then
+                        Solapar = True
+                    Else
+                       ' Stop
+                         If tipo1 = 2 And tipo2 = 1 Then Stop
+                        Solapar = True
+                    End If
                 Else
                     Solapar = False
+                End If
+            Else
+                'Stop
+                If Depos1 = Depos2 Then
+                    'Stop
+                    Solapar = True
                 End If
             End If
             
@@ -1511,15 +1561,29 @@ Dim DosHijos As Boolean
             
             'Si son coupage. Lanzo a ver si podemos resumir lo que cuelga
             If tipo1 = 1 Then
+                
                 HacerNodImpresionRecursivo N1.Index, Depos1, Solapar
                 
             End If
             If tipo2 = 1 Then
-                If DosHijos Then HacerNodImpresionRecursivo N2.Index, Depos2, Solapar
+                
+                If DosHijos Then
+                    HacerNodImpresionRecursivo N2.Index, Depos2, Solapar
+                Else
+                    Stop
+                End If
+                
             End If
             
-            
-            
+            If TreeView1.Nodes(QueNodo).Children > 2 Then
+                
+                HacerNodImpresionRecursivo N2.Next.Index, Depos2, Solapar
+                'If Not Solapar Then HacerNodImpresionRecursivo N2.Next.Index, Depos2, Solapar
+                
+                If TreeView1.Nodes(QueNodo).Children > 3 Then Stop
+                
+            End If
+                        
             
             If Solapar Then
                 
@@ -1528,17 +1592,18 @@ Dim DosHijos As Boolean
             
             
             
-            
+            'If InStr(1, TreeView1.Nodes(QueNodo).Text, "CUP 34") > 0 Then Stop
             
             'Solapamos
             If Solapar Then
-               
+                
+                
                 
                 'Bajamos un nivel, para que no se desplaze
                 
                 BajarUnNivel N1.Index
                 If DosHijos Then BajarUnNivel N2.Index
-                
+                If TreeView1.Nodes(QueNodo).Children > 2 Then Stop: N2.Next.Index
                 
                 Aux2 = TreeView1.Nodes(QueNodo).Tag
                 Aux2 = "Delete from tmptraza where codusu =" & vUsu.Codigo & " AND contador =" & Aux2
@@ -1566,7 +1631,7 @@ Dim N1
     If TreeView1.Nodes(QueNodo).Children > 0 Then
         Set N1 = TreeView1.Nodes(QueNodo).Child
         Do
-            'Debug.Print "Tag: " & N1.Tag
+           ' Debug.Print "Tag: " & N1.Tag
             BajarUnNivel N1.Index
             Set N1 = N1.Next
         Loop Until N1 Is Nothing

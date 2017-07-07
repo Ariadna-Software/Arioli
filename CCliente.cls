@@ -53,9 +53,12 @@ Private mFecUltMovim As String 'Fecha del ult. movimiento del cliente
 
 Private mWwwClien As String 'web del cliente
 
+
 'Dic2013
 Private mIban As String
 
+'Jun17
+Private mPais As String
 
 '------------------------------------------------
 'Propiedades del modulo CCliente
@@ -354,6 +357,11 @@ Public Property Get IBAN() As String
 End Property
 
 
+Public Property Get Pais() As String
+     Pais = mPais
+End Property
+
+
 '------------------------------------------------
 'Procedimientos del modulo CCliente
 '------------------------------------------------
@@ -391,11 +399,12 @@ Dim SQL As String
     LeerDatos = False
     
     SQL = "SELECT codclien,nomclien,nomcomer,codpobla,domclien,pobclien,proclien,nifclien,wwwclien,codenvio,codagent,codforpa,codbanco,codsucur,digcontr,cuentaba,telclie1,maiclie1,clivario,dtoppago,dtognral,codtarif,codsitua,tipofact,kilometr,fechamov,observac,iban "
+    If vParamAplic.ContabilidadNueva Then SQL = SQL & ", codpais"
     SQL = SQL & " FROM sclien "
     SQL = SQL & " WHERE codclien=" & vCodClien
     
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
 
     If RS.EOF Then
         LeerDatos = False
@@ -436,6 +445,9 @@ Dim SQL As String
 
         mFecUltMovim = DBLet(RS!Fechamov, "T")
         
+        If vParamAplic.ContabilidadNueva Then mPais = DBLet(RS!codpais, "T")
+        
+        
         LeerDatos = True
     End If
 
@@ -468,7 +480,7 @@ Dim SQL As String
     SQL = SQL & " WHERE nifclien=" & DBSet(vNIF, "T")
     
     Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
 
     If RS.EOF Then
         LeerDatosCliVario = False
@@ -529,7 +541,7 @@ Dim Devuelve As String
         SQL = SQL & " VALUES (" & DBSet(vNIF, "T") & ", " & DBSet(Nombre, "T") & ", " & DBSet(Domicilio, "T") & ", "
         SQL = SQL & DBSet(CPostal, "T") & ", " & DBSet(Poblacion, "T") & ", " & DBSet(Provincia, "T") & ", " & DBSet(TfnoClien, "T") & ")"
     End If
-    Conn.Execute SQL, , adCmdText
+    conn.Execute SQL, , adCmdText
     
     ActualizarClienteV = True
     
@@ -641,15 +653,15 @@ End Function
 
 Public Function Bonifica() As Boolean
 'Indica si al cliente se le aplican bonificaciones o no
-Dim cad As String
+Dim Cad As String
 
     On Error GoTo EBonifica
     Bonifica = False
     
-    cad = DevuelveDesdeBDNew(conAri, "sclien", "codtarif", "codclien", Codigo, "N")
-    If cad <> "" Then
-        cad = DevuelveDesdeBDNew(conAri, "starif", "bonifica", "codlista", cad, "N")
-        If cad <> "" Then Bonifica = CBool(cad)
+    Cad = DevuelveDesdeBDNew(conAri, "sclien", "codtarif", "codclien", Codigo, "N")
+    If Cad <> "" Then
+        Cad = DevuelveDesdeBDNew(conAri, "starif", "bonifica", "codlista", Cad, "N")
+        If Cad <> "" Then Bonifica = CBool(Cad)
     End If
     
 EBonifica:
@@ -683,7 +695,7 @@ Dim actualiza As Boolean
     If actualiza Then
         SQL = "UPDATE sclien SET fechamov=" & DBSet(vFecha, "F")
         SQL = SQL & " WHERE codclien=" & Codigo
-        Conn.Execute SQL, , adCmdText
+        conn.Execute SQL, , adCmdText
     End If
     b = True
         
@@ -705,13 +717,13 @@ End Sub
 
 
 
-Public Function ComprobarCtaBancaria(cadmen As String) As Boolean
+Public Function ComprobarCtaBancaria(cadMen As String) As Boolean
 'comprueba q el cliente tenga cuenta bancaria y que sea correcta
 Dim cta As String
 
     If Me.Banco = 0 And Me.Sucursal = 0 And Me.DigControl = "" And Me.CuentaBan = "" Then
         ComprobarCtaBancaria = False
-        cadmen = "El cliente no tiene asignada cuenta bancaria."
+        cadMen = "El cliente no tiene asignada cuenta bancaria."
         Exit Function
     End If
     
@@ -721,13 +733,13 @@ Dim cta As String
     
     If Val(ComprobarCero(cta)) = 0 Then
         ComprobarCtaBancaria = False
-        cadmen = "El cliente no tiene asignada cuenta bancaria."
+        cadMen = "El cliente no tiene asignada cuenta bancaria."
         Exit Function
     End If
     
     
     If Not Comprueba_CC(cta) Then
-        cadmen = "La cuenta bancaria del cliente no es correcta."
+        cadMen = "La cuenta bancaria del cliente no es correcta."
         ComprobarCtaBancaria = False
     Else
         ComprobarCtaBancaria = True

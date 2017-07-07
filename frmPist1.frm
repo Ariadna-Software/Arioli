@@ -2205,7 +2205,7 @@ Dim cPal As CPalet
 
 Dim SQL As String
 Dim RS As ADODB.Recordset
-Dim cP As cPartidas   'la lee en el lostfocus
+Dim Cp As cPartidas   'la lee en el lostfocus
 
 Dim Tiempo1 As Single  'Para que cada xTiempo vuelva a leer las lineas
 
@@ -2281,10 +2281,10 @@ Dim Indice As Integer
     'De momento esta solo para el aceite. Tambien podremos regularizar las
     'partidas cuando sean final de lote
     ' Como NO cierra el aceite desde aqui, numdeposito=0
-    If cLinPr.CerrarParaCambioLote(Can, Cajas, IndexSublinea, cP.numLote, False, 0) Then
+    If cLinPr.CerrarParaCambioLote(Can, Cajas, IndexSublinea, Cp.NUmlote, False, 0) Then
         'Y marco la etiqueta como "empuieza en produccion"
         SQL = "UPDATE spartidaslin set fechaulizada = " & DBSet(Now, "FH")
-        SQL = SQL & " WHERE  bulto = " & Right(Text2.Text, 3) & " AND id = " & cP.idPartida
+        SQL = SQL & " WHERE  bulto = " & Right(Text2.Text, 3) & " AND id = " & Cp.idPartida
         EjecutaSQL conAri, SQL, True
         Unload Me
     End If
@@ -2293,7 +2293,7 @@ End Sub
 
 Private Sub cmdAceptarNPalet_Click()
 Dim OK As Boolean
-Dim aux As String
+Dim Aux As String
 Dim i As Integer
 Dim NP As Long
 Dim Imprime As Boolean
@@ -2390,10 +2390,10 @@ Dim Imprime As Boolean
                 If InStr(1, ValoresLeidos, "|" & idTrazaAntiguo & "|") = 0 Then
                 
                     'Vere si no esa ya insertado
-                    aux = "idpalet=" & NP & " AND lotetraza "
-                    aux = DevuelveDesdeBD(conAri, "lotetraza", "prodpaletstraza", aux, CStr(idTrazaAntiguo))
+                    Aux = "idpalet=" & NP & " AND lotetraza "
+                    Aux = DevuelveDesdeBD(conAri, "lotetraza", "prodpaletstraza", Aux, CStr(idTrazaAntiguo))
                     'No existia
-                    If aux = "" Then SQL = SQL & ", (" & NP & "," & Mid(Me.lwNPalet.ListItems(i).Text, 1, 8) & ",NOW())"
+                    If Aux = "" Then SQL = SQL & ", (" & NP & "," & Mid(Me.lwNPalet.ListItems(i).Text, 1, 8) & ",NOW())"
                     
                     ValoresLeidos = ValoresLeidos & idTrazaAntiguo & "|"
                 End If
@@ -2970,7 +2970,7 @@ Dim SL As cLineaProCompo
         If Text2.Text = "" Or Text3.Text = "" Then
             SQL = "Lea etiqueta materia prima"
         Else
-            If cP Is Nothing Then
+            If Cp Is Nothing Then
                 SQL = "No se ha cargado los datos de produccion actual de la linea "
             Else
                 If SubLinea Is Nothing Then SQL = "No se ha identificado la materia prima/auxiliar"
@@ -3006,11 +3006,11 @@ Dim SL As cLineaProCompo
         Next
         Set SL = Nothing
     End If
-    If cP.numLote = SubLinea.LoteMateria Then
+    If Cp.NUmlote = SubLinea.LoteMateria Then
         'Mismo lote. Ha cambiado el bulto de materia auxiliar para embasar
         SQL = Right(Text2.Text, 3)
         SQL = "bulto = " & SQL & " AND id "
-        SQL = DevuelveDesdeBD(conAri, "fechaulizada", "spartidaslin", SQL, cP.idPartida, "N")
+        SQL = DevuelveDesdeBD(conAri, "fechaulizada", "spartidaslin", SQL, Cp.idPartida, "N")
         If SQL <> "" Then
             SQL = "El bulto esta marcado como producido (" & SQL & ")"
             SQL = SQL & vbCrLf & "¿Continuar?"
@@ -3019,7 +3019,7 @@ Dim SL As cLineaProCompo
     
         'Marcamos como en produccion y salimos
         SQL = "UPDATE spartidaslin set fechaulizada = " & DBSet(Now, "FH")
-        SQL = SQL & " WHERE  bulto = " & Right(Text2.Text, 3) & " AND id = " & cP.idPartida
+        SQL = SQL & " WHERE  bulto = " & Right(Text2.Text, 3) & " AND id = " & Cp.idPartida
         EjecutaSQL conAri, SQL, True
         
         'Nos salimos
@@ -3102,7 +3102,7 @@ Private Sub Form_Unload(Cancel As Integer)
         PonerFramePpal
         Cancel = 1
     Else
-        Set cP = Nothing
+        Set Cp = Nothing
         Set cLinPr = Nothing
         Set SubLinea = Nothing
         Set RS = Nothing
@@ -3165,7 +3165,7 @@ Private Sub LimpiarLineas()
     Text2.Text = ""
     Text3.Text = ""
     IndexSublinea = 0
-    Set cP = Nothing
+    Set Cp = Nothing
     Set SubLinea = Nothing
 End Sub
 
@@ -3331,7 +3331,7 @@ Dim SQL As String
 
 
 
-        '---------------------------------------------------------
+        '--------------------------------------------------------- ZC1003841259400000592423300000387
         '
     'Junio 2014
     'SSCC   ->  Ver [SSCC] en impresion de palets  EAN128
@@ -3347,7 +3347,7 @@ Dim SQL As String
       
         
         'Comprobacion
-        
+        cadErr = ""
         If Len(SQL) <> 18 Then
             cadErr = "Longitud incorrecta"
         Else
@@ -3369,14 +3369,13 @@ Dim SQL As String
                     'TextoLecturasExpedicion "SSCC " & Mid(Text12.Text = "", 1, 12) & "... >  " & L
         
                     Text12.Text = SQL
-        
                 End If
             End If
             
         End If
         If cadErr <> "" Then
             cadErr = "SSCC " & cadErr
-            MsgBox SQL, vbExclamation
+            'MsgBox SQL, vbExclamation
             Text12.Text = ""
             PonerFoco Text12
             
@@ -3387,18 +3386,6 @@ Dim SQL As String
 
     
     
-    
-    
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3431,15 +3418,84 @@ End Sub
 
 Private Sub Text13_LostFocus(Index As Integer)
 Dim C As String
-
+Dim Aux2 As String
+Dim L As Long
+Dim txSCC As String
      If Index <> 0 Then Exit Sub 'Solo el index=0
     
     
      Text13(0).Text = Trim(Text13(0).Text)
      If Text13(0).Text = "" Then Exit Sub
-    
+     
+     
+    'Abril 2017
+    'Si es lectura PALET SSCC EAN128, lo transforammos a nuestra lectura
+    'SSCC   ->  Ver [SSCC] en impresion de palets  EAN128
+    ' LA etiquetas se leen de palet de oliveline se leen C1003841259400000592423300000387
+    L = InStr(1, Text13(0).Text, "C10038412594")   'este es el barrado
+    If L > 0 Then
+        txSCC = Text13(0).Text
+        'En la expedicion dejare que lea los palets etiquetados
+        'en formato SSCC.  Con lo cual
+        Aux2 = Mid(Text13(0).Text, L + 4)
+        
+        'El fin del sscc es 10 caracteres despues
+        If Len(Aux2) > 18 Then Aux2 = Mid(Aux2, 1, 18)
+      
+         
+     
+     
+        'Comprobacion
+        If Len(Aux2) <> 18 Then
+            Text13(1).Text = "Longitud incorrecta"
+        Else
+            If Not IsNumeric(Aux2) Then
+                Text13(1).Text = "Campo numerico"
+            Else
+                If Mid(Aux2, 1, 8) <> "38412594" Then   'los de morales empiezan asi
+                    Text13(1).Text = "no pertenece a Aceites Morales"
+                Else
+                    '(00)38412594xxxxxxxxxC  valen las ultimas 7 x
+                    Aux2 = Right(Aux2, 8) 'los utilmos 8
+                    Aux2 = Left(Aux2, 7)  'los primeros 7
+                    'AHORA tenemos el palet
+                    L = Val(Aux2)
+                    
+                    'Ahora lo formateo para nosotros, con len 10 y 1 al incio y al final
+                    Aux2 = "1" & Format(L, "00000000") & "1"
+                                        
+                    Text13(1).Text = "SSCC " & Mid(Text13(0).Text, 1, 12) & "... >  " & L
+        
+                    Text13(0).Text = Aux2
+        
+                End If
+            End If
+            
+        End If
+      End If
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
      If Not IsNumeric(Text13(0).Text) Then
-        Text13(1).Text = "Campo numerico"
+        Text13(1).Text = "Campo no numerico:" & Text13(0).Text & vbCrLf & txSCC
         
      Else
     
@@ -3629,7 +3685,7 @@ End Function
 
 Private Function PonerDatosDesdelecturaEtiqueta() As Boolean
 Dim N As Long
-Dim aux As String
+Dim Aux As String
 Dim Seguir As Boolean
 Dim NOEXISTE As Boolean
 
@@ -3655,8 +3711,8 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
     SQL = Mid(Text2.Text, 1, Len(Text2.Text) - 3)
     N = CLng(SQL) 'Si da error de desboramienot ya hablaremos
     SQL = ""
-    Set cP = New cPartidas
-    If Not cP.Leer(N) Then
+    Set Cp = New cPartidas
+    If Not Cp.Leer(N) Then
         'La etiqueta no pertenece a ninunga partida
         MsgBox "No pertence a ninguna partida", vbExclamation
         
@@ -3666,7 +3722,7 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
         'Facil. Comprobamos si el articulo es un subcomponente
         For N = 1 To cLinPr.CuantasMP
             If cLinPr.DevuelveComponenteLinea(CInt(N), SubLinea) Then
-                If SubLinea.codarticCompo = cP.codArtic Then
+                If SubLinea.codarticCompo = Cp.codartic Then
                     IndexSublinea = N 'para cuando mandemos el cierre de lote
                     Exit For
                 Else
@@ -3685,7 +3741,7 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
         'Veremos si para esta etiqueta esta marcado la fecha de produccion. Sginificaria que
         'ya ha sido utilizada
         SQL = "fechaulizada"
-        N = Val(DevuelveDesdeBD(conAri, "id", "spartidaslin", "bulto = " & Right(Text2.Text, 3) & " AND id", cP.idPartida, "N", SQL))
+        N = Val(DevuelveDesdeBD(conAri, "id", "spartidaslin", "bulto = " & Right(Text2.Text, 3) & " AND id", Cp.idPartida, "N", SQL))
         
         
         
@@ -3710,9 +3766,9 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
                 Set RS = New ADODB.Recordset
                 
                 RegularizarStockLotes = ""
-                If SubLinea.LoteMateria <> cP.numLote Then
+                If SubLinea.LoteMateria <> Cp.NUmlote Then
                     'Cambia de materia auxiliar. Veremos si ya no quedan de ese
-                    SQL = "Select * from spartidas where  codartic = " & DBSet(cP.codArtic, "T") & " AND numlote = " & DBSet(SubLinea.LoteMateria, "T")
+                    SQL = "Select * from spartidas where  codartic = " & DBSet(Cp.codartic, "T") & " AND numlote = " & DBSet(SubLinea.LoteMateria, "T")
                     RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                     If Not RS.EOF Then
                         If RS!cantotal <> 0 Then
@@ -3724,19 +3780,19 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
                 End If
             
                 'Vemos si es un cambio de lote, si existe uno mas antiguo que es el que deberia coger
-                If SubLinea.LoteMateria <> cP.numLote Then
+                If SubLinea.LoteMateria <> Cp.NUmlote Then
                     'HA CAMBIADO EL NUMERO DE LOTE
                     'select concat(numlote,"|",fecha,"|",cantotal,"|") from spartidas where codartic='002400180306'
                     'and numlote <> '429-A' and cantotal>0 order by fecha asc
                     
-                    SQL = "select * from spartidas left join sprove on spartidas.codprove=sprove.codprove where codartic = " & DBSet(cP.codArtic, "T") & " AND numlote <> " & DBSet(SubLinea.LoteMateria, "T")
+                    SQL = "select * from spartidas left join sprove on spartidas.codprove=sprove.codprove where codartic = " & DBSet(Cp.codartic, "T") & " AND numlote <> " & DBSet(SubLinea.LoteMateria, "T")
                     SQL = SQL & "  and cantotal>0 order by fecha asc "
                     RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                     If Not RS.EOF Then
                         'Si el lote NO es el que ha seleccionado, significa que hay uno mas antiguo
                         
-                        If RS!numLote <> cP.numLote Then
-                            SQL = "Lote mas antiguo: " & vbCrLf & "Lote: " & RS!numLote & "   Uds:" & RS!cantotal & vbCrLf
+                        If RS!NUmlote <> Cp.NUmlote Then
+                            SQL = "Lote mas antiguo: " & vbCrLf & "Lote: " & RS!NUmlote & "   Uds:" & RS!cantotal & vbCrLf
                             SQL = SQL & "Fecha: " & RS!Fecha & " - Alb:" & DBLet(RS!NumAlbar, "T") & vbCrLf
                             SQL = SQL & "Prov: " & RS!codProve & " " & DBLet(RS!nomprove, "T")
                             SQL = SQL & vbCrLf & "¿Continuar?"
@@ -3766,18 +3822,18 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
                 If NOEXISTE Then Text3.Text = Text3.Text & "      NO existe en BD"
                 Text3.Text = Text3.Text & vbCrLf
                 'articulo del bulto
-                SQL = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", cP.codArtic)
+                SQL = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", Cp.codartic)
                 Text3.Text = Text3.Text & "Art: " & SQL & vbCrLf
-                Text3.Text = Text3.Text & "Albaran: " & cP.NumAlbar & "   Lote: " & cP.numLote & vbCrLf
-                If cP.codProve > 0 Then
-                    SQL = DevuelveDesdeBD(conAri, "nomprove", "sprove", "codprove", cP.codProve)
-                    Text3.Text = Text3.Text & "Prov: " & cP.codProve & "   " & SQL & vbCrLf
+                Text3.Text = Text3.Text & "Albaran: " & Cp.NumAlbar & "   Lote: " & Cp.NUmlote & vbCrLf
+                If Cp.codProve > 0 Then
+                    SQL = DevuelveDesdeBD(conAri, "nomprove", "sprove", "codprove", Cp.codProve)
+                    Text3.Text = Text3.Text & "Prov: " & Cp.codProve & "   " & SQL & vbCrLf
                 End If
                 
                 'Articulo en produccion
                 SQL = String(15, "-")
                 Text3 = Text3 & vbCrLf & SQL & "Produciendo" & SQL & vbCrLf
-                Text3.Text = Text3.Text & "Articulo: " & cLinPr.codArtic & vbCrLf
+                Text3.Text = Text3.Text & "Articulo: " & cLinPr.codartic & vbCrLf
                 Text3.Text = Text3.Text & " " & cLinPr.NomArtic
                 
                 
@@ -3853,7 +3909,7 @@ End Sub
 
 Private Sub Text7_LostFocus()
 Dim C As String
-Dim aux As String
+Dim Aux As String
 Dim OK As Boolean
 Dim EsUnaProduccionManual As Boolean
     
@@ -3887,30 +3943,30 @@ Dim EsUnaProduccionManual As Boolean
         'select * from prodcajas where lotetraza=27 and idcaja=5
         C = Mid(Text7, 1, Len(Text7.Text) - 5)
         C = "lotetraza = " & C & " AND idcaja"
-        aux = "lotetraza"
-        C = DevuelveDesdeBD(conAri, "idpalet", "prodcajas", C, Right(Text7.Text, 5), "N", aux)
+        Aux = "lotetraza"
+        C = DevuelveDesdeBD(conAri, "idpalet", "prodcajas", C, Right(Text7.Text, 5), "N", Aux)
         OK = False
-        If aux = "lotetraza" Then
+        If Aux = "lotetraza" Then
         
             If EsUnaProduccionManual Then
                 'Veremos si esta en marcha el lote
-                aux = "lineaprod"  'SOLO EN LA 8 o 9
-                C = DevuelveDesdeBD(conAri, "codigo", "prodtrazlin", "lotetraza", Left(Text7.Text, 8), "N", aux)
+                Aux = "lineaprod"  'SOLO EN LA 8 o 9
+                C = DevuelveDesdeBD(conAri, "codigo", "prodtrazlin", "lotetraza", Left(Text7.Text, 8), "N", Aux)
                 If C = "" Then
                     'No existe el lote
-                    aux = "No existe numero trazabilidad"
+                    Aux = "No existe numero trazabilidad"
                 Else
-                    If aux = "8" Or aux = "9" Then
-                        aux = InsertarEnNuevosPalets(True)
+                    If Aux = "8" Or Aux = "9" Then
+                        Aux = InsertarEnNuevosPalets(True)
                     Else
                         'OK intentamos insertaer
-                        aux = "No es la linea prod. manual"
+                        Aux = "No es la linea prod. manual"
                         
                     End If
                 End If
                 
             Else
-                aux = Text7.Text & "   caja no encon."
+                Aux = Text7.Text & "   caja no encon."
             End If
         Else
                 
@@ -3919,23 +3975,23 @@ Dim EsUnaProduccionManual As Boolean
                 'En las producciones manuales(de la linea de produccion 8(manual)
                 'las cajas NO deben existir. las crearemos desde aqui
                 
-                aux = "Ya existe la caja: " & Text7.Text
+                Aux = "Ya existe la caja: " & Text7.Text
                 
             Else
                 If C <> "" Then
                     'CAJA YA asignada
-                    aux = txtCajas.Text & " EN PALET " & C  'IGUAL DEBERIAMOS DEJARLA Y DESPUES DESASIGNARLA
+                    Aux = txtCajas.Text & " EN PALET " & C  'IGUAL DEBERIAMOS DEJARLA Y DESPUES DESASIGNARLA
                 Else
                     
                             
                     'OK la asigno
-                    aux = InsertarEnNuevosPalets(False)
+                    Aux = InsertarEnNuevosPalets(False)
                     
                 End If
             End If
         End If
    
-        Text5.Text = aux
+        Text5.Text = Aux
         Text7.Text = ""
         PonerFoco Text7
     
@@ -4142,7 +4198,7 @@ End Sub
 
 Private Sub txtCajas_LostFocus()
 Dim C As String
-Dim aux As String
+Dim Aux As String
 Dim OK As Boolean
 Dim LineaPal As String
 
@@ -4172,38 +4228,38 @@ Dim LineaPal As String
         'select * from prodcajas where lotetraza=27 and idcaja=5
         C = Mid(txtCajas, 1, Len(txtCajas.Text) - 5)
         C = "lotetraza = " & C & " AND idcaja"
-        aux = "lotetraza"
-        C = DevuelveDesdeBD(conAri, "idpalet", "prodcajas", C, Right(txtCajas.Text, 5), "N", aux)
+        Aux = "lotetraza"
+        C = DevuelveDesdeBD(conAri, "idpalet", "prodcajas", C, Right(txtCajas.Text, 5), "N", Aux)
         OK = False
-        If aux = "lotetraza" Then
-            aux = txtCajas.Text & "   caja no encon."
+        If Aux = "lotetraza" Then
+            Aux = txtCajas.Text & "   caja no encon."
         Else
             
             'Ok esta en el sistema
             If C <> "" Then
                 'CAJA YA asignada
-                aux = txtCajas.Text & " ya asig" & C
+                Aux = txtCajas.Text & " ya asig" & C
             Else
                 
                 'Ya tengo el lote de traza. Vere si esta produciendo asi o no
                 'Es decir. Vere si en la linea que me han indicado se esta paletizando todo esto
                 
                 'select * from prodtrazlin where lotetraza=1 lineaprod
-                LineaPal = DevuelveDesdeBD(conAri, "lineaprod", "prodtrazlin", "lotetraza", aux)
+                LineaPal = DevuelveDesdeBD(conAri, "lineaprod", "prodtrazlin", "lotetraza", Aux)
                 If LineaPal = "" Then
-                    aux = "Error obteniedo linea produccion del articulo"
+                    Aux = "Error obteniedo linea produccion del articulo"
                 Else
                     If Not cPal.LineasProd(CInt(LineaPal - 1)) Then
-                        aux = "NO en la linea  de produccion asociada" & LineaPal
+                        Aux = "NO en la linea  de produccion asociada" & LineaPal
                     Else
                         
                         'OK la asigno
-                        C = "UPDATE prodcajas set idpalet = " & txtIdPal.Text & " WHERE idcaja=" & Right(txtCajas.Text, 5) & " AND lotetraza=" & aux
+                        C = "UPDATE prodcajas set idpalet = " & txtIdPal.Text & " WHERE idcaja=" & Right(txtCajas.Text, 5) & " AND lotetraza=" & Aux
                         If EjecutaSQL(conAri, C) Then
-                            aux = "     OK. "
+                            Aux = "     OK. "
                             OK = True
                         Else
-                            aux = "ERROR SQL"
+                            Aux = "ERROR SQL"
                         End If
                     End If
                 End If
@@ -4212,7 +4268,7 @@ Dim LineaPal As String
         'If Not Ok Then
         '    txtObservaCajas.Text = Aux & vbCrLf & txtObservaCajas.Text
         'Else
-            txtObservaCajas.Text = aux
+            txtObservaCajas.Text = Aux
         'End If
         txtCajas.Text = ""
         PonerFoco txtCajas
@@ -4419,7 +4475,7 @@ End Sub
 
 Private Sub ProcesarCodigoCaja()
 Dim C As String
-Dim aux As String
+Dim Aux As String
 Dim OK As Boolean
 Dim LineaPal As String
 Dim CodigoCaja As String
@@ -4597,12 +4653,23 @@ Dim MismaOrden As Boolean
             'Sigue leyenod introduccion
             MismaOrden = False
             SQL = Mid(Text10.Text, 2, 7)
-            If Label5(0).Tag > 0 Then MismaOrden = Label5(0).Tag = Val(SQL)
-            If Not MismaOrden Then
+            If Label5(0).Tag > 0 Then
+                MismaOrden = Label5(0).Tag = Val(SQL)
+            Else
+                'Primera vez
+                MismaOrden = True
                 Label5(0).Tag = Val(SQL)
                 Label5(0).Caption = "Orden carga: " & SQL
-                Label5(1).Tag = 0
-                Label5(1).Caption = "Albaran: "
+            End If
+            If Not MismaOrden Then
+                If MsgBox("¿Cambiar orden de expedicion?", vbQuestion + vbYesNoCancel) = vbYes Then
+                    Label5(0).Tag = Val(SQL)
+                    Label5(0).Caption = "Orden carga: " & SQL
+                    Label5(1).Tag = 0
+                    Label5(1).Caption = "Albaran: "
+                Else
+                    lecturaOrdenExpedicion = "Proceso nueva exp. cancelado"
+                End If
             End If
         End If
         
@@ -4612,7 +4679,7 @@ End Function
 Private Function LeerPaletExpedicion() As String
 Dim Co As Collection
 Dim i As Integer
-Dim aux As Integer
+Dim Aux As Integer
 Dim CajasPorCargar As Integer
 Dim J As Integer
 Dim RN As ADODB.Recordset
@@ -4658,7 +4725,7 @@ Dim CadeLot As String
         'MEtere el codartic y las cajas
         Set Co = New Collection
         While Not RS.EOF
-            SQL = RS!codArtic & "|" & RS.Fields(1) & "|"
+            SQL = RS!codartic & "|" & RS.Fields(1) & "|"
             Co.Add SQL
             RS.MoveNext
         Wend
@@ -4679,9 +4746,9 @@ Dim CadeLot As String
             SQL = "Error grave. No se encuentra alb/art " & Label5(1).Tag & " /" & RecuperaValor(Co.Item(i), 1)
          Else
              CajasPorCargar = RS!vcajas - RS!vllevamos
-             aux = Val(RecuperaValor(Co.Item(i), 2))
-             If CajasPorCargar < aux Then
-                SQL = RS!codArtic & vbCrLf & "  Falta: " & CajasPorCargar & " Palet: " & aux
+             Aux = Val(RecuperaValor(Co.Item(i), 2))
+             If CajasPorCargar < Aux Then
+                SQL = RS!codartic & vbCrLf & "  Falta: " & CajasPorCargar & " Palet: " & Aux
              End If
          End If
          RS.Close
@@ -4712,7 +4779,7 @@ Dim CadeLot As String
          RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
          SQL = ""
          If Not RS.EOF Then
-            SQL = RS!numLote
+            SQL = RS!NUmlote
             If InStr(1, SQL, " ") > 0 Then
                 'ANtiguo
                 SQL = Trim(Mid(SQL, 1, InStr(1, SQL, " ")))
@@ -4756,16 +4823,16 @@ Dim CadeLot As String
         SQL = "select codartic,cajas,llevamos,codtipom,numalbar,numlinea  from srepartolot "
         SQL = SQL & " WHERE idreparto=" & Label5(0).Tag & " and numalbar=" & Label5(1).Tag & " and codartic=" & DBSet(RecuperaValor(Co.Item(i), 1), "T")
         RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-        aux = Val(RecuperaValor(Co.Item(i), 2))
+        Aux = Val(RecuperaValor(Co.Item(i), 2))
         'NO DEBE SER EOF
         While Not RS.EOF
              CajasPorCargar = RS!Cajas - RS!llevamos
-             If CajasPorCargar >= aux Then
+             If CajasPorCargar >= Aux Then
                   'De todas las del palet cojere las que son de este articulo
                   SQL = "select distinct(prodcajas.lotetraza) from prodlin,prodtrazlin,prodcajas  where "
                   SQL = SQL & " prodlin.Codigo = prodtrazlin.Codigo  AND prodlin.idlin = prodtrazlin.idlin And"
                   SQL = SQL & " prodtrazlin.lotetraza = prodcajas.lotetraza AND idpalet=" & Mid(Text10.Text, 2, 8)
-                  SQL = SQL & " AND codartic=" & DBSet(RS!codArtic, "T")
+                  SQL = SQL & " AND codartic=" & DBSet(RS!codartic, "T")
                   J = 0
                   RN.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                   CadeLot = ""
@@ -4810,7 +4877,7 @@ Dim CadeLot As String
                         J = J + 1
                         'insert
                         'INSERT INTO  srepartolotcaj(idreparto,codtipom,numalbar,numlinea,codartic,fecha,lotetraza,idcaja,idPalet) VALUES ("
-                        SQL = SQL & ", (" & Label5(0).Tag & ",1," & Label5(1).Tag & "," & RS!numlinea & "," & DBSet(RS!codArtic, "T") & ",now(),"
+                        SQL = SQL & ", (" & Label5(0).Tag & ",1," & Label5(1).Tag & "," & RS!numlinea & "," & DBSet(RS!codartic, "T") & ",now(),"
                         SQL = SQL & RN!lotetraza & "," & RN!idcaja & "," & RN!IdPalet & ")"
                         RN.MoveNext
                         
@@ -4903,7 +4970,7 @@ Dim IdPalet As Long
         Else
             'El codartic esta en nla primera linea del label, desde la posicion 4 hasta el ·
             'SQL = Mid(Label4(1).Caption, 1, InStr(Label4(1).Caption, "·") - 1)
-            SQL = DBSet(RS!codArtic, "T")
+            SQL = DBSet(RS!codartic, "T")
             SQL = "select * from srepartolot where idreparto=" & Label5(0).Tag & " and numalbar=" & Label5(1).Tag & " and codartic=" & SQL
         End If
         RS.Close
@@ -4924,7 +4991,7 @@ Dim IdPalet As Long
                     
                     'OK la caja pertenece al articulo
                     SQL = "INSERT INTO  srepartolotcaj(idreparto,codtipom,numalbar,numlinea,codartic,fecha,lotetraza,idcaja,idPalet) VALUES ("
-                    SQL = SQL & Label5(0).Tag & ",1," & Label5(1).Tag & "," & RS!numlinea & "," & DBSet(RS!codArtic, "T") & ",now(),"
+                    SQL = SQL & Label5(0).Tag & ",1," & Label5(1).Tag & "," & RS!numlinea & "," & DBSet(RS!codartic, "T") & ",now(),"
                     'caja y traza y palet que leyendo las cajas a mano ---> Lo tengo leido en IdPalet
                     SQL = SQL & Val(Mid(Text10.Text, 1, 8)) & " ," & Val(Mid(Text10, 9)) & "," & IdPalet & ")"
                     
@@ -5087,7 +5154,7 @@ Dim TodoBien As Boolean
 Dim RN As ADODB.Recordset
 Dim ColFalta As Collection
 Dim CuentaCajas As Integer
-Dim aux As String
+Dim Aux As String
 On Error GoTo eCierreAlb
     
     
@@ -5121,7 +5188,7 @@ On Error GoTo eCierreAlb
             'NO cuentan las mismas
             'Aqui añadiriamos ams cosas para el error
             
-            SQL = "Linea: " & RS!numlinea & "  -  " & RS!codArtic
+            SQL = "Linea: " & RS!numlinea & "  -  " & RS!codartic
             ColFalta.Add SQL
             
             
@@ -5141,11 +5208,11 @@ On Error GoTo eCierreAlb
     
     
     If ColFalta.Count > 0 Then
-        
-        If MsgBox("Faltan lineas por expedir", vbQuestion + vbYesNo) = vbNo Then
+        'Abril 2017. No dejo continuar
+        'If MsgBox("Faltan lineas por expedir", vbQuestion + vbYesNo) = vbNo Then
             PuedeCerrarAlbaran = "Faltan lineas por expedir"
             Exit Function
-        End If
+        'End If
     End If
         
     
@@ -5161,12 +5228,12 @@ On Error GoTo eCierreAlb
             SQL = "select slialb.codartic,unicajas,sum(cajas) vcajas,sum(cantidad) vcantidad from slialb,sartic where slialb.codartic=Sartic.codartic"
             SQL = SQL & " AND numalbar = " & Label5(1).Tag
             If idTipAlbaran = 1 Then SQL = SQL & " AND codtipom = 'ALV'"
-            SQL = SQL & " AND slialb.codartic = " & DBSet(RS!codArtic, "T")
+            SQL = SQL & " AND slialb.codartic = " & DBSet(RS!codartic, "T")
             SQL = SQL & " group by 1"
             
             RN.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             If RN.EOF Then
-                SQL = "NO se encuentra articulo albaran " & RS!codArtic & "/" & Label5(1).Tag
+                SQL = "NO se encuentra articulo albaran " & RS!codartic & "/" & Label5(1).Tag
             Else
                 'Si que esta
                 'veremos si el albaran esta bien las cajas uds
@@ -5245,7 +5312,7 @@ Dim vLin As Integer
     Bien = True
     While Not RS.EOF
         Set cPar = New cPartidas
-        SQL = RS!NumAlbar & "|" & RS!numlinea & "|" & RS!codArtic
+        SQL = RS!NumAlbar & "|" & RS!numlinea & "|" & RS!codartic
         If linea <> SQL Then
              vLin = 1
              linea = SQL
@@ -5253,14 +5320,14 @@ Dim vLin As Integer
             vLin = vLin + 1
         End If
         If Bien Then  'para que no haga las demas a partir del fallo
-            If cPar.LeerDesdeExpedicion(RS!codArtic, 1, Format(RS!lotetraza, "0000000000")) Then
+            If cPar.LeerDesdeExpedicion(RS!codartic, 1, Format(RS!lotetraza, "0000000000")) Then
                 If Not InsertarModificarLoteLinea(cPar, vLin) Then
-                    ActualizarLotajeAlbaran = "Ins/Mod lote: " & RS!codArtic & " " & cPar.numLote
+                    ActualizarLotajeAlbaran = "Ins/Mod lote: " & RS!codartic & " " & cPar.NUmlote
                     Bien = False
                 End If
             Else
                 Bien = False
-                ActualizarLotajeAlbaran = "Lote traza: " & RS!codArtic & " " & " " & cPar.numLote
+                ActualizarLotajeAlbaran = "Lote traza: " & RS!codartic & " " & " " & cPar.NUmlote
             End If
         End If
         RS.MoveNext
@@ -5287,20 +5354,20 @@ Dim cLot As cLotaje
     '---------------------
     Set cLot = New cLotaje
 
-    cLot.codArtic = cPa.codArtic
-    cLot.codAlmac = cPa.codAlmac
+    cLot.codartic = cPa.codartic
+    cLot.codalmac = cPa.codalmac
     cLot.DetaMov = "ALV"
     cLot.LineaDocu = RS!numlinea
     cLot.Documento = RS!NumAlbar
     cLot.tipoMov = 0
 
     
-    SQL = DevuelveDesdeBD(conAri, "unicajas", "sartic", "codartic", cPa.codArtic, "T")
+    SQL = DevuelveDesdeBD(conAri, "unicajas", "sartic", "codartic", cPa.codartic, "T")
     Can = Val(SQL)
     If Can = 0 Then Can = 1
     
     
-    cLot.numLote = cPa.numLote
+    cLot.NUmlote = cPa.NUmlote
     cLot.Cantidad = Can * ImporteFormateado(RS!Cantidad)
     cLot.SubLinea = vLineaLot 'La sublinea del lote 'Normalmente 1 o 2
   
@@ -5309,7 +5376,7 @@ Dim cLot As cLotaje
     SQL = SQL & cLot.DetaMov & "'," & cLot.Documento & "," & RS!numlinea & ","
     'SQL = SQL & txtAux(0).Text & ",'" & DevNombreSQL(txtAux(1).Text) & "'," & DBSet(txtAux(2).Text, "N") & ")"
     'Ahora
-    SQL = SQL & vLineaLot & ",'" & cPa.numLote & "'," & DBSet(cLot.Cantidad, "N") & ")"
+    SQL = SQL & vLineaLot & ",'" & cPa.NUmlote & "'," & DBSet(cLot.Cantidad, "N") & ")"
 
 
 
@@ -5383,12 +5450,12 @@ Dim ITx As ListItem
         While Not RS.EOF
             
             If Cargar Then
-                Set ITx = Me.ListView1(1).ListItems.Add(, , RS!codArtic)
+                Set ITx = Me.ListView1(1).ListItems.Add(, , RS!codartic)
                 ITx.SubItems(1) = RS!Cajas
                 ITx.SubItems(2) = RS!llevamos
                 ITx.SubItems(3) = RS!NomArtic
                 ITx.Tag = " idreparto=" & Label5(0).Tag & " and numalbar=" & IT.Text & " AND " & _
-                            "codtipom=" & RS!codTipoM & " AND numlinea=" & RS!numlinea & " AND codartic = '" & RS!codArtic & "'"
+                            "codtipom=" & RS!Codtipom & " AND numlinea=" & RS!numlinea & " AND codartic = '" & RS!codartic & "'"
                             
             End If
             If RS!Cajas - RS!llevamos <> 0 Then SQL = "NO"
@@ -5895,7 +5962,7 @@ Dim i As Byte
     MiRsAux.Open SQL, Conn, adOpenKeyset, adLockPessimistic, adCmdText
     CajasPalet = 0
     If Not MiRsAux.EOF Then
-        SQL = DevuelveDesdeBD(conAri, "pal_udbas*pal_udalt", "sarti4", "codartic", MiRsAux!codArtic, "T")
+        SQL = DevuelveDesdeBD(conAri, "pal_udbas*pal_udalt", "sarti4", "codartic", MiRsAux!codartic, "T")
         If SQL = "" Then SQL = "0"
         CajasPalet = Val(SQL)
         Label9(i).Caption = MiRsAux!NomArtic
@@ -6341,27 +6408,27 @@ Private Function AsignacionPrimerLoteProduccion() As Boolean
     'Si hay una etiqueta libre
     AsignacionPrimerLoteProduccion = False
     
-    If Not cLinPr.AsignarLoteLinea(IndexSublinea, cP.numLote, True) Then Exit Function
+    If Not cLinPr.AsignarLoteLinea(IndexSublinea, Cp.NUmlote, True) Then Exit Function
      
     SQL = "fechaulizada is null and id "
-    SQL = DevuelveDesdeBD(conAri, "min(bulto)", "spartidaslin", SQL, cP.idPartida)
+    SQL = DevuelveDesdeBD(conAri, "min(bulto)", "spartidaslin", SQL, Cp.idPartida)
     If SQL = "" Then
         'No hay ninguna libre
         'Veo a ver si hay
-        SQL = DevuelveDesdeBD(conAri, "bulto", "spartidaslin", "id", cP.idPartida)
+        SQL = DevuelveDesdeBD(conAri, "bulto", "spartidaslin", "id", Cp.idPartida)
         If SQL = "" Then
-            SQL = "ERROR leyendo etiquetas. No hay ninguna etiqueta para " & cP.codArtic
+            SQL = "ERROR leyendo etiquetas. No hay ninguna etiqueta para " & Cp.codartic
         
         Else
             MsgBox "No existe etiqueta libre", vbExclamation
-            SQL = " WHERE id = " & cP.idPartida & " AND bulto = " & SQL
+            SQL = " WHERE id = " & Cp.idPartida & " AND bulto = " & SQL
             SQL = "UPDATE spartidaslin Set fechaulizada = " & DBSet(Now, "FH") & SQL
             EjecutaSQL conAri, SQL, True
 
         End If
     Else
         'Si que hay libre
-        SQL = " WHERE id = " & cP.idPartida & " AND bulto = " & SQL
+        SQL = " WHERE id = " & Cp.idPartida & " AND bulto = " & SQL
         SQL = "UPDATE spartidaslin Set fechaulizada = " & DBSet(Now, "FH") & SQL
         EjecutaSQL conAri, SQL, True
         
@@ -6388,7 +6455,7 @@ End Sub
 Private Function LeerPaletExpedicionParaVariosAlbaranes(Comprobar As Boolean) As String
 Dim Co As Collection
 Dim i As Integer
-Dim aux As Integer
+Dim Aux As Integer
 Dim CajasPorCargar As Integer
 Dim J As Integer
 Dim RN As ADODB.Recordset
@@ -6433,7 +6500,7 @@ Dim CadeLot As String
 
     Set Co = New Collection
     While Not RS.EOF
-          SQL = RS!codArtic & "|" & RS.Fields(1) & "|"
+          SQL = RS!codartic & "|" & RS.Fields(1) & "|"
           Co.Add SQL
           RS.MoveNext
     Wend
@@ -6495,8 +6562,8 @@ Dim CadeLot As String
                     SQL = "Error grave. No se encuentra articulo de orden de carga" & Label5(1).Tag & " /" & RecuperaValor(Co.Item(i), 1)
                  Else
                      CajasPorCargar = RS!vcajas - RS!vllevamos
-                     aux = Val(RecuperaValor(Co.Item(i), 2))
-                     If CajasPorCargar < aux Then SQL = RS!codArtic & vbCrLf & "  Falta: " & CajasPorCargar & " Palet: " & aux
+                     Aux = Val(RecuperaValor(Co.Item(i), 2))
+                     If CajasPorCargar < Aux Then SQL = RS!codartic & vbCrLf & "  Falta: " & CajasPorCargar & " Palet: " & Aux
                      
                  End If
                  RS.Close
@@ -6527,7 +6594,7 @@ Dim CadeLot As String
                  RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                  SQL = ""
                  If Not RS.EOF Then
-                    SQL = RS!numLote
+                    SQL = RS!NUmlote
                     If InStr(1, SQL, " ") > 0 Then
                         'ANtiguo
                         SQL = Trim(Mid(SQL, 1, InStr(1, SQL, " ")))
@@ -6581,14 +6648,14 @@ Dim CadeLot As String
                     idTrazaAntiguo = RS!NumAlbar
                     SQL = "id=" & Label5(0).Tag & " and numalbar"
                     SQL = DevuelveDesdeBD(conAri, "albexpedido", "srepartol", SQL, CStr(idTrazaAntiguo))
-                    aux = 0
-                    If SQL = "1" Then aux = 1
+                    Aux = 0
+                    If SQL = "1" Then Aux = 1
                     
                 End If
                 
                 SQL = Format(RS!NumAlbar, "000000") & "        " & Format(RS!llevamos, "0000") & "           "
                 
-                If aux = 1 Then
+                If Aux = 1 Then
                     'ALBARAN EXPEDIDO
                     SQL = SQL & "    *"
                 Else
@@ -6640,7 +6707,7 @@ Dim CadeLot As String
                         Else
                         
                         'INSERT INTO  srepartolotcaj(idreparto,codtipom,numalbar,numlinea,codartic,fecha,lotetraza,idcaja,idPalet) VALUES "
-                            SQL = SQL & ", (" & Label5(0).Tag & ",1," & RS!NumAlbar & "," & RS!numlinea & "," & DBSet(RS!codArtic, "T") & ",now(),"
+                            SQL = SQL & ", (" & Label5(0).Tag & ",1," & RS!NumAlbar & "," & RS!numlinea & "," & DBSet(RS!codartic, "T") & ",now(),"
                             SQL = SQL & RN!lotetraza & "," & RN!idcaja & "," & RN!IdPalet & ")"
                             RN.MoveNext
                         End If
@@ -6659,8 +6726,8 @@ Dim CadeLot As String
                         
                         SQL = "UPDATE srepartolot set llevamos=llevamos + " & i
                         'idreparto codtipom numalbar numlinea codartic
-                        SQL = SQL & " WHERE idreparto =" & RS!idreparto & " and codartic=" & DBSet(RS!codArtic, "T")
-                        SQL = SQL & " AND codtipom =" & RS!codTipoM & " and numalbar=" & RS!NumAlbar
+                        SQL = SQL & " WHERE idreparto =" & RS!idreparto & " and codartic=" & DBSet(RS!codartic, "T")
+                        SQL = SQL & " AND codtipom =" & RS!Codtipom & " and numalbar=" & RS!NumAlbar
                         SQL = SQL & " AND numlinea =" & RS!numlinea
                         Conn.Execute SQL
                     End If
@@ -6841,19 +6908,19 @@ End Sub
 
 
 Private Sub ComprobarLuces()
-Dim aux As String
+Dim Aux As String
 Dim N As Long
-   aux = DevuelveDesdeBD(conAri, "count(*)", "prodcajasduplicadas", "1", "1")
-   If aux = "" Then aux = "0"
-   Me.imgRepetidos.Visible = Val(aux) > 0
+   Aux = DevuelveDesdeBD(conAri, "count(*)", "prodcajasduplicadas", "1", "1")
+   If Aux = "" Then Aux = "0"
+   Me.imgRepetidos.Visible = Val(Aux) > 0
    
    SQL = "now()"
-   aux = DevuelveDesdeBD(conAri, "max(fechahora)", "prodlecturaposte", "1", "1", "N", SQL)
-   If aux <> "" Then
-        N = DateDiff("n", aux, SQL)
-        If N < 4 Then aux = ""
+   Aux = DevuelveDesdeBD(conAri, "max(fechahora)", "prodlecturaposte", "1", "1", "N", SQL)
+   If Aux <> "" Then
+        N = DateDiff("n", Aux, SQL)
+        If N < 4 Then Aux = ""
    End If
-   Me.imgPoste.Visible = aux <> ""
+   Me.imgPoste.Visible = Aux <> ""
         
 End Sub
 
@@ -6881,7 +6948,7 @@ Dim IT As ListItem
             'Vemos si lo que lee es lo que escribe ;
             'Si realmente la caja es de lo que me ha dicho en el albarna
             idTrazaAntiguo = DBLet(RS!idreparto, "N")
-            Articu = RS!codArtic
+            Articu = RS!codartic
         End If
         RS.Close
         
@@ -6921,7 +6988,7 @@ Dim IT As ListItem
         SQL = "SELECT codartic,nomartic from sartic WHERE codartic = " & DBSet(Articu, "T")
         RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         Articu = RS!NomArtic  'NO puede ser EOF
-        SQL = RS!codArtic
+        SQL = RS!codartic
         RS.Close
         
         Set IT = Me.ListView1(2).ListItems.Add(, "T" & Text14.Text)

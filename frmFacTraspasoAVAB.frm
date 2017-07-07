@@ -148,9 +148,10 @@ End Sub
 Private Function HacerTrapaso() As Boolean
 Dim Col As Collection
 Dim SQL As String
-Dim i As Integer
+Dim I As Integer
 Dim Trab As String
 Dim CadenaDatosCabceraFra As String
+Dim DatosPagoP As String
 Dim vPro As CProveedor
 
     HacerTrapaso = False
@@ -172,10 +173,10 @@ Dim vPro As CProveedor
     'El meollo
     SQL = SQL & " AND not (codtipom,numfactu,fecfactu) IN (select codtipom,numfactu,fecfactu FROM straspasofra)"
     SQL = SQL & " ORDER BY 1,2,3"
-    miRsAux.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     While Not miRsAux.EOF
-            SQL = miRsAux!codTipoM & "|" & miRsAux!NumFactu & "|" & miRsAux!FecFactu & "|"
+            SQL = miRsAux!Codtipom & "|" & miRsAux!NumFactu & "|" & miRsAux!Fecfactu & "|"
             Col.Add SQL
             miRsAux.MoveNext
     Wend
@@ -209,7 +210,7 @@ Dim vPro As CProveedor
     'nomprove,domprove,codpobla,pobprove,proprove,nifprove,telprove,codforpa"
     CadenaDatosCabceraFra = ""
     SQL = "Select nomprove,domprove,codpobla,pobprove,proprove,nifprove,telprov1,codforpa from sprove where codprove=5"
-    miRsAux.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If miRsAux.EOF Then
         MsgBox "NO existe codprove=5", vbExclamation
     Else
@@ -217,6 +218,15 @@ Dim vPro As CProveedor
         CadenaDatosCabceraFra = CadenaDatosCabceraFra & DBSet(miRsAux!codpobla, "T") & "," & DBSet(miRsAux!pobprove, "T") & ","
         CadenaDatosCabceraFra = CadenaDatosCabceraFra & DBSet(miRsAux!proprove, "T") & "," & DBSet(miRsAux!nifProve, "T") & ","
         CadenaDatosCabceraFra = CadenaDatosCabceraFra & DBSet(miRsAux!telprov1, "T") & "," & DBSet(miRsAux!codforpa, "N") & ","
+        
+        'nomprove,domprove,pobprove,cpprove,proprove,nifprove,codpais,
+        If vParamAplic.ContabilidadNueva Then
+            DatosPagoP = DBSet(miRsAux!nomprove, "T") & "," & DBSet(miRsAux!domprove, "T") & ","
+            DatosPagoP = DatosPagoP & DBSet(miRsAux!pobprove, "T") & "," & DBSet(miRsAux!codpobla, "T") & ","
+            DatosPagoP = DatosPagoP & DBSet(miRsAux!proprove, "T") & "," & DBSet(miRsAux!nifProve, "T") & ","
+            DatosPagoP = DatosPagoP & "'ES')"
+                    
+        End If
     End If
     miRsAux.Close
     
@@ -233,27 +243,27 @@ Dim vPro As CProveedor
     '-------------- Vamos p'alla
     If BloqueoManual("trasfra", "1") Then
         
-        For i = 1 To Col.Count
-            SQL = Col.Item(i)
-            Label1.Caption = i & " de " & Col.Count & "          Fra: " & SQL
+        For I = 1 To Col.Count
+            SQL = Col.Item(I)
+            Label1.Caption = I & " de " & Col.Count & "          Fra: " & SQL
             Label1.Refresh
             
             
             ConnConta.BeginTrans
-            Conn.BeginTrans
-            If TraspasarUnaFactura(SQL, Trab, CadenaDatosCabceraFra, vPro) Then
-                Conn.CommitTrans
+            conn.BeginTrans
+            If TraspasarUnaFactura(SQL, Trab, CadenaDatosCabceraFra, vPro, DatosPagoP) Then
+                conn.CommitTrans
                 ConnConta.CommitTrans
             Else
-                Conn.RollbackTrans
+                conn.RollbackTrans
                 ConnConta.RollbackTrans
                 SQL = "¿Continuar con el proceso? [NO]"
-                If MsgBox(SQL, vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then i = Col.Count
+                If MsgBox(SQL, vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then I = Col.Count
             End If
             Espera 0.1
             DoEvents
         
-        Next i
+        Next I
         DesBloqueoManual "trasfra"
         Label1.Caption = ""
         Unload Me
@@ -263,7 +273,7 @@ End Function
 
 
 
-Private Function TraspasarUnaFactura(StrFactura As String, Trabajador As String, DatosCabcera As String, vPro As CProveedor) As Boolean
+Private Function TraspasarUnaFactura(StrFactura As String, Trabajador As String, DatosCabcera As String, vPro As CProveedor, dATOSpAGO As String) As Boolean
 Dim SQL As String
 Dim Insert As String
 Dim NumFacPRO As String
@@ -280,8 +290,8 @@ Dim R As ADODB.Recordset
         'Primero insertaremos la factura
         '
         '
-        SQL = "codprove,numfactu,fecfactu,fecrecep,nomprove,domprove,codpobla,pobprove,proprove,"
-        SQL = SQL & "nifprove,telprove,codforpa,codtraba,brutofac,dtoppago,dtognral,impppago,impgnral,"
+        SQL = "codprove,numfactu,fecfactu,fecrecep,nomprove,domprove,codpobla,pobprove,proprove,nifprove,"
+        SQL = SQL & "telprove,codforpa,codtraba,brutofac,dtoppago,dtognral,impppago,impgnral,"
         SQL = SQL & "baseiva1,baseiva2,baseiva3,tipoiva1,tipoiva2,tipoiva3,porciva1,porciva2,"
         SQL = SQL & "porciva3,porcrec1,porcrec2,porcrec3,impoiva1,impoiva2,impoiva3,"
         SQL = SQL & "imporec1,imporec2,imporec3,totalfac,presupuesto"
@@ -307,7 +317,7 @@ Dim R As ADODB.Recordset
         SQL = SQL & " FROM ariges" & EmprMorales & ".scafac WHERE codtipom='" & RecuperaValor(StrFactura, 1) & "' AND numfactu= " & Format(NumRegElim)
         SQL = SQL & " AND fecfactu = '" & Format(RecuperaValor(StrFactura, 3), FormatoFecha) & "'"
         SQL = Insert & SQL
-        Conn.Execute SQL
+        conn.Execute SQL
         
         
         'La de albaranes x fra
@@ -318,7 +328,7 @@ Dim R As ADODB.Recordset
         SQL = SQL & " FROM ariges" & EmprMorales & ".scafac1 WHERE codtipom='" & RecuperaValor(StrFactura, 1) & "' AND numfactu= " & Format(NumRegElim)
         SQL = SQL & " AND fecfactu = '" & Format(RecuperaValor(StrFactura, 3), FormatoFecha) & "'"
         SQL = Insert & SQL
-        Conn.Execute SQL
+        conn.Execute SQL
         
         'Las lineas
         
@@ -327,14 +337,14 @@ Dim R As ADODB.Recordset
         SQL = "Select codalmac,codartic,sum(cantidad) FROM ariges" & EmprMorales & ".slifac WHERE codtipom='" & RecuperaValor(StrFactura, 1) & "' AND numfactu= " & Format(NumRegElim)
         SQL = SQL & " AND fecfactu = '" & Format(RecuperaValor(StrFactura, 3), FormatoFecha) & "'"
         SQL = SQL & " GROUP BY 1,2"
-        R.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        R.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         While Not R.EOF
-            SQL = DevuelveDesdeBD(conAri, "codartic", "salmac", "codalmac=" & R!codalmac & " AND codartic ", CStr(R!codartic), "T")
+            SQL = DevuelveDesdeBD(conAri, "codartic", "salmac", "codalmac=" & R!codAlmac & " AND codartic ", CStr(R!codartic), "T")
             If SQL = "" Then
                 SQL = "insert INTO salmac(codartic,codalmac,ubialmac,canstock,statusin,preciomp,precioma,preciouc,preciost) "
-                SQL = SQL & " VALUES ('" & R!codartic & "'," & R!codalmac & ",''," & TransformaComasPuntos(DBLet(R.Fields(2), "N"))
+                SQL = SQL & " VALUES ('" & R!codartic & "'," & R!codAlmac & ",''," & TransformaComasPuntos(DBLet(R.Fields(2), "N"))
                 SQL = SQL & ",0,0,0,0,0)"
-                Conn.Execute SQL
+                conn.Execute SQL
             End If
             'Insertamos en smoval ?
             
@@ -352,7 +362,7 @@ Dim R As ADODB.Recordset
         SQL = SQL & " FROM ariges" & EmprMorales & ".slifac WHERE codtipom='" & RecuperaValor(StrFactura, 1) & "' AND numfactu= " & Format(NumRegElim)
         SQL = SQL & " AND fecfactu = '" & Format(RecuperaValor(StrFactura, 3), FormatoFecha) & "'"
         SQL = Insert & SQL
-        Conn.Execute SQL
+        conn.Execute SQL
         
         
                 
@@ -373,7 +383,7 @@ Dim R As ADODB.Recordset
         SQL = "insert into `straspasofra` (`codtipom`,`numfactu`,`fecfactu`,`codusu`,`fectraspaso`) "
         SQL = SQL & " values ('" & RecuperaValor(StrFactura, 1) & "'," & Format(NumRegElim)
         SQL = SQL & ",'" & Format(RecuperaValor(StrFactura, 3), FormatoFecha) & "'," & (vUsu.Codigo Mod 1000) & ",'" & Format(Now, FormatoFechaHora) & "')"
-        Conn.Execute SQL
+        conn.Execute SQL
         
         
         
@@ -386,22 +396,45 @@ Dim R As ADODB.Recordset
         
         SQL = "Select totalfac FROM ariges" & EmprMorales & ".scafac WHERE codtipom='" & RecuperaValor(StrFactura, 1) & "' AND numfactu= " & Format(NumRegElim)
         SQL = SQL & " AND fecfactu = '" & Format(RecuperaValor(StrFactura, 3), FormatoFecha) & "'"
-        R.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        R.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         Insert = CStr(R!TotalFac)
         R.Close
         
         SQL = Format(RecuperaValor(StrFactura, 3), FormatoFecha)
-        '`ctaprove`,`numfactu`,`fecfactu`,`numorden`,`codforpa`,`fecefect`
-        SQL = DBSet(vPro.CuentaCble, "T") & ",'" & NumFacPRO & "','" & SQL & "',1," & vPro.ForPago & ",'" & SQL
+        'numserie `ctaprove`,`numfactu`,`fecfactu`,`numorden`,`codforpa`,`fecefect`
+        SQL = "  (1," & DBSet(vPro.CuentaCble, "T") & ",'" & NumFacPRO & "','" & SQL & "',1," & vPro.ForPago & ",'" & SQL
         '`impefect`,`fecultpa`,`imppagad`,`ctabanc1`,`ctabanc2`,            Llevo la codmacta del banco
-        SQL = SQL & "'," & TransformaComasPuntos(Insert) & ",NULL,NULL,'" & vPro.Observaciones & "',NULL"
-        '`emitdocum`,`contdocu`,`text1csb`,`text2csb`,`entidad`,`oficina`,`CC`,`cuentaba`,`transfer`,`estacaja`,`referencia`)
-        SQL = SQL & ",0,0,NULL,NULL,'"
-        SQL = SQL & Format(vPro.Banco, "0000") & "','" & Format(vPro.Sucursal, "0000") & "','" & vPro.DigControl
-        SQL = SQL & "','" & vPro.CuentaBan & "',NULL,0,NULL)"
-        Insert = "INSERT INTO spagop (`ctaprove`,`numfactu`,`fecfactu`,`numorden`,`codforpa`,`fecefect`,"
-        Insert = Insert & "`impefect`,`fecultpa`,`imppagad`,`ctabanc1`,`ctabanc2`,"
-        Insert = Insert & "`emitdocum`,`contdocu`,`text1csb`,`text2csb`,`entidad`,`oficina`,`CC`,`cuentaba`,`transfer`,`estacaja`,`referencia`) values ("
+        SQL = SQL & "'," & TransformaComasPuntos(Insert) & ",NULL,NULL,'" & vPro.Observaciones & "',0,"
+      
+        If vParamAplic.ContabilidadNueva Then
+            'NADA
+            
+        Else
+            '`emitdocum`,`contdocu`,`text1csb`,`text2csb`,`entidad`,`oficina`,`CC`,`cuentaba`,`transfer`,`estacaja`,`referencia`)
+            SQL = SQL & ",0,0,NULL,NULL,'"
+            SQL = SQL & Format(vPro.Banco, "0000") & "','" & Format(vPro.Sucursal, "0000") & "','" & vPro.DigControl
+            SQL = SQL & "','" & vPro.CuentaBan & "',NULL,0,NULL)"
+        End If
+        
+      
+        If vParamAplic.ContabilidadNueva Then
+            
+            ',nommacta,dirdatos,codpobla,despobla,desprovi,nifdatos,codpais,
+            'SQL = SQL & "nomclien,domclien,codpobla,pobclien,proclien,nifclien,telclien,codforpa," & Trabajador & ","
+            SQL = SQL & DBSet("Factura " & NumFacPRO, "T") & ",NULL,"
+            SQL = SQL & dATOSpAGO
+            
+            Insert = "INSERT INTO pagos (numserie,`codmacta`,`numfactu`,`fecfactu`,`numorden`,`codforpa`,`fecefect`,`impefect`,`fecultpa`,"
+            Insert = Insert & "`imppagad`,`ctabanc1`,`emitdocum`,`text1csb`,`text2csb`"
+            Insert = Insert & ",nomprove,domprove,pobprove,cpprove,proprove,nifprove,codpais) values"
+            
+            
+        Else
+            Insert = "INSERT INTO spagop (`ctaprove`,`numfactu`,`fecfactu`,`numorden`,`codforpa`,`fecefect`,"
+            Insert = Insert & "`impefect`,`fecultpa`,`imppagad`,`ctabanc1`,`ctabanc2`,"
+            Insert = Insert & "`emitdocum`,`contdocu`,`text1csb`,`text2csb`,`entidad`,`oficina`,`CC`,`cuentaba`,`transfer`,`estacaja`,`referencia`) values ("
+            
+        End If
         SQL = Insert & SQL
         ConnConta.Execute SQL
         

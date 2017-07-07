@@ -54,10 +54,17 @@ Private mvarFechaFin As Date
 'Tambien añadire si lleva analitica
 Private mvarTieneAnalitica As Boolean
 
+Private mvarSiiTiene As Boolean
+Private mvarSiiFechaI As Date
+Private mvarDiasSii As Integer
+
+
+
+
 Private SQL As String  'Para la sentencia
 Private Mens As String    'Para los mensajes
-Private RS As ADODB.Recordset
-Private RC As Byte
+Private Rs As ADODB.Recordset
+Private Rc As Byte
 
 
 
@@ -225,8 +232,20 @@ Public Property Get TieneAnalitica() As Boolean
 End Property
 
 
+Public Property Get SiiTiene() As Boolean
+     SiiTiene = mvarSiiTiene
+End Property
+
+Public Property Get SiiFechaInicio() As Date
+     SiiFechaInicio = mvarSiiFechaI
+End Property
+
+Public Property Get SiiDiasPlazo() As Integer
+     SiiDiasPlazo = mvarDiasSii
+End Property
 
 
+        
 '------------------------------------------------
 'FUNCIONES del modulo Cempresa
 '------------------------------------------------
@@ -267,24 +286,24 @@ Public Function LeerDatos() As Byte
     On Error GoTo Err3
     SQL = "SELECT * FROM usuarios.empresasarioli WHERE ariges='" & vUsu.CadenaConexion & "'"
     
-    Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Set Rs = New ADODB.Recordset
+    Rs.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     Mens = ""
     
-    If RS.EOF Then
+    If Rs.EOF Then
         LeerDatos = 1
     Else
         Mens = "Datos basicos"
-        mvarCodempre = RS!codempre
-        mvarNomempre = RS!nomempre
-        mvarNomresum = DBLet(RS!nomresum)
-        mvarAriges = DBLet(RS!AriGes)
+        mvarCodempre = Rs!codempre
+        mvarNomempre = Rs!nomempre
+        mvarNomresum = DBLet(Rs!nomresum)
+        mvarAriges = DBLet(Rs!AriGes)
         Mens = "Datos de Gestión"
         LeerDatos = 0
     End If
 
-    RS.Close
-    Set RS = Nothing
+    Rs.Close
+    Set Rs = Nothing
     Exit Function
 
 Err3:
@@ -292,7 +311,7 @@ Err3:
     Mens = Mens & "Número: " & Err.Number & vbCrLf
     Mens = Mens & "Descripción: " & Err.Description
     MsgBox Mens, vbExclamation
-    Set RS = Nothing
+    Set Rs = Nothing
     LeerDatos = 1
 End Function
 
@@ -306,51 +325,55 @@ Public Function LeerNiveles() As Byte
     
     SQL = "SELECT * FROM empresa "
     
-    Set RS = New ADODB.Recordset
-    RS.Open SQL, ConnConta, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Set Rs = New ADODB.Recordset
+    Rs.Open SQL, ConnConta, adOpenForwardOnly, adLockOptimistic, adCmdText
     Mens = ""
     
-    If RS.EOF Then
+    If Rs.EOF Then
         LeerNiveles = 1
     Else
         Mens = "Datos basicos empresa en contabilidad."
-        mvarnumnivel = RS!numnivel
-        mvarnumdigi1 = RS!numdigi1
-        mvarnumdigi2 = DBLet(RS!numdigi2, "N")
-        mvarnumdigi3 = DBLet(RS!numdigi3, "N")
-        mvarnumdigi4 = DBLet(RS!numdigi4, "N")
-        mvarnumdigi5 = DBLet(RS!numdigi5, "N")
-        mvarnumdigi6 = DBLet(RS!numdigi6, "N")
-        mvarnumdigi7 = DBLet(RS!numdigi7, "N")
-        mvarnumdigi8 = DBLet(RS!numdigi8, "N")
-        mvarnumdigi9 = DBLet(RS!numdigi9, "N")
-        mvarnumdigi10 = DBLet(RS!numdigi10, "N")
+        mvarnumnivel = Rs!numnivel
+        mvarnumdigi1 = Rs!numdigi1
+        mvarnumdigi2 = DBLet(Rs!numdigi2, "N")
+        mvarnumdigi3 = DBLet(Rs!numdigi3, "N")
+        mvarnumdigi4 = DBLet(Rs!numdigi4, "N")
+        mvarnumdigi5 = DBLet(Rs!numdigi5, "N")
+        mvarnumdigi6 = DBLet(Rs!numdigi6, "N")
+        mvarnumdigi7 = DBLet(Rs!numdigi7, "N")
+        mvarnumdigi8 = DBLet(Rs!numdigi8, "N")
+        mvarnumdigi9 = DBLet(Rs!numdigi9, "N")
+        mvarnumdigi10 = DBLet(Rs!numdigi10, "N")
         'Fijamos la longitud maxima de digitos en ctas de ultimo nivel
         FijaLongitudMaxima
         LeerNiveles = 0
     End If
-    RS.Close
+    Rs.Close
     
     
     'Asigno los valores por defecto a las variables de fechaini y fechafin
     If LeerNiveles = 0 Then
         LeerNiveles = 2
         SQL = "Select * from parametros"
-        RS.Open SQL, ConnConta, adOpenForwardOnly, adLockPessimistic, adCmdText
-        If RS.EOF Then
+        Rs.Open SQL, ConnConta, adOpenForwardOnly, adLockPessimistic, adCmdText
+        If Rs.EOF Then
             MsgBox "Fecha inicio y fin de ejercicio", vbExclamation
         Else
-            mvarFechaIni = RS!FechaIni
-            mvarFechaFin = RS!FechaFin
-            mvarTieneAnalitica = RS!Autocoste = 1
+            mvarFechaIni = Rs!FechaIni
+            mvarFechaFin = Rs!FechaFin
+            mvarTieneAnalitica = Rs!Autocoste = 1
+            
+            FijarValoresSii
+            
+            
             
             
         End If
-        RS.Close
+        Rs.Close
     End If
     
     
-    Set RS = Nothing
+    Set Rs = Nothing
     Exit Function
 
 Err3:
@@ -358,11 +381,24 @@ Err3:
     Mens = Mens & "Número: " & Err.Number & vbCrLf
     Mens = Mens & "Descripción: " & Err.Description
     MsgBox Mens, vbExclamation
-    Set RS = Nothing
+    Set Rs = Nothing
     LeerNiveles = 1
 End Function
 
 
+Private Sub FijarValoresSii()
+     On Error GoTo eSIIFechaInicio
+     mvarSiiTiene = False
+     
+     If Not IsNull(Rs!SiiFechaInicio) Then
+        mvarSiiTiene = True
+        mvarSiiFechaI = Rs!SiiFechaInicio
+        mvarDiasSii = Rs!SIIDiasAviso
+     End If
+
+eSIIFechaInicio:
+    Err.Clear
+End Sub
 
 '****   MODIFICAR  ***
 Public Function ModificarDatos() As Byte
@@ -375,7 +411,7 @@ Public Function ModificarDatos() As Byte
     SQL = "UPDATE usuarios.empresasarioli SET nomempre= '" & mvarNomempre
     SQL = SQL & "', nomresum= '" & mvarNomresum
     SQL = SQL & "' WHERE codempre=" & mvarCodempre
-    Conn.Execute SQL
+    conn.Execute SQL
     
     ModificarDatos = 0
     Exit Function
@@ -385,7 +421,7 @@ Err4:
     Mens = Mens & "Número: " & Err.Number & vbCrLf
     Mens = Mens & "Descripción: " & Err.Description
     MsgBox Mens, vbExclamation
-    RS.Close
+    Rs.Close
     ModificarDatos = 1
 End Function
 

@@ -866,6 +866,9 @@ End Sub
 
 
 Private Sub PonerLote()
+
+        If vParamAplic.QUE_EMPRESA <> 4 Then Exit Sub
+
         CadenaConsulta = DevuelveDesdeBD(conAri, "contador + 1", "stipom", "codtipom", "LOV", "T")
         Text1(5).Text = "MOSTRA" & CadenaConsulta & "-"
         
@@ -2008,7 +2011,7 @@ Dim C As String
 
                     If BLOQUEADesdeFormulario(Me) Then
                 
-                        frmProduVarios.Intercambio = Data1.Recordset!Codigo & "|" & Data1.Recordset!Fecha & "|" & Data1.Recordset!codalmac & "|"
+                        frmProduVarios.Intercambio = Data1.Recordset!Codigo & "|" & Data1.Recordset!Fecha & "|" & Data1.Recordset!codAlmac & "|"
                         frmProduVarios.Opcion = 1
                         frmProduVarios.Show vbModal
                     

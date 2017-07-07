@@ -110,12 +110,12 @@ Private mvarEsIvaMensual As Boolean
 ' Devolvera el ERROR
 ' Comprobara si esta en el ejercicio(actual y siguiente) y con la fecha activa
 Public Function FechaCorrectaContabilizazion(ByRef CnnCta As Connection, FechaContab As Date) As String
-Dim cad As String
+Dim Cad As String
     
-    cad = LeerDatos(CnnCta)
-    If cad <> "" Then
+    Cad = LeerDatos(CnnCta)
+    If Cad <> "" Then
         'Error leyendo parametros
-        FechaCorrectaContabilizazion = cad
+        FechaCorrectaContabilizazion = Cad
         Exit Function
     End If
     
@@ -146,12 +146,12 @@ End Function
 Public Function FechaCorrectaIVA(ByRef CnnCta As Connection, FechaContab As Date) As String
 Dim FechaUltIVA As Date
 Dim J As Integer
-Dim cad As String
+Dim Cad As String
 
-    cad = LeerDatos(CnnCta)
-    If cad <> "" Then
+    Cad = LeerDatos(CnnCta)
+    If Cad <> "" Then
         'Error leyendo parametros
-        FechaCorrectaIVA = cad
+        FechaCorrectaIVA = Cad
         Exit Function
     End If
     
@@ -186,7 +186,7 @@ End Function
 Public Function CuentasBloqueadas(ByRef CnnCta As Connection, ByVal CadenaCuentas As String, FechaContab As Date, ByRef CtaBloq As Collection)
 Dim SQL As String
 Dim Aux As String
-Dim i As Integer
+Dim I As Integer
 Dim RT As ADODB.Recordset
 
 
@@ -195,10 +195,10 @@ Dim RT As ADODB.Recordset
     Do
         'Para reestringir la select un poco
         If Len(CadenaCuentas) > 450 Then
-            i = InStr(450, CadenaCuentas, ",")
-            If i > 0 Then
-                Aux = Mid(CadenaCuentas, 1, i - 1)
-                CadenaCuentas = Mid(CadenaCuentas, i + 1)
+            I = InStr(450, CadenaCuentas, ",")
+            If I > 0 Then
+                Aux = Mid(CadenaCuentas, 1, I - 1)
+                CadenaCuentas = Mid(CadenaCuentas, I + 1)
             Else
                 Aux = CadenaCuentas
                 CadenaCuentas = ""
@@ -239,11 +239,19 @@ Dim LaFecha As Date
     Set RT = New ADODB.Recordset
     If Serie = "" Then
         'Estamos en proveedores
-        SQL = "select max(fecrecpr) as fecha from cabfactprov "
-            
+       
+        If vParamAplic.ContabilidadNueva Then
+            SQL = "select max(fecharec) as fecha from  factpro"
+        Else
+            SQL = "select max(fecrecpr) as fecha from cabfactprov "
+        End If
     Else
         'clientes
-        SQL = "Select max(fecfaccl)as fecha from cabfac WHERE numserie = '" & Serie & "'"
+        If vParamAplic.ContabilidadNueva Then
+            SQL = "Select max(fecfactu)as fecha from factcli WHERE numserie = '" & Serie & "'"
+        Else
+            SQL = "Select max(fecfaccl)as fecha from cabfac WHERE numserie = '" & Serie & "'"
+        End If
     End If
     LaFecha = CDate("01/01/1900")
     RT.Open SQL, CnnCta, adOpenForwardOnly, adLockPessimistic, adCmdText
@@ -269,7 +277,7 @@ End Function
 
 
 
-Private Function LeerDatos(ByRef CN As Connection) As String
+Private Function LeerDatos(ByRef cn As Connection) As String
 Dim RS As ADODB.Recordset
 Dim SQL As String
 
@@ -280,7 +288,7 @@ Dim SQL As String
     
     SQL = "Select * from parametros "
     Set RS = New ADODB.Recordset
-    RS.Open SQL, CN, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open SQL, cn, adOpenForwardOnly, adLockOptimistic, adCmdText
     If RS.EOF Then
         'MSGBOX
         LeerDatos = "No existe parametros para la empresa"

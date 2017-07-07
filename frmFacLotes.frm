@@ -514,7 +514,7 @@ On Error Resume Next
     CargaGrid
     If adodc1.Recordset.RecordCount <= 0 Then
          'MsgBox "No hay ningún registro en la tabla " & NombreTabla, vbInformation
-         MsgBox "No hay ningún registro en la tabla smarca", vbInformation
+         MsgBox "No hay ningún registro en la tabla registros", vbInformation
          Screen.MousePointer = vbDefault
          Exit Sub
     Else
@@ -527,7 +527,7 @@ End Sub
 Private Sub BotonModificar()
 Dim SQL As String
 Dim anc As Single
-Dim i As Integer
+Dim I As Integer
 On Error GoTo EModificar
 
     If adodc1.Recordset.EOF Then Exit Sub
@@ -545,8 +545,8 @@ On Error GoTo EModificar
     Screen.MousePointer = vbHourglass
     
     If DataGrid1.Bookmark < DataGrid1.FirstRow Or DataGrid1.Bookmark > (DataGrid1.FirstRow + DataGrid1.VisibleRows - 1) Then
-        i = DataGrid1.Bookmark - DataGrid1.FirstRow
-        DataGrid1.Scroll 0, i
+        I = DataGrid1.Bookmark - DataGrid1.FirstRow
+        DataGrid1.Scroll 0, I
         DataGrid1.Refresh
     End If
     
@@ -567,13 +567,13 @@ EModificar:
 End Sub
 
 Private Function TotalLineas() As Currency
-Dim cad As String
-    cad = DevWHERE
-    cad = Mid(cad, 8)
-    cad = cad & " AND 1 "
-    cad = DevuelveDesdeBD(conAri, "sum(cantidad)", "slialblotes", cad, "1")
-    If cad = "" Then cad = "0"
-    TotalLineas = CCur(cad)
+Dim Cad As String
+    Cad = DevWHERE
+    Cad = Mid(Cad, 8)
+    Cad = Cad & " AND 1 "
+    Cad = DevuelveDesdeBD(conAri, "sum(cantidad)", "slialblotes", Cad, "1")
+    If Cad = "" Then Cad = "0"
+    TotalLineas = CCur(Cad)
 End Function
 
 
@@ -592,7 +592,7 @@ End Sub
 
 Private Sub BotonEliminar()
 Dim SQL As String
-Dim Cp As cPartidas
+Dim cP As cPartidas
 Dim cLo As cLotaje
 Dim cDEP As cDeposito
 On Error GoTo Error2
@@ -608,12 +608,12 @@ On Error GoTo Error2
     SQL = SQL & adodc1.Recordset.Fields(1) & "?"
     If MsgBox(SQL, vbQuestion + vbYesNo) = vbYes Then
         'Reestablecemos en partidas
-        Set Cp = New cPartidas
+        Set cP = New cPartidas
         SQL = CStr(adodc1.Recordset!NUmlote)
-        If Cp.LeerDesdeArticulo(vCodArtic, vCodAlmac, SQL) Then
+        If cP.LeerDesdeArticulo(vCodArtic, vCodAlmac, SQL) Then
             SQL = CStr(adodc1.Recordset!Cantidad)
             If SQL = "" Then SQL = 0
-            Cp.IncrementarCantidad CCur(SQL)
+            cP.IncrementarCantidad CCur(SQL)
         End If
         
         
@@ -622,7 +622,7 @@ On Error GoTo Error2
             Set cDEP = New cDeposito
             cDEP.LeerDatos CInt(SQL), True
             If cDEP.NUmlote <> "" Then
-                If cDEP.idPartida = Cp.idPartida Then
+                If cDEP.idPartida = cP.idPartida Then
                     cDEP.VariacionKilosDeposito adodc1.Recordset!Cantidad
                     MsgBox "Falta eliminar en hcodepositos. Consulte soporte tecnico", vbExclamation
                 End If
@@ -634,7 +634,7 @@ On Error GoTo Error2
         
         
         
-        Set Cp = Nothing
+        Set cP = Nothing
         
         'LOTAJE. Movimientos smovalotes
             Set cLo = New cLotaje
@@ -662,7 +662,7 @@ End Sub
 
 
 Private Sub cmdAceptar_Click()
-Dim i As Integer
+Dim I As Integer
 Dim cadB As String
 On Error Resume Next
 
@@ -681,11 +681,11 @@ On Error Resume Next
                 
                 If InsertarModificar_(Nothing, 0, 0) Then
                     TerminaBloquear
-                    i = adodc1.Recordset.Fields(0)
+                    I = adodc1.Recordset.Fields(0)
                     PonerModo 2
                     CancelaADODC Me.adodc1
                     CargaGrid
-                    adodc1.Recordset.Find (adodc1.Recordset.Fields(0).Name & " =" & i)
+                    adodc1.Recordset.Find (adodc1.Recordset.Fields(0).Name & " =" & I)
                 End If
                 DataGrid1.SetFocus
             End If
@@ -708,23 +708,30 @@ Dim C As Currency
 
     DatosDevueltos = ""
     Set frmL = New frmAlmPartidas
+    
+    'Si es negativo permito que me muesdtre todos los lotes del articulo
+    If vCantidad < 0 Then frmL.BuscarNegativos = True
     frmL.DatosADevolverBusqueda = vCodArtic
     frmL.Show vbModal
     Set frmL = Nothing
     If DatosDevueltos <> "" Then
         'Comprobamos cantidad
         
-        
-        C = CCur(RecuperaValor(DatosDevueltos, 2))
-        If C < 0 Then
-            MsgBox "Cantidad negativa.", vbExclamation
-        Else
-            txtAux(1).Text = RecuperaValor(DatosDevueltos, 1)
-            If C > vCantidad - Suma Then
-                'Tengo mas. Solo cojo lo que necesito
-                txtAux(2).Text = vCantidad - Suma
-            End If
+        If vCantidad < 0 Then
+            txtAux(2).Text = ""
             
+        Else
+            C = CCur(RecuperaValor(DatosDevueltos, 2))
+            If C < 0 Then
+                MsgBox "Cantidad negativa.", vbExclamation
+            Else
+                txtAux(1).Text = RecuperaValor(DatosDevueltos, 1)
+                If C > vCantidad - Suma Then
+                    'Tengo mas. Solo cojo lo que necesito
+                    txtAux(2).Text = vCantidad - Suma
+                End If
+                
+            End If
         End If
     End If
     
@@ -876,7 +883,7 @@ Private Function DevWHERE() As String
 End Function
 
 Private Sub CargaGrid()
-Dim i As Byte
+Dim I As Byte
 Dim b As Boolean
 Dim SQL As String
     b = DataGrid1.Enabled
@@ -894,15 +901,15 @@ Dim SQL As String
     
     DataGrid1.Columns(0).visible = False
     
-    i = 1
-        DataGrid1.Columns(i).Caption = "Lote"
-        DataGrid1.Columns(i).Width = 2800
+    I = 1
+        DataGrid1.Columns(I).Caption = "Lote"
+        DataGrid1.Columns(I).Width = 2800
         
-    i = 2
-        DataGrid1.Columns(i).Caption = "Cantidad"
-        DataGrid1.Columns(i).Width = 1200
-        DataGrid1.Columns(i).NumberFormat = FormatoCantidad
-        DataGrid1.Columns(i).Alignment = dbgRight
+    I = 2
+        DataGrid1.Columns(I).Caption = "Cantidad"
+        DataGrid1.Columns(I).Width = 1200
+        DataGrid1.Columns(I).NumberFormat = FormatoCantidad
+        DataGrid1.Columns(I).Alignment = dbgRight
     
 
             
@@ -922,9 +929,9 @@ Dim SQL As String
     End If
    
    'No permitir cambiar tamaño de columnas
-   For i = 0 To DataGrid1.Columns.Count - 1
-        DataGrid1.Columns(i).AllowSizing = False
-   Next i
+   For I = 0 To DataGrid1.Columns.Count - 1
+        DataGrid1.Columns(I).AllowSizing = False
+   Next I
    
     'Habilitamos botones Modificar y Eliminar
    If Toolbar1.Buttons(6).Enabled = True Then
@@ -986,8 +993,10 @@ Dim Au2 As String
     
         C = ImporteFormateado(txtAux(2).Text)  'Cantidad
         If C <= 0 Then
-            MsgBox "Importe debe ser mayor que cero", vbExclamation
-            Exit Function
+            If Me.vCantidad > 0 Then
+                MsgBox "Importe debe ser mayor que cero", vbExclamation
+                Exit Function
+            End If
         End If
         If Modo = 4 Then
             'Modificando
@@ -1081,7 +1090,7 @@ Private Sub AsignarLotaje(ByRef cL As cLotaje)
 
 
     cL.codartic = vCodArtic
-    cL.codAlmac = vCodAlmac
+    cL.codalmac = vCodAlmac
     cL.DetaMov = vCodtipom
     cL.LineaDocu = Me.vNumlinea
     cL.Documento = Me.vNumalbar
@@ -1090,7 +1099,7 @@ Private Sub AsignarLotaje(ByRef cL As cLotaje)
 End Sub
 
 'Si idPartida <0 entonces estoy insertando a mano
-Private Function InsertarModificar(Cp As cPartidas, Lote As String, Cantidad As String, linea As Integer) As Boolean
+Private Function InsertarModificar(cP As cPartidas, Lote As String, Cantidad As String, linea As Integer) As Boolean
 Dim SQL As String
 Dim Leido As Boolean
 Dim Can As Currency
@@ -1152,7 +1161,7 @@ Dim FechaHora As Date
     If Not vParamAplic.Produccion Then Exit Function
     
     
-    If Cp Is Nothing Then
+    If cP Is Nothing Then
         
         If Modo = 4 Then
             'Modificar.  Habria que ver si ha cambiado el numero de LOTE
@@ -1160,13 +1169,13 @@ Dim FechaHora As Date
     
     
         End If
-        Set Cp = New cPartidas
-        If Cp.LeerDesdeArticulo(vCodArtic, vCodAlmac, Lote) Then
+        Set cP = New cPartidas
+        If cP.LeerDesdeArticulo(vCodArtic, vCodAlmac, Lote) Then
             'SI existe el lote
             Can = Cantidad
             If Modo = 4 Then Can = Cantidad - adodc1.Recordset!Cantidad
             
-            Cp.IncrementarCantidad -Can
+            cP.IncrementarCantidad -Can
         Else
             'NO existe el lote. Lo creamos en negativo?
             
@@ -1176,25 +1185,25 @@ Dim FechaHora As Date
     Else
         'Ya tenemos el lote
         Can = -1 * ImporteFormateado(Cantidad)
-        Cp.IncrementarCantidad Can
+        cP.IncrementarCantidad Can
         
     End If
     
     
     
-    SQL = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numlote", Cp.NUmlote, "T")
+    SQL = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numlote", cP.NUmlote, "T")
     If SQL <> "" Then
         'Venta directa de un deposito
         Set cDEP = New cDeposito
         cDEP.LeerDatos CInt(SQL), True
         If cDEP.NUmlote <> "" Then
             
-            If cDEP.idPartida = Cp.idPartida Then
+            If cDEP.idPartida = cP.idPartida Then
                 cDEP.VariacionKilosDeposito -Cantidad
                 cDEP.InsertarEnHco 6, FechaHora, vCodtipom & vNumalbar
             Else
                 SQL = "Venta con numero de lote en deposito, pero distinta Partida:"
-                SQL = SQL & "Dep " & cDEP.idPartida & "    partida: " & Cp.idPartida
+                SQL = SQL & "Dep " & cDEP.idPartida & "    partida: " & cP.idPartida
                 SQL = SQL & " El proceso continuará. Llame a soporte técnico"
                 MsgBox SQL, vbExclamation
             End If
@@ -1208,7 +1217,7 @@ Dim FechaHora As Date
     
     
     
-    Set Cp = Nothing
+    Set cP = Nothing
     Exit Function
 EInsertarModificar:
     MuestraError Err.Number, Err.Description
@@ -1220,8 +1229,8 @@ Private Function buscarNumerosLotes() As Boolean
 Dim Rc As Byte
 Dim cL As Collection
 Dim Par As cPartidas
-Dim cad As String
-Dim i As Integer
+Dim Cad As String
+Dim I As Integer
 
     buscarNumerosLotes = False
     Set Par = New cPartidas
@@ -1232,32 +1241,34 @@ Dim i As Integer
         
     Else
         'Mensajito
-        cad = ""
-        For i = 1 To cL.Count
-            Suma = RecuperaValor(cL(i), 2)
-            cad = cad & RecuperaValor(cL(i), 3) & Space(10) & Format(Suma, FormatoCantidad) & vbCrLf
-        Next i
-        Suma = 0
-        cad = "Asignar los siguientes numeros de lote: " & vbCrLf & vbCrLf & cad & vbCrLf
-        If MsgBox(cad, vbQuestion + vbYesNo) = vbNo Then Exit Function
+        Cad = ""
+        If cL.Count > 0 Then
+            For I = 1 To cL.Count
+                Suma = RecuperaValor(cL(I), 2)
+                Cad = Cad & RecuperaValor(cL(I), 3) & Space(10) & Format(Suma, FormatoCantidad) & vbCrLf
+            Next I
+            Suma = 0
+            Cad = "Asignar los siguientes numeros de lote: " & vbCrLf & vbCrLf & Cad & vbCrLf
+            If MsgBox(Cad, vbQuestion + vbYesNo) = vbNo Then Exit Function
+                
             
-        
-        'Si que vamos a asignar los numeros de lote
-        Modo = 3
-        For i = 1 To cL.Count
-            cad = RecuperaValor(cL(i), 1)
-            NumRegElim = CLng(cad)
-            Set Par = New cPartidas
-            If Not Par.Leer(NumRegElim) Then
-                MsgBox "Error insesperado leyendo partidas", vbExclamation
-            Else
-                Suma = RecuperaValor(cL(i), 2)
-                InsertarModificar_ Par, i, Suma
-            End If
-        Next i
-        Suma = 0
-        Modo = 2
-        If Rc = 1 Then
+            'Si que vamos a asignar los numeros de lote
+            Modo = 3
+            For I = 1 To cL.Count
+                Cad = RecuperaValor(cL(I), 1)
+                NumRegElim = CLng(Cad)
+                Set Par = New cPartidas
+                If Not Par.Leer(NumRegElim) Then
+                    MsgBox "Error insesperado leyendo partidas", vbExclamation
+                Else
+                    Suma = RecuperaValor(cL(I), 2)
+                    InsertarModificar_ Par, I, Suma
+                End If
+            Next I
+            Suma = 0
+            Modo = 2
+       End If
+       If Rc = 1 Then
             'Significa que aun quedan lotes por asignar
             
             

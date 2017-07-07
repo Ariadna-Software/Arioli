@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmComFacturar 
    BorderStyle     =   3  'Fixed Dialog
@@ -931,7 +931,7 @@ Private CadenaConsulta As String
 Private Ordenacion As String
 Private NombreTabla As String  'Nombre de la tabla o de la
 Private NomTablaLineas As String 'Nombre de la Tabla de lineas
-Private kCampo As Integer
+Private Kcampo As Integer
 '-------------------------------------------------------------------------
 
 Dim dtoGn As Currency
@@ -948,7 +948,7 @@ Private Sub chkTipoRet_Click()
 End Sub
 
 Private Sub cmdGenerar_Click(Index As Integer)
-Dim B As Boolean
+Dim b As Boolean
     If Index = 1 Then
         'QUITO EL PORCENTAJE
         Text1(23).Text = ""
@@ -968,12 +968,12 @@ Dim B As Boolean
         'Abril 2009
         'Puede facturar en B
         If vUsu.TrabajadorB Then
-            B = AbrirConexionConta(True)
+            b = AbrirConexionConta(True)
         Else
-            B = True
+            b = True
         End If
         
-        If B Then GenerarFactura_
+        If b Then GenerarFactura_
         
         'Reestablecemos la conexion con la conta normal
         If vUsu.TrabajadorB Then AbrirConexionConta (False)
@@ -1050,7 +1050,7 @@ Private Sub Form_Load()
     CadenaConsulta = "Select * from " & NombreTabla
     CadenaConsulta = CadenaConsulta & " where numfactu=-1"
     
-    Data1.ConnectionString = Conn
+    Data1.ConnectionString = conn
     Data1.RecordSource = CadenaConsulta
     Data1.Refresh
         
@@ -1175,7 +1175,7 @@ Dim Indice As Byte
    PonerFoco Text1(Indice)
 End Sub
 
-Private Sub ListView1_ItemCheck(ByVal item As MSComctlLib.ListItem)
+Private Sub ListView1_ItemCheck(ByVal Item As MSComctlLib.ListItem)
 'Cuando se selecciona un albaran de la lista
 Dim i As Integer
 Dim cad As String
@@ -1185,7 +1185,7 @@ Dim tipoDtoGn As Currency 'descuento general
 
     Screen.MousePointer = vbHourglass
     
-    Set ListView1.SelectedItem = item
+    Set ListView1.SelectedItem = Item
     
     'Inicializamos a cero
     TipoFP = 0
@@ -1197,7 +1197,7 @@ Dim tipoDtoGn As Currency 'descuento general
     'que son de la misma forpa, dtoppago y dtognral.
     'si esto no se cumple no se pueden agrupar en la misma factura
     For i = 1 To ListView1.ListItems.Count
-        If item.Index <> i Then
+        If Item.Index <> i Then
             If ListView1.ListItems(i).Checked Then
                 'ya habia otro albaran seleccionado
                 TipoFP = ListView1.ListItems(i).SubItems(2)
@@ -1210,7 +1210,7 @@ Dim tipoDtoGn As Currency 'descuento general
     
     If Not (TipoFP = 0 And TipoDtoPP = 0 And tipoDtoGn = 0) Then
     'si ya habia un albaran seleccionado, comprobar que es del mismo tipo
-        If item.SubItems(2) <> TipoFP Or item.SubItems(4) <> TipoDtoPP Or item.SubItems(5) <> tipoDtoGn Then
+        If Item.SubItems(2) <> TipoFP Or Item.SubItems(4) <> TipoDtoPP Or Item.SubItems(5) <> tipoDtoGn Then
             MsgBox "Se debe seleccionar albaranes de la misma Forma de Pago y Descuentos", vbExclamation
             ListView1.SelectedItem.Checked = False
             Screen.MousePointer = vbDefault
@@ -1259,7 +1259,7 @@ Private Sub mnVerAlbaran_Click()
 End Sub
 
 Private Sub Text1_GotFocus(Index As Integer)
-    kCampo = Index
+    Kcampo = Index
     ConseguirFoco Text1(Index), Modo2
 End Sub
 
@@ -1285,7 +1285,7 @@ End Sub
 '----------------------------------------------------------------
 Private Sub Text1_LostFocus(Index As Integer)
 Dim Impor As Currency
-Dim c As String
+Dim C As String
 
     If Modo2 <> 5 Then _
         If Not PerderFocoGnral(Text1(Index), Modo2) Then Exit Sub
@@ -1407,7 +1407,7 @@ End Sub
 
 Private Sub PonerModo2(Kmodo As Byte)
 Dim i As Byte, NumReg As Byte
-Dim B As Boolean
+Dim b As Boolean
 On Error GoTo EPonerModo
 
 
@@ -1415,23 +1415,23 @@ On Error GoTo EPonerModo
     
     
     'GEneral
-    B = (Modo2 = 5)
-    FrameFactura.Enabled = B   'Solo habilitado al final
-    Toolbar1.Enabled = Not B
+    b = (Modo2 = 5)
+    FrameFactura.Enabled = b   'Solo habilitado al final
+    Toolbar1.Enabled = Not b
     'Antes. Para que no se quede en gris
     'ListView1.Enabled = Not b
     'para que no se quede el listview en gris
-    FrameList.Enabled = Not B
-    FrameIntro.Enabled = Not B
+    FrameList.Enabled = Not b
+    FrameIntro.Enabled = Not b
     
-    cmdGenerar(0).visible = B
-    cmdGenerar(1).visible = B
+    cmdGenerar(0).visible = b
+    cmdGenerar(1).visible = b
     'chkTipoRet.visible = b
-    If Not B Then cmdIVA.visible = False
+    If Not b Then cmdIVA.visible = False
     
     'Modo 2. Hay datos y estamos visualizandolos
     '=========================================
-    B = (Modo2 = 2)
+    b = (Modo2 = 2)
         
                  
     'Bloquea los campos Text1 sino estamos modificando/Insertando Datos
@@ -1474,10 +1474,10 @@ On Error GoTo EPonerModo
     
     
     '---------------------------------------------
-    B = (Modo2 <> 0 And Modo2 <> 2 And Modo2 <> 5)
+    b = (Modo2 <> 0 And Modo2 <> 2 And Modo2 <> 5)
     
     For i = 0 To Me.imgBuscar.Count - 1
-        Me.imgBuscar(i).Enabled = B
+        Me.imgBuscar(i).Enabled = b
     Next i
                     
     Me.chkVistaPrevia.Enabled = (Modo2 <= 2)
@@ -1536,16 +1536,7 @@ Dim i As Byte
     End If
     
     'Comprobar que la fecha de RECEPCION esta dentro de los ejercicios contables
-    i = EsFechaOKConta(CDate(Text1(2).Text))
-    If i > 0 Then
-        'If i = 1 Then
-            MsgBox "Fecha fuera ejercicios contables", vbExclamation
-            Exit Function
-       ' Else
-       '     cad = "La fecha es superior al ejercico contable siguiente. ¿Desea continuar?"
-       '     If MsgBox(cad, vbQuestion + vbYesNoCancel) <> vbYes Then Exit Function
-       ' End If
-    End If
+    If Not EsFechaOKConta(CDate(Text1(2).Text)) Then Exit Function
     
     'comprobar que se han seleccionado lineas para facturar
     If cadWhere = "" Then
@@ -1571,7 +1562,7 @@ Dim i As Byte
     cad = "select distinct (codforpa) from scaalp "
     cad = cad & " WHERE " & Replace(cadWhere, "slialp", "scaalp")
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     cad = miRsAux.Fields(0)
     miRsAux.Close
     
@@ -1579,7 +1570,7 @@ Dim i As Byte
     
     'Ahora buscamos el tipforpa del codforpa
     cad = "Select tipforpa from sforpa where codforpa=" & cad
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     i = 0
     If miRsAux.EOF Then
         MsgBox "Error en el TIPO de forma de pago", vbExclamation
@@ -1701,7 +1692,7 @@ Private Sub CargarAlbaranes()
 'Recupera de la BD y muestra en el Listview todos los albaranes de compra
 'que tiene el proveedor introducido.
 Dim SQL As String
-Dim RS As ADODB.Recordset
+Dim Rs As ADODB.Recordset
 Dim ItmX As ListItem
 On Error GoTo ECargar
 
@@ -1726,25 +1717,25 @@ On Error GoTo ECargar
     SQL = SQL & " GROUP BY scaalp.numalbar, scaalp.fechaalb, scaalp.codforpa, scaalp.dtoppago,scaalp.dtognral "
     SQL = SQL & " ORDER BY scaalp.numalbar"
 
-    Set RS = New ADODB.Recordset
-    RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Set Rs = New ADODB.Recordset
+    Rs.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     InicializarListView
     
-    While Not RS.EOF
+    While Not Rs.EOF
         Set ItmX = ListView1.ListItems.Add()
-        ItmX.Text = RS!NumAlbar
-        ItmX.SubItems(1) = Format(RS!FechaAlb, "dd/mm/yyyy")
-        ItmX.SubItems(2) = Format(RS!codforpa, "000")
-        ItmX.SubItems(3) = RS!nomforpa
-        ItmX.SubItems(4) = Format(RS!DtoPPago, "#0.00")
-        ItmX.SubItems(5) = Format(RS!DtoGnral, "#0.00")
-        ItmX.SubItems(6) = Format(RS!bruto, "#,###,#0.00") '(RAFA/ALZIRA) 12092006
+        ItmX.Text = Rs!NumAlbar
+        ItmX.SubItems(1) = Format(Rs!FechaAlb, "dd/mm/yyyy")
+        ItmX.SubItems(2) = Format(Rs!codforpa, "000")
+        ItmX.SubItems(3) = Rs!nomforpa
+        ItmX.SubItems(4) = Format(Rs!DtoPPago, "#0.00")
+        ItmX.SubItems(5) = Format(Rs!DtoGnral, "#0.00")
+        ItmX.SubItems(6) = Format(Rs!bruto, "#,###,#0.00") '(RAFA/ALZIRA) 12092006
         'Sig
-        RS.MoveNext
+        Rs.MoveNext
     Wend
-    RS.Close
-    Set RS = Nothing
+    Rs.Close
+    Set Rs = Nothing
 ECargar:
     If Err.Number <> 0 Then MuestraError Err.Number, "Cargando Albaranes", Err.Description
 End Sub
@@ -1946,7 +1937,7 @@ Dim vFactu As CFacturaCom
         Set vFactu = New CFacturaCom
         vFactu.Proveedor = Text1(3).Text
         vFactu.NumFactu = Text1(0).Text
-        vFactu.FecFactu = Text1(1).Text
+        vFactu.Fecfactu = Text1(1).Text
         vFactu.FecRecep = Text1(2).Text
         vFactu.Trabajador = Text1(4).Text
         vFactu.BancoPr = Text1(5).Text
@@ -2034,7 +2025,7 @@ Private Sub RefrescarAlbaranes()
 Dim i As Integer
 Dim SQL As String
 Dim Itm As ListItem
-Dim RS As ADODB.Recordset
+Dim Rs As ADODB.Recordset
     
 
     For i = 1 To ListView1.ListItems.Count
@@ -2046,15 +2037,15 @@ Dim RS As ADODB.Recordset
         SQL = SQL & " GROUP BY scaalp.numalbar, scaalp.fechaalb, scaalp.codforpa, scaalp.dtoppago,scaalp.dtognral "
         SQL = SQL & " ORDER BY scaalp.numalbar"
 
-        Set RS = New ADODB.Recordset
-        RS.Open SQL, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+        Set Rs = New ADODB.Recordset
+        Rs.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
 
-        If Not RS.EOF Then 'Actualizamos los datos de este item en el list
-            ListView1.ListItems(i).SubItems(2) = RS!codforpa
-            ListView1.ListItems(i).SubItems(3) = RS!nomforpa
-            ListView1.ListItems(i).SubItems(4) = RS!DtoPPago
-            ListView1.ListItems(i).SubItems(5) = RS!DtoGnral
-            ListView1.ListItems(i).SubItems(6) = RS!bruto
+        If Not Rs.EOF Then 'Actualizamos los datos de este item en el list
+            ListView1.ListItems(i).SubItems(2) = Rs!codforpa
+            ListView1.ListItems(i).SubItems(3) = Rs!nomforpa
+            ListView1.ListItems(i).SubItems(4) = Rs!DtoPPago
+            ListView1.ListItems(i).SubItems(5) = Rs!DtoGnral
+            ListView1.ListItems(i).SubItems(6) = Rs!bruto
 
         End If
         
@@ -2063,8 +2054,8 @@ Dim RS As ADODB.Recordset
             ListView1_ItemCheck Itm
         End If
 
-        RS.Close
-        Set RS = Nothing
+        Rs.Close
+        Set Rs = Nothing
     Next i
     
     'recalcular el total de la factura
@@ -2083,7 +2074,7 @@ End Sub
 
 Private Function PonerDatosProveedor() As String
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open "Select nomprove,sprove.codbanpr,nombanpr from sprove ,sbanpr where sprove.codbanpr= sbanpr.codbanpr  and sprove.codprove =" & Text1(3).Text, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open "Select nomprove,sprove.codbanpr,nombanpr from sprove ,sbanpr where sprove.codbanpr= sbanpr.codbanpr  and sprove.codprove =" & Text1(3).Text, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     'Devolvemos el nombre del prove y fijamos la cadena del banco
     If miRsAux.EOF Then
         PonerDatosProveedor = ""
@@ -2114,7 +2105,7 @@ Dim Aux As String
     'and fechaalb = '2009-11-04' and slialp.codprove=163"
 
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Aux = ""
     While Not miRsAux.EOF
         If DBLet(miRsAux!numlotes, "T") = "" Then Aux = Aux & miRsAux!codartic & "  " & miRsAux!NomArtic & vbCrLf

@@ -1,7 +1,6 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "comctl32.ocx"
 Begin VB.Form frmProdVerUnDepo 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Deposito"
@@ -33,43 +32,69 @@ Begin VB.Form frmProdVerUnDepo
       _ExtentX        =   11456
       _ExtentY        =   12091
       _Version        =   393216
-      Tab             =   2
       TabHeight       =   520
       TabCaption(0)   =   "Datos depósito"
       TabPicture(0)   =   "frmProdVerUnDepo.frx":0000
-      Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "cmdModKilos"
-      Tab(0).Control(1)=   "ListView1"
-      Tab(0).Control(2)=   "Text1(1)"
-      Tab(0).Control(3)=   "Text1(6)"
-      Tab(0).Control(4)=   "Text1(7)"
-      Tab(0).Control(5)=   "Text1(3)"
-      Tab(0).Control(6)=   "Text1(4)"
-      Tab(0).Control(7)=   "Text1(5)"
-      Tab(0).Control(8)=   "Label1(10)"
-      Tab(0).Control(9)=   "Line1"
-      Tab(0).Control(10)=   "Label1(1)"
-      Tab(0).Control(11)=   "Label1(6)"
-      Tab(0).Control(12)=   "Label1(7)"
-      Tab(0).Control(13)=   "Label1(3)"
-      Tab(0).Control(14)=   "Label1(4)"
-      Tab(0).Control(15)=   "Label1(5)"
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Label1(5)"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Label1(4)"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Label1(3)"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "Label1(7)"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "Label1(6)"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).Control(5)=   "Label1(1)"
+      Tab(0).Control(5).Enabled=   0   'False
+      Tab(0).Control(6)=   "Line1"
+      Tab(0).Control(6).Enabled=   0   'False
+      Tab(0).Control(7)=   "Label1(10)"
+      Tab(0).Control(7).Enabled=   0   'False
+      Tab(0).Control(8)=   "Text1(5)"
+      Tab(0).Control(8).Enabled=   0   'False
+      Tab(0).Control(9)=   "Text1(4)"
+      Tab(0).Control(9).Enabled=   0   'False
+      Tab(0).Control(10)=   "Text1(3)"
+      Tab(0).Control(10).Enabled=   0   'False
+      Tab(0).Control(11)=   "Text1(7)"
+      Tab(0).Control(11).Enabled=   0   'False
+      Tab(0).Control(12)=   "Text1(6)"
+      Tab(0).Control(12).Enabled=   0   'False
+      Tab(0).Control(13)=   "Text1(1)"
+      Tab(0).Control(13).Enabled=   0   'False
+      Tab(0).Control(14)=   "ListView1"
+      Tab(0).Control(14).Enabled=   0   'False
+      Tab(0).Control(15)=   "cmdModKilos"
+      Tab(0).Control(15).Enabled=   0   'False
       Tab(0).ControlCount=   16
       TabCaption(1)   =   "Histórico"
       TabPicture(1)   =   "frmProdVerUnDepo.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "cmdVer"
-      Tab(1).Control(1)=   "txtFecha(0)"
+      Tab(1).Control(0)=   "Label3(63)"
+      Tab(1).Control(1)=   "imgFecha(0)"
       Tab(1).Control(2)=   "ListView2"
-      Tab(1).Control(3)=   "imgFecha(0)"
-      Tab(1).Control(4)=   "Label3(63)"
+      Tab(1).Control(3)=   "txtFecha(0)"
+      Tab(1).Control(4)=   "cmdVer"
       Tab(1).ControlCount=   5
       TabCaption(2)   =   "Albaranes"
       TabPicture(2)   =   "frmProdVerUnDepo.frx":0038
-      Tab(2).ControlEnabled=   -1  'True
+      Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "TreeView1"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).ControlCount=   1
+      Begin MSComctlLib.TreeView TreeView1 
+         Height          =   5415
+         Left            =   -74760
+         TabIndex        =   25
+         Top             =   600
+         Width           =   5775
+         _ExtentX        =   10186
+         _ExtentY        =   9551
+         _Version        =   393217
+         Style           =   7
+         Appearance      =   1
+      End
       Begin VB.CommandButton cmdVer 
          Caption         =   "Movimientos"
          Height          =   375
@@ -80,7 +105,7 @@ Begin VB.Form frmProdVerUnDepo
       End
       Begin VB.CommandButton cmdModKilos 
          Height          =   375
-         Left            =   -69120
+         Left            =   5880
          Picture         =   "frmProdVerUnDepo.frx":0054
          Style           =   1  'Graphical
          TabIndex        =   23
@@ -99,7 +124,7 @@ Begin VB.Form frmProdVerUnDepo
       End
       Begin MSComctlLib.ListView ListView1 
          Height          =   1695
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   19
          Top             =   4440
          Width           =   6135
@@ -148,7 +173,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   1
-         Left            =   -74760
+         Left            =   240
          Locked          =   -1  'True
          TabIndex        =   14
          Text            =   "Text1"
@@ -168,7 +193,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   6
-         Left            =   -74760
+         Left            =   240
          Locked          =   -1  'True
          TabIndex        =   13
          Text            =   "Text1"
@@ -187,7 +212,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   7
-         Left            =   -72960
+         Left            =   2040
          Locked          =   -1  'True
          TabIndex        =   12
          Text            =   "Text1"
@@ -207,7 +232,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   3
-         Left            =   -74760
+         Left            =   240
          Locked          =   -1  'True
          TabIndex        =   8
          Text            =   "Text1"
@@ -227,7 +252,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   4
-         Left            =   -72600
+         Left            =   2400
          Locked          =   -1  'True
          TabIndex        =   7
          Text            =   "Text1"
@@ -247,7 +272,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   5
-         Left            =   -70800
+         Left            =   4200
          Locked          =   -1  'True
          TabIndex        =   6
          Text            =   "Text1"
@@ -293,28 +318,6 @@ Begin VB.Form frmProdVerUnDepo
             Object.Width           =   0
          EndProperty
       End
-      Begin ComctlLib.TreeView TreeView1 
-         Height          =   5295
-         Left            =   360
-         TabIndex        =   25
-         Top             =   720
-         Width           =   5775
-         _ExtentX        =   10186
-         _ExtentY        =   9340
-         _Version        =   327682
-         LabelEdit       =   1
-         Style           =   7
-         Appearance      =   1
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Tahoma"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-      End
       Begin VB.Image imgFecha 
          Height          =   240
          Index           =   0
@@ -346,7 +349,7 @@ Begin VB.Form frmProdVerUnDepo
          ForeColor       =   &H000000C0&
          Height          =   375
          Index           =   10
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   18
          Top             =   3960
          Width           =   1575
@@ -354,8 +357,8 @@ Begin VB.Form frmProdVerUnDepo
       Begin VB.Line Line1 
          BorderColor     =   &H000000C0&
          BorderWidth     =   3
-         X1              =   -74880
-         X2              =   -68880
+         X1              =   120
+         X2              =   6120
          Y1              =   4080
          Y2              =   4080
       End
@@ -372,7 +375,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   1
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   17
          Top             =   2760
          Width           =   1215
@@ -390,7 +393,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   6
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   16
          Top             =   1680
          Width           =   1215
@@ -408,7 +411,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   7
-         Left            =   -72960
+         Left            =   2040
          TabIndex        =   15
          Top             =   1680
          Width           =   2295
@@ -426,7 +429,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   3
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   11
          Top             =   600
          Width           =   1575
@@ -444,7 +447,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   4
-         Left            =   -72600
+         Left            =   2400
          TabIndex        =   10
          Top             =   600
          Width           =   1215
@@ -462,7 +465,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   5
-         Left            =   -70800
+         Left            =   4200
          TabIndex        =   9
          Top             =   600
          Width           =   1215
@@ -987,24 +990,24 @@ End Sub
 '--------------------------------------------------------------------------------------------------------
 Private Sub PonerCamposTraza()
 Dim SQL As String
-Dim Cp As cPartidas
+Dim cP As cPartidas
 Dim N
 Dim CargaDesdeTmpTraza As Boolean
 
     
     TreeView1.Nodes.Clear
-    Set Cp = New cPartidas
+    Set cP = New cPartidas
     
     conn.Execute "DELETE FROM tmptraza"
-    If Cp.LeerDesdeArticulo(Text1(7).Text, 1, Text1(2).Text) Then
-        Cp.GeneracionHastaMolturacion_
+    If cP.LeerDesdeArticulo(Text1(7).Text, 1, Text1(2).Text) Then
+        cP.GeneracionHastaMolturacion_
         
     End If
     
     
     
     Set miRsAux = New ADODB.Recordset
-    SQL = DBLet(Cp.NumAlbar, "T")
+    SQL = DBLet(cP.NumAlbar, "T")
     If SQL <> "" Then
         'AQUI VERE SI ES UN COUPAGE, PRODUCCION u otro
         CargaDesdeTmpTraza = True
@@ -1014,7 +1017,7 @@ Dim CargaDesdeTmpTraza As Boolean
                 'Cargar datos produccion
                 CargarDatosProduccion
         Else
-                SQL = Cp.NumAlbar
+                SQL = cP.NumAlbar
                 
                 Set N = TreeView1.Nodes.Add(, , "C" & CStr(TreeView1.Nodes.Count + 1), SQL)
         End If
@@ -1023,7 +1026,7 @@ Dim CargaDesdeTmpTraza As Boolean
     End If
     
     Set miRsAux = Nothing
-    Set Cp = Nothing
+    Set cP = Nothing
 End Sub
 
 
@@ -1053,8 +1056,8 @@ Dim NivelActual As Integer
                         C = miRsAux!artic2 & " " & miRsAux!NomArtic & " [" & miRsAux!NUmlote2 & "]"
                         
                         Aux = ""
-                        If Mid(miRsAux!idOperacion, 3, 1) = "/" Then
-                            If Mid(miRsAux!idOperacion, 6, 1) = "/" Then
+                        If Mid(miRsAux!idoperacion, 3, 1) = "/" Then
+                            If Mid(miRsAux!idoperacion, 6, 1) = "/" Then
                                 Aux = "MOLT"
                                 C = miRsAux!NUmlote2 & "(" & miRsAux!Cantidad & ") " & miRsAux!nomclien
                             End If

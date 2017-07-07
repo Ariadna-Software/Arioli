@@ -71,7 +71,7 @@ Public SoloImprimir As Boolean
 Public OtrosParametros As String   ' El grupo acaba en |                            ' param1=valor1|param2=valor2|
 Public NumeroParametros As Integer   'Cuantos parametros hay.  EMPRESA(EMP) no es parametro. Es fijo en todos los informes
 Public MostrarTree As Boolean
-Public opcion As Integer
+Public Opcion As Integer
 Public ExportarPDF As Boolean
 Public EstaImpreso As Boolean
 
@@ -189,7 +189,7 @@ Dim NomImpre As String
     mrpt.RecordSelectionFormula = FormulaSeleccion
 '    mrpt.RecordSortFields
 
-    If opcion = 227 Then
+    If Opcion = 227 Then
     'Para INforme de Ventas por cliente
         If mrpt.FormulaFields.GetItemByName("pOrden").Text = "{tmpinformes.importe5}" Then
             mrpt.RecordSortFields.Item(1).SortDirection = crDescendingOrder
@@ -198,7 +198,7 @@ Dim NomImpre As String
     
     
     If ConSubInforme Then
-        If opcion = 228 Or opcion = 240 Then
+        If Opcion = 228 Or Opcion = 240 Then
              smrpt.RecordSelectionFormula = mrpt.RecordSelectionFormula
         End If
     End If
@@ -402,18 +402,18 @@ Private Sub Exportar()
 End Sub
 
 Private Sub PonerMargen()
-Dim cad As String
+Dim Cad As String
 Dim I As Integer
     On Error GoTo EPon
-    cad = Dir(App.Path & "\*.mrg")
-    If cad <> "" Then
-        I = InStr(1, cad, ".")
+    Cad = Dir(App.Path & "\*.mrg")
+    If Cad <> "" Then
+        I = InStr(1, Cad, ".")
         If I > 0 Then
-            cad = Mid(cad, 1, I - 1)
-            If IsNumeric(cad) Then
-                If Val(cad) > 4000 Then cad = "4000"
-                If Val(cad) > 0 Then
-                    mrpt.BottomMargin = mrpt.BottomMargin + Val(cad)
+            Cad = Mid(Cad, 1, I - 1)
+            If IsNumeric(Cad) Then
+                If Val(Cad) > 4000 Then Cad = "4000"
+                If Val(Cad) > 0 Then
+                    mrpt.BottomMargin = mrpt.BottomMargin + Val(Cad)
                 End If
             End If
         End If

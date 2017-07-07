@@ -485,6 +485,9 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Public DatosADevolverBusqueda As String    'Tendra el nº de text que quiere que devuelva, empipados
+    
+Public BuscarNegativos As Boolean  'para cunado vengo a buscar, permitir que muestren negativos y  cero
+    
     'Lleva
         '  * si viene para buscar el idpartida
         ' codartic si viene para que devuelva LOTE y cantidad
@@ -504,7 +507,7 @@ Private NombreTabla As String
 Private Ordenacion As String
 Private Modo As Byte
 
-Dim kCampo As Integer
+Dim Kcampo As Integer
 
 Dim EsBusqueda As Boolean
 'Para cargar el DataGrid con la consulta de busqueda y no con todos los registros
@@ -523,7 +526,7 @@ Private HaDevueltoDatos As Boolean
 Private Sub cmdAceptar_Click()
 Dim Indicador As String
 Dim NumReg As Long
-Dim Cp As cPartidas
+Dim cP As cPartidas
 
     On Error GoTo Error1
     
@@ -534,15 +537,15 @@ Dim Cp As cPartidas
             HacerBusqueda
         Case 3 'INSERTAR
             
-            Set Cp = New cPartidas
-            If DatosOk(Cp) Then
+            Set cP = New cPartidas
+            If DatosOk(cP) Then
                 
-                If Cp.Insertar Then
+                If cP.Insertar Then
                     'DEBIRAMOS AÑADIR UNA LINEA
                     'Si no, no cuadrara el total con la suma de lineas
                     AnyadirLineaLotaje
                     
-                    txtAux(0).Text = Cp.idPartida
+                    txtAux(0).Text = cP.idPartida
                     InsertaLog
                     CargaGrid True
                     BotonAnyadir
@@ -551,11 +554,11 @@ Dim Cp As cPartidas
                 End If
                 
             End If
-            Set Cp = Nothing
+            Set cP = Nothing
         
         Case 4 'MODIFICAR
-            Set Cp = New cPartidas
-            If DatosOk(Cp) Then
+            Set cP = New cPartidas
+            If DatosOk(cP) Then
                 
                  If ModificaDesdeFormulario(Me, 3) Then
                      InsertaLog
@@ -656,7 +659,7 @@ End Sub
 
 
 Private Sub cmdRegresar_Click()
-Dim cad As String
+Dim Cad As String
 
     If Data1.Recordset.EOF Then
         MsgBox "Ningún registro devuelto.", vbExclamation
@@ -664,8 +667,8 @@ Dim cad As String
     End If
 
     If Me.DatosADevolverBusqueda = "*" Then
-        cad = Data1.Recordset.Fields(0) & "|"
-        cad = cad & Data1.Recordset.Fields(1) & "|"
+        Cad = Data1.Recordset.Fields(0) & "|"
+        Cad = Cad & Data1.Recordset.Fields(1) & "|"
     Else
     
         If UCase(CStr(Data1.Recordset!codartic)) <> UCase(Me.DatosADevolverBusqueda) Then
@@ -673,10 +676,10 @@ Dim cad As String
             Exit Sub
         End If
     
-        cad = Data1.Recordset!NUmlote & "|"
-        cad = cad & Data1.Recordset!cantotal & "|"
+        Cad = Data1.Recordset!NUmlote & "|"
+        Cad = Cad & Data1.Recordset!cantotal & "|"
     End If
-    RaiseEvent DatoSeleccionado(cad)
+    RaiseEvent DatoSeleccionado(Cad)
     Unload Me
 End Sub
 
@@ -687,13 +690,13 @@ Dim limpiar As Boolean
     If Modo = 2 Then
         If Not (Data1.Recordset.EOF Or Data1.Recordset.BOF) Then
             txtAux(7).Text = DBLet(Data1.Recordset!codProve, "T")
-            txtaux2(7).Text = DBLet(Data1.Recordset!nomprove, "T")
+            txtAux2(7).Text = DBLet(Data1.Recordset!nomprove, "T")
             limpiar = False
         End If
     End If
     If limpiar Then
         txtAux(7).Text = ""
-        txtaux2(7).Text = ""
+        txtAux2(7).Text = ""
     End If
 End Sub
 
@@ -836,7 +839,7 @@ Dim tots As String
     If Not Data1.Recordset.EOF Then
    
           txtAux(7).Text = DBLet(Data1.Recordset!codProve, "T")
-          txtaux2(7).Text = DBLet(Data1.Recordset!nomprove, "T")
+          txtAux2(7).Text = DBLet(Data1.Recordset!nomprove, "T")
     
     End If
    
@@ -868,9 +871,9 @@ Dim b As Boolean
     
     txtAux(7).Enabled = b  'siempre esta visible
     
-    txtaux2(1).Height = DataGrid1.RowHeight
-    txtaux2(1).Top = alto
-    txtaux2(1).visible = b
+    txtAux2(1).Height = DataGrid1.RowHeight
+    txtAux2(1).Top = alto
+    txtAux2(1).visible = b
     
 
     'boton de busqueda
@@ -888,6 +891,7 @@ End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
     ParaMostrarDesdeNuevaProduccion = ""
+    BuscarNegativos = False
 End Sub
 
 'Private Sub frmT_DatoSeleccionado(CadenaSeleccion As String)
@@ -898,13 +902,13 @@ End Sub
 
 Private Sub frmArt_DatoSeleccionado(CadenaSeleccion As String)
     txtAux(1).Text = RecuperaValor(CadenaSeleccion, 1)
-    txtaux2(1).Text = RecuperaValor(CadenaSeleccion, 2)
+    txtAux2(1).Text = RecuperaValor(CadenaSeleccion, 2)
     HaDevueltoDatos = True
 End Sub
 
 Private Sub frmP_DatoSeleccionado(CadenaSeleccion As String)
     txtAux(7).Text = RecuperaValor(CadenaSeleccion, 1)
-    txtaux2(7).Text = RecuperaValor(CadenaSeleccion, 2)
+    txtAux2(7).Text = RecuperaValor(CadenaSeleccion, 2)
     HaDevueltoDatos = True
 End Sub
 
@@ -968,7 +972,7 @@ End Sub
 
 Private Sub PonerModo(Kmodo As Byte)
 Dim b As Boolean
-Dim i As Byte
+Dim I As Byte
     
     Modo = Kmodo
     PonerIndicador lblIndicador, Kmodo
@@ -986,9 +990,9 @@ Dim i As Byte
     If Kmodo = 1 Then PonerFoco txtAux(0)
                       
     'Bloquear los campos de clave primaria al modificar
-    For i = 0 To 2
-        BloquearTxt txtAux(i), (Modo = 4)
-    Next i
+    For I = 0 To 2
+        BloquearTxt txtAux(I), (Modo = 4)
+    Next I
                       
     '-----------------------------------------
     b = Modo <> 0 And Modo <> 2
@@ -1081,7 +1085,7 @@ Dim Orden As Boolean
     Orden = False
     If Me.DatosADevolverBusqueda <> "" Then
         If DatosADevolverBusqueda <> "*" Then
-            SQL = SQL & " AND cantotal>0"
+            If Not Me.BuscarNegativos Then SQL = SQL & " AND cantotal>0"
             Orden = True
         End If
     End If
@@ -1113,8 +1117,8 @@ Dim anc As Single
     Else
         HacerBusqueda
         If Data1.Recordset.EOF Then
-            txtAux(kCampo).Text = ""
-            PonerFoco txtAux(kCampo)
+            txtAux(Kcampo).Text = ""
+            PonerFoco txtAux(Kcampo)
         End If
     End If
 End Sub
@@ -1165,7 +1169,7 @@ End Sub
 
 
 Private Sub BotonModificar()
-Dim i As Integer
+Dim I As Integer
 Dim anc As Single
 
     'Escondemos el navegador y ponemos Modo Modificar
@@ -1175,8 +1179,8 @@ Dim anc As Single
     
     'Como el campo1, campo2 y campo3 es clave primaria, NO se puede modificar
     If DataGrid1.Bookmark < DataGrid1.FirstRow Or DataGrid1.Bookmark > (DataGrid1.FirstRow + DataGrid1.VisibleRows - 1) Then
-        i = DataGrid1.Bookmark - DataGrid1.FirstRow
-        DataGrid1.Scroll 0, i
+        I = DataGrid1.Bookmark - DataGrid1.FirstRow
+        DataGrid1.Scroll 0, I
         DataGrid1.Refresh
     End If
     anc = ObtenerAlto(Me.DataGrid1, 10)
@@ -1185,7 +1189,7 @@ Dim anc As Single
     'poner valores grabados
     txtAux(0).Text = DBLet(DataGrid1.Columns(0).Value, "N")
     txtAux(1).Text = DBLet(DataGrid1.Columns(1).Value, "N")
-    txtaux2(1).Text = DBLet(DataGrid1.Columns(2).Value, "T")
+    txtAux2(1).Text = DBLet(DataGrid1.Columns(2).Value, "T")
     txtAux(2).Text = DBLet(DataGrid1.Columns(3).Value, "N")
     
     txtAux(3).Text = DBLet(DataGrid1.Columns(4).Value, "N")
@@ -1193,7 +1197,7 @@ Dim anc As Single
     txtAux(5).Text = DBLet(DataGrid1.Columns(6).Value, "N")
     txtAux(6).Text = DBLet(DataGrid1.Columns(7).Value, "N")
     txtAux(7).Text = DBLet(DataGrid1.Columns(8).Value, "N")
-    txtaux2(7).Text = DBLet(DataGrid1.Columns(9).Value, "T")
+    txtAux2(7).Text = DBLet(DataGrid1.Columns(9).Value, "T")
 
 
     DataGrid1.Enabled = False
@@ -1241,13 +1245,13 @@ FinEliminar:
      MuestraError Err.Number, "Eliminar Gastos Técnicos.", Err.Description
 End Function
 
-Private Function Eliminar(ByRef S As String) As Boolean
+Private Function Eliminar(ByRef s As String) As Boolean
         
     Eliminar = False
-    S = "Delete from spartidaslin where id=" & Data1.Recordset!ID
-    If EjecutaSQL(1, S) Then
-        S = "Delete from " & NombreTabla & " where id=" & Data1.Recordset!ID
-        If EjecutaSQL(1, S) Then Eliminar = True
+    s = "Delete from spartidaslin where id=" & Data1.Recordset!ID
+    If EjecutaSQL(1, s) Then
+        s = "Delete from " & NombreTabla & " where id=" & Data1.Recordset!ID
+        If EjecutaSQL(1, s) Then Eliminar = True
     End If
        
 
@@ -1285,7 +1289,7 @@ Dim b As Boolean
     If b And Modo = 3 Then
         With CP1
             .Cantidad = ImporteFormateado(txtAux(6).Text)
-            .codAlmac = txtAux(2).Text
+            .codalmac = txtAux(2).Text
             .codartic = txtAux(1).Text
             If txtAux(7).Text = "" Then
                 .codProve = 0
@@ -1322,7 +1326,7 @@ End Sub
 
 
 Private Sub PonerCadenaBusqueda()
-Dim cad As String
+Dim Cad As String
 
     Screen.MousePointer = vbHourglass
     On Error GoTo EEPonerBusq
@@ -1332,10 +1336,10 @@ Dim cad As String
     Data1.Refresh
     If Data1.Recordset.RecordCount <= 0 Then
         CargaGrid False
-        cad = "No hay ningún registro en la tabla " & NombreTabla
-        If EsBusqueda Then cad = cad & " para ese criterio de Búsqueda."
+        Cad = "No hay ningún registro en la tabla " & NombreTabla
+        If EsBusqueda Then Cad = Cad & " para ese criterio de Búsqueda."
         Screen.MousePointer = vbDefault
-        MsgBox cad, vbInformation
+        MsgBox Cad, vbInformation
        
         PonerModo Modo
         Exit Sub
@@ -1385,7 +1389,7 @@ End Sub
 
 
 Private Sub txtAux_LostFocus(Index As Integer)
-Dim cad As String
+Dim Cad As String
 
     On Error GoTo ErrFoco
     
@@ -1399,11 +1403,11 @@ Dim cad As String
         Case 1
             
             'ARticulo
-            cad = ""
+            Cad = ""
             If txtAux(Index).Text <> "" Then
                 
-                    cad = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", txtAux(Index).Text, "T")
-                    If cad = "" Then
+                    Cad = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", txtAux(Index).Text, "T")
+                    If Cad = "" Then
                         MsgBox "No existe el articulo:" & txtAux(Index).Text, vbExclamation
                         txtAux(Index).Text = ""
                         PonerFoco txtAux(Index)
@@ -1412,7 +1416,7 @@ Dim cad As String
                     End If
                 End If
   
-            txtaux2(Index).Text = cad
+            txtAux2(Index).Text = Cad
             
 
         Case 2
@@ -1436,14 +1440,14 @@ Dim cad As String
         
         Case 7
             
-            cad = ""
+            Cad = ""
             If txtAux(Index).Text <> "" Then
                 If PonerFormatoEntero(txtAux(Index)) Then
-                    cad = DevuelveDesdeBD(conAri, "nomprove", "sprove", "codprove", txtAux(Index).Text, "N")
-                    If cad = "" Then MsgBox "No existe el proveedor"
+                    Cad = DevuelveDesdeBD(conAri, "nomprove", "sprove", "codprove", txtAux(Index).Text, "N")
+                    If Cad = "" Then MsgBox "No existe el proveedor"
                 End If
             End If
-            txtaux2(7).Text = cad
+            txtAux2(7).Text = Cad
         
     End Select
     Exit Sub
@@ -1497,7 +1501,7 @@ Dim cLo As cLotaje
     Set cLo = New cLotaje
     
     cLo.Cantidad = ImporteFormateado(txtAux(6).Text)
-    cLo.codAlmac = Val(txtAux(2).Text)
+    cLo.codalmac = Val(txtAux(2).Text)
     cLo.codarti2 = ""
     cLo.codartic = txtAux(1).Text
     cLo.DetaMov = "REG" 'regularicacion
@@ -1525,7 +1529,7 @@ Dim Col As Collection
     Set Col = New Collection
     Col.Add CStr(Data1.Recordset!ID)
     
-    ImpirmirEtiquetas2 Col, txtAux(7).Text & " " & txtaux2(7).Text, True, 1
+    ImpirmirEtiquetas2 Col, txtAux(7).Text & " " & txtAux2(7).Text, True, 1
     Set Col = Nothing
     
 End Sub

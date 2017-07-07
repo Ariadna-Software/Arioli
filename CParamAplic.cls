@@ -158,6 +158,34 @@ Private mvarqueempresaes As Byte   '0-1 Morales AVAB   2 Bodega Moixent  3 Almaz
 
 Private mvarFechaActiva As Date
 
+
+
+
+'JUNIO 2017. Nueva contabilidad ARIADNA. LA BD cambia
+Private mvarContabilidadNueva As Boolean
+
+
+'JUNIO217
+Private mvarSIITiene As Boolean   'No tiene en spara1. Lo leera (cuando hay abierto ConnConta) de contabilidad asociada
+Private mvarSIIDias As Integer
+Private mvarSIIFechaIni As Date
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Private SQL As String  'Para la sentencia
 Private Mens As String    'Para los mensajes
 
@@ -885,6 +913,22 @@ Public Property Get FechaActiva() As Date
 End Property
 
 
+Public Property Get ContabilidadNueva() As Boolean
+     ContabilidadNueva = mvarContabilidadNueva
+End Property
+
+
+Public Property Get SII_Tiene() As Boolean
+     SII_Tiene = mvarSIITiene
+End Property
+
+Public Property Get Sii_Finicio() As Date
+     Sii_Finicio = mvarSIIFechaIni
+End Property
+Public Property Get Sii_Dias() As Integer
+     Sii_Dias = mvarSIIDias
+End Property
+
 
 
 
@@ -1033,6 +1077,7 @@ On Error GoTo Err3
         '0-1 Morales AVAB   2 Bodega Moxient  3 Almazara Moixent   'LA VALL
         mvarqueempresaes = DBLet(RS!QueEmpresaEs, "N")
 
+        mvarContabilidadNueva = DBLet(RS!ContabilidadNueva, "N") = 1
 
 
         'Ficjamos la fecha activa para las producciones, albaranes entrada olivas molturaciones....
@@ -1337,3 +1382,36 @@ Private Sub FijarFechaActiva()
         End If
     End If
 End Sub
+
+
+
+
+Public Sub SII_FijarValores()
+Dim R
+    On Error GoTo eFijarTieneSII
+    mvarSIITiene = False
+    If Not mvarContabilidadNueva Then Exit Sub
+    
+    If ConnConta Is Nothing Then
+        MsgBox "Error conexion CONTA", vbExclamation
+        Exit Sub
+    End If
+    Set R = New ADODB.Recordset
+        
+    SQL = "select SIIFechaInicio,SIIDiasAviso FROM parametros"
+    R.Open SQL, ConnConta, adOpenForwardOnly, adLockOptimistic
+    If Not R.EOF Then
+        If Not IsNull(R!SIIFechaInicio) Then
+            'Tiene fecha inicio
+            mvarSIITiene = True
+            mvarSIIDias = DBLet(R!SIIDiasAviso, "N")
+            mvarSIIFechaIni = R!SIIFechaInicio
+        End If
+    End If
+    R.Close
+    
+eFijarTieneSII:
+    If Err.Number <> 0 Then MuestraError Err.Number, Err.Description
+    Set R = Nothing
+End Sub
+

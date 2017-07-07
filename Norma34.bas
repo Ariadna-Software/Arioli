@@ -392,7 +392,7 @@ Dim Cad As String
     Else
         Regs = 0
         While Not RS.EOF
-            frmListadoNomi.lblProgreso.Caption = "Trabajador: " & DBLet(RS!Nommacta, "T") & "     " & Regs + 1 & " de " & frmListadoNomi.ProgressBar1.Max
+            frmListadoNomi.lblProgreso.Caption = "Trabajador: " & DBLet(RS!nommacta, "T") & "     " & Regs + 1 & " de " & frmListadoNomi.ProgressBar1.Max
 '            If Pagos Then
 '                Im = DBLet(Rs!imppagad, "N")
 '                Im = Rs!impefect - Im
@@ -454,32 +454,32 @@ End Function
 
 
 
-Private Function RellenaABlancos(Cadena As String, PorLaDerecha As Boolean, Longitud As Integer) As String
+Private Function RellenaABlancos(Cadena As String, PorLaDerecha As Boolean, longitud As Integer) As String
 Dim Cad As String
     
-    Cad = Space(Longitud)
+    Cad = Space(longitud)
     If PorLaDerecha Then
         Cad = Cadena & Cad
-        RellenaABlancos = Left(Cad, Longitud)
+        RellenaABlancos = Left(Cad, longitud)
     Else
         Cad = Cad & Cadena
-        RellenaABlancos = Right(Cad, Longitud)
+        RellenaABlancos = Right(Cad, longitud)
     End If
     
 End Function
 
 
 
-Private Function RellenaAceros(Cadena As String, PorLaDerecha As Boolean, Longitud As Integer) As String
+Private Function RellenaAceros(Cadena As String, PorLaDerecha As Boolean, longitud As Integer) As String
 Dim Cad As String
     
-    Cad = Mid("00000000000000000000", 1, Longitud)
+    Cad = Mid("00000000000000000000", 1, longitud)
     If PorLaDerecha Then
         Cad = Cadena & Cad
-        RellenaAceros = Left(Cad, Longitud)
+        RellenaAceros = Left(Cad, longitud)
     Else
         Cad = Cad & Cadena
-        RellenaAceros = Right(Cad, Longitud)
+        RellenaAceros = Right(Cad, longitud)
     End If
     
 End Function
@@ -584,7 +584,7 @@ End Sub
 Private Sub Linea2(NF As Integer, ByRef CodOrde As String, ByRef rs1 As ADODB.Recordset, ByRef Cad As String)
     Cad = CodOrde    'llevara tb la ID del socio
     Cad = Cad & "011"
-    Cad = Cad & RellenaABlancos(rs1!Nommacta, False, 36)
+    Cad = Cad & RellenaABlancos(rs1!nommacta, False, 36)
     Cad = RellenaABlancos(Cad, True, 72)
     Print #NF, Cad
 End Sub
@@ -886,13 +886,13 @@ Dim ContabilidadNueva As Boolean  'Llegado el momento habra que poner   vParamAp
                 Cad = DevuelveDesdeBD(conConta, "bic", "sbic", "entidad", Cad)
             End If
         End If
-        If Cad = "" Then Err.Raise 513, , "No existe BIC: " & miRsAux!Nommacta & vbCrLf & "Entidad: " & Cad
+        If Cad = "" Then Err.Raise 513, , "No existe BIC: " & miRsAux!nommacta & vbCrLf & "Entidad: " & Cad
         
         Print #NFic, "             <BIC>" & Cad & "</BIC>"
         Print #NFic, "          </FinInstnId>"
         Print #NFic, "       </CdtrAgt>"
         Print #NFic, "       <Cdtr>"
-        Print #NFic, "          <Nm>" & XML(miRsAux!Nommacta) & "</Nm>"
+        Print #NFic, "          <Nm>" & XML(miRsAux!nommacta) & "</Nm>"
         
         
 
@@ -933,7 +933,7 @@ Dim ContabilidadNueva As Boolean  'Llegado el momento habra que poner   vParamAp
 
         
         Aux = DescripcionTrans
-        If Trim(Aux) = "" Then Aux = miRsAux!Nommacta
+        If Trim(Aux) = "" Then Aux = miRsAux!nommacta
         Print #NFic, "         <Ustrd>" & XML(Trim(Aux)) & "</Ustrd>"
         Print #NFic, "      </RmtInf>"
         Print #NFic, "   </CdtTrfTxInf>"
@@ -1025,7 +1025,7 @@ Dim Aux As String
 End Function
 
 
-Public Function FrmtStr(campo As String, Longitud As Integer) As String
-    FrmtStr = Mid(Trim(campo) & Space(Longitud), 1, Longitud)
+Public Function FrmtStr(campo As String, longitud As Integer) As String
+    FrmtStr = Mid(Trim(campo) & Space(longitud), 1, longitud)
 End Function
 

@@ -850,7 +850,7 @@ Dim Control As Object
 Dim mTag As CTag
 Dim Aux As String
 Dim cadWhere As String
-Dim cadUPDATE As String
+Dim cadUpdate As String
 
 On Error GoTo EModificaDesdeFormulario
     ModificaDesdeFormulario = False
@@ -876,8 +876,8 @@ On Error GoTo EModificaDesdeFormulario
                                  cadWhere = cadWhere & "(" & mTag.Columna & " = " & Aux & ")"
     
                             Else
-                                If cadUPDATE <> "" Then cadUPDATE = cadUPDATE & " , "
-                                cadUPDATE = cadUPDATE & "" & mTag.Columna & " = " & Aux
+                                If cadUpdate <> "" Then cadUpdate = cadUpdate & " , "
+                                cadUpdate = cadUpdate & "" & mTag.Columna & " = " & Aux
                             End If
                         End If
                     End If
@@ -894,10 +894,10 @@ On Error GoTo EModificaDesdeFormulario
                     Aux = "FALSE"
                 End If
                 If mTag.TipoDato = "N" Then Aux = Abs(CBool(Aux))
-                If cadUPDATE <> "" Then cadUPDATE = cadUPDATE & " , "
+                If cadUpdate <> "" Then cadUpdate = cadUpdate & " , "
                 'Esta es para access
                 'cadUPDATE = cadUPDATE & "[" & mTag.Columna & "] = " & aux
-                cadUPDATE = cadUPDATE & "" & mTag.Columna & " = " & Aux
+                cadUpdate = cadUpdate & "" & mTag.Columna & " = " & Aux
             End If
 
         ElseIf TypeOf Control Is ComboBox And Control.visible Then
@@ -909,9 +909,9 @@ On Error GoTo EModificaDesdeFormulario
                         Else
                         Aux = Control.ItemData(Control.ListIndex)
                     End If
-                    If cadUPDATE <> "" Then cadUPDATE = cadUPDATE & " , "
+                    If cadUpdate <> "" Then cadUpdate = cadUpdate & " , "
                     'cadUPDATE = cadUPDATE & "[" & mTag.Columna & "] = " & aux
-                    cadUPDATE = cadUPDATE & "" & mTag.Columna & " = " & Aux
+                    cadUpdate = cadUpdate & "" & mTag.Columna & " = " & Aux
                 End If
             End If
         ElseIf TypeOf Control Is OptionButton And Control.visible Then
@@ -920,8 +920,8 @@ On Error GoTo EModificaDesdeFormulario
                     mTag.Cargar Control
                     If mTag.Cargado Then
                         Aux = Control.Index
-                        If cadUPDATE <> "" Then cadUPDATE = cadUPDATE & " , "
-                        cadUPDATE = cadUPDATE & "" & mTag.Columna & " = " & Aux
+                        If cadUpdate <> "" Then cadUpdate = cadUpdate & " , "
+                        cadUpdate = cadUpdate & "" & mTag.Columna & " = " & Aux
                     End If
                 End If
             End If
@@ -938,7 +938,7 @@ On Error GoTo EModificaDesdeFormulario
         Exit Function
     End If
     Aux = "UPDATE " & mTag.Tabla
-    Aux = Aux & " SET " & cadUPDATE & " WHERE " & cadWhere
+    Aux = Aux & " SET " & cadUpdate & " WHERE " & cadWhere
     conn.Execute Aux, , adCmdText
 
     ModificaDesdeFormulario = True
@@ -1428,11 +1428,27 @@ Dim cadMen As String
     CodClien = CodClien & " - " & SQL
     
     'Obtener a partir de la cuenta del cliente si hay cobros pendientes en Contabilidad
-    SQL = "SELECT sum(impvenci - if(isnull(impcobro),0,impcobro)) FROM scobro INNER JOIN sforpa ON scobro.codforpa=sforpa.codforpa "
-    vWhere = " WHERE scobro.codmacta = '" & Codmacta & "'"
-    vWhere = vWhere & " AND fecvenci <= ' " & Format(FechaDoc, FormatoFecha) & "' "
-    vWhere = vWhere & " AND (sforpa.tipforpa between 0 and 3)"
-    SQL = SQL & vWhere
+    
+    If vParamAplic.ContabilidadNueva Then
+    
+        SQL = "SELECT sum(impvenci - if(isnull(impcobro),0,impcobro))  FROM cobros INNER JOIN formapago ON cobros.codforpa=formapago.codforpa "
+        vWhere = " WHERE cobros.codmacta = '" & Codmacta & "'"
+        vWhere = vWhere & " AND fecvenci <= ' " & Format(FechaDoc, FormatoFecha) & "' "
+        vWhere = vWhere & " AND recedocu=0 ORDER BY fecfactu, numfactu"
+        SQL = SQL & vWhere
+    
+    
+    Else
+
+    
+    
+        SQL = "SELECT sum(impvenci - if(isnull(impcobro),0,impcobro)) FROM scobro INNER JOIN sforpa ON scobro.codforpa=sforpa.codforpa "
+        vWhere = " WHERE scobro.codmacta = '" & Codmacta & "'"
+        vWhere = vWhere & " AND fecvenci <= ' " & Format(FechaDoc, FormatoFecha) & "' "
+        vWhere = vWhere & " AND (sforpa.tipforpa between 0 and 3)"
+        SQL = SQL & vWhere
+    
+    End If
     Set RS = New ADODB.Recordset
     'Lee de la Base de Datos de CONTABILIDAD
     RS.Open SQL, ConnConta, adOpenForwardOnly, adLockPessimistic, adCmdText
@@ -1743,7 +1759,7 @@ End Function
 
 
 
-Public Function ComprobarStock(codartic As String, codAlmac As String, cant As String, CodTipMov As String) As Boolean
+Public Function ComprobarStock(codartic As String, codalmac As String, cant As String, CodTipMov As String) As Boolean
 'Comprueba si el Articulo existe en el Almacen Origen y si hay
 'stock suficiente para poder realizar el traspaso
 Dim vStock As String
@@ -1753,7 +1769,7 @@ Dim b As Boolean
     Set vArtic = New CArticulo
     b = vArtic.Existe(codartic)
     If b Then
-        b = vArtic.ExisteEnAlmacen(codAlmac, vStock)
+        b = vArtic.ExisteEnAlmacen(codalmac, vStock)
         If b Then
             b = ComprobarHayStock(CSng(vStock), CSng(cant), codartic, vArtic.Nombre, CodTipMov)
 '            If Not ComprobarHayStock(CSng(vStock), CSng(cant), codArtic, vArtic.Nombre, CodTipMov) Then
@@ -1874,7 +1890,7 @@ End Function
 
 
 Public Function Round2(Number As Variant, Optional NumDigitsAfterDecimals As Long) As Variant
-Dim ent As Integer
+Dim Ent As Integer
 Dim Cad As String
   
   ' Comprobaciones
@@ -1921,11 +1937,11 @@ End Function
 
 
 
-Public Function ArticuloTieneMargen(codArt As String) As Boolean
+Public Function ArticuloTieneMargen(codart As String) As Boolean
 Dim Cad As String
 
     'Comprobar que el artículo tiene margen comercial
-    Cad = DevuelveDesdeBDNew(conAri, "sartic", "margecom", "codartic", codArt, "T")
+    Cad = DevuelveDesdeBDNew(conAri, "sartic", "margecom", "codartic", codart, "T")
     If Cad = "" Then
         Cad = "NO SE HAN PODIDO ACTUALIZAR LOS PRECIOS." & vbCrLf
         Cad = Cad & "El artículo no tiene margen comercial para calcular nuevos precios."
@@ -1988,19 +2004,19 @@ End Function
 '       Para buscar en los checks con las dos opciones de true y false
 '
 'A partir de un check cualquiera devolvera nombre e indice, si tiene. Si no sera ()
-Public Sub CheckBusqueda(ByRef CH As CheckBox)
+Public Sub CheckBusqueda(ByRef Ch As CheckBox)
     NombreCheck = ""
-    NombreCheck = CH.Name & "("
+    NombreCheck = Ch.Name & "("
     On Error Resume Next
-    NombreCheck = NombreCheck & CH.Index
+    NombreCheck = NombreCheck & Ch.Index
     If Err.Number <> 0 Then Err.Clear
     NombreCheck = NombreCheck & ")"
 End Sub
 
 
 
-Public Sub CheckCadenaBusqueda(ByRef CH As CheckBox, ByRef CadenaCHECKs As String)
-        CheckBusqueda CH
+Public Sub CheckCadenaBusqueda(ByRef Ch As CheckBox, ByRef CadenaCHECKs As String)
+        CheckBusqueda Ch
         If InStr(1, CadenaCHECKs, NombreCheck) = 0 Then CadenaCHECKs = CadenaCHECKs & NombreCheck & "|"
 End Sub
 
@@ -2091,17 +2107,17 @@ Public Function SugerirCodAutomatico(marca As String, Categoria As String, model
     SugerirCodAutomatico = comun
 End Function
 
-Public Function CambiaTagDescriptores(ByRef txt As TextBox, descriptor As String) As String
+Public Function CambiaTagDescriptores(ByRef Txt As TextBox, descriptor As String) As String
     '-- Cambia el comienzo del tag del descriptor en el tag, para que cuando diga xxx no exista, aparezca
     '   la etiqueta correcta.
     Dim pos As Integer
     Dim ntag As String
-    ntag = txt.Tag
+    ntag = Txt.Tag
     pos = InStr(1, ntag, "|")
     If pos Then
         ntag = descriptor & Mid(ntag, pos, (Len(ntag) - pos) + 1)
     End If
-    txt.Tag = ntag
+    Txt.Tag = ntag
     CambiaTagDescriptores = ntag
 End Function
 

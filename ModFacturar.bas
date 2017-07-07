@@ -38,7 +38,7 @@ Public Function TraspasoAlbaranesFacturas(cadSQL As String, cadWhere As String, 
 '      TextosCSB:  Si lleva llevara 3 lineas para meter ent tesoreria
 
 'Desde Albaranes Genera las Facturas correspondientes
-Dim RSalb As ADODB.Recordset 'Ordenados por: tipofac,clien,dpto,forma pago, dtoppago, dtognral
+Dim RsAlb As ADODB.Recordset 'Ordenados por: tipofac,clien,dpto,forma pago, dtoppago, dtognral
 Dim b As Boolean
 Dim SQL As String
 
@@ -98,20 +98,20 @@ Dim PgbVisible As Boolean
         End If
         
         
-        Set RSalb = New ADODB.Recordset
-        RSalb.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-        If Not RSalb.EOF Then
-            CargarProgresNew PBar1, CInt(RSalb.Fields(0))
+        Set RsAlb = New ADODB.Recordset
+        RsAlb.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        If Not RsAlb.EOF Then
+            CargarProgresNew PBar1, CInt(RsAlb.Fields(0))
             LblBar.Caption = "Inicializando el proceso..."
         End If
-        RSalb.Close
-        Set RSalb = Nothing
+        RsAlb.Close
+        Set RsAlb = Nothing
     End If
     
         
     'EMPEZAMOS LA FACTURA
     Set vFactu = New CFactura
-    vFactu.FecFactu = FechaFact 'Fecha para las Facturas
+    vFactu.Fecfactu = FechaFact 'Fecha para las Facturas
 
     'Cuenta Prevista de Cobro de las Facturas
     vFactu.BancoPr = banPr
@@ -133,8 +133,8 @@ Dim PgbVisible As Boolean
     'Marcar Albaranes que se van a Facturar
     '----------------------------------------
     SQL = cadSQL & " ORDER BY scaalb.tipofact, scaalb.codclien, scaalb.coddirec, codforpa, dtoppago, dtognral "
-    Set RSalb = New ADODB.Recordset
-    RSalb.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Set RsAlb = New ADODB.Recordset
+    RsAlb.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         
         
     'Agrupar los Albaranes posibles en una misma Factura
@@ -153,16 +153,16 @@ Dim PgbVisible As Boolean
     Errores = ""
     Inc = 0
     
-    While Not RSalb.EOF
-        TipoAlb = RSalb!codTipoM
+    While Not RsAlb.EOF
+        TipoAlb = RsAlb!Codtipom
         Inc = Inc + 1
-        If IsNull(RSalb!CodDirec) Then
+        If IsNull(RsAlb!CodDirec) Then
             actDirec = -1
         Else
-            actDirec = DBLet(RSalb!CodDirec, "N")
+            actDirec = DBLet(RsAlb!CodDirec, "N")
         End If
         
-        If RSalb!TipoFact = 1 Then 'tipofact=1 "FACTURA x ALBARAN"
+        If RsAlb!TipoFact = 1 Then 'tipofact=1 "FACTURA x ALBARAN"
         '---------------------------------------------------------
             frmListadoPed.lblProgess(0).Caption = "Facturando: Facturas individuales"
             If cadW <> "" Then 'Facturacion pendiente
@@ -188,26 +188,27 @@ Dim PgbVisible As Boolean
             
             'Los Albaranes que tengan tipofact=1 "factura x Albaran" generar una factura
             'para cada uno de ellos
-            cadW = " scaalb.codtipom='" & RSalb!codTipoM & "' AND scaalb.numalbar=" & RSalb!NumAlbar
+            cadW = " scaalb.codtipom='" & RsAlb!Codtipom & "' AND scaalb.numalbar=" & RsAlb!NumAlbar
             
             'Generar una Factura nueva
-            vFactu.Cliente = RSalb!CodClien
-            vFactu.NombreClien = RSalb!nomclien
-            vFactu.DomicilioClien = DBLet(RSalb!domclien, "T")
-            vFactu.CPostal = DBLet(RSalb!codpobla, "T")
-            vFactu.Poblacion = DBLet(RSalb!pobclien, "T")
-            vFactu.Provincia = DBLet(RSalb!proclien, "T")
-            vFactu.NIF = DBLet(RSalb!nifClien, "T")
-            vFactu.Telefono = DBLet(RSalb!telclien, "T")
-            vFactu.DirDpto = DBLet(RSalb!CodDirec, "T")
-            vFactu.NombreDirDpto = DBLet(RSalb!nomdirec, "T")
-            vFactu.Agente = RSalb!codagent
-            vFactu.ForPago = RSalb!codforpa
-            vFactu.TipForPago = DevuelveDesdeBDNew(conAri, "sforpa", "tipforpa", "codforpa", RSalb!codforpa, "N")
-            vFactu.DtoPPago = CCur(RSalb!DtoPPago)
-            vFactu.DtoGnral = CCur(RSalb!DtoGnral)
+            vFactu.Cliente = RsAlb!CodClien
+            vFactu.NombreClien = RsAlb!nomclien
+            vFactu.DomicilioClien = DBLet(RsAlb!domclien, "T")
+            vFactu.CPostal = DBLet(RsAlb!codpobla, "T")
+            vFactu.Poblacion = DBLet(RsAlb!pobclien, "T")
+            vFactu.Provincia = DBLet(RsAlb!proclien, "T")
+            vFactu.NIF = DBLet(RsAlb!nifClien, "T")
+            vFactu.Telefono = DBLet(RsAlb!telclien, "T")
+            vFactu.DirDpto = DBLet(RsAlb!CodDirec, "T")
+            vFactu.NombreDirDpto = DBLet(RsAlb!nomdirec, "T")
+            vFactu.Agente = RsAlb!codagent
+            vFactu.ForPago = RsAlb!codforpa
+            vFactu.TipForPago = DevuelveDesdeBDNew(conAri, "sforpa", "tipforpa", "codforpa", RsAlb!codforpa, "N")
+            vFactu.DtoPPago = CCur(RsAlb!DtoPPago)
+            vFactu.DtoGnral = CCur(RsAlb!DtoGnral)
 
-                
+            'vFactu.Pais = DevuelveDesdeBDNew(conAri, "sclien", "codpais", "codclien", RsAlb!CodClien, "N")
+            'If vFactu.Pais = "" Then vFactu.Pais = "ES"
                 
             If Not vFactu.PasarAlbaranesAFactura2(TipoAlb, cadW, TextosCSB, ErroresAux, False) Then
                 If b Then b = False
@@ -221,7 +222,7 @@ Dim PgbVisible As Boolean
             End If
             If PgbVisible Then
                 Inc = 1 '1 albaran x factura
-                LblBar.Caption = "Cliente: " & Format(RSalb!CodClien, "000000") & " - " & RSalb!nomclien
+                LblBar.Caption = "Cliente: " & Format(RsAlb!CodClien, "000000") & " - " & RsAlb!nomclien
                 IncrementarProgresNew PBar1, Inc
                 Inc = 0
             End If
@@ -243,9 +244,9 @@ Dim PgbVisible As Boolean
              'Comprobar si es Departamento o Direccion (segun paramatro)
              If vParamAplic.Departamento Then
                 'agrupar tb por departamento
-                condicion = (antClien <> RSalb!CodClien) Or (antDirec <> actDirec) Or (antForpa <> RSalb!codforpa) Or (antDtoPP <> RSalb!DtoPPago) Or (antDtoGn <> RSalb!DtoGnral)
+                condicion = (antClien <> RsAlb!CodClien) Or (antDirec <> actDirec) Or (antForpa <> RsAlb!codforpa) Or (antDtoPP <> RsAlb!DtoPPago) Or (antDtoGn <> RsAlb!DtoGnral)
              Else
-                condicion = (antClien <> RSalb!CodClien) Or (antForpa <> RSalb!codforpa) Or (antDtoPP <> RSalb!DtoPPago) Or (antDtoGn <> RSalb!DtoGnral)
+                condicion = (antClien <> RsAlb!CodClien) Or (antForpa <> RsAlb!codforpa) Or (antDtoPP <> RsAlb!DtoPPago) Or (antDtoGn <> RsAlb!DtoGnral)
              End If
              
 '             If (antClien <> RSalb!CodClien) Or (antDirec <> actDirec) Or (antForpa <> RSalb!codforpa) Or (antDtoPP <> RSalb!DtoPPago) Or (antDtoGn <> RSalb!DtoGnral) Then
@@ -274,40 +275,40 @@ Dim PgbVisible As Boolean
                     cadW = ""
                 End If
                 'Generar una Factura nueva
-                vFactu.Cliente = RSalb!CodClien
-                vFactu.NombreClien = RSalb!nomclien
-                vFactu.DomicilioClien = DBLet(RSalb!domclien, "T")
-                vFactu.CPostal = DBLet(RSalb!codpobla, "T")
-                vFactu.Poblacion = DBLet(RSalb!pobclien, "T")
-                vFactu.Provincia = DBLet(RSalb!proclien, "T")
-                vFactu.NIF = DBLet(RSalb!nifClien, "T")
-                vFactu.Telefono = DBLet(RSalb!telclien, "T")
-                vFactu.DirDpto = DBLet(RSalb!CodDirec, "T")
-                vFactu.NombreDirDpto = DBLet(RSalb!nomdirec, "T")
-                vFactu.Agente = RSalb!codagent
-                vFactu.ForPago = RSalb!codforpa
-                vFactu.TipForPago = DevuelveDesdeBDNew(conAri, "sforpa", "tipforpa", "codforpa", RSalb!codforpa, "N")
-                vFactu.DtoPPago = CCur(RSalb!DtoPPago)
-                vFactu.DtoGnral = CCur(RSalb!DtoGnral)
+                vFactu.Cliente = RsAlb!CodClien
+                vFactu.NombreClien = RsAlb!nomclien
+                vFactu.DomicilioClien = DBLet(RsAlb!domclien, "T")
+                vFactu.CPostal = DBLet(RsAlb!codpobla, "T")
+                vFactu.Poblacion = DBLet(RsAlb!pobclien, "T")
+                vFactu.Provincia = DBLet(RsAlb!proclien, "T")
+                vFactu.NIF = DBLet(RsAlb!nifClien, "T")
+                vFactu.Telefono = DBLet(RsAlb!telclien, "T")
+                vFactu.DirDpto = DBLet(RsAlb!CodDirec, "T")
+                vFactu.NombreDirDpto = DBLet(RsAlb!nomdirec, "T")
+                vFactu.Agente = RsAlb!codagent
+                vFactu.ForPago = RsAlb!codforpa
+                vFactu.TipForPago = DevuelveDesdeBDNew(conAri, "sforpa", "tipforpa", "codforpa", RsAlb!codforpa, "N")
+                vFactu.DtoPPago = CCur(RsAlb!DtoPPago)
+                vFactu.DtoGnral = CCur(RsAlb!DtoGnral)
                 vFactu.Aportacion = 0
-                If RSalb!codTipoM = "ALM" Then vFactu.Aportacion = DBLet(RSalb!Aportacion, "N")
-                cadW = " (scaalb.codtipom='" & RSalb!codTipoM & "' AND scaalb.numalbar IN (" & RSalb!NumAlbar
+                If RsAlb!Codtipom = "ALM" Then vFactu.Aportacion = DBLet(RsAlb!Aportacion, "N")
+                cadW = " (scaalb.codtipom='" & RsAlb!Codtipom & "' AND scaalb.numalbar IN (" & RsAlb!NumAlbar
             Else
-                cadW = cadW & ", " & RSalb!NumAlbar
+                cadW = cadW & ", " & RsAlb!NumAlbar
             End If
         
             'Guardamos datos del registro anterior
-            antClien = RSalb!CodClien
+            antClien = RsAlb!CodClien
 '            antDirec = DBLet(RSalb!CodDirec, "N")
             antDirec = actDirec
-            antForpa = RSalb!codforpa
-            antDtoPP = RSalb!DtoPPago
-            antDtoGn = RSalb!DtoGnral
+            antForpa = RsAlb!codforpa
+            antDtoPP = RsAlb!DtoPPago
+            antDtoGn = RsAlb!DtoGnral
         End If
-        RSalb.MoveNext
+        RsAlb.MoveNext
     Wend
-    RSalb.Close
-    Set RSalb = Nothing
+    RsAlb.Close
+    Set RsAlb = Nothing
         
     'Facturar la ultima Factura generada del blucle
     If cadW <> "" Then
@@ -331,7 +332,7 @@ Dim PgbVisible As Boolean
         Espera 0.2
     End If
     
-    TipoFac = vFactu.codTipoM
+    TipoFac = vFactu.Codtipom
     Set vFactu = Nothing
     TraspasoAlbaranesFacturas = True
     
@@ -377,7 +378,7 @@ Public Function TraspasoAlbaranesFacturas_RecuperaFac(cadSQL As String, cadWhere
 '      FechaFact: Fecha de la Factura
 '      BanPr: Cod. de Banco Propio
 'Desde Albaranes Genera las Facturas correspondientes
-Dim RSalb As ADODB.Recordset 'Ordenados por: tipofac,clien,dpto,forma pago, dtoppago, dtognral
+Dim RsAlb As ADODB.Recordset 'Ordenados por: tipofac,clien,dpto,forma pago, dtoppago, dtognral
 Dim b As Boolean
 Dim SQL As String
 
@@ -433,20 +434,20 @@ Dim condicion As Boolean 'condicion que comprueba para romper la agrupacion de a
         End If
         
         
-        Set RSalb = New ADODB.Recordset
-        RSalb.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-        If Not RSalb.EOF Then
-            CargarProgresNew PBar, CInt(RSalb.Fields(0))
+        Set RsAlb = New ADODB.Recordset
+        RsAlb.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        If Not RsAlb.EOF Then
+            CargarProgresNew PBar, CInt(RsAlb.Fields(0))
             LblBar.Caption = "Inicializando el proceso..."
         End If
-        RSalb.Close
-        Set RSalb = Nothing
+        RsAlb.Close
+        Set RsAlb = Nothing
     End If
     
         
     'EMPEZAMOS LA FACTURA
     Set vFactu = New CFactura
-    vFactu.FecFactu = FechaFact 'Fecha para las Facturas
+    vFactu.Fecfactu = FechaFact 'Fecha para las Facturas
     vFactu.NumFactu = numFac
     
     'Cuenta Prevista de Cobro de las Facturas
@@ -469,8 +470,8 @@ Dim condicion As Boolean 'condicion que comprueba para romper la agrupacion de a
     'Marcar Albaranes que se van a Facturar
     '----------------------------------------
     SQL = cadSQL & " ORDER BY scaalb.tipofact, scaalb.codclien, scaalb.coddirec, codforpa, dtoppago, dtognral "
-    Set RSalb = New ADODB.Recordset
-    RSalb.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Set RsAlb = New ADODB.Recordset
+    RsAlb.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         
         
     'Agrupar los Albaranes posibles en una misma Factura
@@ -489,16 +490,16 @@ Dim condicion As Boolean 'condicion que comprueba para romper la agrupacion de a
     Errores = ""
     Inc = 0
     
-    While Not RSalb.EOF
-        TipoAlb = RSalb!codTipoM
+    While Not RsAlb.EOF
+        TipoAlb = RsAlb!Codtipom
         Inc = Inc + 1
-        If IsNull(RSalb!CodDirec) Then
+        If IsNull(RsAlb!CodDirec) Then
             actDirec = -1
         Else
-            actDirec = DBLet(RSalb!CodDirec, "N")
+            actDirec = DBLet(RsAlb!CodDirec, "N")
         End If
         
-        If RSalb!TipoFact = 1 Then 'tipofact=1 "FACTURA x ALBARAN"
+        If RsAlb!TipoFact = 1 Then 'tipofact=1 "FACTURA x ALBARAN"
         '---------------------------------------------------------
             frmListadoPed.lblProgess(0).Caption = "Facturando: Facturas individuales"
             If cadW <> "" Then 'Facturacion pendiente
@@ -525,24 +526,24 @@ Dim condicion As Boolean 'condicion que comprueba para romper la agrupacion de a
             
             'Los Albaranes que tengan tipofact=1 "factura x Albaran" generar una factura
             'para cada uno de ellos
-            cadW = " scaalb.codtipom='" & RSalb!codTipoM & "' AND scaalb.numalbar=" & RSalb!NumAlbar
+            cadW = " scaalb.codtipom='" & RsAlb!Codtipom & "' AND scaalb.numalbar=" & RsAlb!NumAlbar
             
             'Generar una Factura nueva
-            vFactu.Cliente = RSalb!CodClien
-            vFactu.NombreClien = RSalb!nomclien
-            vFactu.DomicilioClien = DBLet(RSalb!domclien, "T")
-            vFactu.CPostal = DBLet(RSalb!codpobla, "T")
-            vFactu.Poblacion = DBLet(RSalb!pobclien, "T")
-            vFactu.Provincia = DBLet(RSalb!proclien, "T")
-            vFactu.NIF = DBLet(RSalb!nifClien, "T")
-            vFactu.Telefono = DBLet(RSalb!telclien, "T")
-            vFactu.DirDpto = DBLet(RSalb!CodDirec, "T")
-            vFactu.NombreDirDpto = DBLet(RSalb!nomdirec, "T")
-            vFactu.Agente = RSalb!codagent
-            vFactu.ForPago = RSalb!codforpa
-            vFactu.TipForPago = DevuelveDesdeBDNew(conAri, "sforpa", "tipforpa", "codforpa", RSalb!codforpa, "N")
-            vFactu.DtoPPago = CCur(RSalb!DtoPPago)
-            vFactu.DtoGnral = CCur(RSalb!DtoGnral)
+            vFactu.Cliente = RsAlb!CodClien
+            vFactu.NombreClien = RsAlb!nomclien
+            vFactu.DomicilioClien = DBLet(RsAlb!domclien, "T")
+            vFactu.CPostal = DBLet(RsAlb!codpobla, "T")
+            vFactu.Poblacion = DBLet(RsAlb!pobclien, "T")
+            vFactu.Provincia = DBLet(RsAlb!proclien, "T")
+            vFactu.NIF = DBLet(RsAlb!nifClien, "T")
+            vFactu.Telefono = DBLet(RsAlb!telclien, "T")
+            vFactu.DirDpto = DBLet(RsAlb!CodDirec, "T")
+            vFactu.NombreDirDpto = DBLet(RsAlb!nomdirec, "T")
+            vFactu.Agente = RsAlb!codagent
+            vFactu.ForPago = RsAlb!codforpa
+            vFactu.TipForPago = DevuelveDesdeBDNew(conAri, "sforpa", "tipforpa", "codforpa", RsAlb!codforpa, "N")
+            vFactu.DtoPPago = CCur(RsAlb!DtoPPago)
+            vFactu.DtoGnral = CCur(RsAlb!DtoGnral)
                 
             If Not vFactu.PasarAlbaranesAFactura2(TipoAlb, cadW, "", ErroresAux, True) Then
                 If b Then b = False
@@ -556,7 +557,7 @@ Dim condicion As Boolean 'condicion que comprueba para romper la agrupacion de a
             End If
             If PBar.visible Then
                 Inc = 1 '1 albaran x factura
-                LblBar.Caption = "Cliente: " & Format(RSalb!CodClien, "000000") & " - " & RSalb!nomclien
+                LblBar.Caption = "Cliente: " & Format(RsAlb!CodClien, "000000") & " - " & RsAlb!nomclien
                 IncrementarProgresNew PBar, Inc
                 Inc = 0
             End If
@@ -576,9 +577,9 @@ Dim condicion As Boolean 'condicion que comprueba para romper la agrupacion de a
              'Comprobar si es Departamento o Direccion (segun paramatro)
              If vParamAplic.Departamento Then
                 'agrupar tb por departamento
-                condicion = (antClien <> RSalb!CodClien) Or (antDirec <> actDirec) Or (antForpa <> RSalb!codforpa) Or (antDtoPP <> RSalb!DtoPPago) Or (antDtoGn <> RSalb!DtoGnral)
+                condicion = (antClien <> RsAlb!CodClien) Or (antDirec <> actDirec) Or (antForpa <> RsAlb!codforpa) Or (antDtoPP <> RsAlb!DtoPPago) Or (antDtoGn <> RsAlb!DtoGnral)
              Else
-                condicion = (antClien <> RSalb!CodClien) Or (antForpa <> RSalb!codforpa) Or (antDtoPP <> RSalb!DtoPPago) Or (antDtoGn <> RSalb!DtoGnral)
+                condicion = (antClien <> RsAlb!CodClien) Or (antForpa <> RsAlb!codforpa) Or (antDtoPP <> RsAlb!DtoPPago) Or (antDtoGn <> RsAlb!DtoGnral)
              End If
              
 '             If (antClien <> RSalb!CodClien) Or (antDirec <> actDirec) Or (antForpa <> RSalb!codforpa) Or (antDtoPP <> RSalb!DtoPPago) Or (antDtoGn <> RSalb!DtoGnral) Then
@@ -607,39 +608,39 @@ Dim condicion As Boolean 'condicion que comprueba para romper la agrupacion de a
                     cadW = ""
                 End If
                 'Generar una Factura nueva
-                vFactu.Cliente = RSalb!CodClien
-                vFactu.NombreClien = RSalb!nomclien
-                vFactu.DomicilioClien = DBLet(RSalb!domclien, "T")
-                vFactu.CPostal = DBLet(RSalb!codpobla, "T")
-                vFactu.Poblacion = DBLet(RSalb!pobclien, "T")
-                vFactu.Provincia = DBLet(RSalb!proclien, "T")
-                vFactu.NIF = DBLet(RSalb!nifClien, "T")
-                vFactu.Telefono = DBLet(RSalb!telclien, "T")
-                vFactu.DirDpto = DBLet(RSalb!CodDirec, "T")
-                vFactu.NombreDirDpto = DBLet(RSalb!nomdirec, "T")
-                vFactu.Agente = RSalb!codagent
-                vFactu.ForPago = RSalb!codforpa
-                vFactu.TipForPago = DevuelveDesdeBDNew(conAri, "sforpa", "tipforpa", "codforpa", RSalb!codforpa, "N")
-                vFactu.DtoPPago = CCur(RSalb!DtoPPago)
-                vFactu.DtoGnral = CCur(RSalb!DtoGnral)
+                vFactu.Cliente = RsAlb!CodClien
+                vFactu.NombreClien = RsAlb!nomclien
+                vFactu.DomicilioClien = DBLet(RsAlb!domclien, "T")
+                vFactu.CPostal = DBLet(RsAlb!codpobla, "T")
+                vFactu.Poblacion = DBLet(RsAlb!pobclien, "T")
+                vFactu.Provincia = DBLet(RsAlb!proclien, "T")
+                vFactu.NIF = DBLet(RsAlb!nifClien, "T")
+                vFactu.Telefono = DBLet(RsAlb!telclien, "T")
+                vFactu.DirDpto = DBLet(RsAlb!CodDirec, "T")
+                vFactu.NombreDirDpto = DBLet(RsAlb!nomdirec, "T")
+                vFactu.Agente = RsAlb!codagent
+                vFactu.ForPago = RsAlb!codforpa
+                vFactu.TipForPago = DevuelveDesdeBDNew(conAri, "sforpa", "tipforpa", "codforpa", RsAlb!codforpa, "N")
+                vFactu.DtoPPago = CCur(RsAlb!DtoPPago)
+                vFactu.DtoGnral = CCur(RsAlb!DtoGnral)
                 
-                cadW = " (scaalb.codtipom='" & RSalb!codTipoM & "' AND scaalb.numalbar IN (" & RSalb!NumAlbar
+                cadW = " (scaalb.codtipom='" & RsAlb!Codtipom & "' AND scaalb.numalbar IN (" & RsAlb!NumAlbar
             Else
-                cadW = cadW & ", " & RSalb!NumAlbar
+                cadW = cadW & ", " & RsAlb!NumAlbar
             End If
         
             'Guardamos datos del registro anterior
-            antClien = RSalb!CodClien
+            antClien = RsAlb!CodClien
 '            antDirec = DBLet(RSalb!CodDirec, "N")
             antDirec = actDirec
-            antForpa = RSalb!codforpa
-            antDtoPP = RSalb!DtoPPago
-            antDtoGn = RSalb!DtoGnral
+            antForpa = RsAlb!codforpa
+            antDtoPP = RsAlb!DtoPPago
+            antDtoGn = RsAlb!DtoGnral
         End If
-        RSalb.MoveNext
+        RsAlb.MoveNext
     Wend
-    RSalb.Close
-    Set RSalb = Nothing
+    RsAlb.Close
+    Set RsAlb = Nothing
         
     'Facturar la ultima Factura generada del blucle
     If cadW <> "" Then
@@ -663,7 +664,7 @@ Dim condicion As Boolean 'condicion que comprueba para romper la agrupacion de a
         Espera 0.2
     End If
     
-    TipoFac = vFactu.codTipoM
+    TipoFac = vFactu.Codtipom
     Set vFactu = Nothing
     TraspasoAlbaranesFacturas_RecuperaFac = True
     
@@ -904,20 +905,20 @@ End Function
 '               2.- Factura "B"
 Public Sub ImprimirFacturas(listaF As String, fechaF As String, Optional SQL As String, Optional FormatoFactura As Byte)
 Dim cadFormula As String
-Dim cadParam As String
-Dim numParam As Byte
-Dim cadSelect As String 'select para insertar en tabla temporal
+Dim Cadparam As String
+Dim NumParam As Byte
+Dim Cadselect As String 'select para insertar en tabla temporal
 Dim indRPT As Byte 'Indica el tipo de Documento en la tabla "scryst"
 Dim nomDocu As String 'Nombre de Informe rpt de crystal
-Dim devuelve As String
+Dim Devuelve As String
 Dim NombreTabla As String
 Dim ImprimeDirecto As Boolean
 
 
     cadFormula = ""
-    cadParam = ""
-    cadSelect = ""
-    numParam = 0
+    Cadparam = ""
+    Cadselect = ""
+    NumParam = 0
     NombreTabla = "scafac"
 
     '===================================================
@@ -931,7 +932,7 @@ Dim ImprimeDirecto As Boolean
         indRPT = 30 'FACTURAS "B"
     End If
     
-    If Not PonerParamRPT(indRPT, cadParam, numParam, nomDocu, ImprimeDirecto) Then
+    If Not PonerParamRPT(indRPT, Cadparam, NumParam, nomDocu, ImprimeDirecto) Then
         Exit Sub
     End If
 
@@ -939,8 +940,8 @@ Dim ImprimeDirecto As Boolean
 
     'PUNTO VERDE
     '--------------------------------------------------------------------------
-    cadParam = cadParam & "PuntoVerde= """ & vParamAplic.ArtReciclado & """|"
-    numParam = numParam + 1
+    Cadparam = Cadparam & "PuntoVerde= """ & vParamAplic.ArtReciclado & """|"
+    NumParam = NumParam + 1
     
 
     'Nombre fichero .rpt a Imprimir
@@ -950,10 +951,10 @@ Dim ImprimeDirecto As Boolean
     If SQL <> "" Then
         'Llamo desde el menu de Reimprimir facturas y tengo construida la
         'cadena de seleccion D/H tipoMov, D/H NumFactu, D/H fecfactu
-        cadSelect = SQL
+        Cadselect = SQL
         cadFormula = listaF
-        cadParam = cadParam & fechaF
-        numParam = numParam + 1
+        Cadparam = Cadparam & fechaF
+        NumParam = NumParam + 1
     Else
         'Llama desde PasarAlbaranes a  Facturas y al terminar las imprime
         '===================================================
@@ -961,41 +962,41 @@ Dim ImprimeDirecto As Boolean
         'Cadena para seleccion Nº de Factura
         '---------------------------------------------------
         'Cod Tipo Movimiento
-        devuelve = "({" & NombreTabla & ".codtipom}='" & TipoFac & "') "
-        If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
+        Devuelve = "({" & NombreTabla & ".codtipom}='" & TipoFac & "') "
+        If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
     
         'Nº Factura
-        devuelve = "({" & NombreTabla & ".numfactu} IN [" & listaF & "])"
-        If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
+        Devuelve = "({" & NombreTabla & ".numfactu} IN [" & listaF & "])"
+        If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
     
         'fecha factu
-        devuelve = "(year({" & NombreTabla & ".fecfactu}) = " & Year(fechaF) & ")"
-        If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
+        Devuelve = "(year({" & NombreTabla & ".fecfactu}) = " & Year(fechaF) & ")"
+        If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
 
-        cadSelect = cadFormula
+        Cadselect = cadFormula
 
 
     End If
     
-    If Not HayRegParaInforme(NombreTabla, cadSelect) Then Exit Sub
+    If Not HayRegParaInforme(NombreTabla, Cadselect) Then Exit Sub
 
 
      If ImprimeDirecto Then
          'Abrire un formulario por si acaso quieren cancelar la impresion. Ya que al ser
          'directa puede tardar mucho, haberse equivocado ......
-        CadenaDesdeOtroForm = cadSelect
-        frmVarios.opcion = 0
+        CadenaDesdeOtroForm = Cadselect
+        frmVarios.Opcion = 0
         frmVarios.Show vbModal
         'Ha terminado la reimpresion
         
      Else
          With frmImprimir
                 .FormulaSeleccion = cadFormula
-                .OtrosParametros = cadParam
-                .NumeroParametros = numParam
+                .OtrosParametros = Cadparam
+                .NumeroParametros = NumParam
                 .SoloImprimir = False
                 .EnvioEMail = False
-                .opcion = 53
+                .Opcion = 53
                 .Titulo = ""
                 .Show vbModal
         End With
@@ -1004,7 +1005,7 @@ End Sub
 
 
 
-Public Function TraspasoMtosAFacturas(cadSQL As String, cadSel As String, FechaFact As String, OpeFact As String, banPr As String, MesFact As String, ByRef Lbl As Label) As Boolean       'Fecha de la factura, Operador
+Public Function TraspasoMtosAFacturas(cadSQL As String, cadSEL As String, FechaFact As String, OpeFact As String, banPr As String, MesFact As String, ByRef Lbl As Label) As Boolean       'Fecha de la factura, Operador
 'IN -> cadSQL: cadena para seleccion de los mantenimientos que vamos a Facturar
 '      FechaFact: Fecha de la Factura
 '      OpeFact: Operador Factura
@@ -1037,7 +1038,7 @@ Dim Conta2 As Long
 '    SQL = " (scaalb INNER JOIN sclien ON scaalb.codclien=sclien.codclien ) INNER JOIN slialb ON scaalb.codtipom=slialb.codtipom AND scaalb.numalbar=slialb.numalbar "
     SQL = " scaman "
     
-    If Not BloqueaRegistro(SQL, cadSel) Then
+    If Not BloqueaRegistro(SQL, cadSEL) Then
         Screen.MousePointer = vbDefault
         'comprobamos que no haya nadie facturando
         DesBloqueoManual ("VENFAC")
@@ -1051,7 +1052,7 @@ Dim Conta2 As Long
         
     'EMPEZAMOS LA FACTURA
     Set vFactu = New CFactura
-    vFactu.FecFactu = FechaFact 'Fecha para las Facturas
+    vFactu.Fecfactu = FechaFact 'Fecha para las Facturas
 
     'Cuenta Prevista de Cobro de las Facturas
     vFactu.BancoPr = banPr
@@ -1072,7 +1073,7 @@ Dim Conta2 As Long
     
     
     
-    RSmto.Open ListFactu, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RSmto.Open ListFactu, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Lbl.Tag = RSmto.Fields(0)
     RSmto.Close
     
@@ -1080,7 +1081,7 @@ Dim Conta2 As Long
     
     Conta2 = 0
     ListFactu = ""
-    RSmto.Open SQL, Conn, adOpenKeyset, adLockPessimistic, adCmdText
+    RSmto.Open SQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
     'Le pongo                KEYSET      pq quiero contar los registros
     'Cada MAntenimiento genera una factura
     'Calcular y Grabar Factura en las Tablas de Facturas
@@ -1180,29 +1181,29 @@ End Function
 
 
 
-Private Sub ImprimirFacturaMan(OpcionListado As Byte, ListFactu As String, FecFactu As String)
+Private Sub ImprimirFacturaMan(OpcionListado As Byte, ListFactu As String, Fecfactu As String)
 'Imprime una factura de Mantenimiento
 Dim cadFormula As String
-Dim cadParam As String
-Dim numParam As Byte
-Dim cadSelect As String 'select para insertar en tabla temporal
+Dim Cadparam As String
+Dim NumParam As Byte
+Dim Cadselect As String 'select para insertar en tabla temporal
 
 Dim indRPT As Byte 'Indica el tipo de Documento en la tabla "scryst"
 Dim nomDocu As String 'Nombre de Informe rpt de crystal
-Dim devuelve As String
+Dim Devuelve As String
 Dim NombreTabla As String
     
     NombreTabla = "scafac"
     
     cadFormula = ""
-    cadParam = ""
-    cadSelect = ""
-    numParam = 0
+    Cadparam = ""
+    Cadselect = ""
+    NumParam = 0
     
     '===================================================
     '============ PARAMETROS ===========================
     If (OpcionListado = 53) Then indRPT = 12 'Facturas Clientes
-    If Not PonerParamRPT(indRPT, cadParam, numParam, nomDocu) Then
+    If Not PonerParamRPT(indRPT, Cadparam, NumParam, nomDocu) Then
         Exit Sub
     End If
       
@@ -1214,33 +1215,33 @@ Dim NombreTabla As String
     'Cadena para seleccion Nº de Factura
     '---------------------------------------------------
     'Cod Tipo Movimiento
-    devuelve = "{" & NombreTabla & ".codtipom}='FAM'"
-    If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
-    cadSelect = cadFormula
+    Devuelve = "{" & NombreTabla & ".codtipom}='FAM'"
+    If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
+    Cadselect = cadFormula
     
     'Nº Factura
-    devuelve = "{" & NombreTabla & ".numfactu} IN [" & ListFactu & "]"
-    If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
-    devuelve = "{" & NombreTabla & ".numfactu} IN (" & ListFactu & ")"
-    If Not AnyadirAFormula(cadSelect, devuelve) Then Exit Sub
+    Devuelve = "{" & NombreTabla & ".numfactu} IN [" & ListFactu & "]"
+    If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
+    Devuelve = "{" & NombreTabla & ".numfactu} IN (" & ListFactu & ")"
+    If Not AnyadirAFormula(Cadselect, Devuelve) Then Exit Sub
     
     'Fecha Factura
-    devuelve = "year({" & NombreTabla & ".fecfactu})=" & Year(FecFactu)
-    If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
+    Devuelve = "year({" & NombreTabla & ".fecfactu})=" & Year(Fecfactu)
+    If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
     'Fecha Factura en cadSelect
 '        devuelve = "{" & NombreTabla & ".fecfactu}= '" & Format(FecFactu, FormatoFecha) & "'"
-    If Not AnyadirAFormula(cadSelect, devuelve) Then Exit Sub
+    If Not AnyadirAFormula(Cadselect, Devuelve) Then Exit Sub
     
    
-    If Not HayRegParaInforme(NombreTabla, cadSelect) Then Exit Sub
+    If Not HayRegParaInforme(NombreTabla, Cadselect) Then Exit Sub
      
      With frmImprimir
             .FormulaSeleccion = cadFormula
-            .OtrosParametros = cadParam
-            .NumeroParametros = numParam
+            .OtrosParametros = Cadparam
+            .NumeroParametros = NumParam
             .SoloImprimir = False
             .EnvioEMail = False
-            .opcion = OpcionListado
+            .Opcion = OpcionListado
             .Titulo = ""
             .Show vbModal
     End With
@@ -1265,14 +1266,14 @@ Dim SQL As String
     'ELiminar lineas venta
     SQL = "DELETE FROM sliven "
     SQL = SQL & " WHERE " & Replace(cadSQL, "scaven", "sliven")
-    Conn.Execute SQL
+    conn.Execute SQL
     
 '    Espera 0.1
     
     'Eliminar Cabeceras venta
     SQL = "DELETE FROM scaven "
     SQL = SQL & " WHERE " & Replace(cadSQL, "sliven", "scaven")
-    Conn.Execute SQL
+    conn.Execute SQL
         
     EliminarVenta = True
 
