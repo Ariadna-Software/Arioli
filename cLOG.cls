@@ -30,6 +30,8 @@ Option Explicit
 
 '       10.- Ajuste cantidad albaran desde pistola de expedicion
 '       11.- Cambio proveedor en albaranes prov
+'       12.- Cambiar fecha factura
+'       13.- Reestablecer albaran
 Public Function Insertar(Accion As Byte, ByRef ElUsuario As Usuario, Descripcion As String) As Boolean
 Dim SQL As String
 
@@ -44,7 +46,7 @@ Dim SQL As String
     Else
         SQL = SQL & "'" & DevNombreSQL(Descripcion) & "')"
     End If
-    Conn.Execute SQL
+    conn.Execute SQL
     
     
     Insertar = True
@@ -70,6 +72,8 @@ Public Function DevuelveAcciones(ByRef ListaAcciones As Collection) As Boolean
     ListaAcciones.Add "9|Mto partidas-lotes|"
     ListaAcciones.Add "10|Ajuste albaran desde expedicion|"
     ListaAcciones.Add "11|Cambio proveedor en albaran|"
+    ListaAcciones.Add "12|Cambiar fecha factura|"
+    ListaAcciones.Add "13|Reestablecer albaran|"
     DevuelveAcciones = True
     Exit Function
 EDevuelveAcciones:

@@ -7,12 +7,12 @@ Option Explicit
 ' hay que hacer a traves del rpt
 Public Sub ImprimirTicketDirecto(NumTicket As String, FechaTicket As Date, Optional Entregado As Currency, Optional Cambio As Currency)   ' (RAFA/ALZIRA 05092006)
 Dim Directo As Boolean
-Dim cadParam As String
-Dim numParam As Byte
+Dim Cadparam As String
+Dim NumParam As Byte
 Dim cadNomRPT As String
     
     Directo = True
-    If Not PonerParamRPT(32, cadParam, numParam, cadNomRPT, Directo) Then Directo = True
+    If Not PonerParamRPT(32, Cadparam, NumParam, cadNomRPT, Directo) Then Directo = True
         
     
 
@@ -31,7 +31,7 @@ Dim cadNomRPT As String
             .NumeroParametros = 0
             .SoloImprimir = True
             .EnvioEMail = False
-            .opcion = 93
+            .Opcion = 93
             .Titulo = "Ticket"
             .NombreRPT = cadNomRPT
             .ConSubInforme = True
@@ -60,7 +60,7 @@ Public Sub ImprimirElTicketDirecto(NumTicket As String, FechaTicket As Date, Opt
     Dim rs4 As ADODB.Recordset
     Dim SQL As String
     Dim Lin As String ' línea de impresión
-    Dim i As Integer
+    Dim I As Integer
     Dim N As Integer
     Dim ImporteIva As Currency
     Dim EnEfectivo As Boolean
@@ -74,7 +74,7 @@ On Error GoTo EImpTickD
 '    End If
 '       --> Como desde aqui no se ve el rsventa entonces OBLIGAMOS a que se traiga la fecha
 
-'    Stop
+'
 '   Printer.Font = "Courier New"
     
     'Establecemos la impresora de ticket
@@ -90,21 +90,21 @@ On Error GoTo EImpTickD
     '-- Obtenemos cabeceras y pies en un recordset (rs1)
     SQL = "select * from spatpvg"
     Set rs1 = New ADODB.Recordset
-    rs1.Open SQL, Conn, adOpenForwardOnly
+    rs1.Open SQL, conn, adOpenForwardOnly
     If Not rs1.EOF Then
         ' Ahora buscamos las cabecera de ticket
         SQL = "select * from scafac where codtipom = 'FTI'" & _
                 " and numfactu = " & CStr(NumTicket) & _
                 " and fecfactu = '" & Format(FechaTicket, "yyyy-mm-dd") & "'"
         Set rs2 = New ADODB.Recordset
-        rs2.Open SQL, Conn, adOpenForwardOnly
+        rs2.Open SQL, conn, adOpenForwardOnly
         If Not rs2.EOF Then
             '-- Consultamos la forma de pago pa 2 cosas
             '   Para imprimirla en el pie y para en el caso de contado mostrar entregado
             '   y cambio.
             SQL = "select * from sforpa where codforpa = " & CStr(rs2!codforpa)
             Set rs4 = New ADODB.Recordset
-            rs4.Open SQL, Conn, adOpenForwardOnly
+            rs4.Open SQL, conn, adOpenForwardOnly
             If Not rs4.EOF Then
                 If rs4!tipforpa = 0 Then EnEfectivo = True
             End If
@@ -113,19 +113,19 @@ On Error GoTo EImpTickD
                     " and numfactu = " & CStr(NumTicket) & _
                     " and fecfactu = '" & Format(FechaTicket, "yyyy-mm-dd") & "'"
             Set rs3 = New ADODB.Recordset
-            rs3.Open SQL, Conn, adOpenForwardOnly
+            rs3.Open SQL, conn, adOpenForwardOnly
             If Not rs3.EOF Then
                 '-- Impresión de la cabecera
 '                Lin = "         1         2         3         4"
 '                Printer.Print Lin
 '                Lin = "1234567890123456789012345678901234567890"
 '                Printer.Print Lin
-                For i = 1 To 5
-                    If Not IsNull(rs1.Fields("cabtick" & CStr(i))) Then
-                        Lin = LineaCentrada(rs1.Fields("cabtick" & CStr(i)))
+                For I = 1 To 5
+                    If Not IsNull(rs1.Fields("cabtick" & CStr(I))) Then
+                        Lin = LineaCentrada(rs1.Fields("cabtick" & CStr(I)))
                         If Lin <> "" Then Printer.Print Lin
                     End If
-                Next i
+                Next I
                 Lin = CuadraParteI(20, "Tiquet:" & Format(NumTicket, "0000000")) & _
                       CuadraParteD(20, "Fecha: " & Format(FechaTicket, "dd/mm/yyyy"))
                 Printer.Print Lin
@@ -169,19 +169,19 @@ On Error GoTo EImpTickD
                     'Los tpios de IVA
                     Printer.Print "Detalle desglose IVAs"
                     
-                    For i = 1 To 3
-                        If Not IsNull(rs2.Fields("porciva" & CStr(i))) Then
+                    For I = 1 To 3
+                        If Not IsNull(rs2.Fields("porciva" & CStr(I))) Then
                             'Lleva TIPO IVA
-                            SQL = Format(DBLet(rs2.Fields("porciva" & CStr(i)), "N"), "0.00") & "%"
+                            SQL = Format(DBLet(rs2.Fields("porciva" & CStr(I)), "N"), "0.00") & "%"
                             Lin = CuadraParteD(6, SQL)
                             'base
-                            ImporteIva = DBLet(rs2.Fields("baseimp" & CStr(i)), "N")
+                            ImporteIva = DBLet(rs2.Fields("baseimp" & CStr(I)), "N")
                             SQL = Format(ImporteIva, "0.00")
                             Lin = Lin & CuadraParteD(10, SQL)
                             
                             'iva
-                            SQL = Format(DBLet(rs2.Fields("imporiv" & CStr(i)), "N"), "0.00")
-                            ImporteIva = ImporteIva + DBLet(rs2.Fields("imporiv" & CStr(i)), "N")
+                            SQL = Format(DBLet(rs2.Fields("imporiv" & CStr(I)), "N"), "0.00")
+                            ImporteIva = ImporteIva + DBLet(rs2.Fields("imporiv" & CStr(I)), "N")
                             Lin = Lin & CuadraParteD(10, SQL)
                             'total
                             
@@ -189,7 +189,7 @@ On Error GoTo EImpTickD
                             Lin = Lin & CuadraParteD(14, SQL)
                             Printer.Print Lin
                         End If
-                    Next i
+                    Next I
                 End If
                 '-- (RAFA 15/05/2008) -- Para Quatretonda
                 '-- Imprimir la forma de pago
@@ -206,15 +206,15 @@ On Error GoTo EImpTickD
                 End If
                 '-- Impresion del pie
                 Printer.Print String(40, " ")
-                For i = 1 To 3
-                    If Not IsNull(rs1.Fields("pietick" & CStr(i))) Then
-                        Lin = LineaCentrada(rs1.Fields("pietick" & CStr(i)))
+                For I = 1 To 3
+                    If Not IsNull(rs1.Fields("pietick" & CStr(I))) Then
+                        Lin = LineaCentrada(rs1.Fields("pietick" & CStr(I)))
                         If Lin <> "" Then Printer.Print Lin
                     End If
-                Next i
-                For i = 1 To 8
+                Next I
+                For I = 1 To 8
                     Printer.Print String(40, " ")
-                Next i
+                Next I
                 
                 '-- Fin de impresión
                 Printer.NewPage

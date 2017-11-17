@@ -2516,7 +2516,7 @@ Dim InsertaTbLotes As Boolean
     
     SQL = "INSERT INTO slifac (codtipom,numfactu,fecfactu,codtipoa,numalbar,numlinea,codalmac,codartic,nomartic,ampliaci,cantidad,precioar,dtoline1,dtoline2,importel,origpre"
     If NumTicket <> "" Then SQL = SQL & ",precioiv"
-    SQL = SQL & ",preciomp,preciost,preciouc,codprovex,palets,hectogrado)"     'ENERO 2008.  Traza sobre codprove. palets y Nov2011 hectogrado
+    SQL = SQL & ",preciomp,preciost,preciouc,codprovex,palets,hectogrado,cajas,preciolitro)"     'ENERO 2008.  Traza sobre codprove. palets y Nov2011 hectogrado
     
     InsertaTbLotes = False
     
@@ -2570,8 +2570,8 @@ Dim InsertaTbLotes As Boolean
         
         'guardar los precios del articulo
         SQL = SQL & DBSet(cArt.PrecioMedPon, "N") & "," & DBSet(cArt.PrecioStan, "N") & "," & DBSet(cArt.PrecioUltCom, "N") & ","
-        'traza ENERO 2008     Palets MAYO 2011 y hecto 2011
-        SQL = SQL & DBSet(cArt.codProve, "N") & ",0,1)"
+        'traza ENERO 2008     Palets MAYO 2011 y hecto 2011 y cajas preciolitro
+        SQL = SQL & DBSet(cArt.codProve, "N") & ",0,1,1,0)"
             
         
         Set cArt = Nothing
@@ -2586,6 +2586,7 @@ Dim InsertaTbLotes As Boolean
         
          '-- Laura 15/09/2006: añadir precios del articulo a las lineas de factura
         SQL = SQL & ", sartic.preciomp,sartic.preciost,sartic.preciouc,sartic.codprove,0 palets ,1 hectog"
+        SQL = SQL & ", 1 cajas, 0 preciolitro"
         '--
         SQL = SQL & " FROM sliven "
         '-- Laura 15/09/2006: añadir precios del articulo a las lineas de factura
@@ -2605,6 +2606,7 @@ Dim InsertaTbLotes As Boolean
         
         '-- Laura 15/09/2006: añadir precios del articulo a las lineas de factura
         SQL = SQL & ", sartic.preciomp,sartic.preciost,sartic.preciouc,sartic.codprove,0 palets ,1 hectog"
+        SQL = SQL & ",1 cajas, 1 preciolitro "
         '--
         SQL = SQL & " FROM sliven "
         '-- Laura 15/09/2006: añadir precios del articulo a las lineas de factura
@@ -2616,6 +2618,7 @@ Dim InsertaTbLotes As Boolean
         SQL = SQL & " SELECT '" & Codtipom & "' as codtipom," & DBSet(NumFactu, "N") & " as numfactu," & DBSet(Fecfactu, "F") & " as fecfactu," & "codtipom as codtipoa, numalbar,numlinea,codalmac,slialb.codartic,slialb.nomartic,ampliaci,cantidad,precioar,dtoline1,dtoline2,importel,origpre "
         '-- Laura 15/09/2006: añadir precios del articulo a las lineas de factura 'ENERO 2008. Traza cond codprove
         SQL = SQL & ", sartic.preciomp,sartic.preciost,sartic.preciouc,codprovex,palets,hectogrado" 'NAYO 2011  palets  Nov hectogrado
+        SQL = SQL & ",cajas,preciolitro"
         '--
         SQL = SQL & " FROM slialb "
         '-- Laura 15/09/2006: añadir precios del articulo a las lineas de factura

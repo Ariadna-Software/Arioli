@@ -3364,7 +3364,7 @@ Dim HaCambiado As Boolean
     End Select
     PonerFoco txtAux(Index)
     If HaCambiado Then
-        'Stop
+        '
         txtAux(1).Text = RecuperaValor(txtArt, 1) 'Cod Artic
         txtAux(2).Text = RecuperaValor(txtArt, 2) 'Nom Artic
     
@@ -3410,7 +3410,7 @@ End Sub
 Private Sub BotonAnyadir()
 'Añadir registro en tabla de cabecera de Pedidos: scaped (Cabecera)
 Dim NomTraba As String
-Dim cad As String
+Dim Cad As String
 Dim RS As ADODB.Recordset
 
     LimpiarCampos 'Vacía los TextBox
@@ -3467,36 +3467,46 @@ Dim RS As ADODB.Recordset
             Text1(37).Text = RS!codtipmf
             Text1(36).Text = DBLet(RS!NumFactu, "N")
             FormateaCampo Text1(36)
-            Text1(35).Text = RS!FecFactu
+            Text1(35).Text = RS!Fecfactu
             
             'Observacion 1   'DAVID
             'Text1(18).Text = "RECTIFICA A FACTURA: " & RS!codtipmf & ", " & RS!NumFactu & ", " & RS!FecFactu
-            Text1(18).Text = RS!NumFactu & ", " & RS!FecFactu
+            Text1(18).Text = RS!NumFactu & ", " & RS!Fecfactu
             'Observacion 2
             Text1(19).Text = motivo
             
             NomTraba = "tipofact"
-            cad = DevuelveDesdeBD(conAri, "clivario", "sclien", "codclien", Text1(4).Text, "N", NomTraba)
-            If cad = "0" Then BloquearDatosCliente (False)
+            Cad = DevuelveDesdeBD(conAri, "clivario", "sclien", "codclien", Text1(4).Text, "N", NomTraba)
+            If Cad = "0" Then BloquearDatosCliente (False)
+            
+            Cad = DevuelveDesdeBD(conAri, "clivario", "sclien", "codclien", Text1(4).Text, "N", NomTraba)
+            If Cad = "0" Then BloquearDatosCliente (False)
             
             
-            'Memorizo cad con codtipom
-            cad = RS!codtipmf
+            
             
             'recuperamos el tipo de facturacion del cliente
             Me.cboFacturacion.ListIndex = CInt(NomTraba)
         Else
-            cad = "N" 'para que la busqueda de despues no de error
+            Cad = "N" 'para que la busqueda de despues no de error
         End If
         RS.Close
         
+        
+        
         'DAVID
         'Para que meta la letra de serie, NO el tipo moviemiento
-        RS.Open "SELECT * FROM stipom WHERE codtipom='" & cad & "'"
-        If Not RS.EOF Then cad = DBLet(RS!LetraSer, "T")
+        RS.Open "SELECT * FROM stipom WHERE codtipom='" & Cad & "'"
+        If Not RS.EOF Then Cad = DBLet(RS!LetraSer, "T")
         RS.Close
-        If cad = "" Then cad = CodTipoMov
-        Text1(18).Text = "RECTIFICA A FACTURA: " & cad & ", " & Text1(18).Text
+        If Cad = "" Then Cad = CodTipoMov
+        Text1(18).Text = "RECTIFICA A FACTURA: " & Cad & ", " & Text1(18).Text
+        
+        
+        
+        'Traeremos resto datos
+        'cad=replace(cadlist,"scafac.","scafac1"
+        
         
         
         Set RS = Nothing
@@ -3586,7 +3596,7 @@ End Sub
 
 Private Sub BotonVerTodos()
 Dim Aux As String
-Dim cad As String
+Dim Cad As String
 
 '    LimpiarCampos
     Aux = ""
@@ -3594,10 +3604,10 @@ Dim cad As String
     
     If chkVistaPrevia.Value = 1 Then
         EsCabecera = True
-        cad = " codtipom='" & CodTipoMov & "'"
-        If Aux <> "" Then cad = cad & " AND " & Aux
+        Cad = " codtipom='" & CodTipoMov & "'"
+        If Aux <> "" Then Cad = Cad & " AND " & Aux
             
-        MandaBusquedaPrevia cad
+        MandaBusquedaPrevia Cad
     Else
         LimpiarCampos
         LimpiarDataGrids
@@ -3708,7 +3718,7 @@ End Sub
 Private Sub BotonEliminar()
 'Eliminar Registro de la Cabecera: Tabla de Mantenimientos (scaman)
 ' y los registros correspondientes de las tablas de lineas (sliman y slima1)
-Dim cad As String
+Dim Cad As String
 Dim NumAlbElim As Long
 
     On Error GoTo EEliminar
@@ -3717,22 +3727,22 @@ Dim NumAlbElim As Long
     If Data1.Recordset.EOF Then Exit Sub
 
     If DBLet(Data1.Recordset!refproduccion, "N") > 0 Then
-        cad = String(40, "*") & vbCrLf & vbCrLf
-        cad = cad & "ALBARAN BLOQUEADO " & vbCrLf & vbCrLf & cad & vbCrLf & vbCrLf
+        Cad = String(40, "*") & vbCrLf & vbCrLf
+        Cad = Cad & "ALBARAN BLOQUEADO " & vbCrLf & vbCrLf & Cad & vbCrLf & vbCrLf
     Else
-        cad = ""
+        Cad = ""
     End If
-    cad = cad & "Cabecera de Albaranes." & vbCrLf
-    cad = cad & "------------------------------------       " & vbCrLf & vbCrLf
-    cad = cad & "Va a eliminar el Albaran:            "
-    cad = cad & vbCrLf & "Tipo:  " & Text1(30).Text
-    cad = cad & vbCrLf & "Nº:  " & Format(Text1(0).Text, "0000000")
-    cad = cad & vbCrLf & "Fecha:  " & Text1(1).Text
+    Cad = Cad & "Cabecera de Albaranes." & vbCrLf
+    Cad = Cad & "------------------------------------       " & vbCrLf & vbCrLf
+    Cad = Cad & "Va a eliminar el Albaran:            "
+    Cad = Cad & vbCrLf & "Tipo:  " & Text1(30).Text
+    Cad = Cad & vbCrLf & "Nº:  " & Format(Text1(0).Text, "0000000")
+    Cad = Cad & vbCrLf & "Fecha:  " & Text1(1).Text
 '    cad = cad & vbCrLf & "Cliente:  " & Format(Text1(4).Text, "000000") & " - " & Text1(5).Text
-    cad = cad & vbCrLf & vbCrLf & " ¿Desea Eliminarlo? "
+    Cad = Cad & vbCrLf & vbCrLf & " ¿Desea Eliminarlo? "
       
     'Borramos
-    If MsgBox(cad, vbQuestion + vbYesNo) = vbYes Then
+    If MsgBox(Cad, vbQuestion + vbYesNo) = vbYes Then
         'Abrir frame de informes para pedir datos antes de grabar en el historico
         cadList = ""
         Set frmList = New frmListadoOfer
@@ -3835,7 +3845,7 @@ End Sub
 
 Private Sub cmdRegresar_Click()
 'Este es el boton Cabecera
-Dim cad As String
+Dim Cad As String
 
     'Quitar lineas y volver a la cabecera
     If Modo = 5 Then  'modo 5: Mantenimientos Lineas
@@ -3852,9 +3862,9 @@ Dim cad As String
             MsgBox "Ningún registro devuelto.", vbExclamation
             Exit Sub
         End If
-        cad = Data1.Recordset.Fields(0) & "|"
-        cad = cad & Data1.Recordset.Fields(1) & "|"
-        RaiseEvent DatoSeleccionado(cad)
+        Cad = Data1.Recordset.Fields(0) & "|"
+        Cad = Cad & Data1.Recordset.Fields(1) & "|"
+        RaiseEvent DatoSeleccionado(Cad)
         Unload Me
     End If
 End Sub
@@ -4464,6 +4474,7 @@ Dim Indice As Byte
                     If Not IsNull(miRsAux!matricula) Then Text1(51).Text = miRsAux!matricula
                     If Not IsNull(miRsAux!conductor) Then Text1(44).Text = miRsAux!conductor
                     If Not IsNull(miRsAux!DNIConductor) Then Text1(48).Text = miRsAux!DNIConductor
+                    If Not IsNull(miRsAux!MatriculaRemolque) Then Text1(54).Text = miRsAux!MatriculaRemolque
                 End If
                 miRsAux.Close
                 Set miRsAux = Nothing
@@ -4769,19 +4780,19 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim cad As String
+Dim Cad As String
 Dim Tabla As String
 Dim Titulo As String
 Dim Desc As String, Devuelve As String
     'Llamamos a al form
     '##A mano
-    cad = ""
+    Cad = ""
     If EsCabecera Then
-        cad = cad & ParaGrid(Text1(30), 10, "Tipo Alb.")
-        cad = cad & ParaGrid(Text1(0), 15, "Nº Albaran")
-        cad = cad & ParaGrid(Text1(1), 15, "Fecha Ped.")
-        cad = cad & ParaGrid(Text1(4), 10, "Cliente")
-        cad = cad & ParaGrid(Text1(5), 50, "Nombre Cliente")
+        Cad = Cad & ParaGrid(Text1(30), 10, "Tipo Alb.")
+        Cad = Cad & ParaGrid(Text1(0), 15, "Nº Albaran")
+        Cad = Cad & ParaGrid(Text1(1), 15, "Fecha Ped.")
+        Cad = Cad & ParaGrid(Text1(4), 10, "Cliente")
+        Cad = Cad & ParaGrid(Text1(5), 50, "Nombre Cliente")
         Tabla = NombreTabla
         Titulo = "Albaranes"
         
@@ -4801,16 +4812,16 @@ Dim Desc As String, Devuelve As String
             Desc = "Direc."
         End If
         Titulo = Titulo & Text1(4).Text & " - " & Text1(5).Text
-        cad = cad & "Cod. " & Desc & "|sdirec|coddirec|N|000|15·"
-        cad = cad & "Desc. " & Desc & "|sdirec|nomdirec|T||55·"
+        Cad = Cad & "Cod. " & Desc & "|sdirec|coddirec|N|000|15·"
+        Cad = Cad & "Desc. " & Desc & "|sdirec|nomdirec|T||55·"
         Tabla = "sdirec"
         Devuelve = "0|1|"
     End If
            
-    If cad <> "" Then
+    If Cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = cad
+        frmB.vCampos = Cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -6016,7 +6027,7 @@ Dim ImporteConhectogrado As Currency
     
     'NO ha cambiado nada
     If txtAnterior = txtAux(Index).Text Then
-        'Stop
+        '
        ' Exit Sub
     End If
     
@@ -6047,7 +6058,7 @@ Dim ImporteConhectogrado As Currency
             
             If Me.DataGrid1.Columns(4).Caption = "EAN" Then
                 'Ha pulsado F2, para meter, en lugar del codigo del articulo, el EAN
-                okArticulo = PonerArticuloEan(txtAux(1), txtAux(2), txtAux(0).Text, CodTipoMov, ModificaLineas, Devuelve, , Cantidad)
+                okArticulo = PonerArticuloEAN(txtAux(1), txtAux(2), txtAux(0).Text, CodTipoMov, ModificaLineas, Devuelve, , Cantidad)
             Else
                 okArticulo = PonerArticulo(txtAux(1), txtAux(2), txtAux(0).Text, CodTipoMov, ModificaLineas, Devuelve, , Cantidad)
             End If
@@ -6298,9 +6309,9 @@ Dim ImporteConhectogrado As Currency
 End Sub
 
 
-Private Sub BotonMtoLineas(numTab As Integer, cad As String)
+Private Sub BotonMtoLineas(numTab As Integer, Cad As String)
     Me.SSTab1.Tab = numTab
-    TituloLinea = cad
+    TituloLinea = Cad
     ModificaLineas = 0
     
         If vParamAplic.ArtReciclado <> "" Then
@@ -6697,7 +6708,7 @@ End Function
 
 
 Private Function EliminarLineaProcesoLotaje(codartic As String, numlinea As Integer, codAlmac As Integer) As Boolean
-Dim Cp As cPartidas
+Dim cP As cPartidas
 Dim J As Integer
 Dim Can As Currency
 Dim Lista As Collection
@@ -6723,13 +6734,13 @@ On Error GoTo EEliminarLineaProcesoLotaje
         
         
         If vParamAplic.Produccion Then
-            Set Cp = New cPartidas
+            Set cP = New cPartidas
             For J = 1 To Lista.Count
                 SQL = RecuperaValor(Lista.Item(J), 2)
                 Can = CCur(SQL)
                 SQL = RecuperaValor(Lista.Item(J), 1)
-                If Cp.LeerDesdeArticulo(CStr(codartic), codAlmac, SQL) Then
-                    Cp.IncrementarCantidad Can
+                If cP.LeerDesdeArticulo(CStr(codartic), codAlmac, SQL) Then
+                    cP.IncrementarCantidad Can
                 Else
                     MsgBox "Partida no encontrada: " & codartic & " " & SQL, vbExclamation
                 End If
@@ -8068,7 +8079,7 @@ End Sub
 
 Private Function LineasRecicladoCorrectas() As Boolean
 
-Dim cad As String
+Dim Cad As String
 Dim canti As Currency
 Dim ConReciclado As Boolean
 Dim Referencia As String
@@ -8077,12 +8088,12 @@ Dim Fin1 As Boolean
     On Error GoTo ELineasRecicladoCorrectas
     LineasRecicladoCorrectas = True
     If Not ClienteConTasaReciclado Then Exit Function
-    cad = "select slialb.codartic,slialb.nomartic,cantidad,tasareciclado from slialb,sartic,sunida where"
-    cad = cad & " slialb.codartic=sartic.codartic and  sunida.CodUnida = sartic.CodUnida"
-    cad = cad & " And codtipom='" & Text1(30).Text & "' AND NumAlbar = " & Text1(0).Text & " ORDER BY numlinea"
+    Cad = "select slialb.codartic,slialb.nomartic,cantidad,tasareciclado from slialb,sartic,sunida where"
+    Cad = Cad & " slialb.codartic=sartic.codartic and  sunida.CodUnida = sartic.CodUnida"
+    Cad = Cad & " And codtipom='" & Text1(30).Text & "' AND NumAlbar = " & Text1(0).Text & " ORDER BY numlinea"
     Set RN = New ADODB.Recordset
-    RN.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    cad = "" 'aqui meteremos los fallos
+    RN.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Cad = "" 'aqui meteremos los fallos
     Referencia = ""
     If Not RN.EOF Then
         'Tiene lineas
@@ -8098,7 +8109,7 @@ Dim Fin1 As Boolean
                         txtAnterior = DBLet(RN!NomArtic, "T")
                         canti = RN!Cantidad
                     Else
-                        If RN!codartic = vParamAplic.ArtReciclado Then cad = cad & "PUNTO VERDE sin pertencer a ningun articulo" & vbCrLf
+                        If RN!codartic = vParamAplic.ArtReciclado Then Cad = Cad & "PUNTO VERDE sin pertencer a ningun articulo" & vbCrLf
                     End If
                     RN.MoveNext
               
@@ -8107,7 +8118,7 @@ Dim Fin1 As Boolean
                 'Ya teniamos un articulo con tasa reciclado
                 If RN!codartic <> vParamAplic.ArtReciclado Then
                     'MAL. Tenia que tener linea del punto verde
-                    cad = cad & Referencia & "  " & txtAnterior & "   SIN PUNTO VERDE" & vbCrLf
+                    Cad = Cad & Referencia & "  " & txtAnterior & "   SIN PUNTO VERDE" & vbCrLf
                     
                     
                     'Ponemos apuntando a el
@@ -8123,7 +8134,7 @@ Dim Fin1 As Boolean
                     'OK despues de la linea del articulo esta el punto verde.
                     'Coinciden las cantidades?
                     If DBLet(RN!Cantidad, "N") <> canti Then
-                        cad = cad & Referencia & "  " & txtAnterior & "   Cantidades distintas" & vbCrLf
+                        Cad = Cad & Referencia & "  " & txtAnterior & "   Cantidades distintas" & vbCrLf
                     Else
                         'OK. Todo perfecto. Tiene pverde y es la misma cantidad
                         
@@ -8142,11 +8153,11 @@ Dim Fin1 As Boolean
     RN.Close
     
     'La ultima no teine punto verde
-    If Referencia <> "" Then cad = cad & Referencia & "  " & txtAnterior & "   SIN PUNTO VERDE" & vbCrLf
+    If Referencia <> "" Then Cad = Cad & Referencia & "  " & txtAnterior & "   SIN PUNTO VERDE" & vbCrLf
     
-    If cad <> "" Then
-        cad = cad & vbCrLf & vbCrLf & "Continuar?"
-        If MsgBox("Error comprobando tasa reciclado" & vbCrLf & vbCrLf & cad, vbQuestion + vbYesNo) = vbNo Then LineasRecicladoCorrectas = False
+    If Cad <> "" Then
+        Cad = Cad & vbCrLf & vbCrLf & "Continuar?"
+        If MsgBox("Error comprobando tasa reciclado" & vbCrLf & vbCrLf & Cad, vbQuestion + vbYesNo) = vbNo Then LineasRecicladoCorrectas = False
     End If
 ELineasRecicladoCorrectas:
     If Err.Number <> 0 Then MuestraError Err.Number, "Proceso: " & LineasRecicladoCorrectas, Err.Description
@@ -8245,7 +8256,7 @@ End Function
 
 
 Private Function ComprobarVinculado() As Boolean
-Dim cad As String
+Dim Cad As String
 
     ComprobarVinculado = True
     If vParamAplic.EsAVAB Then Exit Function
@@ -8253,11 +8264,11 @@ Dim cad As String
     
     If DBLet(Data1.Recordset!refproduccion, "N") > 0 Then
         'Veremos si todavia este en pedido
-        cad = DevuelveDesdeBD(conAri, "numpedcl", "ariges" & EmprAVAB & ".scaped", "numpedcl", Data1.Recordset!refproduccion)
-        If cad = "" Then
+        Cad = DevuelveDesdeBD(conAri, "numpedcl", "ariges" & EmprAVAB & ".scaped", "numpedcl", Data1.Recordset!refproduccion)
+        If Cad = "" Then
             'YA se ha pasado a ALBARAN. Los lotes pueden
-            cad = "El pedido en empresa exportación YA ha sido generado. Los cambios no se reflejaran" & vbCrLf & vbCrLf & "¿Continuar?"
-            If MsgBox(cad, vbQuestion + vbYesNo) = vbNo Then ComprobarVinculado = False
+            Cad = "El pedido en empresa exportación YA ha sido generado. Los cambios no se reflejaran" & vbCrLf & vbCrLf & "¿Continuar?"
+            If MsgBox(Cad, vbQuestion + vbYesNo) = vbNo Then ComprobarVinculado = False
         Else
             MsgBox "Los cambios NO se reflejaran en el pedido ", vbExclamation
         End If

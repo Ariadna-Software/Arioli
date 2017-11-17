@@ -248,9 +248,9 @@ Dim LaFecha As Date
     Else
         'clientes
         If vParamAplic.ContabilidadNueva Then
-            SQL = "Select max(fecfactu)as fecha from factcli WHERE numserie = '" & Serie & "'"
+            SQL = "Select max(fecfactu) as fecha from factcli WHERE numserie = '" & Serie & "'"
         Else
-            SQL = "Select max(fecfaccl)as fecha from cabfac WHERE numserie = '" & Serie & "'"
+            SQL = "Select max(fecfaccl) as fecha from cabfact WHERE numserie = '" & Serie & "'"
         End If
     End If
     LaFecha = CDate("01/01/1900")

@@ -495,7 +495,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
  
-Public opcion As Integer
+Public Opcion As Integer
     '0- Desde compra
     '1- desde venta
  
@@ -507,7 +507,7 @@ Dim SQL As String
 
 
 Private Sub cmdCompra_Click()
-    Dim Cp As cPartidas
+    Dim cP As cPartidas
     
     If Text1(0).Text = "" Then Exit Sub
     If Not IsNumeric(Text1(0).Text) Then Exit Sub
@@ -516,15 +516,15 @@ Private Sub cmdCompra_Click()
      
     
     
-    Set Cp = New cPartidas
-    If Cp.Leer(Val(Text1(0).Text)) Then
+    Set cP = New cPartidas
+    If cP.Leer(Val(Text1(0).Text)) Then
         Screen.MousePointer = vbHourglass
         conn.Execute "DELETE FROM tmptraza"
-        Cp.TrazbilidadDesdeCompra Me.lbIndicador1, chkCoupage.Value = 0
+        cP.TrazbilidadDesdeCompra Me.lbIndicador1, chkCoupage.Value = 0
         lbIndicador1.Caption = ""
         Screen.MousePointer = vbDefault
         'QUITARA
-       ' Stop
+       '
         'cP.TrazabilidadDesdeCompra
         
             With frmImprimir
@@ -534,7 +534,7 @@ Private Sub cmdCompra_Click()
         
                 .SoloImprimir = False
                 .EnvioEMail = False
-                .opcion = 2002
+                .Opcion = 2002
                 .Titulo = "Trazabilidad(III)"
                 .NombreRPT = "TrazaNueva.rpt"
                 .ConSubInforme = True
@@ -543,7 +543,7 @@ Private Sub cmdCompra_Click()
     Else
         MsgBox "No existe idTraza: " & Text1(0).Text, vbExclamation
     End If
-    Set Cp = Nothing
+    Set cP = Nothing
 End Sub
 
 
@@ -553,7 +553,7 @@ Private Sub cmdSalir_Click(Index As Integer)
 End Sub
 
 Private Sub Command1_Click()
-Dim Cp As cPartidas
+Dim cP As cPartidas
 
 '    If Me.txtArticulo(0).Text = "" Or Me.txtDescArticulo(0).Text = "" Or Me.cboLotes.ListIndex < 0 Then
 '        MsgBox "Ponga los datos de consulta", vbExclamation
@@ -565,13 +565,13 @@ Dim Cp As cPartidas
         Exit Sub
     End If
     
-    Set Cp = New cPartidas
-    If Cp.Leer(CLng(Text1(1).Text)) Then
+    Set cP = New cPartidas
+    If cP.Leer(CLng(Text1(1).Text)) Then
         conn.Execute "DELETE FROM tmptraza"
-        Cp.TrazbilidadDesdeVenta Me.chkMatePrima.Value = 1, True
+        cP.TrazbilidadDesdeVenta Me.chkMatePrima.Value = 1, True
         
         'QUITARA
-       ' Stop
+       '
         'cP.TrazabilidadDesdeCompra
         
             With frmImprimir
@@ -581,7 +581,7 @@ Dim Cp As cPartidas
         
                 .SoloImprimir = False
                 .EnvioEMail = False
-                .opcion = 2002
+                .Opcion = 2002
                 .Titulo = "Trazabilidad(IV)"
                 .NombreRPT = "TrazaNuevaVenta.rpt"
                 .ConSubInforme = True
@@ -590,7 +590,7 @@ Dim Cp As cPartidas
     Else
         MsgBox "No existe valores de trazbilidad", vbExclamation
     End If
-    Set Cp = Nothing
+    Set cP = Nothing
 End Sub
     
     
@@ -607,7 +607,7 @@ Dim W As Integer
     Me.Icon = frmppal.Icon
     Me.FrameDesdeAlbCompra.visible = False
     Me.FrameDesdeVenta.visible = False
-    Select Case opcion
+    Select Case Opcion
     Case 0
         PonerFrameVisible FrameDesdeAlbCompra, H, W
         lbIndicador1.Caption = ""
@@ -617,7 +617,7 @@ Dim W As Integer
     
     Me.Height = H
     Me.Width = W
-    Me.cmdSalir(opcion).Cancel = True
+    Me.cmdSalir(Opcion).Cancel = True
     
 End Sub
 
@@ -680,7 +680,7 @@ Private Sub Option1_Click(Index As Integer)
 End Sub
 
 Private Sub Text1_LostFocus(Index As Integer)
-Dim Cp As cPartidas
+Dim cP As cPartidas
 Dim FactorConver As String
     If Index = 0 Then
         Me.chkCoupage.Value = 0
@@ -697,14 +697,14 @@ Dim FactorConver As String
             Text1(Index).Text = ""
             Limpia2
         Else
-            Set Cp = New cPartidas
-            If Cp.Leer(Val(Text1(Index).Text)) Then
+            Set cP = New cPartidas
+            If cP.Leer(Val(Text1(Index).Text)) Then
                 'OK
                 If Index = 0 Then
-                    Text2(0).Text = Cp.codartic
+                    Text2(0).Text = cP.codartic
                     FactorConver = "factorconversion"
-                    Text2(1).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", Cp.codartic, "T", FactorConver)
-                    Text2(2).Text = Cp.NUmlote
+                    Text2(1).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", cP.codartic, "T", FactorConver)
+                    Text2(2).Text = cP.NUmlote
                     
                     
                     If FactorConver <> "1" Then
@@ -712,9 +712,9 @@ Dim FactorConver As String
                         Me.chkCoupage.visible = True
                     End If
                 Else
-                    Text2(3).Text = Cp.codartic
-                    Text2(4).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", Cp.codartic, "T")
-                    Text2(5).Text = Cp.NUmlote
+                    Text2(3).Text = cP.codartic
+                    Text2(4).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", cP.codartic, "T")
+                    Text2(5).Text = cP.NUmlote
                 End If
             Else
                 MsgBox "No existe la partida ID= " & Text1(Index).Text, vbExclamation

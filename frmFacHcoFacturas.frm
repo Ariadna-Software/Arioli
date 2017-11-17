@@ -251,7 +251,6 @@ Begin VB.Form frmFacHcoFacturas
       _Version        =   393216
       Style           =   1
       Tabs            =   4
-      Tab             =   2
       TabsPerRow      =   5
       TabHeight       =   520
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -265,172 +264,130 @@ Begin VB.Form frmFacHcoFacturas
       EndProperty
       TabCaption(0)   =   "Datos básicos"
       TabPicture(0)   =   "frmFacHcoFacturas.frx":0A0E
-      Tab(0).ControlEnabled=   0   'False
+      Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "FrameCliente"
+      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "FrameFactura"
+      Tab(0).Control(1).Enabled=   0   'False
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Albaranes"
       TabPicture(1)   =   "frmFacHcoFacturas.frx":0A2A
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "txtAux(11)"
-      Tab(1).Control(1)=   "cmdaux"
-      Tab(1).Control(2)=   "txtAux(10)"
-      Tab(1).Control(3)=   "txtAux(9)"
-      Tab(1).Control(4)=   "Text3(15)"
-      Tab(1).Control(5)=   "Text3(14)"
-      Tab(1).Control(6)=   "txtAux3(2)"
-      Tab(1).Control(7)=   "txtAux3(1)"
-      Tab(1).Control(8)=   "txtAux3(0)"
-      Tab(1).Control(9)=   "txtAux(5)"
-      Tab(1).Control(10)=   "txtAux(3)"
-      Tab(1).Control(11)=   "txtAux(2)"
-      Tab(1).Control(12)=   "txtAux(1)"
-      Tab(1).Control(13)=   "txtAux(0)"
-      Tab(1).Control(14)=   "Text2(3)"
-      Tab(1).Control(15)=   "Text3(3)"
-      Tab(1).Control(16)=   "Text3(4)"
-      Tab(1).Control(17)=   "Text3(5)"
-      Tab(1).Control(18)=   "Text3(7)"
-      Tab(1).Control(19)=   "Text3(6)"
-      Tab(1).Control(20)=   "Text3(8)"
-      Tab(1).Control(21)=   "Text2(0)"
-      Tab(1).Control(22)=   "Text3(0)"
-      Tab(1).Control(23)=   "Text2(1)"
-      Tab(1).Control(24)=   "Text3(1)"
-      Tab(1).Control(25)=   "Text2(2)"
-      Tab(1).Control(26)=   "Text3(2)"
-      Tab(1).Control(27)=   "txtAux(4)"
-      Tab(1).Control(28)=   "txtAux(6)"
-      Tab(1).Control(29)=   "txtAux(7)"
-      Tab(1).Control(30)=   "txtAux(8)"
-      Tab(1).Control(31)=   "DataGrid1"
-      Tab(1).Control(32)=   "DataGrid2"
-      Tab(1).Control(33)=   "imgBuscar(6)"
-      Tab(1).Control(34)=   "imgBuscar(9)"
-      Tab(1).Control(35)=   "imgBuscar(8)"
-      Tab(1).Control(36)=   "Label1(40)"
-      Tab(1).Control(37)=   "Label1(22)"
-      Tab(1).Control(38)=   "Label1(18)"
-      Tab(1).Control(39)=   "Label1(6)"
-      Tab(1).Control(40)=   "Label1(2)"
-      Tab(1).Control(41)=   "Label1(21)"
-      Tab(1).Control(42)=   "Label1(24)"
-      Tab(1).Control(43)=   "Label1(23)"
-      Tab(1).Control(44)=   "Label1(9)"
-      Tab(1).Control(45)=   "imgBuscar(7)"
+      Tab(1).Control(0)=   "imgBuscar(7)"
+      Tab(1).Control(1)=   "Label1(9)"
+      Tab(1).Control(2)=   "Label1(23)"
+      Tab(1).Control(3)=   "Label1(24)"
+      Tab(1).Control(4)=   "Label1(21)"
+      Tab(1).Control(5)=   "Label1(2)"
+      Tab(1).Control(6)=   "Label1(6)"
+      Tab(1).Control(7)=   "Label1(18)"
+      Tab(1).Control(8)=   "Label1(22)"
+      Tab(1).Control(9)=   "Label1(40)"
+      Tab(1).Control(10)=   "imgBuscar(8)"
+      Tab(1).Control(11)=   "imgBuscar(9)"
+      Tab(1).Control(12)=   "imgBuscar(6)"
+      Tab(1).Control(13)=   "DataGrid2"
+      Tab(1).Control(14)=   "DataGrid1"
+      Tab(1).Control(15)=   "txtAux(8)"
+      Tab(1).Control(16)=   "txtAux(7)"
+      Tab(1).Control(17)=   "txtAux(6)"
+      Tab(1).Control(18)=   "txtAux(4)"
+      Tab(1).Control(19)=   "Text3(2)"
+      Tab(1).Control(20)=   "Text2(2)"
+      Tab(1).Control(21)=   "Text3(1)"
+      Tab(1).Control(22)=   "Text2(1)"
+      Tab(1).Control(23)=   "Text3(0)"
+      Tab(1).Control(24)=   "Text2(0)"
+      Tab(1).Control(25)=   "Text3(8)"
+      Tab(1).Control(26)=   "Text3(6)"
+      Tab(1).Control(27)=   "Text3(7)"
+      Tab(1).Control(28)=   "Text3(5)"
+      Tab(1).Control(29)=   "Text3(4)"
+      Tab(1).Control(30)=   "Text3(3)"
+      Tab(1).Control(31)=   "Text2(3)"
+      Tab(1).Control(32)=   "txtAux(0)"
+      Tab(1).Control(33)=   "txtAux(1)"
+      Tab(1).Control(34)=   "txtAux(2)"
+      Tab(1).Control(35)=   "txtAux(3)"
+      Tab(1).Control(36)=   "txtAux(5)"
+      Tab(1).Control(37)=   "txtAux3(0)"
+      Tab(1).Control(38)=   "txtAux3(1)"
+      Tab(1).Control(39)=   "txtAux3(2)"
+      Tab(1).Control(40)=   "Text3(14)"
+      Tab(1).Control(41)=   "Text3(15)"
+      Tab(1).Control(42)=   "txtAux(9)"
+      Tab(1).Control(43)=   "txtAux(10)"
+      Tab(1).Control(44)=   "cmdaux"
+      Tab(1).Control(45)=   "txtAux(11)"
       Tab(1).ControlCount=   46
       TabCaption(2)   =   "  Datos carga"
       TabPicture(2)   =   "frmFacHcoFacturas.frx":0A46
-      Tab(2).ControlEnabled=   -1  'True
+      Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "Label1(73)"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "Label1(72)"
-      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "Label1(71)"
-      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Label1(70)"
-      Tab(2).Control(3).Enabled=   0   'False
       Tab(2).Control(4)=   "Label1(69)"
-      Tab(2).Control(4).Enabled=   0   'False
       Tab(2).Control(5)=   "Label1(68)"
-      Tab(2).Control(5).Enabled=   0   'False
       Tab(2).Control(6)=   "Label1(67)"
-      Tab(2).Control(6).Enabled=   0   'False
       Tab(2).Control(7)=   "Label1(66)"
-      Tab(2).Control(7).Enabled=   0   'False
       Tab(2).Control(8)=   "Label1(65)"
-      Tab(2).Control(8).Enabled=   0   'False
       Tab(2).Control(9)=   "Label1(64)"
-      Tab(2).Control(9).Enabled=   0   'False
       Tab(2).Control(10)=   "Label1(63)"
-      Tab(2).Control(10).Enabled=   0   'False
       Tab(2).Control(11)=   "Label1(62)"
-      Tab(2).Control(11).Enabled=   0   'False
       Tab(2).Control(12)=   "Label1(61)"
-      Tab(2).Control(12).Enabled=   0   'False
       Tab(2).Control(13)=   "Label1(60)"
-      Tab(2).Control(13).Enabled=   0   'False
       Tab(2).Control(14)=   "Label1(59)"
-      Tab(2).Control(14).Enabled=   0   'False
       Tab(2).Control(15)=   "Label1(58)"
-      Tab(2).Control(15).Enabled=   0   'False
       Tab(2).Control(16)=   "Label1(57)"
-      Tab(2).Control(16).Enabled=   0   'False
       Tab(2).Control(17)=   "Label1(53)"
-      Tab(2).Control(17).Enabled=   0   'False
       Tab(2).Control(18)=   "Label1(56)"
-      Tab(2).Control(18).Enabled=   0   'False
       Tab(2).Control(19)=   "Label1(55)"
-      Tab(2).Control(19).Enabled=   0   'False
       Tab(2).Control(20)=   "Label1(54)"
-      Tab(2).Control(20).Enabled=   0   'False
       Tab(2).Control(21)=   "Label1(48)"
-      Tab(2).Control(21).Enabled=   0   'False
       Tab(2).Control(22)=   "chkCarga(3)"
-      Tab(2).Control(22).Enabled=   0   'False
       Tab(2).Control(23)=   "chkCarga(2)"
-      Tab(2).Control(23).Enabled=   0   'False
       Tab(2).Control(24)=   "chkCarga(1)"
-      Tab(2).Control(24).Enabled=   0   'False
       Tab(2).Control(25)=   "Text3(30)"
-      Tab(2).Control(25).Enabled=   0   'False
       Tab(2).Control(26)=   "chkCarga(0)"
-      Tab(2).Control(26).Enabled=   0   'False
       Tab(2).Control(27)=   "Text3(32)"
-      Tab(2).Control(27).Enabled=   0   'False
       Tab(2).Control(28)=   "Text3(31)"
-      Tab(2).Control(28).Enabled=   0   'False
       Tab(2).Control(29)=   "Text3(20)"
-      Tab(2).Control(29).Enabled=   0   'False
       Tab(2).Control(30)=   "Text3(29)"
-      Tab(2).Control(30).Enabled=   0   'False
       Tab(2).Control(31)=   "Text3(25)"
-      Tab(2).Control(31).Enabled=   0   'False
       Tab(2).Control(32)=   "Text3(33)"
-      Tab(2).Control(32).Enabled=   0   'False
       Tab(2).Control(33)=   "Text3(26)"
-      Tab(2).Control(33).Enabled=   0   'False
       Tab(2).Control(34)=   "Text3(24)"
-      Tab(2).Control(34).Enabled=   0   'False
       Tab(2).Control(35)=   "Text3(19)"
-      Tab(2).Control(35).Enabled=   0   'False
       Tab(2).Control(36)=   "Text3(18)"
-      Tab(2).Control(36).Enabled=   0   'False
       Tab(2).Control(37)=   "Text3(28)"
-      Tab(2).Control(37).Enabled=   0   'False
       Tab(2).Control(38)=   "Text3(22)"
-      Tab(2).Control(38).Enabled=   0   'False
       Tab(2).Control(39)=   "Text3(21)"
-      Tab(2).Control(39).Enabled=   0   'False
       Tab(2).Control(40)=   "Text3(17)"
-      Tab(2).Control(40).Enabled=   0   'False
       Tab(2).Control(41)=   "Text3(27)"
-      Tab(2).Control(41).Enabled=   0   'False
       Tab(2).Control(42)=   "Text3(23)"
-      Tab(2).Control(42).Enabled=   0   'False
       Tab(2).Control(43)=   "Text3(34)"
-      Tab(2).Control(43).Enabled=   0   'False
       Tab(2).ControlCount=   44
       TabCaption(3)   =   "Observaciones"
       TabPicture(3)   =   "frmFacHcoFacturas.frx":0A62
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Text1(46)"
-      Tab(3).Control(1)=   "Text3(16)"
-      Tab(3).Control(2)=   "Text3(13)"
-      Tab(3).Control(3)=   "Text3(12)"
-      Tab(3).Control(4)=   "Text3(11)"
+      Tab(3).Control(0)=   "Label1(47)"
+      Tab(3).Control(1)=   "imgBuscar(10)"
+      Tab(3).Control(2)=   "Label1(46)"
+      Tab(3).Control(3)=   "FrObserva2"
+      Tab(3).Control(4)=   "Text3(9)"
       Tab(3).Control(5)=   "Text3(10)"
-      Tab(3).Control(6)=   "Text3(9)"
-      Tab(3).Control(7)=   "FrObserva2"
-      Tab(3).Control(8)=   "Label1(46)"
-      Tab(3).Control(9)=   "imgBuscar(10)"
-      Tab(3).Control(10)=   "Label1(47)"
+      Tab(3).Control(6)=   "Text3(11)"
+      Tab(3).Control(7)=   "Text3(12)"
+      Tab(3).Control(8)=   "Text3(13)"
+      Tab(3).Control(9)=   "Text3(16)"
+      Tab(3).Control(10)=   "Text1(46)"
       Tab(3).ControlCount=   11
       Begin VB.TextBox Text3 
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   34
-         Left            =   5040
+         Left            =   -69960
          MaxLength       =   10
          TabIndex        =   194
          Tag             =   "O1|T|S|||scafac1|Hora||N|"
@@ -440,7 +397,7 @@ Begin VB.Form frmFacHcoFacturas
       Begin VB.TextBox Text3 
          Height          =   315
          Index           =   23
-         Left            =   3720
+         Left            =   -71280
          MaxLength       =   60
          TabIndex        =   171
          Tag             =   "O1|T|S|||scafac1|TransEmpresa||N|"
@@ -451,7 +408,7 @@ Begin VB.Form frmFacHcoFacturas
       Begin VB.TextBox Text3 
          Height          =   315
          Index           =   27
-         Left            =   3720
+         Left            =   -71280
          MaxLength       =   30
          TabIndex        =   170
          Tag             =   "O1|T|S|||scafac1|TransConductor||N|"
@@ -463,7 +420,7 @@ Begin VB.Form frmFacHcoFacturas
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   17
-         Left            =   3720
+         Left            =   -71280
          MaxLength       =   10
          TabIndex        =   169
          Tag             =   "Fecha carga|F|S|||scafac1|FechaCarga|dd/mm/yyyy|N|"
@@ -474,7 +431,7 @@ Begin VB.Form frmFacHcoFacturas
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   21
-         Left            =   11040
+         Left            =   -63960
          MaxLength       =   10
          TabIndex        =   168
          Tag             =   "BrutoKg|N|S|1||scafac1|TransBruto|#,##0||"
@@ -485,7 +442,7 @@ Begin VB.Form frmFacHcoFacturas
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   22
-         Left            =   12360
+         Left            =   -62640
          MaxLength       =   10
          TabIndex        =   167
          Tag             =   "TaraKg|N|S|1||scafac1|TransTara|#,##0||"
@@ -495,7 +452,7 @@ Begin VB.Form frmFacHcoFacturas
       Begin VB.TextBox Text3 
          Height          =   315
          Index           =   28
-         Left            =   7320
+         Left            =   -67680
          MaxLength       =   30
          TabIndex        =   166
          Tag             =   "O1|T|S|||scafac1|TransCondDNI||N|"
@@ -507,7 +464,7 @@ Begin VB.Form frmFacHcoFacturas
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   18
-         Left            =   6240
+         Left            =   -68760
          MaxLength       =   10
          TabIndex        =   165
          Tag             =   "O1|T|S|||scafac1|Muestra||N|"
@@ -518,7 +475,7 @@ Begin VB.Form frmFacHcoFacturas
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   19
-         Left            =   7920
+         Left            =   -67080
          MaxLength       =   10
          TabIndex        =   164
          Tag             =   "Deposito|N|S|1|20|scafac1|Deposito|0000|N|"
@@ -528,7 +485,7 @@ Begin VB.Form frmFacHcoFacturas
       Begin VB.TextBox Text3 
          Height          =   315
          Index           =   24
-         Left            =   7320
+         Left            =   -67680
          MaxLength       =   6
          TabIndex        =   163
          Tag             =   "O1|T|S|||scafac1|TransMatricula||N|"
@@ -540,7 +497,7 @@ Begin VB.Form frmFacHcoFacturas
          Alignment       =   2  'Center
          Height          =   315
          Index           =   26
-         Left            =   11760
+         Left            =   -63240
          MaxLength       =   10
          TabIndex        =   162
          Tag             =   "Bocas|N|S|1|100|scafac1|TransNumBocas|00|N|"
@@ -550,7 +507,7 @@ Begin VB.Form frmFacHcoFacturas
       Begin VB.TextBox Text3 
          Height          =   315
          Index           =   33
-         Left            =   3720
+         Left            =   -71280
          MaxLength       =   30
          TabIndex        =   161
          Tag             =   "O1|T|S|||scafac1|TransObsPrecintos||N|"
@@ -561,7 +518,7 @@ Begin VB.Form frmFacHcoFacturas
       Begin VB.TextBox Text3 
          Height          =   315
          Index           =   25
-         Left            =   9360
+         Left            =   -65640
          MaxLength       =   10
          TabIndex        =   160
          Tag             =   "O1|T|S|||scafac1|TransMatRemolque||N|"
@@ -572,7 +529,7 @@ Begin VB.Form frmFacHcoFacturas
       Begin VB.TextBox Text3 
          Height          =   315
          Index           =   29
-         Left            =   9840
+         Left            =   -65160
          MaxLength       =   30
          TabIndex        =   159
          Tag             =   "O1|T|S|||scafac1|TransDestino||N|"
@@ -584,7 +541,7 @@ Begin VB.Form frmFacHcoFacturas
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   20
-         Left            =   9000
+         Left            =   -66000
          MaxLength       =   40
          TabIndex        =   158
          Tag             =   "O1|T|S|||scafac1|TransAcidez||N|"
@@ -595,7 +552,7 @@ Begin VB.Form frmFacHcoFacturas
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   31
-         Left            =   4680
+         Left            =   -70320
          MaxLength       =   10
          TabIndex        =   157
          Tag             =   "Deposito|N|S|1|50|scafac1|TransLacradasCoop|00|N|"
@@ -606,7 +563,7 @@ Begin VB.Form frmFacHcoFacturas
          Alignment       =   1  'Right Justify
          Height          =   315
          Index           =   32
-         Left            =   5880
+         Left            =   -69120
          MaxLength       =   10
          TabIndex        =   156
          Tag             =   "Deposito|N|S||50|scafac1|TransLacradasCompr|00|N|"
@@ -617,7 +574,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Ticket báscula"
          Height          =   375
          Index           =   0
-         Left            =   7440
+         Left            =   -67560
          TabIndex        =   155
          Top             =   4200
          Width           =   1695
@@ -625,7 +582,7 @@ Begin VB.Form frmFacHcoFacturas
       Begin VB.TextBox Text3 
          Height          =   555
          Index           =   30
-         Left            =   3720
+         Left            =   -71280
          MaxLength       =   255
          MultiLine       =   -1  'True
          TabIndex        =   154
@@ -638,7 +595,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "CMR"
          Height          =   375
          Index           =   1
-         Left            =   9240
+         Left            =   -65760
          TabIndex        =   153
          Top             =   4200
          Width           =   975
@@ -647,7 +604,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Certificado limpieza"
          Height          =   375
          Index           =   2
-         Left            =   10440
+         Left            =   -64560
          TabIndex        =   152
          Top             =   4200
          Width           =   2055
@@ -656,7 +613,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Otros"
          Height          =   375
          Index           =   3
-         Left            =   12600
+         Left            =   -62400
          TabIndex        =   151
          Top             =   4200
          Width           =   975
@@ -1098,7 +1055,7 @@ Begin VB.Form frmFacHcoFacturas
       End
       Begin VB.Frame FrameFactura 
          Height          =   1980
-         Left            =   -74400
+         Left            =   600
          TabIndex        =   61
          Top             =   3240
          Width           =   12975
@@ -1668,7 +1625,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Datos Cliente"
          ForeColor       =   &H00972E0B&
          Height          =   2775
-         Left            =   -74400
+         Left            =   600
          TabIndex        =   38
          Top             =   360
          Width           =   12975
@@ -2264,7 +2221,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Hora"
          Height          =   195
          Index           =   48
-         Left            =   5040
+         Left            =   -69960
          TabIndex        =   195
          Top             =   720
          Width           =   345
@@ -2282,7 +2239,7 @@ Begin VB.Form frmFacHcoFacturas
          EndProperty
          Height          =   495
          Index           =   54
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   192
          Top             =   600
          Width           =   2535
@@ -2300,7 +2257,7 @@ Begin VB.Form frmFacHcoFacturas
          EndProperty
          Height          =   495
          Index           =   55
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   191
          Top             =   1680
          Width           =   2535
@@ -2318,7 +2275,7 @@ Begin VB.Form frmFacHcoFacturas
          EndProperty
          Height          =   495
          Index           =   56
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   190
          Top             =   4080
          Width           =   2535
@@ -2328,7 +2285,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Fec. carga"
          Height          =   195
          Index           =   53
-         Left            =   3720
+         Left            =   -71280
          TabIndex        =   189
          Top             =   720
          Width           =   765
@@ -2338,7 +2295,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Muestra"
          Height          =   195
          Index           =   57
-         Left            =   6240
+         Left            =   -68760
          TabIndex        =   188
          Top             =   720
          Width           =   570
@@ -2348,7 +2305,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Depósito"
          Height          =   195
          Index           =   58
-         Left            =   7920
+         Left            =   -67080
          TabIndex        =   187
          Top             =   720
          Width           =   630
@@ -2358,7 +2315,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Bruto(kg)"
          Height          =   195
          Index           =   59
-         Left            =   11040
+         Left            =   -63960
          TabIndex        =   186
          Top             =   720
          Width           =   645
@@ -2368,7 +2325,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Tara  (kg)"
          Height          =   195
          Index           =   60
-         Left            =   12360
+         Left            =   -62640
          TabIndex        =   185
          Top             =   720
          Width           =   690
@@ -2378,7 +2335,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Empresa"
          Height          =   195
          Index           =   61
-         Left            =   3720
+         Left            =   -71280
          TabIndex        =   184
          Top             =   1680
          Width           =   615
@@ -2388,7 +2345,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Matrícula"
          Height          =   195
          Index           =   62
-         Left            =   7320
+         Left            =   -67680
          TabIndex        =   183
          Top             =   1680
          Width           =   675
@@ -2398,7 +2355,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Bocas precintadas"
          Height          =   195
          Index           =   63
-         Left            =   11760
+         Left            =   -63240
          TabIndex        =   182
          Top             =   1680
          Width           =   1320
@@ -2408,7 +2365,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Nombre conductor"
          Height          =   195
          Index           =   64
-         Left            =   3720
+         Left            =   -71280
          TabIndex        =   181
          Top             =   2400
          Width           =   1320
@@ -2418,7 +2375,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "DNI conductor"
          Height          =   195
          Index           =   65
-         Left            =   7320
+         Left            =   -67680
          TabIndex        =   180
          Top             =   2400
          Width           =   1050
@@ -2428,7 +2385,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Precintos"
          Height          =   195
          Index           =   66
-         Left            =   3720
+         Left            =   -71280
          TabIndex        =   179
          Top             =   4680
          Width           =   660
@@ -2438,7 +2395,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Matrí. remolque"
          Height          =   195
          Index           =   67
-         Left            =   9360
+         Left            =   -65640
          TabIndex        =   178
          Top             =   1680
          Width           =   1110
@@ -2456,7 +2413,7 @@ Begin VB.Form frmFacHcoFacturas
          EndProperty
          Height          =   495
          Index           =   68
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   177
          Top             =   3120
          Width           =   2535
@@ -2466,7 +2423,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Destino"
          Height          =   195
          Index           =   69
-         Left            =   9840
+         Left            =   -65160
          TabIndex        =   176
          Top             =   2400
          Width           =   540
@@ -2476,7 +2433,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Acidez"
          Height          =   195
          Index           =   70
-         Left            =   9000
+         Left            =   -66000
          TabIndex        =   175
          Top             =   720
          Width           =   480
@@ -2486,7 +2443,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Coop"
          Height          =   195
          Index           =   71
-         Left            =   4800
+         Left            =   -70200
          TabIndex        =   174
          Top             =   4080
          Width           =   375
@@ -2496,7 +2453,7 @@ Begin VB.Form frmFacHcoFacturas
          Caption         =   "Comprador"
          Height          =   195
          Index           =   72
-         Left            =   5880
+         Left            =   -69120
          TabIndex        =   173
          Top             =   4080
          Width           =   765
@@ -2515,7 +2472,7 @@ Begin VB.Form frmFacHcoFacturas
          EndProperty
          Height          =   195
          Index           =   73
-         Left            =   3720
+         Left            =   -71280
          TabIndex        =   172
          Top             =   4080
          Width           =   855
@@ -2762,7 +2719,7 @@ Begin VB.Form frmFacHcoFacturas
             Object.ToolTipText     =   "packing List"
          EndProperty
          BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Object.Visible         =   0   'False
+            Object.ToolTipText     =   "Modificar fecha factura"
          EndProperty
          BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Object.Visible         =   0   'False
@@ -3040,9 +2997,9 @@ Dim I As Integer
                     TerminaBloquear
                     PosicionarData
                     FormatoDatosTotales
-                    I = data3.Recordset.AbsolutePosition
+                    I = Data3.Recordset.AbsolutePosition
                     PonerCamposLineas
-                    SituarDataPosicion data3, CLng(I), ""
+                    SituarDataPosicion Data3, CLng(I), ""
                 End If
             End If
             
@@ -3228,7 +3185,7 @@ Dim J As Byte
     End If
     
     vWhere = ObtenerWhereCP(False)
-    vWhere = vWhere & " AND codtipoa='" & data3.Recordset.Fields!Codtipoa & "' AND numalbar=" & data3.Recordset.Fields!NumAlbar
+    vWhere = vWhere & " AND codtipoa='" & Data3.Recordset.Fields!Codtipoa & "' AND numalbar=" & Data3.Recordset.Fields!NumAlbar
     vWhere = vWhere & " and numlinea=" & Data2.Recordset!numlinea
     If Not BloqueaRegistro(NomTablaLineas, vWhere) Then
         TerminaBloquear
@@ -3499,82 +3456,82 @@ End Sub
 Private Sub DataGrid2_RowColChange(LastRow As Variant, ByVal LastCol As Integer)
 Dim I As Byte
 
-    If Not data3.Recordset.EOF Then
+    If Not Data3.Recordset.EOF Then
         'Trabajador Albaran
-        Text3(0).Text = data3.Recordset.Fields!CodTraba
+        Text3(0).Text = Data3.Recordset.Fields!CodTraba
         Text3_LostFocus (0)
         'Trabajador pedido
-        Text3(1).Text = DBLet(data3.Recordset.Fields!codtrab1, "T")
+        Text3(1).Text = DBLet(Data3.Recordset.Fields!codtrab1, "T")
         Text3_LostFocus (1)
         'Trab. Prepara Material
-        Text3(2).Text = data3.Recordset.Fields!codtrab2
+        Text3(2).Text = Data3.Recordset.Fields!codtrab2
         Text3_LostFocus (2)
-        Text3(3).Text = data3.Recordset.Fields!codenvio
+        Text3(3).Text = Data3.Recordset.Fields!codenvio
         Text3_LostFocus (3)
         
         'oferta
-        Text3(4).Text = DBLet(data3.Recordset.Fields!NumOfert, "N")
+        Text3(4).Text = DBLet(Data3.Recordset.Fields!NumOfert, "N")
         If Text3(4).Text <> "0" Then
             FormateaCampo Text3(4)
         Else
             Text3(4).Text = ""
         End If
-        Text3(5).Text = DBLet(data3.Recordset.Fields!fecofert, "F")
+        Text3(5).Text = DBLet(Data3.Recordset.Fields!fecofert, "F")
         'pedido
-        Text3(6).Text = DBLet(data3.Recordset.Fields!numpedcl, "N")
+        Text3(6).Text = DBLet(Data3.Recordset.Fields!numpedcl, "N")
         If Text3(6).Text <> "0" Then
             FormateaCampo Text3(6)
         Else
             Text3(6).Text = ""
         End If
-        Text3(7).Text = DBLet(data3.Recordset.Fields!fecpedcl, "F")
+        Text3(7).Text = DBLet(Data3.Recordset.Fields!fecpedcl, "F")
         If Text3(7).Text <> "" Then FormateaCampo Text3(7)
-        Text3(8).Text = DBLet(data3.Recordset.Fields!sementre, "N")
+        Text3(8).Text = DBLet(Data3.Recordset.Fields!sementre, "N")
         If Text3(8).Text = "0" Then Text3(8).Text = ""
         'venta
-        Text3(15).Text = DBLet(data3.Recordset.Fields!NumTermi, "N")
-        Text3(14).Text = DBLet(data3.Recordset.Fields!NumVenta, "N")
+        Text3(15).Text = DBLet(Data3.Recordset.Fields!NumTermi, "N")
+        Text3(14).Text = DBLet(Data3.Recordset.Fields!NumVenta, "N")
         FormateaCampo Text3(14)
 '        If Text3(14).Text = "0" Then Text3(14).Text = ""
 '        If Text3(15).Text = "0" Then Text3(15).Text = ""
         
         'Observaciones
-        Text3(9).Text = DBLet(data3.Recordset.Fields!observa1, "T")
-        Text3(10).Text = DBLet(data3.Recordset.Fields!observa2, "T")
-        Text3(11).Text = DBLet(data3.Recordset.Fields!observa3, "T")
-        Text3(12).Text = DBLet(data3.Recordset.Fields!observa4, "T")
-        Text3(13).Text = DBLet(data3.Recordset.Fields!observa5, "T")
-        Text3(16).Text = DBLet(data3.Recordset.Fields!observa6, "T")
+        Text3(9).Text = DBLet(Data3.Recordset.Fields!observa1, "T")
+        Text3(10).Text = DBLet(Data3.Recordset.Fields!observa2, "T")
+        Text3(11).Text = DBLet(Data3.Recordset.Fields!observa3, "T")
+        Text3(12).Text = DBLet(Data3.Recordset.Fields!observa4, "T")
+        Text3(13).Text = DBLet(Data3.Recordset.Fields!observa5, "T")
+        Text3(16).Text = DBLet(Data3.Recordset.Fields!observa6, "T")
         
         If vParamAplic.QUE_EMPRESA = 4 Then
-             Text3(17).Text = DBLet(data3.Recordset.Fields!FechaCarga, "F")
-            Text3(18).Text = DBLet(data3.Recordset.Fields!Muestra, "T")
-            Text3(19).Text = DBLet(data3.Recordset.Fields!Deposito, "T")
-            Text3(20).Text = DBLet(data3.Recordset.Fields!TransAcidez, "T")
-            Text3(21).Text = DBLet(data3.Recordset.Fields!TransBruto, "T")
-            Text3(22).Text = DBLet(data3.Recordset.Fields!TransTara, "T")
-            Text3(23).Text = DBLet(data3.Recordset.Fields!TransEmpresa, "T")
-            Text3(24).Text = DBLet(data3.Recordset.Fields!TransMatricula, "T")
-            Text3(25).Text = DBLet(data3.Recordset.Fields!TransMatRemolque, "T")
+             Text3(17).Text = DBLet(Data3.Recordset.Fields!FechaCarga, "F")
+            Text3(18).Text = DBLet(Data3.Recordset.Fields!Muestra, "T")
+            Text3(19).Text = DBLet(Data3.Recordset.Fields!Deposito, "T")
+            Text3(20).Text = DBLet(Data3.Recordset.Fields!TransAcidez, "T")
+            Text3(21).Text = DBLet(Data3.Recordset.Fields!TransBruto, "T")
+            Text3(22).Text = DBLet(Data3.Recordset.Fields!TransTara, "T")
+            Text3(23).Text = DBLet(Data3.Recordset.Fields!TransEmpresa, "T")
+            Text3(24).Text = DBLet(Data3.Recordset.Fields!TransMatricula, "T")
+            Text3(25).Text = DBLet(Data3.Recordset.Fields!TransMatRemolque, "T")
             
             '
             '
            
-            Text3(26).Text = DBLet(data3.Recordset.Fields!TransNumBocas, "T")
-            Text3(27).Text = DBLet(data3.Recordset.Fields!TransConductor, "F")
-            Text3(28).Text = DBLet(data3.Recordset.Fields!TransCondDNI, "T")
-            Text3(29).Text = DBLet(data3.Recordset.Fields!TransDestino, "T")
-            Text3(30).Text = DBLet(data3.Recordset.Fields!TransMercancia, "T")
-            Text3(31).Text = DBLet(data3.Recordset.Fields!TransLacradasCoop, "T")
-            Text3(32).Text = DBLet(data3.Recordset.Fields!TransLacradasCompr, "T")
-            Text3(33).Text = DBLet(data3.Recordset.Fields!TransObsPrecintos, "T")
+            Text3(26).Text = DBLet(Data3.Recordset.Fields!TransNumBocas, "T")
+            Text3(27).Text = DBLet(Data3.Recordset.Fields!TransConductor, "F")
+            Text3(28).Text = DBLet(Data3.Recordset.Fields!TransCondDNI, "T")
+            Text3(29).Text = DBLet(Data3.Recordset.Fields!TransDestino, "T")
+            Text3(30).Text = DBLet(Data3.Recordset.Fields!TransMercancia, "T")
+            Text3(31).Text = DBLet(Data3.Recordset.Fields!TransLacradasCoop, "T")
+            Text3(32).Text = DBLet(Data3.Recordset.Fields!TransLacradasCompr, "T")
+            Text3(33).Text = DBLet(Data3.Recordset.Fields!TransObsPrecintos, "T")
             Text3(34).Text = ""
-            If Not IsNull(data3.Recordset.Fields!hora) Then Text3(34).Text = Format(data3.Recordset.Fields!hora, "hh:mm")
+            If Not IsNull(Data3.Recordset.Fields!hora) Then Text3(34).Text = Format(Data3.Recordset.Fields!hora, "hh:mm")
             
-            Me.chkCarga(0).Value = Abs(Val(DBLet(data3.Recordset!TransTicketBas, "N")))
-            Me.chkCarga(1).Value = Abs(Val(DBLet(data3.Recordset!TransCMR, "N")))
-            Me.chkCarga(2).Value = Abs(Val(DBLet(data3.Recordset!TransCertLim, "N")))
-            Me.chkCarga(3).Value = Abs(Val(DBLet(data3.Recordset!TransOtros, "N")))
+            Me.chkCarga(0).Value = Abs(Val(DBLet(Data3.Recordset!TransTicketBas, "N")))
+            Me.chkCarga(1).Value = Abs(Val(DBLet(Data3.Recordset!TransCMR, "N")))
+            Me.chkCarga(2).Value = Abs(Val(DBLet(Data3.Recordset!TransCertLim, "N")))
+            Me.chkCarga(3).Value = Abs(Val(DBLet(Data3.Recordset!TransOtros, "N")))
             
             
             
@@ -3640,6 +3597,7 @@ Private Sub Form_Load()
         .Buttons(9).Image = 10 'Mto Lineas Ofertas
         .Buttons(10).Image = 16 'Imprimir Pedido
         .Buttons(11).Image = 40 'Imprimir packing list
+        .Buttons(12).Image = 23 'Cambiar fecha factura
         .Buttons(18).Image = 15  'Salir
         .Buttons(btnPrimero).Image = 6  'Primero
         .Buttons(btnPrimero + 1).Image = 7 'Anterior
@@ -3648,7 +3606,7 @@ Private Sub Form_Load()
     End With
     'Me.Toolbar1.Buttons(11).visible = vEmpresa.codempre = EmpresaAVAB
     Me.Toolbar1.Buttons(11).visible = vParamAplic.EsAVAB  'Voy a dar el PACKING
-    
+    Me.Toolbar1.Buttons(12).visible = vParamAplic.QUE_EMPRESA = 4 And vUsu.Nivel = 0
     
     
     
@@ -3990,7 +3948,7 @@ Private Sub mnImprimir_Click()
         BotonImprimirTicket
     Else
 
-        If CInt(DBLet(data3.Recordset!NumTermi, "N")) > 0 Then
+        If CInt(DBLet(Data3.Recordset!NumTermi, "N")) > 0 Then
             'Es factura del TPV
             BotonImprimir 63
         Else
@@ -4387,15 +4345,15 @@ Dim b2 As Boolean
     Screen.MousePointer = vbHourglass
     
     'Datos de la tabla albaranes x factura: scafac1
-    CargaGrid DataGrid2, data3, True
+    CargaGrid DataGrid2, Data3, True
     
     'Comprobar si el albaran de la factura viene de una venta de ticket del TPV
     b = False
     b2 = False
-    If Not data3.Recordset.EOF Then
-        If Not IsNull(data3.Recordset!NumVenta) Then
+    If Not Data3.Recordset.EOF Then
+        If Not IsNull(Data3.Recordset!NumVenta) Then
             b = True
-            If data3.Recordset!Codtipom = "FAV" And data3.Recordset!Codtipoa <> "FTI" Then b2 = True
+            If Data3.Recordset!Codtipom = "FAV" And Data3.Recordset!Codtipoa <> "FTI" Then b2 = True
         End If
     End If
     
@@ -4426,7 +4384,7 @@ Dim b2 As Boolean
     
     
     'Poner la referencia del cliente
-    If Not data3.Recordset.EOF Then Text1(3).Text = DBLet(data3.Recordset.Fields!referenc, "T")
+    If Not Data3.Recordset.EOF Then Text1(3).Text = DBLet(Data3.Recordset.Fields!referenc, "T")
     
     Screen.MousePointer = vbDefault
     Exit Sub
@@ -4723,6 +4681,10 @@ Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnImprimir_Click
         Case 11
             PackingList
+            
+        Case 12
+            'UPDATEAR FECFAC
+            EliminarCambiarFechaFactura
         Case 18    'Salir
             mnSalir_Click
         Case btnPrimero To btnPrimero + 3 'Flechas Desplazamiento
@@ -4792,8 +4754,8 @@ Dim b As Boolean
     If Data2.Recordset.EOF Then Exit Function
     
     vWhere = ObtenerWhereCP(True)
-    vWhere = vWhere & " AND codtipoa='" & data3.Recordset.Fields!Codtipoa & "' "
-    vWhere = vWhere & " AND numalbar=" & data3.Recordset.Fields!NumAlbar
+    vWhere = vWhere & " AND codtipoa='" & Data3.Recordset.Fields!Codtipoa & "' "
+    vWhere = vWhere & " AND numalbar=" & Data3.Recordset.Fields!NumAlbar
     vWhere = vWhere & " AND numlinea=" & Data2.Recordset.Fields!numlinea
     
     If DatosOkLinea() Then
@@ -4934,7 +4896,7 @@ Dim tots As String
     Exit Sub
     
 ECargaGrid:
-    If Err.Number <> 0 Then Stop: MuestraError Err.Number, "Cargando datos grid", Err.Description
+    If Err.Number <> 0 Then MuestraError Err.Number, "Cargando datos grid", Err.Description
 End Sub
 
 
@@ -5111,7 +5073,7 @@ Private Sub LimpiarDataGrids()
 'Pone los Grids sin datos, apuntando a ningún registro
 On Error Resume Next
 
-    CargaGrid DataGrid2, data3, False
+    CargaGrid DataGrid2, Data3, False
     CargaGrid DataGrid1, Data2, False
     
     If Err.Number <> 0 Then Err.Clear
@@ -5183,7 +5145,7 @@ Dim SQL As String
     
     If enlaza Then
         SQL = SQL & " " & ObtenerWhereCP(True)
-        If Opcion = 1 Then SQL = SQL & " AND numalbar=" & data3.Recordset.Fields!NumAlbar
+        If Opcion = 1 Then SQL = SQL & " AND numalbar=" & Data3.Recordset.Fields!NumAlbar
     Else
         SQL = SQL & " WHERE numfactu = -1"
     End If
@@ -5221,9 +5183,11 @@ Dim b As Boolean
         'Imprimir
         Toolbar1.Buttons(10).Enabled = b
         Me.mnImprimir.Enabled = b
-        
-        
         Toolbar1.Buttons(11).Enabled = b
+        'Modificar fecha
+        If Me.Toolbar1.Buttons(12).visible Then Toolbar1.Buttons(12).Enabled = b
+        
+        
         
         
         b = (Modo >= 3) Or Modo = 1
@@ -5568,7 +5532,7 @@ Dim b As Boolean
     
     
     SQL = SQL & ObtenerWhereCP(True)
-    SQL = SQL & " AND codtipoa='" & data3.Recordset.Fields!Codtipoa & "' AND numalbar=" & data3.Recordset.Fields!NumAlbar
+    SQL = SQL & " AND codtipoa='" & Data3.Recordset.Fields!Codtipoa & "' AND numalbar=" & Data3.Recordset.Fields!NumAlbar
     conn.Execute SQL
     ModificaAlbxFac = True
     
@@ -5767,6 +5731,11 @@ Dim CambiaIVA As Boolean
         Text1(35).Text = vFactu.ImpIVA1
         Text1(36).Text = vFactu.ImpIVA2
         Text1(37).Text = vFactu.ImpIVA3
+        
+        Text1(39).Text = vFactu.ImpIVA1RE
+        Text1(41).Text = vFactu.ImpIVA2RE
+        Text1(43).Text = vFactu.ImpIVA3RE
+        
         Text1(38).Text = vFactu.TotalFac
         FormatoDatosTotales
     Else
@@ -5786,6 +5755,9 @@ Dim I As Byte
         Text1(I).Text = Format(Text1(I).Text, FormatoImporte)
     Next I
     
+    
+    
+    
     'Desglose B.Imponible por IVA
     For I = 32 To 34
         If Text1(I).Text <> "" Then
@@ -5800,8 +5772,20 @@ Dim I As Byte
     '            Text3(i - 6) = Format(Text3(i - 6).Text, "000")
                 Text1(I + 3).Text = Format(Text1(I + 3).Text, FormatoImporte)
             End If
+          
+            
         End If
     Next I
+    
+    
+    'recargo equivalencia 39
+      'Recargo equivalencia
+    Text1(39).Text = QuitarCero(Text1(39).Text)
+    Text1(39).Text = Format(Text1(39).Text, FormatoImporte)
+    Text1(41).Text = QuitarCero(Text1(41).Text)
+    Text1(41).Text = Format(Text1(41).Text, FormatoImporte)
+    Text1(43).Text = QuitarCero(Text1(43).Text)
+    Text1(44).Text = Format(Text1(43).Text, FormatoImporte)
 End Sub
 
 
@@ -6299,7 +6283,7 @@ Private Sub ModificarAñadirLineasNUEVO(Nueva As Boolean)
 Dim Nlinea As Integer
 Dim vWhere As String
 
-    If data3.Recordset.EOF Then Exit Sub  'ALBARANES
+    If Data3.Recordset.EOF Then Exit Sub  'ALBARANES
     If Not Nueva Then
         If Data2.Recordset.EOF Then Exit Sub  'LINEAS
     End If
@@ -6310,8 +6294,8 @@ Dim vWhere As String
     Nlinea = -1
     With frmFacHcoLineaCambiar
         .Caption = Mid(Text1(4).Text & Space(10), 1, 10) & Text1(5).Text 'Los 10 primeros son el codclien
-        .Codtipoa = data3.Recordset!Codtipoa
-        .NumAlbar = data3.Recordset!NumAlbar
+        .Codtipoa = Data3.Recordset!Codtipoa
+        .NumAlbar = Data3.Recordset!NumAlbar
         .Codtipom = Data1.Recordset!Codtipom
         .NumFactu = Data1.Recordset!NumFactu
         .Fecfactu = Data1.Recordset!Fecfactu
@@ -6336,6 +6320,256 @@ Dim vWhere As String
             FormatoDatosTotales
             DesBloqueoManual "scafac"
             PonerCamposLineas
-            If Nlinea >= 0 Then SituarDataPosicion data3, CLng(Nlinea), ""
+            If Nlinea >= 0 Then SituarDataPosicion Data3, CLng(Nlinea), ""
     End If
 End Sub
+
+
+
+
+
+
+
+
+
+'--------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------
+'   Reestablecer factura   - CambiarFechaFactura
+'--------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------
+'--------------------------------------------------------------------------------------------------
+
+Private Sub EliminarCambiarFechaFactura()
+Dim miSQL As String
+Dim cControlFra As CControlFacturaContab
+Dim LEtra As String
+Dim CambiarFecha As Boolean
+Dim b As Boolean
+
+    'Primera comprobacion. La factura es "actual"
+    'Es decir del periodo de IVA, veremos que si no es la ultima
+    
+    LEtra = ObtenerLetraSerie(Data1.Recordset!Codtipom)
+    If LEtra = "" Then Exit Sub
+    
+        Set cControlFra = New CControlFacturaContab
+        miSQL = ""
+        
+        'Con estos dos NO dejo pasar
+        BuscaChekc = cControlFra.FechaCorrectaContabilizazion(ConnConta, Text1(2))
+        If BuscaChekc <> "" Then miSQL = miSQL & "- " & BuscaChekc & vbCrLf
+        BuscaChekc = cControlFra.FechaCorrectaIVA(ConnConta, Text1(2))
+        If BuscaChekc <> "" Then miSQL = miSQL & "- " & BuscaChekc & vbCrLf
+            
+            
+        If DBLet(Data1.Recordset!intconta, "N") = 1 Then miSQL = "Factura contabilizada." & vbCrLf & miSQL
+        
+        
+        If miSQL <> "" Then
+            MsgBox miSQL, vbExclamation
+            Set cControlFra = Nothing
+            Exit Sub
+        End If
+        
+        If cControlFra.FechaMenorUltimaFacturaCliente(ConnConta, Text1(2), LEtra) Then
+            If BuscaChekc <> "" Then miSQL = miSQL & "- Hay facturas contabilizada con fechas posterior" & vbCrLf
+        End If
+        Set cControlFra = Nothing
+        
+        
+        If miSQL <> "" Then
+            miSQL = miSQL & vbCrLf & "¿Continuar el proceso?"
+            
+            If MsgBox(miSQL, vbExclamation + vbYesNo) <> vbYes Then Exit Sub
+        
+        End If
+    
+    
+    CadenaDesdeOtroForm = "0"
+    If CStr(Data1.Recordset!Codtipom) = "FAT" Then CadenaDesdeOtroForm = "1"
+    CadenaDesdeOtroForm = Text1(2).Text & "|" & LEtra & "|" & CadenaDesdeOtroForm & "|"
+    frmVarios.Opcion = 14
+    frmVarios.Show vbModal
+    
+    
+    If CadenaDesdeOtroForm <> "" Then
+        Screen.MousePointer = vbHourglass
+        
+        CambiarFecha = Not CadenaDesdeOtroForm = "OK"
+        
+        conn.BeginTrans
+        If HacerAccionesModFechaElimFra(CambiarFecha) Then
+            conn.CommitTrans
+            
+            Espera 0.25
+            
+            If CambiarFecha Then Text1(2).Text = CadenaDesdeOtroForm
+            CadenaDesdeOtroForm = "scafac.codtipom= '" & Text1(1).Text & "' and scafac.numfactu= " & Val(Text1(0).Text) & " and scafac.fecfactu='" & Format(Text1(2).Text, FormatoFecha) & "' "
+        
+    
+            
+            Set LOG = New cLOG
+            If CambiarFecha Then
+                LEtra = "Nueva fecha: " & Text1(2).Text & vbCrLf & CadenaDesdeOtroForm
+                LOG.Insertar 12, vUsu, LEtra
+            Else
+                LEtra = "Eliminar reestb factura:" & CadenaDesdeOtroForm
+                LOG.Insertar 13, vUsu, LEtra
+            End If
+            
+            Set LOG = Nothing
+            
+            If CambiarFecha Then
+                CadenaConsulta = "select scafac.* from " & NombreTabla & " INNER JOIN scafac1 ON scafac.codtipom=scafac1.codtipom AND scafac.numfactu=scafac1.numfactu AND scafac.fecfactu=scafac1.fecfactu "
+                CadenaConsulta = CadenaConsulta & " WHERE " & CadenaDesdeOtroForm & " GROUP BY scafac.codtipom,scafac.numfactu,scafac.fecfactu " & Ordenacion
+                PonerCadenaBusqueda
+                
+            Else
+                NumRegElim = Data1.Recordset.AbsolutePosition
+                If SituarDataTrasEliminar(Data1, NumRegElim) Then
+                    PonerCampos
+                Else
+                    LimpiarCampos
+                    'Poner los grid sin apuntar a nada
+                    LimpiarDataGrids
+                    PonerModo 0
+                End If
+            End If
+            
+            
+            
+            
+            
+        Else
+            conn.RollbackTrans
+        End If
+        Screen.MousePointer = vbDefault
+    End If
+End Sub
+
+
+
+Private Function HacerAccionesModFechaElimFra(CambiarFecha As Boolean) As Boolean
+Dim SQL As String
+
+    On Error GoTo eHacerAccionesModFechaElimFra
+
+    HacerAccionesModFechaElimFra = False
+    
+    BuscaChekc = ObtenerWhereCP(True)
+    If BuscaChekc = "" Then Exit Function
+    
+        
+    conn.Execute "SET FOREIGN_KEY_CHECKS=0"
+    
+    
+
+    If CambiarFecha Then BuscaChekc = " set fecfactu=" & DBSet(CadenaDesdeOtroForm, "F") & " " & BuscaChekc
+    
+        
+    If CambiarFecha Then
+        conn.Execute "UPDATE slifac " & BuscaChekc
+        
+        
+        'Campos
+        conn.Execute "UPDATE slifaclotes " & BuscaChekc
+    
+        'Lineas de cabeceras de albaranes de la factura
+        conn.Execute "UPDATE scafac1 " & BuscaChekc
+            
+        'Eliminar los vencimientos
+        conn.Execute "UPDATE svenci " & BuscaChekc
+        
+        'Cabecera de facturas (scafac)
+        conn.Execute "UPDATE " & NombreTabla & BuscaChekc
+        
+    Else
+        '#cabecera de albaran
+        SQL = "INSERT INTO scaalb(codtipom,numalbar,fechaalb,factursn,codclien,nomclien,domclien,codpobla,pobclien,proclien,"
+        SQL = SQL & "nifclien,telclien,coddirec,nomdirec,referenc,facturkm,cantidkm,codtraba,codtrab1,codtrab2,"
+        SQL = SQL & "codagent,codforpa,codenvio,dtoppago,dtognral,tipofact,observa01,observa02,observa03,observa04,observa05,"
+        SQL = SQL & "numofert,fecofert,numpedcl,fecpedcl,fecentre,sementre,codtipmf,numfactu,fecfactu,esticket,numtermi,numventa,"
+        SQL = SQL & "observa6,FechaCarga,Muestra,Deposito,TransEmpresa,TransMatricula,TransConductor,TransCondDNI,TransNumBocas,"
+        SQL = SQL & "TransBruto,TransTara,TransObsPrecintos,TransMatRemolque,TransMercancia,TransAcidez,TransDestino,TransLacradasCoop,"
+        SQL = SQL & "TransLacradasCompr,TransTicketBas,TransCMR,TransCertLim,TransOtros,hora"
+        SQL = SQL & ") SELECT codtipoa,numalbar,fechaalb,1 factursn, codclien,nomclien,domclien,codpobla,pobclien,proclien,"
+        SQL = SQL & "nifclien,telclien,coddirec,nomdirec,referenc,"
+        SQL = SQL & "0 facturakm ,0 cuantoskm,codtraba,codtrab1,codtrab2,"
+        SQL = SQL & "codagent,codforpa,codenvio,dtoppago,dtognral,0 tipofac, observa1,observa2,observa3,observa4,observa5,"
+        SQL = SQL & "numofert,fecofert,numpedcl,fecpedcl,fecpedcl,sementre,"
+        SQL = SQL & "NULL codtipmf, NULL numfactu,NULL fecfactu ,0 esticket, numtermi,numventa,"
+        
+        
+        SQL = SQL & "observa6,FechaCarga,Muestra,Deposito,TransEmpresa,TransMatricula,TransConductor,TransCondDNI,TransNumBocas,"
+        SQL = SQL & "TransBruto,TransTara,TransObsPrecintos,TransMatRemolque,TransMercancia,TransAcidez,TransDestino,TransLacradasCoop,"
+        SQL = SQL & "TransLacradasCompr,TransTicketBas,TransCMR,TransCertLim,TransOtros,hora"
+        SQL = SQL & " FROM scafac,scafac1"
+        SQL = SQL & " Where scafac.NumFactu = scafac1.NumFactu And scafac.codtipom = scafac1.codtipom"
+        ' SQL = " codtipom= '" & Text1(1).Text & "' and numfactu= " & Val(Text1(0).Text) & " and fecfactu='" & Format(Text1(2).Text, FormatoFecha) & "' "
+        SQL = SQL & " AND scafac.fecfactu=scafac1.fecfactu AND scafac.numfactu =" & Val(Text1(0).Text)
+        SQL = SQL & " AND scafac.fecfactu=" & DBSet(Text1(2).Text, "F") & " AND scafac.codtipom =" & DBSet(Text1(1).Text, "T")
+        conn.Execute SQL
+        
+        '#Lineas albaran
+        SQL = "INSERT INTO slialb (codtipom ,numalbar,numlinea,codalmac,codartic,nomartic,ampliaci,cantidad,precioar,dtoline1,dtoline2,importel,origpre,"
+        SQL = SQL & "codproveX,cajas,PrecioLitro,palets,hectogrado)"
+        SQL = SQL & " SELECT scafac1.codtipoa,scafac1.numalbar,numlinea,codalmac,codartic,nomartic,ampliaci,cantidad,slifac.precioar,dtoline1,dtoline2,importel,origpre,"
+        SQL = SQL & "codproveX , cajas,PrecioLitro,palets,hectogrado "
+        SQL = SQL & "FROM scafac,scafac1,slifac WHERE scafac.codtipom=scafac1.codtipom AND scafac.numfactu=scafac1.numfactu"
+        SQL = SQL & " AND scafac.fecfactu=scafac1.fecfactu AND"
+        SQL = SQL & " scafac.codtipom = slifac.codtipom And scafac.NumFactu = slifac.NumFactu"
+        SQL = SQL & " AND scafac.fecfactu=slifac.fecfactu AND"
+        SQL = SQL & " scafac1.codtipoa = slifac.codtipoa And scafac1.NumAlbar = slifac.NumAlbar"
+        SQL = SQL & " AND scafac.numfactu =" & Val(Text1(0).Text)
+        SQL = SQL & " AND scafac.fecfactu=" & DBSet(Text1(2).Text, "F") & " AND scafac.codtipom =" & DBSet(Text1(1).Text, "T")
+        conn.Execute SQL
+    
+        
+        '#Lineas lotes
+        SQL = "INSERT INTO slialblotes(codtipom,numalbar,numlinea,linea,numlote,cantidad)"
+        SQL = SQL & " SELECT scafac1.codtipoa,scafac1.numalbar,numlinea,linea,numlote,cantidad "
+        SQL = SQL & "FROM scafac,scafac1,slifaclotes WHERE scafac.codtipom=scafac1.codtipom AND scafac.numfactu=scafac1.numfactu"
+        SQL = SQL & " AND scafac.fecfactu=scafac1.fecfactu AND"
+        SQL = SQL & " scafac.codtipom = slifaclotes.codtipom And scafac.NumFactu = slifaclotes.NumFactu"
+        SQL = SQL & " AND scafac.fecfactu=slifaclotes.fecfactu AND"
+        SQL = SQL & " scafac1.codtipoa = slifaclotes.codtipoa And scafac1.NumAlbar = slifaclotes.NumAlbar"
+        SQL = SQL & " AND scafac.numfactu =" & Val(Text1(0).Text)
+        SQL = SQL & " AND scafac.fecfactu=" & DBSet(Text1(2).Text, "F") & " AND scafac.codtipom =" & DBSet(Text1(1).Text, "T")
+        conn.Execute SQL
+    
+    
+        'La borramos
+        conn.Execute "Delete from slifac " & BuscaChekc
+        
+        
+        'Campos
+        conn.Execute "Delete from slifaclotes " & BuscaChekc
+    
+        'Lineas de cabeceras de albaranes de la factura
+        conn.Execute "Delete from scafac1 " & BuscaChekc
+            
+        'Eliminar los vencimientos
+        conn.Execute "Delete from svenci " & BuscaChekc
+        
+        'Cabecera de facturas (scafac)
+        conn.Execute "Delete from " & NombreTabla & BuscaChekc
+            
+    End If
+    
+    
+
+    conn.Execute "SET FOREIGN_KEY_CHECKS=1"
+    HacerAccionesModFechaElimFra = True
+    Exit Function
+    
+eHacerAccionesModFechaElimFra:
+    MuestraError Err.Number, Err.Description
+End Function
+
+
+
+

@@ -74,6 +74,7 @@ Public EmprMorales As Integer 'Solo se utilizara para cuando la empresa sea AVAB
 
 Public MaxNumDepositos_ As Integer
 
+Public UltimaEntradaEnHcoDepositos As Date
 
 
 'Inicio Aplicación
@@ -378,6 +379,7 @@ On Error Resume Next
         
         
     
+    UltimaEntradaEnHcoDepositos = Now
         
     
     CadenaDesdeOtroForm = ""
@@ -888,7 +890,7 @@ End Function
 
 
 Public Function DevuelveDesdeBD(vBD As Byte, Kcampo As String, KTabla As String, Kcodigo As String, ValorCodigo As String, Optional Tipo As String, Optional ByRef otroCampo As String) As String
-    Dim RS As Recordset
+    Dim Rs As Recordset
     Dim Cad As String
     Dim Aux As String
     
@@ -913,20 +915,20 @@ Public Function DevuelveDesdeBD(vBD As Byte, Kcampo As String, KTabla As String,
 '    Debug.Print cad
     
     'Creamos el sql
-    Set RS = New ADODB.Recordset
+    Set Rs = New ADODB.Recordset
     
     If vBD = 1 Then 'BD 1: Ariges
-        RS.Open Cad, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+        Rs.Open Cad, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     Else    'BD 2: Conta
-        RS.Open Cad, ConnConta, adOpenForwardOnly, adLockOptimistic, adCmdText
+        Rs.Open Cad, ConnConta, adOpenForwardOnly, adLockOptimistic, adCmdText
     End If
     
-    If Not RS.EOF Then
-        DevuelveDesdeBD = DBLet(RS.Fields(0))
-        If otroCampo <> "" Then otroCampo = DBLet(RS.Fields(1))
+    If Not Rs.EOF Then
+        DevuelveDesdeBD = DBLet(Rs.Fields(0))
+        If otroCampo <> "" Then otroCampo = DBLet(Rs.Fields(1))
     End If
-    RS.Close
-    Set RS = Nothing
+    Rs.Close
+    Set Rs = Nothing
     Exit Function
 EDevuelveDesdeBD:
         MuestraError Err.Number, "Devuelve DesdeBD.", Err.Description
@@ -937,7 +939,7 @@ End Function
 'Funciona para claves primarias formadas por 2 campos
 Public Function DevuelveDesdeBDNew(vBD As Byte, KTabla As String, Kcampo As String, Kcodigo1 As String, valorCodigo1 As String, Optional tipo1 As String, Optional ByRef otroCampo As String, Optional KCodigo2 As String, Optional ValorCodigo2 As String, Optional tipo2 As String, Optional KCodigo3 As String, Optional ValorCodigo3 As String, Optional tipo3 As String) As String
 'IN: vBD --> Base de Datos a la que se accede
-Dim RS As Recordset
+Dim Rs As Recordset
 Dim Cad As String
 Dim Aux As String
     
@@ -1009,20 +1011,20 @@ On Error GoTo EDevuelveDesdeBDnew
     
     
     'Creamos el sql
-    Set RS = New ADODB.Recordset
+    Set Rs = New ADODB.Recordset
     
     If vBD = conAri Then 'BD 1: Ariges
-        RS.Open Cad, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+        Rs.Open Cad, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     Else    'BD 2: Conta
-        RS.Open Cad, ConnConta, adOpenForwardOnly, adLockOptimistic, adCmdText
+        Rs.Open Cad, ConnConta, adOpenForwardOnly, adLockOptimistic, adCmdText
     End If
     
-    If Not RS.EOF Then
-        DevuelveDesdeBDNew = DBLet(RS.Fields(0))
-        If otroCampo <> "" Then otroCampo = DBLet(RS.Fields(1))
+    If Not Rs.EOF Then
+        DevuelveDesdeBDNew = DBLet(Rs.Fields(0))
+        If otroCampo <> "" Then otroCampo = DBLet(Rs.Fields(1))
     End If
-    RS.Close
-    Set RS = Nothing
+    Rs.Close
+    Set Rs = Nothing
     Exit Function
     
 EDevuelveDesdeBDnew:
@@ -1966,13 +1968,13 @@ End Function
 Public Function SePuedeEliminarArticulo(ByVal Articulo As String, ByRef L1 As Label) As String
 On Error GoTo Salida
 Dim SQL As String
-Dim RS As ADODB.Recordset
+Dim Rs As ADODB.Recordset
 Dim I As Integer
 Dim C As String
 Dim nt As Integer
 
     SePuedeEliminarArticulo = ""
-    Set RS = New ADODB.Recordset
+    Set Rs = New ADODB.Recordset
     Articulo = "'" & DevNombreSQL(Articulo) & "'"
     
     
@@ -1981,7 +1983,7 @@ Dim nt As Integer
     For I = 1 To nt
         L1.Caption = RecuperaValor(SQL, I) & " (Clientes)"
         L1.Refresh
-        If TieneDatosSQLCount(RS, "SELECT count(*) from " & RecuperaValor(C, I) & " where codartic = " & Articulo, 0) Then
+        If TieneDatosSQLCount(Rs, "SELECT count(*) from " & RecuperaValor(C, I) & " where codartic = " & Articulo, 0) Then
             SePuedeEliminarArticulo = SePuedeEliminarArticulo & "    -" & L1.Caption & vbCrLf
             
         End If
@@ -1994,7 +1996,7 @@ Dim nt As Integer
     For I = 1 To nt
         L1.Caption = RecuperaValor(SQL, I) & " (Proveedores)"
         L1.Refresh
-        If TieneDatosSQLCount(RS, "SELECT count(*) from " & RecuperaValor(C, I) & " where codartic = " & Articulo, 0) Then
+        If TieneDatosSQLCount(Rs, "SELECT count(*) from " & RecuperaValor(C, I) & " where codartic = " & Articulo, 0) Then
             SePuedeEliminarArticulo = SePuedeEliminarArticulo & "    -" & L1.Caption & vbCrLf
         
         End If
@@ -2006,7 +2008,7 @@ Dim nt As Integer
     For I = 1 To nt
         L1.Caption = RecuperaValor(SQL, I) & " (Varios)"
         L1.Refresh
-        If TieneDatosSQLCount(RS, "SELECT count(*) from " & RecuperaValor(C, I) & " where codartic = " & Articulo, 0) Then
+        If TieneDatosSQLCount(Rs, "SELECT count(*) from " & RecuperaValor(C, I) & " where codartic = " & Articulo, 0) Then
             SePuedeEliminarArticulo = SePuedeEliminarArticulo & "    -" & L1.Caption & vbCrLf
             
         End If
@@ -2034,14 +2036,14 @@ End Function
 
 
 
-Private Function TieneDatosSQLCount(ByRef RS As ADODB.Recordset, vSQL As String, IndexdelCount As Integer) As Boolean
+Private Function TieneDatosSQLCount(ByRef Rs As ADODB.Recordset, vSQL As String, IndexdelCount As Integer) As Boolean
     TieneDatosSQLCount = False
-    RS.Open vSQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
-    If Not RS.EOF Then
-        If Not IsNull(RS.Fields(IndexdelCount)) Then If RS.Fields(IndexdelCount) > 0 Then TieneDatosSQLCount = True
+    Rs.Open vSQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    If Not Rs.EOF Then
+        If Not IsNull(Rs.Fields(IndexdelCount)) Then If Rs.Fields(IndexdelCount) > 0 Then TieneDatosSQLCount = True
     End If
         
-    RS.Close
+    Rs.Close
 
 End Function
 
@@ -2331,7 +2333,7 @@ End Function
         
 Public Function LeerCaja(CodigoCaja As String) As String
 Dim SQL As String
-Dim RS As ADODB.Recordset
+Dim Rs As ADODB.Recordset
 
         LeerCaja = ""
 
@@ -2346,33 +2348,33 @@ Dim RS As ADODB.Recordset
         End If
 
         'Ahora veremos si pertence a una orden de carga
-        Set RS = New ADODB.Recordset
+        Set Rs = New ADODB.Recordset
         SQL = Mid(CodigoCaja, 1, 8) & " AND idcaja = " & Val(Mid(CodigoCaja, 9))
         SQL = "Select * from prodcajas WHERE lotetraza = " & SQL
-        RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        Rs.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         SQL = ""
-        If RS.EOF Then
+        If Rs.EOF Then
             LeerCaja = "NO existe la caja en el sistema"
         Else
             'Vemos si lo que lee es lo que escribe ;
             'Si realmente la caja es de lo que me ha dicho en el albarna
             SQL = "select * from prodlin,prodtrazlin  where prodlin.codigo= prodtrazlin.codigo AND prodlin.idlin = prodtrazlin.idlin and lotetraza=" & Mid(CodigoCaja, 1, 8)
         End If
-        RS.Close
+        Rs.Close
         
         If SQL = "" Then Exit Function
         
-        RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        Rs.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         SQL = ""
-        If RS.EOF Then
+        If Rs.EOF Then
             LeerCaja = "Error en lote de trazabilidad"
         Else
             'El codartic esta en nla primera linea del label, desde la posicion 4 hasta el ·
             'SQL = Mid(Label4(1).Caption, 1, InStr(Label4(1).Caption, "·") - 1)
-            CodigoCaja = RS!Codigo & "|" & RS!idlin & "|"
+            CodigoCaja = Rs!Codigo & "|" & Rs!idlin & "|"
             'SQL = "select * from srepartolot where idreparto=" & Label5(0).Tag & " and numalbar=" & Label5(1).Tag & " and codartic=" & SQL
         End If
-        RS.Close
+        Rs.Close
         
         
         

@@ -13,6 +13,115 @@ Begin VB.Form frmVarios
    ScaleHeight     =   6975
    ScaleWidth      =   8955
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame FrameElimCambiarFecFactura 
+      Height          =   2655
+      Left            =   0
+      TabIndex        =   128
+      Top             =   0
+      Visible         =   0   'False
+      Width           =   5655
+      Begin VB.CommandButton cmdCancelar 
+         Caption         =   "Salir"
+         Height          =   375
+         Index           =   14
+         Left            =   4080
+         TabIndex        =   135
+         Top             =   2160
+         Width           =   1095
+      End
+      Begin VB.OptionButton optElimFact 
+         Caption         =   "Cambiar fecha factura"
+         Height          =   195
+         Index           =   0
+         Left            =   600
+         TabIndex        =   134
+         Top             =   960
+         Value           =   -1  'True
+         Width           =   2055
+      End
+      Begin VB.OptionButton optElimFact 
+         Caption         =   "Eliminar - reest. albarán"
+         Height          =   195
+         Index           =   1
+         Left            =   3120
+         TabIndex        =   133
+         Top             =   960
+         Width           =   2055
+      End
+      Begin VB.Frame FrameNuevaFecFac 
+         BorderStyle     =   0  'None
+         Caption         =   "Frame1"
+         Height          =   615
+         Left            =   720
+         TabIndex        =   130
+         Top             =   1320
+         Width           =   4215
+         Begin VB.TextBox txtFecha 
+            Height          =   285
+            Index           =   8
+            Left            =   1800
+            TabIndex        =   131
+            Text            =   "Text1"
+            Top             =   240
+            Width           =   1095
+         End
+         Begin VB.Label Label4 
+            AutoSize        =   -1  'True
+            Caption         =   "Fecha"
+            BeginProperty Font 
+               Name            =   "Tahoma"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00000080&
+            Height          =   195
+            Index           =   11
+            Left            =   600
+            TabIndex        =   132
+            Top             =   240
+            Width           =   495
+         End
+         Begin VB.Image imgFecha 
+            Height          =   255
+            Index           =   8
+            Left            =   1440
+            Top             =   240
+            Width           =   255
+         End
+      End
+      Begin VB.CommandButton cmdCambiFecReestbFact 
+         Caption         =   "&Aceptar"
+         Height          =   375
+         Left            =   2760
+         TabIndex        =   129
+         Top             =   2160
+         Width           =   1095
+      End
+      Begin VB.Label lblTitulo 
+         Alignment       =   2  'Center
+         Caption         =   "Modificar fecha / Eliminar facturas"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   14.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   345
+         Index           =   13
+         Left            =   120
+         TabIndex        =   136
+         Top             =   240
+         Width           =   5475
+      End
+   End
    Begin VB.Frame FramePaletMovimImprimir 
       Height          =   4455
       Left            =   840
@@ -1815,6 +1924,8 @@ Public Opcion As Byte
 
     '13.- Movimiento palots
     
+    '14.- Reestablecer - cambaiar fecha    en FRA cliente
+    
     
 Private WithEvents frmC As frmCal
 Attribute frmC.VB_VarHelpID = -1
@@ -1955,6 +2066,75 @@ Dim T1 As Single
         SePuedeCerrar = True
         Unload Me
     End If
+End Sub
+
+Private Sub cmdCambiFecReestbFact_Click()
+Dim cControlFra As CControlFacturaContab
+
+    
+
+    If Me.optElimFact(0).Value Then
+    
+        If txtFecha(8).Text = "" Then Exit Sub
+    
+        'Comprobamos la fecha NUEVA que ha puesto
+        Set cControlFra = New CControlFacturaContab
+        Cad = ""
+        'Con estos dos NO dejo pasar
+        CadenaDesdeOtroForm = cControlFra.FechaCorrectaContabilizazion(ConnConta, txtFecha(8))
+        If CadenaDesdeOtroForm <> "" Then Cad = Cad & "- " & CadenaDesdeOtroForm & vbCrLf
+        CadenaDesdeOtroForm = cControlFra.FechaCorrectaIVA(ConnConta, txtFecha(8))
+        If CadenaDesdeOtroForm <> "" Then Cad = Cad & "- " & CadenaDesdeOtroForm & vbCrLf
+        CadenaDesdeOtroForm = ""
+        
+        If Cad <> "" Then
+            MsgBox Cad, vbExclamation
+            Set cControlFra = Nothing
+            Exit Sub
+        End If
+        
+
+        If cControlFra.FechaMenorUltimaFacturaCliente(ConnConta, txtFecha(8), Me.cmdCambiFecReestbFact.Tag) Then
+            If CadenaDesdeOtroForm <> "" Then Cad = Cad & "-Anterior a cfactura contabilizada " & vbCrLf
+        End If
+        Set cControlFra = Nothing
+        
+        CadenaDesdeOtroForm = ""
+        
+        If Cad <> "" Then
+            Cad = Cad & "¿Continuar el proceso?"
+            
+            If MsgBox(Cad, vbExclamation + vbYesNo) <> vbYes Then Exit Sub
+        
+        End If
+    
+        
+        Cad = "establecer como fecha factura: " & Me.txtFecha(8).Text
+    Else
+    
+        If FrameNuevaFecFac.Tag = "1" Then
+            MsgBox "No se puede deshacer factura de telefonía", vbExclamation
+            Exit Sub
+        End If
+    
+        Cad = "eliminar factura y reestablecer los albaranes facturados"
+        
+    End If
+    Cad = "Va a " & Cad & vbCrLf & vbCrLf & vbCrLf
+    Cad = Cad & " NO se realizaran acciones sobre Arimoney ni Ariconta " & vbCrLf & vbCrLf
+    Cad = Cad & " **** Se grabará el registro de acciones *** " & vbCrLf
+    Cad = Cad & vbCrLf & vbCrLf & "Introduzca el password para continuar"
+    Cad = InputBox(Cad, "Seguridad")
+    
+    If UCase(Cad) <> "ARIADNA" Then Exit Sub
+        
+        
+    If Me.optElimFact(0).Value Then
+        CadenaDesdeOtroForm = Me.txtFecha(8).Text
+    Else
+        CadenaDesdeOtroForm = "OK"
+    End If
+    Unload Me
 End Sub
 
 Private Sub cmdCambiopass_Click()
@@ -2400,6 +2580,14 @@ Private Sub Form_Load()
         
         txtPalot(0).Text = DevuelveDesdeBD(conAri, "pobclien", "tmprutas", "codusu", CStr(vUsu.Codigo))
         Me.ImgTransporte.Picture = frmppal.imgListComun.ListImages(19).Picture
+        
+    Case 14
+        PonerFrameVisible FrameElimCambiarFecFactura
+        Me.txtFecha(3).Tag = RecuperaValor(CadenaDesdeOtroForm, 1)
+        Me.cmdCambiFecReestbFact.Tag = CStr(RecuperaValor(CadenaDesdeOtroForm, 2))
+        FrameNuevaFecFac.Tag = CStr(RecuperaValor(CadenaDesdeOtroForm, 3))  '0 NO es factura telefonia 1: Si
+        
+        CadenaDesdeOtroForm = ""
     End Select
     cmdCancelar(Opcion).Cancel = True
     SePuedeCerrar = True
@@ -2442,7 +2630,7 @@ Dim Fin As Boolean
     Fin = False
     While Not Fin
         I = I + 1
-        Me.lblImpr(1).Caption = "Fac. " & Format(miRsAux!NumFactu, "00000") & " de " & Format(miRsAux!FecFactu, "dd/mm/yyyy") & "     " & Mid(miRsAux!nomclien, 1, 20)
+        Me.lblImpr(1).Caption = "Fac. " & Format(miRsAux!NumFactu, "00000") & " de " & Format(miRsAux!Fecfactu, "dd/mm/yyyy") & "     " & Mid(miRsAux!nomclien, 1, 20)
         lblImpr(1).Refresh
         Me.lblImpr(0).Caption = "Registro: " & I & "   de   " & NumRegElim
         lblImpr(0).Refresh
@@ -2556,11 +2744,17 @@ Private Sub ImgTransporte_Click()
             If Not IsNull(miRsAux!matricula) Then txtPalot(4).Text = miRsAux!matricula
             If Not IsNull(miRsAux!conductor) Then txtPalot(1).Text = miRsAux!conductor
             If Not IsNull(miRsAux!DNIConductor) Then txtPalot(2).Text = miRsAux!DNIConductor
+            
+           
         End If
         miRsAux.Close
         Set miRsAux = Nothing
         Cad = ""
     End If
+End Sub
+
+Private Sub optElimFact_Click(Index As Integer)
+      FrameNuevaFecFac.visible = Index = 0
 End Sub
 
 Private Sub optMovPalot_Click(Index As Integer)

@@ -1261,7 +1261,7 @@ Dim SQL As String
     ModificaLineas = 3 'Eliminar
     SQL = "¿Seguro que desea eliminar la línea de produccion?     "
     SQL = SQL & vbCrLf
-    SQL = SQL & "Almacen:  " & Format(Data2.Recordset!codalmac, "000")
+    SQL = SQL & "Almacen:  " & Format(Data2.Recordset!codAlmac, "000")
     SQL = SQL & vbCrLf & "Artículo:  " & Data2.Recordset!codartic & " - " & Data2.Recordset!NomArtic
     
     If MsgBox(SQL, vbQuestion + vbYesNo) = vbYes Then
@@ -1269,7 +1269,7 @@ Dim SQL As String
         NumRegElim = Data2.Recordset.AbsolutePosition
         SQL = " WHERE codartic = " & DBSet(Data2.Recordset!codartic, "T")
         SQL = SQL & " and codigo=" & Data1.Recordset!Codigo
-        SQL = SQL & " and codalmac=" & Data2.Recordset!codalmac
+        SQL = SQL & " and codalmac=" & Data2.Recordset!codAlmac
         
         'Los lotes
         conn.Execute "DELETE FROM sliordprlotes " & SQL
@@ -2292,7 +2292,7 @@ Dim SQL As String
         SQL = "UPDATE sliordpr set codalmac=" & txtAux(0).Text & " , codartic =" & DBSet(txtAux(1).Text, "T")
         SQL = SQL & ", cantidad = " & DBSet(txtAux(4).Text, "N")
         'SQL = SQL & ", numlote = " & DBSet(txtAux(3).Text, "T", "S")
-        SQL = SQL & " WHERE codigo =" & Data1.Recordset!Codigo & " AND codalmac = " & Data2.Recordset!codalmac
+        SQL = SQL & " WHERE codigo =" & Data1.Recordset!Codigo & " AND codalmac = " & Data2.Recordset!codAlmac
         SQL = SQL & " AND codartic =" & DBSet(Data2.Recordset!codartic, "T")
         
         
@@ -2380,7 +2380,7 @@ Dim SQL As String
     If enlaza Then
        If Not Data2.Recordset.EOF Then
             SQL = " codigo = " & Data1.Recordset!Codigo
-            SQL = SQL & " AND codalmac = " & Data2.Recordset!codalmac
+            SQL = SQL & " AND codalmac = " & Data2.Recordset!codAlmac
             SQL = SQL & " AND sliordpr2.codartic = " & DBSet(Data2.Recordset!codartic, "T")
             
        End If
@@ -2933,7 +2933,7 @@ Dim Cantidad As Currency
     While Not RT.EOF
         SQL = "INSERT INTO sliordpr2"
         SQL = SQL & "( codigo, codalmac, codartic ,codarti2,cantidad ) "
-        SQL = SQL & "select " & Val(Text1(0).Text) & ", " & Val(RT!codalmac) & ","
+        SQL = SQL & "select " & Val(Text1(0).Text) & ", " & Val(RT!codAlmac) & ","
         Cantidad = CCur(RT!Cantidad)
         SQL = SQL & DBSet(RT!codartic, "T") & ",sarti1.codarti1,round(cantidad * " & DBSet(Cantidad, "N")
         'Factor conversion. Solo se aplica cuando metamos en stock. Ahora no
@@ -2958,7 +2958,7 @@ Dim SQL As String
     SQL = "UPDATE sliordpr2 SET cantidad = " & DBSet(txtComponentes.Text, "S")
     SQL = SQL & " WHERE codartic = " & DBSet(Data2.Recordset!codartic, "T")
     SQL = SQL & " and codigo=" & Data1.Recordset!Codigo
-    SQL = SQL & " and codalmac=" & Data2.Recordset!codalmac
+    SQL = SQL & " and codalmac=" & Data2.Recordset!codAlmac
     SQL = SQL & " and codarti2=" & DBSet(data3.Recordset!codarti2, "T")
     conn.Execute SQL
     Espera 0.5
@@ -2976,7 +2976,7 @@ Dim SQL As String
         'BORRAMOS los datos que hubieren
         SQL = "DELETE FROM sliordpr2 WHERE codartic = " & DBSet(Data2.Recordset!codartic, "T")
         SQL = SQL & " and codigo=" & Data1.Recordset!Codigo
-        SQL = SQL & " and codalmac=" & Data2.Recordset!codalmac
+        SQL = SQL & " and codalmac=" & Data2.Recordset!codAlmac
         conn.Execute SQL
     End If
         
@@ -3068,7 +3068,7 @@ Private Sub LlamaLotes()
             .vCantidad = ImporteFormateado(txtAux(4).Text)
         Else
             'Esta en edicion
-            .vCodAlmac = Data2.Recordset!codalmac
+            .vCodAlmac = Data2.Recordset!codAlmac
             .vCodArtic = Data2.Recordset!codartic
             .vCantidad = Data2.Recordset!Cantidad
         End If
@@ -3101,7 +3101,7 @@ Private Sub LlamaLotesLin()
     CadenaDesdeOtroForm = ""
     With frmProdLotesLin
         .vIdProd = Val(Text1(0).Text)
-        .vCodAlmac = Data2.Recordset!codalmac
+        .vCodAlmac = Data2.Recordset!codAlmac
         .vCodArtic = Data2.Recordset!codartic
         .vCodarti2 = data3.Recordset!codarti2
     
@@ -3137,7 +3137,7 @@ Dim Er As String
     Data2.Recordset.MoveFirst
     While Not Data2.Recordset.EOF
         SQL = "Select sum(cantlote) from sliordprlotes WHERE "
-        SQL = SQL & " codigo = " & Data1.Recordset!Codigo & " AND codalmac =" & Data2.Recordset!codalmac
+        SQL = SQL & " codigo = " & Data1.Recordset!Codigo & " AND codalmac =" & Data2.Recordset!codAlmac
         SQL = SQL & " AND codArtic = '" & DevNombreSQL(Data2.Recordset!codartic) & "'"
         miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         SQL = ""
@@ -3168,7 +3168,7 @@ Dim Er As String
     While Not Data2.Recordset.EOF
         'Para la primera produccion veremos las lineas con materia prima y sus LOTES
         SQL = "Select codarti2,nomartic,cantidad  from sliordpr2,sartic where  sliordpr2.codarti2=sartic.codartic"
-        SQL = SQL & " AND codigo = " & Data1.Recordset!Codigo & " AND codalmac =" & Data2.Recordset!codalmac
+        SQL = SQL & " AND codigo = " & Data1.Recordset!Codigo & " AND codalmac =" & Data2.Recordset!codAlmac
         SQL = SQL & " AND sliordpr2.codArtic = '" & DevNombreSQL(Data2.Recordset!codartic) & "'"
         SQL = SQL & " AND factorconversion <>1"
         R2.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
@@ -3177,7 +3177,7 @@ Dim Er As String
             SQL = ""
             'Este es
             SQL = "Select sum(cantlote) from sliordpr2lotes WHERE "
-            SQL = SQL & " codigo = " & Data1.Recordset!Codigo & " AND codalmac =" & Data2.Recordset!codalmac
+            SQL = SQL & " codigo = " & Data1.Recordset!Codigo & " AND codalmac =" & Data2.Recordset!codAlmac
             SQL = SQL & " AND codArtic = '" & DevNombreSQL(Data2.Recordset!codartic) & "'"
             SQL = SQL & " AND codArti2 = '" & DevNombreSQL(R2!codarti2) & "'"
             miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
@@ -3201,7 +3201,7 @@ Dim Er As String
         R2.Close
         If Er <> "" Then
             'Ha habido errores
-            SQL = String(60, "=") & vbCrLf & Data2.Recordset!codartic & " -  " & Data2.Recordset!NomArtic & vbCrLf
+            SQL = String(50, "=") & vbCrLf & Data2.Recordset!codartic & " -  " & Data2.Recordset!NomArtic & vbCrLf
             SinASig = SinASig & SQL & Er
         End If
         Data2.Recordset.MoveNext
@@ -3223,13 +3223,20 @@ Private Sub HacerLlamadaALotesLinea()
 Dim Ya As Boolean
 Dim AntModo As Byte
 Dim AntModoLin As Byte
+Dim LlamaLoteDesdeAqui As Boolean
 
     If data3.Recordset Is Nothing Then Exit Sub
     If data3.Recordset.EOF Then Exit Sub
     data3.Recordset.MoveFirst
     While Not Ya
-
+        LlamaLoteDesdeAqui = False
+        
         If data3.Recordset!FactorConversion <> 1 Then
+            LlamaLoteDesdeAqui = True
+        Else
+            If Val(DBLet(data3.Recordset!Trazabilidad, "N")) = 1 Then LlamaLoteDesdeAqui = True
+        End If
+        If LlamaLoteDesdeAqui Then
             'Guardamos modos
             AntModoLin = ModificaLineas
             AntModo = Modo
@@ -3239,14 +3246,14 @@ Dim AntModoLin As Byte
             Modo = AntModo
             ModificaLineas = AntModoLin
             
-            Ya = True
-        Else
-            data3.Recordset.MoveNext
-            If data3.Recordset.EOF Then
-                data3.Recordset.MoveFirst
-                Ya = True
-            End If
+           
         End If
+        data3.Recordset.MoveNext
+        If data3.Recordset.EOF Then
+            data3.Recordset.MoveFirst
+            Ya = True
+        End If
+
         
     Wend
     

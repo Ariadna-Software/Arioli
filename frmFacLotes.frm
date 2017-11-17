@@ -1090,7 +1090,7 @@ Private Sub AsignarLotaje(ByRef cL As cLotaje)
 
 
     cL.codartic = vCodArtic
-    cL.codalmac = vCodAlmac
+    cL.codAlmac = vCodAlmac
     cL.DetaMov = vCodtipom
     cL.LineaDocu = Me.vNumlinea
     cL.Documento = Me.vNumalbar
@@ -1200,7 +1200,7 @@ Dim FechaHora As Date
             
             If cDEP.idPartida = cP.idPartida Then
                 cDEP.VariacionKilosDeposito -Cantidad
-                cDEP.InsertarEnHco 6, FechaHora, vCodtipom & vNumalbar
+                cDEP.InsertarEnHco 6, FechaHora, vCodtipom & vNumalbar, -Cantidad
             Else
                 SQL = "Venta con numero de lote en deposito, pero distinta Partida:"
                 SQL = SQL & "Dep " & cDEP.idPartida & "    partida: " & cP.idPartida

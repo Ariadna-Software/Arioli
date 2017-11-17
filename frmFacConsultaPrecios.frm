@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmFacConsultaPrecios 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Consulta precios"
@@ -141,6 +141,28 @@ Begin VB.Form frmFacConsultaPrecios
       TabIndex        =   4
       Top             =   0
       Width           =   12255
+      Begin VB.CommandButton cmdOtroArt 
+         Caption         =   ">>"
+         Height          =   375
+         Index           =   1
+         Left            =   720
+         Picture         =   "frmFacConsultaPrecios.frx":0204
+         TabIndex        =   55
+         ToolTipText     =   "Siguiente referencia"
+         Top             =   2160
+         Width           =   375
+      End
+      Begin VB.CommandButton cmdOtroArt 
+         Caption         =   "<<"
+         Height          =   375
+         Index           =   0
+         Left            =   240
+         Picture         =   "frmFacConsultaPrecios.frx":050E
+         TabIndex        =   54
+         ToolTipText     =   "referencia anterior"
+         Top             =   2160
+         Width           =   375
+      End
       Begin VB.TextBox txtResultado 
          Alignment       =   1  'Right Justify
          Height          =   285
@@ -187,9 +209,9 @@ Begin VB.Form frmFacConsultaPrecios
       End
       Begin VB.ComboBox Combo1 
          Height          =   315
-         ItemData        =   "frmFacConsultaPrecios.frx":0204
+         ItemData        =   "frmFacConsultaPrecios.frx":0818
          Left            =   9960
-         List            =   "frmFacConsultaPrecios.frx":0214
+         List            =   "frmFacConsultaPrecios.frx":0828
          Style           =   2  'Dropdown List
          TabIndex        =   43
          Top             =   1560
@@ -448,19 +470,19 @@ Begin VB.Form frmFacConsultaPrecios
          BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   1
             Text            =   "Fecha"
-            Object.Width           =   2117
+            Object.Width           =   1976
          EndProperty
          BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             Alignment       =   1
             SubItemIndex    =   2
             Text            =   "Cant."
-            Object.Width           =   1323
+            Object.Width           =   1817
          EndProperty
          BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             Alignment       =   1
             SubItemIndex    =   3
             Text            =   "Precio"
-            Object.Width           =   2152
+            Object.Width           =   1853
          EndProperty
          BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   4
@@ -469,8 +491,8 @@ Begin VB.Form frmFacConsultaPrecios
          EndProperty
          BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   5
-            Text            =   "Dto2"
-            Object.Width           =   1023
+            Text            =   "Dt2"
+            Object.Width           =   847
          EndProperty
          BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             Alignment       =   1
@@ -816,7 +838,7 @@ Dim It As ListItem
 
 Dim Valor As Currency
 '
-
+Dim T1 As Single
 '
 '
 Private Sub cmdBuscar_Click()
@@ -831,7 +853,7 @@ Private Sub cmdBuscar_Click()
     DoEvents
     Screen.MousePointer = vbHourglass
     Set miRsAux = New ADODB.Recordset
-    CargarDatos
+    CargarDatos True
     Set miRsAux = Nothing
     Screen.MousePointer = vbDefault
     lblIndicador.Caption = ""
@@ -862,6 +884,11 @@ End Sub
 
 
 
+Private Sub cmdOtroArt_Click(Index As Integer)
+
+    SiguienteCodmacta Index = 1
+End Sub
+
 Private Sub Combo1_Click()
     'para que al inicio NO haga nada
     If FramePedirDatos.visible Then Exit Sub
@@ -883,10 +910,10 @@ Private Sub Form_Load()
 End Sub
 
 
-Private Sub PonerVisiblePedir(b As Boolean)
-    Me.FrameMostrarDatos.visible = Not b
-    Me.FramePedirDatos.visible = b
-    If b Then
+Private Sub PonerVisiblePedir(B As Boolean)
+    Me.FrameMostrarDatos.visible = Not B
+    Me.FramePedirDatos.visible = B
+    If B Then
         Me.cmdCancelar(0).Cancel = True
         Me.Width = FramePedirDatos.Width
         Me.Height = FramePedirDatos.Height
@@ -984,18 +1011,18 @@ End Sub
 
 
 Private Sub CargaStock()
-Dim i As Currency
+Dim I As Currency
     Valor = 0
     txtResultado(13).Text = ""
     Cad = "select salmac.codalmac,nomalmac,canstock   from salmac,salmpr where salmac.codalmac="
     Cad = Cad & "salmpr.codalmac AND  codartic=" & DBSet(txtCodigo(1).Text, "T") & " ORDER BY salmac.codalmac"
-    miRsAux.Open Cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         Set It = ListStock.ListItems.Add()
-        It.Text = miRsAux!Codalmac
+        It.Text = miRsAux!codAlmac
         It.SubItems(1) = miRsAux!nomalmac
-        i = DBLet(miRsAux!CanStock, "N")
-        It.SubItems(2) = Format(i, FormatoCantidad)
+        I = DBLet(miRsAux!CanStock, "N")
+        It.SubItems(2) = Format(I, FormatoCantidad)
         Valor = Valor + 1
         miRsAux.MoveNext
     Wend
@@ -1012,7 +1039,7 @@ Private Sub CargaTarifas()
     listTarifa.ListItems.Clear
     Cad = "select slista.codlista,nomlista,precioac from slista,starif where slista.codlista="
     Cad = Cad & "starif.codlista and codartic = " & DBSet(txtCodigo(1).Text, "T") & " ORDER BY slista.codlista"
-    miRsAux.Open Cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         Set It = listTarifa.ListItems.Add()
         It.Text = miRsAux!codlista
@@ -1037,60 +1064,64 @@ End Sub
 
 
 
-Private Sub CargarDatos()
+Private Sub CargarDatos(DatosCliente As Boolean)
 
     On Error GoTo EC
     
     Cad = "OK"
 
+    If DatosCliente Then
+        lblIndicador.Caption = "Datos cliente"
+        lblIndicador.Refresh
+        
+        
+        Cad = "select codclien ,nomclien ,dtoppago ,dtognral  ,codsitua ,codmacta,codforpa,codtarif  from sclien where codclien =" & Me.txtCodigo(0).Text
+        miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        
+        
+        'Ponemos los campos
+        '--------------------------------------------------------
+        Me.txtResultado(0).Text = miRsAux!CodClien
+        Me.txtResultado(1).Text = miRsAux!nomclien
+        Me.txtResultado(2).Text = miRsAux!codforpa
+        Me.txtResultado(3).Text = DevuelveDesdeBD(conAri, "nomforpa", "sforpa", "codforpa", miRsAux!codforpa, "N")
+        Me.txtResultado(4).Text = DevuelveDesdeBD(conAri, "nomsitua", "ssitua", "codsitua", miRsAux!codsitua, "N")
+        Me.txtResultado(6).Text = Format(miRsAux!DtoGnral, FormatoDescuento)
+        Me.txtResultado(7).Text = Format(miRsAux!DtoPPago, FormatoDescuento)
+        
+        'Cargo la cta contable
+        Cad = DBLet(miRsAux!Codmacta, "T")
+        
+        'Cargo la tarifa
+        Me.listTarifa.Tag = miRsAux!codTarif
+        
+        'Cerramos el RS
+        miRsAux.Close
+        
+        lblIndicador.Caption = "Cobros pendientes"
+        lblIndicador.Refresh
+        
+        PonerCobrosPendientes Cad
+        
+        txtResultado(5).Text = Format(Valor, FormatoImporte)
+        
+        DoEvents
+        
+    End If
     
-    lblIndicador.Caption = "Datos cliente"
-    lblIndicador.Refresh
-    
-    Cad = "select codclien ,nomclien ,dtoppago ,dtognral  ,codsitua ,codmacta,codforpa,codtarif  from sclien where codclien =" & Me.txtCodigo(0).Text
-    miRsAux.Open Cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    
-    
-    'Ponemos los campos
-    '--------------------------------------------------------
-    Me.txtResultado(0).Text = miRsAux!CodClien
-    Me.txtResultado(1).Text = miRsAux!nomclien
-    Me.txtResultado(2).Text = miRsAux!codforpa
-    Me.txtResultado(3).Text = DevuelveDesdeBD(conAri, "nomforpa", "sforpa", "codforpa", miRsAux!codforpa, "N")
-    Me.txtResultado(4).Text = DevuelveDesdeBD(conAri, "nomsitua", "ssitua", "codsitua", miRsAux!codsitua, "N")
-    Me.txtResultado(6).Text = Format(miRsAux!DtoGnral, FormatoDescuento)
-    Me.txtResultado(7).Text = Format(miRsAux!DtoPPago, FormatoDescuento)
-    
-    'Cargo la cta contable
-    Cad = DBLet(miRsAux!Codmacta, "T")
-    
-    'Cargo la tarifa
-    Me.listTarifa.Tag = miRsAux!codTarif
-    
-    'Cerramos el RS
-    miRsAux.Close
-    
-    lblIndicador.Caption = "Cobros pendientes"
-    lblIndicador.Refresh
-    
-    PonerCobrosPendientes Cad
-    
-    txtResultado(5).Text = Format(Valor, FormatoImporte)
-    
-    DoEvents
     
     'Datos articulo
     lblIndicador.Caption = "Articulo"
     lblIndicador.Refresh
     
     Cad = "select codartic,nomartic,preciouc,preciomp,preciove,unicajas,codartic,nomartic,preciouc,preciomp,preciove,unicajas,codstatu    from sartic where codartic =" & DBSet(Me.txtCodigo(1).Text, "T")
-    miRsAux.Open Cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    Me.txtResultado(8).Text = miRsAux!codArtic
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Me.txtResultado(8).Text = miRsAux!codartic
     Me.txtResultado(9).Text = miRsAux!NomArtic
-    Me.txtResultado(12).Text = Format(DBLet(miRsAux!precioUC, "N"), FormatoPrecio)
-    Me.txtResultado(12).Text = Format(DBLet(miRsAux!preciomp, "N"), FormatoPrecio)
+    Me.txtResultado(12).Text = Format(DBLet(miRsAux!PrecioUC, "N"), FormatoPrecio)
+    Me.txtResultado(12).Text = Format(DBLet(miRsAux!precioMP, "N"), FormatoPrecio)
     Me.txtResultado(12).Text = Format(DBLet(miRsAux!preciove, "N"), FormatoPrecio)
-    Me.txtResultado(8).Tag = miRsAux!unicajas
+    Me.txtResultado(8).Tag = miRsAux!Unicajas
     Select Case Val(miRsAux!codstatu)
     Case 1
         lblSituacion.Caption = "Bloqueado"
@@ -1128,7 +1159,7 @@ Private Sub CargarDatos()
     Cad = Cad & "`codartic`,`nomartic`) values (" & "concat(curdate(),' ',curtime())" & ","
     Cad = Cad & DBSet(vUsu.Nombre, "T") & "," & txtCodigo(0).Text & "," & DBSet(txtNombre(0), "T")
     Cad = Cad & "," & DBSet(txtCodigo(1), "T") & "," & DBSet(txtNombre(1), "T") & ")"
-    Conn.Execute Cad
+    conn.Execute Cad
     
     Exit Sub
 EC:
@@ -1146,8 +1177,12 @@ Private Sub PonerCobrosPendientes(ByVal Codmacta As String)
     Cad = " WHERE scobro.codmacta = '" & Codmacta & "'"
     Cad = Cad & " AND fecvenci <= ' " & Format(Now, FormatoFecha) & "' "
     Cad = Cad & " AND (sforpa.tipforpa between 0 and 3)"
-    Cad = "SELECT sum(impvenci - if(isnull(impcobro),0,impcobro)) FROM scobro INNER JOIN sforpa ON scobro.codforpa=sforpa.codforpa " & Cad
+    Cad = "SELECT sum(impvenci + coalesce(gastos,0) - if(isnull(impcobro),0,impcobro)) FROM scobro INNER JOIN sforpa ON scobro.codforpa=sforpa.codforpa " & Cad
     
+    If vParamAplic.ContabilidadNueva Then
+        Cad = Replace(Cad, "scobro", "cobros")
+        Cad = Replace(Cad, "sforpa", "formapago")
+    End If
     'Lee de la Base de Datos de CONTABILIDAD
     miRsAux.Open Cad, ConnConta, adOpenForwardOnly, adLockPessimistic, adCmdText
     
@@ -1202,7 +1237,7 @@ Dim Ico As Integer
     Aux = "Select " & Aux & ",Cantidad, precioar, dtoline1, dtoline2, ImporteL FROM " & Cad
     Cad = Aux & " AND codartic = " & DBSet(Me.txtCodigo(1).Text, "T")
     Cad = Cad & " AND codclien = " & txtCodigo(0).Text
-    miRsAux.Open Cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         Set It = Me.listDatos.ListItems.Add()
         Cad = miRsAux!primero & Format(miRsAux!elnumero, "000000")
@@ -1212,7 +1247,11 @@ Dim Ico As Integer
         It.SubItems(2) = Format(miRsAux!Cantidad, FormatoCantidad)
         It.SubItems(3) = Format(miRsAux!precioar, FormatoPrecio)
         It.SubItems(4) = Format(miRsAux!dtoline1, FormatoDescuento)
-        It.SubItems(5) = Format(miRsAux!dtoline2, FormatoDescuento)
+        If miRsAux!dtoline2 = 0 Then
+            It.SubItems(5) = " "
+        Else
+            It.SubItems(5) = Format(miRsAux!dtoline2, FormatoDescuento)
+        End If
         It.SubItems(6) = Format(miRsAux!ImporteL, FormatoImporte)
         It.SmallIcon = Ico
         It.ToolTipText = Me.lblIndicador.Caption & " " & Cad
@@ -1266,3 +1305,46 @@ Dim NumCajas As Integer
                     PonerFormatoDecimal txtResultado(17), 1
                 Set CPrecioFact = Nothing
 End Sub
+
+
+
+Private Sub SiguienteCodmacta(Siguiente As Boolean)
+
+    Screen.MousePointer = vbHourglass
+    Set miRsAux = New ADODB.Recordset
+        
+    If T1 > 0 Then
+        Debug.Print Timer - T1
+        If Timer - T1 < 1 Then
+            Espera 1
+            
+        End If
+    End If
+    Cad = IIf(Siguiente, ">", "<")
+    Cad = "Select codartic from slifac where codartic " & Cad & DBSet(txtCodigo(1).Text, "T")
+    Cad = Cad & " and (codtipom,numfactu,fecfactu) IN (select codtipom,numfactu,fecfactu from scafac where codclien=" & txtCodigo(0).Text & ")"
+    Cad = Cad & " LIMIT 0,1"
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Cad = ""
+    If Not miRsAux.EOF Then Cad = miRsAux!codartic
+    miRsAux.Close
+    
+    If Cad = "" Then
+        MsgBox "No se ha obtenido el " & IIf(Siguiente, "siguiente", "anterior") & " articulo", vbExclamation
+        
+    Else
+        txtCodigo(1).Text = Cad
+        txtNombre(1).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", Cad)
+        For NumRegElim = 8 To Me.txtResultado.Count - 1
+            txtResultado(NumRegElim).Text = ""
+        Next
+        CargarDatos False
+         CargarDatosFacturacion
+    End If
+    T1 = Timer
+    Set miRsAux = Nothing
+    Screen.MousePointer = vbDefault
+lblIndicador.Caption = ""
+
+End Sub
+

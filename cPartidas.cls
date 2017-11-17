@@ -63,12 +63,12 @@ End Property
 
 
 '**** almacen de la partida
-Public Property Let codalmac(ByVal vData As Integer)
+Public Property Let codAlmac(ByVal vData As Integer)
      mCodalmac = vData
 End Property
 
-Public Property Get codalmac() As Integer
-     codalmac = mCodalmac
+Public Property Get codAlmac() As Integer
+     codAlmac = mCodalmac
 End Property
 
 
@@ -585,7 +585,7 @@ Private Sub AsignarValoresClase()
     'No lleva error. Que se dispare el erro en el sub que lo llama
     midPartida = RS!ID
     mCodartic = RS!codartic
-    mCodalmac = RS!codalmac
+    mCodalmac = RS!codAlmac
     mNumlote = RS!NUmlote
     mCodProve = RS!codProve
     mNumalbar = RS!NumAlbar
@@ -982,7 +982,7 @@ Dim FactorMultiplicador1 As Currency
     End If
     Set Col = Nothing
     
-    ' If Nivel = 0 Then Stop
+    ' If Nivel = 0 Then
     Aux = "select * from prodtrazcompo where"
     Aux = Aux & " prodtrazcompo.codartic = " & DBSet(vArticulo, "T")
     Aux = Aux & " AND prodtrazcompo.numlote = " & DBSet(vLote, "T")
@@ -1127,7 +1127,7 @@ Dim ProveClie As String
     EnAlbaranVentas_ = False
     Set RN = New ADODB.Recordset
     s = "Select * from slialb,slialblotes    Where slialb.codTipoM = slialblotes.codTipoM"
-    s = s & " AND codartic = '" & vArt & "' and codalmac = " & Me.codalmac
+    s = s & " AND codartic = '" & vArt & "' and codalmac = " & Me.codAlmac
     s = s & " AND numlote = " & DBSet(NLote, "T")
 
 
@@ -1146,14 +1146,14 @@ Dim ProveClie As String
     s = s & " and slifac.numfactu  = slifaclotes.numfactu and slifac.fecfactu  = slifaclotes.fecfactu"
     s = s & " and slifac.codtipoa = slifaclotes.codtipoa and slifac.numalbar = slifaclotes.numalbar"
     s = s & " and slifac.numlinea = slifaclotes.numlinea  "
-    s = s & " AND codartic = '" & vArt & "' and codalmac = " & Me.codalmac
+    s = s & " AND codartic = '" & vArt & "' and codalmac = " & Me.codAlmac
     s = s & " AND numlote = " & DBSet(NLote, "T")
     
 
     RN.Open s, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
         
-        ProveClie = "codtipom = '" & RN!Codtipom & "' AND fecfactu =" & DBSet(RN!FecFactu, "F") & " AND numfactu"
+        ProveClie = "codtipom = '" & RN!Codtipom & "' AND fecfactu =" & DBSet(RN!Fecfactu, "F") & " AND numfactu"
         ProveClie = DevuelveDesdeBD(conAri, "nomclien", "scafac", ProveClie, RN!NumFactu, "T")
         
         
@@ -1414,7 +1414,7 @@ Dim s As String
     Set RN = New ADODB.Recordset
     s = "Select * from slialb,slialblotes,scaalb    Where  slialb.CodTipom = scaalb.CodTipom"
     s = s & " AND slialb.numalbar = scaalb.numalbar AND slialb.codTipoM = slialblotes.codTipoM"
-    s = s & " AND codartic = '" & vArt & "' and codalmac = " & Me.codalmac
+    s = s & " AND codartic = '" & vArt & "' and codalmac = " & Me.codAlmac
     s = s & " AND numlote = " & DBSet(NLote, "T") & " ORDER BY fechaalb"
 
 
@@ -1434,13 +1434,13 @@ Dim s As String
     s = s & " and slifac.numfactu  = slifaclotes.numfactu and slifac.fecfactu  = slifaclotes.fecfactu"
     s = s & " and slifac.codtipoa = slifaclotes.codtipoa and slifac.numalbar = slifaclotes.numalbar"
     s = s & " and slifac.numlinea = slifaclotes.numlinea  "
-    s = s & " AND codartic = '" & vArt & "' and codalmac = " & Me.codalmac
+    s = s & " AND codartic = '" & vArt & "' and codalmac = " & Me.codAlmac
     s = s & " AND numlote = " & DBSet(NLote, "T") & " ORDER BY slifac.fecfactu,slifac.numfactu"
     
 
     RN.Open s, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RN.EOF
-        s = "'" & RN!Codtipom & Format(RN!NumFactu, "00000") & "'," & DBSet(RN!FecFactu, "F")
+        s = "'" & RN!Codtipom & Format(RN!NumFactu, "00000") & "'," & DBSet(RN!Fecfactu, "F")
         s = s & ",NULL," & TransformaComasPuntos(CStr(RN!Cantidad))
         cVentas.Add s
 
@@ -1623,7 +1623,7 @@ Dim LinProd As Integer
         Else
             Encontrado = True
             Produccion = Val(Cad)
-            codalmac = Val(SQL)
+            codAlmac = Val(SQL)
         End If
         
         Set RCompo = New ADODB.Recordset
@@ -1656,7 +1656,7 @@ Dim LinProd As Integer
             
             
                 Cad = "select * from sliordpr2lotes,sartic  where sliordpr2lotes.codarti2=sartic.codartic"
-                Cad = Cad & " AND codigo=" & Produccion & " and sliordpr2lotes.codartic=" & DBSet(codartic, "T") & " AND codalmac= " & codalmac
+                Cad = Cad & " AND codigo=" & Produccion & " and sliordpr2lotes.codartic=" & DBSet(codartic, "T") & " AND codalmac= " & codAlmac
                 Cad = Cad & " ORDER BY FactorConversion desc"
                 RCompo.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 While Not RCompo.EOF
@@ -1666,6 +1666,7 @@ Dim LinProd As Integer
         
                         'Vemos si viene de un cupaje, o viene de compra directa
                         'Veremos si para un aceite y lote este, ha sido desde coupaje
+                        MiNivel = MiNivel - 1
                         ComprobarAceite RCompo!codarti2, DBLet(RCompo!NUmlote), True, MiNivel, vContador, -1
                       
                         
@@ -1743,12 +1744,12 @@ Dim T As ADODB.Recordset
     SQL = "Select *  FROM slifpc,scafpc where scafpc.codprove=slifpc.codprove and "
     SQL = SQL & " scafpc.fecfactu=slifpc.fecfactu and scafpc.numfactu=slifpc.numfactu "
     SQL = SQL & " AND slifpc.codartic = " & DBSet(Art, "T") & " AND numlotes = " & DBSet(NLote, "T")
-    SQL = SQL & " and codalmac = " & Me.codalmac
+    SQL = SQL & " and codalmac = " & Me.codAlmac
     
     T.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     SQL = ""
     If Not T.EOF Then
-        SQL = T!NumFactu & " " & T!FecFactu & " (" & T!codProve & ")"
+        SQL = T!NumFactu & " " & T!Fecfactu & " (" & T!codProve & ")"
         InsertarLinea SQL, Nivel, Art, NLote, contador, 0, T!nomprove
         
     End If
@@ -1763,7 +1764,7 @@ Dim T As ADODB.Recordset
             SQL = SQL & " from slialp,scaalp where scaalp.codprove=slialp.codprove and scaalp.fechaalb=slialp.fechaalb and scaalp.numalbar=slialp.numalbar"
             'El arti/lote/almacen                                               'ojo a la S
             SQL = SQL & " AND slialp.codartic = " & DBSet(Art, "T") & "AND numlotes = " & DBSet(NLote, "T")
-            SQL = SQL & " and codalmac = " & codalmac
+            SQL = SQL & " and codalmac = " & codAlmac
             T.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             SQL = ""
             If Not T.EOF Then
@@ -1796,10 +1797,12 @@ Dim idMolturacion As Long
 Dim C As String
 Dim OK As Boolean
 Dim MiNivel As Integer
+Dim T2 As ADODB.Recordset
+Dim K As Integer
 
     'En facturas. Si esta no busco mas
     Set T = New ADODB.Recordset
-    
+    Set T2 = New ADODB.Recordset
     'Obtenemos la molturacion
     C = "codartic=" & DBSet(Art, "T") & " AND numlote"
     C = DevuelveDesdeBD(conAri, "numalbar", "spartidas", C, NLote, "T")
@@ -1816,63 +1819,83 @@ Dim MiNivel As Integer
     idMolturacion = Val(C)
     If idMolturacion = 0 Then
          InsertarLinea "Err", Nivel, Art, NLote, contador, 0, "Error obt. molturacion"
+    
     Else
-        C = "select fecha,deposito,litros,FechaFin,HoraFin,horainicio from vallalmazaraproceso where id=" & idMolturacion
-        T.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-        If T.EOF Then
-             InsertarLinea "err", Nivel, Art, NLote, contador, 0, "Error obt. molturacion II"
-        Else
-            C = "Id:" & idMolturacion & "  Dep:" & T!Deposito & "  F:" & Format(T!Fecha, "dd/mm") & Format(T!horainicio, " hh:nn")
-            InsertarLinea C, Nivel, Art, NLote, contador, 0, "Fin: " & T!FechaFin & " " & T!HoraFin
-            OK = True
-         End If
-         T.Close
+    
+    
+        C = "Select * from vallalmazaraproceso where loteproducido= " & DBSet(NLote, "T")
+        T2.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        
+        
+        While Not T2.EOF
+            
+            idMolturacion = T2!ID
+            C = "select fecha,deposito,litros,FechaFin,HoraFin,horainicio from vallalmazaraproceso where id=" & idMolturacion
+            T.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            If T.EOF Then
+                 InsertarLinea "err", Nivel, Art, NLote, contador, 0, "Error obt. molturacion II"
+            Else
+            
+                C = "Id:" & idMolturacion & "  Dep:" & T!Deposito & "  F:" & Format(T!Fecha, "dd/mm") & Format(T!horainicio, " hh:nn")
+                InsertarLinea C, Nivel, Art, NLote, contador, 0, "Fin: " & Format(T!FechaFin, "dd/mm") & " " & Format(T!HoraFin, " hh:nn")
+                OK = True
+             
+             End If
+             T.Close
+        
+    
+            SQL = "SELECT scaalp.numalbar, scaalp.fechaalb, slialp.nomartic,scaalp.codprove, scaalp.nomprove ,slialp.codartic,cantidad"
+            SQL = SQL & "  FROM scaalp,slialp,sartic,sfamia WHERE"
+            SQL = SQL & " scaalp.numalbar= slialp.numalbar and scaalp.fechaalb  = slialp.fechaalb and scaalp.codprove = slialp.codprove and slialp.codartic=sartic.codartic and"
+            SQL = SQL & " sfamia.codfamia=sartic.codfamia and tipfamia=30 and"
+            SQL = SQL & " (scaalp.numalbar,scaalp.fechaalb,scaalp.codprove) in"
+            SQL = SQL & " (select numalbar,fechaalb,codprove from vallalmazaraprocesoalb where id=" & idMolturacion & " )"
+            
+            
+            T.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            SQL = ""
+            MiNivel = Nivel + 1
+            If T.EOF Then
+                T.Close
+                'Puede que haya facturado el albaran, con lo cual esta en scafapc
+                SQL = "SELECT scafpa.numalbar, scafpa.fechaalb, slifpc.nomartic,scafpa.codprove, nomprove ,slifpc.codartic,cantidad"
+                SQL = SQL & " fROM scafpa,slifpc,sartic,sfamia,sprove WHERE"
+                SQL = SQL & " scafpa.numfactu= slifpc.numfactu and scafpa.numalbar= slifpc.numalbar and"
+                SQL = SQL & " scafpa.FecFactu = slifpc.FecFactu And scafpa.codProve = slifpc.codProve"
+                SQL = SQL & " and slifpc.codartic=sartic.codartic and sfamia.codfamia=sartic.codfamia"
+                SQL = SQL & " and sfamia.codfamia=sartic.codfamia and tipfamia=30"
+                SQL = SQL & " and scafpa.codprove=sprove.codprove AND "
+                SQL = SQL & " (scafpa.numalbar,scafpa.fechaalb,scafpa.codprove) in"
+                SQL = SQL & " (select numalbar,fechaalb,codprove from vallalmazaraprocesoalb where id=" & idMolturacion & " )"
+                    
+                T.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                SQL = ""
+                
+                
+            End If
+            While Not T.EOF
+                SQL = T!FechaAlb & " "
+                InsertarLinea SQL, MiNivel, T!codartic, T!NumAlbar, contador, T!Cantidad, T!nomprove
+                
+                T.MoveNext
+            Wend
+            T.Close
+        
+    
+    
+            T2.MoveNext
+        Wend
+        T2.Close
+        Set T2 = Nothing
     End If
               
     
-    If OK Then
-        SQL = "SELECT scaalp.numalbar, scaalp.fechaalb, slialp.nomartic,scaalp.codprove, scaalp.nomprove ,slialp.codartic,cantidad"
-        SQL = SQL & "  FROM scaalp,slialp,sartic,sfamia WHERE"
-        SQL = SQL & " scaalp.numalbar= slialp.numalbar and scaalp.fechaalb  = slialp.fechaalb and scaalp.codprove = slialp.codprove and slialp.codartic=sartic.codartic and"
-        SQL = SQL & " sfamia.codfamia=sartic.codfamia and tipfamia=30 and"
-        SQL = SQL & " (scaalp.numalbar,scaalp.fechaalb,scaalp.codprove) in"
-        SQL = SQL & " (select numalbar,fechaalb,codprove from vallalmazaraprocesoalb where id=" & idMolturacion & " )"
+    
+    
         
-        'articulo y demas no gace falta... de momento
-        'SQL = SQL & " AND slifpc.codartic = " & DBSet(Art, "T") & " AND numlotes = " & DBSet(NLote, "T")
-        'SQL = SQL & " and codalmac = " & Me.codAlmac
-        
-        T.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-        SQL = ""
-        MiNivel = Nivel + 1
-        If T.EOF Then
-            T.Close
-            'Puede que haya facturado el albaran, con lo cual esta en scafapc
-            SQL = "SELECT scafpa.numalbar, scafpa.fechaalb, slifpc.nomartic,scafpa.codprove, nomprove ,slifpc.codartic,cantidad"
-            SQL = SQL & " fROM scafpa,slifpc,sartic,sfamia,sprove WHERE"
-            SQL = SQL & " scafpa.numfactu= slifpc.numfactu and scafpa.numalbar= slifpc.numalbar and"
-            SQL = SQL & " scafpa.FecFactu = slifpc.FecFactu And scafpa.codProve = slifpc.codProve"
-            SQL = SQL & " and slifpc.codartic=sartic.codartic and sfamia.codfamia=sartic.codfamia"
-            SQL = SQL & " and sfamia.codfamia=sartic.codfamia and tipfamia=30"
-            SQL = SQL & " and scafpa.codprove=sprove.codprove AND "
-            SQL = SQL & " (scafpa.numalbar,scafpa.fechaalb,scafpa.codprove) in"
-            SQL = SQL & " (select numalbar,fechaalb,codprove from vallalmazaraprocesoalb where id=" & idMolturacion & " )"
-                
-            T.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-            SQL = ""
-            
-            
-        End If
-        While Not T.EOF
-            SQL = T!FechaAlb & " "
-            InsertarLinea SQL, MiNivel, T!codartic, T!NumAlbar, contador, T!Cantidad, T!nomprove
-            
-            T.MoveNext
-        Wend
-        T.Close
-    End If
+   
     Set T = Nothing
-       
+    Set T2 = Nothing
     
     
     
@@ -1920,7 +1943,7 @@ Dim SubLotes As String
                 I = InStr(6, NLote, "T")   'ejemplo lote: MOSTRA45-2016T1
                 If I = 0 Then
                     'MAL
-                    Stop
+                     
                 Else
                     C = Mid(NLote, 1, I - 1)
                     NLote = C
@@ -1948,7 +1971,7 @@ Dim SubLotes As String
                 Fecha = T!Fecha
             End If
             T.Close
-            'If SQL = "248" Then Stop
+            'If SQL = "248" Then
             If SQL <> "" Then
 
                 SQL = "select * from olicoupagelinlotes where codigo=" & SQL
@@ -1969,7 +1992,7 @@ Dim SubLotes As String
                         C = T!codartic & "|" & C & "|"
                         Col.Add C
                     Else
-                        'Stop
+                        '
                     End If
                     SQL = T!Codigo
                     T.MoveNext

@@ -4,15 +4,15 @@ Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmProdVerUnDepo 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Deposito"
-   ClientHeight    =   7965
+   ClientHeight    =   7845
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   9885
+   ClientWidth     =   10230
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   7965
-   ScaleWidth      =   9885
+   ScaleHeight     =   7845
+   ScaleWidth      =   10230
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton Command1 
       Cancel          =   -1  'True
@@ -28,55 +28,45 @@ Begin VB.Form frmProdVerUnDepo
       Left            =   3240
       TabIndex        =   5
       Top             =   960
-      Width           =   6495
-      _ExtentX        =   11456
+      Width           =   6855
+      _ExtentX        =   12091
       _ExtentY        =   12091
       _Version        =   393216
+      Tab             =   1
       TabHeight       =   520
       TabCaption(0)   =   "Datos depósito"
       TabPicture(0)   =   "frmProdVerUnDepo.frx":0000
-      Tab(0).ControlEnabled=   -1  'True
-      Tab(0).Control(0)=   "Label1(5)"
-      Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "Label1(4)"
-      Tab(0).Control(1).Enabled=   0   'False
-      Tab(0).Control(2)=   "Label1(3)"
-      Tab(0).Control(2).Enabled=   0   'False
-      Tab(0).Control(3)=   "Label1(7)"
-      Tab(0).Control(3).Enabled=   0   'False
-      Tab(0).Control(4)=   "Label1(6)"
-      Tab(0).Control(4).Enabled=   0   'False
-      Tab(0).Control(5)=   "Label1(1)"
-      Tab(0).Control(5).Enabled=   0   'False
-      Tab(0).Control(6)=   "Line1"
-      Tab(0).Control(6).Enabled=   0   'False
-      Tab(0).Control(7)=   "Label1(10)"
-      Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).Control(8)=   "Text1(5)"
-      Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "Text1(4)"
-      Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "Text1(3)"
-      Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).Control(11)=   "Text1(7)"
-      Tab(0).Control(11).Enabled=   0   'False
-      Tab(0).Control(12)=   "Text1(6)"
-      Tab(0).Control(12).Enabled=   0   'False
-      Tab(0).Control(13)=   "Text1(1)"
-      Tab(0).Control(13).Enabled=   0   'False
-      Tab(0).Control(14)=   "ListView1"
-      Tab(0).Control(14).Enabled=   0   'False
-      Tab(0).Control(15)=   "cmdModKilos"
-      Tab(0).Control(15).Enabled=   0   'False
+      Tab(0).ControlEnabled=   0   'False
+      Tab(0).Control(0)=   "cmdModKilos"
+      Tab(0).Control(1)=   "ListView1"
+      Tab(0).Control(2)=   "Text1(1)"
+      Tab(0).Control(3)=   "Text1(6)"
+      Tab(0).Control(4)=   "Text1(7)"
+      Tab(0).Control(5)=   "Text1(3)"
+      Tab(0).Control(6)=   "Text1(4)"
+      Tab(0).Control(7)=   "Text1(5)"
+      Tab(0).Control(8)=   "Label1(10)"
+      Tab(0).Control(9)=   "Line1"
+      Tab(0).Control(10)=   "Label1(1)"
+      Tab(0).Control(11)=   "Label1(6)"
+      Tab(0).Control(12)=   "Label1(7)"
+      Tab(0).Control(13)=   "Label1(3)"
+      Tab(0).Control(14)=   "Label1(4)"
+      Tab(0).Control(15)=   "Label1(5)"
       Tab(0).ControlCount=   16
       TabCaption(1)   =   "Histórico"
       TabPicture(1)   =   "frmProdVerUnDepo.frx":001C
-      Tab(1).ControlEnabled=   0   'False
+      Tab(1).ControlEnabled=   -1  'True
       Tab(1).Control(0)=   "Label3(63)"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "imgFecha(0)"
+      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "ListView2"
+      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "txtFecha(0)"
+      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "cmdVer"
+      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).ControlCount=   5
       TabCaption(2)   =   "Albaranes"
       TabPicture(2)   =   "frmProdVerUnDepo.frx":0038
@@ -98,14 +88,14 @@ Begin VB.Form frmProdVerUnDepo
       Begin VB.CommandButton cmdVer 
          Caption         =   "Movimientos"
          Height          =   375
-         Left            =   -71520
+         Left            =   3480
          TabIndex        =   24
          Top             =   6360
          Width           =   1215
       End
       Begin VB.CommandButton cmdModKilos 
          Height          =   375
-         Left            =   5880
+         Left            =   -69120
          Picture         =   "frmProdVerUnDepo.frx":0054
          Style           =   1  'Graphical
          TabIndex        =   23
@@ -116,7 +106,7 @@ Begin VB.Form frmProdVerUnDepo
       Begin VB.TextBox txtFecha 
          Height          =   285
          Index           =   0
-         Left            =   -74040
+         Left            =   960
          TabIndex        =   21
          Text            =   "Text1"
          Top             =   6480
@@ -124,7 +114,7 @@ Begin VB.Form frmProdVerUnDepo
       End
       Begin MSComctlLib.ListView ListView1 
          Height          =   1695
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   19
          Top             =   4440
          Width           =   6135
@@ -173,7 +163,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   1
-         Left            =   240
+         Left            =   -74760
          Locked          =   -1  'True
          TabIndex        =   14
          Text            =   "Text1"
@@ -193,7 +183,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   6
-         Left            =   240
+         Left            =   -74760
          Locked          =   -1  'True
          TabIndex        =   13
          Text            =   "Text1"
@@ -212,7 +202,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   7
-         Left            =   2040
+         Left            =   -72960
          Locked          =   -1  'True
          TabIndex        =   12
          Text            =   "Text1"
@@ -232,7 +222,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   3
-         Left            =   240
+         Left            =   -74760
          Locked          =   -1  'True
          TabIndex        =   8
          Text            =   "Text1"
@@ -252,7 +242,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   4
-         Left            =   2400
+         Left            =   -72600
          Locked          =   -1  'True
          TabIndex        =   7
          Text            =   "Text1"
@@ -272,7 +262,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   480
          Index           =   5
-         Left            =   4200
+         Left            =   -70800
          Locked          =   -1  'True
          TabIndex        =   6
          Text            =   "Text1"
@@ -281,11 +271,11 @@ Begin VB.Form frmProdVerUnDepo
       End
       Begin MSComctlLib.ListView ListView2 
          Height          =   5415
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   20
          Top             =   600
-         Width           =   5895
-         _ExtentX        =   10398
+         Width           =   6495
+         _ExtentX        =   11456
          _ExtentY        =   9551
          View            =   3
          LabelEdit       =   1
@@ -297,19 +287,19 @@ Begin VB.Form frmProdVerUnDepo
          BackColor       =   -2147483643
          BorderStyle     =   1
          Appearance      =   1
-         NumItems        =   4
+         NumItems        =   5
          BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             Text            =   "Fecha"
-            Object.Width           =   3422
+            Object.Width           =   3351
          EndProperty
          BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   1
             Text            =   "Descripcion"
-            Object.Width           =   4233
+            Object.Width           =   3351
          EndProperty
          BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             SubItemIndex    =   2
-            Text            =   "Lote"
+            Text            =   "Datos"
             Object.Width           =   2293
          EndProperty
          BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
@@ -317,11 +307,17 @@ Begin VB.Form frmProdVerUnDepo
             Text            =   "UltimaLlevaElorden"
             Object.Width           =   0
          EndProperty
+         BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   1
+            SubItemIndex    =   4
+            Text            =   "Cantidad"
+            Object.Width           =   0
+         EndProperty
       End
       Begin VB.Image imgFecha 
          Height          =   240
          Index           =   0
-         Left            =   -74280
+         Left            =   720
          Picture         =   "frmProdVerUnDepo.frx":0A56
          Top             =   6480
          Width           =   240
@@ -330,7 +326,7 @@ Begin VB.Form frmProdVerUnDepo
          Caption         =   "Desde"
          Height          =   195
          Index           =   63
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   22
          Top             =   6480
          Width           =   465
@@ -349,7 +345,7 @@ Begin VB.Form frmProdVerUnDepo
          ForeColor       =   &H000000C0&
          Height          =   375
          Index           =   10
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   18
          Top             =   3960
          Width           =   1575
@@ -357,8 +353,8 @@ Begin VB.Form frmProdVerUnDepo
       Begin VB.Line Line1 
          BorderColor     =   &H000000C0&
          BorderWidth     =   3
-         X1              =   120
-         X2              =   6120
+         X1              =   -74880
+         X2              =   -68880
          Y1              =   4080
          Y2              =   4080
       End
@@ -375,7 +371,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   1
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   17
          Top             =   2760
          Width           =   1215
@@ -393,7 +389,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   6
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   16
          Top             =   1680
          Width           =   1215
@@ -411,7 +407,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   7
-         Left            =   2040
+         Left            =   -72960
          TabIndex        =   15
          Top             =   1680
          Width           =   2295
@@ -429,7 +425,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   3
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   11
          Top             =   600
          Width           =   1575
@@ -447,7 +443,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   4
-         Left            =   2400
+         Left            =   -72600
          TabIndex        =   10
          Top             =   600
          Width           =   1215
@@ -465,7 +461,7 @@ Begin VB.Form frmProdVerUnDepo
          EndProperty
          Height          =   375
          Index           =   5
-         Left            =   4200
+         Left            =   -70800
          TabIndex        =   9
          Top             =   600
          Width           =   1215
@@ -774,6 +770,7 @@ Private Sub Form_Load()
         Me.Text1(2).FontSize = 14
         Me.cmdVer.visible = True
         SSTab1.TabVisible(2) = True
+        Me.ListView2.ColumnHeaders(5).Width = 1200
     End If
 End Sub
 
@@ -856,7 +853,7 @@ Dim It As ListItem
     ListView2.Sorted = True
 
     Set miRsAux = New ADODB.Recordset
-    miSQL = "select horamovi,numlote,tipoaccion from proddepositoshco where numdeposito=" & NumDepo
+    miSQL = "select horamovi,numlote,tipoaccion,CantidadMov,descripcion from proddepositoshco where numdeposito=" & NumDepo
     miSQL = miSQL & " AND horamovi >='" & Format(Me.txtFecha(0).Text, "yyyy-mm-dd") & " 00:00:00'"
     miSQL = miSQL & " ORDER BY horamovi"
     miRsAux.Open miSQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
@@ -913,8 +910,14 @@ Dim It As ListItem
             End Select
             It.SubItems(1) = miSQL
             It.SubItems(2) = miRsAux!NUmlote
-            If vParamAplic.QUE_EMPRESA = 4 Then It.SubItems(2) = Mid(miRsAux!NUmlote, 7)
-            
+            If vParamAplic.QUE_EMPRESA = 4 Then
+                If Not IsNull(miRsAux!Descripcion) Then
+                    It.SubItems(2) = miRsAux!Descripcion
+                Else
+                    It.SubItems(2) = Mid(miRsAux!NUmlote, 7)
+                End If
+                It.SubItems(4) = Format(miRsAux!CantidadMov, FormatoCantidad)
+            End If
             miRsAux.MoveNext
             
     Wend
@@ -946,6 +949,12 @@ Private Sub LeerGuardarFecha(Leer As Boolean)
 Dim NF As Integer
 Dim F1 As Date
     On Error GoTo eLeerGruadarFecha
+
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        If Leer Then txtFecha(0).Text = Format(vParamAplic.FechaActiva, "dd/mm/yyyy")
+        
+        Exit Sub
+    End If
 
     miSQL = App.Path & "\fecdep.dat"
     NF = FreeFile

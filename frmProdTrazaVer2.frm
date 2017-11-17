@@ -801,7 +801,7 @@ Dim CargaDesdeTmpTraza As Boolean
     ListView2.ListItems.Clear
     Set cP = New cPartidas
     conn.Execute "DELETE FROM tmptraza"
-    If cP.LeerDesdeArticulo(Text1(1).Text, Data1.Recordset!codalmac, Data1.Recordset!NUmlote) Then
+    If cP.LeerDesdeArticulo(Text1(1).Text, Data1.Recordset!codAlmac, Data1.Recordset!NUmlote) Then
         cP.TrazbilidadDesdeVenta False, False
      
     End If
@@ -820,6 +820,7 @@ Dim CargaDesdeTmpTraza As Boolean
                 If Val(Data1.Recordset!codProve) = 0 And Mid(SQL, 1, 2) = "PR" Then CargaDesdeTmpTraza = True
                 If Val(Data1.Recordset!codProve) = 0 And Mid(SQL, 1, 3) = "CUP" Then CargaDesdeTmpTraza = True
                 If Val(Data1.Recordset!codProve) = 0 And Mid(SQL, 1, 3) = "TRS" Then CargaDesdeTmpTraza = True
+                If Mid(Data1.Recordset!NUmlote, 1, 6) = "MOSTRA" Then CargaDesdeTmpTraza = True
             End If
         End If
         If CargaDesdeTmpTraza Then
@@ -995,7 +996,7 @@ Dim Fin2 As Boolean
                         
                         C = miRsAux!artic2 & " " & miRsAux!NomArtic & " [" & miRsAux!NUmlote2 & "]"
                         If vParamAplic.QUE_EMPRESA = 4 Then
-                            If miRsAux!nivle > 1 Then
+                            If miRsAux!nivle >= 1 Then
                                 C = miRsAux!idoperacion & " [" & miRsAux!NUmlote2 & "]"
                                 If InStr(1, miRsAux!idoperacion, "Id:") > 0 And InStr(1, miRsAux!idoperacion, "Dep:") > 0 Then
                                   C = "MOLT." & miRsAux!idoperacion & " [" & miRsAux!NUmlote2 & "]"
@@ -1029,7 +1030,11 @@ Dim Fin2 As Boolean
                         If Not NOdoErroneo Then
                             
                             contador = TreeView1.Nodes.Count + 1
-                            Set N = TreeView1.Nodes.Add(padre, tvwChild, "C" & contador, C)
+                            If padre Is Nothing Then
+                                Set N = TreeView1.Nodes.Add(, , , C)
+                            Else
+                                Set N = TreeView1.Nodes.Add(padre, tvwChild, "C" & contador, C)
+                            End If
                             N.Tag = miRsAux!contador 'Clave
                            
                         End If
@@ -1037,7 +1042,9 @@ Dim Fin2 As Boolean
                         NivelActual = miRsAux!nivle
                         miRsAux.MoveNext
                     Else
-                        'Stop
+                        '
+                    
+                        Fin = True
                     End If
                 End If
                 If miRsAux.EOF Then
@@ -1070,8 +1077,8 @@ Dim Fin2 As Boolean
                             Wend
                         End If
                     Else
-                        
-                        Fin = True
+                       '
+                       ' Fin = True
                     End If
                 End If
             Loop Until Fin
@@ -1093,19 +1100,26 @@ Dim Aux As String
 
     C = "select tmptraza.*,nomartic from tmptraza,sartic where codartic=artic2 AND codusu =" & vUsu.Codigo
     miRsAux.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    Nivel = -1
+  
         
+    If Mid(DBLet(miRsAux!idoperacion, "T"), 1, 3) = "Id:" Then
+        'Es una molturacion
+        
+        Set N = Nothing
+    Else
+        C = miRsAux!artic2 & " " & miRsAux!NomArtic & " [" & miRsAux!NUmlote2 & "]"
+        Aux = DevuelveAlbaran(miRsAux!NUmlote2, miRsAux!artic2)
+        C = DevuelveCadena(C, Aux, 0)
     
-    C = miRsAux!artic2 & " " & miRsAux!NomArtic & " [" & miRsAux!NUmlote2 & "]"
-    Aux = DevuelveAlbaran(miRsAux!NUmlote2, miRsAux!artic2)
-    C = DevuelveCadena(C, Aux, 0)
+                    
+        contador = TreeView1.Nodes.Count + 1
+        Set N = TreeView1.Nodes.Add(, , "C" & contador, C)
+                    
+        miRsAux.MoveNext
+    End If
 
-                
-    contador = TreeView1.Nodes.Count + 1
-    Set N = TreeView1.Nodes.Add(, , "C" & contador, C)
-                
     Nivel = 0
-    miRsAux.MoveNext
+    
     If Not miRsAux.EOF Then
         Nivel = miRsAux!nivle
         CargarArbol N, Nivel
@@ -1114,8 +1128,9 @@ Dim Aux As String
             
     miRsAux.Close
     
-    If Not N Is Nothing Then N.EnsureVisible
-    
+    If Not N Is Nothing Then
+        If Not N.Child Is Nothing Then N.Child.EnsureVisible
+    End If
     'If ElAceite <> "" Then CargaCoupageRecursivo RecuperaValor(ElAceite, 1), RecuperaValor(ElAceite, 2), N.Key, EsCou
     
 End Sub
@@ -1133,7 +1148,7 @@ Dim It
     While Not miRsAux.EOF
         Set It = ListView2.ListItems.Add()
         It.Text = miRsAux!lafact
-        It.SubItems(1) = miRsAux!FecFactu
+        It.SubItems(1) = miRsAux!Fecfactu
         It.SubItems(2) = Format(miRsAux!CodClien, "0000")
         It.SubItems(3) = miRsAux!nomclien
         It.SubItems(4) = Format(miRsAux!Cantidad, "#,##0")
@@ -1332,7 +1347,7 @@ Dim vLote As String
             CadenaDesdeOtroForm = "'Deposito " & CadenaDesdeOtroForm & "'"
         End If
     Else
-        CadenaDesdeOtroForm = "null"
+        CadenaDesdeOtroForm = "0"
     End If
         
     CadenaConsulta = CadenaConsulta & CadenaDesdeOtroForm & ")"
@@ -1395,7 +1410,7 @@ Dim Cad As String
     Else
     
         If Mid(TreeView1.SelectedItem.Text, 1, 3) = "MOL" Then
-            MsgBox TreeView1.SelectedItem.Tag
+            'MsgBox TreeView1.SelectedItem.Tag
             I = InStr(1, TreeView1.SelectedItem.Text, "Id:")
             If I = 0 Then Exit Sub
             Cad = Mid(TreeView1.SelectedItem.Text, I + 3)
@@ -1423,8 +1438,11 @@ Dim Depo As Integer
     Kcampo = 1
     Fin = False
     Do
-    
-        I = InStr(1, TreeView1.Nodes(Kcampo).Text, " ")
+        If Kcampo > TreeView1.Nodes.Count Then
+            I = 0
+        Else
+            I = InStr(1, TreeView1.Nodes(Kcampo).Text, " ")
+        End If
         If I > 0 Then
             Aux = Trim(Mid(TreeView1.Nodes(Kcampo).Text, 1, I))
             Cad = "factorconversion<1 and codartic"
@@ -1444,7 +1462,7 @@ Dim Depo As Integer
         Else
             Kcampo = Kcampo + 1
             If Kcampo > 3 Then
-                MsgBox "No se encuentra aceite", vbExclamation
+                If vParamAplic.QUE_EMPRESA <> 4 Then MsgBox "No se encuentra aceite", vbExclamation
                 Fin = True
             End If
         End If
@@ -1497,8 +1515,8 @@ Dim DosHijos As Boolean
                
                 If Not N2 Is Nothing Then
                     'Debug.Print TreeView1.Nodes(QueNodo).Text
-                    'If N1.Text = N2.Text Then Stop
-                    'If InStr(1, N2.Text, "UP 115") > 0 Then Stop
+                    'If N1.Text = N2.Text Then
+                    'If InStr(1, N2.Text, "UP 115") > 0 Then
                 End If
                 
                 If DosHijos Then
@@ -1518,7 +1536,7 @@ Dim DosHijos As Boolean
                 
             End If
             
-            'If N2.Tag = 37 Then Stop
+            'If N2.Tag = 37 Then
             
             '----------------------------
             
@@ -1540,7 +1558,7 @@ Dim DosHijos As Boolean
                     If Depos1 = DepositoOrigen Then
                         Solapar = True
                     Else
-                       ' Stop
+                       '
                          If tipo1 = 2 And tipo2 = 1 Then Stop
                         Solapar = True
                     End If
@@ -1548,7 +1566,7 @@ Dim DosHijos As Boolean
                     Solapar = False
                 End If
             Else
-                'Stop
+                '
                 If Depos1 = Depos2 Then
                     'Stop
                     Solapar = True
@@ -1580,7 +1598,7 @@ Dim DosHijos As Boolean
                 HacerNodImpresionRecursivo N2.Next.Index, Depos2, Solapar
                 'If Not Solapar Then HacerNodImpresionRecursivo N2.Next.Index, Depos2, Solapar
                 
-                If TreeView1.Nodes(QueNodo).Children > 3 Then Stop
+                If TreeView1.Nodes(QueNodo).Children > 3 Then MsgBox "Rec: 0001": Stop
                 
             End If
                         
@@ -1592,7 +1610,7 @@ Dim DosHijos As Boolean
             
             
             
-            'If InStr(1, TreeView1.Nodes(QueNodo).Text, "CUP 34") > 0 Then Stop
+            'If InStr(1, TreeView1.Nodes(QueNodo).Text, "CUP 34") > 0 Then
             
             'Solapamos
             If Solapar Then
@@ -1603,7 +1621,7 @@ Dim DosHijos As Boolean
                 
                 BajarUnNivel N1.Index
                 If DosHijos Then BajarUnNivel N2.Index
-                If TreeView1.Nodes(QueNodo).Children > 2 Then Stop: N2.Next.Index
+                If TreeView1.Nodes(QueNodo).Children > 2 Then N2.Next.Index
                 
                 Aux2 = TreeView1.Nodes(QueNodo).Tag
                 Aux2 = "Delete from tmptraza where codusu =" & vUsu.Codigo & " AND contador =" & Aux2

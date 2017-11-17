@@ -2,16 +2,405 @@ VERSION 5.00
 Begin VB.Form frmProduVarios 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Multi form para muchas cosas de produccion"
-   ClientHeight    =   6300
+   ClientHeight    =   9360
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   9300
+   ClientWidth     =   12585
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6300
-   ScaleWidth      =   9300
+   ScaleHeight     =   9360
+   ScaleWidth      =   12585
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame FrameLaVallTraFiltrado 
+      Height          =   6255
+      Left            =   4440
+      TabIndex        =   52
+      Top             =   3600
+      Visible         =   0   'False
+      Width           =   8535
+      Begin VB.CommandButton cmdLavall 
+         Caption         =   "Aceptar"
+         Height          =   375
+         Left            =   6120
+         TabIndex        =   82
+         Top             =   5640
+         Width           =   975
+      End
+      Begin VB.OptionButton optLaVall 
+         Caption         =   "Trasiego"
+         Height          =   195
+         Index           =   1
+         Left            =   5880
+         TabIndex        =   71
+         Top             =   1245
+         Width           =   1095
+      End
+      Begin VB.OptionButton optLaVall 
+         Caption         =   "Filtrado"
+         Height          =   195
+         Index           =   0
+         Left            =   4200
+         TabIndex        =   70
+         Top             =   1245
+         Value           =   -1  'True
+         Width           =   855
+      End
+      Begin VB.TextBox txtNumeroDec 
+         Alignment       =   1  'Right Justify
+         Height          =   315
+         Index           =   4
+         Left            =   6720
+         TabIndex        =   74
+         Text            =   "Text1"
+         Top             =   2760
+         Width           =   1455
+      End
+      Begin VB.ComboBox cboDeposito 
+         Height          =   315
+         Index           =   6
+         Left            =   240
+         Style           =   2  'Dropdown List
+         TabIndex        =   73
+         Top             =   2760
+         Width           =   6255
+      End
+      Begin VB.ComboBox cboDeposito 
+         Height          =   315
+         Index           =   5
+         Left            =   240
+         Style           =   2  'Dropdown List
+         TabIndex        =   72
+         Top             =   1920
+         Width           =   6255
+      End
+      Begin VB.TextBox txtFecha 
+         Height          =   285
+         Index           =   4
+         Left            =   1200
+         TabIndex        =   68
+         Text            =   "Text1"
+         Top             =   1200
+         Width           =   1215
+      End
+      Begin VB.TextBox txtHora 
+         Height          =   285
+         Index           =   4
+         Left            =   2520
+         TabIndex        =   69
+         Text            =   "Text1"
+         Top             =   1200
+         Width           =   1215
+      End
+      Begin VB.CommandButton Command1 
+         Height          =   495
+         Left            =   7560
+         Picture         =   "frmProduVarios.frx":0000
+         Style           =   1  'Graphical
+         TabIndex        =   76
+         Top             =   360
+         Width           =   615
+      End
+      Begin VB.CommandButton cmdCancelar 
+         Caption         =   "&Cancelar"
+         Height          =   375
+         Index           =   6
+         Left            =   7320
+         TabIndex        =   84
+         Top             =   5640
+         Width           =   975
+      End
+      Begin VB.Frame FrameFilltroLaVall2 
+         Height          =   2175
+         Left            =   240
+         TabIndex        =   53
+         Top             =   3240
+         Width           =   8055
+         Begin VB.TextBox txtNumeroDec 
+            Alignment       =   1  'Right Justify
+            Height          =   285
+            Index           =   1
+            Left            =   6720
+            TabIndex        =   77
+            Text            =   "Text1"
+            Top             =   600
+            Width           =   975
+         End
+         Begin VB.TextBox txtNumeroDec 
+            Alignment       =   1  'Right Justify
+            Height          =   285
+            Index           =   2
+            Left            =   6720
+            TabIndex        =   79
+            Text            =   "Text1"
+            Top             =   1080
+            Width           =   975
+         End
+         Begin VB.TextBox txtNumeroDec 
+            Alignment       =   1  'Right Justify
+            Height          =   285
+            Index           =   3
+            Left            =   6720
+            TabIndex        =   81
+            Text            =   "Text1"
+            Top             =   1560
+            Width           =   975
+         End
+         Begin VB.TextBox txtArtFiltrado 
+            BackColor       =   &H80000018&
+            Height          =   285
+            Index           =   4
+            Left            =   1800
+            Locked          =   -1  'True
+            TabIndex        =   64
+            Text            =   "Text1"
+            Top             =   1080
+            Width           =   3255
+         End
+         Begin VB.TextBox txtArtFiltrado 
+            Height          =   285
+            Index           =   0
+            Left            =   120
+            TabIndex        =   75
+            Text            =   "Text1"
+            Top             =   600
+            Width           =   1575
+         End
+         Begin VB.TextBox txtArtFiltrado 
+            Height          =   285
+            Index           =   1
+            Left            =   120
+            TabIndex        =   63
+            Text            =   "Text1"
+            Top             =   1080
+            Width           =   1575
+         End
+         Begin VB.TextBox txtArtFiltrado 
+            Height          =   285
+            Index           =   2
+            Left            =   120
+            TabIndex        =   62
+            Text            =   "Text1"
+            Top             =   1560
+            Width           =   1575
+         End
+         Begin VB.TextBox txtArtFiltrado 
+            BackColor       =   &H80000018&
+            Height          =   285
+            Index           =   3
+            Left            =   1800
+            Locked          =   -1  'True
+            TabIndex        =   61
+            Text            =   "Text1"
+            Top             =   600
+            Width           =   3255
+         End
+         Begin VB.TextBox txtArtFiltrado 
+            BackColor       =   &H80000018&
+            Height          =   285
+            Index           =   5
+            Left            =   1800
+            Locked          =   -1  'True
+            TabIndex        =   60
+            Text            =   "Text1"
+            Top             =   1560
+            Width           =   3255
+         End
+         Begin VB.TextBox txtLote 
+            Height          =   285
+            Index           =   0
+            Left            =   5280
+            Locked          =   -1  'True
+            TabIndex        =   59
+            Text            =   "Text1"
+            Top             =   600
+            Width           =   1215
+         End
+         Begin VB.TextBox txtLote 
+            Height          =   285
+            Index           =   1
+            Left            =   5280
+            Locked          =   -1  'True
+            TabIndex        =   58
+            Text            =   "Text1"
+            Top             =   1080
+            Width           =   1215
+         End
+         Begin VB.TextBox txtLote 
+            Height          =   285
+            Index           =   2
+            Left            =   5280
+            Locked          =   -1  'True
+            TabIndex        =   57
+            Text            =   "Text1"
+            Top             =   1560
+            Width           =   1215
+         End
+         Begin VB.CommandButton cmdLote 
+            Caption         =   "+"
+            Height          =   255
+            Index           =   0
+            Left            =   5160
+            TabIndex        =   56
+            Top             =   600
+            Width           =   135
+         End
+         Begin VB.CommandButton cmdLote 
+            Caption         =   "+"
+            Height          =   255
+            Index           =   1
+            Left            =   5160
+            TabIndex        =   55
+            Top             =   1080
+            Width           =   135
+         End
+         Begin VB.CommandButton cmdLote 
+            Caption         =   "+"
+            Height          =   255
+            Index           =   2
+            Left            =   5160
+            TabIndex        =   54
+            Top             =   1560
+            Width           =   135
+         End
+         Begin VB.Label Label2 
+            Caption         =   "Producto"
+            Height          =   195
+            Index           =   0
+            Left            =   240
+            TabIndex        =   67
+            Top             =   240
+            Width           =   1125
+         End
+         Begin VB.Label Label2 
+            Caption         =   "Descripcion"
+            Height          =   195
+            Index           =   1
+            Left            =   2520
+            TabIndex        =   66
+            Top             =   240
+            Width           =   1485
+         End
+         Begin VB.Label Label2 
+            AutoSize        =   -1  'True
+            Caption         =   "Kilos"
+            Height          =   195
+            Index           =   2
+            Left            =   7080
+            TabIndex        =   65
+            Top             =   240
+            Width           =   330
+         End
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Kilos"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   19
+         Left            =   6720
+         TabIndex        =   86
+         Top             =   2520
+         Width           =   390
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Destino"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   18
+         Left            =   240
+         TabIndex        =   85
+         Top             =   2520
+         Width           =   645
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Origen"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   17
+         Left            =   240
+         TabIndex        =   83
+         Top             =   1680
+         Width           =   555
+      End
+      Begin VB.Image imgFecha 
+         Height          =   240
+         Index           =   4
+         Left            =   840
+         Picture         =   "frmProduVarios.frx":0A02
+         Top             =   1200
+         Width           =   240
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Fecha"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   16
+         Left            =   240
+         TabIndex        =   80
+         Top             =   1200
+         Width           =   495
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Movimientos depósitos  cooperativa"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   14.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   345
+         Index           =   15
+         Left            =   240
+         TabIndex        =   78
+         Top             =   240
+         Width           =   5190
+      End
+   End
    Begin VB.Frame FrCierreOrdenProduccion 
       Height          =   2175
       Left            =   0
@@ -103,7 +492,7 @@ Begin VB.Form frmProduVarios
          Height          =   240
          Index           =   0
          Left            =   960
-         Picture         =   "frmProduVarios.frx":0000
+         Picture         =   "frmProduVarios.frx":0A8D
          Top             =   720
          Width           =   240
       End
@@ -181,405 +570,6 @@ Begin VB.Form frmProduVarios
          Width           =   750
       End
    End
-   Begin VB.Frame FrameFiltrado 
-      Height          =   5655
-      Left            =   0
-      TabIndex        =   32
-      Top             =   0
-      Visible         =   0   'False
-      Width           =   8775
-      Begin VB.CommandButton cmdImpreFiltrado 
-         Height          =   495
-         Left            =   7920
-         Picture         =   "frmProduVarios.frx":008B
-         Style           =   1  'Graphical
-         TabIndex        =   64
-         Top             =   480
-         Width           =   615
-      End
-      Begin VB.Frame FrameFilltroLaVall 
-         Height          =   2175
-         Left            =   480
-         TabIndex        =   53
-         Top             =   2400
-         Width           =   8055
-         Begin VB.CommandButton cmdLote 
-            Caption         =   "+"
-            Height          =   255
-            Index           =   2
-            Left            =   5160
-            TabIndex        =   70
-            Top             =   1560
-            Width           =   135
-         End
-         Begin VB.CommandButton cmdLote 
-            Caption         =   "+"
-            Height          =   255
-            Index           =   1
-            Left            =   5160
-            TabIndex        =   69
-            Top             =   1080
-            Width           =   135
-         End
-         Begin VB.CommandButton cmdLote 
-            Caption         =   "+"
-            Height          =   255
-            Index           =   0
-            Left            =   5160
-            TabIndex        =   68
-            Top             =   600
-            Width           =   135
-         End
-         Begin VB.TextBox txtLote 
-            Height          =   285
-            Index           =   2
-            Left            =   5280
-            Locked          =   -1  'True
-            TabIndex        =   67
-            Text            =   "Text1"
-            Top             =   1560
-            Width           =   1215
-         End
-         Begin VB.TextBox txtLote 
-            Height          =   285
-            Index           =   1
-            Left            =   5280
-            Locked          =   -1  'True
-            TabIndex        =   66
-            Text            =   "Text1"
-            Top             =   1080
-            Width           =   1215
-         End
-         Begin VB.TextBox txtLote 
-            Height          =   285
-            Index           =   0
-            Left            =   5280
-            Locked          =   -1  'True
-            TabIndex        =   65
-            Text            =   "Text1"
-            Top             =   600
-            Width           =   1215
-         End
-         Begin VB.TextBox txtArtFiltrado 
-            Height          =   285
-            Index           =   5
-            Left            =   1800
-            TabIndex        =   62
-            Text            =   "Text1"
-            Top             =   1560
-            Width           =   3255
-         End
-         Begin VB.TextBox txtArtFiltrado 
-            Height          =   285
-            Index           =   3
-            Left            =   1800
-            TabIndex        =   61
-            Text            =   "Text1"
-            Top             =   600
-            Width           =   3255
-         End
-         Begin VB.TextBox txtArtFiltrado 
-            Height          =   285
-            Index           =   2
-            Left            =   120
-            TabIndex        =   60
-            Text            =   "Text1"
-            Top             =   1560
-            Width           =   1575
-         End
-         Begin VB.TextBox txtArtFiltrado 
-            Height          =   285
-            Index           =   1
-            Left            =   120
-            TabIndex        =   59
-            Text            =   "Text1"
-            Top             =   1080
-            Width           =   1575
-         End
-         Begin VB.TextBox txtArtFiltrado 
-            Height          =   285
-            Index           =   0
-            Left            =   120
-            TabIndex        =   58
-            Text            =   "Text1"
-            Top             =   600
-            Width           =   1575
-         End
-         Begin VB.TextBox txtArtFiltrado 
-            Height          =   285
-            Index           =   4
-            Left            =   1800
-            TabIndex        =   57
-            Text            =   "Text1"
-            Top             =   1080
-            Width           =   3255
-         End
-         Begin VB.TextBox txtNumeroDec 
-            Alignment       =   1  'Right Justify
-            Height          =   285
-            Index           =   3
-            Left            =   6720
-            TabIndex        =   39
-            Text            =   "Text1"
-            Top             =   1560
-            Width           =   975
-         End
-         Begin VB.TextBox txtNumeroDec 
-            Alignment       =   1  'Right Justify
-            Height          =   285
-            Index           =   2
-            Left            =   6720
-            TabIndex        =   38
-            Text            =   "Text1"
-            Top             =   1080
-            Width           =   975
-         End
-         Begin VB.TextBox txtNumeroDec 
-            Alignment       =   1  'Right Justify
-            Height          =   285
-            Index           =   1
-            Left            =   6720
-            TabIndex        =   37
-            Text            =   "Text1"
-            Top             =   600
-            Width           =   975
-         End
-         Begin VB.Label Label2 
-            AutoSize        =   -1  'True
-            Caption         =   "Kilos"
-            Height          =   195
-            Index           =   2
-            Left            =   7080
-            TabIndex        =   56
-            Top             =   240
-            Width           =   330
-         End
-         Begin VB.Label Label2 
-            Caption         =   "Descripcion"
-            Height          =   195
-            Index           =   1
-            Left            =   2520
-            TabIndex        =   55
-            Top             =   240
-            Width           =   1485
-         End
-         Begin VB.Label Label2 
-            Caption         =   "Producto"
-            Height          =   195
-            Index           =   0
-            Left            =   240
-            TabIndex        =   54
-            Top             =   240
-            Width           =   1125
-         End
-      End
-      Begin VB.TextBox txtHora 
-         Height          =   285
-         Index           =   2
-         Left            =   2520
-         TabIndex        =   34
-         Text            =   "Text1"
-         Top             =   1080
-         Width           =   1215
-      End
-      Begin VB.Frame FramefiltroMorales 
-         Height          =   735
-         Left            =   480
-         TabIndex        =   49
-         Top             =   4800
-         Width           =   4455
-         Begin VB.CheckBox chkFiltrado 
-            Caption         =   "Depósito 8"
-            Height          =   255
-            Index           =   0
-            Left            =   240
-            TabIndex        =   51
-            Top             =   360
-            Width           =   1815
-         End
-         Begin VB.CheckBox chkFiltrado 
-            Caption         =   "Depósito 9"
-            Height          =   255
-            Index           =   1
-            Left            =   2520
-            TabIndex        =   50
-            Top             =   360
-            Width           =   1815
-         End
-         Begin VB.Label lbFec 
-            AutoSize        =   -1  'True
-            Caption         =   "Depósitos auxiliares"
-            BeginProperty Font 
-               Name            =   "Tahoma"
-               Size            =   8.25
-               Charset         =   0
-               Weight          =   700
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H00000080&
-            Height          =   195
-            Index           =   10
-            Left            =   0
-            TabIndex        =   52
-            Top             =   0
-            Width           =   1710
-         End
-      End
-      Begin VB.TextBox txtFecha 
-         Height          =   285
-         Index           =   2
-         Left            =   1200
-         TabIndex        =   33
-         Text            =   "Text1"
-         Top             =   1080
-         Width           =   1215
-      End
-      Begin VB.CommandButton cmdCancelar 
-         Caption         =   "&Cancelar"
-         Height          =   375
-         Index           =   4
-         Left            =   7440
-         TabIndex        =   41
-         Top             =   4920
-         Width           =   975
-      End
-      Begin VB.CommandButton cmdFiltrar 
-         Caption         =   "Aceptar"
-         Height          =   375
-         Left            =   6360
-         TabIndex        =   40
-         Top             =   4920
-         Width           =   975
-      End
-      Begin VB.ComboBox cboDeposito 
-         Height          =   315
-         Index           =   4
-         Left            =   240
-         Style           =   2  'Dropdown List
-         TabIndex        =   35
-         Top             =   1800
-         Width           =   6495
-      End
-      Begin VB.ComboBox cboDeposito 
-         Height          =   315
-         Index           =   3
-         Left            =   6840
-         Style           =   2  'Dropdown List
-         TabIndex        =   36
-         Top             =   1800
-         Width           =   1695
-      End
-      Begin VB.Label lbFec 
-         AutoSize        =   -1  'True
-         Caption         =   "Impresión parte filtrado"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   -1  'True
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00000000&
-         Height          =   195
-         Index           =   14
-         Left            =   5640
-         TabIndex        =   63
-         Top             =   600
-         Width           =   2040
-      End
-      Begin VB.Label lbFec 
-         AutoSize        =   -1  'True
-         Caption         =   "Fecha"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00000080&
-         Height          =   195
-         Index           =   11
-         Left            =   240
-         TabIndex        =   45
-         Top             =   1080
-         Width           =   495
-      End
-      Begin VB.Image imgFecha 
-         Height          =   240
-         Index           =   2
-         Left            =   840
-         Picture         =   "frmProduVarios.frx":0A8D
-         Top             =   1080
-         Width           =   240
-      End
-      Begin VB.Label lbFec 
-         AutoSize        =   -1  'True
-         Caption         =   "Proceso filtrado aceite"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00800000&
-         Height          =   345
-         Index           =   9
-         Left            =   360
-         TabIndex        =   44
-         Top             =   360
-         Width           =   4170
-      End
-      Begin VB.Label lbFec 
-         AutoSize        =   -1  'True
-         Caption         =   "Origen"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00000080&
-         Height          =   195
-         Index           =   8
-         Left            =   240
-         TabIndex        =   43
-         Top             =   1560
-         Width           =   555
-      End
-      Begin VB.Label lbFec 
-         AutoSize        =   -1  'True
-         Caption         =   "Destino"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00000080&
-         Height          =   195
-         Index           =   7
-         Left            =   6840
-         TabIndex        =   42
-         Top             =   1560
-         Width           =   645
-      End
-   End
    Begin VB.Frame FrameTrasiego 
       Height          =   3015
       Left            =   0
@@ -608,7 +598,7 @@ Begin VB.Form frmProduVarios
       Begin VB.Frame FrameTrasiegoLaVAll 
          Height          =   735
          Left            =   240
-         TabIndex        =   46
+         TabIndex        =   43
          Top             =   1920
          Width           =   3975
          Begin VB.TextBox txtNumeroDec 
@@ -637,7 +627,7 @@ Begin VB.Form frmProduVarios
             Height          =   195
             Index           =   12
             Left            =   240
-            TabIndex        =   47
+            TabIndex        =   44
             Top             =   360
             Width           =   390
          End
@@ -693,7 +683,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   13
          Left            =   240
-         TabIndex        =   48
+         TabIndex        =   45
          Top             =   840
          Width           =   975
       End
@@ -836,6 +826,229 @@ Begin VB.Form frmProduVarios
          Width           =   4620
       End
    End
+   Begin VB.Frame FrameFiltrado 
+      Height          =   3735
+      Left            =   0
+      TabIndex        =   32
+      Top             =   0
+      Visible         =   0   'False
+      Width           =   8775
+      Begin VB.CommandButton cmdImpreFiltrado 
+         Height          =   495
+         Left            =   7920
+         Picture         =   "frmProduVarios.frx":0C2E
+         Style           =   1  'Graphical
+         TabIndex        =   51
+         Top             =   480
+         Width           =   615
+      End
+      Begin VB.TextBox txtHora 
+         Height          =   285
+         Index           =   2
+         Left            =   2520
+         TabIndex        =   34
+         Text            =   "Text1"
+         Top             =   1080
+         Width           =   1215
+      End
+      Begin VB.Frame FramefiltroMorales 
+         Height          =   735
+         Left            =   240
+         TabIndex        =   46
+         Top             =   2640
+         Width           =   4455
+         Begin VB.CheckBox chkFiltrado 
+            Caption         =   "Depósito 8"
+            Height          =   255
+            Index           =   0
+            Left            =   240
+            TabIndex        =   48
+            Top             =   360
+            Width           =   1815
+         End
+         Begin VB.CheckBox chkFiltrado 
+            Caption         =   "Depósito 9"
+            Height          =   255
+            Index           =   1
+            Left            =   2520
+            TabIndex        =   47
+            Top             =   360
+            Width           =   1815
+         End
+         Begin VB.Label lbFec 
+            AutoSize        =   -1  'True
+            Caption         =   "Depósitos auxiliares"
+            BeginProperty Font 
+               Name            =   "Tahoma"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00000080&
+            Height          =   195
+            Index           =   10
+            Left            =   0
+            TabIndex        =   49
+            Top             =   0
+            Width           =   1710
+         End
+      End
+      Begin VB.TextBox txtFecha 
+         Height          =   285
+         Index           =   2
+         Left            =   1200
+         TabIndex        =   33
+         Text            =   "Text1"
+         Top             =   1080
+         Width           =   1215
+      End
+      Begin VB.CommandButton cmdCancelar 
+         Caption         =   "&Cancelar"
+         Height          =   375
+         Index           =   4
+         Left            =   7560
+         TabIndex        =   38
+         Top             =   2880
+         Width           =   975
+      End
+      Begin VB.CommandButton cmdFiltrar 
+         Caption         =   "Aceptar"
+         Height          =   375
+         Left            =   6480
+         TabIndex        =   37
+         Top             =   2880
+         Width           =   975
+      End
+      Begin VB.ComboBox cboDeposito 
+         Height          =   315
+         Index           =   4
+         Left            =   240
+         Style           =   2  'Dropdown List
+         TabIndex        =   35
+         Top             =   1800
+         Width           =   6495
+      End
+      Begin VB.ComboBox cboDeposito 
+         Height          =   315
+         Index           =   3
+         Left            =   6840
+         Style           =   2  'Dropdown List
+         TabIndex        =   36
+         Top             =   1800
+         Width           =   1695
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Impresión parte filtrado"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   -1  'True
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   195
+         Index           =   14
+         Left            =   5640
+         TabIndex        =   50
+         Top             =   600
+         Width           =   2040
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Fecha"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   11
+         Left            =   240
+         TabIndex        =   42
+         Top             =   1080
+         Width           =   495
+      End
+      Begin VB.Image imgFecha 
+         Height          =   240
+         Index           =   2
+         Left            =   840
+         Picture         =   "frmProduVarios.frx":1630
+         Top             =   1080
+         Width           =   240
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Proceso filtrado aceite"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   14.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   345
+         Index           =   9
+         Left            =   360
+         TabIndex        =   41
+         Top             =   360
+         Width           =   4170
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Origen"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   8
+         Left            =   240
+         TabIndex        =   40
+         Top             =   1560
+         Width           =   555
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Destino"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   7
+         Left            =   6840
+         TabIndex        =   39
+         Top             =   1560
+         Width           =   645
+      End
+   End
 End
 Attribute VB_Name = "frmProduVarios"
 Attribute VB_GlobalNameSpace = False
@@ -853,6 +1066,9 @@ Public Opcion As Byte
     '4  .- Filtrado
     
     '5  .- Hacer el coupage autmatico. Lo llama desde proceso almazara
+    
+    
+    '6.- Trasiego/Filtrado desde LAVALLL
     
     
 Public Intercambio As String
@@ -886,8 +1102,19 @@ Private Sub cboDeposito_Click(Index As Integer)
                 I = InStr(1, Cad, ")")
                 If I > 0 Then Me.txtNumeroDec(0).Text = Mid(Cad, 1, I - 1)
             End If
+        ElseIf Index = 5 Then
+            I = InStr(1, cboDeposito(Index).Text, "(")
+            If I > 0 Then
+                Cad = Mid(cboDeposito(Index).Text, I + 1)
+                I = InStr(1, Cad, ")")
+                If I > 0 Then Me.txtNumeroDec(4).Text = Mid(Cad, 1, I - 1)
+            End If
         End If
     End If
+End Sub
+
+Private Sub cboDeposito_KeyPress(Index As Integer, KeyAscii As Integer)
+    KEYpressGnral KeyAscii, 2, True
 End Sub
 
 Private Sub chkFiltrado_KeyPress(Index As Integer, KeyAscii As Integer)
@@ -915,7 +1142,16 @@ Private Sub cmdCierreOrdProd_Click()
         Exit Sub
     End If
     
+    
+    
+    
+    
     If vParamAplic.QUE_EMPRESA = 4 Then
+        If CDate(txtFecha(0).Text) > vParamAplic.FechaActivaMasUno Then
+            MsgBox "Periodo de produccion no abierto", vbExclamation
+            Exit Sub
+        End If
+    
         'Tienen que indicar el campo HORA
         If txtHora(0).Text = "" Then
             MsgBox "Indique la hora del cierre de produccion", vbExclamation
@@ -953,11 +1189,19 @@ Private Sub cmdCierreOrdProd_Click()
 End Sub
 
 Private Sub cmdCoupage_Click()
+
+
+
     If txtFecha(1).Text = "" Then Exit Sub
     
     If vParamAplic.QUE_EMPRESA = 4 Then
         If CDate(txtFecha(1).Text) < vParamAplic.FechaActiva Then
             MsgBox "Periodo de produccion cerrado", vbExclamation
+            Exit Sub
+        End If
+        
+        If CDate(txtFecha(1).Text) > vParamAplic.FechaActivaMasUno Then
+            MsgBox "Periodo de produccion sin abrir", vbExclamation
             Exit Sub
         End If
         
@@ -977,12 +1221,28 @@ Private Sub cmdCoupage_Click()
     End If
     Screen.MousePointer = vbHourglass
     
-    If RealizarCoupage(True) Then
-        If RealizarCoupage(False) Then
-            'Si ha ido bien, y el articulo es UNO de los que se tiene que actualizar el upc
-            ActualizarPrecio
-            '---------
-            Unload Me
+    
+     
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        
+        If RealizarCoupageVALL(True) Then
+            If RealizarCoupageVALL(False) Then
+                'Si ha ido bien, y el articulo es UNO de los que se tiene que actualizar el upc
+                ActualizarPrecio
+                '---------
+                Unload Me
+            End If
+        End If
+        
+        
+    Else
+        If RealizarCoupage(True) Then
+            If RealizarCoupage(False) Then
+                'Si ha ido bien, y el articulo es UNO de los que se tiene que actualizar el upc
+                ActualizarPrecio
+                '---------
+                Unload Me
+            End If
         End If
     End If
     Screen.MousePointer = vbDefault
@@ -1094,7 +1354,7 @@ Dim FechaHora2 As Date
         
         If C1.LeerDatos(cboDeposito(4).ItemData(cboDeposito(4).ListIndex), False) Then
             If C2.LeerDatos(cboDeposito(3).ItemData(cboDeposito(3).ListIndex), False) Then
-                C1.HacerFiltrado C2, Me.chkFiltrado(0).Value = 1, Me.chkFiltrado(1).Value = 1, CC.contador + 1, FechaHora2
+                C1.HacerFiltrado C2, Me.chkFiltrado(0).Value = 1, Me.chkFiltrado(1).Value = 1, CC.contador + 1, FechaHora2, 0
                 
                 CC.IncrementarContador CC.TipoMovimiento
                 
@@ -1256,6 +1516,83 @@ Private Sub cmdImpreFiltrado_Click()
            
         End If
         
+End Sub
+
+Private Sub cmdLavall_Click()
+Dim b As Boolean
+Dim cOrig As cDeposito
+Dim cDest As cDeposito
+Dim Kilos As Currency
+Dim CC As CTiposMov
+   ' aqui aqui aqui
+    b = False
+   
+    
+    If cboDeposito(5).ListIndex = -1 Then Exit Sub
+    If cboDeposito(6).ListIndex = -1 Then Exit Sub
+    
+    
+    Set cOrig = New cDeposito
+    Set cDest = New cDeposito
+    
+    If cOrig.LeerDatos(cboDeposito(5).ItemData(cboDeposito(5).ListIndex), False) Then
+        If cDest.LeerDatos(cboDeposito(6).ItemData(cboDeposito(6).ListIndex), False) Then b = True
+    End If
+    
+    
+    
+    
+    If b Then
+        
+        If TodoCorrectoParaFiltrar(cOrig, cDest) Then
+                Kilos = ImporteFormateado(txtNumeroDec(4).Text)
+                conn.BeginTrans
+                If Me.optLaVall(0).Value Then
+                                    
+                    
+                    'FILTRADO
+                    Set CC = New CTiposMov
+                    CC.ConseguirContador ("TRO")
+    
+                    b = cOrig.HacerFiltrado(cDest, False, False, CC.contador + 1, CDate(Me.txtFecha(4).Text & " " & Me.txtHora(4).Text), Kilos)
+                    
+                    If b Then
+                        CC.IncrementarContador CC.TipoMovimiento
+                    
+                        'hco filtrados
+                        'sfiltradoaceite(idFiltrado,Trabajador,FechaHora,DepositoInicial,DepositoFinal,Kilos,usaAux8,usaAux9,idPartida)
+                        Cad = "(" & CC.contador & "," & TrabajadorConectado_ & "," & DBSet(CDate(Me.txtFecha(4).Text & " " & Me.txtHora(4).Text), "FH") & "," & cOrig.NumDeposito & ","
+                        Cad = Cad & cDest.NumDeposito & "," & DBSet(Kilos, "N") & ",false,false," & cDest.idPartida & ")"
+                        Cad = "insert into sfiltradoaceite(idFiltrado,Trabajador,FechaHora,DepositoInicial,DepositoFinal,Kilos,usaAux8,usaAux9,idPartida) values " & Cad
+                        
+                        If Not EjecutaSQL(conAri, Cad, False) Then MsgBox "El programa continuará. Llame a soporte tecnico" & vbCrLf & Cad, vbExclamation
+                            
+                    
+                        HacerStockProductosFiltrados CC.contador, CDate(Me.txtFecha(4).Text & " " & Me.txtHora(4).Text)
+            
+                
+                    End If
+                              
+                Else
+                    b = cOrig.HacerTrasiego(cDest, Kilos = cOrig.Kilos, Kilos, CDate(Me.txtFecha(4).Text & " " & Me.txtHora(4).Text))
+                
+                End If
+                If b Then
+                    conn.CommitTrans
+                Else
+                    conn.RollbackTrans
+                End If
+
+        
+                If b Then Unload Me
+        
+        
+        End If
+
+
+    End If
+    Set cOrig = Nothing
+    Set cDest = Nothing
 End Sub
 
 Private Sub cmdLote_Click(Index As Integer)
@@ -1438,7 +1775,7 @@ Dim C1 As cDeposito
             
             RegularizarFinLote_Partida C1
         End If
-        C1.QuitarAsignacionDeposito_ 2, Now
+        C1.QuitarAsignacionDeposito2 2, Now, -C1.Kilos
         Cad = ""
     End If
     Set C1 = Nothing
@@ -1520,6 +1857,26 @@ Private Sub Form_Load()
             txtArtFiltrado(I).Text = RecuperaValor(Cad, I + 1)
             If txtArtFiltrado(I).Text <> "" Then txtArtFiltrado(I + 3).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", txtArtFiltrado(I).Text, "T")
         Next I
+    Case 6
+        PonerFrameVisible FrameLaVallTraFiltrado
+        Me.Caption = vEmpresa.nomempre
+        CargaComobosLaVall
+    
+    
+             'Cargamos los articulos de vallparam (servira tanto para morales como para La VALL
+        'diatomeasRojas diatomeasVerdas  celulosa
+        Cad = DevuelveDesdeBD(conAri, "concat(diatomeasRojas ,'|',diatomeasVerdas,'|',celulosa,'|')", "vallparam", "1", "1")
+                
+        For I = 0 To 2
+            BloquearTxt Me.txtArtFiltrado(I), True
+            BloquearTxt Me.txtArtFiltrado(I + 3), True
+            txtArtFiltrado(I).Text = RecuperaValor(Cad, I + 1)
+            If txtArtFiltrado(I).Text <> "" Then txtArtFiltrado(I + 3).Text = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", txtArtFiltrado(I).Text, "T")
+        Next I
+    
+    
+    
+    
     End Select
     If Opcion = 5 Then
         cmdCancelar(1).Cancel = True
@@ -1562,6 +1919,32 @@ Private Sub imgFecha_Click(Index As Integer)
     frmC.Show vbModal
     Set frmC = Nothing
     
+End Sub
+
+Private Sub optLaVall_Click(Index As Integer)
+    FrameFilltroLaVall2.visible = Index = 0
+End Sub
+
+Private Sub optLaVall_KeyPress(Index As Integer, KeyAscii As Integer)
+    KEYpressGnral KeyAscii, 2, True
+End Sub
+
+Private Sub txtArtFiltrado_LostFocus(Index As Integer)
+Dim C As String
+    If Index >= 0 And Index <= 2 Then
+        Cad = ""
+        txtArtFiltrado(Index).Text = Trim(txtArtFiltrado(Index).Text)
+        If txtArtFiltrado(Index).Text <> "" Then
+            C = "codartic"
+            Cad = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", txtArtFiltrado(Index).Text, "T", C)
+            If Cad = "" Then
+                MsgBox "No existe articulo: " & txtArtFiltrado(Index).Text
+            Else
+                txtArtFiltrado(Index).Text = C
+            End If
+        End If
+        txtArtFiltrado(Index + 3).Text = Cad
+    End If
 End Sub
 
 Private Sub txtFecha_GotFocus(Index As Integer)
@@ -1764,7 +2147,7 @@ Dim vCStock As cStock
 Dim b As Boolean
 Dim CantidadTotalAProducir As Currency 'Cuatro decimales
 
-    
+
     'ACciones a realizar
     'Comprobar stock sublineas, ya que es la que van a disminuir la cantidad
     'Damos de alta en stock (y smoval) las lienas ppales
@@ -1779,6 +2162,7 @@ Dim CantidadTotalAProducir As Currency 'Cuatro decimales
     
     If Not SoloComprobar Then conn.BeginTrans
 
+        
         
     
     'Los mezclantes
@@ -1908,7 +2292,6 @@ Dim CantidadTotalAProducir As Currency 'Cuatro decimales
         
     
     
-    
     RealizarCoupage = True
     
     Set miRsAux = Nothing
@@ -1946,7 +2329,7 @@ Dim MateriaPrima As Boolean
     
     'mAYO 2010.   eL FACTOR CONVERSION VIENE ya grabado en sliorpr2
     '           quiero decir que no hay que volver a multiplcarlo
-    'If CantidadNecesaria <> 1 Then Stop
+    'If CantidadNecesaria <> 1 Then
     CantidadNecesaria = 1  'YA hemos grabado la sliordpr
     
     If Sublineas Then
@@ -2037,6 +2420,10 @@ Dim cDe As cDeposito
 Dim ParaDeposito As String
 Dim Secuencia As Integer
 Dim leerDeLotesAsignadosEnProduccion As Boolean
+Dim OtroTexto As String
+Dim Cadena2 As String
+
+
     On Error GoTo ERealizarProduccionLOTES
 
     RealizarProduccionLOTES = False
@@ -2214,18 +2601,38 @@ Dim leerDeLotesAsignadosEnProduccion As Boolean
                                 Set cDe = New cDeposito
                                 ParaDeposito = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numlote", ParaDeposito, "T")
                                 If vParamAplic.QUE_EMPRESA = 4 Then
-                                    'Para LAVall nop puede envasar fuera del 18
+                                    
+                                'Para LAVall nop puede envasar fuera del 18
                                     If ParaDeposito <> "18" Then
-                                        If SoloComprobar Then Cad = vbCrLf & "-Solo puede envasar desde el depósito 18. Deposito seleccionado: " & ParaDeposito
+                                            
+                                        'SOOOOLO envasamos del 18
+                                        Cadena2 = DevuelveDesdeBD(conAri, "numlote", "proddepositos", "numdeposito", "18", "T")
+                                        If Cadena2 <> RecuperaValor(LotesNecesartios(II), 1) Then
+                                            If SoloComprobar Then
+                                                Cad = vbCrLf & "-Solo puede envasar desde el depósito 18. Deposito seleccionado: " & ParaDeposito
+                                            Else
+                                                Err.Raise 53, , "No es deposito 18"
+                                            End If
+                                        Else
+                                            ParaDeposito = "18"
+                                        End If
                                     End If
+                                    
+                                  
                                 End If
                                 If Cad = "" Then
                                     If Not cDe.LeerDatos(CInt(ParaDeposito), True) Then
-                                        Cad = "Error leyendo datos deposito 18" 'NO DEBERIA PASAR NUNCA
+                                        Cad = "Error leyendo datos deposito " & ParaDeposito 'NO DEBERIA PASAR NUNCA
                                     Else
+                                    
+                                        If SoloComprobar Then
+                                            If cDe.AvisarMovimientoHcoPosterior(vvCstock.HoraMov) Then
+                                                If MsgBox("Movimientos posteriores en el deposito. ¿Continuar?", vbQuestion + vbYesNoCancel) <> vbYes Then Cad = vbCrLf & "- Moviemientos posteriores en deposito"
+                                            End If
+                                        End If
                                         If Not SoloComprobar Then
                                             cDe.VariacionKilosDeposito -Cant2
-                                            cDe.InsertarEnHco 5, DateAdd("s", Secuencia, cL.HoraMov), "Prod: " & Format(RecuperaValor(Intercambio, 1), "00") & " - " & RecuperaValor(Intercambio, 2)
+                                            cDe.InsertarEnHco 5, DateAdd("s", Secuencia, cL.HoraMov), "Prod: " & Format(RecuperaValor(Intercambio, 1), "00") & " - " & RecuperaValor(Intercambio, 2), -Cant2
                                             Espera 0.95 'porque si no puede dar entrada duplicada
                                         End If
                                     End If
@@ -2516,6 +2923,7 @@ Dim T1 As Single
 Dim FLin As Date
 Dim CantidadQueLLevo As Currency
 Dim cL As cLotaje
+Dim MoviMIentosPosteriores As String
 
     On Error GoTo ERealizarCUPLOTES
 
@@ -2545,7 +2953,9 @@ Dim cL As cLotaje
     b = False
     Cad = ""
     ErroresEnPartidas = ""
+              
     'Comprobaremos que todos traen el numero de lote puesto y que los
+  
     While Not miRsAux.EOF
         If IsNull(miRsAux!artlote) Then
             AuxPartida = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", miRsAux!codartic, "T")
@@ -2565,7 +2975,12 @@ Dim cL As cLotaje
                 'Dos lineas del mismo articulo
                 CantidadQueLLevo = CantidadQueLLevo + miRsAux!cantlote
             End If
+            
         End If
+        
+        
+        
+        
         miRsAux.MoveNext
         
         
@@ -2577,8 +2992,17 @@ Dim cL As cLotaje
     'La utlima linea
     If MiNumeroLote <> "" Then
         If CantidadQueLLevo <> CantidadNecesaria Then
-            AuxPartida = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", MiNumeroLote, "T")
-            ErroresEnPartidas = ErroresEnPartidas & MiNumeroLote & "   " & AuxPartida & vbCrLf
+            AuxPartida = "S"
+            If vParamAplic.QUE_EMPRESA = 4 Then
+                  If Opcion = 5 Then AuxPartida = ""  'no compruebo. Viene de molturacion
+            End If
+            
+            If AuxPartida <> "" Then
+                AuxPartida = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", MiNumeroLote, "T")
+            
+            
+                ErroresEnPartidas = ErroresEnPartidas & MiNumeroLote & "   " & AuxPartida & vbCrLf
+            End If
         End If
     End If
     
@@ -2594,10 +3018,11 @@ Dim cL As cLotaje
     MiNumeroLote = ""
     AuxPartida = ""
     ErroresEnPartidas = ""
+    MoviMIentosPosteriores = ""
     Set cP = New cPartidas
     Set vvCstock = New cStock
     Set cDEP = New cDeposito
-    
+
     While Not miRsAux.EOF
         If Err_x_Articulo <> miRsAux!codartic Then
             'Han habido errores en el articulo anterior.
@@ -2623,7 +3048,7 @@ Dim cL As cLotaje
                     'PERFECTO. NO HAgo nada
                     If Val(miRsAux!fincuba) = 1 Then
                         'Regulzarizaremos el deposito
-                        RegularizacionDeposito = cP.Cantidad - CantidadNecesaria
+                        If vParamAplic.QUE_EMPRESA <> 4 Then RegularizacionDeposito = cP.Cantidad - CantidadNecesaria
                     End If
                 Else
                     If Val(miRsAux!fincuba) = 0 Then
@@ -2653,16 +3078,29 @@ Dim cL As cLotaje
                     AuxPartida = AuxPartida & vbCrLf & Cad
                 End If
             
+                If vParamAplic.QUE_EMPRESA = 4 Then
+                    cDEP.LeerDatos miRsAux!Deposito, False
+                    If cDEP.AvisarMovimientoHcoPosterior(vvCstock.HoraMov) Then MoviMIentosPosteriores = MoviMIentosPosteriores & vbCrLf & "Deposito: " & cDEP.NumDeposito & "  - Movimientos posteriores"
+                    Set cDEP = Nothing
+                    Set cDEP = New cDeposito
+                End If
             Else
                 'Por si acaso es FIN deposito
                 RegularizacionDeposito = cP.Cantidad - CantidadNecesaria
-            
+                
+                
+                'En la VALL no regularizamos partida
+                If vParamAplic.QUE_EMPRESA = 4 Then RegularizacionDeposito = 0
+                
                 CantidadNecesaria = -1 * CantidadNecesaria  'En negativo
                 
                 'Incrementamos los kilos
                 cDEP.LeerDatos miRsAux!Deposito, False
-                cDEP.VariacionKilosDeposito CantidadNecesaria
                 
+                
+                
+                cDEP.InsertarEnHco 2, vvCstock.HoraMov, "CUP" & RecuperaValor(Me.Intercambio, 1), CantidadNecesaria
+                cDEP.VariacionKilosDeposito CantidadNecesaria
                 
                 
                 If Not b Then
@@ -2722,9 +3160,24 @@ Dim cL As cLotaje
                         cL.Cantidad = Abs(RegularizacionDeposito)
                         cL.InsertarLote
                                                                                            
-                        cP.FinPartida   'POndra a cero la cantidad
-                        
-                        
+                        If vParamAplic.QUE_EMPRESA = 4 Then
+                            Cad = DevuelveDesdeBD(conAri, "count(*)", "proddepositos", "numlote", cP.NUmlote, "T")
+                            If Val(Cad) > 1 Then
+                                'Tiene mas de un datos en los depositos
+                                Cad = "MAS"
+                            Else
+                                Cad = ""
+                            End If
+                        Else
+                            Cad = ""
+                        End If
+                                                                                           
+                        If Cad = "" Then
+                            cP.FinPartida   'POndra a cero la cantidad
+                       
+                        Else
+                            cP.IncrementarCantidad CantidadNecesaria
+                        End If
                         'Cantidad
                         
                         If vvCstock.Cantidad > 0 Then vvCstock.Importe = (vvCstock.Importe / vvCstock.Cantidad) * cL.Cantidad
@@ -2739,7 +3192,8 @@ Dim cL As cLotaje
                     'Ponemos vacios los campos del deposito
                     'Fuera numero de lote y fuera kilos
                     If vvCstock.HoraMov = "" Then vvCstock.HoraMov = Format(Now, "hh:mm")
-                    cDEP.QuitarAsignacionDeposito_ 1, vvCstock.HoraMov
+                    
+                    cDEP.QuitarAsignacionDeposito2 1, vvCstock.HoraMov, -vvCstock.Cantidad
                     Espera 0.75
                 End If
             End If
@@ -2760,6 +3214,12 @@ Dim cL As cLotaje
             ErroresEnPartidas = ErroresEnPartidas & "¿Continuar?"
             If MsgBox(ErroresEnPartidas, vbExclamation + vbYesNo) = vbNo Then RealizarCoupageLOTES = False
         End If
+        If Opcion = 5 Then MoviMIentosPosteriores = ""
+        If MoviMIentosPosteriores <> "" Then
+            MoviMIentosPosteriores = MoviMIentosPosteriores & vbCrLf & vbCrLf & "¿Continuar de igual modo?"
+            If MsgBox(MoviMIentosPosteriores, vbQuestion + vbYesNoCancel) <> vbYes Then RealizarCoupageLOTES = False
+        End If
+        
         GoTo ERealizarCUPLOTES 'para k haga los =nothing
     End If
 
@@ -2827,7 +3287,7 @@ Dim cL As cLotaje
                 Espera 0.5
                 
                 FLin = DateAdd("s", 1, vvCstock.HoraMov)
-                cDEP.InsertarEnDeposito 1, FLin
+                cDEP.InsertarEnDeposito2 1, FLin, "CUP" & RecuperaValor(Me.Intercambio, 1)
                 
                 
                 Espera 0.8
@@ -3158,6 +3618,51 @@ Private Sub CargaComobosTrasiegos(Inicio As Byte, Fin As Byte)
     Set miRsAux = Nothing
 End Sub
 
+'LA VALL
+'  Pondremos los destinos TODOS, y los destinos los que esten llenos.
+'  Por programa comprobaremos
+Private Sub CargaComobosLaVall()
+
+    Set miRsAux = New ADODB.Recordset
+      For I = 5 To 6
+        cboDeposito(I).Clear
+        
+        
+            Cad = "SELECT proddepositos.numdeposito, spartidas.codartic, sartic.nomartic, spartidas.numlote, kilos vlitros"
+            '(kilos * factorconversion) vlitros"
+            Cad = Cad & " FROM  proddepositos left join spartidas on spartidas.numlote=proddepositos.numlote"
+            Cad = Cad & " left join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<1"
+            
+            If I = 5 Then Cad = Cad & " Where Not spartidas.numLote Is Null"
+            
+            Cad = Cad & " ORDER BY numdeposito"
+    
+        
+        
+            miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            While Not miRsAux.EOF
+                
+                Cad = Format(miRsAux!NumDeposito, "00") & "  "
+                Cad = "Deposito " & Cad
+                If Not IsNull(miRsAux!NUmlote) Then
+                
+                    Cad = Cad & Mid(miRsAux!NUmlote & "       ", 1, 9) & " " & miRsAux!NomArtic & " (" & Format(miRsAux!vlitros, FormatoCantidad) & ")"
+                End If
+                
+                
+                cboDeposito(I).AddItem Cad
+                cboDeposito(I).ItemData(cboDeposito(I).NewIndex) = miRsAux!NumDeposito
+                
+                miRsAux.MoveNext
+            Wend
+            miRsAux.Close
+    Next I
+    Set miRsAux = Nothing
+End Sub
+
+
+
+
 
 
 
@@ -3245,5 +3750,661 @@ eRegularizarFinLote_Partida:
     
 End Sub
 
+
+
+
+'----------------------------------------------------------------------------------
+Private Function TodoCorrectoParaFiltrar(C1 As cDeposito, C2 As cDeposito) As Boolean
+Dim CC As CTiposMov
+Dim FechaHora2 As Date
+Dim TextoFiltrado As String
+Dim Cantidad As Currency
+Dim Cadena2 As String
+
+    TodoCorrectoParaFiltrar = False
+    Cad = ""
+    If txtFecha(4).Text = "" Then Cad = "-Fecha"
+    If Me.txtHora(4).Text = "" Then Cad = Cad & vbCrLf & "  -Hora"
+    If Me.txtNumeroDec(4).Text = "" Then Cad = Cad & vbCrLf & "   -Cantidad a mover"
+    
+    For I = 0 To 2
+        If Me.txtArtFiltrado(I).Text <> "" And Me.txtNumeroDec(I + 1).Text <> "" And Me.txtLote(I).Text = "" Then
+            Cad = Cad & vbCrLf & "  -Lote para " & txtArtFiltrado(I).Text
+        Else
+            If Me.txtNumeroDec(I + 1).Text <> "" Then TextoFiltrado = "S"
+        End If
+    Next
+    
+    If TextoFiltrado = "" Then
+        If Me.optLaVall(0).Value Then Cad = Cad & vbCrLf & "   -Selecciona filtrado y no indica filtros a utilizar"
+    End If
+    
+    'No puede haber TRASIEGO sobre mismo deposito
+    If Me.optLaVall(1).Value Then
+        If C1.NumDeposito = C2.NumDeposito Then Cad = Cad & vbCrLf & "   -No puede realizar trasiego sobre el mismo deposito"
+    End If
+            
+    If C1.NumDeposito <> C2.NumDeposito Then
+        'Distintos depositos
+        'Solo podriamos pasar si el destino esta vacio, o el destino tiene el mismo numero de lote.
+        'Si no, a coupar
+        If C2.idPartida > 0 Then
+            'Tiene algo
+            If C1.NUmlote <> C2.NUmlote Then
+                'deber realizar coupage
+                Cad = Cad & vbCrLf & "-Lotes distintos"
+            End If
+        End If
+    End If
+    
+    
+    If Cad <> "" Then
+        Cad = "Campos requeridos: " & vbCrLf & Cad
+        MsgBox Cad, vbExclamation
+        Exit Function
+    End If
+        
+    
+    
+    If CDate(txtFecha(4).Text) < vParamAplic.FechaActiva Then
+        MsgBox "Menor que fecha activa", vbExclamation
+        Exit Function
+    End If
+    
+    
+    Cad = ""
+    If C1.AvisarMovimientoHcoPosterior(CDate(Me.txtFecha(4).Text & " " & Me.txtHora(4).Text)) Then Cad = Cad & vbCrLf & " -Origen"
+    If C2.AvisarMovimientoHcoPosterior(CDate(Me.txtFecha(4).Text & " " & Me.txtHora(4).Text)) Then Cad = Cad & vbCrLf & " -Destino"
+    If Cad <> "" Then
+        Cad = "Hay movimientos posteriores en el depósito: " & Cad & vbCrLf & "¿Continuar?"
+        If MsgBox(Cad, vbQuestion + vbYesNoCancel) <> vbYes Then Exit Function
+    End If
+    
+    
+    'cantidad a mover
+    Cad = ""
+    Cantidad = ImporteFormateado(txtNumeroDec(4).Text)
+    If Cantidad > C1.Kilos Then Cad = Cad & "    -No puede traspasar mas cantidad de la disponible    "
+    If Cantidad + C2.Kilos > C2.Capacidad Then Cad = Cad & vbCrLf & "    -Aceite en destino mayor que capacidad "
+    If Cad <> "" Then
+        Cad = "Error en KILOS" & vbCrLf & vbCrLf & Cad
+        MsgBox Cad, vbExclamation
+        Exit Function
+    End If
+    
+    TrabajadorConectado_ = Val(PonerTrabajadorConectado(vUsu.Login))
+    Cad = "Va a realizar el " & IIf(Me.optLaVall(0).Value, "filtrado", "trasiego") & " : " & vbCrLf & "Origen: " & cboDeposito(5).Text
+    Cad = Cad & vbCrLf & "Destino: " & cboDeposito(6).Text & vbCrLf & vbCrLf
+    Cad = Cad & Space(20) & "KILOS: " & Me.txtNumeroDec(4).Text & vbCrLf & vbCrLf
+    'Si hay gasto de productos en filtrado
+    For I = 1 To 3
+        If Me.txtNumeroDec(I).Text <> "" Then Cad = Cad & "      - " & Me.txtArtFiltrado(2 + I).Text & ": " & txtNumeroDec(I).Text & "  Kilos" & vbCrLf
+    Next I
+
+   
+    If MsgBox(Cad, vbQuestion + vbYesNoCancel) <> vbYes Then Exit Function
+    
+    TodoCorrectoParaFiltrar = True
+End Function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'*****************************************************************************************+
+
+
+
+'-------------------------------------------------------------------------
+' Realizar el coupage
+'
+Private Function RealizarCoupageVALL(SoloComprobar As Boolean) As Boolean
+Dim vCStock As cStock
+Dim b As Boolean
+Dim CantidadTotalAProducir As Currency 'Cuatro decimales
+
+Dim DepositoDestinoCopuage As Integer
+
+    'ACciones a realizar
+    'Comprobar stock sublineas, ya que es la que van a disminuir la cantidad
+    'Damos de alta en stock (y smoval) las lienas ppales
+    'Damos de baja   "        "        las sublineas
+    RealizarCoupageVALL = False
+    Set miRsAux = New ADODB.Recordset
+    Set vCStock = New cStock
+    
+    
+    
+    
+    
+    If Not SoloComprobar Then conn.BeginTrans
+
+        
+        
+    Cad = "Select deposito from olicoupage where codigo=" & RecuperaValor(Me.Intercambio, 1)
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    'NO PUEDE SER EOF
+    DepositoDestinoCopuage = miRsAux!Deposito
+    miRsAux.Close
+    
+    'Los mezclantes
+    'Como no lleva factor conversion. Necesito los precios para los calculos de importes
+    Cad = "select olicoupagelin.*,preciouc, preciomp from olicoupagelin,sartic where olicoupagelin.codartic=sartic.codartic and "
+    Cad = Cad & "  codigo = " & RecuperaValor(Me.Intercambio, 1)
+    'cad = "select * from olicoupagelin where codigo = " & RecuperaValor(Me.Intercambio, 1)
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    b = False
+    
+    CantidadTotalAProducir = 0
+    While Not miRsAux.EOF
+        b = False
+        If InicializarCStockCoupage(vCStock, "S", False) Then
+            
+            If vCStock.MueveStock Then
+                If SoloComprobar Then
+                    b = vCStock.MoverStock(False)
+                Else
+                    'Estamos ejecutando la actualizacion
+                    '---------------------------------------------
+                    'si hay control de stock para el articulo actualizar en salmac e insertar en smoval
+                    'en actualizar stock comprobamos si el articulo tiene control de stock
+                    b = vCStock.ActualizarStock(False)
+                End If
+            Else
+                b = True
+            End If
+            CantidadTotalAProducir = CantidadTotalAProducir + miRsAux!Kilos
+        End If
+        
+        If Not b Then
+            While Not miRsAux.EOF
+                miRsAux.MoveNext  'para que no siga
+            Wend
+        Else
+            'Al siguiente
+            miRsAux.MoveNext
+        End If
+    Wend
+    miRsAux.Close
+    
+    
+    If Not b Then
+        Set miRsAux = Nothing
+        Set vCStock = Nothing
+        If Not SoloComprobar Then conn.RollbackTrans
+        Exit Function 'Si no puede inicializar los stocks, de las sublineas salimos
+    End If
+    
+    
+    'SSi ha ido bien comprobamos los LOTES
+    If Not RealizarCoupageLOTESVALL(SoloComprobar, CantidadTotalAProducir, DepositoDestinoCopuage) Then
+    
+            Set miRsAux = Nothing
+            Set vCStock = Nothing
+            If Not SoloComprobar Then conn.RollbackTrans
+            Exit Function 'Si no puede inicializar los stocks, de las sublineas salimos
+    End If
+    Set miRsAux = Nothing
+    Set miRsAux = New ADODB.Recordset
+    
+    
+    
+    
+    
+    
+    'AHora comprobamos los stcosk de las entraddas , de las lineas
+    Cad = TransformaComasPuntos(CStr(CantidadTotalAProducir))
+    
+    Cad = "select olicoupage.codartic," & Cad & " kilos,preciouc from olicoupage,sartic where"
+    Cad = Cad & " olicoupage.codartic=sartic.codartic and codigo=" & RecuperaValor(Me.Intercambio, 1)
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    b = False
+    
+    While Not miRsAux.EOF
+        b = False
+        If InicializarCStockCoupage(vCStock, "E", False) Then   'Las lineas son de netrada
+        
+            If vCStock.MueveStock Then
+                If SoloComprobar Then
+                    'B = vCStock.MoverStock(False)
+                    b = True
+                    
+                    
+                    
+                    
+                Else
+                    b = vCStock.ActualizarStock(False)
+                End If
+            Else
+                b = True
+            End If
+        End If
+        
+        If Not b Then
+            While Not miRsAux.EOF
+                miRsAux.MoveNext  'para que no siga
+            Wend
+        Else
+            'Al siguiente
+            miRsAux.MoveNext
+        End If
+    Wend
+    miRsAux.Close
+    
+    
+    If Not b Then
+        Set miRsAux = Nothing
+        Set vCStock = Nothing
+        If Not SoloComprobar Then conn.RollbackTrans
+        Exit Function 'Si no puede inicializar los stocks, de las sublineas salimos
+    End If
+    
+    
+    
+    
+    'Acutailizaremos algnas cosas como la fecha de baja
+    If Not SoloComprobar Then
+        conn.CommitTrans
+        Cad = "UPDATE olicoupage set YaCreado = 1"
+        Cad = Cad & " WHERE  codigo=" & RecuperaValor(Me.Intercambio, 1)
+        conn.Execute Cad
+    End If
+    
+    
+        
+    
+    
+    RealizarCoupageVALL = True
+    
+    Set miRsAux = Nothing
+    Set vCStock = Nothing
+    
+    
+End Function
+
+
+
+
+
+
+'------------------------  LOTES COUPAGE
+Private Function RealizarCoupageLOTESVALL(SoloComprobar As Boolean, CantidadMezcla As Currency, DepositoDestino As Integer) As Boolean
+Dim ErroresEnPartidas As String
+Dim CantidadNecesaria As Currency
+Dim AuxPartida As String
+Dim Err_x_Articulo As String
+Dim MiNumeroLote As String
+Dim cP As cPartidas   'Para los numeros de lote
+Dim Rc As Byte
+Dim vvCstock As cStock
+Dim b As Boolean
+Dim cDe As cDeposito
+
+Dim T1 As Single
+Dim FLin As Date
+Dim CantidadQueLLevo As Currency
+Dim cL As cLotaje
+Dim MoviMIentosPosteriores As String
+Dim TextoParaHcoDepositosLaVall As String
+Dim CuantoHabiaDepositoDestino As Currency
+Dim cDestino As cDeposito
+
+
+    On Error GoTo ERealizarCUPLOTES
+
+    RealizarCoupageLOTESVALL = False
+    
+
+    If Not SoloComprobar Then
+
+        Set cL = New cLotaje
+        cL.DetaMov = "CUP"
+        cL.Documento = RecuperaValor(Intercambio, 1)
+        cL.Fechamov = CDate(Me.txtFecha(1).Text)
+        cL.HoraMov = CDate(Me.txtFecha(1).Text & " " & Format(Now, "hh:nn:ss"))
+        cL.ProvCliTra = TrabajadorConectado_
+        cL.LineaDocu = 0
+        cL.SubLinea = 0
+    End If
+    'Por si acaso no ha puesto numero de lotes. DEBERIA HABERLOS PUESTO
+    Cad = "select olicoupagelin.codartic,kilos,olicoupagelinlotes.codartic artlote,numlote,cantlote"
+    Cad = Cad & " ,fincuba,deposito"
+    'Para que ordene primeropor los depositos que no es el destino. El order by 8 es pq el campo es el octavo
+    Cad = Cad & " , if(deposito=" & DepositoDestino & ",1,0)"
+    Cad = Cad & " FROM olicoupagelin left join olicoupagelinlotes on"
+    Cad = Cad & " olicoupagelin.codArtic = olicoupagelinlotes.codArtic"
+    Cad = Cad & " and olicoupagelin.codigo= olicoupagelinlotes.codigo WHERE  olicoupagelin.codigo ="
+    Cad = Cad & RecuperaValor(Me.Intercambio, 1) & " ORDER BY 8,codartic"
+    miRsAux.Open Cad, conn, adOpenKeyset, adLockPessimistic, adCmdText
+    b = False
+    Cad = ""
+    ErroresEnPartidas = ""
+    TextoParaHcoDepositosLaVall = ""
+    CuantoHabiaDepositoDestino = 0
+    Set cDestino = New cDeposito
+    'Comprobaremos que todos traen el numero de lote puesto y que los
+  
+    While Not miRsAux.EOF
+        If IsNull(miRsAux!artlote) Then
+            AuxPartida = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", miRsAux!codartic, "T")
+            Cad = Cad & miRsAux!codartic & "   " & AuxPartida
+        Else
+            If MiNumeroLote <> miRsAux!codartic Then
+                If MiNumeroLote <> "" Then
+                    If CantidadQueLLevo <> CantidadNecesaria Then
+                        AuxPartida = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", MiNumeroLote, "T")
+                        ErroresEnPartidas = ErroresEnPartidas & MiNumeroLote & "   " & AuxPartida & vbCrLf
+                    End If
+                End If
+                MiNumeroLote = miRsAux!codartic
+                CantidadNecesaria = miRsAux!Kilos
+                CantidadQueLLevo = miRsAux!cantlote
+            Else
+                'Dos lineas del mismo articulo
+                CantidadQueLLevo = CantidadQueLLevo + miRsAux!cantlote
+            End If
+            
+            If miRsAux!Deposito <> DepositoDestino Then
+                TextoParaHcoDepositosLaVall = miRsAux!NUmlote
+            End If
+        End If
+        
+        If miRsAux!Deposito = DepositoDestino Then
+            If Not SoloComprobar Then
+                CuantoHabiaDepositoDestino = miRsAux!cantlote
+                cDestino.LeerDatos DepositoDestino, False
+            End If
+        End If
+        miRsAux.MoveNext
+        
+        
+        
+        
+    Wend
+    
+    
+    'La utlima linea
+    If MiNumeroLote <> "" Then
+        If CantidadQueLLevo <> CantidadNecesaria Then
+            AuxPartida = "S"
+            If vParamAplic.QUE_EMPRESA = 4 Then
+                  If Opcion = 5 Then AuxPartida = ""  'no compruebo. Viene de molturacion
+            End If
+            
+            If AuxPartida <> "" Then
+                AuxPartida = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", MiNumeroLote, "T")
+            
+            
+                ErroresEnPartidas = ErroresEnPartidas & MiNumeroLote & "   " & AuxPartida & vbCrLf
+            End If
+        End If
+    End If
+    
+    If Cad <> "" Or ErroresEnPartidas <> "" Then
+        If Cad <> "" Then Cad = "Lineas articulo sin indicar numero de lote: " & vbCrLf & String(60, "-") & vbCrLf & Cad
+        If ErroresEnPartidas <> "" Then Cad = Cad & vbCrLf & vbCrLf & "Articulos lineas sin coincidir cantidades lotes: " & vbCrLf & String(70, "-") & vbCrLf & ErroresEnPartidas
+        miRsAux.Close
+        MsgBox Cad, vbExclamation
+        Exit Function
+    End If
+        
+    miRsAux.MoveFirst
+    MiNumeroLote = ""
+    AuxPartida = ""
+    ErroresEnPartidas = ""
+    MoviMIentosPosteriores = ""
+    Set cP = New cPartidas
+    Set vvCstock = New cStock
+    Set cDe = New cDeposito
+
+    While Not miRsAux.EOF
+        If Err_x_Articulo <> miRsAux!codartic Then
+            'Han habido errores en el articulo anterior.
+            If AuxPartida <> "" Then
+                AuxPartida = "-  " & Err_x_Articulo & vbCrLf & AuxPartida & vbCrLf
+                ErroresEnPartidas = ErroresEnPartidas & AuxPartida & vbCrLf
+            End If
+            Err_x_Articulo = miRsAux!codartic
+            AuxPartida = ""
+        End If
+
+        b = False
+        If InicializarCStockCoupage(vvCstock, "E", True) Then    'Las lineas son de netrada
+    
+            CantidadNecesaria = CCur(miRsAux!cantlote)
+            b = True
+            '// NUmeros de LOTE
+            Cad = ""
+            If cP.LeerDesdeArticulo(vvCstock.codartic, vvCstock.codAlmac, miRsAux!NUmlote) Then
+            
+            Else
+                'NO existe lote. De momento dejo continuar
+                b = False
+                Cad = "NO hay ningun lote "
+                
+            End If
+    
+        
+            If SoloComprobar Then
+                If Cad <> "" Then
+                    Cad = Cad & " (" & miRsAux!NUmlote & ")"
+                    Cad = Space(15) & "-- " & vvCstock.codartic & "  " & Cad
+                    AuxPartida = AuxPartida & vbCrLf & Cad
+                End If
+            
+                If vParamAplic.QUE_EMPRESA = 4 Then
+                    cDe.LeerDatos miRsAux!Deposito, False
+                    If cDe.AvisarMovimientoHcoPosterior(vvCstock.HoraMov) Then MoviMIentosPosteriores = MoviMIentosPosteriores & vbCrLf & "Deposito: " & cDe.NumDeposito & "  - Movimientos posteriores"
+                    
+                    
+                    'Si hay mas kilos que los que tiene el deposito
+                    If CantidadNecesaria > cDe.Kilos Then
+                        Cad = "DEP: " & cDe.NumDeposito
+                        Cad = Space(15) & "-- Mas kilos que los que quedan en deposito   " & Cad
+                        AuxPartida = AuxPartida & vbCrLf & Cad
+                    End If
+                    If Abs(CantidadNecesaria - cDe.Kilos) < 5 And Val(miRsAux!fincuba) = 0 Then
+                        Cad = "DEP: " & cDe.NumDeposito
+                        Cad = Space(15) & "-- parece FIN deposito y no esta marcado como tal  " & Cad
+                        AuxPartida = AuxPartida & vbCrLf & Cad
+                    End If
+                                    
+                    
+                    
+                    Set cDe = Nothing
+                    Set cDe = New cDeposito
+                End If
+            Else
+                CantidadNecesaria = -1 * CantidadNecesaria  'En negativo
+                
+                'Incrementamos los kilos
+                cDe.LeerDatos miRsAux!Deposito, False
+                
+                
+                
+                cDe.InsertarEnHco 2, vvCstock.HoraMov, "CUP" & RecuperaValor(Me.Intercambio, 1), CantidadNecesaria
+                cDe.VariacionKilosDeposito CantidadNecesaria
+                If cDe.NumDeposito <> cDestino.NumDeposito Then
+                    AuxPartida = Mid(cDe.NUmlote, 7)
+                    
+                    cDestino.InsertarEnHco 1, vvCstock.HoraMov, AuxPartida, -CantidadNecesaria 'la cantidad sdera positiva al final
+                
+                End If
+                If Not b Then
+                    'NO existe. Lo creo
+                    cP.Cantidad = CantidadNecesaria
+                    cP.codAlmac = vvCstock.codAlmac
+                    cP.codartic = vvCstock.codartic
+                    cP.codProve = 0
+                    cP.Fecha = CDate(txtFecha(1).Text)
+                    cP.NumAlbar = "CUP" & RecuperaValor(Me.Intercambio, 1)
+                    cP.NUmlote = DBLet(miRsAux!NUmlote, "T")
+                    If cP.NUmlote Then cP.NUmlote = cP.NumAlbar
+                    
+                    If Not cP.Insertar Then
+                        Cad = "Error insertando partidas/lotes: " & cP.codartic
+                        Err.Raise vbObjectError + 513, , Cad
+                    End If
+        
+                Else
+                    'Si existe. Lo decremento
+                    cP.IncrementarCantidad CantidadNecesaria
+                                    
+                End If
+                'Insertamos en la linea de smoval
+                cL.tipoMov = 0
+                cL.Cantidad = Abs(CantidadNecesaria)
+                cL.codAlmac = vvCstock.codAlmac
+                cL.codartic = vvCstock.codartic
+                cL.NUmlote = cP.NUmlote
+                cL.InsertarLote
+                
+                If Val(miRsAux!fincuba) = 1 Then
+                    
+                    'Ponemos vacios los campos del deposito
+                    'Fuera numero de lote y fuera kilos
+                    If vvCstock.HoraMov = "" Then vvCstock.HoraMov = Format(Now, "hh:mm")
+                    
+                    If cDe.NumDeposito <> DepositoDestino Then
+                        cDe.QuitarAsignacionDepositoVALL vvCstock.HoraMov, -cL.Cantidad, "CUP" & RecuperaValor(Me.Intercambio, 1)
+                    Else
+                        cDe.QuitarAsignacionDepositoVALL vvCstock.HoraMov, vvCstock.Cantidad - cL.Cantidad, TextoParaHcoDepositosLaVall
+                    End If
+                    Espera 0.75
+                   
+                Else
+                    
+                End If
+            End If
+        End If 'DE incializa stock
+        miRsAux.MoveNext
+    Wend
+    miRsAux.Close
+        
+    Set cDe = Nothing
+
+    If SoloComprobar Then
+        RealizarCoupageLOTESVALL = True
+        If AuxPartida <> "" Then
+            AuxPartida = "-  " & Err_x_Articulo & AuxPartida & vbCrLf
+            ErroresEnPartidas = ErroresEnPartidas & AuxPartida
+        End If
+        If ErroresEnPartidas <> "" Then
+            ErroresEnPartidas = ErroresEnPartidas & "¿Continuar?"
+            If MsgBox(ErroresEnPartidas, vbExclamation + vbYesNo) = vbNo Then RealizarCoupageLOTESVALL = False
+        End If
+        If Opcion = 5 Then MoviMIentosPosteriores = ""
+        If MoviMIentosPosteriores <> "" Then
+            MoviMIentosPosteriores = MoviMIentosPosteriores & vbCrLf & vbCrLf & "¿Continuar de igual modo?"
+            If MsgBox(MoviMIentosPosteriores, vbQuestion + vbYesNoCancel) <> vbYes Then RealizarCoupageLOTESVALL = False
+        End If
+        
+        GoTo ERealizarCUPLOTES 'para k haga los =nothing
+    End If
+
+        
+
+    AuxPartida = ""
+    
+        
+
+    'AHora comprobamos los stcosk de las entraddas , de las lineas
+    Cad = TransformaComasPuntos(CStr(CantidadMezcla))
+    Cad = "select codartic," & Cad & " kilos,numlote,codalmac,deposito from olicoupage where codigo=" & RecuperaValor(Me.Intercambio, 1)
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    
+    'SOLO HAY una linea
+    If Not miRsAux.EOF Then
+        b = False
+        If InicializarCStockCoupage(vvCstock, "E", True) Then    'Las lineas son de netrada
+                
+                                
+                'AHora veremos los numeros de lote
+                'EL nUMERO DE LOTE NO puede ser NULO
+                CantidadNecesaria = vvCstock.Cantidad  'Para tenerla despues en los lotes
+                
+                
+                                                        'Vemos si ya existe
+                If cP.LeerDesdeArticulo(miRsAux!codartic, miRsAux!codAlmac, miRsAux!NUmlote) Then
+                    'Ya existia(por algun motivo)
+                    cP.IncrementarCantidad CantidadNecesaria
+                    
+                Else
+                    cP.Cantidad = CantidadNecesaria
+                    cP.codAlmac = miRsAux!codAlmac
+                    cP.codartic = vvCstock.codartic
+                    cP.codProve = 0
+                    cP.Fecha = CDate(txtFecha(1).Text)
+                    cP.NumAlbar = "CUP" & RecuperaValor(Me.Intercambio, 1)
+                    cP.NUmlote = miRsAux!NUmlote
+                    If Not cP.Insertar Then Err.Raise vbObjectError + 513, , Cad
+                    
+                End If
+                
+                'Insertamos en la linea de smoval
+                cL.tipoMov = 1
+                cL.Cantidad = Abs(CantidadNecesaria)
+                cL.codAlmac = vvCstock.codAlmac
+                cL.codartic = vvCstock.codartic
+                cL.NUmlote = cP.NUmlote
+                cL.InsertarLote
+                
+                b = True
+                
+                Set cDe = New cDeposito
+                'Para que no de error insertando en hco
+                T1 = Timer
+                If Not cDe.LeerDatos(miRsAux!Deposito, False) Then b = False
+                
+                AuxPartida = DevuelveDesdeBD(conAri, "factorconversion", "sartic", "codartic", miRsAux!codartic, "T")
+                CantidadNecesaria = CCur(AuxPartida)
+                
+                
+               
+                cDe.NUmlote = cP.NUmlote
+                cDe.idPartida = cP.idPartida
+                Espera 0.5
+                
+                FLin = DateAdd("s", 1, vvCstock.HoraMov)
+                'Metemos en el deposito los lotes pero no LA CANTIDAD, asi no genera el movimiento del deposito
+                cDe.InsertarEnDeposito2 1, FLin, "CUP" & RecuperaValor(Me.Intercambio, 1)
+                If CuantoHabiaDepositoDestino > 0 Then
+                    
+                    
+                    cDe.InsertarEnHco 1, DateAdd("s", 5, FLin), "CUP" & RecuperaValor(Me.Intercambio, 1), CuantoHabiaDepositoDestino
+                Else
+                    MsgBox "Falta solucionar esta  opcion. No habia nada en depostio", vbCritical
+                    Stop
+                End If
+                cDe.VariacionKilosDeposito cL.Cantidad
+                
+                
+                Espera 0.8
+        End If
+    End If
+        
+    RealizarCoupageLOTESVALL = b
+
+
+    
+ERealizarCUPLOTES:
+    If Err.Number <> 0 Then MuestraError Err.Number, Err.Description
+    Set cP = Nothing
+    Set miRsAux = Nothing
+    Set vvCstock = Nothing
+    Set cDe = Nothing
+End Function
 
 

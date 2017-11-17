@@ -21,7 +21,6 @@ Begin VB.Form frmVallDeclara
       Left            =   1680
       TabIndex        =   52
       Top             =   10320
-      Visible         =   0   'False
       Width           =   1335
    End
    Begin VB.CommandButton Command1 
@@ -1191,9 +1190,20 @@ Private Sub cmdCerrar_Click()
         Exit Sub
     End If
     
-    
-    
-    
+    conn.BeginTrans
+    If CerrarProcesoMensual Then
+        conn.CommitTrans
+        Unload Me
+    Else
+        conn.RollbackTrans
+    End If
+End Sub
+
+Private Sub cmdImprimir_Click()
+
+    Cad = "{tmpnlotes.codusu}=" & vUsu.Codigo
+     
+     LlamaImprimirGral Cad, "", 0, "valldeclaramenActu.rpt", "Declaracion mensual(Previa)"
 End Sub
 
 Private Sub Command1_Click()
@@ -1207,6 +1217,8 @@ End Sub
 
 Private Sub Form_Load()
 Dim Importe As Currency
+Dim Importe2 As Currency
+
 Dim I As Integer
 
     Me.Icon = frmppal.Icon
@@ -1228,9 +1240,13 @@ Dim I As Integer
     LabelFechaMes.Tag = miRsAux!FechaAlb
     
     Text1(1).Text = Format(miRsAux!Cantidad, "##,##0")
-    Importe = CCur(miRsAux!numlotes)
+    If IsNull(miRsAux!numlotes) Then
+        Importe = 0
+    Else
+        Importe = CCur(miRsAux!numlotes)
+    End If
     Text1(2).Text = Format(Importe, "##,##0")
-    Importe = miRsAux!Cantidad - Importe
+    If Not IsNull(miRsAux!Cantidad) Then Importe = miRsAux!Cantidad - Importe
     miRsAux.Close
     
     'Dato anterior
@@ -1255,22 +1271,31 @@ Dim I As Integer
         Cad = Year(CDate(LabelFechaMes.Tag))
     End If
     
-    'Desde inicio de "ejeccicio" hasta final de año
+    'Desde inicio de "ejercicio" , fecha activa, hasta fecha
     ' y fecha menor que mesaño actual
     
-    Cad = "( anyo =" & Cad & " AND mes>=10) AND (anyo =" & Month(CDate(LabelFechaMes.Tag)) & " AND anyo=" & Year(CDate(LabelFechaMes.Tag)) & ")"
+    Cad = "( anyo =" & Year(vParamAplic.FechaActiva) & " AND mes>=" & Month(vParamAplic.FechaActiva)
+    Cad = Cad & ") AND (anyo =" & Year(CDate(LabelFechaMes.Tag)) & " AND mes<" & Month(CDate(LabelFechaMes.Tag)) & ")"
     Cad = "  from valldeclara WHERE " & Cad
     Cad = " Sum(salida_aceite), Sum(salida_orujo) " & Cad
     Cad = " Sum(aceituna_entrada), Sum(aceituna_molturada), Sum(aceite_obtenido), Sum(orujo_ontenido)," & Cad
     Cad = "select sum(detasalida_envprop),sum(detasalida_otrasent),sum(detasalida_otraptri), " & Cad
     miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     'NO debe ser eof
-    Importe = 0
-    For I = 4 To 7
-        Text1(I).Text = "0"
+    
+    Importe2 = 0
+    For I = 0 To 2
+        Importe = DBLet(miRsAux.Fields(I), "N")
+        Importe2 = Importe2 + Importe
+        Text1(I + 4).Text = Format(Importe, "##,##0")
     Next
+    Text1(7).Text = Format(Importe2, "##,##0")
+        
+        
+    
     
     'sumatorios del grid
+    Importe = 0
     For I = 22 To 27
         Text1(I).Tag = 0
     Next
@@ -1290,7 +1315,15 @@ Dim I As Integer
     
     End If
     miRsAux.Close
-    
+    MsgBox "Lecturas anteriores incorrectas", vbExclamation
+
+    '1 .- Coupage Entrada
+    '   3 .- Trasiego entrada
+    '   4 .-    "     salida
+    '   7 .- Forzar vaciado
+   '   9 .-   "    salida
+    'select * from proddepositoshco where horamovi between '2017-01-01' and '2017-01-30'  and numdeposito=18
+    'and tipoaccion in (1,3,7,9)
     
     
     'Los sums de los productos del grid
@@ -1351,3 +1384,31 @@ Dim I As Integer
 End Sub
 
 
+
+
+
+Private Function CerrarProcesoMensual() As Boolean
+    On Error GoTo eCerrarProcesoMensual
+    CerrarProcesoMensual = False
+
+
+    'insertamos en la cabecera
+    Cad = "INSERT INTO valldeclara(mes,anyo,fechahora,aceite_existencia,aceite_producido,aceite_salidas,aceite_stfinal,"
+    Cad = Cad & "detasalida_envprop,detasalida_otrasent,detasalida_otraptri,aceituna_entrada,aceituna_molturada,"
+    Cad = Cad & "aceite_obtenido,orujo_ontenido,salida_aceite,salida_orujo,observa) VALUES ("
+    Cad = Cad & Month(LabelFechaMes.Tag) & "," & Year(LabelFechaMes.Tag) & "," & DBSet(Now, "FH") & ","
+    'aceite_existencia,aceite_producido,aceite_salidas,aceite_stfinal
+    
+    
+    'Insertamos lineas
+    Cad = "INSERT INTO valldeclaralin(anyo,mes,dia,aceitu_ent,aceitu_molt,obtenido_aceite,obtenido_orujo,salida_aceite,salida_orujo) "
+    Cad = Cad & " select year(fecha1) anyo,campo1 mes, codigo1 dia,importe1 aceitu_ent"
+    Cad = Cad & " ,importe2 aceitu_molt,importe3 obtenido_aceite ,importe4 obtenido_orujo"
+    Cad = Cad & " ,importe5 salida_aceite,importeb1 salida_orujo"
+    Cad = Cad & " from tmpinformes where codusu =" & vUsu.Codigo & " order by codigo1"
+    conn.Execute Cad
+
+eCerrarProcesoMensual:
+    If Err.Number <> 0 Then MuestraError Err.Number, Err.Description
+
+End Function

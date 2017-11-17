@@ -912,6 +912,11 @@ Public Property Get FechaActiva() As Date
      FechaActiva = mvarFechaActiva
 End Property
 
+Public Property Get FechaActivaMasUno() As Date
+    
+     FechaActivaMasUno = DateAdd("yyyy", 1, mvarFechaActiva)
+End Property
+
 
 Public Property Get ContabilidadNueva() As Boolean
      ContabilidadNueva = mvarContabilidadNueva
@@ -1401,11 +1406,11 @@ Dim R
     SQL = "select SIIFechaInicio,SIIDiasAviso FROM parametros"
     R.Open SQL, ConnConta, adOpenForwardOnly, adLockOptimistic
     If Not R.EOF Then
-        If Not IsNull(R!SIIFechaInicio) Then
+        If Not IsNull(R!SiiFechaInicio) Then
             'Tiene fecha inicio
             mvarSIITiene = True
             mvarSIIDias = DBLet(R!SIIDiasAviso, "N")
-            mvarSIIFechaIni = R!SIIFechaInicio
+            mvarSIIFechaIni = R!SiiFechaInicio
         End If
     End If
     R.Close

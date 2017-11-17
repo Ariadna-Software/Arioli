@@ -1029,7 +1029,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Dim cad As String
+Dim Cad As String
 Dim RS As ADODB.Recordset
 
 Dim DepositoDblClik As Integer
@@ -1041,9 +1041,9 @@ Private Sub cmdImprimir_Click()
        
     
  
-    cad = "{proddepositos.numDeposito}>=0"
-    LlamaImprimirGral cad, "|pEmpresa=""" & vParam.NombreEmpresa & """|", 1, "rDepositos.rpt", "Datos depósitos "
-    cad = ""
+    Cad = "{proddepositos.numDeposito}>=0"
+    LlamaImprimirGral Cad, "|pEmpresa=""" & vParam.NombreEmpresa & """|", 1, "rDepositos.rpt", "Datos depósitos "
+    Cad = ""
 End Sub
 
 Private Sub cmdSalir_Click()
@@ -1056,9 +1056,9 @@ Private Sub Form_DblClick()
     'If txtLote(DepositoDblClik).Text = "" Then Exit Sub
     
     
-    frmProdVerUnDepo.NumDepo = DepositoDblClik + 1
-    frmProdVerUnDepo.idProd = Me.txtLote(DepositoDblClik).Tag
-    frmProdVerUnDepo.Show vbModal
+    frmProdVerUnDepoVall.NumDepo = DepositoDblClik + 1
+    frmProdVerUnDepoVall.idProd = Me.txtLote(DepositoDblClik).Tag
+    frmProdVerUnDepoVall.Show vbModal
     
     If CadenaDesdeOtroForm <> "" Then
         Screen.MousePointer = vbHourglass
@@ -1104,13 +1104,13 @@ Dim Lotes As String
     
 
 
-    cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
-    cad = cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
-    cad = cad & " left join sartic on spartidas.codartic=sartic.codartic"
-    cad = cad & " WHERE DepositoVtaDirecta=0"
+    Cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
+    Cad = Cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
+    Cad = Cad & " left join sartic on spartidas.codartic=sartic.codartic"
+    Cad = Cad & " WHERE DepositoVtaDirecta=0"
     
     Set RS = New ADODB.Recordset
-    RS.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RS.EOF
         'Sera ERROR SI,
         ' o sartic.codartic=null
@@ -1159,12 +1159,12 @@ Dim Lotes As String
     'Vamos a ver cual esta envasando en linea de produccion
     If Lotes <> "" And vParamAplic.QUE_EMPRESA = 0 Then
         
-        cad = "select numlote,prodlin.codigo,prodlin.idlin from prodlin,prodtrazcompo"
-        cad = cad & " where prodlin.codigo= prodtrazcompo.codigo AND prodlin.idlin = "
-        cad = cad & " prodtrazcompo.idlin and prodtrazcompo.cantutili is null and estado >0"
-        cad = cad & " and estado<10 and numlote in"
-        cad = cad & " (" & Mid(Lotes, 2) & ")"
-        RS.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        Cad = "select numlote,prodlin.codigo,prodlin.idlin from prodlin,prodtrazcompo"
+        Cad = Cad & " where prodlin.codigo= prodtrazcompo.codigo AND prodlin.idlin = "
+        Cad = Cad & " prodtrazcompo.idlin and prodtrazcompo.cantutili is null and estado >0"
+        Cad = Cad & " and estado<10 and numlote in"
+        Cad = Cad & " (" & Mid(Lotes, 2) & ")"
+        RS.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         While Not RS.EOF
             For KMostrar = 0 To MaxNumDepositos_ - 1
                 If Me.txtLote(KMostrar).Text = RS!NUmlote Then
@@ -1194,19 +1194,19 @@ Private Sub LimpiarDatosDeposito(HayError As Boolean, kDeposito As Integer)
         'DATOS rs
         'NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote
         If RS.EOF Then
-            cad = "Consulta vacia (EOF)"
+            Cad = "Consulta vacia (EOF)"
         Else
-            cad = "Deposito:      " & DBLet(RS!NumDeposito, "T") & vbCrLf
-            cad = cad & "Capacidad:     " & DBLet(RS!Capacidad, "T") & vbCrLf
-            cad = cad & "Codigo:     " & DBLet(RS!codartic, "T") & vbCrLf
-            cad = cad & "Referencia:   " & DBLet(RS!NomArtic, "T") & vbCrLf
-            cad = cad & "Factor conversion:      " & DBLet(RS!FactorConversion, "T") & vbCrLf
-            cad = cad & "LOTE:      " & DBLet(RS!NUmlote, "T") & vbCrLf
+            Cad = "Deposito:      " & DBLet(RS!NumDeposito, "T") & vbCrLf
+            Cad = Cad & "Capacidad:     " & DBLet(RS!Capacidad, "T") & vbCrLf
+            Cad = Cad & "Codigo:     " & DBLet(RS!codartic, "T") & vbCrLf
+            Cad = Cad & "Referencia:   " & DBLet(RS!NomArtic, "T") & vbCrLf
+            Cad = Cad & "Factor conversion:      " & DBLet(RS!FactorConversion, "T") & vbCrLf
+            Cad = Cad & "LOTE:      " & DBLet(RS!NUmlote, "T") & vbCrLf
             
-            cad = "Error datos deposito: " & vbCrLf & vbCrLf & cad
+            Cad = "Error datos deposito: " & vbCrLf & vbCrLf & Cad
     
         End If
-        MsgBox cad, vbExclamation
+        MsgBox Cad, vbExclamation
             
     End If
 End Sub
@@ -1297,14 +1297,14 @@ Dim KMostrar As Byte
 Dim Lotes As String
 Dim QueImage As Integer
 
-    cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
-    cad = cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
-    cad = cad & " left join sartic on spartidas.codartic=sartic.codartic"
-    cad = cad & " WHERE DepositoVtaDirecta=1 ORDER BY numdeposito"
+    Cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
+    Cad = Cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
+    Cad = Cad & " left join sartic on spartidas.codartic=sartic.codartic"
+    Cad = Cad & " WHERE DepositoVtaDirecta=1 ORDER BY numdeposito"
     
     QueImage = 0
     Set RS = New ADODB.Recordset
-    RS.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RS.EOF
         'Sera ERROR SI,
         ' o sartic.codartic=null
@@ -1387,9 +1387,8 @@ End Sub
 Private Sub imgLinea_DblClick(Index As Integer)
     If imgLinea(Index).visible Then
         If Val(imgLinea(Index).Tag) > 0 Then
-            frmProdVerUnDepo.NumDepo = RecuperaValor(imgLinea(Index).Tag, 1)
-            'frmProdVerUnDepo.idProd = Me.txtLote(DepositoDblClik).Tag
-            frmProdVerUnDepo.Show vbModal
+            frmProdVerUnDepoVall.NumDepo = RecuperaValor(imgLinea(Index).Tag, 1)
+            frmProdVerUnDepoVall.Show vbModal
         End If
     End If
 End Sub

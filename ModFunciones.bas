@@ -328,7 +328,7 @@ Dim I As Integer
                     
                     If mTag.Columna <> "" Then
                         'Debug.Print mTag.columna
-                        'If mTag.columna = "porciva3re" Then Stop
+                        'If mTag.Columna = "porciva1re" Then
                         
                         campo = mTag.Columna
                         If mTag.Vacio = "S" Then
@@ -1457,7 +1457,7 @@ Dim cadMen As String
         If DBLet(RS.Fields(0).Value, "N") > 0 Then
             cadMen = "El Cliente tiene facturas vencidas con valor de: " & RS.Fields(0).Value & " €."
             cadMen = cadMen & vbCrLf & "¿Desea Ver Detalle?"
-            If MsgBox(cadMen, vbYesNo, "Cobros Pendientes") = vbYes Then
+            If MsgBox(cadMen, vbInformation + vbYesNo, "Cobros Pendientes") = vbYes Then
                 'Mostrar los detalles de los cobros pendientes
                 frmMensajes.cadWhere = vWhere
                 frmMensajes.vCampos = CodClien
@@ -1677,13 +1677,13 @@ End Function
 
 Public Function ObtenerLetraSerie(tipMov As String) As String
 'Devuelve la letra de serie asociada al tipo de movimiento
-Dim letra As String
+Dim LEtra As String
 
     On Error Resume Next
     
-    letra = DevuelveDesdeBDNew(conAri, "stipom", "letraser", "codtipom", tipMov, "T")
-    If letra = "" Then MsgBox "Las factura de venta no tienen asignada una letra de serie", vbInformation
-    ObtenerLetraSerie = letra
+    LEtra = DevuelveDesdeBDNew(conAri, "stipom", "letraser", "codtipom", tipMov, "T")
+    If LEtra = "" Then MsgBox "Las factura de venta no tienen asignada una letra de serie", vbInformation
+    ObtenerLetraSerie = LEtra
 End Function
 
 
@@ -1759,7 +1759,7 @@ End Function
 
 
 
-Public Function ComprobarStock(codartic As String, codalmac As String, cant As String, CodTipMov As String) As Boolean
+Public Function ComprobarStock(codartic As String, codAlmac As String, cant As String, CodTipMov As String) As Boolean
 'Comprueba si el Articulo existe en el Almacen Origen y si hay
 'stock suficiente para poder realizar el traspaso
 Dim vStock As String
@@ -1769,7 +1769,7 @@ Dim b As Boolean
     Set vArtic = New CArticulo
     b = vArtic.Existe(codartic)
     If b Then
-        b = vArtic.ExisteEnAlmacen(codalmac, vStock)
+        b = vArtic.ExisteEnAlmacen(codAlmac, vStock)
         If b Then
             b = ComprobarHayStock(CSng(vStock), CSng(cant), codartic, vArtic.Nombre, CodTipMov)
 '            If Not ComprobarHayStock(CSng(vStock), CSng(cant), codArtic, vArtic.Nombre, CodTipMov) Then
@@ -2004,19 +2004,19 @@ End Function
 '       Para buscar en los checks con las dos opciones de true y false
 '
 'A partir de un check cualquiera devolvera nombre e indice, si tiene. Si no sera ()
-Public Sub CheckBusqueda(ByRef Ch As CheckBox)
+Public Sub CheckBusqueda(ByRef CH As CheckBox)
     NombreCheck = ""
-    NombreCheck = Ch.Name & "("
+    NombreCheck = CH.Name & "("
     On Error Resume Next
-    NombreCheck = NombreCheck & Ch.Index
+    NombreCheck = NombreCheck & CH.Index
     If Err.Number <> 0 Then Err.Clear
     NombreCheck = NombreCheck & ")"
 End Sub
 
 
 
-Public Sub CheckCadenaBusqueda(ByRef Ch As CheckBox, ByRef CadenaCHECKs As String)
-        CheckBusqueda Ch
+Public Sub CheckCadenaBusqueda(ByRef CH As CheckBox, ByRef CadenaCHECKs As String)
+        CheckBusqueda CH
         If InStr(1, CadenaCHECKs, NombreCheck) = 0 Then CadenaCHECKs = CadenaCHECKs & NombreCheck & "|"
 End Sub
 

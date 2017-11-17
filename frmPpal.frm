@@ -341,7 +341,7 @@ Begin VB.MDIForm frmppal
             Style           =   5
             Object.Width           =   1058
             MinWidth        =   1058
-            TextSave        =   "11:06"
+            TextSave        =   "12:15"
          EndProperty
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -2054,6 +2054,10 @@ Dim Permis As String
 
             mnproduccion1(6).visible = True
             mnproduccion1(1).visible = False
+            'Filtrado., Trasiego
+            mnproduccion1_1(1).visible = False
+            mnproduccion1_1(2).Caption = "Mover aceite"
+            
             mnNuevosPuntosMenuTraza(1).visible = False
     
 
@@ -2305,6 +2309,7 @@ Private Sub mnAlmazara1_Click(Index As Integer)
         frmVallEntradaOliva.Show vbModal
        
     Case 1
+        frmVallAlmazara.DatosADevolverBusqueda2 = ""
         frmVallAlmazara.Show vbModal
     Case 2
         frmVallpalets.Show vbModal
@@ -3237,11 +3242,19 @@ Private Sub mnproduccion1_1_Click(Index As Integer)
     
     Case 2
         'FILTRADO
-        frmProduVarios.Opcion = 4
+        If vParamAplic.QUE_EMPRESA = 4 Then
+            frmProduVarios.Opcion = 6
+        Else
+            frmProduVarios.Opcion = 4
+        End If
         frmProduVarios.Show vbModal
     
     Case 3
         'VACIADO
+        If vParamAplic.QUE_EMPRESA = 4 Then
+            MsgBox "En proceso", vbExclamation
+            Exit Sub
+        End If
         frmProduVarios.Opcion = 3
         frmProduVarios.Show vbModal
     
@@ -3900,7 +3913,7 @@ Dim miRsAux As ADODB.Recordset
                 'Debug.Print C
                 If InStr(1, SQL, C) > 0 Then
                     
-                    'Stop
+                    '
                     T.visible = False
                 End If
            

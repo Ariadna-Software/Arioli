@@ -30,7 +30,7 @@ Begin VB.Form frmAlmCoupage
    End
    Begin VB.TextBox txtTotal 
       Alignment       =   1  'Right Justify
-      BackColor       =   &H80000013&
+      BackColor       =   &H00C0C0C0&
       Enabled         =   0   'False
       Height          =   285
       Left            =   7680
@@ -41,7 +41,7 @@ Begin VB.Form frmAlmCoupage
    End
    Begin VB.TextBox txtAux 
       Appearance      =   0  'Flat
-      BackColor       =   &H80000013&
+      BackColor       =   &H00C0C0C0&
       BorderStyle     =   0  'None
       Height          =   315
       Index           =   1
@@ -875,9 +875,9 @@ Private Sub PonerLote()
         CadenaConsulta = Text1(1).Text
         If CadenaConsulta = "" Then CadenaConsulta = Now
         If Month(CDate(CadenaConsulta)) < 10 Then
-            Text1(5).Text = Text1(5).Text & Year(Now) - 1
-        Else
             Text1(5).Text = Text1(5).Text & Year(Now)
+        Else
+            Text1(5).Text = Text1(5).Text & Year(Now) + 1
         End If
 End Sub
 
@@ -2884,13 +2884,18 @@ Dim Cantidad As Currency
     Aux = "select spartidas.*,factorconversion from spartidas inner join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<1"
     Aux = Aux & " AND numlote = " & DBSet(cDe.NUmlote, "T")
     miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    'NO pue ser eof
+    
     Cantidad = Round(cDe.Kilos / miRsAux!FactorConversion, 2)
-    If miRsAux!cantotal <> cDe.Kilos Then
-        Aux = "Kilos partida: " & miRsAux!cantotal & vbCrLf
-        Aux = Aux & "Deposito (L/Kg): " & Cantidad & " / " & cDe.Kilos
-        Aux = "Diferencia cantidades" & vbCrLf & vbCrLf & Aux
-        MsgBox Aux, vbInformation
+    
+    If vParamAplic.QUE_EMPRESA <> 4 Then
+        'MORALES
+        If miRsAux!cantotal <> cDe.Kilos Then
+            Aux = "Kilos partida: " & miRsAux!cantotal & vbCrLf
+            Aux = Aux & "Deposito (L/Kg): " & Cantidad & " / " & cDe.Kilos
+            Aux = "Diferencia cantidades" & vbCrLf & vbCrLf & Aux
+            MsgBox Aux, vbInformation
+        End If
+    
     End If
     Dim C As cPartidas
      

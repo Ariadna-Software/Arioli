@@ -549,7 +549,7 @@ End Function
 
 Private Function PonerArticuloEnCadenaProduccion() As Boolean
 Dim R As ADODB.Recordset
-Dim i As Byte
+Dim I As Byte
 Dim NumLoteMateriaAuxAsignadas As Byte
 Dim LineaExtra As String
 
@@ -609,12 +609,12 @@ On Error GoTo EPonerArticuloEnCadenaProduccion
             'insertamos en prodtraza componentes
             SQL = ""
             NumLoteMateriaAuxAsignadas = 0
-            For i = 1 To mvarCuantasMP
+            For I = 1 To mvarCuantasMP
                 ' codigo,idlin,lineaprod,lotetraza,codartic,numlote"
                 SQL = SQL & ", (" & Me.CodProduccion & "," & Me.idLiProd & "," & Me.linea & "," & mvarLoteTrazabilidad & ","
-                SQL = SQL & DBSet(vectorComponentes(i - 1).codarticCompo, "T") & ","
-                SQL = SQL & DBSet(vectorComponentes(i - 1).LoteMateria, "T") & ")"
-                If Trim(vectorComponentes(i - 1).LoteMateria) <> "" Then NumLoteMateriaAuxAsignadas = NumLoteMateriaAuxAsignadas + 1
+                SQL = SQL & DBSet(vectorComponentes(I - 1).codarticCompo, "T") & ","
+                SQL = SQL & DBSet(vectorComponentes(I - 1).LoteMateria, "T") & ")"
+                If Trim(vectorComponentes(I - 1).LoteMateria) <> "" Then NumLoteMateriaAuxAsignadas = NumLoteMateriaAuxAsignadas + 1
                 
             Next
             SQL = Mid(SQL, 2) '1ªcoma fuera
@@ -681,7 +681,7 @@ End Function
 
 Public Function CerrarParaCambioLote(CantidadProducida As Currency, Cajas As Integer, idLINCambioLote As Integer, NuevoLote As String, EsFinalLoteDeposito As Boolean, NumeroDeposito As Integer) As Boolean
 Dim b As Boolean
-Dim i As Integer
+Dim I As Integer
 Dim Seguir As Boolean
 Dim AntiguaTraza As Long
 
@@ -739,7 +739,7 @@ End Function
 
 Public Function CerrarProduccion(CantidadProducida As Currency, Cajas As Integer, EsFinalLoteDeposito As Boolean) As Boolean
 Dim b As Boolean
-Dim i As Integer
+Dim I As Integer
 Dim Seguir As Boolean
 
 On Error GoTo ECerrarProduccion
@@ -803,7 +803,7 @@ End Function
 
 
 Private Function ActualizaTrazabilidadLinea(Cantidad As Currency, CajasR As Integer, idLINCambio As Integer, NuevoLotePro As String, FinDepositoLote As Boolean) As Boolean
-Dim i As Byte
+Dim I As Byte
 Dim CanAux As Currency
 Dim IdPalet As Long
 Dim Cadena As String
@@ -856,31 +856,31 @@ Dim cDepo As cDeposito
 
 
         'Los componentes
-        For i = 1 To mvarCuantasMP
-            CanAux = Cantidad * vectorComponentes(i - 1).FactorMultiplicador
-            If vectorComponentes(i - 1).EsMateriaPrima Then CanAux = Round(CanAux, 2)
+        For I = 1 To mvarCuantasMP
+            CanAux = Cantidad * vectorComponentes(I - 1).FactorMultiplicador
+            If vectorComponentes(I - 1).EsMateriaPrima Then CanAux = Round(CanAux, 2)
             
             
             SQL = "UPDATE prodtrazcompo SET cantutili = " & TransformaComasPuntos(CStr(CanAux))
             ' codigo,idlin,lineaprod,lotetraza,codartic"
             SQL = SQL & " WHERE codigo = " & Me.CodProduccion & " AND idlin = " & Me.idLiProd & " AND lineaprod = " & Me.linea
-            SQL = SQL & " AND lotetraza = " & mvarLoteTrazabilidad & " AND codartic = " & DBSet(vectorComponentes(i - 1).codarticCompo, "T")
+            SQL = SQL & " AND lotetraza = " & mvarLoteTrazabilidad & " AND codartic = " & DBSet(vectorComponentes(I - 1).codarticCompo, "T")
             conn.Execute SQL
             
             'Para cerrar la produccion
-            vectorComponentes(i - 1).CantidadUtilizada = CanAux
+            vectorComponentes(I - 1).CantidadUtilizada = CanAux
             
             
             
             
             'Disminuyo la cantidad en el deposito
             If CanAux <> 0 Then
-                If vectorComponentes(i - 1).EsMateriaPrima Then
+                If vectorComponentes(I - 1).EsMateriaPrima Then
             
                     Set cDepo = New cDeposito
                     
                     'Vemos en que deposito esta. Para el futuro. Si no fuera materia prima no leeriamos deposito
-                    SQL = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numlote", vectorComponentes(i - 1).LoteMateria, "T")
+                    SQL = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numlote", vectorComponentes(I - 1).LoteMateria, "T")
                     If SQL = "" Then Err.Raise 513, , "Error datos deposito"
                 
                     cDepo.LeerDatos CInt(SQL), False
@@ -888,7 +888,7 @@ Dim cDepo As cDeposito
                     cDepo.VariacionKilosDeposito -CanAux
                 End If
             End If
-        Next i
+        Next I
 
 
 
@@ -910,10 +910,10 @@ Dim cDepo As cDeposito
                 ' y si es deposito(Materia axuiliar aun no esta hecho)
                 ' vaciamos el deposito
                 If FinDepositoLote Then
-                    For i = 1 To mvarCuantasMP
-                        If vectorComponentes(i - 1).EsMateriaPrima Then
+                    For I = 1 To mvarCuantasMP
+                        If vectorComponentes(I - 1).EsMateriaPrima Then
                         
-                            RegularizarFinLote_Partida CInt(i)
+                            RegularizarFinLote_Partida CInt(I)
                             
                         End If
                     Next
@@ -995,15 +995,15 @@ Dim cDepo As cDeposito
                 'Actualizo la materia prima de la linea en produccion
                  'insertamos en prodtraza componentes
                 SQL = ""
-                For i = 1 To mvarCuantasMP
+                For I = 1 To mvarCuantasMP
                     
                     ' codigo,idlin,lineaprod,lotetraza,codartic,numlote"
                     SQL = SQL & ", (" & Me.CodProduccion & "," & Me.idLiProd & "," & Me.linea & "," & mvarLoteTrazabilidad & ","
-                    SQL = SQL & DBSet(vectorComponentes(i - 1).codarticCompo, "T") & ","
-                    If i = idLINCambio Then
+                    SQL = SQL & DBSet(vectorComponentes(I - 1).codarticCompo, "T") & ","
+                    If I = idLINCambio Then
                         SQL = SQL & DBSet(NuevoLotePro, "T") & ")"
                     Else
-                        SQL = SQL & DBSet(vectorComponentes(i - 1).LoteMateria, "T") & ")"
+                        SQL = SQL & DBSet(vectorComponentes(I - 1).LoteMateria, "T") & ")"
                     End If
                 Next
                 SQL = Mid(SQL, 2) '1ªcoma fuera
@@ -1065,8 +1065,8 @@ End Function
 Private Function CerrarProduccionCantidades(SoloComprobar As Boolean, CantidadProducida_ As Currency, Cajasprod As Integer) As Boolean
 Dim vCStock2 As cStock
 Dim b As Boolean
-Dim cad As String
-Dim i As Integer
+Dim Cad As String
+Dim I As Integer
 Dim canti As Currency
 
 
@@ -1086,19 +1086,19 @@ Dim canti As Currency
     b = False
 
     'Vamos
-    For i = 1 To Me.CuantasMP
+    For I = 1 To Me.CuantasMP
         b = False
         '                                       no indico cantidad. Ya la leemos del vector
         
         If SoloComprobar Then
             'Teorico
-            canti = Round2(CantidadProducida_ * vectorComponentes(i - 1).FactorMultiplicador, 2)
+            canti = Round2(CantidadProducida_ * vectorComponentes(I - 1).FactorMultiplicador, 2)
         Else
-            canti = vectorComponentes(i - 1).CantidadUtilizada
+            canti = vectorComponentes(I - 1).CantidadUtilizada
         End If
 
         
-        If InicializarCStock(vCStock2, "S", CInt(i - 1), canti, "") Then
+        If InicializarCStock(vCStock2, "S", CInt(I - 1), canti, "") Then
             
             If vCStock2.MueveStock Then
                 If SoloComprobar Then
@@ -1116,23 +1116,23 @@ Dim canti As Currency
         End If
                              
         
-        If Not b Then i = 9999            'para que se salga
+        If Not b Then I = 9999            'para que se salga
         
         
-    Next i
+    Next I
     
     If b Then
         'Los articulos de NO trazabilidad, que stock si que mueven
-        For i = 1 To MateriaSinTrazabilidad.Count
+        For I = 1 To MateriaSinTrazabilidad.Count
             b = False
             
-            cad = RecuperaValor(MateriaSinTrazabilidad(i), 3)  'Cantidad de sarti1
+            Cad = RecuperaValor(MateriaSinTrazabilidad(I), 3)  'Cantidad de sarti1
             
-            canti = CCur(cad)
+            canti = CCur(Cad)
             canti = Round2(CantidadProducida_ * canti)
         
-            cad = RecuperaValor(MateriaSinTrazabilidad(i), 1)
-            If InicializarCStock(vCStock2, "S", CInt(i - 1), canti, cad) Then
+            Cad = RecuperaValor(MateriaSinTrazabilidad(I), 1)
+            If InicializarCStock(vCStock2, "S", CInt(I - 1), canti, Cad) Then
                 
                 If vCStock2.MueveStock Then
                     If SoloComprobar Then
@@ -1150,10 +1150,10 @@ Dim canti As Currency
             End If
                                  
             
-            If Not b Then i = 9999            'para que se salga
+            If Not b Then I = 9999            'para que se salga
             
             
-        Next i
+        Next I
     
     End If
     
@@ -1256,9 +1256,9 @@ End Function
 Private Function RealizarProduccionLOTES2(SoloComprobar As Boolean, CantidadProducida As Currency, Cajasprod As Integer) As Boolean
 Dim ErroresEnPartidas As String
 Dim PuedeSeguir As Boolean
-Dim Cp As cPartidas   'Para los numeros de lote
+Dim cP As cPartidas   'Para los numeros de lote
 Dim cL As cLotaje
-Dim cad As String
+Dim Cad As String
 Dim vCan As Currency
 Dim botones As Long
 Dim N As Integer
@@ -1270,7 +1270,7 @@ Dim K As Byte
     RealizarProduccionLOTES2 = False
     ErroresEnPartidas = ""
 
-    Set Cp = New cPartidas
+    Set cP = New cPartidas
 
     If Not SoloComprobar Then
 
@@ -1288,11 +1288,11 @@ Dim K As Byte
 
     PuedeSeguir = True
     For K = 1 To Me.CuantasMP
-            cad = ""
-            If Not Cp.LeerDesdeArticulo(vectorComponentes(K - 1).codarticCompo, vCodAlmac, vectorComponentes(K - 1).LoteMateria) Then
+            Cad = ""
+            If Not cP.LeerDesdeArticulo(vectorComponentes(K - 1).codarticCompo, vCodAlmac, vectorComponentes(K - 1).LoteMateria) Then
                 'MAL ninguna partida asociada al LOTE.
                 
-                cad = vectorComponentes(K - 1).NomArticCompo & " " & vectorComponentes(K - 1).LoteMateria & "        NO encuetra idPartida asocidado"
+                Cad = vectorComponentes(K - 1).NomArticCompo & " " & vectorComponentes(K - 1).LoteMateria & "        NO encuetra idPartida asocidado"
                 PuedeSeguir = False
                 
             Else
@@ -1304,26 +1304,26 @@ Dim K As Byte
                 End If
                 
                 If SoloComprobar Then
-                    If vCan > Cp.Cantidad Then
+                    If vCan > cP.Cantidad Then
                         'NECESITA MAS DE LAS QUE VA A PRODUCIR
-                        cad = vectorComponentes(K - 1).NomArticCompo
-                        If Len(cad) < 30 Then
-                            cad = cad & Space(10)
-                        ElseIf Len(cad) < 25 Then
-                            cad = cad & Space(28)
+                        Cad = vectorComponentes(K - 1).NomArticCompo
+                        If Len(Cad) < 30 Then
+                            Cad = Cad & Space(10)
+                        ElseIf Len(Cad) < 25 Then
+                            Cad = Cad & Space(28)
                         End If
-                        cad = cad & "    idPartida: " & Cp.idPartida & " Lote: " & vectorComponentes(K - 1).LoteMateria & "        Cantidad INSUFICIENTE (" & vCan & "/" & Cp.Cantidad & ")"
+                        Cad = Cad & "    idPartida: " & cP.idPartida & " Lote: " & vectorComponentes(K - 1).LoteMateria & "        Cantidad INSUFICIENTE (" & vCan & "/" & cP.Cantidad & ")"
                     End If
                 Else
                    
-                    Cp.IncrementarCantidad -1 * vCan
+                    cP.IncrementarCantidad -1 * vCan
                     
-                    InsertarMovientosLotesProduccion cL, Cp, vCan, Me.codartic
+                    InsertarMovientosLotesProduccion cL, cP, vCan, Me.codartic
                 End If
             End If
             
             
-            If cad <> "" Then ErroresEnPartidas = ErroresEnPartidas & cad & vbCrLf
+            If Cad <> "" Then ErroresEnPartidas = ErroresEnPartidas & Cad & vbCrLf
 
     Next K
     
@@ -1335,44 +1335,44 @@ Dim K As Byte
    'ENTRADA DE PRODUCTO
                     'Vemos si ya existe
                     'LoteReal = RL!Numlote & " " & Format(txtFecha(0).Text, "yyyy/mm/dd")
-                    If Cp.LeerDesdeArticulo(Me.codartic, vCodAlmac, Format(Me.LoteTrazabilidad, "0000000000")) Then
+                    If cP.LeerDesdeArticulo(Me.codartic, vCodAlmac, Format(Me.LoteTrazabilidad, "0000000000")) Then
                         If SoloComprobar Then
-                            cad = "     -YA EXISTE el lote de produccion para el articulo de venta:" & vbCrLf
-                            cad = cad & Space(20) & Me.NomArtic & "   Lote " & Me.LoteTrazabilidad & "    idPartida: " & Cp.idPartida
+                            Cad = "     -YA EXISTE el lote de produccion para el articulo de venta:" & vbCrLf
+                            Cad = Cad & Space(20) & Me.NomArtic & "   Lote " & Me.LoteTrazabilidad & "    idPartida: " & cP.idPartida
                             
-                            ErroresEnPartidas = cad & vbCrLf & ErroresEnPartidas & vbCrLf
+                            ErroresEnPartidas = Cad & vbCrLf & ErroresEnPartidas & vbCrLf
                         Else
                             'Ya existia(por algun motivo)
-                            Cp.IncrementarCantidad CantidadProducida
+                            cP.IncrementarCantidad CantidadProducida
                         End If
                         
                     Else
                     
                         'NO EXISTE. NUevo LOTE
                         If Not SoloComprobar Then
-                            Cp.Cantidad = CantidadProducida
-                            Cp.codAlmac = vCodAlmac
-                            Cp.codartic = Me.codartic
-                            Cp.codProve = 0
-                            Cp.Fecha = FH_Incio
+                            cP.Cantidad = CantidadProducida
+                            cP.codAlmac = vCodAlmac
+                            cP.codartic = Me.codartic
+                            cP.codProve = 0
+                            cP.Fecha = FH_Incio
                             'Si cambiamos esto hay que mirar el packing list
-                            Cp.NumAlbar = "NP" & Format(Me.CodProduccion, "00000") & Format(Me.idLiProd, "00")
-                            Cp.NUmlote = Format(Me.LoteTrazabilidad, "0000000000")
-                            If Not Cp.Insertar Then
-                                cad = "Error insertando partidas/lotes: " & Cp.codartic
-                                Err.Raise 513, , cad
+                            cP.NumAlbar = "NP" & Format(Me.CodProduccion, "00000") & Format(Me.idLiProd, "00")
+                            cP.NUmlote = Format(Me.LoteTrazabilidad, "0000000000")
+                            If Not cP.Insertar Then
+                                Cad = "Error insertando partidas/lotes: " & cP.codartic
+                                Err.Raise 513, , Cad
                             End If
                         
                     End If
                     If Not SoloComprobar Then
                         'En movimientos lote
                         cL.tipoMov = 1
-                        cL.Cantidad = Cp.Cantidad
-                        cL.codAlmac = Cp.codAlmac
-                        cL.codartic = Cp.codartic
+                        cL.Cantidad = cP.Cantidad
+                        cL.codAlmac = cP.codAlmac
+                        cL.codartic = cP.codartic
                         cL.codarti2 = ""
-                        cL.NUmlote = Cp.NUmlote
-                        If Not cL.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & Cp.codartic
+                        cL.NUmlote = cP.NUmlote
+                        If Not cL.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & cP.codartic
                         
                         
                         '13/12/2010
@@ -1391,7 +1391,7 @@ Dim K As Byte
 ''''                        Conn.Execute Cad
                     End If
                 End If
-        Set Cp = Nothing
+        Set cP = Nothing
    
         If SoloComprobar Then
             If ErroresEnPartidas <> "" Then
@@ -1582,7 +1582,7 @@ Dim Cantidad As Currency
     
     cLot.InsertarLote
     vvCstock.MoverStock False
-    cDEP.QuitarAsignacionDeposito_ 0, Now 'Veremos este codigo
+    cDEP.QuitarAsignacionDeposito2 0, Now, -cDEP.Kilos  'Veremos este codigo
     cPar.AjustarFinPartida
     
     

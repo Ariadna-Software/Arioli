@@ -583,13 +583,13 @@ Dim SQL As String
         Set miRsAux = New ADODB.Recordset
         
         
-        SQL = ""
-        If Val(Data1.Recordset!Codigo1) > 0 Then SQL = "(detamovi IN ('ALV','PAL') and codigope=" & Data1.Recordset!Codigo1 & ")"
+        SQL = ""                                            'LOS ALV NO
+        If Val(Data1.Recordset!Codigo1) > 0 Then SQL = "(detamovi IN ('ALV1','PAL') and codigope=" & Data1.Recordset!Codigo1 & ")"
         If Val(Data1.Recordset!campo2) > 0 Then
             If SQL <> "" Then SQL = SQL & " or "
             SQL = SQL & " (detamovi IN ('PAL','ALC') and codigope=" & Data1.Recordset!campo2 & ")"
         End If
-        SQL = " where codartic =" & DBSet(Data1.Recordset!nombre2, "T") & " AND fechamov>=" & DBSet(vEmpresa.FechaIni, "F") & " AND (" & SQL & ")"
+        SQL = " where codartic =" & DBSet(Data1.Recordset!nombre2, "T") & " AND fechamov>=" & DBSet(vParamAplic.FechaActiva, "F") & " AND (" & SQL & ")"
         
         SQL = "select * from smoval " & SQL & " ORDER BY horamovi"
         
@@ -1434,7 +1434,7 @@ Dim Litros As Currency
                     Cad = Cad & DBSet(miRsAux!pobclien, "T") & ",'"
                     'cppos, provinci
                     Cad = Cad & DevNombreSQL(Trim(DBLet(miRsAux!codpobla, "T") & "   " & DBLet(miRsAux!proclien, "T"))) & "','"
-                    Cad = Cad & Format(miRsAux!FecFactu, FormatoFecha) & "',"
+                    Cad = Cad & Format(miRsAux!Fecfactu, FormatoFecha) & "',"
                 End If
                 'Faltan: `codigo` `codartic`,`nomartic`,`cajas`,)
                 SQL = SQL & Cad & NumRegElim & "," & DBSet(miRsAux!codartic, "T") & ","
@@ -1510,13 +1510,13 @@ Private Sub CargarDatosEnTemporal()
         
         CadenaConsulta = "insert into tmppartidas(codusu,codartic,idpartida,idReferencia)"
         CadenaConsulta = CadenaConsulta & " select distinct " & vUsu.Codigo & ",codartic,if(dEtamovi='ALV',codigope,0),if(detamovi='ALC',codigope,0)"
-        CadenaConsulta = CadenaConsulta & " from smoval where fechamov >=" & DBSet(vEmpresa.FechaIni, "F") & " AND  codartic in (" & ArticulosPalets & ") "
-        CadenaConsulta = CadenaConsulta & " and detamovi in ('ALC','ALV')"
+        CadenaConsulta = CadenaConsulta & " from smoval where fechamov >=" & DBSet(vParamAplic.FechaActiva, "F") & " AND  codartic in (" & ArticulosPalets & ") "
+        CadenaConsulta = CadenaConsulta & " and detamovi in ('ALC','ALVA')" 'Los albaranes venta NO aparecen
         conn.Execute CadenaConsulta
         
         CadenaConsulta = "insert into tmppartidas(codusu,codartic,idpartida,idReferencia)"
         CadenaConsulta = CadenaConsulta & " select distinct " & vUsu.Codigo & ",codartic,if(tipomovi=0,codigope,0),if(tipomovi=1,codigope,0)"
-        CadenaConsulta = CadenaConsulta & " from smoval where fechamov >=" & DBSet(vEmpresa.FechaIni, "F") & " AND  codartic in (" & ArticulosPalets & ") "
+        CadenaConsulta = CadenaConsulta & " from smoval where fechamov >=" & DBSet(vParamAplic.FechaActiva, "F") & " AND  codartic in (" & ArticulosPalets & ") "
         CadenaConsulta = CadenaConsulta & " and detamovi ='PAL'"
         conn.Execute CadenaConsulta
         
@@ -1584,7 +1584,7 @@ Dim cSt As cStock
     
     cSt.Documento = Format(Val(ListView1.SelectedItem.SubItems(2)), "0000")
    
-    cSt.codalmac = 1
+    cSt.codAlmac = 1
     cSt.DetaMov = "PAL"
     cSt.codartic = Text1(1).Text
     cSt.Fechamov = CDate(ListView1.SelectedItem.Text)
