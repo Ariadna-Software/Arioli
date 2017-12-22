@@ -124,25 +124,25 @@ Begin VB.Form frmFacClientes
       TabCaption(1)   =   "Otros Datos"
       TabPicture(1)   =   "frmFacClientes.frx":0028
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "frameDptoVentas"
+      Tab(1).Control(0)=   "frameDptoDirec"
       Tab(1).Control(1)=   "frameDptoAdmon"
-      Tab(1).Control(2)=   "frameDptoDirec"
+      Tab(1).Control(2)=   "frameDptoVentas"
       Tab(1).ControlCount=   3
       TabCaption(2)   =   "Direcciones"
       TabPicture(2)   =   "frmFacClientes.frx":0044
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "ToolAux"
-      Tab(2).Control(1)=   "FrameDirecciones"
+      Tab(2).Control(0)=   "FrameDirecciones"
+      Tab(2).Control(1)=   "ToolAux"
       Tab(2).ControlCount=   2
       TabCaption(3)   =   "Documentos"
       TabPicture(3)   =   "frmFacClientes.frx":0060
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Frame3"
-      Tab(3).Control(1)=   "Text1(46)"
-      Tab(3).Control(2)=   "lw1"
-      Tab(3).Control(3)=   "Label3"
-      Tab(3).Control(4)=   "imgFecha(3)"
-      Tab(3).Control(5)=   "Label2"
+      Tab(3).Control(0)=   "Label2"
+      Tab(3).Control(1)=   "imgFecha(3)"
+      Tab(3).Control(2)=   "Label3"
+      Tab(3).Control(3)=   "lw1"
+      Tab(3).Control(4)=   "Text1(46)"
+      Tab(3).Control(5)=   "Frame3"
       Tab(3).ControlCount=   6
       Begin VB.TextBox Text1 
          Height          =   285
@@ -2629,6 +2629,7 @@ Private Sub BotonAnyadir()
     MostrarSituacion False
     
     Text1(0).Text = SugerirCodigoSiguienteStr("sclien", "codclien")
+    Text1(45).Text = Text1(0).Text
     FormateaCampo Text1(0)
     Text1(13).Text = Format(Now, "dd/mm/yyyy")
     'Sugerir el tipo de IVA como NORMAL
@@ -2638,7 +2639,7 @@ Private Sub BotonAnyadir()
     'Sugerir tipo facturacion a: Factura colectiva
     Me.cboFacturacion.ListIndex = 1 'estaba mal
     
-    cboPais.ListIndex = 0 'España
+    If vParamAplic.ContabilidadNueva Then cboPais.ListIndex = 0     'España
     
     
     'Sugerimos periodo y repeticion , a 1

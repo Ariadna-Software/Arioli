@@ -1157,7 +1157,8 @@ End Function
 
 
 
-Public Function CalcularDatosFactura(cadWhere As String, NomTabla As String, NomTablaLin As String, FacturaEnB As Boolean, CambiarIVA As Boolean) As Boolean
+Public Function CalcularDatosFactura(cadWhere As String, NomTabla As String, NomTablaLin As String, CambiarIVA As Boolean, Exento As Boolean) As Boolean
+
 'cadWhere: cad para la where de la SQL que selecciona las lineas del albaran o la factura
 'nomTabla: nombre de la tabla de albaranes(scaalp) o de AlbaranesXFactura(scafpa)
 '           segun llamemos desde recepcion de facturas o desde Hco de Facturas
@@ -1180,7 +1181,7 @@ Dim TipoIVA_Aplicable As Integer
 
    
     cadWhere = Replace(cadWhere, NomTabla, NomTablaLin)
-    If FacturaEnB Then
+    If Exento Then
         SQL = "SELECT " & vParamAplic.IVA_Exento2 & " as codigiva"
     Else
         SQL = "SELECT " & "sartic.codigiva"

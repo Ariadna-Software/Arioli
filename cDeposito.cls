@@ -240,12 +240,7 @@ Dim Aux As String
     HacerTrasiego = False
     If MueveLoteCompleto Then
     
-        'El que habia. Mueve el lote completo. No creaa nuevo lotaje
-        If vParamAplic.QUE_EMPRESA <> 4 Then
-            
-            
-            
-        End If
+
         If cDest.idPartida = 0 Then
             
             cDest.Kilos = 0

@@ -282,8 +282,8 @@ Begin VB.Form frmComHcoFacturas
       TabCaption(0)   =   "Datos básicos"
       TabPicture(0)   =   "frmComHcoFacturas.frx":0B10
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "FrameCliente"
-      Tab(0).Control(1)=   "FrameFactura"
+      Tab(0).Control(0)=   "FrameFactura"
+      Tab(0).Control(1)=   "FrameCliente"
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Albaranes"
       TabPicture(1)   =   "frmComHcoFacturas.frx":0B2C
@@ -3991,7 +3991,8 @@ End Function
 Private Function ActualizarDatosFactura() As Boolean
 Dim vFactu As CFacturaCom
 Dim cadSEL As String
-Dim FacturaB As Boolean
+Dim FacturaSinIVA As Boolean
+Dim Aux As String
 Dim CambiarIVA As Boolean
 
     Set vFactu = New CFacturaCom
@@ -4006,11 +4007,13 @@ Dim CambiarIVA As Boolean
         vFactu.ImpRet2 = ImporteFormateado(Text1(33).Text)
     End If
 
-    FacturaB = False
+    Aux = DevuelveDesdeBD(conAri, "tipprove", "sprove", "codprove", Text1(2).Text)
+    FacturaSinIVA = False
+    If Aux = "1" Or Aux = "2" Then FacturaSinIVA = True
     CambiarIVA = False
     If CDate(Text1(1).Text) < CDate("01/09/2012") Then CambiarIVA = True
-         
-    If vFactu.CalcularDatosFactura(cadSEL, "scafpa", "slifpc", FacturaB, CambiarIVA) Then
+
+    If vFactu.CalcularDatosFactura(cadSEL, "scafpa", "slifpc", CambiarIVA, FacturaSinIVA) Then
         Text1(14).Text = vFactu.BrutoFac
         Text1(15).Text = vFactu.ImpPPago
         Text1(16).Text = vFactu.ImpGnral

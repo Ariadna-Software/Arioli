@@ -1107,7 +1107,7 @@ Dim cLot As cLotaje
 Dim InsertarLotaje As Boolean
 Dim cDEP As cDeposito
 Dim FechaHora As Date
-
+Dim CadenaVall As String
     On Error GoTo EInsertarModificar
     InsertarModificar = False
     '---------------------
@@ -1193,6 +1193,34 @@ Dim FechaHora As Date
     
     SQL = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numlote", cP.NUmlote, "T")
     If SQL <> "" Then
+    
+    
+        If vParamAplic.QUE_EMPRESA = 4 Then
+            'VALL
+            'Pueden tener el mismo lote en mas de un deposito. Preguntar
+            CadenaVall = "numdeposito <> " & SQL & " AND numlote = " & DBSet(cP.NUmlote, "T") & " AND 1"
+            CadenaVall = DevuelveDesdeBD(conAri, "GROUP_CONCAT( numdeposito separator ' - ') ", "proddepositos", CadenaVall, "1 GROUP BY numlote", "N")
+            If CadenaVall <> "" Then
+                'Esta en mas de un deposito. Preguntamos
+                CadenaVall = InputBox("El lote esta en mas de un deposito. " & SQL & " - " & CadenaVall, "Deposito")
+                If CadenaVall = "" Then Err.Raise 513, , "Proceso cancelado"
+                If Val(CadenaVall) = 0 Then Err.Raise 513, , "Error introduciendo deposito "
+                
+                If DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numdeposito = " & Val(CadenaVall) & " AND numlote", cP.NUmlote, "T") = "" Then Err.Raise 513, , "Error introduciendo deposito "
+                
+                SQL = CadenaVall
+            End If
+        End If
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
         'Venta directa de un deposito
         Set cDEP = New cDeposito
         cDEP.LeerDatos CInt(SQL), True
@@ -1220,6 +1248,7 @@ Dim FechaHora As Date
     Set cP = Nothing
     Exit Function
 EInsertarModificar:
+    InsertarModificar = False
     MuestraError Err.Number, Err.Description
 End Function
 

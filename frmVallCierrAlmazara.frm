@@ -5,7 +5,7 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmVallCierrAlmazara 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Cierre y asignacion rendimientos de ALMAZARA"
-   ClientHeight    =   6300
+   ClientHeight    =   6495
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   13380
@@ -14,7 +14,7 @@ Begin VB.Form frmVallCierrAlmazara
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6300
+   ScaleHeight     =   6495
    ScaleWidth      =   13380
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
@@ -22,10 +22,21 @@ Begin VB.Form frmVallCierrAlmazara
    Begin VB.TextBox Text1 
       Alignment       =   1  'Right Justify
       Height          =   315
-      Index           =   1
-      Left            =   10680
+      Index           =   2
+      Left            =   12360
       MaxLength       =   10
-      TabIndex        =   18
+      TabIndex        =   6
+      Text            =   "0,00"
+      Top             =   720
+      Width           =   825
+   End
+   Begin VB.TextBox Text1 
+      Alignment       =   1  'Right Justify
+      Height          =   315
+      Index           =   1
+      Left            =   9600
+      MaxLength       =   10
+      TabIndex        =   5
       Tag             =   "Hora fin|H|S|||vallalmazaraproceso|HoraFin|hh:nn:ss|N|"
       Top             =   720
       Width           =   1305
@@ -34,9 +45,9 @@ Begin VB.Form frmVallCierrAlmazara
       Alignment       =   1  'Right Justify
       Height          =   315
       Index           =   0
-      Left            =   9360
+      Left            =   8280
       MaxLength       =   10
-      TabIndex        =   17
+      TabIndex        =   4
       Tag             =   "Hora fin|H|S|||vallalmazaraproceso|HoraFin|hh:nn:ss|N|"
       Top             =   720
       Width           =   1305
@@ -47,7 +58,7 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   315
       Left            =   4200
       Locked          =   -1  'True
-      TabIndex        =   15
+      TabIndex        =   18
       Text            =   "Text2"
       Top             =   720
       Width           =   1965
@@ -59,7 +70,7 @@ Begin VB.Form frmVallCierrAlmazara
       Index           =   1
       Left            =   11760
       Locked          =   -1  'True
-      TabIndex        =   12
+      TabIndex        =   15
       Text            =   "Text2"
       Top             =   5280
       Width           =   1245
@@ -71,7 +82,7 @@ Begin VB.Form frmVallCierrAlmazara
       Index           =   0
       Left            =   9120
       Locked          =   -1  'True
-      TabIndex        =   3
+      TabIndex        =   7
       Text            =   "Text2"
       Top             =   5280
       Width           =   1245
@@ -80,7 +91,7 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   315
       Left            =   1320
       Style           =   2  'Dropdown List
-      TabIndex        =   11
+      TabIndex        =   3
       Top             =   720
       Width           =   2055
    End
@@ -113,15 +124,15 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   540
       Index           =   0
       Left            =   120
-      TabIndex        =   7
-      Top             =   5595
+      TabIndex        =   11
+      Top             =   5835
       Width           =   3255
       Begin VB.Label lblIndicador 
          Alignment       =   2  'Center
          Caption         =   "Label2"
          Height          =   240
          Left            =   240
-         TabIndex        =   8
+         TabIndex        =   12
          Top             =   180
          Width           =   2355
       End
@@ -131,7 +142,7 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   375
       Left            =   10800
       TabIndex        =   1
-      Top             =   5760
+      Top             =   6000
       Width           =   1035
    End
    Begin VB.CommandButton cmdCancelar 
@@ -140,15 +151,15 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   375
       Left            =   12075
       TabIndex        =   2
-      Top             =   5760
+      Top             =   6000
       Width           =   1035
    End
    Begin VB.CommandButton cmdRegresar 
       Caption         =   "&Regresar"
       Height          =   375
       Left            =   10800
-      TabIndex        =   4
-      Top             =   5760
+      TabIndex        =   8
+      Top             =   6000
       Visible         =   0   'False
       Width           =   1035
    End
@@ -156,7 +167,7 @@ Begin VB.Form frmVallCierrAlmazara
       Align           =   1  'Align Top
       Height          =   420
       Left            =   0
-      TabIndex        =   6
+      TabIndex        =   10
       Top             =   0
       Width           =   13380
       _ExtentX        =   23601
@@ -190,7 +201,7 @@ Begin VB.Form frmVallCierrAlmazara
       Bindings        =   "frmVallCierrAlmazara.frx":000C
       Height          =   3795
       Left            =   120
-      TabIndex        =   5
+      TabIndex        =   9
       Top             =   1305
       Width           =   13095
       _ExtentX        =   23098
@@ -303,11 +314,20 @@ Begin VB.Form frmVallCierrAlmazara
       _Version        =   393216
    End
    Begin VB.Label Label1 
+      Caption         =   "%Inc bodega"
+      Height          =   195
+      Index           =   3
+      Left            =   11160
+      TabIndex        =   21
+      Top             =   720
+      Width           =   1755
+   End
+   Begin VB.Label Label1 
       Caption         =   "Fecha - Hora finalización"
       Height          =   195
       Index           =   2
-      Left            =   7440
-      TabIndex        =   19
+      Left            =   6360
+      TabIndex        =   20
       Top             =   720
       Width           =   1755
    End
@@ -326,7 +346,7 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   255
       Index           =   1
       Left            =   10680
-      TabIndex        =   16
+      TabIndex        =   19
       Top             =   5280
       Width           =   975
    End
@@ -335,7 +355,7 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   375
       Index           =   1
       Left            =   3720
-      TabIndex        =   14
+      TabIndex        =   17
       Top             =   720
       Width           =   615
    End
@@ -353,7 +373,7 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   255
       Index           =   0
       Left            =   8400
-      TabIndex        =   13
+      TabIndex        =   16
       Top             =   5280
       Width           =   615
    End
@@ -362,15 +382,15 @@ Begin VB.Form frmVallCierrAlmazara
       Height          =   255
       Index           =   0
       Left            =   120
-      TabIndex        =   10
+      TabIndex        =   14
       Top             =   720
       Width           =   975
    End
    Begin VB.Label lblInfInv 
       Height          =   255
       Left            =   3600
-      TabIndex        =   9
-      Top             =   5760
+      TabIndex        =   13
+      Top             =   6000
       Width           =   2055
    End
 End
@@ -464,7 +484,10 @@ Dim Cade1 As String
                 Cad = DevuelveDesdeBD(conAri, "max(horamovi)", "proddepositoshco", "numdeposito", CStr(cboDepo.ItemData(cboDepo.ListIndex)))
                 If Cad <> "" Then
                     If CDate(Cad) > CDate(Text1(0).Text & " " & Text1(1).Text) Then
-                        If MsgBox("Fecha menor que movimiento en el deposito. ¿Continuar?", vbQuestion + vbYesNoCancel) <> vbYes Then Exit Sub
+                        If MsgBox("Fecha menor que movimiento en el deposito. ¿Continuar?", vbQuestion + vbYesNoCancel) <> vbYes Then
+                            Screen.MousePointer = vbDefault
+                            Exit Sub
+                        End If
                     End If
                 End If
                                 
@@ -492,12 +515,12 @@ Dim Cade1 As String
                 'Veremos la capaciadad que hay mas la estimada
                 Set miRsAux = New ADODB.Recordset
                 miRsAux.Open "Select * from proddepositos where numdeposito=" & cboDepo.ItemData(cboDepo.ListIndex), conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-                If IsNull(miRsAux!NUmlote) Then
+                If IsNull(miRsAux!numLote) Then
                     Cad = Cad & "*** Nuevo ****"
                     CadenaConsulta = "0"
                 
                 Else
-                    Cad = Cad & miRsAux!NUmlote & Cade1 & vbCrLf
+                    Cad = Cad & miRsAux!numLote & Cade1 & vbCrLf
                     CadenaConsulta = miRsAux!Litros
                 End If
                 Cad = Cad & vbCrLf & "Litros deposito: " & Format(CadenaConsulta, FormatoCantidad) & "   Maximo: " & miRsAux!Capacidad
@@ -509,6 +532,9 @@ Dim Cade1 As String
                 'Duracion
                 Cad = Cad & vbCrLf & "Duracion: " & (HorasProceso \ 60) & ":" & Format(HorasProceso Mod 60, "00")
                 
+                If Text1(2).Text <> 0 Then
+                    If ImporteFormateado(Text1(2).Text) <> 0 Then Cad = Cad & vbCrLf & "INCREMENTO BODEGA " & Text1(2).Text
+                End If
                 miRsAux.Close
                 Set miRsAux = Nothing
                 Cad = Cad & vbCrLf & vbCrLf & vbCrLf & "¿Cerrar proceso almazara?"
@@ -526,7 +552,7 @@ Dim Cade1 As String
                             frmProduVarios.Opcion = 5
                             frmProduVarios.Show vbModal
                             
-                            Cad = "UPDATE proddepositos SET noMolturar=0 WHERE numdeposito=" & cboDepo.List(cboDepo.ListIndex)  'permitimos una proxima molturacion
+                            Cad = "UPDATE proddepositos SET noMolturar=0 WHERE numdeposito=" & cboDepo.ItemData(cboDepo.ListIndex)  'permitimos una proxima molturacion
                             conn.Execute Cad
                             
                             
@@ -664,6 +690,8 @@ End Sub
 Private Sub CargaGrid()
 Dim I As Byte
 Dim SQL As String
+Dim IncrementoBodega As Currency
+
 On Error GoTo ECarga
 
     gridCargado = False
@@ -701,11 +729,17 @@ On Error GoTo ECarga
     DataGrid1.Columns(7).Caption = "Rdto"
     DataGrid1.Columns(7).Width = 800
     DataGrid1.Columns(7).Alignment = dbgRight
+    DataGrid1.Columns(7).NumberFormat = "00.00"
     
-    DataGrid1.Columns(8).Caption = "Litros"
-    DataGrid1.Columns(8).Width = 1100
+    DataGrid1.Columns(8).Caption = "Real"
+    DataGrid1.Columns(8).Width = 800
     DataGrid1.Columns(8).Alignment = dbgRight
+    DataGrid1.Columns(8).NumberFormat = "00.00"
     
+    DataGrid1.Columns(9).Caption = "Litros"
+    DataGrid1.Columns(9).Width = 1100
+    DataGrid1.Columns(9).Alignment = dbgRight
+    DataGrid1.Columns(9).NumberFormat = "00.00"
     
     For I = 0 To DataGrid1.Columns.Count - 1
         DataGrid1.Columns(I).AllowSizing = False
@@ -714,8 +748,11 @@ On Error GoTo ECarga
     
     DataGrid1.ScrollBars = dbgAutomatic
     
+    IncrementoBodega = 0
+    If Text1(2).Text <> "" Then IncrementoBodega = ImporteFormateado(Text1(2).Text)
     
-    SQL = "SELECT sum(numlotes+0),sum( Round(((numlotes + 0) * Cantidad) / 100, 2)) from tmpnlotes where codusu = " & vUsu.Codigo
+    SQL = "SELECT sum(numlotes+0),sum( Round(((numlotes + 0) * (Cantidad + " & TransformaComasPuntos(CStr(IncrementoBodega))
+    SQL = SQL & ")) / 100, 2)) from tmpnlotes where codusu = " & vUsu.Codigo
     Set miRsAux = New ADODB.Recordset
     miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic
     Me.Text2(0).Text = "": Me.Text2(1).Text = ""
@@ -760,8 +797,8 @@ Dim alto As Single
         
         'Fijamos anchura y posicion Left
         '--------------------------------
-        txtAux.Left = DataGrid1.Columns(7).Left + 130 'codalmac
-        txtAux.Width = DataGrid1.Columns(7).Width - 10
+        txtAux.Left = DataGrid1.Columns(8).Left + 130 'codalmac
+        txtAux.Width = DataGrid1.Columns(8).Width - 10
         
         'Los ponemos Visibles o No
         '--------------------------
@@ -787,6 +824,10 @@ End Sub
 
 
 
+Private Sub Text1_GotFocus(Index As Integer)
+    ConseguirFoco Text1(Index), 3
+End Sub
+
 Private Sub Text1_KeyPress(Index As Integer, KeyAscii As Integer)
     KEYpressGnral KeyAscii, 3, False
 End Sub
@@ -794,11 +835,18 @@ End Sub
 Private Sub Text1_LostFocus(Index As Integer)
     If Index = 0 Then
         PonerFormatoFecha Text1(0)
-    Else
+    ElseIf Index = 1 Then
         PonerFormatoHora Text1(1)
+    Else
+        If Not PonerFormatoDecimal(Text1(2), 4) Then Text1(2).Text = "0"
+        CargaGrid
+   
+
     End If
 End Sub
+Private Sub CalcularIncremento()
 
+End Sub
 Private Sub txtAux_GotFocus()
     ConseguirFocoLin txtAux
 End Sub
@@ -848,6 +896,7 @@ Private Sub txtAux_LostFocus()
         .Text = Trim(.Text)
         If .Text = "" Then Exit Sub
         'Formato tipo 1: Decimal(12,2)
+        
         If Not PonerFormatoDecimal(txtAux, 4) Then .Text = ""
     End With
 
@@ -914,6 +963,8 @@ End Sub
 
 
 Private Function MontaSQLCarga() As String
+Dim Incremento As Currency
+
 '--------------------------------------------------------------------
 ' MontaSQlCarga:
 '   Basándose en la información proporcionada por el vector de campos
@@ -924,8 +975,23 @@ Private Function MontaSQLCarga() As String
 '--------------------------------------------------------------------
 Dim SQL As String
 
-    SQL = "SELECT NumAlbar , FechaAlb, tmpnlotes.codProve, nomprove, codartic, NomArtic, numlotes, Cantidad,"
-    SQL = SQL & " Round(((numlotes + 0) * Cantidad) / 100, 2) from tmpnlotes,sprove where tmpnlotes.codprove="
+
+    Incremento = 0
+    If Text1(2).Text <> "" Then Incremento = ImporteFormateado(Text1(2).Text)
+        
+
+    SQL = "SELECT NumAlbar , FechaAlb, tmpnlotes.codProve, nomprove, codartic, NomArtic, numlotes, cantidad "
+    If Incremento < 0 Then
+        SQL = SQL & " - "
+    Else
+        SQL = SQL & " + "
+    End If
+    SQL = SQL & DBSet(Abs(Incremento), "N")
+    SQL = SQL & ", Cantidad,"
+    SQL = SQL & " Round(((numlotes + 0) * (Cantidad" & IIf(Incremento < 0, "-", "+")
+    SQL = SQL & DBSet(Abs(Incremento), "N")
+    SQL = SQL & " )) / 100, 2) "
+    SQL = SQL & " from tmpnlotes,sprove where tmpnlotes.codprove="
     SQL = SQL & " sprove.codprove and codusu = " & vUsu.Codigo
     
     MontaSQLCarga = SQL
@@ -1053,6 +1119,7 @@ Dim NumDeposito As Integer
 Dim KilosTotales As Currency
 Dim AuxCantidad As Currency
 Dim LoteMasDeUnDeposito As Boolean
+Dim RendimientoAplicado As Currency
 
     On Error GoTo eCerrarProcesoAlm
     
@@ -1065,8 +1132,7 @@ Dim LoteMasDeUnDeposito As Boolean
     Set cLot = New cLotaje
     
 
-    'No es el conectado. Será lo que ponga en vall
-   
+
 
 
     NumDeposito = cboDepo.ItemData(cboDepo.ListIndex)
@@ -1100,26 +1166,26 @@ Dim LoteMasDeUnDeposito As Boolean
     If Not cD.LeerDatos(NumDeposito, True) Then Err.Raise 513, , "Leyendo deposito: " & NumDeposito
     
     
-    If cD.NumDeposito = 100 And cD.NUmlote <> "" Then Err.Raise 513, , "Deposito produccion NO esta vacio"
+    If cD.NumDeposito = 100 And cD.numLote <> "" Then Err.Raise 513, , "Deposito produccion NO esta vacio"
     
     
-    If cD.NUmlote = "" Then
+    If cD.numLote = "" Then
         'Asignaremos un lote nuevo.. y una nueva partida
         Set vT = New CTiposMov
         vT.Leer "LOV"
-        CP1.NUmlote = vT.ConseguirContador(vT.TipoMovimiento)
+        CP1.numLote = vT.ConseguirContador(vT.TipoMovimiento)
         
-        CP1.NUmlote = "MOSTRA" & CP1.NUmlote & "-"
+        CP1.numLote = "MOSTRA" & CP1.numLote & "-"
         If Month(Now) < 10 Then
-            CP1.NUmlote = CP1.NUmlote & Year(Now)
+            CP1.numLote = CP1.numLote & Year(Now)
         Else
-            CP1.NUmlote = CP1.NUmlote & Year(Now) + 1
+            CP1.numLote = CP1.numLote & Year(Now) + 1
         End If
         NuevaPartida = True
        
         cD.idPartida = CP1.Siguiente
         cD.Kilos = 0
-        cD.NUmlote = CP1.NUmlote
+        cD.numLote = CP1.numLote
         vT.IncrementarContador vT.TipoMovimiento
         
     Else
@@ -1132,7 +1198,7 @@ Dim LoteMasDeUnDeposito As Boolean
     'Incrementamos la cantidad del deposito
     If NuevaPartida Then
         cD.VariacionKilosDeposito Kilos   'Si tenia o no, da lo mismo. Esta sumando los nuevos
-        If Not cD.InsertarEnDeposito2(10, Text1(0).Text & " " & Text1(1).Text, Format(ID, "0000")) Then Err.Raise 513, , "Insertando datos nuevos deposito: " & cD.NUmlote
+        If Not cD.InsertarEnDeposito2(10, Text1(0).Text & " " & Text1(1).Text, Format(ID, "0000")) Then Err.Raise 513, , "Insertando datos nuevos deposito: " & cD.numLote
     Else
         cD.VariacionKilosDeposito Kilos   'Si tenia o no, da lo mismo. Esta sumando los nuevos
         cD.InsertarEnHco 10, Text1(0).Text & " " & Text1(1).Text, Format(ID, "0000"), Kilos
@@ -1170,7 +1236,7 @@ Dim LoteMasDeUnDeposito As Boolean
     cLot.HoraMov = cStock.HoraMov
     cLot.LineaDocu = cStock.LineaDocu
     cLot.tipoMov = 1 'entrada
-    cLot.NUmlote = CP1.NUmlote
+    cLot.numLote = CP1.numLote
     cLot.ProvCliTra = cStock.Trabajador
   
     cStock.Cantidad = Kilos
@@ -1230,7 +1296,7 @@ Dim LoteMasDeUnDeposito As Boolean
     
     
     cP2.Cantidad = Kilos
-    cP2.NUmlote = "Orujo" & Format(ID, "0000")
+    cP2.numLote = "Orujo" & Format(ID, "0000")
     cP2.codAlmac = cStock.codAlmac
     Cad = DevuelveDesdeBD(conAri, "articOrujo", "vallparam", "1", "1")
     cStock.codartic = Cad
@@ -1257,9 +1323,14 @@ Dim LoteMasDeUnDeposito As Boolean
     cStock.Importe = 0
     cStock.LineaDocu = 1
     cStock.Trabajador = TrabajadorParte
+    
+    RendimientoAplicado = 0
+    If Text1(2).Text <> "" Then RendimientoAplicado = ImporteFormateado(Text1(2).Text)
+      
+    
     While Not RT.EOF
         cStock.codartic = RT!codartic
-        Kilos = CCur(TransformaPuntosComas((RT!Numlotes)))
+        Kilos = CCur(TransformaPuntosComas((RT!numlotes)))
         cStock.Cantidad = Kilos
         cStock.tipoMov = "S"
         Cad = "Alb: " & RT!NumAlbar & " " & RT!FechaAlb & " .> " & RT!NomArtic
@@ -1271,10 +1342,11 @@ Dim LoteMasDeUnDeposito As Boolean
         Cad = " numalbar=" & DBSet(RT!NumAlbar, "T") & " AND codartic = " & DBSet(RT!codartic, "T") & " AND 1"
         Cad = DevuelveDesdeBD(conAri, "entrada", "vallentradacamionlineas", Cad, "1 ORDER BY entrada desc")  'No deberia haber mas de una
         If Cad = "" Then Err.Raise 513, , "NO se encuentra la entrada de camion para el albarán: " & RT!NumAlbar & " Art: " & RT!codartic
+         
         
         Cad = " WHERE  numalbar=" & DBSet(RT!NumAlbar, "T") & " AND entrada =" & Cad
         Cad = ",rdtoRea=" & DBSet(RT!Cantidad, "N") & Cad
-        Cad = "UPDATE vallentradacamionlineas set rendimiento=" & DBSet(RT!Cantidad, "N") & Cad
+        Cad = "UPDATE vallentradacamionlineas set rendimiento=" & DBSet(RT!Cantidad + RendimientoAplicado, "N") & Cad
         
         
         
@@ -1310,7 +1382,7 @@ Dim LoteMasDeUnDeposito As Boolean
                 Set cP2 = Nothing
                 Set cP2 = New cPartidas
                 
-                If Not cP2.LeerDesdeArticulo(articuloTalco, 1, CStr(RT!NUmlote)) Then Err.Raise 513, , "Leyendo lote talco: " & articuloTalco & " " & RT!NUmlote
+                If Not cP2.LeerDesdeArticulo(articuloTalco, 1, CStr(RT!numLote)) Then Err.Raise 513, , "Leyendo lote talco: " & articuloTalco & " " & RT!numLote
                
                 cP2.Cantidad = Kilos
                 cStock.codartic = cP2.codartic
@@ -1321,9 +1393,27 @@ Dim LoteMasDeUnDeposito As Boolean
                 cP2.IncrementarCantidad -Kilos
                 If Not cStock.ActualizarStock Then Err.Raise 513, , "Actualizando stock talco"
             
+                Set cLot = Nothing
+                Set cLot = New cLotaje
+                                
+                  cLot.codAlmac = cStock.codAlmac
+                  cLot.codartic = cStock.codartic
+                  cLot.DetaMov = cStock.DetaMov
+                  cLot.Documento = cStock.Documento
+                  cLot.Fechamov = cStock.Fechamov
+                  cLot.HoraMov = cStock.HoraMov
+                  cLot.LineaDocu = cStock.LineaDocu
+                  cLot.tipoMov = 0  'salida
+                  cLot.numLote = RT!numLote
+                  cLot.ProvCliTra = cStock.Trabajador
+                  cLot.SubLinea = 1
+                  cLot.Cantidad = cStock.Cantidad
+                  
+                
+                  If Not cLot.InsertarLote Then Err.Raise 513, , "Actualizando stock talco"
+                  Set cLot = Nothing
             
-            
-            
+        
             End If
         End If
     End If
@@ -1346,18 +1436,18 @@ Dim LoteMasDeUnDeposito As Boolean
         
         Set cP2 = Nothing
         Set cP2 = New cPartidas
-        cP2.NUmlote = vT.ConseguirContador(vT.TipoMovimiento)
-        cP2.NUmlote = "MOSTRA" & cP2.NUmlote & "-"
+        cP2.numLote = vT.ConseguirContador(vT.TipoMovimiento)
+        cP2.numLote = "MOSTRA" & cP2.numLote & "-"
         If Month(Now) < 10 Then
-            cP2.NUmlote = cP2.NUmlote & Year(Now)
+            cP2.numLote = cP2.numLote & Year(Now)
         Else
-            cP2.NUmlote = cP2.NUmlote & Year(Now) + 1
+            cP2.numLote = cP2.numLote & Year(Now) + 1
         End If
         
         
         Cad = "INSERT INTO olicoupage(codigo,codartic,fecha,descripcion,YaCreado,codalmac,numlote,Deposito) VALUES ("
         Cad = Cad & NumRegElim & ",'" & CP1.codartic & "'," & DBSet(cStock.HoraMov, "FH") & ",'"
-        Cad = Cad & "Molturacion. ID: " & CP1.NumAlbar & "',0, " & CP1.codAlmac & "," & DBSet(cP2.NUmlote, "T") & ","
+        Cad = Cad & "Molturacion. ID: " & CP1.NumAlbar & "',0, " & CP1.codAlmac & "," & DBSet(cP2.numLote, "T") & ","
         Cad = Cad & cboDepo.ItemData(cboDepo.ListIndex) & ")"
         conn.Execute Cad
         
@@ -1376,16 +1466,16 @@ Dim LoteMasDeUnDeposito As Boolean
         
         Set cP2 = Nothing
         Set cP2 = New cPartidas
-        If Not cP2.Leer(cD.idPartida) Then Err.Raise 513, , "Leyendo partida deposito: " & cD.NumDeposito & " ->" & cD.NUmlote
+        If Not cP2.Leer(cD.idPartida) Then Err.Raise 513, , "Leyendo partida deposito: " & cD.NumDeposito & " ->" & cD.numLote
         
         'Las dos linea del coupage con lotes
         '---------------------------------------------------------
         
         Cad = "INSERT INTO olicoupagelinlotes(codigo,codartic,linea,numlote,cantlote,fincuba,deposito) VALUES ("
-        Cad = Cad & NumRegElim & ",'" & cP2.codartic & "',1," & DBSet(cP2.NUmlote, "T") & "," & DBSet(cD.Kilos, "N")
+        Cad = Cad & NumRegElim & ",'" & cP2.codartic & "',1," & DBSet(cP2.numLote, "T") & "," & DBSet(cD.Kilos, "N")
         
         Cad = Cad & ",1," & cD.NumDeposito & "),(" & NumRegElim & "," & DBSet(CP1.codartic, "T") & ",2,"
-        Cad = Cad & DBSet(CP1.NUmlote, "T") & "," & DBSet(Kilos, "N") & ",1,100)"
+        Cad = Cad & DBSet(CP1.numLote, "T") & "," & DBSet(Kilos, "N") & ",1,100)"
         conn.Execute Cad
         
         
@@ -1420,7 +1510,7 @@ Dim LoteMasDeUnDeposito As Boolean
     Cad = Cad & ", articuloTalco =" & articuloTalco
     
     'Lote y articulo
-    Cad = Cad & ", loteproducido =" & DBSet(CP1.NUmlote, "T")
+    Cad = Cad & ", loteproducido =" & DBSet(CP1.numLote, "T")
     Cad = Cad & ", artproducido =" & DBSet(CP1.codartic, "T")
      
     

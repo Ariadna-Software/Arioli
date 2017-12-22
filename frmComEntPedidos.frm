@@ -5525,7 +5525,7 @@ End Function
 
 Private Sub CalcularDatosFactura()
 Dim I As Byte
-Dim cadWhere As String
+Dim cadWhere2 As String
 Dim vFactu As CFacturaCom
 
     'Limpiar en el form los datos calculados de la factura
@@ -5534,12 +5534,24 @@ Dim vFactu As CFacturaCom
          Text3(I).Text = ""
     Next I
     
-    cadWhere = ObtenerWhereCP(False)
     
     Set vFactu = New CFacturaCom
     vFactu.DtoPPago = CCur(ComprobarCero(Text1(13).Text))
     vFactu.DtoGnral = CCur(ComprobarCero(Text1(14).Text))
-    If vFactu.CalcularDatosFactura(cadWhere, NombreTabla, NomTablaLineas, False, False) Then
+    
+    Dim Exento As Boolean
+    Exento = False
+    If vUsu.TrabajadorB Then
+        Exento = True
+    Else
+        cadWhere2 = DevuelveDesdeBD(conAri, "tipprove", "sprove", "codprove", Text1(4).Text)
+        If cadWhere2 = "1" Or cadWhere2 = "2" Then Exento = True
+    End If
+    
+    
+    cadWhere2 = ObtenerWhereCP(False)
+    
+    If vFactu.CalcularDatosFactura(cadWhere2, NombreTabla, NomTablaLineas, False, Exento) Then
         Text3(33).Text = vFactu.BrutoFac
         Text3(34).Text = vFactu.ImpPPago
         Text3(35).Text = vFactu.ImpGnral

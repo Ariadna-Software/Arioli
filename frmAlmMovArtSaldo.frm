@@ -18,6 +18,14 @@ Begin VB.Form frmAlmMovArtSaldo
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
+   Begin VB.CommandButton cmdUpdateStock 
+      Caption         =   "&Aceptar"
+      Height          =   375
+      Left            =   3240
+      TabIndex        =   23
+      Top             =   7440
+      Width           =   1035
+   End
    Begin MSComctlLib.ListView lw1 
       Height          =   5415
       Left            =   120
@@ -524,6 +532,22 @@ End Sub
 
 
 
+Private Sub cmdUpdateStock_Click()
+Dim C As String
+    On Error Resume Next
+    If Image1(0).visible Then Exit Sub  'es correcto
+    If Me.Text1(0).Text = "" Or Text1(1).Text = "" Or Text2(0).Text = "" Then Exit Sub
+    If Me.lw1.ListItems.Count = 0 Then Exit Sub
+    C = lw1.ListItems(Me.lw1.ListItems.Count).SubItems(7)
+    C = TransformaComasPuntos(CStr(ImporteFormateado(C)))
+    C = "UPDATE salmac set canstock = " & C
+    C = C & " WHERE codartic=" & DBSet(Text1(0).Text, "T") & " AND codalmac=" & Text1(1).Text
+    EjecutaSQL conAri, C
+    Data1.Refresh
+    Me.Data1.Recordset.Find "codartic =" & DBSet(Text1(0).Text, "T"), , adSearchForward, 1
+    PonerCampos
+End Sub
+
 Private Sub Form_Activate()
     If PrimeraVez Then
         PrimeraVez = False
@@ -559,7 +583,9 @@ Private Sub Form_Load()
     
     'Vemos como esta guardado el valor del check
     chkVistaPrevia.Value = CheckValueLeer(Name)
-        
+            
+    cmdUpdateStock.visible = UCase(vUsu.Login) = "ROOT"
+            
     Data1.CursorType = adOpenDynamic
     Data1.ConnectionString = conn
     CadenaConsulta = "Select codartic,codalmac from " & NombreTabla & " WHERE codartic = -1"
@@ -1361,7 +1387,7 @@ Dim It As ListItem
         Set It = lw1.ListItems.Add()
         It.Text = Format(RS!Fechamov, "dd/mm/yyyy")
         It.SubItems(1) = Format(RS!horamovi, "hh:mm:ss")
-        It.SubItems(2) = RS!detamovi
+        It.SubItems(2) = RS!Detamovi
         It.SubItems(3) = RS!codigope
         
         'If It.SubItems(2) = "ALR" And It.SubItems(3) = "752" Then
@@ -1383,11 +1409,14 @@ Dim It As ListItem
         It.SubItems(7) = Format(vStock, FormatoCantidad)
         
        ' If Me.chkCargaNombres.Value = 1 Then
-            Aux = PonerNombreCliente(RS!codigope, RS!detamovi)
+       If RS!Detamovi = "TRZ" Then
+            Aux = "Produccion: " & Val(RS!document)
+       Else
+            Aux = PonerNombreCliente(RS!codigope, RS!Detamovi)
             If Aux = "" Then Aux = "Error leyendo desde BD"
-            It.SubItems(4) = Aux
-       ' End If
-       
+            
+       End If
+       It.SubItems(4) = Aux
        
        
        It.Tag = DBLet(RS!document)

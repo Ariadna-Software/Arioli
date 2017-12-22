@@ -1118,7 +1118,7 @@ Dim TipoIvaFactura As Byte '0 Normal   1 R.E     2 Exento
            '     b = InsertarLinFact_TicketsAgrupados("scafac", cadWhere, cadMen, False)
             Else
                 'Normal. Esta es la forma NORMAL NORMAL de hacerlo
-                b = InsertarLinFact("scafac", cadWhere, cadMen, False, 0, "", TipoIvaFactura)  'TipoIvaFactura
+                b = InsertarLinFact("scafac", cadWhere, cadMen, False, 0, "", TipoIvaFactura)   'TipoIvaFactura
             End If
             cadMen = "Insertando Lin. Factura: " & cadMen
     
@@ -2002,6 +2002,8 @@ Dim Mc As Contadores
 Dim vLlevaRetencion As Boolean
 Dim I As Integer
 
+Dim TipoIvaFactura As Byte '0 Normal   1 R.E     2 Exento
+
     On Error GoTo EContab
 
     ConnConta.BeginTrans
@@ -2010,8 +2012,9 @@ Dim I As Integer
     
     Set Mc = New Contadores
     vLlevaRetencion = False 'Si llevara retencion me lo devolvera la fucion insertar
+    TipoIvaFactura = 0
     '---- Insertar en la conta Cabecera Factura
-    b = InsertarCabFactProv(cadWhere, cadMen, Mc, FechaFin, vLlevaRetencion, vContaFra)
+    b = InsertarCabFactProv(cadWhere, cadMen, Mc, FechaFin, vLlevaRetencion, vContaFra, TipoIvaFactura)
     cadMen = "Insertando Cab. Factura: " & cadMen
     
     If b Then
@@ -2019,7 +2022,7 @@ Dim I As Integer
         'Veremos que opcion de CC es la que hay que pasar (agrupar o no agrupar)
         vCCos = CodCCost
         '---- Insertar lineas de Factura en la Conta
-        b = InsertarLinFact("scafpc", cadWhere, cadMen, vLlevaRetencion, Mc.contador, "", 0) 'El ultinmo seria intracom
+        b = InsertarLinFact("scafpc", cadWhere, cadMen, vLlevaRetencion, Mc.contador, "", TipoIvaFactura) 'El ultinmo seria intracom
         
         cadMen = "Insertando Lin. Factura: " & cadMen
 
@@ -2069,7 +2072,7 @@ EContab:
 End Function
 
 
-Private Function InsertarCabFactProv(cadWhere As String, cadErr As String, ByRef Mc As Contadores, FechaFin As String, ByRef LlevaRetencion As Boolean, ByRef vCF As cContabilizarFacturas) As Boolean
+Private Function InsertarCabFactProv(cadWhere As String, cadErr As String, ByRef Mc As Contadores, FechaFin As String, ByRef LlevaRetencion As Boolean, ByRef vCF As cContabilizarFacturas, ByRef QueTipoDeIVA As Byte) As Boolean
 'Insertando en tabla conta.cabfact
 '(OUT) AnyoFacPr: aqui devolvemos el año de fecha recepcion para insertarlo en las lineas de factura de proveedor de la conta
 Dim SQL As String
@@ -2078,10 +2081,12 @@ Dim Cad As String
 Dim Nulo2 As String
 Dim Nulo3 As String
 Dim Aux As String
-
+Dim TipoOpera  As String
 Dim SQL2 As String
 Dim CadenaInsertFaclin2 As String
 Dim ImporAux As Currency
+Dim CodIntra As String
+    
     On Error GoTo EInsertar
        
     
@@ -2196,21 +2201,21 @@ Dim ImporAux As Currency
                 ' 0 General   1 Intracom    2  Export import    3 Interior exenta    4   ISP    5 REA
                 '  GENERAL // INTRACOMUNITARIA // EXPORT. - IMPORT. //   INTERIOR EXENTA   // INV. SUJETO PASIVO   // R.E.A.
                 'Si es una factura con IVA 0%
-                'TipoOpera = 0
-                'If DBLet(RS!InvSujPas, "N") = 1 Then
-                '    TipoOpera = 4
-                '
-                'Else
-                '
-                '         'IVA ES CERO
-                '        If RS!tipprove = 1 Then
-                '            'intracomunitaria
-                '            TipoOpera = 1
-                '        Else
-                '            'Exstranjero
-                '             If RS!tipprove = 1 Then TipoOpera = 2
-                '        End If
-                'End If
+                TipoOpera = 0
+                CodIntra = ""
+                'IVA ES CERO
+                If RS!tipprove = 1 Then
+                    'intracomunitaria
+                    TipoOpera = 1
+                    CodIntra = "A"
+                    QueTipoDeIVA = 2 'exento
+                Else
+                    'Exstranjero
+                     If RS!tipprove = 2 Then
+                        TipoOpera = 2
+                        QueTipoDeIVA = 2 'exento
+                    End If
+                End If
                 
                 'Concepto 340
                 '---------------------
@@ -2222,12 +2227,16 @@ Dim ImporAux As Currency
                 If RS!TotalFac < 0 Then
                     Aux = "D"
                 Else
-                    If Not IsNull(RS!TipoIVA2) Then Aux = "C"
+                    If RS!tipprove = 1 Then
+                        Aux = "P"
+                    Else
+                        If Not IsNull(RS!TipoIVA2) Then Aux = "C"
+                    End If
                 End If
             
                 
                 'codopera,codconce340,codintra
-                SQL = SQL & "0" & "," & DBSet(Aux, "T") & "," & DBSet("", "T", "S") & ","
+                SQL = SQL & TipoOpera & "," & DBSet(Aux, "T") & "," & DBSet(CodIntra, "T", "S") & ","
                 
                 
                 

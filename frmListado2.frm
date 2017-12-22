@@ -5830,20 +5830,20 @@ Begin VB.Form frmListado2
          TabCaption(1)   =   "Datos carta"
          TabPicture(1)   =   "frmListado2.frx":4183
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "txtFecha(32)"
-         Tab(1).Control(1)=   "txtCarta(2)"
-         Tab(1).Control(2)=   "chkCartaTO"
-         Tab(1).Control(3)=   "cmdGuardar"
-         Tab(1).Control(4)=   "txtCarta(4)"
-         Tab(1).Control(5)=   "txtCarta(5)"
-         Tab(1).Control(6)=   "txtCarta(3)"
-         Tab(1).Control(7)=   "txtCarta(1)"
-         Tab(1).Control(8)=   "txtCarta(0)"
-         Tab(1).Control(9)=   "Label6(4)"
-         Tab(1).Control(10)=   "Label6(3)"
-         Tab(1).Control(11)=   "Label6(2)"
-         Tab(1).Control(12)=   "Label6(1)"
-         Tab(1).Control(13)=   "Label6(0)"
+         Tab(1).Control(0)=   "Label6(0)"
+         Tab(1).Control(1)=   "Label6(1)"
+         Tab(1).Control(2)=   "Label6(2)"
+         Tab(1).Control(3)=   "Label6(3)"
+         Tab(1).Control(4)=   "Label6(4)"
+         Tab(1).Control(5)=   "txtCarta(0)"
+         Tab(1).Control(6)=   "txtCarta(1)"
+         Tab(1).Control(7)=   "txtCarta(3)"
+         Tab(1).Control(8)=   "txtCarta(5)"
+         Tab(1).Control(9)=   "txtCarta(4)"
+         Tab(1).Control(10)=   "cmdGuardar"
+         Tab(1).Control(11)=   "chkCartaTO"
+         Tab(1).Control(12)=   "txtCarta(2)"
+         Tab(1).Control(13)=   "txtFecha(32)"
          Tab(1).ControlCount=   14
          Begin VB.TextBox txtFecha 
             Height          =   285
@@ -8252,6 +8252,36 @@ Dim I As Integer
     
     
     Screen.MousePointer = vbHourglass
+    b = True
+    Set miRsAux = New ADODB.Recordset
+    Devuelve = ""
+    'Comprobando KILOS
+    For I = 1 To Me.ListView1.ListItems.Count
+        If Me.ListView1.ListItems(I).Checked Then
+            Label3(99).Caption = "Entrada:" & ListView1.ListItems(I).Text & "-" & ListView1.ListItems(I).SubItems(1)
+            Label3(99).Refresh
+                   
+            miSQL = DevuelveDesdeBD(conAri, "Bruto - tara", "vallentradacamion", "entrada", ListView1.ListItems(I).Text)
+            ImpTot = CCur(miSQL)
+            
+            miSQL = DevuelveDesdeBD(conAri, "sum(bruto)", "vallentradacamionlineas", "entrada", ListView1.ListItems(I).Text)
+            ImpTeo = CCur(miSQL)
+            If ImpTot = 0 Then
+                Devuelve = Devuelve & "ID: " & ListView1.ListItems(I).Text & "  Vacia" & vbCrLf
+            Else
+                If ImpTot <> ImpTeo Then Devuelve = Devuelve & "ID: " & ListView1.ListItems(I).Text & "   Kilos totales(cal/BD): " & ImpTot & " / " & ImpTeo & vbCrLf
+            End If
+        End If
+    Next I
+    Set miRsAux = Nothing
+    If Devuelve <> "" Then
+        Label3(99).Caption = "ERROR"
+        Devuelve = "Error en entradas: " & vbCrLf & vbCrLf & Devuelve
+        MsgBox Devuelve, vbExclamation
+        Screen.MousePointer = vbDefault
+        Exit Sub
+    End If
+    
     
     CadenaDesdeOtroForm = ""
     b = False
@@ -10920,11 +10950,11 @@ Dim T As String
 End Sub
 
 'Dado un FRAME lo pone a true y lo situa en x:120 y:0 y devuelve lo que debe medir el form
-Private Sub PonerFrameVisible(ByRef F As Frame, ByRef Ch As Integer, CW As Integer)
+Private Sub PonerFrameVisible(ByRef F As Frame, ByRef CH As Integer, CW As Integer)
     F.Top = 0
     F.Left = 120
     F.visible = True
-    Ch = F.Height + 420
+    CH = F.Height + 420
     CW = F.Width + 240
 End Sub
 
@@ -11973,7 +12003,7 @@ End Sub
 
 Private Function ObtenerDatosTickets(Diario As Boolean, CodCliVarios As Long) As Boolean
 Dim TiposIva As Byte
-Dim vTipom As CTiposMov
+Dim vTipoM As CTiposMov
 Dim vCli As CCliente
 
         On Error GoTo EObteniendoDatosTickets
@@ -12050,9 +12080,9 @@ Dim vCli As CCliente
         
         vCli.LeerDatos CStr(CodCliVarios)
         
-             Set vTipom = New CTiposMov
-             vTipom.Leer "FTG"
-             vTipom.ConseguirContador vTipom.TipoMovimiento
+             Set vTipoM = New CTiposMov
+             vTipoM.Leer "FTG"
+             vTipoM.ConseguirContador vTipoM.TipoMovimiento
              
              miSQL = "INSERT INTO `scafac` (`codtipom`,`numfactu`,`fecfactu`,`codclien`,`nomclien`,`domclien`,`codpobla`,"
              miSQL = miSQL & "`pobclien`,`proclien`,`nifclien`,`telclien`,`coddirec`,`nomdirec`,"
@@ -12099,7 +12129,7 @@ Dim vCli As CCliente
              '`codagent`,`codforpa`,`dtoppago`,`dtognral`,`codbanco`,`codsucur`,`digcontr`,`cuentaba`,"
              '`brutofac`,`impdtopp`,`impdtogr`,`intconta`,`totalfac`,"
                          
-             cadFrom = " VALUES ('" & vTipom.TipoMovimiento & "'," & vTipom.contador & ",'" & Devuelve & "'," & vCli.Codigo
+             cadFrom = " VALUES ('" & vTipoM.TipoMovimiento & "'," & vTipoM.contador & ",'" & Devuelve & "'," & vCli.Codigo
              cadFrom = cadFrom & ",'" & vCli.Nombre & "','','0','','','0',NULL,NULL,NULL" '0: codpos y nif
              'Agente:
              cadFrom = cadFrom & "," & vCli.Agente & "," & vCli.ForPago & ",0,0,NULL,NULL,NULL,NULL,"
@@ -12113,7 +12143,7 @@ Dim vCli As CCliente
             ' el proceso de contabilizacion cojera EL CODTRABA para obtener el CC
                 
                 miSQL = "insert into `scafac1` (`codtipom`,`numfactu`,`fecfactu`,codtipoa,numalbar,`codenvio`,`codtraba`,`codtrab1`,`codtrab2`)"
-                miSQL = miSQL & " VALUES ('FTG'," & vTipom.contador & ",'" & Devuelve & "','DAV','8',"  'Pongo tipoa y numalbar a piñon
+                miSQL = miSQL & " VALUES ('FTG'," & vTipoM.contador & ",'" & Devuelve & "','DAV','8',"  'Pongo tipoa y numalbar a piñon
                 miSQL = miSQL & vParamAplic.PorDefecto_Envio & "," & txtTrab(2).Text & "," & txtTrab(2).Text & "," & txtTrab(2).Text & ")"
                 conn.Execute miSQL
             
@@ -12123,7 +12153,7 @@ Dim vCli As CCliente
             'Ahora, despues de crear la factura temporal FTG, insertare en la tabla
             'que lleva la relacion, numfactura, codticket
             miSQL = "INSERT INTO sfactik(`numfacFTG`,`fecfacFTG`,`numfactu`,`fecfactu`,`codtraba`)"
-            miSQL = miSQL & " SELECT " & vTipom.contador & ",'" & Devuelve & "',numfactu,fecfactu," & txtTrab(2).Text & " FROM scafac where "
+            miSQL = miSQL & " SELECT " & vTipoM.contador & ",'" & Devuelve & "',numfactu,fecfactu," & txtTrab(2).Text & " FROM scafac where "
             miSQL = miSQL & Cadselect
             If Diario Then miSQL = miSQL & " AND fecfactu='" & Devuelve & "'"
             conn.Execute miSQL
@@ -12133,7 +12163,7 @@ Dim vCli As CCliente
             If Diario Then miSQL = miSQL & " AND fecfactu='" & Devuelve & "'"
             conn.Execute miSQL
              
-            vTipom.IncrementarContador vTipom.TipoMovimiento
+            vTipoM.IncrementarContador vTipoM.TipoMovimiento
             ObtenerDatosTickets = True
             
 
@@ -12145,7 +12175,7 @@ EObteniendoDatosTickets:
         MuestraError Err.Number, Err.Description & vbCrLf & miSQL
     End If
     Set vCli = Nothing
-    Set vTipom = Nothing
+    Set vTipoM = Nothing
 End Function
 
 
@@ -12967,6 +12997,12 @@ Dim ARticuloHoja As String
         MsgBox miSQL, vbExclamation
         Exit Function
     End If
+    
+    
+    
+    
+    
+    
     
     
     

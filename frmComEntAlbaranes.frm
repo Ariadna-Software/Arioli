@@ -542,17 +542,17 @@ Begin VB.Form frmComEntAlbaranes
       TabCaption(1)   =   "Otros Datos"
       TabPicture(1)   =   "frmComEntAlbaranes.frx":02B7
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "FrameHco"
-      Tab(1).Control(1)=   "Text2(21)"
-      Tab(1).Control(2)=   "Text1(21)"
-      Tab(1).Control(3)=   "Text1(19)"
-      Tab(1).Control(4)=   "Text1(18)"
+      Tab(1).Control(0)=   "Label1(45)"
+      Tab(1).Control(1)=   "Label1(1)"
+      Tab(1).Control(2)=   "imgBuscar(4)"
+      Tab(1).Control(3)=   "Text1(15)"
+      Tab(1).Control(4)=   "Text1(16)"
       Tab(1).Control(5)=   "Text1(17)"
-      Tab(1).Control(6)=   "Text1(16)"
-      Tab(1).Control(7)=   "Text1(15)"
-      Tab(1).Control(8)=   "imgBuscar(4)"
-      Tab(1).Control(9)=   "Label1(1)"
-      Tab(1).Control(10)=   "Label1(45)"
+      Tab(1).Control(6)=   "Text1(18)"
+      Tab(1).Control(7)=   "Text1(19)"
+      Tab(1).Control(8)=   "Text1(21)"
+      Tab(1).Control(9)=   "Text2(21)"
+      Tab(1).Control(10)=   "FrameHco"
       Tab(1).ControlCount=   11
       TabCaption(2)   =   "Totales"
       TabPicture(2)   =   "frmComEntAlbaranes.frx":02D3
@@ -5541,11 +5541,17 @@ Dim CambiarIVA As Boolean
          Text3(I).Text = ""
     Next I
     
+    FacturaB = False
     If Me.chkPresu.Value Then
         FacturaB = True
     Else
-        FacturaB = False
+        
+        cadWhere = DevuelveDesdeBD(conAri, "tipprove", "sprove", "codprove", Text1(4).Text)
+        If cadWhere = "1" Or cadWhere = "2" Then FacturaB = True
     End If
+            
+        
+    
     cadWhere = ObtenerWhereCP(False)
     
     Set vFactu = New CFacturaCom
@@ -5555,8 +5561,8 @@ Dim CambiarIVA As Boolean
     If Not FacturaB Then
         If CDate(Text1(1).Text) < CDate("01/09/2012") Then CambiarIVA = True
     End If
-    
-    If vFactu.CalcularDatosFactura(cadWhere, NombreTabla, NomTablaLineas, FacturaB, CambiarIVA) Then
+    'FacturaB
+    If vFactu.CalcularDatosFactura(cadWhere, NombreTabla, NomTablaLineas, CambiarIVA, FacturaB) Then
         Text3(33).Text = vFactu.BrutoFac
         Text3(34).Text = vFactu.ImpPPago
         Text3(35).Text = vFactu.ImpGnral

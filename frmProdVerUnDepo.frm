@@ -37,22 +37,22 @@ Begin VB.Form frmProdVerUnDepo
       TabCaption(0)   =   "Datos depósito"
       TabPicture(0)   =   "frmProdVerUnDepo.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "cmdModKilos"
-      Tab(0).Control(1)=   "ListView1"
-      Tab(0).Control(2)=   "Text1(1)"
-      Tab(0).Control(3)=   "Text1(6)"
-      Tab(0).Control(4)=   "Text1(7)"
-      Tab(0).Control(5)=   "Text1(3)"
-      Tab(0).Control(6)=   "Text1(4)"
-      Tab(0).Control(7)=   "Text1(5)"
-      Tab(0).Control(8)=   "Label1(10)"
-      Tab(0).Control(9)=   "Line1"
-      Tab(0).Control(10)=   "Label1(1)"
-      Tab(0).Control(11)=   "Label1(6)"
-      Tab(0).Control(12)=   "Label1(7)"
-      Tab(0).Control(13)=   "Label1(3)"
-      Tab(0).Control(14)=   "Label1(4)"
-      Tab(0).Control(15)=   "Label1(5)"
+      Tab(0).Control(0)=   "Label1(5)"
+      Tab(0).Control(1)=   "Label1(4)"
+      Tab(0).Control(2)=   "Label1(3)"
+      Tab(0).Control(3)=   "Label1(7)"
+      Tab(0).Control(4)=   "Label1(6)"
+      Tab(0).Control(5)=   "Label1(1)"
+      Tab(0).Control(6)=   "Line1"
+      Tab(0).Control(7)=   "Label1(10)"
+      Tab(0).Control(8)=   "Text1(5)"
+      Tab(0).Control(9)=   "Text1(4)"
+      Tab(0).Control(10)=   "Text1(3)"
+      Tab(0).Control(11)=   "Text1(7)"
+      Tab(0).Control(12)=   "Text1(6)"
+      Tab(0).Control(13)=   "Text1(1)"
+      Tab(0).Control(14)=   "ListView1"
+      Tab(0).Control(15)=   "cmdModKilos"
       Tab(0).ControlCount=   16
       TabCaption(1)   =   "Histórico"
       TabPicture(1)   =   "frmProdVerUnDepo.frx":001C
@@ -287,7 +287,7 @@ Begin VB.Form frmProdVerUnDepo
          BackColor       =   -2147483643
          BorderStyle     =   1
          Appearance      =   1
-         NumItems        =   5
+         NumItems        =   6
          BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
             Text            =   "Fecha"
             Object.Width           =   3351
@@ -311,6 +311,11 @@ Begin VB.Form frmProdVerUnDepo
             Alignment       =   1
             SubItemIndex    =   4
             Text            =   "Cantidad"
+            Object.Width           =   1764
+         EndProperty
+         BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   5
+            Text            =   "Observa"
             Object.Width           =   0
          EndProperty
       End
@@ -845,6 +850,7 @@ End Sub
 
 Private Sub CargaHco()
 Dim It As ListItem
+Dim Canti As Currency
 
     Screen.MousePointer = vbHourglass
     ListView2.ListItems.Clear
@@ -910,14 +916,15 @@ Dim It As ListItem
             End Select
             It.SubItems(1) = miSQL
             It.SubItems(2) = miRsAux!NUmlote
-            If vParamAplic.QUE_EMPRESA = 4 Then
+            It.Tag = miRsAux!tipoaccion
+            
                 If Not IsNull(miRsAux!Descripcion) Then
-                    It.SubItems(2) = miRsAux!Descripcion
+                    It.SubItems(5) = miRsAux!Descripcion
                 Else
-                    It.SubItems(2) = Mid(miRsAux!NUmlote, 7)
+                    It.SubItems(5) = Mid(miRsAux!NUmlote, 7)
                 End If
                 It.SubItems(4) = Format(miRsAux!CantidadMov, FormatoCantidad)
-            End If
+            
             miRsAux.MoveNext
             
     Wend
@@ -927,16 +934,34 @@ Dim It As ListItem
     
     'Metemos las producciones
     miSQL = "select fhinicio,prodlin.codigo,prodlin.idlin,lotetraza"
+    
     miSQL = miSQL & " from prodlin,prodtrazlin  where prodlin.codigo= prodtrazlin.codigo AND prodlin.idlin = prodtrazlin.idlin"
     miSQL = miSQL & "  and prodtrazlin.depositol = " & NumDepo & "  AND fhinicio >='" & Format(Me.txtFecha(0).Text, "yyyy-mm-dd") & " 00:00:00'"
+    
+    'Nuevo
+    miSQL = " select fhinicio,prodlin.codigo,prodlin.idlin,lotetraza, prodlin.cantprodu,prodlin.codartic,nomartic,litrosunidad"
+    miSQL = miSQL & " From prodlin left join sartic on prodlin.codartic=sartic.codartic,prodtrazlin"
+    miSQL = miSQL & " Where prodlin.Codigo = prodtrazlin.Codigo And prodlin.idlin = prodtrazlin.idlin"
+    miSQL = miSQL & "  and prodtrazlin.depositol = " & NumDepo & "  AND fhinicio >='" & Format(Me.txtFecha(0).Text, "yyyy-mm-dd") & " 00:00:00'"
+
+    
+    
+    
     miRsAux.Open miSQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         Set It = ListView2.ListItems.Add
         It.Text = Format(miRsAux!fhinicio, "dd/mm/yyyy hh:nn:ss")
         It.SubItems(3) = Format(miRsAux!fhinicio, "yyyymmddhhnnss")
         It.SubItems(1) = "Produccion " & miRsAux!Codigo & "/" & miRsAux!idlin
-        'IT.SubItems(2) = miRsAux!lotetraza
-        
+        It.SubItems(2) = miRsAux!lotetraza
+        Canti = DBLet(miRsAux!cantprodu, "N") * DBLet(miRsAux!LitrosUnidad, "N")
+        Canti = Round(Canti * 0.916, 2)
+        If Canti <> 0 Then
+            It.SubItems(4) = Format(Canti, FormatoCantidad)
+        Else
+            It.SubItems(4) = " "
+        End If
+        It.Tag = 20
         miRsAux.MoveNext
 
     Wend
@@ -1227,4 +1252,61 @@ Dim J As Integer
     
 End Function
 
+
+
+
+
+
+Private Sub ListView2_DblClick()
+    If ListView2.ListItems.Count = 0 Then Exit Sub
+    If ListView2.SelectedItem Is Nothing Then Exit Sub
+    
+    
+    
+            '   0 .- Albaran de compra
+            '   1 .- Coupage Entrada
+            '   2 .-  "      salida
+            '   3 .- Trasiego entrada
+            '   4 .-    "     salida
+            '   5 .-  Produccion
+            '   6 .- Venta directa
+            '   7 .- Forzar vaciado
+            '   8 .- FIltrado entrada
+            '   9 .-   "    salida
+            '10 molt
+    Screen.MousePointer = vbHourglass
+    Select Case ListView2.SelectedItem.Tag
+    Case 5
+            miSQL = ListView2.SelectedItem.SubItems(5)
+            miSQL = Mid(miSQL, 6)
+            miSQL = Trim(Mid(miSQL, 1, InStr(1, miSQL, "-") - 1))
+            With frmProdOrden
+                .DatosADevolverBusqueda2 = miSQL
+                .Show vbModal
+            End With
+                    
+            
+            
+    Case 1, 2
+            miSQL = ListView2.SelectedItem.SubItems(5)
+            If Mid(miSQL, 1, 3) = "CUP" Then
+                miSQL = Mid(miSQL, 4)
+                    
+                With frmAlmCoupage
+                    .DatosADevolverBusqueda2 = miSQL
+                    .Show vbModal
+                End With
+                
+            End If
+            
+    Case 10
+            frmVallAlmazara.DatosADevolverBusqueda2 = Val(ListView2.SelectedItem.SubItems(3))
+            frmVallAlmazara.Show vbModal
+    
+    Case 20
+        frmProdNueTraza2.QueTrazabilidad = Val(ListView2.SelectedItem.SubItems(2))
+        frmProdNueTraza2.Show vbModal
+    End Select
+    Screen.MousePointer = vbDefault
+End Sub
 

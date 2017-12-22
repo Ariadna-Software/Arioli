@@ -5,57 +5,127 @@ Begin VB.Form frmProdDepositosVall
    ClientHeight    =   9915
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   14025
+   ClientWidth     =   12150
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   9915
-   ScaleWidth      =   14025
+   ScaleWidth      =   12150
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame Frame2 
+      Caption         =   "Ext."
+      Height          =   3015
+      Left            =   10920
+      TabIndex        =   43
+      Top             =   120
+      Width           =   975
+      Begin VB.Label lblVirtu 
+         Alignment       =   1  'Right Justify
+         Caption         =   "3"
+         Height          =   255
+         Index           =   7
+         Left            =   120
+         TabIndex        =   47
+         Top             =   2010
+         Visible         =   0   'False
+         Width           =   255
+      End
+      Begin VB.Label lblVirtu 
+         Alignment       =   1  'Right Justify
+         Caption         =   "3"
+         Height          =   255
+         Index           =   6
+         Left            =   120
+         TabIndex        =   46
+         Top             =   1410
+         Visible         =   0   'False
+         Width           =   255
+      End
+      Begin VB.Image imgLinea 
+         Height          =   360
+         Index           =   7
+         Left            =   480
+         Top             =   1920
+         Width           =   360
+      End
+      Begin VB.Image imgLinea 
+         Height          =   360
+         Index           =   6
+         Left            =   480
+         Top             =   1320
+         Width           =   360
+      End
+      Begin VB.Label lblVirtu 
+         Alignment       =   1  'Right Justify
+         Caption         =   "3"
+         Height          =   255
+         Index           =   4
+         Left            =   120
+         TabIndex        =   45
+         Top             =   480
+         Visible         =   0   'False
+         Width           =   255
+      End
+      Begin VB.Label lblVirtu 
+         Alignment       =   1  'Right Justify
+         Caption         =   "3"
+         Height          =   255
+         Index           =   5
+         Left            =   120
+         TabIndex        =   44
+         Top             =   900
+         Visible         =   0   'False
+         Width           =   255
+      End
+      Begin VB.Image imgLinea 
+         Height          =   360
+         Index           =   4
+         Left            =   480
+         Top             =   360
+         Width           =   360
+      End
+      Begin VB.Image imgLinea 
+         Height          =   360
+         Index           =   5
+         Left            =   480
+         Top             =   840
+         Width           =   360
+      End
+   End
    Begin VB.CommandButton cmdImprimir 
       Height          =   375
       Left            =   10080
       Picture         =   "frmProdDepositosVall.frx":0000
       Style           =   1  'Graphical
-      TabIndex        =   46
+      TabIndex        =   42
       ToolTipText     =   "Imprimir"
       Top             =   9120
       Width           =   375
    End
    Begin VB.Frame Frame1 
       Caption         =   "Virtuales"
-      Height          =   2055
-      Left            =   10080
+      Height          =   3015
+      Left            =   9720
       TabIndex        =   37
       Top             =   120
-      Width           =   1335
-      Begin VB.Image imgLinea 
-         Height          =   360
-         Index           =   6
-         Left            =   480
-         Top             =   2610
-         Width           =   360
-      End
-      Begin VB.Image imgLinea 
-         Height          =   360
-         Index           =   5
-         Left            =   2100
-         Top             =   2130
-         Width           =   360
-      End
-      Begin VB.Image imgLinea 
-         Height          =   360
-         Index           =   4
-         Left            =   1320
-         Top             =   2130
-         Width           =   360
+      Width           =   1095
+      Begin VB.Label lblVirtu 
+         Alignment       =   1  'Right Justify
+         Caption         =   "3"
+         Height          =   255
+         Index           =   3
+         Left            =   240
+         TabIndex        =   48
+         Top             =   2010
+         Visible         =   0   'False
+         Width           =   255
       End
       Begin VB.Image imgLinea 
          Height          =   360
          Index           =   3
-         Left            =   540
-         Top             =   2130
+         Left            =   600
+         Top             =   1920
          Width           =   360
       End
       Begin VB.Image imgLinea 
@@ -69,83 +139,46 @@ Begin VB.Form frmProdDepositosVall
          Height          =   360
          Index           =   1
          Left            =   600
-         Top             =   720
-         Width           =   360
-      End
-      Begin VB.Image imgLinea 
-         Height          =   360
-         Index           =   0
-         Left            =   600
-         Top             =   240
-         Width           =   360
-      End
-      Begin VB.Label lblVirtu 
-         Caption         =   "3"
-         Height          =   255
-         Index           =   6
-         Left            =   360
-         TabIndex        =   44
-         Top             =   2640
-         Visible         =   0   'False
-         Width           =   255
-      End
-      Begin VB.Label lblVirtu 
-         Caption         =   "3"
-         Height          =   255
-         Index           =   5
-         Left            =   1980
-         TabIndex        =   43
-         Top             =   2160
-         Visible         =   0   'False
-         Width           =   255
-      End
-      Begin VB.Label lblVirtu 
-         Caption         =   "3"
-         Height          =   255
-         Index           =   4
-         Left            =   1200
-         TabIndex        =   42
-         Top             =   2160
-         Visible         =   0   'False
-         Width           =   255
-      End
-      Begin VB.Label lblVirtu 
-         Caption         =   "3"
-         Height          =   255
-         Index           =   3
-         Left            =   420
-         TabIndex        =   41
-         Top             =   2160
-         Visible         =   0   'False
-         Width           =   255
-      End
-      Begin VB.Label lblVirtu 
-         Caption         =   "3"
-         Height          =   255
-         Index           =   2
-         Left            =   360
-         TabIndex        =   40
-         Top             =   1320
-         Visible         =   0   'False
-         Width           =   255
-      End
-      Begin VB.Label lblVirtu 
-         Caption         =   "3"
-         Height          =   255
-         Index           =   1
-         Left            =   360
-         TabIndex        =   39
          Top             =   840
+         Width           =   360
+      End
+      Begin VB.Image imgLinea 
+         Height          =   360
+         Index           =   0
+         Left            =   600
+         Top             =   360
+         Width           =   360
+      End
+      Begin VB.Label lblVirtu 
+         Alignment       =   1  'Right Justify
+         Caption         =   "3"
+         Height          =   255
+         Index           =   2
+         Left            =   240
+         TabIndex        =   40
+         Top             =   1410
          Visible         =   0   'False
          Width           =   255
       End
       Begin VB.Label lblVirtu 
+         Alignment       =   1  'Right Justify
+         Caption         =   "3"
+         Height          =   255
+         Index           =   1
+         Left            =   240
+         TabIndex        =   39
+         Top             =   900
+         Visible         =   0   'False
+         Width           =   255
+      End
+      Begin VB.Label lblVirtu 
+         Alignment       =   1  'Right Justify
          Caption         =   "3"
          Height          =   255
          Index           =   0
-         Left            =   360
+         Left            =   240
          TabIndex        =   38
-         Top             =   240
+         Top             =   480
          Visible         =   0   'False
          Width           =   255
       End
@@ -153,7 +186,7 @@ Begin VB.Form frmProdDepositosVall
    Begin VB.TextBox txtLote 
       Height          =   285
       Index           =   17
-      Left            =   10200
+      Left            =   10440
       TabIndex        =   36
       Text            =   "Text1"
       Top             =   6360
@@ -334,9 +367,9 @@ Begin VB.Form frmProdDepositosVall
       EndProperty
       ForeColor       =   &H00000080&
       Height          =   255
-      Left            =   9960
-      TabIndex        =   45
-      Top             =   3720
+      Left            =   10200
+      TabIndex        =   41
+      Top             =   3840
       Width           =   1215
    End
    Begin VB.Image Image1 
@@ -371,7 +404,7 @@ Begin VB.Form frmProdDepositosVall
       Caption         =   "2"
       Height          =   195
       Index           =   17
-      Left            =   9960
+      Left            =   10200
       TabIndex        =   17
       Top             =   6360
       Width           =   90
@@ -550,7 +583,7 @@ Begin VB.Form frmProdDepositosVall
       BorderColor     =   &H00FFFF00&
       Height          =   1815
       Index           =   17
-      Left            =   10200
+      Left            =   10440
       Top             =   4440
       Width           =   1095
    End
@@ -884,7 +917,7 @@ Begin VB.Form frmProdDepositosVall
       BackStyle       =   1  'Opaque
       Height          =   1815
       Index           =   17
-      Left            =   10200
+      Left            =   10440
       Top             =   4440
       Width           =   1095
    End
@@ -920,7 +953,7 @@ Begin VB.Form frmProdDepositosVall
       BackStyle       =   1  'Opaque
       Height          =   1815
       Index           =   17
-      Left            =   10200
+      Left            =   10440
       Top             =   4440
       Width           =   1095
    End
@@ -1016,9 +1049,9 @@ Begin VB.Form frmProdDepositosVall
    End
    Begin VB.Shape Shape2 
       BorderColor     =   &H00000080&
-      Height          =   3015
-      Left            =   9840
-      Top             =   3840
+      Height          =   2895
+      Left            =   10080
+      Top             =   3960
       Width           =   1815
    End
 End
@@ -1342,7 +1375,13 @@ Dim QueImage As Integer
             
             Me.imgLinea(QueImage).Picture = Me.Image1(KMostrar).Picture
             imgLinea(QueImage).ToolTipText = ""
-            If KMostrar = 1 Then imgLinea(QueImage).ToolTipText = "Virtual  vacio"
+            If KMostrar = 1 Then
+                If QueImage < 4 Then
+                    imgLinea(QueImage).ToolTipText = "Virtual  vacio"
+                Else
+                    imgLinea(QueImage).ToolTipText = "Exterior vacio"
+                End If
+            End If
         Else
             Me.imgLinea(QueImage).Picture = Me.Image1(2).Picture
             Lotes = Lotes & ", " & DBSet(RS!NUmlote, "T")

@@ -12,10 +12,126 @@ Begin VB.Form frmProduVarios
    ScaleHeight     =   9360
    ScaleWidth      =   12585
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame FrameVaciado 
+      Height          =   2175
+      Left            =   2880
+      TabIndex        =   26
+      Top             =   1200
+      Width           =   7695
+      Begin VB.Frame FrameFechaVall 
+         Caption         =   "Frame1"
+         Height          =   615
+         Left            =   240
+         TabIndex        =   89
+         Top             =   1320
+         Width           =   4815
+         Begin VB.TextBox txtFecha 
+            Height          =   285
+            Index           =   5
+            Left            =   960
+            TabIndex        =   28
+            Text            =   "Text1"
+            Top             =   120
+            Width           =   1215
+         End
+         Begin VB.TextBox txtHora 
+            Height          =   285
+            Index           =   5
+            Left            =   2280
+            TabIndex        =   29
+            Text            =   "Text1"
+            Top             =   135
+            Width           =   1215
+         End
+         Begin VB.Image imgFecha 
+            Height          =   240
+            Index           =   5
+            Left            =   720
+            Picture         =   "frmProduVarios.frx":0000
+            Top             =   135
+            Width           =   240
+         End
+         Begin VB.Label Label1 
+            Caption         =   "Fecha"
+            Height          =   255
+            Index           =   2
+            Left            =   0
+            TabIndex        =   90
+            Top             =   135
+            Width           =   615
+         End
+      End
+      Begin VB.CommandButton cmdVaciadoDeposito 
+         Caption         =   "Aceptar"
+         Height          =   375
+         Left            =   5160
+         TabIndex        =   30
+         Top             =   1440
+         Width           =   975
+      End
+      Begin VB.CommandButton cmdCancelar 
+         Caption         =   "&Cancelar"
+         Height          =   375
+         Index           =   3
+         Left            =   6360
+         TabIndex        =   31
+         Top             =   1440
+         Width           =   975
+      End
+      Begin VB.ComboBox cboDeposito 
+         Height          =   315
+         Index           =   2
+         Left            =   240
+         Style           =   2  'Dropdown List
+         TabIndex        =   27
+         Top             =   960
+         Width           =   7095
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Forzar vaciado depósito"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   14.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   345
+         Index           =   6
+         Left            =   1920
+         TabIndex        =   33
+         Top             =   240
+         Width           =   3420
+      End
+      Begin VB.Label lbFec 
+         AutoSize        =   -1  'True
+         Caption         =   "Depósito"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   5
+         Left            =   240
+         TabIndex        =   32
+         Top             =   720
+         Width           =   750
+      End
+   End
    Begin VB.Frame FrameLaVallTraFiltrado 
       Height          =   6255
       Left            =   4440
-      TabIndex        =   52
+      TabIndex        =   54
       Top             =   3600
       Visible         =   0   'False
       Width           =   8535
@@ -23,7 +139,7 @@ Begin VB.Form frmProduVarios
          Caption         =   "Aceptar"
          Height          =   375
          Left            =   6120
-         TabIndex        =   82
+         TabIndex        =   84
          Top             =   5640
          Width           =   975
       End
@@ -32,7 +148,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   1
          Left            =   5880
-         TabIndex        =   71
+         TabIndex        =   73
          Top             =   1245
          Width           =   1095
       End
@@ -41,7 +157,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   0
          Left            =   4200
-         TabIndex        =   70
+         TabIndex        =   72
          Top             =   1245
          Value           =   -1  'True
          Width           =   855
@@ -51,7 +167,7 @@ Begin VB.Form frmProduVarios
          Height          =   315
          Index           =   4
          Left            =   6720
-         TabIndex        =   74
+         TabIndex        =   76
          Text            =   "Text1"
          Top             =   2760
          Width           =   1455
@@ -61,7 +177,7 @@ Begin VB.Form frmProduVarios
          Index           =   6
          Left            =   240
          Style           =   2  'Dropdown List
-         TabIndex        =   73
+         TabIndex        =   75
          Top             =   2760
          Width           =   6255
       End
@@ -70,7 +186,7 @@ Begin VB.Form frmProduVarios
          Index           =   5
          Left            =   240
          Style           =   2  'Dropdown List
-         TabIndex        =   72
+         TabIndex        =   74
          Top             =   1920
          Width           =   6255
       End
@@ -78,7 +194,7 @@ Begin VB.Form frmProduVarios
          Height          =   285
          Index           =   4
          Left            =   1200
-         TabIndex        =   68
+         TabIndex        =   70
          Text            =   "Text1"
          Top             =   1200
          Width           =   1215
@@ -87,7 +203,7 @@ Begin VB.Form frmProduVarios
          Height          =   285
          Index           =   4
          Left            =   2520
-         TabIndex        =   69
+         TabIndex        =   71
          Text            =   "Text1"
          Top             =   1200
          Width           =   1215
@@ -95,9 +211,9 @@ Begin VB.Form frmProduVarios
       Begin VB.CommandButton Command1 
          Height          =   495
          Left            =   7560
-         Picture         =   "frmProduVarios.frx":0000
+         Picture         =   "frmProduVarios.frx":008B
          Style           =   1  'Graphical
-         TabIndex        =   76
+         TabIndex        =   78
          Top             =   360
          Width           =   615
       End
@@ -106,14 +222,14 @@ Begin VB.Form frmProduVarios
          Height          =   375
          Index           =   6
          Left            =   7320
-         TabIndex        =   84
+         TabIndex        =   86
          Top             =   5640
          Width           =   975
       End
       Begin VB.Frame FrameFilltroLaVall2 
          Height          =   2175
          Left            =   240
-         TabIndex        =   53
+         TabIndex        =   55
          Top             =   3240
          Width           =   8055
          Begin VB.TextBox txtNumeroDec 
@@ -121,7 +237,7 @@ Begin VB.Form frmProduVarios
             Height          =   285
             Index           =   1
             Left            =   6720
-            TabIndex        =   77
+            TabIndex        =   79
             Text            =   "Text1"
             Top             =   600
             Width           =   975
@@ -131,7 +247,7 @@ Begin VB.Form frmProduVarios
             Height          =   285
             Index           =   2
             Left            =   6720
-            TabIndex        =   79
+            TabIndex        =   81
             Text            =   "Text1"
             Top             =   1080
             Width           =   975
@@ -141,7 +257,7 @@ Begin VB.Form frmProduVarios
             Height          =   285
             Index           =   3
             Left            =   6720
-            TabIndex        =   81
+            TabIndex        =   83
             Text            =   "Text1"
             Top             =   1560
             Width           =   975
@@ -152,7 +268,7 @@ Begin VB.Form frmProduVarios
             Index           =   4
             Left            =   1800
             Locked          =   -1  'True
-            TabIndex        =   64
+            TabIndex        =   66
             Text            =   "Text1"
             Top             =   1080
             Width           =   3255
@@ -161,7 +277,7 @@ Begin VB.Form frmProduVarios
             Height          =   285
             Index           =   0
             Left            =   120
-            TabIndex        =   75
+            TabIndex        =   77
             Text            =   "Text1"
             Top             =   600
             Width           =   1575
@@ -170,7 +286,7 @@ Begin VB.Form frmProduVarios
             Height          =   285
             Index           =   1
             Left            =   120
-            TabIndex        =   63
+            TabIndex        =   65
             Text            =   "Text1"
             Top             =   1080
             Width           =   1575
@@ -179,7 +295,7 @@ Begin VB.Form frmProduVarios
             Height          =   285
             Index           =   2
             Left            =   120
-            TabIndex        =   62
+            TabIndex        =   64
             Text            =   "Text1"
             Top             =   1560
             Width           =   1575
@@ -190,7 +306,7 @@ Begin VB.Form frmProduVarios
             Index           =   3
             Left            =   1800
             Locked          =   -1  'True
-            TabIndex        =   61
+            TabIndex        =   63
             Text            =   "Text1"
             Top             =   600
             Width           =   3255
@@ -201,7 +317,7 @@ Begin VB.Form frmProduVarios
             Index           =   5
             Left            =   1800
             Locked          =   -1  'True
-            TabIndex        =   60
+            TabIndex        =   62
             Text            =   "Text1"
             Top             =   1560
             Width           =   3255
@@ -211,7 +327,7 @@ Begin VB.Form frmProduVarios
             Index           =   0
             Left            =   5280
             Locked          =   -1  'True
-            TabIndex        =   59
+            TabIndex        =   61
             Text            =   "Text1"
             Top             =   600
             Width           =   1215
@@ -221,7 +337,7 @@ Begin VB.Form frmProduVarios
             Index           =   1
             Left            =   5280
             Locked          =   -1  'True
-            TabIndex        =   58
+            TabIndex        =   60
             Text            =   "Text1"
             Top             =   1080
             Width           =   1215
@@ -231,7 +347,7 @@ Begin VB.Form frmProduVarios
             Index           =   2
             Left            =   5280
             Locked          =   -1  'True
-            TabIndex        =   57
+            TabIndex        =   59
             Text            =   "Text1"
             Top             =   1560
             Width           =   1215
@@ -241,7 +357,7 @@ Begin VB.Form frmProduVarios
             Height          =   255
             Index           =   0
             Left            =   5160
-            TabIndex        =   56
+            TabIndex        =   58
             Top             =   600
             Width           =   135
          End
@@ -250,7 +366,7 @@ Begin VB.Form frmProduVarios
             Height          =   255
             Index           =   1
             Left            =   5160
-            TabIndex        =   55
+            TabIndex        =   57
             Top             =   1080
             Width           =   135
          End
@@ -259,7 +375,7 @@ Begin VB.Form frmProduVarios
             Height          =   255
             Index           =   2
             Left            =   5160
-            TabIndex        =   54
+            TabIndex        =   56
             Top             =   1560
             Width           =   135
          End
@@ -268,7 +384,7 @@ Begin VB.Form frmProduVarios
             Height          =   195
             Index           =   0
             Left            =   240
-            TabIndex        =   67
+            TabIndex        =   69
             Top             =   240
             Width           =   1125
          End
@@ -277,7 +393,7 @@ Begin VB.Form frmProduVarios
             Height          =   195
             Index           =   1
             Left            =   2520
-            TabIndex        =   66
+            TabIndex        =   68
             Top             =   240
             Width           =   1485
          End
@@ -287,7 +403,7 @@ Begin VB.Form frmProduVarios
             Height          =   195
             Index           =   2
             Left            =   7080
-            TabIndex        =   65
+            TabIndex        =   67
             Top             =   240
             Width           =   330
          End
@@ -308,7 +424,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   19
          Left            =   6720
-         TabIndex        =   86
+         TabIndex        =   88
          Top             =   2520
          Width           =   390
       End
@@ -328,7 +444,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   18
          Left            =   240
-         TabIndex        =   85
+         TabIndex        =   87
          Top             =   2520
          Width           =   645
       End
@@ -348,7 +464,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   17
          Left            =   240
-         TabIndex        =   83
+         TabIndex        =   85
          Top             =   1680
          Width           =   555
       End
@@ -356,7 +472,7 @@ Begin VB.Form frmProduVarios
          Height          =   240
          Index           =   4
          Left            =   840
-         Picture         =   "frmProduVarios.frx":0A02
+         Picture         =   "frmProduVarios.frx":0A8D
          Top             =   1200
          Width           =   240
       End
@@ -376,7 +492,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   16
          Left            =   240
-         TabIndex        =   80
+         TabIndex        =   82
          Top             =   1200
          Width           =   495
       End
@@ -396,7 +512,7 @@ Begin VB.Form frmProduVarios
          Height          =   345
          Index           =   15
          Left            =   240
-         TabIndex        =   78
+         TabIndex        =   80
          Top             =   240
          Width           =   5190
       End
@@ -492,82 +608,9 @@ Begin VB.Form frmProduVarios
          Height          =   240
          Index           =   0
          Left            =   960
-         Picture         =   "frmProduVarios.frx":0A8D
+         Picture         =   "frmProduVarios.frx":0B18
          Top             =   720
          Width           =   240
-      End
-   End
-   Begin VB.Frame FrameVaciado 
-      Height          =   2175
-      Left            =   0
-      TabIndex        =   26
-      Top             =   0
-      Width           =   7695
-      Begin VB.CommandButton cmdVaciadoDeposito 
-         Caption         =   "Aceptar"
-         Height          =   375
-         Left            =   5160
-         TabIndex        =   31
-         Top             =   1440
-         Width           =   975
-      End
-      Begin VB.CommandButton cmdCancelar 
-         Caption         =   "&Cancelar"
-         Height          =   375
-         Index           =   3
-         Left            =   6360
-         TabIndex        =   30
-         Top             =   1440
-         Width           =   975
-      End
-      Begin VB.ComboBox cboDeposito 
-         Height          =   315
-         Index           =   2
-         Left            =   240
-         Style           =   2  'Dropdown List
-         TabIndex        =   27
-         Top             =   960
-         Width           =   7095
-      End
-      Begin VB.Label lbFec 
-         AutoSize        =   -1  'True
-         Caption         =   "Forzar vaciado depósito"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00800000&
-         Height          =   345
-         Index           =   6
-         Left            =   1920
-         TabIndex        =   29
-         Top             =   240
-         Width           =   3420
-      End
-      Begin VB.Label lbFec 
-         AutoSize        =   -1  'True
-         Caption         =   "Depósito"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00000080&
-         Height          =   195
-         Index           =   5
-         Left            =   240
-         TabIndex        =   28
-         Top             =   720
-         Width           =   750
       End
    End
    Begin VB.Frame FrameTrasiego 
@@ -598,7 +641,7 @@ Begin VB.Form frmProduVarios
       Begin VB.Frame FrameTrasiegoLaVAll 
          Height          =   735
          Left            =   240
-         TabIndex        =   43
+         TabIndex        =   45
          Top             =   1920
          Width           =   3975
          Begin VB.TextBox txtNumeroDec 
@@ -627,7 +670,7 @@ Begin VB.Form frmProduVarios
             Height          =   195
             Index           =   12
             Left            =   240
-            TabIndex        =   44
+            TabIndex        =   46
             Top             =   360
             Width           =   390
          End
@@ -683,7 +726,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   13
          Left            =   240
-         TabIndex        =   45
+         TabIndex        =   47
          Top             =   840
          Width           =   975
       End
@@ -691,7 +734,7 @@ Begin VB.Form frmProduVarios
          Height          =   240
          Index           =   3
          Left            =   1560
-         Picture         =   "frmProduVarios.frx":0B18
+         Picture         =   "frmProduVarios.frx":0BA3
          Top             =   840
          Width           =   240
       End
@@ -801,7 +844,7 @@ Begin VB.Form frmProduVarios
          Height          =   240
          Index           =   1
          Left            =   480
-         Picture         =   "frmProduVarios.frx":0BA3
+         Picture         =   "frmProduVarios.frx":0C2E
          Top             =   720
          Width           =   240
       End
@@ -829,16 +872,16 @@ Begin VB.Form frmProduVarios
    Begin VB.Frame FrameFiltrado 
       Height          =   3735
       Left            =   0
-      TabIndex        =   32
+      TabIndex        =   34
       Top             =   0
       Visible         =   0   'False
       Width           =   8775
       Begin VB.CommandButton cmdImpreFiltrado 
          Height          =   495
          Left            =   7920
-         Picture         =   "frmProduVarios.frx":0C2E
+         Picture         =   "frmProduVarios.frx":0CB9
          Style           =   1  'Graphical
-         TabIndex        =   51
+         TabIndex        =   53
          Top             =   480
          Width           =   615
       End
@@ -846,7 +889,7 @@ Begin VB.Form frmProduVarios
          Height          =   285
          Index           =   2
          Left            =   2520
-         TabIndex        =   34
+         TabIndex        =   36
          Text            =   "Text1"
          Top             =   1080
          Width           =   1215
@@ -854,7 +897,7 @@ Begin VB.Form frmProduVarios
       Begin VB.Frame FramefiltroMorales 
          Height          =   735
          Left            =   240
-         TabIndex        =   46
+         TabIndex        =   48
          Top             =   2640
          Width           =   4455
          Begin VB.CheckBox chkFiltrado 
@@ -862,7 +905,7 @@ Begin VB.Form frmProduVarios
             Height          =   255
             Index           =   0
             Left            =   240
-            TabIndex        =   48
+            TabIndex        =   50
             Top             =   360
             Width           =   1815
          End
@@ -871,7 +914,7 @@ Begin VB.Form frmProduVarios
             Height          =   255
             Index           =   1
             Left            =   2520
-            TabIndex        =   47
+            TabIndex        =   49
             Top             =   360
             Width           =   1815
          End
@@ -891,7 +934,7 @@ Begin VB.Form frmProduVarios
             Height          =   195
             Index           =   10
             Left            =   0
-            TabIndex        =   49
+            TabIndex        =   51
             Top             =   0
             Width           =   1710
          End
@@ -900,7 +943,7 @@ Begin VB.Form frmProduVarios
          Height          =   285
          Index           =   2
          Left            =   1200
-         TabIndex        =   33
+         TabIndex        =   35
          Text            =   "Text1"
          Top             =   1080
          Width           =   1215
@@ -910,7 +953,7 @@ Begin VB.Form frmProduVarios
          Height          =   375
          Index           =   4
          Left            =   7560
-         TabIndex        =   38
+         TabIndex        =   40
          Top             =   2880
          Width           =   975
       End
@@ -918,7 +961,7 @@ Begin VB.Form frmProduVarios
          Caption         =   "Aceptar"
          Height          =   375
          Left            =   6480
-         TabIndex        =   37
+         TabIndex        =   39
          Top             =   2880
          Width           =   975
       End
@@ -927,7 +970,7 @@ Begin VB.Form frmProduVarios
          Index           =   4
          Left            =   240
          Style           =   2  'Dropdown List
-         TabIndex        =   35
+         TabIndex        =   37
          Top             =   1800
          Width           =   6495
       End
@@ -936,7 +979,7 @@ Begin VB.Form frmProduVarios
          Index           =   3
          Left            =   6840
          Style           =   2  'Dropdown List
-         TabIndex        =   36
+         TabIndex        =   38
          Top             =   1800
          Width           =   1695
       End
@@ -956,7 +999,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   14
          Left            =   5640
-         TabIndex        =   50
+         TabIndex        =   52
          Top             =   600
          Width           =   2040
       End
@@ -976,7 +1019,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   11
          Left            =   240
-         TabIndex        =   42
+         TabIndex        =   44
          Top             =   1080
          Width           =   495
       End
@@ -984,7 +1027,7 @@ Begin VB.Form frmProduVarios
          Height          =   240
          Index           =   2
          Left            =   840
-         Picture         =   "frmProduVarios.frx":1630
+         Picture         =   "frmProduVarios.frx":16BB
          Top             =   1080
          Width           =   240
       End
@@ -1004,7 +1047,7 @@ Begin VB.Form frmProduVarios
          Height          =   345
          Index           =   9
          Left            =   360
-         TabIndex        =   41
+         TabIndex        =   43
          Top             =   360
          Width           =   4170
       End
@@ -1024,7 +1067,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   8
          Left            =   240
-         TabIndex        =   40
+         TabIndex        =   42
          Top             =   1560
          Width           =   555
       End
@@ -1044,7 +1087,7 @@ Begin VB.Form frmProduVarios
          Height          =   195
          Index           =   7
          Left            =   6840
-         TabIndex        =   39
+         TabIndex        =   41
          Top             =   1560
          Width           =   645
       End
@@ -1691,8 +1734,13 @@ Dim MueveDepositoEntero As Boolean
                     End If
                 End If
             Else
+            
+                If Val(C2.idPartida) > 0 Then
+                    MsgBox "Deposito destino contiene datos. partida " & C2.idPartida, vbExclamation
+                    b = False
+                End If
                 MueveDepositoEntero = True
-                Kilos = 0
+                Kilos = C1.Kilos
             End If
             If b Then
                 'El que estaba
@@ -1764,22 +1812,73 @@ End Sub
 
 Private Sub cmdVaciadoDeposito_Click()
 Dim C1 As cDeposito
-
+Dim F As Date
+    
+    
+    If vParamAplic.QUE_EMPRESA = 4 Then
+    
+        If txtFecha(5).Text = "" Or txtHora(5).Text = "" Then
+            MsgBox "Fecha / Hora obligatorio", vbExclamation
+            Exit Sub
+        End If
+        'En VALL pueden haber el mismo lote en varios deposi    tos. Comprobaremos que no es asi
+        Set C1 = New cDeposito
+        Cad = ""
+        If C1.LeerDatos(cboDeposito(2).ItemData(cboDeposito(2).ListIndex), True) Then
+            Cad = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numdeposito<>" & C1.NumDeposito & " AND partida ", C1.idPartida)
+            If Cad <> "" Then
+                Cad = "LOTE en varios depositos"
+            End If
+               
+            If C1.AvisarMovimientoHcoPosterior(CDate(txtFecha(5).Text & " " & txtHora(5).Text)) Then Cad = Cad & vbCrLf & " -Movimientos posteriores"
+               
+               
+        Else
+            Cad = "Error leyendo deposito"
+        End If
+        Set C1 = Nothing
+        
+        
+        
+        
+        If Cad <> "" Then
+            MsgBox Cad, vbExclamation
+            Exit Sub
+        End If
+    
+    
+    
+    
+    End If
+    
+    
+    
     TrabajadorConectado_ = Val(PonerTrabajadorConectado(Cad))
     If MsgBox("Continuar?", vbQuestion + vbYesNoCancel) <> vbYes Then Exit Sub
+    
+    
+    
     Cad = "N"
     Set C1 = New cDeposito
+    F = Now
+    If vParamAplic.QUE_EMPRESA = 4 Then F = CDate(txtFecha(5).Text & " " & txtHora(5).Text)
     If C1.LeerDatos(cboDeposito(2).ItemData(cboDeposito(2).ListIndex), False) Then
         If C1.Kilos > 0 Then
             'DEBERIAOS REGULARIZAR
             
-            RegularizarFinLote_Partida C1
+            RegularizarFinLote_Partida C1, F
         End If
-        C1.QuitarAsignacionDeposito2 2, Now, -C1.Kilos
+        
+        C1.QuitarAsignacionDeposito2 2, F, -C1.Kilos
+        
         Cad = ""
     End If
     Set C1 = Nothing
     If Cad = "" Then Unload Me
+End Sub
+
+Private Sub Command1_Click()
+    cmdImpreFiltrado_Click
 End Sub
 
 Private Sub Form_Activate()
@@ -1839,6 +1938,9 @@ Private Sub Form_Load()
         CargaComobosTrasiegos 0, 1
         
     Case 3
+        FrameFechaVall.visible = vParamAplic.QUE_EMPRESA = 4
+        FrameFechaVall.BorderStyle = 0
+    
         PonerFrameVisible FrameVaciado
         Me.Caption = "Vaciar deposito"
         CargaComobosTrasiegos 2, 2
@@ -2367,8 +2469,15 @@ Dim Impor As Currency
     vCStock.Trabajador = TrabajadorConectado_
     vCStock.Documento = RecuperaValor(Intercambio, 1)
     vCStock.Fechamov = txtFecha(1).Text '
-    If vParamAplic.QUE_EMPRESA = 4 Then vCStock.HoraMov = vCStock.Fechamov & " " & Format(txtHora(1).Text, "hh:mm:ss")
-   
+    If vParamAplic.QUE_EMPRESA = 4 Then
+        vCStock.HoraMov = vCStock.Fechamov & " " & Format(txtHora(1).Text, "hh:mm:ss")
+    Else
+        If txtHora(1).Text <> "" Then
+            vCStock.HoraMov = vCStock.Fechamov & " " & Format(txtHora(1).Text, "hh:mm:ss")
+        Else
+            vCStock.HoraMov = vCStock.Fechamov & " " & Format(Now, "hh:mm:ss")
+        End If
+    End If
     vCStock.codartic = miRsAux!codartic
     vCStock.codAlmac = RecuperaValor(Intercambio, 3)
 '    CantidadNecesaria = miRsAux!FactorConversion
@@ -2602,17 +2711,53 @@ Dim Cadena2 As String
                                 ParaDeposito = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numlote", ParaDeposito, "T")
                                 If vParamAplic.QUE_EMPRESA = 4 Then
                                     
-                                'Para LAVall nop puede envasar fuera del 18
+                                    'Para LAVall nop puede envasar fuera del 18.  Noviembre 2017. Permitimos envasar desde otro
                                     If ParaDeposito <> "18" Then
                                             
                                         'SOOOOLO envasamos del 18
                                         Cadena2 = DevuelveDesdeBD(conAri, "numlote", "proddepositos", "numdeposito", "18", "T")
                                         If Cadena2 <> RecuperaValor(LotesNecesartios(II), 1) Then
                                             If SoloComprobar Then
-                                                Cad = vbCrLf & "-Solo puede envasar desde el depósito 18. Deposito seleccionado: " & ParaDeposito
+                                                Cad = vbCrLf & "-No es depósito 18. Deposito selecc: " & ParaDeposito
                                             Else
-                                                Err.Raise 53, , "No es deposito 18"
+                                                'Err.Raise 513, , "No es deposito 18"
+                                                Dim OtroAux As String
+                                                
+                                                OtroAux = RecuperaValor(LotesNecesartios(II), 1)
+                                                OtroAux = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numdeposito<>" & ParaDeposito & " AND numlote", OtroAux, "T")
+                                                If OtroAux <> "" Then
+                                                    'Esta en mas de un deposito
+                                                    OtroAux = "Esta en mas de un deposito. (" & ParaDeposito & " : " & OtroAux & "..)"
+                                                    OtroAux = OtroAux & vbCrLf & vbCrLf & "Indique numero deposito"
+                                                    Cadena2 = InputBox(OtroAux, "Nº deposito", ParaDeposito)
+                                                    If Cadena2 = "" Then
+                                                        'Cancelamos
+                                                        Err.Raise 513, , "Cancelacion en seleccion deposito"
+                                                    Else
+                                                        If Not IsNumeric(Cadena2) Then
+                                                            Err.Raise 513, , "Deposito debe ser campo numerico"
+                                                        Else
+                                                            If Val(Cadena2) < 1 Or Val(Cadena2) > MaxNumDepositos_ Then
+                                                                Err.Raise 513, , "Deposito entre 1 y " & MaxNumDepositos_
+                                                            
+                                                            Else
+                                                                'El deposito contiene el lote
+                                                                OtroAux = RecuperaValor(LotesNecesartios(II), 1)
+                                                                OtroAux = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", "numdeposito=" & Cadena2 & " AND numlote", OtroAux, "T")
+                                                                If OtroAux = "" Then
+                                                                    Err.Raise 513, , "Deposito no contiene la muestra procesada"
+                                                                Else
+                                                                    'OK. CONFIRMACION
+                                                                    If MsgBox("Deposito seleccionado: " & Cadena2 & vbCrLf & vbCrLf & "¿Continuar?", vbQuestion + vbYesNoCancel) <> vbYes Then Err.Raise 513, , "Cancelacion en seleccion deposito (II)"
+                                                                    ParaDeposito = Cadena2
+                                                                End If
+                                                            End If
+                                                        End If
+                                                    End If
+                                                End If
                                             End If
+                                            Cadena2 = ""
+                                            
                                         Else
                                             ParaDeposito = "18"
                                         End If
@@ -2621,19 +2766,32 @@ Dim Cadena2 As String
                                   
                                 End If
                                 If Cad = "" Then
-                                    If Not cDe.LeerDatos(CInt(ParaDeposito), True) Then
-                                        Cad = "Error leyendo datos deposito " & ParaDeposito 'NO DEBERIA PASAR NUNCA
+                                    If vParamAplic.QUE_EMPRESA = 3 Then
+                                        'OK. Moixent NO lleva depositos
                                     Else
-                                    
-                                        If SoloComprobar Then
-                                            If cDe.AvisarMovimientoHcoPosterior(vvCstock.HoraMov) Then
-                                                If MsgBox("Movimientos posteriores en el deposito. ¿Continuar?", vbQuestion + vbYesNoCancel) <> vbYes Then Cad = vbCrLf & "- Moviemientos posteriores en deposito"
+                                        If Not cDe.LeerDatos(CInt(ParaDeposito), True) Then
+                                            Cad = "Error leyendo datos deposito " & ParaDeposito 'NO DEBERIA PASAR NUNCA
+                                        Else
+                                        
+                                            If SoloComprobar Then
+                                                If cDe.AvisarMovimientoHcoPosterior(vvCstock.HoraMov) Then
+                                                    If MsgBox("Movimientos posteriores en el deposito. ¿Continuar?", vbQuestion + vbYesNoCancel) <> vbYes Then Cad = vbCrLf & "- Moviemientos posteriores en deposito"
+                                                End If
                                             End If
-                                        End If
-                                        If Not SoloComprobar Then
-                                            cDe.VariacionKilosDeposito -Cant2
-                                            cDe.InsertarEnHco 5, DateAdd("s", Secuencia, cL.HoraMov), "Prod: " & Format(RecuperaValor(Intercambio, 1), "00") & " - " & RecuperaValor(Intercambio, 2), -Cant2
-                                            Espera 0.95 'porque si no puede dar entrada duplicada
+                                            If Not SoloComprobar Then
+                                                cDe.VariacionKilosDeposito -Cant2
+                                                cDe.InsertarEnHco 5, DateAdd("s", Secuencia, cL.HoraMov), "Prod: " & Format(RecuperaValor(Intercambio, 1), "00") & " - " & RecuperaValor(Intercambio, 2), -Cant2
+                                                Espera 0.95 'porque si no puede dar entrada duplicada
+                                                
+                                                
+                                                'Updatemaso las lineas de produccion para indicar deposito Paradeposito
+                                                Cad = "UPDATE sliordpr2lotes SET numdeposito = " & Val(ParaDeposito)
+                                                Cad = Cad & " WHERE  codigo = " & RecuperaValor(Intercambio, 1)
+                                                Cad = Cad & " AND codalmac =" & vvCstock.codAlmac & " AND codArtic = " & DBSet(miRsAux!codartic, "T")
+                                                Cad = Cad & " AND codArti2 = " & DBSet(vvCstock.codartic, "T")
+                                                conn.Execute Cad
+                                                
+                                            End If
                                         End If
                                     End If
                                 End If
@@ -2850,8 +3008,14 @@ Dim Cadena2 As String
         
         If SoloComprobar Then
             If ErroresEnPartidas <> "" Then
-                ErroresEnPartidas = ErroresEnPartidas & vbCrLf & vbCrLf & "¿Continuar?"
-                If MsgBox(ErroresEnPartidas, vbQuestion + vbYesNo) = vbNo Then b = False
+                If InStr(1, ErroresEnPartidas, "depósito 18") > 0 Then
+                    ErroresEnPartidas = ErroresEnPartidas & vbCrLf & vbCrLf
+                    
+                    If UCase(InputBox(ErroresEnPartidas, "Escriba  contraseña para continuar")) <> "ARIADNA" Then b = False
+                Else
+                    ErroresEnPartidas = ErroresEnPartidas & vbCrLf & vbCrLf & "¿Continuar?"
+                    If MsgBox(ErroresEnPartidas, vbQuestion + vbYesNo) = vbNo Then b = False
+                End If
             End If
         End If
     
@@ -3037,7 +3201,7 @@ Dim MoviMIentosPosteriores As String
         RegularizacionDeposito = 0
         b = False
         If InicializarCStockCoupage(vvCstock, "E", True) Then    'Las lineas son de netrada
-    
+            
             CantidadNecesaria = CCur(miRsAux!cantlote)
             b = True
             '// NUmeros de LOTE
@@ -3097,8 +3261,10 @@ Dim MoviMIentosPosteriores As String
                 'Incrementamos los kilos
                 cDEP.LeerDatos miRsAux!Deposito, False
                 
-                
-                
+                If vParamAplic.QUE_EMPRESA = 0 Then
+                    If vvCstock.HoraMov = "" Then vvCstock.HoraMov = txtFecha(1).Text & " " & Format(Now, "hh:mm:ss")
+                End If
+                    
                 cDEP.InsertarEnHco 2, vvCstock.HoraMov, "CUP" & RecuperaValor(Me.Intercambio, 1), CantidadNecesaria
                 cDEP.VariacionKilosDeposito CantidadNecesaria
                 
@@ -3193,7 +3359,7 @@ Dim MoviMIentosPosteriores As String
                     'Fuera numero de lote y fuera kilos
                     If vvCstock.HoraMov = "" Then vvCstock.HoraMov = Format(Now, "hh:mm")
                     
-                    cDEP.QuitarAsignacionDeposito2 1, vvCstock.HoraMov, -vvCstock.Cantidad
+                    cDEP.QuitarAsignacionDeposito2 0, vvCstock.HoraMov, -vvCstock.Cantidad
                     Espera 0.75
                 End If
             End If
@@ -3457,39 +3623,39 @@ End Sub
 
 Private Sub ActualizaUPCArticuloCabecera(ByRef C As String, CodUnida As Integer)
 Dim Aux As String
-Dim RS As ADODB.Recordset
+Dim Rs As ADODB.Recordset
 Dim Im0 As Currency
 Dim Im1 As Currency
 
     On Error GoTo eActualizaUPCArticuloCabecera
-    Set RS = New ADODB.Recordset
+    Set Rs = New ADODB.Recordset
     Aux = "SELECT sarti1.codartic, numlinea, sarti1.codarti1,sartic.nomartic, sarti1.Cantidad ,"
     Aux = Aux & "sartic.preciove , sartic.precioUC, FactorConversion"
     Aux = Aux & " FROM   sarti1 INNER JOIN sartic ON sarti1.codarti1 = sartic.codArtic where sarti1.codartic='"
     Aux = Aux & C & "' ORDER BY sarti1.numlinea"
-    RS.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Rs.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Im1 = 0
     Aux = ""
-    While Not RS.EOF
-        Aux = RS!NomArtic
-        Im0 = DBLet(RS!FactorConversion, "N")  'del articulo de la linea
+    While Not Rs.EOF
+        Aux = Rs!NomArtic
+        Im0 = DBLet(Rs!FactorConversion, "N")  'del articulo de la linea
 
         'COSTE
-        Im0 = DBLet(RS!Cantidad, "N") * Im0
-        Im0 = Im0 * DBLet(RS!PrecioUC, "N")
+        Im0 = DBLet(Rs!Cantidad, "N") * Im0
+        Im0 = Im0 * DBLet(Rs!PrecioUC, "N")
         Im1 = Im1 + Im0
         
-        RS.MoveNext
+        Rs.MoveNext
     Wend
 
-    RS.Close
+    Rs.Close
     
     'El formato
     Aux = "Select sum(importe) from sunilin where codunida=" & CodUnida
-    RS.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Rs.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Im0 = 0
-    If Not RS.EOF Then Im0 = DBLet(RS.Fields(0), "N")
-    RS.Close
+    If Not Rs.EOF Then Im0 = DBLet(Rs.Fields(0), "N")
+    Rs.Close
 
     'Redondeamos (al igual que en el mantenimiento de articulos) a 3 antes de sumar el formato
     Im1 = Round(Im1, 3)
@@ -3505,7 +3671,7 @@ Dim Im1 As Currency
     
 eActualizaUPCArticuloCabecera:
     If Err.Number <> 0 Then MuestraError Err.Number, Aux
-    Set RS = Nothing
+    Set Rs = Nothing
 End Sub
 
 
@@ -3669,7 +3835,7 @@ End Sub
 
 'Este trozo esta copiado de proceso produccion
 'De momento solo entra aqui para materia prima
-Private Sub RegularizarFinLote_Partida(ByRef cDEP As cDeposito)
+Private Sub RegularizarFinLote_Partida(ByRef cDEP As cDeposito, FechaHoraMov As Date)
 Dim cPar As cPartidas
 
 Dim cLot As cLotaje
@@ -3716,12 +3882,12 @@ Dim Cantidad As Currency
     vvCstock.Cantidad = Abs(cPar.Cantidad)
     vvCstock.Trabajador = TrabajadorConectado_
     'vCStock.Documento = RecuperaValor(Intercambio, 1)
-    vvCstock.Fechamov = Format(Now, "dd/mm/yyyy")
-    vvCstock.HoraMov = Now
+    vvCstock.Fechamov = Format(FechaHoraMov, "dd/mm/yyyy")
+    vvCstock.HoraMov = FechaHoraMov
     vvCstock.codAlmac = cPar.codAlmac
     vvCstock.codartic = cPar.codartic
     vvCstock.Importe = 0
-    vvCstock.Documento = "FIN" & Format(cPar.idPartida, "0000000")
+    vvCstock.Documento = "VACIA " & Format(cPar.idPartida, "0000000")
     
     cLot.codAlmac = vvCstock.codAlmac
     cLot.codartic = vvCstock.codartic
@@ -3817,7 +3983,7 @@ Dim Cadena2 As String
     If C2.AvisarMovimientoHcoPosterior(CDate(Me.txtFecha(4).Text & " " & Me.txtHora(4).Text)) Then Cad = Cad & vbCrLf & " -Destino"
     If Cad <> "" Then
         Cad = "Hay movimientos posteriores en el depósito: " & Cad & vbCrLf & "¿Continuar?"
-        If MsgBox(Cad, vbQuestion + vbYesNoCancel) <> vbYes Then Exit Function
+        If MsgBox(Cad, vbExclamation + vbYesNoCancel) <> vbYes Then Exit Function
     End If
     
     

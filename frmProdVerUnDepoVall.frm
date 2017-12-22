@@ -17,6 +17,7 @@ Begin VB.Form frmProdVerUnDepoVall
    Begin VB.CommandButton Command1 
       Cancel          =   -1  'True
       Caption         =   "Salir"
+      Default         =   -1  'True
       Height          =   375
       Left            =   12840
       TabIndex        =   0
@@ -32,48 +33,68 @@ Begin VB.Form frmProdVerUnDepoVall
       _ExtentX        =   19500
       _ExtentY        =   12091
       _Version        =   393216
-      Tab             =   1
       TabHeight       =   520
       TabCaption(0)   =   "Datos depósito"
       TabPicture(0)   =   "frmProdVerUnDepoVall.frx":0000
-      Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "cmdModKilos"
-      Tab(0).Control(1)=   "ListView1"
-      Tab(0).Control(2)=   "Text1(1)"
-      Tab(0).Control(3)=   "Text1(6)"
-      Tab(0).Control(4)=   "Text1(7)"
-      Tab(0).Control(5)=   "Text1(3)"
-      Tab(0).Control(6)=   "Text1(4)"
-      Tab(0).Control(7)=   "Text1(5)"
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Label1(5)"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Label1(4)"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Label1(3)"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "Label1(7)"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "Label1(6)"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).Control(5)=   "Label1(1)"
+      Tab(0).Control(5).Enabled=   0   'False
+      Tab(0).Control(6)=   "Line1"
+      Tab(0).Control(6).Enabled=   0   'False
+      Tab(0).Control(7)=   "Label1(10)"
+      Tab(0).Control(7).Enabled=   0   'False
       Tab(0).Control(8)=   "lblNoMolturar"
-      Tab(0).Control(9)=   "Label1(10)"
-      Tab(0).Control(10)=   "Line1"
-      Tab(0).Control(11)=   "Label1(1)"
-      Tab(0).Control(12)=   "Label1(6)"
-      Tab(0).Control(13)=   "Label1(7)"
-      Tab(0).Control(14)=   "Label1(3)"
-      Tab(0).Control(15)=   "Label1(4)"
-      Tab(0).Control(16)=   "Label1(5)"
+      Tab(0).Control(8).Enabled=   0   'False
+      Tab(0).Control(9)=   "Text1(5)"
+      Tab(0).Control(9).Enabled=   0   'False
+      Tab(0).Control(10)=   "Text1(4)"
+      Tab(0).Control(10).Enabled=   0   'False
+      Tab(0).Control(11)=   "Text1(3)"
+      Tab(0).Control(11).Enabled=   0   'False
+      Tab(0).Control(12)=   "Text1(7)"
+      Tab(0).Control(12).Enabled=   0   'False
+      Tab(0).Control(13)=   "Text1(6)"
+      Tab(0).Control(13).Enabled=   0   'False
+      Tab(0).Control(14)=   "Text1(1)"
+      Tab(0).Control(14).Enabled=   0   'False
+      Tab(0).Control(15)=   "ListView1"
+      Tab(0).Control(15).Enabled=   0   'False
+      Tab(0).Control(16)=   "cmdModKilos"
+      Tab(0).Control(16).Enabled=   0   'False
       Tab(0).ControlCount=   17
       TabCaption(1)   =   "Histórico"
       TabPicture(1)   =   "frmProdVerUnDepoVall.frx":001C
-      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Label3(63)"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "imgFecha(0)"
-      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "ListView2"
-      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "txtFecha(0)"
-      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "cmdVer"
-      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).ControlCount=   5
       TabCaption(2)   =   "Albaranes"
       TabPicture(2)   =   "frmProdVerUnDepoVall.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "TreeView1"
-      Tab(2).ControlCount=   1
+      Tab(2).Control(0)=   "cmdImprimir"
+      Tab(2).Control(1)=   "TreeView1"
+      Tab(2).ControlCount=   2
+      Begin VB.CommandButton cmdImprimir 
+         Caption         =   "Imprimir"
+         Height          =   375
+         Left            =   -74760
+         TabIndex        =   27
+         Top             =   6240
+         Width           =   1215
+      End
       Begin MSComctlLib.TreeView TreeView1 
          Height          =   5415
          Left            =   -74760
@@ -99,14 +120,14 @@ Begin VB.Form frmProdVerUnDepoVall
       Begin VB.CommandButton cmdVer 
          Caption         =   "Movimientos"
          Height          =   375
-         Left            =   3480
+         Left            =   -71520
          TabIndex        =   24
          Top             =   6360
          Width           =   1215
       End
       Begin VB.CommandButton cmdModKilos 
          Height          =   375
-         Left            =   -69120
+         Left            =   5880
          Picture         =   "frmProdVerUnDepoVall.frx":0054
          Style           =   1  'Graphical
          TabIndex        =   23
@@ -117,7 +138,7 @@ Begin VB.Form frmProdVerUnDepoVall
       Begin VB.TextBox txtFecha 
          Height          =   285
          Index           =   0
-         Left            =   960
+         Left            =   -74040
          TabIndex        =   21
          Text            =   "Text1"
          Top             =   6480
@@ -125,7 +146,7 @@ Begin VB.Form frmProdVerUnDepoVall
       End
       Begin MSComctlLib.ListView ListView1 
          Height          =   1695
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   19
          Top             =   4080
          Width           =   10575
@@ -174,7 +195,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   480
          Index           =   1
-         Left            =   -70200
+         Left            =   4800
          Locked          =   -1  'True
          TabIndex        =   14
          Text            =   "Text1"
@@ -194,7 +215,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   480
          Index           =   6
-         Left            =   -74760
+         Left            =   240
          Locked          =   -1  'True
          TabIndex        =   13
          Text            =   "Text1"
@@ -213,7 +234,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   480
          Index           =   7
-         Left            =   -72960
+         Left            =   2040
          Locked          =   -1  'True
          TabIndex        =   12
          Text            =   "Text1"
@@ -233,7 +254,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   480
          Index           =   3
-         Left            =   -74760
+         Left            =   240
          Locked          =   -1  'True
          TabIndex        =   8
          Text            =   "Text1"
@@ -253,7 +274,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   480
          Index           =   4
-         Left            =   -72600
+         Left            =   2400
          Locked          =   -1  'True
          TabIndex        =   7
          Text            =   "Text1"
@@ -273,7 +294,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   480
          Index           =   5
-         Left            =   -70800
+         Left            =   4200
          Locked          =   -1  'True
          TabIndex        =   6
          Text            =   "Text1"
@@ -282,7 +303,7 @@ Begin VB.Form frmProdVerUnDepoVall
       End
       Begin MSComctlLib.ListView ListView2 
          Height          =   5415
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   20
          Top             =   720
          Width           =   10575
@@ -359,7 +380,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          ForeColor       =   &H00000080&
          Height          =   615
-         Left            =   -67440
+         Left            =   7560
          TabIndex        =   26
          Top             =   840
          Visible         =   0   'False
@@ -368,7 +389,7 @@ Begin VB.Form frmProdVerUnDepoVall
       Begin VB.Image imgFecha 
          Height          =   240
          Index           =   0
-         Left            =   720
+         Left            =   -74280
          Picture         =   "frmProdVerUnDepoVall.frx":0A56
          Top             =   6480
          Width           =   240
@@ -377,7 +398,7 @@ Begin VB.Form frmProdVerUnDepoVall
          Caption         =   "Desde"
          Height          =   195
          Index           =   63
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   22
          Top             =   6480
          Width           =   465
@@ -396,7 +417,7 @@ Begin VB.Form frmProdVerUnDepoVall
          ForeColor       =   &H000000C0&
          Height          =   375
          Index           =   10
-         Left            =   -74640
+         Left            =   360
          TabIndex        =   18
          Top             =   3120
          Width           =   1575
@@ -404,8 +425,8 @@ Begin VB.Form frmProdVerUnDepoVall
       Begin VB.Line Line1 
          BorderColor     =   &H000000C0&
          BorderWidth     =   3
-         X1              =   -74760
-         X2              =   -64320
+         X1              =   240
+         X2              =   10680
          Y1              =   3240
          Y2              =   3240
       End
@@ -422,7 +443,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   375
          Index           =   1
-         Left            =   -70200
+         Left            =   4800
          TabIndex        =   17
          Top             =   1680
          Width           =   1215
@@ -440,7 +461,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   375
          Index           =   6
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   16
          Top             =   1680
          Width           =   1215
@@ -458,7 +479,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   375
          Index           =   7
-         Left            =   -72960
+         Left            =   2040
          TabIndex        =   15
          Top             =   1680
          Width           =   2295
@@ -476,7 +497,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   375
          Index           =   3
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   11
          Top             =   600
          Width           =   1575
@@ -494,7 +515,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   375
          Index           =   4
-         Left            =   -72600
+         Left            =   2400
          TabIndex        =   10
          Top             =   600
          Width           =   1215
@@ -512,7 +533,7 @@ Begin VB.Form frmProdVerUnDepoVall
          EndProperty
          Height          =   375
          Index           =   5
-         Left            =   -70800
+         Left            =   4200
          TabIndex        =   9
          Top             =   600
          Width           =   1215
@@ -721,6 +742,10 @@ Dim It As ListItem
     Set miRsAux = Nothing
 End Sub
 
+Private Sub cmdImprimir_Click()
+    Imprime
+End Sub
+
 Private Sub cmdModKilos_Click()
     If vUsu.Nivel > 0 Then Exit Sub
     If SSTab1.TabVisible(0) = False Then Exit Sub
@@ -777,12 +802,96 @@ End Function
 
 
 Private Sub cmdVer_Click()
+    If Text1(6).Text = "" Then Exit Sub
     frmAlmpartidasMov.VerPartida = Val(Text1(6).Text)
     frmAlmpartidasMov.Show vbModal
 End Sub
 
 Private Sub Command1_Click()
     Unload Me
+End Sub
+
+
+Private Sub Imprime()
+Dim SQL As String
+Dim CantidadPartida As Currency
+Dim OtrosDepositos As String
+Dim CuantosDep As Byte
+    If TreeView1.Nodes.Count = 0 Then Exit Sub
+    
+    SQL = "DELETE from tmppartidas where codusu =" & vUsu.Codigo
+    conn.Execute SQL
+    
+    SQL = "cantotal"
+    CadenaDesdeOtroForm = DevuelveDesdeBD(conAri, "numalbar", "spartidas", "id", Text1(6).Text, "N", SQL)
+    If SQL = "" Then SQL = "0"
+    CantidadPartida = CCur(SQL)
+    
+    SQL = "0" 'Cantidad producida
+    If Mid(CadenaDesdeOtroForm, 1, 3) = "CUP" Then
+        CadenaDesdeOtroForm = Mid(CadenaDesdeOtroForm, 4)
+        CadenaDesdeOtroForm = Val(CadenaDesdeOtroForm)
+        NumRegElim = CadenaDesdeOtroForm
+        CadenaDesdeOtroForm = DevuelveDesdeBD(conAri, "deposito", "olicoupage", "codigo", CadenaDesdeOtroForm)
+        If CadenaDesdeOtroForm = "" Then
+            CadenaDesdeOtroForm = "null"
+            
+        Else
+            Set miRsAux = New ADODB.Recordset
+            OtrosDepositos = "Select numdeposito, if(numdeposito=" & Text1(0).Text & ",0,1) origen FROM proddepositos where partida = " & Text1(6).Text & " ORDER by 2"
+            miRsAux.Open OtrosDepositos, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            OtrosDepositos = ""
+            CuantosDep = 0
+            While Not miRsAux.EOF
+                CuantosDep = CuantosDep + 1
+                OtrosDepositos = OtrosDepositos & " - " & miRsAux!NumDeposito
+                miRsAux.MoveNext
+            Wend
+            miRsAux.Close
+            Set miRsAux = Nothing
+            SQL = DevuelveDesdeBD(conAri, "sum(kilos)", "olicoupagelin", "codigo", CStr(NumRegElim))
+            If CuantosDep <= 1 Then
+                CadenaDesdeOtroForm = "'Deposito " & CadenaDesdeOtroForm & "'"
+            Else
+                OtrosDepositos = Trim(Mid(OtrosDepositos, 3)) 'quito la primer guino
+                CadenaDesdeOtroForm = "'Depositos: " & OtrosDepositos & "'"
+            End If
+        End If
+    Else
+       CadenaDesdeOtroForm = "'Deposito " & Text1(0).Text & "'"
+       SQL = DevuelveDesdeBD(conAri, "sum(abs_cantidad)*0.916", "tmptraza", " codusu ", vUsu.Codigo)
+       If SQL = "" Then SQL = "0"
+    End If
+    NumRegElim = Round(CCur(SQL), 2) * 100 'Kilos producidos
+    
+    
+    SQL = "INSERT INTO tmppartidas(codusu,idpartida,codartic,numlote,idOperacion,Referencia,cantidad,abs_cantidad,idNumOperacion) VALUES ("
+    SQL = SQL & vUsu.Codigo & "," & Text1(6).Text & ",'" & Text1(7).Text & "',"
+    SQL = SQL & DBSet(Text1(1).Text, "T") & "," & DBSet(Text1(0).Text, "T")
+    SQL = SQL & ",'" & NumRegElim / 100 & "'," & DBSet(CantidadPartida, "N", "N") & "," & DBSet(0, "N", "N") & "," '0 : CantidadVenta
+        
+    SQL = SQL & CadenaDesdeOtroForm & ")"
+    conn.Execute SQL
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    LlamaImprimirGral "{tmppartidas.codusu}=" & vUsu.Codigo, "", 0, "TrazaArtDeposito.rpt", "Trazabilidad desde oliva  "
+    
 End Sub
 
 Private Sub Form_Activate()
@@ -825,6 +934,7 @@ Private Sub Form_Load()
         SSTab1.TabVisible(2) = True
         Me.ListView2.ColumnHeaders(6).Width = 1200
     End If
+    Me.Command1.ZOrder 0
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
@@ -904,6 +1014,22 @@ Private Sub ListView2_DblClick()
     Case 10
             frmVallAlmazara.DatosADevolverBusqueda2 = Val(ListView2.SelectedItem.SubItems(3))
             frmVallAlmazara.Show vbModal
+    Case 3
+            
+            If Val(Text1(0).Text) > 104 Then
+                miSQL = InputBox("Observaciones", "Depositos exteriores", ListView2.SelectedItem.SubItems(3))
+                If miSQL <> "" Then
+                
+                
+                    ListView2.SelectedItem.SubItems(3) = miSQL
+                    miSQL = "UPDATE proddepositoshco set descripcion=" & DBSet(miSQL, "T")
+                    miSQL = miSQL & " WHERE numdeposito=" & Text1(0).Text
+                    miSQL = miSQL & " AND horamovi = " & DBSet(ListView2.SelectedItem.Text, "FH")
+                    miSQL = miSQL & " AND tipoaccion=3 " 'Case 3
+                    EjecutaSQL conAri, miSQL, True
+                    
+                End If
+            End If
     End Select
     Screen.MousePointer = vbDefault
 End Sub
@@ -1151,7 +1277,7 @@ Dim CargaDesdeTmpTraza As Boolean
         
     
     End If
-    
+    If TreeView1.Nodes.Count > 2 Then TreeView1.Nodes(2).EnsureVisible
     Set miRsAux = Nothing
     Set cP = Nothing
 End Sub
@@ -1185,6 +1311,7 @@ Dim Fin2 As Boolean
                                 If InStr(1, miRsAux!idoperacion, "Id:") > 0 And InStr(1, miRsAux!idoperacion, "Dep:") > 0 Then
                                   C = "MOLT." & miRsAux!idoperacion & " [" & miRsAux!NUmlote2 & "]"
                                 End If
+                                C = C & "   " & Format(miRsAux!Cantidad, "#,##0") & " Kg"
                             End If
                         End If
                          

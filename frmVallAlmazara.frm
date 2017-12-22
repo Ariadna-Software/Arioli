@@ -2259,7 +2259,7 @@ Dim Desc As String, Devuelve As String
     If EsCabecera Then
         Cad = Cad & ParaGrid(Text1(0), 20, "Id")
         Cad = Cad & ParaGrid(Text1(1), 20, "Fecha")
-        Cad = Cad & "Tipo|scaalp|if(tipooliva=1,'Arbol','Tierra') |N||45·"
+        Cad = Cad & "Tipo|scaalp|if(tipooliva=0,'Arbol',if(tipooliva=2,'Arbequina','Tierra')) |N||45·"
         Tabla = NombreTabla
       
         Titulo = "Proceso almazara"
