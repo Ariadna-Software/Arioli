@@ -75,17 +75,17 @@ Begin VB.Form frmProdVerUnDepoVall
       TabCaption(1)   =   "Histórico"
       TabPicture(1)   =   "frmProdVerUnDepoVall.frx":001C
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label3(63)"
-      Tab(1).Control(1)=   "imgFecha(0)"
+      Tab(1).Control(0)=   "cmdVer"
+      Tab(1).Control(1)=   "txtFecha(0)"
       Tab(1).Control(2)=   "ListView2"
-      Tab(1).Control(3)=   "txtFecha(0)"
-      Tab(1).Control(4)=   "cmdVer"
+      Tab(1).Control(3)=   "imgFecha(0)"
+      Tab(1).Control(4)=   "Label3(63)"
       Tab(1).ControlCount=   5
       TabCaption(2)   =   "Albaranes"
       TabPicture(2)   =   "frmProdVerUnDepoVall.frx":0038
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "cmdImprimir"
-      Tab(2).Control(1)=   "TreeView1"
+      Tab(2).Control(0)=   "TreeView1"
+      Tab(2).Control(1)=   "cmdImprimir"
       Tab(2).ControlCount=   2
       Begin VB.CommandButton cmdImprimir 
          Caption         =   "Imprimir"
@@ -672,7 +672,7 @@ Dim It As ListItem
     miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
 
-        Me.Text1(2).Text = DBLet(miRsAux!NUmlote, "T")
+        Me.Text1(2).Text = DBLet(miRsAux!numLote, "T")
         Text1(0).Text = NumDepo
         
         
@@ -1090,8 +1090,8 @@ Dim arrastrado As Currency
     
     While Not miRsAux.EOF
             Set It = ListView2.ListItems.Add
-            It.Text = Format(miRsAux!horamovi, "dd/mm/yyyy hh:nn:ss")
-            It.SubItems(4) = Format(miRsAux!horamovi, "yyyymmddhhnnss")
+            It.Text = Format(miRsAux!HoraMovi, "dd/mm/yyyy hh:nn:ss")
+            It.SubItems(4) = Format(miRsAux!HoraMovi, "yyyymmddhhnnss")
             '***** VER InsertarEnHco enla clase DEPOSITO
             '   0 .- Albaran de compra
             '   1 .- Coupage Entrada
@@ -1140,17 +1140,17 @@ Dim arrastrado As Currency
                 miSQL = "Molturacion"
             End Select
             It.SubItems(2) = miSQL
-            It.SubItems(1) = miRsAux!NUmlote
+            It.SubItems(1) = DBLet(miRsAux!numLote, "T")
             
             If Not IsNull(miRsAux!Descripcion) Then
                 It.SubItems(3) = miRsAux!Descripcion
             Else
-                It.SubItems(3) = Mid(miRsAux!NUmlote, 7)
+                It.SubItems(3) = Mid(miRsAux!numLote, 7)
             End If
             
             It.SubItems(5) = " " & Format(miRsAux!CantidadMov, FormatoCantidad)
             
-            If miRsAux!horamovi >= vParamAplic.FechaActiva Then
+            If miRsAux!HoraMovi >= vParamAplic.FechaActiva Then
                 arrastrado = arrastrado + miRsAux!CantidadMov
                 It.SubItems(6) = " " & Format(arrastrado, FormatoCantidad)
                 It.ListSubItems(6).ForeColor = &H808080
@@ -1449,7 +1449,7 @@ End Sub
 
 
 
-Private Function DevuelveAlbaran(NUmlote As String, vArtic As String) As String
+Private Function DevuelveAlbaran(numLote As String, vArtic As String) As String
 'Dim RT As ADODB.Recordset
 'Dim Cad As String
 'Dim PalWhere As String  'numalbar

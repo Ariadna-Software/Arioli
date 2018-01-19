@@ -1189,7 +1189,7 @@ Private Sub cmdCerrar_Click()
         MsgBox Cad, vbExclamation
         Exit Sub
     End If
-    
+    If MsgBox("Desea cerrar el periodo?", vbQuestion + vbYesNoCancel) <> vbYes Then Exit Sub
     conn.BeginTrans
     If CerrarProcesoMensual Then
         conn.CommitTrans
@@ -1218,6 +1218,7 @@ End Sub
 Private Sub Form_Load()
 Dim Importe As Currency
 Dim Importe2 As Currency
+Dim UltFecPresentada As Date
 
 Dim I As Integer
 
@@ -1226,11 +1227,24 @@ Dim I As Integer
     limpiar Me
     'Cargamos todos los campos
     Set miRsAux = New ADODB.Recordset
+    UltFecPresentada = vParamAplic.FechaActiva
+    Cad = "Select max(anyo * 100 + mes) from valldeclara  order by 1 desc "
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    If Not miRsAux.EOF Then
+        Cad = miRsAux.Fields(0)
+        I = DiasMes(CByte(Mid(Cad, 5, 2)), CInt(Mid(Cad, 1, 4)))
+        Cad = Format(I, "00") & "/" & Mid(Cad, 5, 2) & "/" & Mid(Cad, 1, 4)
+        UltFecPresentada = CDate(Cad)
+        UltFecPresentada = DateAdd("d", 1, UltFecPresentada)
+        If UltFecPresentada < vParamAplic.FechaActiva Then UltFecPresentada = vParamAplic.FechaActiva
+    End If
+    miRsAux.Close
+    
     Cad = "Select * from tmpnlotes where codusu =" & vUsu.Codigo
     miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
     'Si el periodo que esta cerrando es un mes mas que el que esta activo
-    If vParamAplic.FechaActiva = miRsAux!FechaAlb Then
+    If UltFecPresentada = miRsAux!FechaAlb Then
         Label1(18).visible = True
         Text2.visible = True
         Me.cmdCerrar.visible = True
@@ -1243,7 +1257,7 @@ Dim I As Integer
     If IsNull(miRsAux!numlotes) Then
         Importe = 0
     Else
-        Importe = CCur(miRsAux!numlotes)
+        Importe = CCur(TransformaPuntosComas(miRsAux!numlotes))
     End If
     Text1(2).Text = Format(Importe, "##,##0")
     If Not IsNull(miRsAux!Cantidad) Then Importe = miRsAux!Cantidad - Importe
@@ -1315,7 +1329,6 @@ Dim I As Integer
     
     End If
     miRsAux.Close
-    MsgBox "Lecturas anteriores incorrectas", vbExclamation
 
     '1 .- Coupage Entrada
     '   3 .- Trasiego entrada
@@ -1398,7 +1411,16 @@ Private Function CerrarProcesoMensual() As Boolean
     Cad = Cad & "aceite_obtenido,orujo_ontenido,salida_aceite,salida_orujo,observa) VALUES ("
     Cad = Cad & Month(LabelFechaMes.Tag) & "," & Year(LabelFechaMes.Tag) & "," & DBSet(Now, "FH") & ","
     'aceite_existencia,aceite_producido,aceite_salidas,aceite_stfinal
-    
+    Cad = Cad & DBSet(Text1(0).Text, "N", "N") & "," & DBSet(Text1(1).Text, "N", "N") & ","
+    Cad = Cad & DBSet(Text1(2).Text, "N", "N") & "," & DBSet(Text1(3).Text, "N", "N") & ","
+    'detasalida_envprop,detasalida_otrasent,detasalida_otraptri
+    Cad = Cad & DBSet(Text1(8).Text, "N", "N") & "," & DBSet(Text1(9).Text, "N", "N") & "," & DBSet(Text1(10).Text, "N", "N") & ","
+    'aceituna_entrada , aceituna_molturada, aceite_obtenido,orujo_ontenido,
+    Cad = Cad & DBSet(Text1(16).Text, "N", "N") & "," & DBSet(Text1(17).Text, "N", "N") & ","
+    Cad = Cad & DBSet(Text1(18).Text, "N", "N") & "," & DBSet(Text1(19).Text, "N", "N") & ","
+    'salida_aceite,salida_orujo,observa
+    Cad = Cad & DBSet(Text1(20).Text, "N", "N") & "," & DBSet(Text1(21).Text, "N", "N") & "," & DBSet(Text2.Text, "T") & ")"
+    conn.Execute Cad
     
     'Insertamos lineas
     Cad = "INSERT INTO valldeclaralin(anyo,mes,dia,aceitu_ent,aceitu_molt,obtenido_aceite,obtenido_orujo,salida_aceite,salida_orujo) "
@@ -1407,7 +1429,9 @@ Private Function CerrarProcesoMensual() As Boolean
     Cad = Cad & " ,importe5 salida_aceite,importeb1 salida_orujo"
     Cad = Cad & " from tmpinformes where codusu =" & vUsu.Codigo & " order by codigo1"
     conn.Execute Cad
-
+    
+    CerrarProcesoMensual = True
+    
 eCerrarProcesoMensual:
     If Err.Number <> 0 Then MuestraError Err.Number, Err.Description
 

@@ -1332,7 +1332,7 @@ Dim FechaHora2 As Date
             If Me.chkFiltrado(I).Value = 1 Then
                 Set C1 = New cDeposito
                 If C1.LeerDatos(8 + I, False) Then
-                    If C1.NUmlote <> "" Then Cad = "Deposito intermedio  no esta vacio"
+                    If C1.numLote <> "" Then Cad = "Deposito intermedio  no esta vacio"
                 End If
                 Set C1 = Nothing
             End If
@@ -1495,7 +1495,7 @@ Dim Cantidad As Currency
                     cPar.Leer CLng(Cad)
                                     
                                     
-                    cLot.NUmlote = cPar.NUmlote
+                    cLot.numLote = cPar.numLote
         
                     cLot.Cantidad = vCStock.Cantidad
                     cLot.LineaDocu = I
@@ -1794,7 +1794,7 @@ Private Sub cmdTrasLavall_Click()
             miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             While Not miRsAux.EOF
                 Cad = Format(miRsAux!NumDeposito, "00") & "  "
-                Cad = Cad & Mid(miRsAux!NUmlote & "       ", 1, 9) & " " & " Kilos: " & Format(miRsAux!Kilos, FormatoCantidad)
+                Cad = Cad & Mid(miRsAux!numLote & "       ", 1, 9) & " " & " Kilos: " & Format(miRsAux!Kilos, FormatoCantidad)
                 cboDeposito(0).AddItem Cad
                 cboDeposito(0).ItemData(cboDeposito(0).NewIndex) = miRsAux!NumDeposito
                 miRsAux.MoveNext
@@ -2635,7 +2635,7 @@ Dim Cadena2 As String
                         
                         CantidadQueLLevo = CantidadQueLLevo - Cant2
                     
-                        Aux = RL!NUmlote & "|"
+                        Aux = RL!numLote & "|"
                         RL.MoveNext
                         If RL.EOF Then
                             'Es la utlima. Ajusto los decimales
@@ -2676,7 +2676,7 @@ Dim Cadena2 As String
                             cP.Fecha = vvCstock.Fechamov
                             
                             cP.NumAlbar = "PR" & miRsAux!Codigo
-                            cP.NUmlote = cP.NumAlbar
+                            cP.numLote = cP.NumAlbar
                             cP.Insertar
 
 
@@ -2845,7 +2845,7 @@ Dim Cadena2 As String
                         cP.Fecha = vvCstock.Fechamov
                         
                         cP.NumAlbar = "PR" & miRsAux!Codigo
-                        cP.NUmlote = cP.NumAlbar
+                        cP.numLote = cP.NumAlbar
                         If cP.Insertar Then
                             b = True
                             Insertar_sliordpr2lotes cP, 1, CantidadNecesaria
@@ -2950,7 +2950,7 @@ Dim Cadena2 As String
                         If Not SoloComprobar Then
                                 Set cP = New cPartidas
                                 'Vemos si ya existe
-                                LoteReal = RL!NUmlote & " " & Format(txtFecha(0).Text, "yyyy/mm/dd")
+                                LoteReal = RL!numLote & " " & Format(txtFecha(0).Text, "yyyy/mm/dd")
                                 If cP.LeerDesdeArticulo(miRsAux!codarti2, miRsAux!codAlmac, LoteReal) Then
                                     'Ya existia(por algun motivo)
                                     cP.IncrementarCantidad RL!cantlote
@@ -2962,7 +2962,7 @@ Dim Cadena2 As String
                                     cP.codProve = 0
                                     cP.Fecha = CDate(txtFecha(0).Text)
                                     cP.NumAlbar = "PR" & RecuperaValor(Me.Intercambio, 1)
-                                    cP.NUmlote = LoteReal
+                                    cP.numLote = LoteReal
                                     If Not cP.Insertar Then
                                         Cad = "Error insertando partidas/lotes: " & cP.codartic
                                         MsgBox Cad, vbExclamation
@@ -2976,7 +2976,7 @@ Dim Cadena2 As String
                                 cL.codAlmac = cP.codAlmac
                                 cL.codartic = cP.codartic
                                 cL.codarti2 = ""
-                                cL.NUmlote = cP.NUmlote
+                                cL.numLote = cP.numLote
                                 If Not cL.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & cP.codartic
                                 Set cP = Nothing
                                 
@@ -2987,7 +2987,7 @@ Dim Cadena2 As String
                                 Cad = "UPDATE sliordprlotes set numlote=" & DBSet(LoteReal, "T")
                                 Cad = Cad & " where codigo=" & RecuperaValor(Me.Intercambio, 1)
                                 Cad = Cad & " AND codartic= '" & miRsAux!codarti2 & "'"
-                                Cad = Cad & " AND numlote= '" & RL!NUmlote & "'"
+                                Cad = Cad & " AND numlote= '" & RL!numLote & "'"
                                 conn.Execute Cad
                         End If
                         RL.MoveNext
@@ -3041,7 +3041,7 @@ Private Sub InsertarMovientosLotesProduccion(ByRef cLot As cLotaje, cPar As cPar
     cLot.codAlmac = cPar.codAlmac
     cLot.codartic = cPar.codartic
     cLot.codarti2 = ArticuloProduccion
-    cLot.NUmlote = cPar.NUmlote
+    cLot.numLote = cPar.numLote
 
     If Not cLot.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & cPar.codartic
     
@@ -3058,7 +3058,7 @@ Dim SQL As String
     SQL = SQL & RecuperaValor(Intercambio, 1) & ","
     'En misraux tengo los datos que necesito
     SQL = SQL & miRsAux!codAlmac & ",'" & miRsAux!codartic & "','" & miRsAux!codarti2 & "',"
-    SQL = SQL & LineaLote & ",'" & DevNombreSQL(Par.NUmlote) & "'," & TransformaComasPuntos(CStr(Cantidad)) & ")"
+    SQL = SQL & LineaLote & ",'" & DevNombreSQL(Par.numLote) & "'," & TransformaComasPuntos(CStr(Cantidad)) & ")"
     EjecutaSQL conAri, SQL, True
     
 End Sub
@@ -3206,7 +3206,7 @@ Dim MoviMIentosPosteriores As String
             b = True
             '// NUmeros de LOTE
             Cad = ""
-            If cP.LeerDesdeArticulo(vvCstock.codartic, vvCstock.codAlmac, miRsAux!NUmlote) Then
+            If cP.LeerDesdeArticulo(vvCstock.codartic, vvCstock.codAlmac, miRsAux!numLote) Then
             
                 If cP.Cantidad >= CantidadNecesaria Then
                     'PERFECTO. NO HAgo nada
@@ -3237,7 +3237,7 @@ Dim MoviMIentosPosteriores As String
         
             If SoloComprobar Then
                 If Cad <> "" Then
-                    Cad = Cad & " (" & miRsAux!NUmlote & ")"
+                    Cad = Cad & " (" & miRsAux!numLote & ")"
                     Cad = Space(15) & "-- " & vvCstock.codartic & "  " & Cad
                     AuxPartida = AuxPartida & vbCrLf & Cad
                 End If
@@ -3277,8 +3277,8 @@ Dim MoviMIentosPosteriores As String
                     cP.codProve = 0
                     cP.Fecha = CDate(txtFecha(1).Text)
                     cP.NumAlbar = "CUP" & RecuperaValor(Me.Intercambio, 1)
-                    cP.NUmlote = DBLet(miRsAux!NUmlote, "T")
-                    If cP.NUmlote Then cP.NUmlote = cP.NumAlbar
+                    cP.numLote = DBLet(miRsAux!numLote, "T")
+                    If cP.numLote Then cP.numLote = cP.NumAlbar
                     
                     If Not cP.Insertar Then
                         Cad = "Error insertando partidas/lotes: " & cP.codartic
@@ -3295,7 +3295,7 @@ Dim MoviMIentosPosteriores As String
                 cL.Cantidad = Abs(CantidadNecesaria)
                 cL.codAlmac = vvCstock.codAlmac
                 cL.codartic = vvCstock.codartic
-                cL.NUmlote = cP.NUmlote
+                cL.numLote = cP.numLote
                 cL.InsertarLote
                 
                 'JUNIO 2014
@@ -3327,7 +3327,7 @@ Dim MoviMIentosPosteriores As String
                         cL.InsertarLote
                                                                                            
                         If vParamAplic.QUE_EMPRESA = 4 Then
-                            Cad = DevuelveDesdeBD(conAri, "count(*)", "proddepositos", "numlote", cP.NUmlote, "T")
+                            Cad = DevuelveDesdeBD(conAri, "count(*)", "proddepositos", "numlote", cP.numLote, "T")
                             If Val(Cad) > 1 Then
                                 'Tiene mas de un datos en los depositos
                                 Cad = "MAS"
@@ -3412,7 +3412,7 @@ Dim MoviMIentosPosteriores As String
                 
                 
                                                         'Vemos si ya existe
-                If cP.LeerDesdeArticulo(miRsAux!codartic, miRsAux!codAlmac, miRsAux!NUmlote) Then
+                If cP.LeerDesdeArticulo(miRsAux!codartic, miRsAux!codAlmac, miRsAux!numLote) Then
                     'Ya existia(por algun motivo)
                     cP.IncrementarCantidad CantidadNecesaria
                     
@@ -3423,7 +3423,7 @@ Dim MoviMIentosPosteriores As String
                     cP.codProve = 0
                     cP.Fecha = CDate(txtFecha(1).Text)
                     cP.NumAlbar = "CUP" & RecuperaValor(Me.Intercambio, 1)
-                    cP.NUmlote = miRsAux!NUmlote
+                    cP.numLote = miRsAux!numLote
                     If Not cP.Insertar Then Err.Raise vbObjectError + 513, , Cad
                     
                 End If
@@ -3433,7 +3433,7 @@ Dim MoviMIentosPosteriores As String
                 cL.Cantidad = Abs(CantidadNecesaria)
                 cL.codAlmac = vvCstock.codAlmac
                 cL.codartic = vvCstock.codartic
-                cL.NUmlote = cP.NUmlote
+                cL.numLote = cP.numLote
                 cL.InsertarLote
                 
                 b = True
@@ -3448,7 +3448,7 @@ Dim MoviMIentosPosteriores As String
                 
                 
                 cDEP.Kilos = cL.Cantidad
-                cDEP.NUmlote = cP.NUmlote
+                cDEP.numLote = cP.numLote
                 cDEP.idPartida = cP.idPartida
                 Espera 0.5
                 
@@ -3770,7 +3770,7 @@ Private Sub CargaComobosTrasiegos(Inicio As Byte, Fin As Byte)
             If I = 0 Or I = 2 Or I = 4 Then
                 Cad = Format(miRsAux!NumDeposito, "00") & "  "
                 If vParamAplic.QUE_EMPRESA <> 4 Then Cad = Cad & "L"
-                Cad = Cad & Mid(miRsAux!NUmlote & "       ", 1, 9) & " " & miRsAux!NomArtic & " (" & Format(miRsAux!vlitros, FormatoCantidad) & ")"
+                Cad = Cad & Mid(miRsAux!numLote & "       ", 1, 9) & " " & miRsAux!NomArtic & " (" & Format(miRsAux!vlitros, FormatoCantidad) & ")"
             Else
                 Cad = "Deposito " & miRsAux!NumDeposito
             End If
@@ -3810,9 +3810,9 @@ Private Sub CargaComobosLaVall()
                 
                 Cad = Format(miRsAux!NumDeposito, "00") & "  "
                 Cad = "Deposito " & Cad
-                If Not IsNull(miRsAux!NUmlote) Then
+                If Not IsNull(miRsAux!numLote) Then
                 
-                    Cad = Cad & Mid(miRsAux!NUmlote & "       ", 1, 9) & " " & miRsAux!NomArtic & " (" & Format(miRsAux!vlitros, FormatoCantidad) & ")"
+                    Cad = Cad & Mid(miRsAux!numLote & "       ", 1, 9) & " " & miRsAux!NomArtic & " (" & Format(miRsAux!vlitros, FormatoCantidad) & ")"
                 End If
                 
                 
@@ -3856,7 +3856,7 @@ Dim Cantidad As Currency
     
     'select * from spartidas,sartic where spartidas.codartic=sartic.codartic and sartic.factorconversion<1 and numlote in (select numlote from proddepositos)
     Aux = "spartidas.codartic=sartic.codartic and sartic.factorconversion<1 and numlote"
-    Aux = DevuelveDesdeBD(conAri, "id", "spartidas,sartic", Aux, cDEP.NUmlote, "T")
+    Aux = DevuelveDesdeBD(conAri, "id", "spartidas,sartic", Aux, cDEP.numLote, "T")
     If Aux = "" Then Err.Raise 513, , "No se encuentra la partida"
     cPar.Leer CLng(Aux)
     
@@ -3894,7 +3894,7 @@ Dim Cantidad As Currency
     cLot.DetaMov = vvCstock.DetaMov
     cLot.Fechamov = vvCstock.Fechamov
     cLot.HoraMov = vvCstock.HoraMov
-    cLot.NUmlote = cPar.NUmlote
+    cLot.numLote = cPar.numLote
     
     cLot.Cantidad = vvCstock.Cantidad
     cLot.LineaDocu = cDEP.NumDeposito
@@ -3956,7 +3956,7 @@ Dim Cadena2 As String
         'Si no, a coupar
         If C2.idPartida > 0 Then
             'Tiene algo
-            If C1.NUmlote <> C2.NUmlote Then
+            If C1.numLote <> C2.numLote Then
                 'deber realizar coupage
                 Cad = Cad & vbCrLf & "-Lotes distintos"
             End If
@@ -3991,7 +3991,20 @@ Dim Cadena2 As String
     Cad = ""
     Cantidad = ImporteFormateado(txtNumeroDec(4).Text)
     If Cantidad > C1.Kilos Then Cad = Cad & "    -No puede traspasar mas cantidad de la disponible    "
-    If Cantidad + C2.Kilos > C2.Capacidad Then Cad = Cad & vbCrLf & "    -Aceite en destino mayor que capacidad "
+    If C1.NumDeposito <> C2.NumDeposito Then
+        If Cantidad + C2.Kilos > C2.Capacidad Then Cad = Cad & vbCrLf & "    -Aceite en destino mayor que capacidad "
+    End If
+    
+    'Fitrlado sobre el mismo deposito. Dbe ser el total
+    If Me.optLaVall(0).Value Then
+        If C1.NumDeposito = C2.NumDeposito Then
+            If Cantidad <> C1.Kilos Then
+                Cad = Cad & vbCrLf & "   -Sobre un mismo deposito debe filtrar todos los kilos."
+            End If
+        End If
+    End If
+            
+    
     If Cad <> "" Then
         Cad = "Error en KILOS" & vbCrLf & vbCrLf & Cad
         MsgBox Cad, vbExclamation
@@ -4227,6 +4240,7 @@ Dim TextoParaHcoDepositosLaVall As String
 Dim CuantoHabiaDepositoDestino As Currency
 Dim cDestino As cDeposito
 
+Dim Segundos As Integer
 
     On Error GoTo ERealizarCUPLOTES
 
@@ -4283,7 +4297,7 @@ Dim cDestino As cDeposito
             End If
             
             If miRsAux!Deposito <> DepositoDestino Then
-                TextoParaHcoDepositosLaVall = miRsAux!NUmlote
+                TextoParaHcoDepositosLaVall = miRsAux!numLote
             End If
         End If
         
@@ -4299,7 +4313,10 @@ Dim cDestino As cDeposito
         
         
     Wend
-    
+    If cDestino.NumDeposito = 0 Then
+        
+        cDestino.LeerDatos DepositoDestino, False
+    End If
     
     'La utlima linea
     If MiNumeroLote <> "" Then
@@ -4334,7 +4351,7 @@ Dim cDestino As cDeposito
     Set cP = New cPartidas
     Set vvCstock = New cStock
     Set cDe = New cDeposito
-
+    Segundos = 0
     While Not miRsAux.EOF
         If Err_x_Articulo <> miRsAux!codartic Then
             'Han habido errores en el articulo anterior.
@@ -4347,13 +4364,14 @@ Dim cDestino As cDeposito
         End If
 
         b = False
+        Segundos = Segundos + 1
         If InicializarCStockCoupage(vvCstock, "E", True) Then    'Las lineas son de netrada
     
             CantidadNecesaria = CCur(miRsAux!cantlote)
             b = True
             '// NUmeros de LOTE
             Cad = ""
-            If cP.LeerDesdeArticulo(vvCstock.codartic, vvCstock.codAlmac, miRsAux!NUmlote) Then
+            If cP.LeerDesdeArticulo(vvCstock.codartic, vvCstock.codAlmac, miRsAux!numLote) Then
             
             Else
                 'NO existe lote. De momento dejo continuar
@@ -4365,7 +4383,7 @@ Dim cDestino As cDeposito
         
             If SoloComprobar Then
                 If Cad <> "" Then
-                    Cad = Cad & " (" & miRsAux!NUmlote & ")"
+                    Cad = Cad & " (" & miRsAux!numLote & ")"
                     Cad = Space(15) & "-- " & vvCstock.codartic & "  " & Cad
                     AuxPartida = AuxPartida & vbCrLf & Cad
                 End If
@@ -4387,8 +4405,11 @@ Dim cDestino As cDeposito
                         AuxPartida = AuxPartida & vbCrLf & Cad
                     End If
                                     
-                    
-                    
+                    If Val(miRsAux!fincuba) = 1 And Abs(cDe.Kilos - CantidadNecesaria) > 5 Then
+                        Cad = "DEP: " & cDe.NumDeposito
+                        Cad = Space(15) & "-- NO es FIN deposito y si que esta marcado como tal  " & Cad
+                        AuxPartida = AuxPartida & vbCrLf & Cad
+                    End If
                     Set cDe = Nothing
                     Set cDe = New cDeposito
                 End If
@@ -4398,16 +4419,14 @@ Dim cDestino As cDeposito
                 'Incrementamos los kilos
                 cDe.LeerDatos miRsAux!Deposito, False
                 
+                If cDestino.NumDeposito = 0 Then
+                     If Not cDestino.LeerDatos(DepositoDestino, False) Then Err.Raise 513, , "Error leyendo deposito destino: " & DepositoDestino
+                End If
                 
                 
                 cDe.InsertarEnHco 2, vvCstock.HoraMov, "CUP" & RecuperaValor(Me.Intercambio, 1), CantidadNecesaria
                 cDe.VariacionKilosDeposito CantidadNecesaria
-                If cDe.NumDeposito <> cDestino.NumDeposito Then
-                    AuxPartida = Mid(cDe.NUmlote, 7)
-                    
-                    cDestino.InsertarEnHco 1, vvCstock.HoraMov, AuxPartida, -CantidadNecesaria 'la cantidad sdera positiva al final
-                
-                End If
+               
                 If Not b Then
                     'NO existe. Lo creo
                     cP.Cantidad = CantidadNecesaria
@@ -4416,8 +4435,8 @@ Dim cDestino As cDeposito
                     cP.codProve = 0
                     cP.Fecha = CDate(txtFecha(1).Text)
                     cP.NumAlbar = "CUP" & RecuperaValor(Me.Intercambio, 1)
-                    cP.NUmlote = DBLet(miRsAux!NUmlote, "T")
-                    If cP.NUmlote Then cP.NUmlote = cP.NumAlbar
+                    cP.numLote = DBLet(miRsAux!numLote, "T")
+                    If cP.numLote Then cP.numLote = cP.NumAlbar
                     
                     If Not cP.Insertar Then
                         Cad = "Error insertando partidas/lotes: " & cP.codartic
@@ -4434,8 +4453,15 @@ Dim cDestino As cDeposito
                 cL.Cantidad = Abs(CantidadNecesaria)
                 cL.codAlmac = vvCstock.codAlmac
                 cL.codartic = vvCstock.codartic
-                cL.NUmlote = cP.NUmlote
+                cL.numLote = cP.numLote
                 cL.InsertarLote
+                
+                'Mohco
+                If cDe.NumDeposito <> DepositoDestino Then
+                  cDestino.numLote = "*" & cDe.numLote
+                  cDestino.idPartida = cDe.idPartida
+                  cDestino.InsertarEnHco 1, DateAdd("s", Segundos, vvCstock.HoraMov), cP.NumAlbar, Abs(CantidadNecesaria)
+                End If
                 
                 If Val(miRsAux!fincuba) = 1 Then
                     
@@ -4503,7 +4529,7 @@ Dim cDestino As cDeposito
                 
                 
                                                         'Vemos si ya existe
-                If cP.LeerDesdeArticulo(miRsAux!codartic, miRsAux!codAlmac, miRsAux!NUmlote) Then
+                If cP.LeerDesdeArticulo(miRsAux!codartic, miRsAux!codAlmac, miRsAux!numLote) Then
                     'Ya existia(por algun motivo)
                     cP.IncrementarCantidad CantidadNecesaria
                     
@@ -4514,7 +4540,7 @@ Dim cDestino As cDeposito
                     cP.codProve = 0
                     cP.Fecha = CDate(txtFecha(1).Text)
                     cP.NumAlbar = "CUP" & RecuperaValor(Me.Intercambio, 1)
-                    cP.NUmlote = miRsAux!NUmlote
+                    cP.numLote = miRsAux!numLote
                     If Not cP.Insertar Then Err.Raise vbObjectError + 513, , Cad
                     
                 End If
@@ -4524,7 +4550,7 @@ Dim cDestino As cDeposito
                 cL.Cantidad = Abs(CantidadNecesaria)
                 cL.codAlmac = vvCstock.codAlmac
                 cL.codartic = vvCstock.codartic
-                cL.NUmlote = cP.NUmlote
+                cL.numLote = cP.numLote
                 cL.InsertarLote
                 
                 b = True
@@ -4539,7 +4565,7 @@ Dim cDestino As cDeposito
                 
                 
                
-                cDe.NUmlote = cP.NUmlote
+                cDe.numLote = cP.numLote
                 cDe.idPartida = cP.idPartida
                 Espera 0.5
                 
@@ -4551,10 +4577,12 @@ Dim cDestino As cDeposito
                     
                     cDe.InsertarEnHco 1, DateAdd("s", 5, FLin), "CUP" & RecuperaValor(Me.Intercambio, 1), CuantoHabiaDepositoDestino
                 Else
-                    MsgBox "Falta solucionar esta  opcion. No habia nada en depostio", vbCritical
-                    Stop
+                    'Inserto LINEA 0
+                    cDe.InsertarEnHco 1, DateAdd("s", 5, FLin), "CUP" & RecuperaValor(Me.Intercambio, 1), 0
                 End If
                 cDe.VariacionKilosDeposito cL.Cantidad
+                
+                
                 
                 
                 Espera 0.8
@@ -4571,6 +4599,7 @@ ERealizarCUPLOTES:
     Set miRsAux = Nothing
     Set vvCstock = Nothing
     Set cDe = Nothing
+    Set cDestino = Nothing
 End Function
 
 

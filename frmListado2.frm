@@ -12470,7 +12470,7 @@ End Sub
 
 Private Function GenerarDatosEncoenves() As Boolean
 Dim C As String
-Dim RS As ADODB.Recordset
+Dim Rs As ADODB.Recordset
 Dim Fin As Boolean
 
     On Error GoTo EgenerarDatosEncoenves
@@ -12484,7 +12484,7 @@ Dim Fin As Boolean
     'variables
     
     'Incio Rs
-    Set RS = New ADODB.Recordset
+    Set Rs = New ADODB.Recordset
     Set miRsAux = New ADODB.Recordset
 
     
@@ -12507,30 +12507,30 @@ Dim Fin As Boolean
         miSQL = miSQL & " slifac.codartic=sartic.codartic AND  sartic.codunida=sunida.codunida"
         miSQL = miSQL & " AND numfactu =" & miRsAux!NumFactu & " AND fecfactu = " & DBSet(miRsAux!Fecfactu, "F")
         miSQL = miSQL & " ORDER BY numalbar,numlinea"
-        RS.Open miSQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
+        Rs.Open miSQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
         While Not Fin
-            If RS!codartic = vParamAplic.ArtReciclado Then
-                ImpTot = RS!Cantidad
-                If RS.BOF Then
+            If Rs!codartic = vParamAplic.ArtReciclado Then
+                ImpTot = Rs!Cantidad
+                If Rs.BOF Then
                     C = C & "No tiene articulo anterior"
                 Else
                     
-                    RS.MovePrevious
-                    If RS!Cantidad <> ImpTot Then C = C & "Cantidades distintas: " & RS!numlinea & vbCrLf
+                    Rs.MovePrevious
+                    If Rs!Cantidad <> ImpTot Then C = C & "Cantidades distintas: " & Rs!numlinea & vbCrLf
 
                     'Aquiinserto el posteriro
                     NumRegElim = NumRegElim + 1
                     
                     
                     campo = "insert into `tmpinformes` (`codusu`,`codigo1`,campo1,nombre1,importe1,importe2,importe3) "
-                    campo = campo & " VALUES (" & vUsu.Codigo & "," & NumRegElim & "," & RS!CodUnida & ","
-                    campo = campo & DBSet(RS!nomUnida, "T") & "," & DBSet(ImpTot, "N") & ","
+                    campo = campo & " VALUES (" & vUsu.Codigo & "," & NumRegElim & "," & Rs!CodUnida & ","
+                    campo = campo & DBSet(Rs!nomUnida, "T") & "," & DBSet(ImpTot, "N") & ","
                     
                     
                     'Vuelvo a poner el registro donde toca
-                    RS.MoveNext 'lo dejo en reciclado
+                    Rs.MoveNext 'lo dejo en reciclado
                     
-                    campo = campo & DBSet(RS!precioar, "N") & "," & DBSet(RS!ImporteL, "N") & ")"
+                    campo = campo & DBSet(Rs!precioar, "N") & "," & DBSet(Rs!ImporteL, "N") & ")"
                     EjecutaSQL conAri, campo
                     
                     
@@ -12538,8 +12538,8 @@ Dim Fin As Boolean
                 End If
                 
             End If
-            RS.MoveNext
-            If RS.EOF Then Fin = True
+            Rs.MoveNext
+            If Rs.EOF Then Fin = True
         Wend
         If C <> "" Then
             C = "Fra: " & miRsAux!NumFactu & " " & miRsAux!Fecfactu & vbCrLf & vbCrLf & C
@@ -12547,7 +12547,7 @@ Dim Fin As Boolean
         End If
         
         'Siguiente factura
-        RS.Close
+        Rs.Close
         miRsAux.MoveNext
     Wend
     miRsAux.Close
@@ -13197,11 +13197,11 @@ Dim ExistenciaIncialAceite As Currency   'Para el listado
     'Veamos el aceite
     '--------------------------------------------------------------------------------------------------------------------
     ArticulosTratar = Articulos_A_Tratar(0)
-    miSQL = "Select sum(if(tipomovi=1,cantidad,0)) producido,sum(if(tipomovi=0,cantidad,0)) salida from smoval where fechamov between " & DBSet(FI, "F") & " AND " & DBSet(FF, "F")
+    miSQL = "Select sum(if(detamovi='MLT',cantidad,0)) producido,sum(if(detamovi<>'MLT',cantidad,0)) salida from smoval where fechamov between " & DBSet(FI, "F") & " AND " & DBSet(FF, "F")
     'Articulos
     miSQL = miSQL & " AND codartic IN (" & ArticulosTratar & ")"
     'Tipos de movimiento que son para el aceite
-    miSQL = miSQL & " AND detamovi IN ('ALV','MLT') "
+    miSQL = miSQL & " AND detamovi IN ('MLT','ALV','PRO') "
     
     miRsAux.Open miSQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     'no debiera ser eof
@@ -13217,7 +13217,7 @@ Dim ExistenciaIncialAceite As Currency   'Para el listado
     
     
     
-    'Para cada dia del mes, veremos entradas de oliva,molturaciones,
+    'Para cada dia  del mes, veremos entradas de oliva,molturaciones,
     F = FI
     SQLinsert = ""
     Do
@@ -13231,7 +13231,7 @@ Dim ExistenciaIncialAceite As Currency   'Para el listado
     conn.Execute SQLinsert
     Espera 0.5
     
-    
+            
     'ACEITUNAS
     'Entrada - molturada
     ArticulosTratar = Articulos_A_Tratar(2)
@@ -13292,6 +13292,30 @@ Dim ExistenciaIncialAceite As Currency   'Para el listado
         miRsAux.MoveNext
     Wend
     miRsAux.Close
+    
+    'Aceite VENDIDO o embasado
+    ArticulosTratar = Articulos_A_Tratar(0)
+    miSQL = "Select fechamov,sum(if(tipomovi=1,-cantidad,cantidad)) kilos from smoval where fechamov between " & DBSet(FI, "F") & " AND " & DBSet(FF, "F")
+    'Articulos
+    miSQL = miSQL & " AND codartic IN (" & ArticulosTratar & ")"
+    'Tipos de movimiento que son para el aceite
+    miSQL = miSQL & " AND detamovi IN ('PRO','ALV','ALR') "
+    miSQL = miSQL & " group by 1"
+    miRsAux.Open miSQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    While Not miRsAux.EOF
+        'importe1 importe2
+        miSQL = "UPDATE tmpinformes SET importe5=" & DBSet(miRsAux!Kilos, "N", "N")
+        miSQL = miSQL & " WHERE codusu =" & vUsu.Codigo & " AND codigo1=" & Day(miRsAux!Fechamov)
+        conn.Execute miSQL
+    
+        miRsAux.MoveNext
+    Wend
+    miRsAux.Close
+    
+    
+    
+    
+    
     
     GenerarListadoAlmazara = True
     

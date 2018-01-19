@@ -73,12 +73,12 @@ End Property
 
 
 '**** Lote mlote
-Public Property Let NUmlote(ByVal vData As String)
+Public Property Let numLote(ByVal vData As String)
      mLote = vData
 End Property
 
-Public Property Get NUmlote() As String
-     NUmlote = mLote
+Public Property Get numLote() As String
+     numLote = mLote
 End Property
 
 
@@ -101,7 +101,7 @@ Public Function LeerDatos(NumeroDeposito As Integer, OcutltarMsgbox As Boolean) 
 'Leer los datos de un Articulo dado
 'Lee de la BD: Ariges, Tabla: sartic
 'OUT: True si lee los datos correctamente
-Dim RS As ADODB.Recordset
+Dim Rs As ADODB.Recordset
 Dim SQL As String
 
     On Error GoTo ELeer
@@ -111,26 +111,26 @@ Dim SQL As String
     SQL = SQL & " FROM proddepositos "
     SQL = SQL & " WHERE numDeposito=" & CStr(NumeroDeposito)
     
-    Set RS = New ADODB.Recordset
-    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Set Rs = New ADODB.Recordset
+    Rs.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
 
-    If RS.EOF Then
+    If Rs.EOF Then
         LeerDatos = False
     Else
-        mNumDeposito = CStr(RS!NumDeposito)
+        mNumDeposito = CStr(Rs!NumDeposito)
         
-        mCapacidad = RS!Capacidad
-        mKilos = DBLet(RS!Kilos, "N")
-        mLote = DBLet(RS!NUmlote, "T")
-        midPartida = DBLet(RS!partida, "N") 'Puede ser null o cero
+        mCapacidad = Rs!Capacidad
+        mKilos = DBLet(Rs!Kilos, "N")
+        mLote = DBLet(Rs!numLote, "T")
+        midPartida = DBLet(Rs!partida, "N") 'Puede ser null o cero
         
-        mNoPermiteMolturacion = DBLet(RS!nomolturar, "N") = 1
+        mNoPermiteMolturacion = DBLet(Rs!nomolturar, "N") = 1
         
         LeerDatos = True
     End If
 
-    RS.Close
-    Set RS = Nothing
+    Rs.Close
+    Set Rs = Nothing
     Exit Function
 
 ELeer:
@@ -138,7 +138,7 @@ ELeer:
     SQL = SQL & "Número: " & Err.Number & vbCrLf
     SQL = SQL & "Descripción: " & Err.Description
     If Not OcutltarMsgbox Then MsgBox SQL, vbExclamation
-    Set RS = Nothing
+    Set Rs = Nothing
     LeerDatos = False
 End Function
 
@@ -245,7 +245,7 @@ Dim Aux As String
             
             cDest.Kilos = 0
             cDest.idPartida = Me.idPartida
-            cDest.NUmlote = Me.NUmlote
+            cDest.numLote = Me.numLote
             cDest.InsertarEnDeposito2 3, FechaHora, "TRASIEGO"
          
         End If
@@ -271,7 +271,7 @@ Dim Aux As String
         If cDest.idPartida = 0 Then
             cDest.Kilos = 0
             cDest.idPartida = Me.idPartida
-            cDest.NUmlote = Me.NUmlote
+            cDest.numLote = Me.numLote
             cDest.InsertarEnDeposito2 3, FechaHora, "TRASIEGO"
             Espera 0.25
         End If
@@ -355,7 +355,7 @@ Dim Aux As String
     If cDest.idPartida = 0 Then
         'Asignamos la nueva partida
         cDest.idPartida = Me.idPartida
-        cDest.NUmlote = Me.NUmlote
+        cDest.numLote = Me.numLote
         cDest.Kilos = 0
         
     
@@ -368,7 +368,12 @@ Dim Aux As String
     
     If CuantosKilos >= Kilos Then
         'Ha movido todo el deposito
-        QuitarAsignacionDeposito2 0, FechaHoraProceso, -Me.Kilos 'Lo inserto enhco aqui bajo
+        If cDest.NumDeposito <> Me.NumDeposito Then
+            QuitarAsignacionDeposito2 0, FechaHoraProceso, -Me.Kilos 'Lo inserto enhco aqui bajo
+        Else
+            'Es le mismo deposito. Lo pongo a cero para que bajo sume la cantidad
+            cDest.Kilos = 0
+        End If
     Else
         'Ha movido solo parte de los datos
         VariacionKilosDeposito -CuantosKilos

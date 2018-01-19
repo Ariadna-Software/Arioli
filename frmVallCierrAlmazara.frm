@@ -496,7 +496,7 @@ Dim Cade1 As String
                     Cad = "numdeposito<>" & Me.cboDepo.ItemData(cboDepo.ListIndex) & " and numlote=" & DBSet(txtLote.Text, "T") & " AND 1"
                     Cad = DevuelveDesdeBD(conAri, "numdeposito", "proddepositos", Cad, "1")
                     If Cad <> "" Then
-                        Cade1 = "*** Nueva Lote(varios depositos) ** "
+                        Cade1 = "*** Nuevo Lote(varios depositos) ** "
                     Else
                         Cade1 = DevuelveDesdeBD(conAri, "nomolturar", "proddepositos", "numdeposito", Me.cboDepo.ItemData(cboDepo.ListIndex))
                         If Cade1 = "1" Then
@@ -661,7 +661,7 @@ Private Sub Form_Load()
    
     LimpiarCampos   'Limpia los campos TextBox
     PrimeraVez = True
-
+    Text1(2).Text = "0.00"
 
     CadenaDesdeOtroForm = ""
     Set miRsAux = New ADODB.Recordset
@@ -678,7 +678,7 @@ Private Sub Form_Load()
     miRsAux.Close
     Set miRsAux = Nothing
     
-
+    
     CadenaDesdeOtroForm = ""
     PonerModo 2
     CargaGrid
