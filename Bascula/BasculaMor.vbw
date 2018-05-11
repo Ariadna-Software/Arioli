@@ -1,5 +1,5 @@
-Form1 = 0, 0, 759, 486, Z, 25, 25, 822, 428, C
-libBascula = 125, 125, 856, 499, 
-modFunciones = 175, 175, 904, 551, 
+Form1 = 0, 0, 759, 486, , 25, 25, 822, 428, C
+libBascula = 125, 125, 856, 499, Z
+modFunciones = 175, 175, 904, 551, C
 cConfigurar = 0, 0, 624, 471, C
 frmProtector = 125, 125, 899, 512, C, 100, 100, 874, 487, C

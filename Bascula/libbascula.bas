@@ -6,6 +6,14 @@ Public Conn As Connection
 Public Config As cConfigurar
 
 
+Public Sub EjecutaSQL(SQL As String, MuestraErr As Boolean)
+    On Error Resume Next
+    Conn.Execute SQL
+    If Err.Number <> 0 Then
+        If MuestraErr Then MsgBox Err.Description, vbCritical
+        Err.Clear
+    End If
+End Sub
 
 
 

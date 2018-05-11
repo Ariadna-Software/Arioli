@@ -101,7 +101,7 @@ Public Function LeerDatos(NumeroDeposito As Integer, OcutltarMsgbox As Boolean) 
 'Leer los datos de un Articulo dado
 'Lee de la BD: Ariges, Tabla: sartic
 'OUT: True si lee los datos correctamente
-Dim Rs As ADODB.Recordset
+Dim RS As ADODB.Recordset
 Dim SQL As String
 
     On Error GoTo ELeer
@@ -111,26 +111,26 @@ Dim SQL As String
     SQL = SQL & " FROM proddepositos "
     SQL = SQL & " WHERE numDeposito=" & CStr(NumeroDeposito)
     
-    Set Rs = New ADODB.Recordset
-    Rs.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Set RS = New ADODB.Recordset
+    RS.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
 
-    If Rs.EOF Then
+    If RS.EOF Then
         LeerDatos = False
     Else
-        mNumDeposito = CStr(Rs!NumDeposito)
+        mNumDeposito = CStr(RS!NumDeposito)
         
-        mCapacidad = Rs!Capacidad
-        mKilos = DBLet(Rs!Kilos, "N")
-        mLote = DBLet(Rs!numLote, "T")
-        midPartida = DBLet(Rs!partida, "N") 'Puede ser null o cero
+        mCapacidad = RS!Capacidad
+        mKilos = DBLet(RS!Kilos, "N")
+        mLote = DBLet(RS!numLote, "T")
+        midPartida = DBLet(RS!partida, "N") 'Puede ser null o cero
         
-        mNoPermiteMolturacion = DBLet(Rs!nomolturar, "N") = 1
+        mNoPermiteMolturacion = DBLet(RS!nomolturar, "N") = 1
         
         LeerDatos = True
     End If
 
-    Rs.Close
-    Set Rs = Nothing
+    RS.Close
+    Set RS = Nothing
     Exit Function
 
 ELeer:
@@ -138,7 +138,7 @@ ELeer:
     SQL = SQL & "Número: " & Err.Number & vbCrLf
     SQL = SQL & "Descripción: " & Err.Description
     If Not OcutltarMsgbox Then MsgBox SQL, vbExclamation
-    Set Rs = Nothing
+    Set RS = Nothing
     LeerDatos = False
 End Function
 
@@ -411,6 +411,7 @@ End Function
 '   8 .- FIltrado entrada
 '   9 .-   "    salida
 '  10 .- Moltruaracion almazar
+' 11.-  Regularizacion
 Public Function InsertarEnHco(Accion As Byte, ByVal Fecha As Date, LaDescripcion As String, Cantidad As Currency)
 
 

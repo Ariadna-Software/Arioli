@@ -2791,8 +2791,10 @@ Dim IvaABuscar As Integer
             End If
         End If
         
-    
+        'JULIO 2011
+        If vParamAplic.ContabilizacionMoixent Then cadCampo = Replace(cadCampo, "sfamia", "sfamcontab")
         
+            
         SQL = "SELECT "
         
         If TipoIvaFra = 2 Then SQL = SQL & " 1 " 'Para que solo meta un tipo iva. Lo reempplazaara por el que le toque
@@ -2804,7 +2806,22 @@ Dim IvaABuscar As Integer
         
         SQL = SQL & " FROM ((slifac inner join stipom on slifac.codtipom=stipom.codtipom) "
         SQL = SQL & " inner join sartic on slifac.codartic=sartic.codartic) "
-        SQL = SQL & " inner join sfamia on sartic.codfamia=sfamia.codfamia "
+        
+        
+        
+        'Aunque en teoria SOLO lo utiliza moixent, lo dejare preparado
+        If vParamAplic.ContabilizacionMoixent Then
+            SQL = SQL & " inner join sfamcontab ON sartic.codfamia=sfamcontab.codfamia and sartic.codmarca=sfamcontab.codmarca"
+            SQL = SQL & " AND sartic.codtipar=sfamcontab.codtipar and sartic.codunida=sfamcontab.codunida"
+            
+        Else
+            SQL = SQL & " inner join sfamia on sartic.codfamia=sfamia.codfamia "
+        End If
+        
+        
+        
+        
+
         
         
         SQL = SQL & " WHERE "

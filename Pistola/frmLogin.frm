@@ -71,15 +71,15 @@ Begin VB.Form frmLogin
    End
    Begin VB.ComboBox Combo1 
       BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   18
+         Name            =   "Tahoma"
+         Size            =   15.75
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   555
+      Height          =   495
       Left            =   240
       TabIndex        =   0
       Text            =   "Combo1"
@@ -88,16 +88,17 @@ Begin VB.Form frmLogin
    End
    Begin VB.Label Label2 
       Alignment       =   2  'Center
-      Caption         =   "(c) Ariadna Software"
+      Caption         =   "(c) Ariadna Software 2018"
       BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   12
+         Name            =   "Tahoma"
+         Size            =   11.25
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+      ForeColor       =   &H00800000&
       Height          =   255
       Left            =   120
       TabIndex        =   6
@@ -107,10 +108,10 @@ Begin VB.Form frmLogin
    Begin VB.Label Label1 
       Caption         =   "Password"
       BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   12
+         Name            =   "Tahoma"
+         Size            =   11.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -125,10 +126,10 @@ Begin VB.Form frmLogin
    Begin VB.Label Label1 
       Caption         =   "Usuario"
       BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   12
+         Name            =   "Tahoma"
+         Size            =   11.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False

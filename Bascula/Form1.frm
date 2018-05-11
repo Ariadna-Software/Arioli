@@ -2,16 +2,16 @@ VERSION 5.00
 Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "MSCOMM32.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form Form1 
-   ClientHeight    =   12930
+   ClientHeight    =   11430
    ClientLeft      =   120
    ClientTop       =   450
-   ClientWidth     =   19275
+   ClientWidth     =   18960
    Icon            =   "Form1.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   12930
-   ScaleWidth      =   19275
+   ScaleHeight     =   11430
+   ScaleWidth      =   18960
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
    Begin VB.Timer Timer2 
@@ -1156,7 +1156,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Const Pruebas = True
+Private Const Pruebas = False
 
 
 
@@ -1196,7 +1196,7 @@ Dim N As Integer
 Dim VaOK As Boolean
 Dim RT As ADODB.Recordset
 Dim EsUnaLata2 As Boolean
-
+Dim SinPesarBotellas As Boolean
         'Ponemos a pesar
     Set miRsAux = New ADODB.Recordset
     Set RT = New ADODB.Recordset
@@ -1261,6 +1261,7 @@ Dim EsUnaLata2 As Boolean
                 MsgBox "Mas de dos componentes tapon-botella", vbExclamation
             Else
                 If miRsAux!tipartic = 2 Then
+                    SinPesarBotellas = True
                     EsperoBotella = False 'ESTA es la botella
                     If DBLet(miRsAux!numlote, "T") = "" Then
                         TextoAux = TextoAux & "Bot. sin lote"
@@ -1271,9 +1272,11 @@ Dim EsUnaLata2 As Boolean
                         RT.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                         If RT.EOF Then
                             TextoAux = TextoAux & "Botella sin peso(2)"
+                            SinPesarBotellas = False
                         Else
                             If DBLet(RT.Fields(1), "N") = 0 Then
-                                TextoAux = TextoAux & "  Bot.(" & miRsAux!numlote & ")"
+                                TextoAux = TextoAux & "  Bot.(" & miRsAux!numlote & ") Botella sin peso(3)"
+                                SinPesarBotellas = False
                             Else
                                 PesoBotella = RT.Fields(0)
                                 TextoAux = TextoAux & "  Bot. " & PesoBotella
@@ -1282,7 +1285,17 @@ Dim EsUnaLata2 As Boolean
                         RT.Close
                     End If
                     
-                    
+                    If Not SinPesarBotellas Then
+                        SQL = "insert into `slog` (`fecha`,`accion`,`usuario`,`pc`,`descripcion`) values ( "
+                        SQL = SQL & " now(),14,'Operario','BASCULA',"
+                        SQL = SQL & DBSet("Sin peso botella: " & RecuperaValor(cmdLinea(Index).Tag, 2), "T") & ")"
+                        EjecutaSQL SQL, False
+                        
+                        SQL = String(30, "*") & vbCrLf & vbCrLf
+                        
+                        SQL = SQL & "Botella sin pesar" & vbCrLf & vbCrLf & SQL
+                        MsgBox SQL, vbExclamation
+                    End If
                 End If
                 If miRsAux!tipartic = 3 Then
                     'TAPON

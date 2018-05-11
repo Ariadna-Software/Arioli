@@ -32,6 +32,8 @@ Option Explicit
 '       11.- Cambio proveedor en albaranes prov
 '       12.- Cambiar fecha factura
 '       13.- Reestablecer albaran
+'       14.- Pesaje. Pesando produccion sin haber pesado botellas
+'       15.- Liquidacion VALL
 Public Function Insertar(Accion As Byte, ByRef ElUsuario As Usuario, Descripcion As String) As Boolean
 Dim SQL As String
 
@@ -74,6 +76,8 @@ Public Function DevuelveAcciones(ByRef ListaAcciones As Collection) As Boolean
     ListaAcciones.Add "11|Cambio proveedor en albaran|"
     ListaAcciones.Add "12|Cambiar fecha factura|"
     ListaAcciones.Add "13|Reestablecer albaran|"
+    ListaAcciones.Add "14|Botellas sin pesar|"
+    ListaAcciones.Add "15|Liquidacion|"
     DevuelveAcciones = True
     Exit Function
 EDevuelveAcciones:

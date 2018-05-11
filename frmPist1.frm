@@ -15,14 +15,43 @@ Begin VB.Form frmPist1
    ScaleWidth      =   9420
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.Frame FrameDesapareceCaja 
+   Begin VB.Frame FrameTest 
       Height          =   4215
       Left            =   0
-      TabIndex        =   159
+      TabIndex        =   169
       Top             =   0
-      Visible         =   0   'False
       Width           =   3615
-      Begin VB.TextBox Text17 
+      Begin VB.CommandButton cmdTest 
+         Height          =   375
+         Index           =   1
+         Left            =   720
+         Picture         =   "frmPist1.frx":1082
+         Style           =   1  'Graphical
+         TabIndex        =   175
+         ToolTipText     =   "Limpiar"
+         Top             =   3720
+         Width           =   375
+      End
+      Begin VB.TextBox Text18 
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   2175
+         Index           =   1
+         Left            =   120
+         Locked          =   -1  'True
+         MultiLine       =   -1  'True
+         TabIndex        =   174
+         Top             =   1200
+         Width           =   3375
+      End
+      Begin VB.TextBox Text18 
          Alignment       =   1  'Right Justify
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -34,95 +63,35 @@ Begin VB.Form frmPist1
             Strikethrough   =   0   'False
          EndProperty
          Height          =   495
+         Index           =   0
          Left            =   120
-         TabIndex        =   165
-         Top             =   480
-         Width           =   3255
+         TabIndex        =   172
+         Top             =   600
+         Width           =   3375
       End
-      Begin VB.TextBox Text16 
-         ForeColor       =   &H00808080&
-         Height          =   300
-         Left            =   120
-         Locked          =   -1  'True
-         TabIndex        =   164
-         Top             =   1080
-         Width           =   3255
-      End
-      Begin VB.CommandButton cmdQuitarCajaSistema 
-         Height          =   375
-         Index           =   2
-         Left            =   120
-         Picture         =   "frmPist1.frx":1082
-         Style           =   1  'Graphical
-         TabIndex        =   163
-         ToolTipText     =   "Realizar proceso"
-         Top             =   3720
-         Width           =   375
-      End
-      Begin VB.CommandButton cmdQuitarCajaSistema 
+      Begin VB.CommandButton cmdTest 
          Height          =   375
          Index           =   0
-         Left            =   1200
-         Picture         =   "frmPist1.frx":1A84
+         Left            =   120
+         Picture         =   "frmPist1.frx":650C
          Style           =   1  'Graphical
-         TabIndex        =   162
-         ToolTipText     =   "Quitar una"
-         Top             =   3720
-         Width           =   375
-      End
-      Begin VB.CommandButton cmdQuitarCajaSistema 
-         Height          =   375
-         Index           =   1
-         Left            =   1800
-         Picture         =   "frmPist1.frx":2486
-         Style           =   1  'Graphical
-         TabIndex        =   161
-         ToolTipText     =   "Quitar TODOS"
+         TabIndex        =   171
+         ToolTipText     =   "Guardar"
          Top             =   3720
          Width           =   375
       End
       Begin VB.CommandButton cmdSalir 
          Height          =   375
-         Index           =   12
+         Index           =   13
          Left            =   2520
-         Picture         =   "frmPist1.frx":7910
+         Picture         =   "frmPist1.frx":6F0E
          Style           =   1  'Graphical
-         TabIndex        =   160
+         TabIndex        =   170
          Top             =   3720
          Width           =   855
       End
-      Begin MSComctlLib.ListView ListView1 
-         Height          =   2055
-         Index           =   3
-         Left            =   120
-         TabIndex        =   166
-         Top             =   1440
-         Width           =   3255
-         _ExtentX        =   5741
-         _ExtentY        =   3625
-         View            =   3
-         LabelEdit       =   1
-         LabelWrap       =   -1  'True
-         HideSelection   =   -1  'True
-         FullRowSelect   =   -1  'True
-         _Version        =   393217
-         ForeColor       =   0
-         BackColor       =   -2147483643
-         BorderStyle     =   1
-         Appearance      =   1
-         NumItems        =   2
-         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            Text            =   "Caja"
-            Object.Width           =   2364
-         EndProperty
-         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            SubItemIndex    =   1
-            Text            =   "Palet"
-            Object.Width           =   1764
-         EndProperty
-      End
       Begin VB.Label Label5 
-         Caption         =   "Caja"
+         Caption         =   "Test"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -134,420 +103,212 @@ Begin VB.Form frmPist1
          EndProperty
          ForeColor       =   &H00000080&
          Height          =   255
-         Index           =   7
+         Index           =   8
          Left            =   120
-         TabIndex        =   167
+         TabIndex        =   173
          Top             =   240
          Width           =   495
       End
    End
-   Begin VB.Frame FrameDevolucionOrdenCarga 
+   Begin VB.Frame FrameSelect 
       Height          =   4215
       Left            =   0
-      TabIndex        =   150
+      TabIndex        =   27
       Top             =   0
       Visible         =   0   'False
       Width           =   3615
-      Begin VB.TextBox Text15 
-         ForeColor       =   &H00808080&
-         Height          =   300
-         Left            =   120
-         Locked          =   -1  'True
-         TabIndex        =   158
-         Top             =   840
-         Width           =   3255
+      Begin VB.Frame FrameSegundasAcciones 
+         Height          =   3495
+         Left            =   0
+         TabIndex        =   144
+         Top             =   0
+         Visible         =   0   'False
+         Width           =   3375
+         Begin VB.CommandButton cmdSelect 
+            Caption         =   "Test lector"
+            Height          =   615
+            Index           =   12
+            Left            =   1680
+            TabIndex        =   168
+            Top             =   1200
+            Width           =   1455
+         End
+         Begin VB.CommandButton cmdSelect 
+            Caption         =   "Perdida o baja"
+            Height          =   615
+            Index           =   11
+            Left            =   120
+            TabIndex        =   149
+            Top             =   1200
+            Width           =   1455
+         End
+         Begin VB.CommandButton cmdSelect 
+            Caption         =   "Devolucion"
+            Height          =   615
+            Index           =   10
+            Left            =   1680
+            TabIndex        =   148
+            Top             =   240
+            Width           =   1455
+         End
+         Begin VB.CommandButton cmdSelect 
+            Caption         =   "mover cajas"
+            Height          =   615
+            Index           =   5
+            Left            =   120
+            TabIndex        =   146
+            Top             =   240
+            Width           =   1455
+         End
+         Begin VB.Label Label11 
+            Caption         =   "Esta dentro del frame ppal. Es para tener mas acciones"
+            Height          =   495
+            Left            =   120
+            TabIndex        =   145
+            Top             =   2880
+            Visible         =   0   'False
+            Width           =   3255
+         End
       End
-      Begin VB.CommandButton cmdDevolucion 
-         Height          =   375
-         Index           =   2
-         Left            =   1680
-         Picture         =   "frmPist1.frx":7E9A
-         Style           =   1  'Graphical
-         TabIndex        =   157
-         ToolTipText     =   "Devolver"
-         Top             =   3720
-         Width           =   375
-      End
-      Begin VB.CommandButton cmdDevolucion 
-         Height          =   375
-         Index           =   1
-         Left            =   720
-         Picture         =   "frmPist1.frx":889C
-         Style           =   1  'Graphical
-         TabIndex        =   156
-         ToolTipText     =   "Quitar TODOS"
-         Top             =   3720
-         Width           =   375
-      End
-      Begin VB.CommandButton cmdDevolucion 
-         Height          =   375
-         Index           =   0
-         Left            =   120
-         Picture         =   "frmPist1.frx":DD26
-         Style           =   1  'Graphical
-         TabIndex        =   155
-         ToolTipText     =   "Quitar una"
-         Top             =   3720
-         Width           =   375
-      End
-      Begin VB.TextBox Text14 
-         Alignment       =   1  'Right Justify
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   12
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
+      Begin VB.CommandButton cmdSelect 
+         Caption         =   "Palet ""manual"""
          Height          =   495
-         Left            =   840
-         TabIndex        =   153
+         Index           =   8
+         Left            =   1920
+         TabIndex        =   5
+         Top             =   1800
+         Width           =   1455
+      End
+      Begin VB.CommandButton cmdSelect 
+         Caption         =   "Ajuste cajas"
+         Height          =   495
+         Index           =   7
+         Left            =   120
+         TabIndex        =   2
+         Top             =   960
+         Width           =   1455
+      End
+      Begin VB.CommandButton cmdSelect 
+         Caption         =   "Cerrar palet"
+         Height          =   495
+         Index           =   6
+         Left            =   1920
+         TabIndex        =   1
          Top             =   240
-         Width           =   2535
+         Width           =   1455
       End
       Begin VB.CommandButton cmdSalir 
-         Height          =   375
-         Index           =   11
-         Left            =   2520
-         Picture         =   "frmPist1.frx":E728
+         Height          =   495
+         Index           =   7
+         Left            =   1920
+         Picture         =   "frmPist1.frx":7498
          Style           =   1  'Graphical
-         TabIndex        =   151
-         Top             =   3720
-         Width           =   855
+         TabIndex        =   7
+         Top             =   3600
+         Width           =   1455
       End
-      Begin MSComctlLib.ListView ListView1 
-         Height          =   2415
+      Begin VB.CommandButton cmdSelect 
+         Caption         =   "Expedicion"
+         Height          =   615
+         Index           =   4
+         Left            =   120
+         TabIndex        =   6
+         Top             =   2760
+         Width           =   1455
+      End
+      Begin VB.CommandButton cmdSelect 
+         Caption         =   "Poste paletizado"
+         Height          =   495
+         Index           =   3
+         Left            =   1920
+         TabIndex        =   3
+         Top             =   960
+         Width           =   1455
+      End
+      Begin VB.CommandButton cmdSelect 
+         Caption         =   "Nuevo palet"
+         Height          =   495
          Index           =   2
          Left            =   120
-         TabIndex        =   154
-         Top             =   1200
-         Width           =   3255
-         _ExtentX        =   5741
-         _ExtentY        =   4260
-         View            =   3
-         LabelEdit       =   1
-         LabelWrap       =   -1  'True
-         HideSelection   =   -1  'True
-         FullRowSelect   =   -1  'True
-         _Version        =   393217
-         ForeColor       =   0
-         BackColor       =   -2147483643
-         BorderStyle     =   1
-         Appearance      =   1
-         NumItems        =   3
-         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            Text            =   "Caja"
-            Object.Width           =   2364
-         EndProperty
-         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            SubItemIndex    =   1
-            Text            =   "Orden"
-            Object.Width           =   1764
-         EndProperty
-         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            SubItemIndex    =   2
-            Text            =   "Descrip"
-            Object.Width           =   5644
-         EndProperty
+         TabIndex        =   4
+         Top             =   1800
+         Width           =   1455
       End
-      Begin VB.Label Label5 
-         Caption         =   "Caja"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00000080&
-         Height          =   255
-         Index           =   6
+      Begin VB.CommandButton cmdSelect 
+         Caption         =   "Paletización"
+         Height          =   615
+         Index           =   1
+         Left            =   3360
+         TabIndex        =   8
+         Top             =   1320
+         Visible         =   0   'False
+         Width           =   1455
+      End
+      Begin VB.CommandButton cmdSelect 
+         Caption         =   "Producción"
+         Height          =   495
+         Index           =   0
          Left            =   120
-         TabIndex        =   152
-         Top             =   360
-         Width           =   495
+         TabIndex        =   0
+         Top             =   240
+         Width           =   1455
+      End
+      Begin VB.CommandButton cmdSelect 
+         Caption         =   "Mas ------>"
+         Height          =   615
+         Index           =   9
+         Left            =   1920
+         TabIndex        =   147
+         Top             =   2760
+         Width           =   1455
+      End
+      Begin VB.Image imgRepetidos 
+         Height          =   240
+         Left            =   960
+         Picture         =   "frmPist1.frx":7A22
+         ToolTipText     =   "Poste sin leer"
+         Top             =   3660
+         Width           =   240
+      End
+      Begin VB.Image imgPoste 
+         Height          =   240
+         Left            =   240
+         Picture         =   "frmPist1.frx":E274
+         ToolTipText     =   "Poste sin leer"
+         Top             =   3660
+         Width           =   240
+      End
+      Begin VB.Line Line4 
+         X1              =   840
+         X2              =   840
+         Y1              =   3600
+         Y2              =   4120
+      End
+      Begin VB.Shape Shape1 
+         Height          =   560
+         Left            =   120
+         Top             =   3600
+         Width           =   1455
+      End
+      Begin VB.Line Line3 
+         Index           =   1
+         X1              =   120
+         X2              =   3360
+         Y1              =   2520
+         Y2              =   2520
+      End
+      Begin VB.Line Line3 
+         Index           =   0
+         X1              =   120
+         X2              =   3360
+         Y1              =   1680
+         Y2              =   1680
       End
    End
    Begin VB.Timer Timer1 
       Interval        =   30000
       Left            =   3720
       Top             =   3000
-   End
-   Begin VB.Frame FrameCierrePalet 
-      Height          =   4215
-      Left            =   0
-      TabIndex        =   79
-      Top             =   0
-      Visible         =   0   'False
-      Width           =   3615
-      Begin VB.CommandButton cmdCierrePalet 
-         Caption         =   "6"
-         Height          =   735
-         Index           =   5
-         Left            =   3030
-         Picture         =   "frmPist1.frx":ECB2
-         Style           =   1  'Graphical
-         TabIndex        =   131
-         ToolTipText     =   "Linea 6"
-         Top             =   240
-         Width           =   495
-      End
-      Begin VB.CommandButton cmdCierrePalet 
-         Caption         =   "5"
-         Height          =   735
-         Index           =   4
-         Left            =   2448
-         Picture         =   "frmPist1.frx":15504
-         Style           =   1  'Graphical
-         TabIndex        =   130
-         ToolTipText     =   "Linea 5"
-         Top             =   240
-         Width           =   495
-      End
-      Begin VB.CommandButton cmdCierrePalet 
-         Caption         =   "4"
-         Height          =   735
-         Index           =   3
-         Left            =   1866
-         Picture         =   "frmPist1.frx":1BD56
-         Style           =   1  'Graphical
-         TabIndex        =   129
-         ToolTipText     =   "Linea 4"
-         Top             =   240
-         Width           =   495
-      End
-      Begin VB.CommandButton cmdCierrePalet 
-         Caption         =   "3"
-         Height          =   735
-         Index           =   2
-         Left            =   1284
-         Picture         =   "frmPist1.frx":225A8
-         Style           =   1  'Graphical
-         TabIndex        =   128
-         ToolTipText     =   "Linea 3"
-         Top             =   240
-         Width           =   495
-      End
-      Begin VB.CommandButton cmdCierrePalet 
-         Caption         =   "2"
-         Height          =   735
-         Index           =   1
-         Left            =   702
-         Picture         =   "frmPist1.frx":28DFA
-         Style           =   1  'Graphical
-         TabIndex        =   127
-         ToolTipText     =   "Linea 2"
-         Top             =   240
-         Width           =   495
-      End
-      Begin VB.CommandButton cmdCierrePalet 
-         Caption         =   "1"
-         Height          =   735
-         Index           =   0
-         Left            =   120
-         Picture         =   "frmPist1.frx":2F64C
-         Style           =   1  'Graphical
-         TabIndex        =   126
-         ToolTipText     =   "Linea 1"
-         Top             =   240
-         Width           =   495
-      End
-      Begin VB.CheckBox chkNoContinuar 
-         Caption         =   "Fin palets"
-         Height          =   255
-         Left            =   120
-         TabIndex        =   120
-         Top             =   3720
-         Width           =   1215
-      End
-      Begin VB.TextBox txtCajaCierre 
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Index           =   0
-         Left            =   840
-         TabIndex        =   81
-         Text            =   "Text2"
-         Top             =   2760
-         Width           =   2535
-      End
-      Begin VB.CommandButton cmdCerrarElPalet 
-         Caption         =   "Cerrar palet"
-         Height          =   495
-         Left            =   1440
-         TabIndex        =   82
-         Top             =   3600
-         Width           =   1335
-      End
-      Begin VB.TextBox txtCierrPalet 
-         Alignment       =   1  'Right Justify
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Index           =   2
-         Left            =   2640
-         TabIndex        =   80
-         Text            =   "Text11"
-         Top             =   2040
-         Width           =   735
-      End
-      Begin VB.TextBox txtCierrPalet 
-         Alignment       =   1  'Right Justify
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Index           =   1
-         Left            =   1680
-         Locked          =   -1  'True
-         TabIndex        =   88
-         Text            =   "Text11"
-         Top             =   2040
-         Width           =   735
-      End
-      Begin VB.TextBox txtCierrPalet 
-         Alignment       =   1  'Right Justify
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Index           =   0
-         Left            =   840
-         Locked          =   -1  'True
-         TabIndex        =   87
-         Text            =   "Text11"
-         Top             =   2040
-         Width           =   735
-      End
-      Begin VB.CommandButton cmdSalir 
-         Height          =   495
-         Index           =   8
-         Left            =   2880
-         Picture         =   "frmPist1.frx":35E9E
-         Style           =   1  'Graphical
-         TabIndex        =   83
-         Top             =   3600
-         Width           =   615
-      End
-      Begin VB.Label Label7 
-         Caption         =   "Linea:"
-         Height          =   195
-         Index           =   0
-         Left            =   120
-         TabIndex        =   84
-         Top             =   1800
-         Width           =   435
-      End
-      Begin VB.Label Label7 
-         Caption         =   "Ult. caja"
-         Height          =   255
-         Index           =   4
-         Left            =   120
-         TabIndex        =   93
-         Top             =   2880
-         Width           =   735
-      End
-      Begin VB.Label Label7 
-         Caption         =   "Cerrar con"
-         Height          =   255
-         Index           =   3
-         Left            =   2640
-         TabIndex        =   91
-         Top             =   1800
-         Width           =   735
-      End
-      Begin VB.Label Label7 
-         Caption         =   "Leidas"
-         Height          =   255
-         Index           =   2
-         Left            =   1800
-         TabIndex        =   90
-         Top             =   1800
-         Width           =   615
-      End
-      Begin VB.Label Label7 
-         Caption         =   "Cajas/Pal"
-         Height          =   255
-         Index           =   1
-         Left            =   840
-         TabIndex        =   89
-         Top             =   1800
-         Width           =   855
-      End
-      Begin VB.Label Label9 
-         Height          =   495
-         Index           =   0
-         Left            =   120
-         TabIndex        =   86
-         Top             =   1200
-         Width           =   3375
-      End
-      Begin VB.Label Label8 
-         AutoSize        =   -1  'True
-         Caption         =   "1"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   24
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H000000FF&
-         Height          =   435
-         Index           =   0
-         Left            =   240
-         TabIndex        =   85
-         Top             =   2040
-         Width           =   240
-      End
-      Begin VB.Label Label10 
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   18
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   240
-         TabIndex        =   92
-         Top             =   3120
-         Width           =   3135
-      End
    End
    Begin VB.Frame FramelecturaPostePalet 
       BorderStyle     =   0  'None
@@ -580,7 +341,7 @@ Begin VB.Form frmPist1
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
          TabIndex        =   49
-         Text            =   "frmPist1.frx":36428
+         Text            =   "frmPist1.frx":14AC6
          Top             =   2400
          Width           =   3375
       End
@@ -606,7 +367,7 @@ Begin VB.Form frmPist1
          Height          =   495
          Index           =   4
          Left            =   720
-         Picture         =   "frmPist1.frx":3642E
+         Picture         =   "frmPist1.frx":14ACC
          Style           =   1  'Graphical
          TabIndex        =   46
          Top             =   1800
@@ -652,7 +413,7 @@ Begin VB.Form frmPist1
             Locked          =   -1  'True
             MultiLine       =   -1  'True
             TabIndex        =   99
-            Text            =   "frmPist1.frx":369B8
+            Text            =   "frmPist1.frx":15056
             Top             =   2040
             Width           =   3015
          End
@@ -728,7 +489,7 @@ Begin VB.Form frmPist1
          Height          =   495
          Index           =   1
          Left            =   120
-         Picture         =   "frmPist1.frx":369BF
+         Picture         =   "frmPist1.frx":1505D
          Style           =   1  'Graphical
          TabIndex        =   16
          Top             =   3600
@@ -863,7 +624,7 @@ Begin VB.Form frmPist1
          Left            =   1080
          MultiLine       =   -1  'True
          TabIndex        =   39
-         Text            =   "frmPist1.frx":36F49
+         Text            =   "frmPist1.frx":155E7
          Top             =   1680
          Width           =   2295
       End
@@ -871,7 +632,7 @@ Begin VB.Form frmPist1
          Height          =   375
          Index           =   1
          Left            =   600
-         Picture         =   "frmPist1.frx":36F4F
+         Picture         =   "frmPist1.frx":155ED
          Style           =   1  'Graphical
          TabIndex        =   43
          ToolTipText     =   "Limpiar"
@@ -902,7 +663,7 @@ Begin VB.Form frmPist1
          Height          =   375
          Index           =   0
          Left            =   120
-         Picture         =   "frmPist1.frx":374D9
+         Picture         =   "frmPist1.frx":15B77
          Style           =   1  'Graphical
          TabIndex        =   42
          ToolTipText     =   "Quitar UNA caja"
@@ -941,7 +702,7 @@ Begin VB.Form frmPist1
          Locked          =   -1  'True
          MultiLine       =   -1  'True
          TabIndex        =   41
-         Text            =   "frmPist1.frx":37EDB
+         Text            =   "frmPist1.frx":16579
          Top             =   1080
          Width           =   2415
       End
@@ -949,7 +710,7 @@ Begin VB.Form frmPist1
          Height          =   375
          Index           =   3
          Left            =   2880
-         Picture         =   "frmPist1.frx":37EE1
+         Picture         =   "frmPist1.frx":1657F
          Style           =   1  'Graphical
          TabIndex        =   44
          Top             =   3720
@@ -1029,7 +790,7 @@ Begin VB.Form frmPist1
          Height          =   615
          Index           =   15
          Left            =   3000
-         Picture         =   "frmPist1.frx":3846B
+         Picture         =   "frmPist1.frx":16B09
          Style           =   1  'Graphical
          TabIndex        =   125
          ToolTipText     =   "Linea 6"
@@ -1041,7 +802,7 @@ Begin VB.Form frmPist1
          Height          =   615
          Index           =   14
          Left            =   2424
-         Picture         =   "frmPist1.frx":3ECBD
+         Picture         =   "frmPist1.frx":1D35B
          Style           =   1  'Graphical
          TabIndex        =   124
          ToolTipText     =   "Linea 5"
@@ -1053,7 +814,7 @@ Begin VB.Form frmPist1
          Height          =   615
          Index           =   13
          Left            =   1848
-         Picture         =   "frmPist1.frx":4550F
+         Picture         =   "frmPist1.frx":23BAD
          Style           =   1  'Graphical
          TabIndex        =   119
          ToolTipText     =   "Linea 4"
@@ -1064,7 +825,7 @@ Begin VB.Form frmPist1
          Height          =   495
          Index           =   9
          Left            =   2760
-         Picture         =   "frmPist1.frx":4BD61
+         Picture         =   "frmPist1.frx":2A3FF
          Style           =   1  'Graphical
          TabIndex        =   108
          Top             =   3600
@@ -1140,7 +901,7 @@ Begin VB.Form frmPist1
          Height          =   615
          Index           =   10
          Left            =   120
-         Picture         =   "frmPist1.frx":4C2EB
+         Picture         =   "frmPist1.frx":2A989
          Style           =   1  'Graphical
          TabIndex        =   102
          ToolTipText     =   "Linea 1"
@@ -1152,7 +913,7 @@ Begin VB.Form frmPist1
          Height          =   615
          Index           =   11
          Left            =   696
-         Picture         =   "frmPist1.frx":52B3D
+         Picture         =   "frmPist1.frx":311DB
          Style           =   1  'Graphical
          TabIndex        =   103
          ToolTipText     =   "Linea 2"
@@ -1164,7 +925,7 @@ Begin VB.Form frmPist1
          Height          =   615
          Index           =   12
          Left            =   1272
-         Picture         =   "frmPist1.frx":5938F
+         Picture         =   "frmPist1.frx":37A2D
          Style           =   1  'Graphical
          TabIndex        =   104
          ToolTipText     =   "Linea 3"
@@ -1254,192 +1015,6 @@ Begin VB.Form frmPist1
          Width           =   615
       End
    End
-   Begin VB.Frame FrameSelect 
-      Height          =   4215
-      Left            =   120
-      TabIndex        =   27
-      Top             =   0
-      Visible         =   0   'False
-      Width           =   3495
-      Begin VB.Frame FrameSegundasAcciones 
-         Height          =   3495
-         Left            =   0
-         TabIndex        =   144
-         Top             =   0
-         Visible         =   0   'False
-         Width           =   3375
-         Begin VB.CommandButton cmdSelect 
-            Caption         =   "Perdida o baja"
-            Height          =   615
-            Index           =   11
-            Left            =   120
-            TabIndex        =   149
-            Top             =   1200
-            Width           =   1455
-         End
-         Begin VB.CommandButton cmdSelect 
-            Caption         =   "Devolucion"
-            Height          =   615
-            Index           =   10
-            Left            =   1800
-            TabIndex        =   148
-            Top             =   240
-            Width           =   1455
-         End
-         Begin VB.CommandButton cmdSelect 
-            Caption         =   "mover cajas"
-            Height          =   615
-            Index           =   5
-            Left            =   120
-            TabIndex        =   146
-            Top             =   240
-            Width           =   1455
-         End
-         Begin VB.Label Label11 
-            Caption         =   "Esta dentro del frame ppal. Es para tener mas acciones"
-            Height          =   495
-            Left            =   120
-            TabIndex        =   145
-            Top             =   2880
-            Visible         =   0   'False
-            Width           =   3255
-         End
-      End
-      Begin VB.CommandButton cmdSelect 
-         Caption         =   "Palet ""manual"""
-         Height          =   495
-         Index           =   8
-         Left            =   1920
-         TabIndex        =   5
-         Top             =   1800
-         Width           =   1455
-      End
-      Begin VB.CommandButton cmdSelect 
-         Caption         =   "Ajuste cajas"
-         Height          =   495
-         Index           =   7
-         Left            =   120
-         TabIndex        =   2
-         Top             =   960
-         Width           =   1455
-      End
-      Begin VB.CommandButton cmdSelect 
-         Caption         =   "Cerrar palet"
-         Height          =   495
-         Index           =   6
-         Left            =   1920
-         TabIndex        =   1
-         Top             =   240
-         Width           =   1455
-      End
-      Begin VB.CommandButton cmdSalir 
-         Height          =   495
-         Index           =   7
-         Left            =   1920
-         Picture         =   "frmPist1.frx":5FBE1
-         Style           =   1  'Graphical
-         TabIndex        =   7
-         Top             =   3600
-         Width           =   1455
-      End
-      Begin VB.CommandButton cmdSelect 
-         Caption         =   "Expedicion"
-         Height          =   615
-         Index           =   4
-         Left            =   120
-         TabIndex        =   6
-         Top             =   2760
-         Width           =   1455
-      End
-      Begin VB.CommandButton cmdSelect 
-         Caption         =   "Poste paletizado"
-         Height          =   495
-         Index           =   3
-         Left            =   1920
-         TabIndex        =   3
-         Top             =   960
-         Width           =   1455
-      End
-      Begin VB.CommandButton cmdSelect 
-         Caption         =   "Nuevo palet"
-         Height          =   495
-         Index           =   2
-         Left            =   120
-         TabIndex        =   4
-         Top             =   1800
-         Width           =   1455
-      End
-      Begin VB.CommandButton cmdSelect 
-         Caption         =   "Paletización"
-         Height          =   615
-         Index           =   1
-         Left            =   3360
-         TabIndex        =   8
-         Top             =   1320
-         Visible         =   0   'False
-         Width           =   1455
-      End
-      Begin VB.CommandButton cmdSelect 
-         Caption         =   "Producción"
-         Height          =   495
-         Index           =   0
-         Left            =   120
-         TabIndex        =   0
-         Top             =   240
-         Width           =   1455
-      End
-      Begin VB.CommandButton cmdSelect 
-         Caption         =   "Mas ------>"
-         Height          =   615
-         Index           =   9
-         Left            =   1920
-         TabIndex        =   147
-         Top             =   2760
-         Width           =   1455
-      End
-      Begin VB.Image imgRepetidos 
-         Height          =   240
-         Left            =   960
-         Picture         =   "frmPist1.frx":6016B
-         ToolTipText     =   "Poste sin leer"
-         Top             =   3660
-         Width           =   240
-      End
-      Begin VB.Image imgPoste 
-         Height          =   240
-         Left            =   240
-         Picture         =   "frmPist1.frx":669BD
-         ToolTipText     =   "Poste sin leer"
-         Top             =   3660
-         Width           =   240
-      End
-      Begin VB.Line Line4 
-         X1              =   840
-         X2              =   840
-         Y1              =   3600
-         Y2              =   4120
-      End
-      Begin VB.Shape Shape1 
-         Height          =   560
-         Left            =   120
-         Top             =   3600
-         Width           =   1455
-      End
-      Begin VB.Line Line3 
-         Index           =   1
-         X1              =   120
-         X2              =   3360
-         Y1              =   2520
-         Y2              =   2520
-      End
-      Begin VB.Line Line3 
-         Index           =   0
-         X1              =   120
-         X2              =   3360
-         Y1              =   1680
-         Y2              =   1680
-      End
-   End
    Begin VB.Frame FrameExpedicion 
       BorderStyle     =   0  'None
       Height          =   4215
@@ -1469,7 +1044,7 @@ Begin VB.Form frmPist1
          Left            =   120
          MultiLine       =   -1  'True
          TabIndex        =   56
-         Text            =   "frmPist1.frx":6D20F
+         Text            =   "frmPist1.frx":3E27F
          Top             =   1440
          Width           =   3255
       End
@@ -1503,7 +1078,7 @@ Begin VB.Form frmPist1
          Height          =   495
          Index           =   5
          Left            =   2880
-         Picture         =   "frmPist1.frx":6D215
+         Picture         =   "frmPist1.frx":3E285
          Style           =   1  'Graphical
          TabIndex        =   52
          Top             =   3600
@@ -1567,7 +1142,7 @@ Begin VB.Form frmPist1
       Begin VB.CommandButton cmdImprEtiqPal 
          Height          =   375
          Left            =   120
-         Picture         =   "frmPist1.frx":6D79F
+         Picture         =   "frmPist1.frx":3E80F
          Style           =   1  'Graphical
          TabIndex        =   122
          ToolTipText     =   "Imprimie etiqueta palet destino"
@@ -1577,7 +1152,7 @@ Begin VB.Form frmPist1
       Begin VB.CommandButton cmdCreaPalet 
          Height          =   375
          Left            =   120
-         Picture         =   "frmPist1.frx":6E1A1
+         Picture         =   "frmPist1.frx":3F211
          Style           =   1  'Graphical
          TabIndex        =   121
          ToolTipText     =   "Crear nuevo  palet"
@@ -1588,7 +1163,7 @@ Begin VB.Form frmPist1
          Height          =   375
          Index           =   6
          Left            =   2880
-         Picture         =   "frmPist1.frx":6EBA3
+         Picture         =   "frmPist1.frx":3FC13
          Style           =   1  'Graphical
          TabIndex        =   70
          Top             =   3720
@@ -1609,7 +1184,7 @@ Begin VB.Form frmPist1
          Locked          =   -1  'True
          MultiLine       =   -1  'True
          TabIndex        =   73
-         Text            =   "frmPist1.frx":6F12D
+         Text            =   "frmPist1.frx":4019D
          Top             =   2040
          Width           =   2655
       End
@@ -1733,7 +1308,7 @@ Begin VB.Form frmPist1
          Height          =   495
          Index           =   0
          Left            =   2160
-         Picture         =   "frmPist1.frx":6F133
+         Picture         =   "frmPist1.frx":401A3
          Style           =   1  'Graphical
          TabIndex        =   94
          Top             =   120
@@ -1745,7 +1320,7 @@ Begin VB.Form frmPist1
          Locked          =   -1  'True
          MultiLine       =   -1  'True
          TabIndex        =   20
-         Text            =   "frmPist1.frx":745BD
+         Text            =   "frmPist1.frx":4562D
          Top             =   1440
          Width           =   3255
       End
@@ -1795,7 +1370,7 @@ Begin VB.Form frmPist1
          Height          =   495
          Index           =   0
          Left            =   2760
-         Picture         =   "frmPist1.frx":745C3
+         Picture         =   "frmPist1.frx":45633
          Style           =   1  'Graphical
          TabIndex        =   12
          Top             =   150
@@ -1844,7 +1419,7 @@ Begin VB.Form frmPist1
       Begin VB.CommandButton cmdVolverExp 
          Height          =   375
          Left            =   2880
-         Picture         =   "frmPist1.frx":74B4D
+         Picture         =   "frmPist1.frx":45BBD
          Style           =   1  'Graphical
          TabIndex        =   62
          ToolTipText     =   "VOLVER"
@@ -1996,7 +1571,7 @@ Begin VB.Form frmPist1
          Locked          =   -1  'True
          MultiLine       =   -1  'True
          TabIndex        =   31
-         Text            =   "frmPist1.frx":750D7
+         Text            =   "frmPist1.frx":46147
          Top             =   2160
          Width           =   3255
       End
@@ -2004,7 +1579,7 @@ Begin VB.Form frmPist1
          Height          =   495
          Index           =   2
          Left            =   2760
-         Picture         =   "frmPist1.frx":750DD
+         Picture         =   "frmPist1.frx":4614D
          Style           =   1  'Graphical
          TabIndex        =   32
          Top             =   120
@@ -2101,7 +1676,7 @@ Begin VB.Form frmPist1
          Locked          =   -1  'True
          MultiLine       =   -1  'True
          TabIndex        =   141
-         Text            =   "frmPist1.frx":75667
+         Text            =   "frmPist1.frx":466D7
          Top             =   600
          Visible         =   0   'False
          Width           =   3135
@@ -2113,7 +1688,7 @@ Begin VB.Form frmPist1
          Locked          =   -1  'True
          MultiLine       =   -1  'True
          TabIndex        =   140
-         Text            =   "frmPist1.frx":7566D
+         Text            =   "frmPist1.frx":466DD
          Top             =   1320
          Width           =   3135
       End
@@ -2140,7 +1715,7 @@ Begin VB.Form frmPist1
          Height          =   495
          Index           =   10
          Left            =   2520
-         Picture         =   "frmPist1.frx":75673
+         Picture         =   "frmPist1.frx":466E3
          Style           =   1  'Graphical
          TabIndex        =   135
          Top             =   3600
@@ -2185,6 +1760,535 @@ Begin VB.Form frmPist1
          Width           =   3015
       End
    End
+   Begin VB.Frame FrameDesapareceCaja 
+      Height          =   4215
+      Left            =   0
+      TabIndex        =   159
+      Top             =   0
+      Visible         =   0   'False
+      Width           =   3615
+      Begin VB.TextBox Text17 
+         Alignment       =   1  'Right Justify
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   495
+         Left            =   120
+         TabIndex        =   165
+         Top             =   480
+         Width           =   3255
+      End
+      Begin VB.TextBox Text16 
+         ForeColor       =   &H00808080&
+         Height          =   300
+         Left            =   120
+         Locked          =   -1  'True
+         TabIndex        =   164
+         Top             =   1080
+         Width           =   3255
+      End
+      Begin VB.CommandButton cmdQuitarCajaSistema 
+         Height          =   375
+         Index           =   2
+         Left            =   120
+         Picture         =   "frmPist1.frx":46C6D
+         Style           =   1  'Graphical
+         TabIndex        =   163
+         ToolTipText     =   "Realizar proceso"
+         Top             =   3720
+         Width           =   375
+      End
+      Begin VB.CommandButton cmdQuitarCajaSistema 
+         Height          =   375
+         Index           =   0
+         Left            =   1200
+         Picture         =   "frmPist1.frx":4766F
+         Style           =   1  'Graphical
+         TabIndex        =   162
+         ToolTipText     =   "Quitar una"
+         Top             =   3720
+         Width           =   375
+      End
+      Begin VB.CommandButton cmdQuitarCajaSistema 
+         Height          =   375
+         Index           =   1
+         Left            =   1800
+         Picture         =   "frmPist1.frx":48071
+         Style           =   1  'Graphical
+         TabIndex        =   161
+         ToolTipText     =   "Quitar TODOS"
+         Top             =   3720
+         Width           =   375
+      End
+      Begin VB.CommandButton cmdSalir 
+         Height          =   375
+         Index           =   12
+         Left            =   2520
+         Picture         =   "frmPist1.frx":4D4FB
+         Style           =   1  'Graphical
+         TabIndex        =   160
+         Top             =   3720
+         Width           =   855
+      End
+      Begin MSComctlLib.ListView ListView1 
+         Height          =   2055
+         Index           =   3
+         Left            =   120
+         TabIndex        =   166
+         Top             =   1440
+         Width           =   3255
+         _ExtentX        =   5741
+         _ExtentY        =   3625
+         View            =   3
+         LabelEdit       =   1
+         LabelWrap       =   -1  'True
+         HideSelection   =   -1  'True
+         FullRowSelect   =   -1  'True
+         _Version        =   393217
+         ForeColor       =   0
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         NumItems        =   2
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "Caja"
+            Object.Width           =   2364
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Palet"
+            Object.Width           =   1764
+         EndProperty
+      End
+      Begin VB.Label Label5 
+         Caption         =   "Caja"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   255
+         Index           =   7
+         Left            =   120
+         TabIndex        =   167
+         Top             =   240
+         Width           =   495
+      End
+   End
+   Begin VB.Frame FrameDevolucionOrdenCarga 
+      Height          =   4215
+      Left            =   0
+      TabIndex        =   150
+      Top             =   0
+      Visible         =   0   'False
+      Width           =   3615
+      Begin VB.TextBox Text15 
+         ForeColor       =   &H00808080&
+         Height          =   300
+         Left            =   120
+         Locked          =   -1  'True
+         TabIndex        =   158
+         Top             =   840
+         Width           =   3255
+      End
+      Begin VB.CommandButton cmdDevolucion 
+         Height          =   375
+         Index           =   2
+         Left            =   1680
+         Picture         =   "frmPist1.frx":4DA85
+         Style           =   1  'Graphical
+         TabIndex        =   157
+         ToolTipText     =   "Devolver"
+         Top             =   3720
+         Width           =   375
+      End
+      Begin VB.CommandButton cmdDevolucion 
+         Height          =   375
+         Index           =   1
+         Left            =   720
+         Picture         =   "frmPist1.frx":4E487
+         Style           =   1  'Graphical
+         TabIndex        =   156
+         ToolTipText     =   "Quitar TODOS"
+         Top             =   3720
+         Width           =   375
+      End
+      Begin VB.CommandButton cmdDevolucion 
+         Height          =   375
+         Index           =   0
+         Left            =   120
+         Picture         =   "frmPist1.frx":53911
+         Style           =   1  'Graphical
+         TabIndex        =   155
+         ToolTipText     =   "Quitar una"
+         Top             =   3720
+         Width           =   375
+      End
+      Begin VB.TextBox Text14 
+         Alignment       =   1  'Right Justify
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   495
+         Left            =   840
+         TabIndex        =   153
+         Top             =   240
+         Width           =   2535
+      End
+      Begin VB.CommandButton cmdSalir 
+         Height          =   375
+         Index           =   11
+         Left            =   2520
+         Picture         =   "frmPist1.frx":54313
+         Style           =   1  'Graphical
+         TabIndex        =   151
+         Top             =   3720
+         Width           =   855
+      End
+      Begin MSComctlLib.ListView ListView1 
+         Height          =   2415
+         Index           =   2
+         Left            =   120
+         TabIndex        =   154
+         Top             =   1200
+         Width           =   3255
+         _ExtentX        =   5741
+         _ExtentY        =   4260
+         View            =   3
+         LabelEdit       =   1
+         LabelWrap       =   -1  'True
+         HideSelection   =   -1  'True
+         FullRowSelect   =   -1  'True
+         _Version        =   393217
+         ForeColor       =   0
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         NumItems        =   3
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "Caja"
+            Object.Width           =   2364
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Orden"
+            Object.Width           =   1764
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   2
+            Text            =   "Descrip"
+            Object.Width           =   5644
+         EndProperty
+      End
+      Begin VB.Label Label5 
+         Caption         =   "Caja"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   255
+         Index           =   6
+         Left            =   120
+         TabIndex        =   152
+         Top             =   360
+         Width           =   495
+      End
+   End
+   Begin VB.Frame FrameCierrePalet 
+      Height          =   4215
+      Left            =   0
+      TabIndex        =   79
+      Top             =   0
+      Visible         =   0   'False
+      Width           =   3615
+      Begin VB.CommandButton cmdCierrePalet 
+         Caption         =   "6"
+         Height          =   735
+         Index           =   5
+         Left            =   3030
+         Picture         =   "frmPist1.frx":5489D
+         Style           =   1  'Graphical
+         TabIndex        =   131
+         ToolTipText     =   "Linea 6"
+         Top             =   240
+         Width           =   495
+      End
+      Begin VB.CommandButton cmdCierrePalet 
+         Caption         =   "5"
+         Height          =   735
+         Index           =   4
+         Left            =   2448
+         Picture         =   "frmPist1.frx":5B0EF
+         Style           =   1  'Graphical
+         TabIndex        =   130
+         ToolTipText     =   "Linea 5"
+         Top             =   240
+         Width           =   495
+      End
+      Begin VB.CommandButton cmdCierrePalet 
+         Caption         =   "4"
+         Height          =   735
+         Index           =   3
+         Left            =   1866
+         Picture         =   "frmPist1.frx":61941
+         Style           =   1  'Graphical
+         TabIndex        =   129
+         ToolTipText     =   "Linea 4"
+         Top             =   240
+         Width           =   495
+      End
+      Begin VB.CommandButton cmdCierrePalet 
+         Caption         =   "3"
+         Height          =   735
+         Index           =   2
+         Left            =   1284
+         Picture         =   "frmPist1.frx":68193
+         Style           =   1  'Graphical
+         TabIndex        =   128
+         ToolTipText     =   "Linea 3"
+         Top             =   240
+         Width           =   495
+      End
+      Begin VB.CommandButton cmdCierrePalet 
+         Caption         =   "2"
+         Height          =   735
+         Index           =   1
+         Left            =   702
+         Picture         =   "frmPist1.frx":6E9E5
+         Style           =   1  'Graphical
+         TabIndex        =   127
+         ToolTipText     =   "Linea 2"
+         Top             =   240
+         Width           =   495
+      End
+      Begin VB.CommandButton cmdCierrePalet 
+         Caption         =   "1"
+         Height          =   735
+         Index           =   0
+         Left            =   120
+         Picture         =   "frmPist1.frx":75237
+         Style           =   1  'Graphical
+         TabIndex        =   126
+         ToolTipText     =   "Linea 1"
+         Top             =   240
+         Width           =   495
+      End
+      Begin VB.CheckBox chkNoContinuar 
+         Caption         =   "Fin palets"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   120
+         Top             =   3720
+         Width           =   1215
+      End
+      Begin VB.TextBox txtCajaCierre 
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Index           =   0
+         Left            =   840
+         TabIndex        =   81
+         Text            =   "Text2"
+         Top             =   2760
+         Width           =   2535
+      End
+      Begin VB.CommandButton cmdCerrarElPalet 
+         Caption         =   "Cerrar palet"
+         Height          =   495
+         Left            =   1440
+         TabIndex        =   82
+         Top             =   3600
+         Width           =   1335
+      End
+      Begin VB.TextBox txtCierrPalet 
+         Alignment       =   1  'Right Justify
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Index           =   2
+         Left            =   2640
+         TabIndex        =   80
+         Text            =   "Text11"
+         Top             =   2040
+         Width           =   735
+      End
+      Begin VB.TextBox txtCierrPalet 
+         Alignment       =   1  'Right Justify
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Index           =   1
+         Left            =   1680
+         Locked          =   -1  'True
+         TabIndex        =   88
+         Text            =   "Text11"
+         Top             =   2040
+         Width           =   735
+      End
+      Begin VB.TextBox txtCierrPalet 
+         Alignment       =   1  'Right Justify
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Index           =   0
+         Left            =   840
+         Locked          =   -1  'True
+         TabIndex        =   87
+         Text            =   "Text11"
+         Top             =   2040
+         Width           =   735
+      End
+      Begin VB.CommandButton cmdSalir 
+         Height          =   495
+         Index           =   8
+         Left            =   2880
+         Picture         =   "frmPist1.frx":7BA89
+         Style           =   1  'Graphical
+         TabIndex        =   83
+         Top             =   3600
+         Width           =   615
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Linea:"
+         Height          =   195
+         Index           =   0
+         Left            =   120
+         TabIndex        =   84
+         Top             =   1800
+         Width           =   435
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Ult. caja"
+         Height          =   255
+         Index           =   4
+         Left            =   120
+         TabIndex        =   93
+         Top             =   2880
+         Width           =   735
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Cerrar con"
+         Height          =   255
+         Index           =   3
+         Left            =   2640
+         TabIndex        =   91
+         Top             =   1800
+         Width           =   735
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Leidas"
+         Height          =   255
+         Index           =   2
+         Left            =   1800
+         TabIndex        =   90
+         Top             =   1800
+         Width           =   615
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Cajas/Pal"
+         Height          =   255
+         Index           =   1
+         Left            =   840
+         TabIndex        =   89
+         Top             =   1800
+         Width           =   855
+      End
+      Begin VB.Label Label9 
+         Height          =   495
+         Index           =   0
+         Left            =   120
+         TabIndex        =   86
+         Top             =   1200
+         Width           =   3375
+      End
+      Begin VB.Label Label8 
+         AutoSize        =   -1  'True
+         Caption         =   "1"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   24
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H000000FF&
+         Height          =   435
+         Index           =   0
+         Left            =   240
+         TabIndex        =   85
+         Top             =   2040
+         Width           =   240
+      End
+      Begin VB.Label Label10 
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   18
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   92
+         Top             =   3120
+         Width           =   3135
+      End
+   End
 End
 Attribute VB_Name = "frmPist1"
 Attribute VB_GlobalNameSpace = False
@@ -2205,7 +2309,7 @@ Dim cPal As CPalet
 
 Dim SQL As String
 Dim RS As ADODB.Recordset
-Dim Cp As cPartidas   'la lee en el lostfocus
+Dim cP As cPartidas   'la lee en el lostfocus
 
 Dim Tiempo1 As Single  'Para que cada xTiempo vuelva a leer las lineas
 
@@ -2281,10 +2385,10 @@ Dim Indice As Integer
     'De momento esta solo para el aceite. Tambien podremos regularizar las
     'partidas cuando sean final de lote
     ' Como NO cierra el aceite desde aqui, numdeposito=0
-    If cLinPr.CerrarParaCambioLote(Can, Cajas, IndexSublinea, Cp.NUmlote, False, 0) Then
+    If cLinPr.CerrarParaCambioLote(Can, Cajas, IndexSublinea, cP.numLote, False, 0) Then
         'Y marco la etiqueta como "empuieza en produccion"
         SQL = "UPDATE spartidaslin set fechaulizada = " & DBSet(Now, "FH")
-        SQL = SQL & " WHERE  bulto = " & Right(Text2.Text, 3) & " AND id = " & Cp.idPartida
+        SQL = SQL & " WHERE  bulto = " & Right(Text2.Text, 3) & " AND id = " & cP.idPartida
         EjecutaSQL conAri, SQL, True
         Unload Me
     End If
@@ -2957,7 +3061,24 @@ Private Sub cmdSelect_Click(Index As Integer)
         Me.Caption = "Perdida o baja"
         cmdSalir(12).Cancel = True
         PonerFoco Text17
+        
+    Case 12
+        FrameTest.Visible = True
+        cmdSalir(13).Cancel = True
+        PonerFoco Text18(0)
     End Select
+End Sub
+
+Private Sub cmdTest_Click(Index As Integer)
+    If Index = 1 Then
+        Text18(1).Text = ""
+    Else
+        If Text18(1).Text <> "" Then
+            Screen.MousePointer = vbHourglass
+            GuardarTestFichero
+            Screen.MousePointer = vbDefault
+        End If
+    End If
 End Sub
 
 Private Sub cmdValidar_Click()
@@ -2970,7 +3091,7 @@ Dim SL As cLineaProCompo
         If Text2.Text = "" Or Text3.Text = "" Then
             SQL = "Lea etiqueta materia prima"
         Else
-            If Cp Is Nothing Then
+            If cP Is Nothing Then
                 SQL = "No se ha cargado los datos de produccion actual de la linea "
             Else
                 If SubLinea Is Nothing Then SQL = "No se ha identificado la materia prima/auxiliar"
@@ -3006,11 +3127,11 @@ Dim SL As cLineaProCompo
         Next
         Set SL = Nothing
     End If
-    If Cp.NUmlote = SubLinea.LoteMateria Then
+    If cP.numLote = SubLinea.LoteMateria Then
         'Mismo lote. Ha cambiado el bulto de materia auxiliar para embasar
         SQL = Right(Text2.Text, 3)
         SQL = "bulto = " & SQL & " AND id "
-        SQL = DevuelveDesdeBD(conAri, "fechaulizada", "spartidaslin", SQL, Cp.idPartida, "N")
+        SQL = DevuelveDesdeBD(conAri, "fechaulizada", "spartidaslin", SQL, cP.idPartida, "N")
         If SQL <> "" Then
             SQL = "El bulto esta marcado como producido (" & SQL & ")"
             SQL = SQL & vbCrLf & "¿Continuar?"
@@ -3019,7 +3140,7 @@ Dim SL As cLineaProCompo
     
         'Marcamos como en produccion y salimos
         SQL = "UPDATE spartidaslin set fechaulizada = " & DBSet(Now, "FH")
-        SQL = SQL & " WHERE  bulto = " & Right(Text2.Text, 3) & " AND id = " & Cp.idPartida
+        SQL = SQL & " WHERE  bulto = " & Right(Text2.Text, 3) & " AND id = " & cP.idPartida
         EjecutaSQL conAri, SQL, True
         
         'Nos salimos
@@ -3092,6 +3213,7 @@ Private Sub FramesNoVisibles()
     Me.FrAjusteCajas.Visible = False
     Me.FrameDevolucionOrdenCarga.Visible = False
     FrameDesapareceCaja.Visible = False
+    FrameTest.Visible = False
     Me.Caption = "Aceites Morales (" & App.Major & "." & App.Minor & "." & App.Revision & ")"
 End Sub
 
@@ -3102,7 +3224,7 @@ Private Sub Form_Unload(Cancel As Integer)
         PonerFramePpal
         Cancel = 1
     Else
-        Set Cp = Nothing
+        Set cP = Nothing
         Set cLinPr = Nothing
         Set SubLinea = Nothing
         Set RS = Nothing
@@ -3165,7 +3287,7 @@ Private Sub LimpiarLineas()
     Text2.Text = ""
     Text3.Text = ""
     IndexSublinea = 0
-    Set Cp = Nothing
+    Set cP = Nothing
     Set SubLinea = Nothing
 End Sub
 
@@ -3180,7 +3302,7 @@ End Sub
 
 Private Sub Text10_LostFocus()
 Dim cadErr As String
-Dim L As Integer
+Dim L1 As Long
 'Dim CadAux As String
 
  
@@ -3193,20 +3315,20 @@ Dim L As Integer
     'Abril 2013
     'SSCC   ->  Ver [SSCC] en impresion de palets  EAN128
     ' LA etiquetas se leen de palet de oliveline se leen C1003841259400000592423300000387
-    L = InStr(1, Text10.Text, "C10038412594")   'este es el barrado
+    L1 = InStr(1, Text10.Text, "C10038412594")   'este es el barrado
     
-    If L = 0 Then
-        L = InStr(Text10.Text, "38412594")
+    If L1 = 0 Then
+        L1 = InStr(Text10.Text, "38412594")
     End If
     
-    If L > 0 Then
+    If L1 > 0 Then
         'En la expedicion dejare que lea los palets etiquetados
         'en formato SSCC.  Con lo cual
-        If L = 4 Then
+        If L1 = 1 Then
             'Lo que estaba antes
-            SQL = Mid(Text10.Text, L + 4)
+            SQL = Mid(Text10.Text, L1 + 4)
         Else
-            SQL = Mid(Text10.Text, L)
+            SQL = Mid(Text10.Text, L1)
         End If
         'El fin del sscc es 10 caracteres despues
         If Len(SQL) > 18 Then SQL = Mid(SQL, 1, 18)
@@ -3229,12 +3351,12 @@ Dim L As Integer
                     SQL = Right(SQL, 8) 'los utilmos 8
                     SQL = Left(SQL, 7)  'los primeros 7
                     'AHORA tenemos el palet
-                    L = Val(SQL)
+                    L1 = Val(SQL)
                     
                     'Ahora lo formateo para nosotros, con len 10
-                    SQL = "0" & Format(L, "00000000") & "0"
+                    SQL = "0" & Format(L1, "00000000") & "0"
                                         
-                    TextoLecturasExpedicion "SSCC " & Mid(Text10.Text, 1, 12) & "... >  " & L
+                    TextoLecturasExpedicion "SSCC " & Mid(Text10.Text, 1, 12) & "... >  " & L1
         
                     Text10.Text = SQL
         
@@ -3261,12 +3383,12 @@ Dim L As Integer
     Else
     
         'Si la longitud no es 11,12 o 13
-        L = Len(Text10.Text)
-        If L < 10 Or L > 13 Then
+        L1 = Len(Text10.Text)
+        If L1 < 10 Or L1 > 13 Then
             cadErr = "Longitud incorrecta"
         Else
             '
-            Select Case L
+            Select Case L1
             Case 10
                 'Lectura PALET
                 cadErr = LeerPaletExpedicion
@@ -3291,12 +3413,12 @@ Dim L As Integer
         TextoLecturasExpedicion Text10.Text & " Error " & cadErr
     Else
         
-        If L = 13 Then
+        If L1 = 13 Then
             SQL = "Caja OK"
         Else
-            If L = 12 Then
+            If L1 = 12 Then
                 SQL = "  Albaran OK"
-            ElseIf L = 11 Then
+            ElseIf L1 = 11 Then
                 SQL = "  Orden OK"
             Else
                 SQL = " Palet OK"
@@ -3613,6 +3735,18 @@ End Sub
 
 
 
+Private Sub Text18_KeyPress(Index As Integer, KeyAscii As Integer)
+    If Index = 0 Then
+        If KeyAscii = 13 Then
+            If Text18(0).Text <> "" Then
+                Text18(1).Text = Text18(1).Text & Text18(0).Text & vbCrLf
+                Text18(0).Text = ""
+                PonerFoco Text18(0)
+            End If
+        End If
+    End If
+End Sub
+
 Private Sub Text2_GotFocus()
     ConseguirFoco Text2, 3
 End Sub
@@ -3711,8 +3845,8 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
     SQL = Mid(Text2.Text, 1, Len(Text2.Text) - 3)
     N = CLng(SQL) 'Si da error de desboramienot ya hablaremos
     SQL = ""
-    Set Cp = New cPartidas
-    If Not Cp.Leer(N) Then
+    Set cP = New cPartidas
+    If Not cP.Leer(N) Then
         'La etiqueta no pertenece a ninunga partida
         MsgBox "No pertence a ninguna partida", vbExclamation
         
@@ -3722,7 +3856,7 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
         'Facil. Comprobamos si el articulo es un subcomponente
         For N = 1 To cLinPr.CuantasMP
             If cLinPr.DevuelveComponenteLinea(CInt(N), SubLinea) Then
-                If SubLinea.codarticCompo = Cp.codartic Then
+                If SubLinea.codarticCompo = cP.codartic Then
                     IndexSublinea = N 'para cuando mandemos el cierre de lote
                     Exit For
                 Else
@@ -3741,7 +3875,7 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
         'Veremos si para esta etiqueta esta marcado la fecha de produccion. Sginificaria que
         'ya ha sido utilizada
         SQL = "fechaulizada"
-        N = Val(DevuelveDesdeBD(conAri, "id", "spartidaslin", "bulto = " & Right(Text2.Text, 3) & " AND id", Cp.idPartida, "N", SQL))
+        N = Val(DevuelveDesdeBD(conAri, "id", "spartidaslin", "bulto = " & Right(Text2.Text, 3) & " AND id", cP.idPartida, "N", SQL))
         
         
         
@@ -3766,9 +3900,9 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
                 Set RS = New ADODB.Recordset
                 
                 RegularizarStockLotes = ""
-                If SubLinea.LoteMateria <> Cp.NUmlote Then
+                If SubLinea.LoteMateria <> cP.numLote Then
                     'Cambia de materia auxiliar. Veremos si ya no quedan de ese
-                    SQL = "Select * from spartidas where  codartic = " & DBSet(Cp.codartic, "T") & " AND numlote = " & DBSet(SubLinea.LoteMateria, "T")
+                    SQL = "Select * from spartidas where  codartic = " & DBSet(cP.codartic, "T") & " AND numlote = " & DBSet(SubLinea.LoteMateria, "T")
                     RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                     If Not RS.EOF Then
                         If RS!cantotal <> 0 Then
@@ -3780,19 +3914,19 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
                 End If
             
                 'Vemos si es un cambio de lote, si existe uno mas antiguo que es el que deberia coger
-                If SubLinea.LoteMateria <> Cp.NUmlote Then
+                If SubLinea.LoteMateria <> cP.numLote Then
                     'HA CAMBIADO EL NUMERO DE LOTE
                     'select concat(numlote,"|",fecha,"|",cantotal,"|") from spartidas where codartic='002400180306'
                     'and numlote <> '429-A' and cantotal>0 order by fecha asc
                     
-                    SQL = "select * from spartidas left join sprove on spartidas.codprove=sprove.codprove where codartic = " & DBSet(Cp.codartic, "T") & " AND numlote <> " & DBSet(SubLinea.LoteMateria, "T")
+                    SQL = "select * from spartidas left join sprove on spartidas.codprove=sprove.codprove where codartic = " & DBSet(cP.codartic, "T") & " AND numlote <> " & DBSet(SubLinea.LoteMateria, "T")
                     SQL = SQL & "  and cantotal>0 order by fecha asc "
                     RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                     If Not RS.EOF Then
                         'Si el lote NO es el que ha seleccionado, significa que hay uno mas antiguo
                         
-                        If RS!NUmlote <> Cp.NUmlote Then
-                            SQL = "Lote mas antiguo: " & vbCrLf & "Lote: " & RS!NUmlote & "   Uds:" & RS!cantotal & vbCrLf
+                        If RS!numLote <> cP.numLote Then
+                            SQL = "Lote mas antiguo: " & vbCrLf & "Lote: " & RS!numLote & "   Uds:" & RS!cantotal & vbCrLf
                             SQL = SQL & "Fecha: " & RS!Fecha & " - Alb:" & DBLet(RS!NumAlbar, "T") & vbCrLf
                             SQL = SQL & "Prov: " & RS!codProve & " " & DBLet(RS!nomprove, "T")
                             SQL = SQL & vbCrLf & "¿Continuar?"
@@ -3822,12 +3956,12 @@ Dim RegularizarStockLotes As String  'FALTA### Esto hay que "hacerlo"
                 If NOEXISTE Then Text3.Text = Text3.Text & "      NO existe en BD"
                 Text3.Text = Text3.Text & vbCrLf
                 'articulo del bulto
-                SQL = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", Cp.codartic)
+                SQL = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", cP.codartic)
                 Text3.Text = Text3.Text & "Art: " & SQL & vbCrLf
-                Text3.Text = Text3.Text & "Albaran: " & Cp.NumAlbar & "   Lote: " & Cp.NUmlote & vbCrLf
-                If Cp.codProve > 0 Then
-                    SQL = DevuelveDesdeBD(conAri, "nomprove", "sprove", "codprove", Cp.codProve)
-                    Text3.Text = Text3.Text & "Prov: " & Cp.codProve & "   " & SQL & vbCrLf
+                Text3.Text = Text3.Text & "Albaran: " & cP.NumAlbar & "   Lote: " & cP.numLote & vbCrLf
+                If cP.codProve > 0 Then
+                    SQL = DevuelveDesdeBD(conAri, "nomprove", "sprove", "codprove", cP.codProve)
+                    Text3.Text = Text3.Text & "Prov: " & cP.codProve & "   " & SQL & vbCrLf
                 End If
                 
                 'Articulo en produccion
@@ -4690,6 +4824,7 @@ Dim CadeLot As String
     If Me.Label5(0).Tag = 0 Then
         SQL = "Falta orden carga"
     Else
+        If CStr(Label5(1).Tag) = "" Then Label5(1).Tag = 0
         If Me.Label5(1).Tag = 0 Then
             'Albaran si leer
             SQL = "Falta leer albaran"
@@ -4779,7 +4914,7 @@ Dim CadeLot As String
          RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
          SQL = ""
          If Not RS.EOF Then
-            SQL = RS!NUmlote
+            SQL = RS!numLote
             If InStr(1, SQL, " ") > 0 Then
                 'ANtiguo
                 SQL = Trim(Mid(SQL, 1, InStr(1, SQL, " ")))
@@ -5322,12 +5457,12 @@ Dim vLin As Integer
         If Bien Then  'para que no haga las demas a partir del fallo
             If cPar.LeerDesdeExpedicion(RS!codartic, 1, Format(RS!lotetraza, "0000000000")) Then
                 If Not InsertarModificarLoteLinea(cPar, vLin) Then
-                    ActualizarLotajeAlbaran = "Ins/Mod lote: " & RS!codartic & " " & cPar.NUmlote
+                    ActualizarLotajeAlbaran = "Ins/Mod lote: " & RS!codartic & " " & cPar.numLote
                     Bien = False
                 End If
             Else
                 Bien = False
-                ActualizarLotajeAlbaran = "Lote traza: " & RS!codartic & " " & " " & cPar.NUmlote
+                ActualizarLotajeAlbaran = "Lote traza: " & RS!codartic & " " & " " & cPar.numLote
             End If
         End If
         RS.MoveNext
@@ -5355,7 +5490,7 @@ Dim cLot As cLotaje
     Set cLot = New cLotaje
 
     cLot.codartic = cPa.codartic
-    cLot.codalmac = cPa.codalmac
+    cLot.codAlmac = cPa.codAlmac
     cLot.DetaMov = "ALV"
     cLot.LineaDocu = RS!numlinea
     cLot.Documento = RS!NumAlbar
@@ -5367,7 +5502,7 @@ Dim cLot As cLotaje
     If Can = 0 Then Can = 1
     
     
-    cLot.NUmlote = cPa.NUmlote
+    cLot.numLote = cPa.numLote
     cLot.Cantidad = Can * ImporteFormateado(RS!Cantidad)
     cLot.SubLinea = vLineaLot 'La sublinea del lote 'Normalmente 1 o 2
   
@@ -5376,7 +5511,7 @@ Dim cLot As cLotaje
     SQL = SQL & cLot.DetaMov & "'," & cLot.Documento & "," & RS!numlinea & ","
     'SQL = SQL & txtAux(0).Text & ",'" & DevNombreSQL(txtAux(1).Text) & "'," & DBSet(txtAux(2).Text, "N") & ")"
     'Ahora
-    SQL = SQL & vLineaLot & ",'" & cPa.NUmlote & "'," & DBSet(cLot.Cantidad, "N") & ")"
+    SQL = SQL & vLineaLot & ",'" & cPa.numLote & "'," & DBSet(cLot.Cantidad, "N") & ")"
 
 
 
@@ -5681,7 +5816,7 @@ Dim InsertaCaja As Boolean
                     If SQL = "" Then
                         'Si no tieene palet asignado puede ser que no este creado
                         If Me.txtCPalet(0).Text <> "" Then
-                            SQL = "No existe/No asignada"
+                            SQL = "No existe/YA asignada"
                         Else
                             'Veremos si existe una trazabilidad
                             SQL = "lotetraza = " & Mid(txtCCaja.Text, 1, 8) & " AND 1"
@@ -6408,27 +6543,27 @@ Private Function AsignacionPrimerLoteProduccion() As Boolean
     'Si hay una etiqueta libre
     AsignacionPrimerLoteProduccion = False
     
-    If Not cLinPr.AsignarLoteLinea(IndexSublinea, Cp.NUmlote, True) Then Exit Function
+    If Not cLinPr.AsignarLoteLinea(IndexSublinea, cP.numLote, True) Then Exit Function
      
     SQL = "fechaulizada is null and id "
-    SQL = DevuelveDesdeBD(conAri, "min(bulto)", "spartidaslin", SQL, Cp.idPartida)
+    SQL = DevuelveDesdeBD(conAri, "min(bulto)", "spartidaslin", SQL, cP.idPartida)
     If SQL = "" Then
         'No hay ninguna libre
         'Veo a ver si hay
-        SQL = DevuelveDesdeBD(conAri, "bulto", "spartidaslin", "id", Cp.idPartida)
+        SQL = DevuelveDesdeBD(conAri, "bulto", "spartidaslin", "id", cP.idPartida)
         If SQL = "" Then
-            SQL = "ERROR leyendo etiquetas. No hay ninguna etiqueta para " & Cp.codartic
+            SQL = "ERROR leyendo etiquetas. No hay ninguna etiqueta para " & cP.codartic
         
         Else
             MsgBox "No existe etiqueta libre", vbExclamation
-            SQL = " WHERE id = " & Cp.idPartida & " AND bulto = " & SQL
+            SQL = " WHERE id = " & cP.idPartida & " AND bulto = " & SQL
             SQL = "UPDATE spartidaslin Set fechaulizada = " & DBSet(Now, "FH") & SQL
             EjecutaSQL conAri, SQL, True
 
         End If
     Else
         'Si que hay libre
-        SQL = " WHERE id = " & Cp.idPartida & " AND bulto = " & SQL
+        SQL = " WHERE id = " & cP.idPartida & " AND bulto = " & SQL
         SQL = "UPDATE spartidaslin Set fechaulizada = " & DBSet(Now, "FH") & SQL
         EjecutaSQL conAri, SQL, True
         
@@ -6594,7 +6729,7 @@ Dim CadeLot As String
                  RS.Open SQL, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                  SQL = ""
                  If Not RS.EOF Then
-                    SQL = RS!NUmlote
+                    SQL = RS!numLote
                     If InStr(1, SQL, " ") > 0 Then
                         'ANtiguo
                         SQL = Trim(Mid(SQL, 1, InStr(1, SQL, " ")))
@@ -7329,4 +7464,25 @@ End Sub
         
             
         
+Private Sub GuardarTestFichero()
+Dim NF As Integer
+    On Error GoTo eGuardarTestFichero
+    
+    NF = FreeFile
+    Open App.Path & "\" & Format(Now, "yymmddhhnnss") & ".txt" For Output As #NF
+    Print #NF, Text18(1).Text
+    Close #NF
+    
+    Espera 1
+    Text18(1).Text = ""
+    
+    
+    
+eGuardarTestFichero:
+    If Err.Number <> 0 Then
+        MsgBox Err.Description, vbExclamation
+    Else
+        MsgBox "Test guardado en fichero", vbInformation
+    End If
+End Sub
 

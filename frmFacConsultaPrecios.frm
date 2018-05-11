@@ -885,8 +885,15 @@ End Sub
 
 
 Private Sub cmdOtroArt_Click(Index As Integer)
-
+    Screen.MousePointer = vbHourglass
+    Me.cmdOtroArt(0).Enabled = False
+    Me.cmdOtroArt(1).Enabled = False
+    
     SiguienteCodmacta Index = 1
+    
+    Me.cmdOtroArt(0).Enabled = True
+    Me.cmdOtroArt(1).Enabled = True
+    Screen.MousePointer = vbDefault
 End Sub
 
 Private Sub Combo1_Click()
@@ -910,10 +917,10 @@ Private Sub Form_Load()
 End Sub
 
 
-Private Sub PonerVisiblePedir(B As Boolean)
-    Me.FrameMostrarDatos.visible = Not B
-    Me.FramePedirDatos.visible = B
-    If B Then
+Private Sub PonerVisiblePedir(b As Boolean)
+    Me.FrameMostrarDatos.visible = Not b
+    Me.FramePedirDatos.visible = b
+    If b Then
         Me.cmdCancelar(0).Cancel = True
         Me.Width = FramePedirDatos.Width
         Me.Height = FramePedirDatos.Height
@@ -1013,6 +1020,7 @@ End Sub
 Private Sub CargaStock()
 Dim I As Currency
     Valor = 0
+    ListStock.ListItems.Clear
     txtResultado(13).Text = ""
     Cad = "select salmac.codalmac,nomalmac,canstock   from salmac,salmpr where salmac.codalmac="
     Cad = Cad & "salmpr.codalmac AND  codartic=" & DBSet(txtCodigo(1).Text, "T") & " ORDER BY salmac.codalmac"
@@ -1023,7 +1031,7 @@ Dim I As Currency
         It.SubItems(1) = miRsAux!nomalmac
         I = DBLet(miRsAux!CanStock, "N")
         It.SubItems(2) = Format(I, FormatoCantidad)
-        Valor = Valor + 1
+        Valor = Valor + I
         miRsAux.MoveNext
     Wend
     miRsAux.Close
@@ -1164,6 +1172,7 @@ Private Sub CargarDatos(DatosCliente As Boolean)
     Exit Sub
 EC:
     MuestraError Err.Number, Err.Description
+    Set miRsAux = Nothing
 End Sub
 
 
@@ -1237,6 +1246,7 @@ Dim Ico As Integer
     Aux = "Select " & Aux & ",Cantidad, precioar, dtoline1, dtoline2, ImporteL FROM " & Cad
     Cad = Aux & " AND codartic = " & DBSet(Me.txtCodigo(1).Text, "T")
     Cad = Cad & " AND codclien = " & txtCodigo(0).Text
+    Set It = Nothing
     miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         Set It = Me.listDatos.ListItems.Add()
@@ -1258,6 +1268,7 @@ Dim Ico As Integer
         miRsAux.MoveNext
     Wend
     miRsAux.Close
+    If Not It Is Nothing Then It.EnsureVisible
 End Sub
 
 
@@ -1314,7 +1325,7 @@ Private Sub SiguienteCodmacta(Siguiente As Boolean)
     Set miRsAux = New ADODB.Recordset
         
     If T1 > 0 Then
-        Debug.Print Timer - T1
+        'Debug.Print Timer - T1
         If Timer - T1 < 1 Then
             Espera 1
             
@@ -1345,6 +1356,6 @@ Private Sub SiguienteCodmacta(Siguiente As Boolean)
     Set miRsAux = Nothing
     Screen.MousePointer = vbDefault
 lblIndicador.Caption = ""
-
+    
 End Sub
 

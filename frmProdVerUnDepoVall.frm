@@ -1103,6 +1103,7 @@ Dim arrastrado As Currency
             '   7 .- Forzar vaciado
             '   8 .- FIltrado entrada
             '   9 .-   "    salida
+            ' 11.-  Regularizacion
             Select Case miRsAux!tipoaccion
             Case 0
                 'ALBARAN COMPRA
@@ -1138,6 +1139,8 @@ Dim arrastrado As Currency
                 miSQL = "Filtrado salida"
             Case 10
                 miSQL = "Molturacion"
+            Case 11
+                miSQL = "Regularizacion"
             End Select
             It.SubItems(2) = miSQL
             It.SubItems(1) = DBLet(miRsAux!numLote, "T")

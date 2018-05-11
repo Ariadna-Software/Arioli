@@ -28,6 +28,9 @@ Public FormatoPorcen As String 'Decimal(5,2)
 
 Public CadenaDesdeOtroForm As String
 
+Public UltimaEntradaEnHcoDepositos As Date
+
+
 Public NombrePistola As String   'Llevara una especie de numeracion las pistolas. De momento no
 
 
@@ -76,7 +79,7 @@ On Error Resume Next
     FormatoKms = "#,##0.00##" 'Decimal(8,4)
     FormatoPorcen = "##0.00" 'Decima(5,2)
     
-
+    UltimaEntradaEnHcoDepositos = Now  'Lo necesitamos porque es una variable de ARIOLI
     
 End Sub
 
@@ -341,7 +344,7 @@ End Function
 
 
 Public Function DevuelveDesdeBD(NoUtilizado As Byte, kCampo As String, Ktabla As String, Kcodigo As String, ValorCodigo As String, Optional Tipo As String, Optional ByRef otroCampo As String) As String
-    Dim RS As Recordset
+    Dim Rs As Recordset
     Dim cad As String
     Dim Aux As String
     
@@ -366,19 +369,19 @@ Public Function DevuelveDesdeBD(NoUtilizado As Byte, kCampo As String, Ktabla As
 '    Debug.Print cad
     
     'Creamos el sql
-    Set RS = New ADODB.Recordset
+    Set Rs = New ADODB.Recordset
     
 
-    RS.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Rs.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
 
     
-    If Not RS.EOF Then
+    If Not Rs.EOF Then
         
-        DevuelveDesdeBD = DBLet(RS.Fields(0))
-        If otroCampo <> "" Then otroCampo = DBLet(RS.Fields(1))
+        DevuelveDesdeBD = DBLet(Rs.Fields(0))
+        If otroCampo <> "" Then otroCampo = DBLet(Rs.Fields(1))
     End If
-    RS.Close
-    Set RS = Nothing
+    Rs.Close
+    Set Rs = Nothing
     Exit Function
 EDevuelveDesdeBD:
         MuestraError Err.Number, "Devuelve DesdeBD.", Err.Description
@@ -965,7 +968,7 @@ End Function
 
 Public Function DevuelveDesdeBDNew(vBD As Byte, Ktabla As String, kCampo As String, Kcodigo1 As String, valorCodigo1 As String, Optional tipo1 As String, Optional ByRef otroCampo As String, Optional KCodigo2 As String, Optional ValorCodigo2 As String, Optional tipo2 As String, Optional KCodigo3 As String, Optional ValorCodigo3 As String, Optional tipo3 As String) As String
 'IN: vBD --> Base de Datos a la que se accede
-Dim RS As Recordset
+Dim Rs As Recordset
 Dim cad As String
 Dim Aux As String
     
@@ -1037,20 +1040,20 @@ On Error GoTo EDevuelveDesdeBDnew
     
     
     'Creamos el sql
-    Set RS = New ADODB.Recordset
+    Set Rs = New ADODB.Recordset
     
     If vBD = conAri Then 'BD 1: Ariges
-        RS.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+        Rs.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     Else    'BD 2: Conta
-        RS.Open cad, ConnConta, adOpenForwardOnly, adLockOptimistic, adCmdText
+        Rs.Open cad, ConnConta, adOpenForwardOnly, adLockOptimistic, adCmdText
     End If
     
-    If Not RS.EOF Then
-        DevuelveDesdeBDNew = DBLet(RS.Fields(0))
-        If otroCampo <> "" Then otroCampo = DBLet(RS.Fields(1))
+    If Not Rs.EOF Then
+        DevuelveDesdeBDNew = DBLet(Rs.Fields(0))
+        If otroCampo <> "" Then otroCampo = DBLet(Rs.Fields(1))
     End If
-    RS.Close
-    Set RS = Nothing
+    Rs.Close
+    Set Rs = Nothing
     Exit Function
     
 EDevuelveDesdeBDnew:

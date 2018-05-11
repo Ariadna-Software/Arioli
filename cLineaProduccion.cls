@@ -355,7 +355,7 @@ Dim Can As Currency
             Can = Round2(Can * mvarCantidadEstimada, 2)
             If vRs!Cantidad <> 1 Then Can = Round2(Can * vRs!Cantidad, 2)
             vectorComponentes(J).AsignarValoresComponentes vRs!codartic, vRs!NomArtic, Can, CCur(vRs!FactorConversion), vRs!Cantidad
-            vectorComponentes(J).AsignarLote vRs!NUmlote
+            vectorComponentes(J).AsignarLote vRs!numLote
             vRs.MoveNext
             J = J + 1
         Wend
@@ -644,7 +644,7 @@ On Error GoTo EPonerArticuloEnCadenaProduccion
                     'Ejemplo:  L:5778 26/03/2013  EXP:26/09/2014
                     'Marzo2014  EXP: --> BEST BEFORE
                     LineaExtra = "L:" & mvarLoteTrazabilidad & " " & Format(Now, "dd/mm/yyyy")
-                    If IsDate(mvarFechaCaducidad) Then LineaExtra = LineaExtra & " BEST BEFORE:" & Format(mvarFechaCaducidad, "dd/mm/yyyy")
+                    If IsDate(mvarFechaCaducidad) Then LineaExtra = LineaExtra & " B.BEF.:" & Format(mvarFechaCaducidad, "dd/mm/yyyy")
                 End If
             End If
             SQL = SQL & " , LineaExtraEtiqueta = " & DBSet(LineaExtra, "T", "S")
@@ -1357,7 +1357,7 @@ Dim K As Byte
                             cP.Fecha = FH_Incio
                             'Si cambiamos esto hay que mirar el packing list
                             cP.NumAlbar = "NP" & Format(Me.CodProduccion, "00000") & Format(Me.idLiProd, "00")
-                            cP.NUmlote = Format(Me.LoteTrazabilidad, "0000000000")
+                            cP.numLote = Format(Me.LoteTrazabilidad, "0000000000")
                             If Not cP.Insertar Then
                                 Cad = "Error insertando partidas/lotes: " & cP.codartic
                                 Err.Raise 513, , Cad
@@ -1371,7 +1371,7 @@ Dim K As Byte
                         cL.codAlmac = cP.codAlmac
                         cL.codartic = cP.codartic
                         cL.codarti2 = ""
-                        cL.NUmlote = cP.NUmlote
+                        cL.numLote = cP.numLote
                         If Not cL.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & cP.codartic
                         
                         
@@ -1425,7 +1425,7 @@ Private Sub InsertarMovientosLotesProduccion(ByRef cLot As cLotaje, cPar As cPar
     cLot.codAlmac = cPar.codAlmac
     cLot.codartic = cPar.codartic
     cLot.codarti2 = ArticuloProduccion
-    cLot.NUmlote = cPar.NUmlote
+    cLot.numLote = cPar.numLote
 
     If Not cLot.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & cPar.codartic
     
@@ -1574,7 +1574,7 @@ Dim Cantidad As Currency
     cLot.DetaMov = vvCstock.DetaMov
     cLot.Fechamov = vvCstock.Fechamov
     cLot.HoraMov = vvCstock.HoraMov
-    cLot.NUmlote = cPar.NUmlote
+    cLot.numLote = cPar.numLote
     
     cLot.Cantidad = vvCstock.Cantidad
     cLot.LineaDocu = cDEP.NumDeposito
