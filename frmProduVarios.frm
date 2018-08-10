@@ -2774,6 +2774,7 @@ Dim Cadena2 As String
                                         Else
                                         
                                             If SoloComprobar Then
+                                                vvCstock.HoraMov = vvCstock.Fechamov & " " & Format(Now, "hh:mm:ss")
                                                 If cDe.AvisarMovimientoHcoPosterior(vvCstock.HoraMov) Then
                                                     If MsgBox("Movimientos posteriores en el deposito. ¿Continuar?", vbQuestion + vbYesNoCancel) <> vbYes Then Cad = vbCrLf & "- Moviemientos posteriores en deposito"
                                                 End If
@@ -3623,39 +3624,39 @@ End Sub
 
 Private Sub ActualizaUPCArticuloCabecera(ByRef C As String, CodUnida As Integer)
 Dim Aux As String
-Dim Rs As ADODB.Recordset
+Dim RS As ADODB.Recordset
 Dim Im0 As Currency
 Dim Im1 As Currency
 
     On Error GoTo eActualizaUPCArticuloCabecera
-    Set Rs = New ADODB.Recordset
+    Set RS = New ADODB.Recordset
     Aux = "SELECT sarti1.codartic, numlinea, sarti1.codarti1,sartic.nomartic, sarti1.Cantidad ,"
     Aux = Aux & "sartic.preciove , sartic.precioUC, FactorConversion"
     Aux = Aux & " FROM   sarti1 INNER JOIN sartic ON sarti1.codarti1 = sartic.codArtic where sarti1.codartic='"
     Aux = Aux & C & "' ORDER BY sarti1.numlinea"
-    Rs.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Im1 = 0
     Aux = ""
-    While Not Rs.EOF
-        Aux = Rs!NomArtic
-        Im0 = DBLet(Rs!FactorConversion, "N")  'del articulo de la linea
+    While Not RS.EOF
+        Aux = RS!NomArtic
+        Im0 = DBLet(RS!FactorConversion, "N")  'del articulo de la linea
 
         'COSTE
-        Im0 = DBLet(Rs!Cantidad, "N") * Im0
-        Im0 = Im0 * DBLet(Rs!PrecioUC, "N")
+        Im0 = DBLet(RS!Cantidad, "N") * Im0
+        Im0 = Im0 * DBLet(RS!PrecioUC, "N")
         Im1 = Im1 + Im0
         
-        Rs.MoveNext
+        RS.MoveNext
     Wend
 
-    Rs.Close
+    RS.Close
     
     'El formato
     Aux = "Select sum(importe) from sunilin where codunida=" & CodUnida
-    Rs.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Im0 = 0
-    If Not Rs.EOF Then Im0 = DBLet(Rs.Fields(0), "N")
-    Rs.Close
+    If Not RS.EOF Then Im0 = DBLet(RS.Fields(0), "N")
+    RS.Close
 
     'Redondeamos (al igual que en el mantenimiento de articulos) a 3 antes de sumar el formato
     Im1 = Round(Im1, 3)
@@ -3671,7 +3672,7 @@ Dim Im1 As Currency
     
 eActualizaUPCArticuloCabecera:
     If Err.Number <> 0 Then MuestraError Err.Number, Aux
-    Set Rs = Nothing
+    Set RS = Nothing
 End Sub
 
 
@@ -3757,12 +3758,15 @@ Private Sub CargaComobosTrasiegos(Inicio As Byte, Fin As Byte)
             Cad = Cad & " FROM  proddepositos left join spartidas on spartidas.numlote=proddepositos.numlote"
             Cad = Cad & " inner join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<1"
             Cad = Cad & " Where Not spartidas.numLote Is Null"
+            
             Cad = Cad & " ORDER BY numdeposito"
     
         Else
 
             Cad = "select * from proddepositos where numlote is null"
-        
+            If vParamAplic.QUE_EMPRESA = 0 Then
+                If I <> 2 Then Cad = Cad & " AND  numdeposito < 107"   '108 y 109 vinagreta
+            End If
         End If
         
         miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText

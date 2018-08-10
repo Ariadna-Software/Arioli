@@ -1882,8 +1882,19 @@ Dim b As Boolean
     
     'El deposito destino NO puede ser mayor que maximo numero depositos
     If Modo = 3 Then
-        If Val(Me.Text1(6).Text) > MaxNumDepositos_ Or Val(Me.Text1(6).Text) < 1 Then
-            MsgBox "El deposito no existe (max: " & MaxNumDepositos_ & ")", vbExclamation
+        CadenaConsulta = ""
+        If Val(Me.Text1(6).Text) > MaxNumDepositos_ Then
+            If Val(Me.Text1(6).Text) < 107 Then
+                CadenaConsulta = "Deposito incorrecto (" & MaxNumDepositos_ & ".." & "106)"
+            Else
+                If Val(Me.Text1(6).Text) > 109 Then CadenaConsulta = "Deposito incorrecto (>109)"
+            End If
+        Else
+            If Val(Me.Text1(6).Text) < 1 Then CadenaConsulta = "El deposito no existe " & Text1(6).Text
+        End If
+        If CadenaConsulta <> "" Then
+            MsgBox CadenaConsulta, vbExclamation
+            CadenaConsulta = ""
             Exit Function
         End If
     End If
@@ -2691,7 +2702,7 @@ Dim FinDeposito As String
     'Para las sublineas comprobaremos que el de ACEITE materia prima tiene LOTE asignado
     
     'Cabcera. Tiene numero de lote y este NO existe
-    SQL = DBLet(Data1.Recordset!NUmlote, "T")
+    SQL = DBLet(Data1.Recordset!numLote, "T")
     If SQL = "" Then
         MsgBox "Numero lote Coupage incorrecto", vbExclamation
         Exit Function
@@ -2803,7 +2814,7 @@ Dim b As Boolean
             frmB2.vCampos = Cad
             'TABLA
             Cad = " proddepositos left join spartidas on spartidas.numlote=proddepositos.numlote"
-            Cad = Cad & " inner join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<1"
+            Cad = Cad & " inner join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<>1"
             frmB2.vTabla = Cad
             'WHERE
             frmB2.vSQL = "not spartidas.numlote is null "  'and DepositoVtaDirecta = 0"
@@ -2878,11 +2889,11 @@ Dim Cantidad As Currency
     Set cDe = New cDeposito
     cDe.LeerDatos Deposito, False
     
-    If cDe.NUmlote = "" Then Err.Raise 513, , "Error leyendo numero deposito"
+    If cDe.numLote = "" Then Err.Raise 513, , "Error leyendo numero deposito"
     
     Set miRsAux = New ADODB.Recordset
-    Aux = "select spartidas.*,factorconversion from spartidas inner join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<1"
-    Aux = Aux & " AND numlote = " & DBSet(cDe.NUmlote, "T")
+    Aux = "select spartidas.*,factorconversion from spartidas inner join sartic on spartidas.codartic=sartic.codartic AND sartic.factorconversion<>1"
+    Aux = Aux & " AND numlote = " & DBSet(cDe.numLote, "T")
     miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
     Cantidad = Round(cDe.Kilos / miRsAux!FactorConversion, 2)
@@ -2931,7 +2942,7 @@ Dim Cantidad As Currency
     NumRegElim = Val(CadenaConsulta) + 1
     CadenaConsulta = "INSERT INTO olicoupagelinlotes (codigo,codartic,linea,numlote,cantlote,fincuba,deposito) VALUES ("
     CadenaConsulta = CadenaConsulta & Text1(0).Text & "," & DBSet(Aux, "T") & "," & NumRegElim & ","
-    CadenaConsulta = CadenaConsulta & DBSet(cDe.NUmlote, "T") & "," & DBSet(Cantidad, "N") & ",0," & cDe.NumDeposito & ")"
+    CadenaConsulta = CadenaConsulta & DBSet(cDe.numLote, "T") & "," & DBSet(Cantidad, "N") & ",0," & cDe.NumDeposito & ")"
     conn.Execute CadenaConsulta
     
     

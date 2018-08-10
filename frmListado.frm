@@ -9117,7 +9117,7 @@ Dim cadFrom As String
                 frmMensajes.OpcionMensaje = 25  'Correcion AVAB desde morales
             End If
             frmMensajes.vCampos = txtCodigo(107).Text
-            frmMensajes.cadWHERE2 = Trim(Me.cmbDecimales.Text)
+            frmMensajes.cadWhere2 = Trim(Me.cmbDecimales.Text)
             'Por no utilizar otra variable
             NumRegElim = 0
             If Me.chkMinimoCorreg.Value = 1 Then NumRegElim = 1
@@ -10530,7 +10530,7 @@ Dim I As Integer
     Else
         Tabla = "#,##0." & Mid("0000", 1, I)
     End If
-    frmMensajes.cadWHERE2 = Tabla
+    frmMensajes.cadWhere2 = Tabla
     frmMensajes.cadWhere = Cadselect
     frmMensajes.OpcionMensaje = 15
     frmMensajes.Show vbModal
@@ -14025,7 +14025,7 @@ Dim CCoste2 As Byte
         
         'Si contabiliza tickets agrupados
         If OptProve.Tag = "" Then
-            If vParamAplic.ContabilizarTicketAgrupados Then SQL = SQL & " AND codtipom <>'FTI' "
+            If vParamAplic.ContabilizarTicketAgrupados And cadTabla = "scafac" Then SQL = SQL & " AND codtipom <>'FTI' "
         Else
             SQL = SQL & " AND scafac.codtipom  = 'FTG' "
         End If

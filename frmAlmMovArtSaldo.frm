@@ -1263,17 +1263,23 @@ Dim Nombre As String
             End If
             'Label2.Caption = "Proveedor"
         Case "CUP"
-            If Not EstaEnCadenas(Codigo, 1, Nombre) Then
-                Nombre = DevuelveDesdeBDNew(conAri, "straba", "nomtraba", "codtraba", CStr(Codigo), "N")
-                AnyadirCadena Codigo, 1, Nombre
+            If Codigo = "0" Then
+                Nombre = " "
+            Else
+                If Not EstaEnCadenas(Codigo, 1, Nombre) Then
+                    Nombre = DevuelveDesdeBDNew(conAri, "straba", "nomtraba", "codtraba", CStr(Codigo), "N")
+                    AnyadirCadena Codigo, 1, Nombre
+                End If
             End If
-        
         Case "PRO"
-            If Not EstaEnCadenas(Codigo, 1, Nombre) Then
-                Nombre = DevuelveDesdeBDNew(conAri, "straba", "nomtraba", "codtraba", CStr(Codigo), "N")
-                AnyadirCadena Codigo, 1, Nombre
+            If Codigo = "0" Then
+                Nombre = " "
+            Else
+                If Not EstaEnCadenas(Codigo, 1, Nombre) Then
+                    Nombre = DevuelveDesdeBDNew(conAri, "straba", "nomtraba", "codtraba", CStr(Codigo), "N")
+                    AnyadirCadena Codigo, 1, Nombre
+                End If
             End If
-    
     
         Case "PAL"
             
@@ -1387,7 +1393,7 @@ Dim It As ListItem
         Set It = lw1.ListItems.Add()
         It.Text = Format(RS!Fechamov, "dd/mm/yyyy")
         It.SubItems(1) = Format(RS!horamovi, "hh:mm:ss")
-        It.SubItems(2) = RS!Detamovi
+        It.SubItems(2) = RS!detamovi
         It.SubItems(3) = RS!codigope
         
         'If It.SubItems(2) = "ALR" And It.SubItems(3) = "752" Then
@@ -1409,10 +1415,10 @@ Dim It As ListItem
         It.SubItems(7) = Format(vStock, FormatoCantidad)
         
        ' If Me.chkCargaNombres.Value = 1 Then
-       If RS!Detamovi = "TRZ" Then
+       If RS!detamovi = "TRZ" Then
             Aux = "Produccion: " & Val(RS!document)
        Else
-            Aux = PonerNombreCliente(RS!codigope, RS!Detamovi)
+            Aux = PonerNombreCliente(RS!codigope, RS!detamovi)
             If Aux = "" Then Aux = "Error leyendo desde BD"
             
        End If

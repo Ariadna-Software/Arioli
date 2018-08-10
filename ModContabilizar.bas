@@ -2845,6 +2845,9 @@ Dim IvaABuscar As Integer
         End If
         
         
+        If vParamAplic.ContabilizacionMoixent Then cadCampo = Replace(cadCampo, "sfamia", "sfamcontab")
+        
+        
         If FraIntraCom <> "" Then
             SQL = " SELECT " & FraIntraCom
         Else
@@ -2855,12 +2858,18 @@ Dim IvaABuscar As Integer
         SQL = SQL & " codigiva,slifpc.codprove,slifpc.numfactu,FecFactu," & cadCampo & " as cuenta, sum(importel) as importe  "
         
         'Tiene analitica. Luego el codtraba tiene que aparecer
-        If vCCos > 0 Then SQL = SQL & ",slifpc.codccost"
+        If vCCos > 0 Then SQL = SQL & ",CodTrab2 as codtraba"
                 
         
         SQL = SQL & " FROM (slifpc  "
         SQL = SQL & " inner join sartic on slifpc.codartic=sartic.codartic) "
-        SQL = SQL & " inner join sfamia on sartic.codfamia=sfamia.codfamia "
+        
+        If vParamAplic.ContabilizacionMoixent Then
+            SQL = SQL & " inner join sfamcontab ON sartic.codfamia=sfamcontab.codfamia and sartic.codmarca=sfamcontab.codmarca"
+            SQL = SQL & " AND sartic.codtipar=sfamcontab.codtipar and sartic.codunida=sfamcontab.codunida"
+        Else
+            SQL = SQL & " inner join sfamia on sartic.codfamia=sfamia.codfamia "
+        End If
         
         If vCCos > 0 Then SQL = SQL & ",scafpa "
         
@@ -2873,7 +2882,7 @@ Dim IvaABuscar As Integer
         SQL = SQL & " GROUP BY "
         
         'Si tiene mas de una trabajador con ditintos CC agrupamos en 1er nivel por codtraba
-        If vCCos = 2 Then SQL = SQL & " codccost, "
+        If vCCos = 2 Then SQL = SQL & " codtraba, , "
                   
         'Agrupemos por trabajador o no, tambien agrupamos por la cuenta
         SQL = SQL & cadCampo & ", codigiva ORDER BY codigiva ," & cadCampo

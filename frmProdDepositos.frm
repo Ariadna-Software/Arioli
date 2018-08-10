@@ -19,7 +19,36 @@ Begin VB.Form frmProdDepositos
       Left            =   480
       TabIndex        =   55
       Top             =   8880
-      Width           =   6015
+      Width           =   9615
+      Begin VB.Label Label1 
+         Caption         =   "   Vinagreta   "
+         Height          =   255
+         Left            =   6000
+         TabIndex        =   66
+         Top             =   0
+         Width           =   855
+      End
+      Begin VB.Image imgLinea 
+         Height          =   360
+         Index           =   9
+         Left            =   8760
+         Top             =   210
+         Width           =   360
+      End
+      Begin VB.Image imgLinea 
+         Height          =   360
+         Index           =   8
+         Left            =   7920
+         Top             =   210
+         Width           =   360
+      End
+      Begin VB.Image imgLinea 
+         Height          =   360
+         Index           =   7
+         Left            =   7200
+         Top             =   210
+         Width           =   360
+      End
       Begin VB.Image imgLinea 
          Height          =   360
          Index           =   6
@@ -135,6 +164,36 @@ Begin VB.Form frmProdDepositos
          Index           =   0
          Left            =   360
          TabIndex        =   56
+         Top             =   240
+         Visible         =   0   'False
+         Width           =   255
+      End
+      Begin VB.Label lblVirtu 
+         Caption         =   "3"
+         Height          =   255
+         Index           =   7
+         Left            =   7080
+         TabIndex        =   63
+         Top             =   240
+         Visible         =   0   'False
+         Width           =   255
+      End
+      Begin VB.Label lblVirtu 
+         Caption         =   "3"
+         Height          =   255
+         Index           =   8
+         Left            =   7800
+         TabIndex        =   64
+         Top             =   240
+         Visible         =   0   'False
+         Width           =   255
+      End
+      Begin VB.Label lblVirtu 
+         Caption         =   "3"
+         Height          =   255
+         Index           =   9
+         Left            =   8520
+         TabIndex        =   65
          Top             =   240
          Visible         =   0   'False
          Width           =   255
@@ -1399,7 +1458,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Dim cad As String
+Dim Cad As String
 Dim RS As ADODB.Recordset
 
 Dim DepositoDblClik As Integer
@@ -1443,20 +1502,20 @@ Dim KMostrar As Byte
 Dim Deposito As Integer
 Dim Lotes As String
 
-    cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
-    cad = cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
-    cad = cad & " left join sartic on spartidas.codartic=sartic.codartic"
-    cad = cad & " WHERE DepositoVtaDirecta=0"
+    Cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
+    Cad = Cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
+    Cad = Cad & " left join sartic on spartidas.codartic=sartic.codartic"
+    Cad = Cad & " WHERE DepositoVtaDirecta=0"
     
     Set RS = New ADODB.Recordset
-    RS.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RS.EOF
         'Sera ERROR SI,
         ' o sartic.codartic=null
         ' o factorconverrsion=1
         KMostrar = 2 'todo
-        If DBLet(RS!NUmlote, "T") <> "" Then
-            If DBLet(RS!codArtic, "T") = "" Then
+        If DBLet(RS!numLote, "T") <> "" Then
+            If DBLet(RS!codartic, "T") = "" Then
                 KMostrar = 0 'ERROR
             Else
                 If RS!FactorConversion = 1 Then KMostrar = 0
@@ -1483,7 +1542,7 @@ Dim Lotes As String
             
         Else
             CargarUnDeposito Deposito
-            Lotes = Lotes & ", " & DBSet(RS!NUmlote, "T")
+            Lotes = Lotes & ", " & DBSet(RS!numLote, "T")
             
         End If
     
@@ -1498,15 +1557,15 @@ Dim Lotes As String
     'Vamos a ver cual esta envasando en linea de produccion
     If Lotes <> "" Then
         
-        cad = "select numlote,prodlin.codigo,prodlin.idlin from prodlin,prodtrazcompo"
-        cad = cad & " where prodlin.codigo= prodtrazcompo.codigo AND prodlin.idlin = "
-        cad = cad & " prodtrazcompo.idlin and prodtrazcompo.cantutili is null and estado >0"
-        cad = cad & " and estado<10 and numlote in"
-        cad = cad & " (" & Mid(Lotes, 2) & ")"
-        RS.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        Cad = "select numlote,prodlin.codigo,prodlin.idlin from prodlin,prodtrazcompo"
+        Cad = Cad & " where prodlin.codigo= prodtrazcompo.codigo AND prodlin.idlin = "
+        Cad = Cad & " prodtrazcompo.idlin and prodtrazcompo.cantutili is null and estado >0"
+        Cad = Cad & " and estado<10 and numlote in"
+        Cad = Cad & " (" & Mid(Lotes, 2) & ")"
+        RS.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         While Not RS.EOF
             For KMostrar = 0 To MaxNumDepositos_ - 1
-                If Me.txtLote(KMostrar).Text = RS!NUmlote Then
+                If Me.txtLote(KMostrar).Text = RS!numLote Then
                     Me.Shape1(KMostrar).BorderWidth = 3
                     Me.Shape1(KMostrar).BorderColor = vbGreen
                     txtLote(KMostrar).Tag = RS!Codigo & "|" & RS!idlin & "|" 'Para cuando pong ver deposito
@@ -1533,19 +1592,19 @@ Private Sub LimpiarDatosDeposito(HayError As Boolean, kDeposito As Integer)
         'DATOS rs
         'NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote
         If RS.EOF Then
-            cad = "Consulta vacia (EOF)"
+            Cad = "Consulta vacia (EOF)"
         Else
-            cad = "Deposito:      " & DBLet(RS!NumDeposito, "T") & vbCrLf
-            cad = cad & "Capacidad:     " & DBLet(RS!Capacidad, "T") & vbCrLf
-            cad = cad & "Codigo:     " & DBLet(RS!codArtic, "T") & vbCrLf
-            cad = cad & "Referencia:   " & DBLet(RS!NomArtic, "T") & vbCrLf
-            cad = cad & "Factor conversion:      " & DBLet(RS!FactorConversion, "T") & vbCrLf
-            cad = cad & "LOTE:      " & DBLet(RS!NUmlote, "T") & vbCrLf
+            Cad = "Deposito:      " & DBLet(RS!NumDeposito, "T") & vbCrLf
+            Cad = Cad & "Capacidad:     " & DBLet(RS!Capacidad, "T") & vbCrLf
+            Cad = Cad & "Codigo:     " & DBLet(RS!codartic, "T") & vbCrLf
+            Cad = Cad & "Referencia:   " & DBLet(RS!NomArtic, "T") & vbCrLf
+            Cad = Cad & "Factor conversion:      " & DBLet(RS!FactorConversion, "T") & vbCrLf
+            Cad = Cad & "LOTE:      " & DBLet(RS!numLote, "T") & vbCrLf
             
-            cad = "Error datos deposito: " & vbCrLf & vbCrLf & cad
+            Cad = "Error datos deposito: " & vbCrLf & vbCrLf & Cad
     
         End If
-        MsgBox cad, vbExclamation
+        MsgBox Cad, vbExclamation
             
     End If
 End Sub
@@ -1557,8 +1616,8 @@ Dim Cantidad As Currency
 
     
     Me.txtLote(kDeposito).visible = True
-    Me.txtLote(kDeposito).Text = RS!NUmlote
-    Me.txtLote(kDeposito).ToolTipText = RS!codArtic & "  " & RS!NomArtic
+    Me.txtLote(kDeposito).Text = RS!numLote
+    Me.txtLote(kDeposito).ToolTipText = RS!codartic & "  " & RS!NomArtic
     Me.txtLote(kDeposito).Alignment = 2
     
     If DBLet(RS!Kilos, "N") = 0 Then
@@ -1631,14 +1690,14 @@ Dim KMostrar As Byte
 Dim Lotes As String
 Dim QueImage As Integer
 
-    cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
-    cad = cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
-    cad = cad & " left join sartic on spartidas.codartic=sartic.codartic"
-    cad = cad & " WHERE DepositoVtaDirecta=1 ORDER BY numdeposito"
+    Cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
+    Cad = Cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
+    Cad = Cad & " left join sartic on spartidas.codartic=sartic.codartic"
+    Cad = Cad & " WHERE DepositoVtaDirecta=1 ORDER BY numdeposito"
     
     QueImage = 0
     Set RS = New ADODB.Recordset
-    RS.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RS.EOF
         'Sera ERROR SI,
         ' o sartic.codartic=null
@@ -1647,12 +1706,12 @@ Dim QueImage As Integer
         
         
         imgLinea(QueImage).Tag = RS!NumDeposito & "|"
-        If DBLet(RS!NUmlote, "T") <> "" Then
+        If DBLet(RS!numLote, "T") <> "" Then
             
-            If DBLet(RS!codArtic, "T") = "" Then
+            If DBLet(RS!codartic, "T") = "" Then
                 KMostrar = 0 'ERROR
             Else
-                If RS!FactorConversion < 1 Then
+                If RS!FactorConversion <> 1 Then   'Junio18 Puede ser >1 como la vinagreta o <1 como el aceite
                     KMostrar = 2
                 Else
                     KMostrar = 0 'ERROR
@@ -1679,8 +1738,8 @@ Dim QueImage As Integer
             If KMostrar = 1 Then imgLinea(QueImage).ToolTipText = "Virtual  vacio"
         Else
             Me.imgLinea(QueImage).Picture = Me.Image1(2).Picture
-            Lotes = Lotes & ", " & DBSet(RS!NUmlote, "T")
-            imgLinea(QueImage).ToolTipText = "Lote: " & DBSet(RS!NUmlote, "T")
+            Lotes = Lotes & ", " & DBSet(RS!numLote, "T")
+            imgLinea(QueImage).ToolTipText = "Lote: " & DBSet(RS!numLote, "T")
         End If
     
     

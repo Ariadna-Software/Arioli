@@ -5830,20 +5830,20 @@ Begin VB.Form frmListado2
          TabCaption(1)   =   "Datos carta"
          TabPicture(1)   =   "frmListado2.frx":4183
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "Label6(0)"
-         Tab(1).Control(1)=   "Label6(1)"
-         Tab(1).Control(2)=   "Label6(2)"
-         Tab(1).Control(3)=   "Label6(3)"
-         Tab(1).Control(4)=   "Label6(4)"
-         Tab(1).Control(5)=   "txtCarta(0)"
-         Tab(1).Control(6)=   "txtCarta(1)"
-         Tab(1).Control(7)=   "txtCarta(3)"
-         Tab(1).Control(8)=   "txtCarta(5)"
-         Tab(1).Control(9)=   "txtCarta(4)"
-         Tab(1).Control(10)=   "cmdGuardar"
-         Tab(1).Control(11)=   "chkCartaTO"
-         Tab(1).Control(12)=   "txtCarta(2)"
-         Tab(1).Control(13)=   "txtFecha(32)"
+         Tab(1).Control(0)=   "txtFecha(32)"
+         Tab(1).Control(1)=   "txtCarta(2)"
+         Tab(1).Control(2)=   "chkCartaTO"
+         Tab(1).Control(3)=   "cmdGuardar"
+         Tab(1).Control(4)=   "txtCarta(4)"
+         Tab(1).Control(5)=   "txtCarta(5)"
+         Tab(1).Control(6)=   "txtCarta(3)"
+         Tab(1).Control(7)=   "txtCarta(1)"
+         Tab(1).Control(8)=   "txtCarta(0)"
+         Tab(1).Control(9)=   "Label6(4)"
+         Tab(1).Control(10)=   "Label6(3)"
+         Tab(1).Control(11)=   "Label6(2)"
+         Tab(1).Control(12)=   "Label6(1)"
+         Tab(1).Control(13)=   "Label6(0)"
          Tab(1).ControlCount=   14
          Begin VB.TextBox txtFecha 
             Height          =   285
@@ -8057,7 +8057,7 @@ Dim J As Integer
        'Pasar los Albaranes seleccionados con cadWHERE a una factura
         Set vFactu = New CFacturaCom
         vFactu.Proveedor = vProve.Codigo
-        vFactu.NumFactu = Ctip.contador + 1
+        vFactu.NumFactu = Ctip.Contador + 1
         vFactu.Fecfactu = txtFecha(17).Text
         vFactu.FecRecep = txtFecha(17).Text
         vFactu.Trabajador = txtTrab(1).Text
@@ -9616,7 +9616,7 @@ Private Sub cmdVentasAgentes_Click()
     cadFormula = "{olitmpventasagente.codusu} = " & vUsu.Codigo
     If ObtenerDatosVentasAgentes Then
         cadNomRPT = "rVentasAgentes.rpt"
-        LlamarImprimir2
+        LlamarImprimir2 "Ventas x Agente"
     
     End If
     Screen.MousePointer = vbDefault
@@ -12129,7 +12129,7 @@ Dim vCli As CCliente
              '`codagent`,`codforpa`,`dtoppago`,`dtognral`,`codbanco`,`codsucur`,`digcontr`,`cuentaba`,"
              '`brutofac`,`impdtopp`,`impdtogr`,`intconta`,`totalfac`,"
                          
-             cadFrom = " VALUES ('" & vTipoM.TipoMovimiento & "'," & vTipoM.contador & ",'" & Devuelve & "'," & vCli.Codigo
+             cadFrom = " VALUES ('" & vTipoM.TipoMovimiento & "'," & vTipoM.Contador & ",'" & Devuelve & "'," & vCli.Codigo
              cadFrom = cadFrom & ",'" & vCli.Nombre & "','','0','','','0',NULL,NULL,NULL" '0: codpos y nif
              'Agente:
              cadFrom = cadFrom & "," & vCli.Agente & "," & vCli.ForPago & ",0,0,NULL,NULL,NULL,NULL,"
@@ -12143,7 +12143,7 @@ Dim vCli As CCliente
             ' el proceso de contabilizacion cojera EL CODTRABA para obtener el CC
                 
                 miSQL = "insert into `scafac1` (`codtipom`,`numfactu`,`fecfactu`,codtipoa,numalbar,`codenvio`,`codtraba`,`codtrab1`,`codtrab2`)"
-                miSQL = miSQL & " VALUES ('FTG'," & vTipoM.contador & ",'" & Devuelve & "','DAV','8',"  'Pongo tipoa y numalbar a piñon
+                miSQL = miSQL & " VALUES ('FTG'," & vTipoM.Contador & ",'" & Devuelve & "','DAV','8',"  'Pongo tipoa y numalbar a piñon
                 miSQL = miSQL & vParamAplic.PorDefecto_Envio & "," & txtTrab(2).Text & "," & txtTrab(2).Text & "," & txtTrab(2).Text & ")"
                 conn.Execute miSQL
             
@@ -12153,7 +12153,7 @@ Dim vCli As CCliente
             'Ahora, despues de crear la factura temporal FTG, insertare en la tabla
             'que lleva la relacion, numfactura, codticket
             miSQL = "INSERT INTO sfactik(`numfacFTG`,`fecfacFTG`,`numfactu`,`fecfactu`,`codtraba`)"
-            miSQL = miSQL & " SELECT " & vTipoM.contador & ",'" & Devuelve & "',numfactu,fecfactu," & txtTrab(2).Text & " FROM scafac where "
+            miSQL = miSQL & " SELECT " & vTipoM.Contador & ",'" & Devuelve & "',numfactu,fecfactu," & txtTrab(2).Text & " FROM scafac where "
             miSQL = miSQL & Cadselect
             If Diario Then miSQL = miSQL & " AND fecfactu='" & Devuelve & "'"
             conn.Execute miSQL
@@ -12470,7 +12470,7 @@ End Sub
 
 Private Function GenerarDatosEncoenves() As Boolean
 Dim C As String
-Dim Rs As ADODB.Recordset
+Dim RS As ADODB.Recordset
 Dim Fin As Boolean
 
     On Error GoTo EgenerarDatosEncoenves
@@ -12484,7 +12484,7 @@ Dim Fin As Boolean
     'variables
     
     'Incio Rs
-    Set Rs = New ADODB.Recordset
+    Set RS = New ADODB.Recordset
     Set miRsAux = New ADODB.Recordset
 
     
@@ -12507,30 +12507,30 @@ Dim Fin As Boolean
         miSQL = miSQL & " slifac.codartic=sartic.codartic AND  sartic.codunida=sunida.codunida"
         miSQL = miSQL & " AND numfactu =" & miRsAux!NumFactu & " AND fecfactu = " & DBSet(miRsAux!Fecfactu, "F")
         miSQL = miSQL & " ORDER BY numalbar,numlinea"
-        Rs.Open miSQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
+        RS.Open miSQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
         While Not Fin
-            If Rs!codartic = vParamAplic.ArtReciclado Then
-                ImpTot = Rs!Cantidad
-                If Rs.BOF Then
+            If RS!codartic = vParamAplic.ArtReciclado Then
+                ImpTot = RS!Cantidad
+                If RS.BOF Then
                     C = C & "No tiene articulo anterior"
                 Else
                     
-                    Rs.MovePrevious
-                    If Rs!Cantidad <> ImpTot Then C = C & "Cantidades distintas: " & Rs!numlinea & vbCrLf
+                    RS.MovePrevious
+                    If RS!Cantidad <> ImpTot Then C = C & "Cantidades distintas: " & RS!numlinea & vbCrLf
 
                     'Aquiinserto el posteriro
                     NumRegElim = NumRegElim + 1
                     
                     
                     campo = "insert into `tmpinformes` (`codusu`,`codigo1`,campo1,nombre1,importe1,importe2,importe3) "
-                    campo = campo & " VALUES (" & vUsu.Codigo & "," & NumRegElim & "," & Rs!CodUnida & ","
-                    campo = campo & DBSet(Rs!nomUnida, "T") & "," & DBSet(ImpTot, "N") & ","
+                    campo = campo & " VALUES (" & vUsu.Codigo & "," & NumRegElim & "," & RS!CodUnida & ","
+                    campo = campo & DBSet(RS!nomUnida, "T") & "," & DBSet(ImpTot, "N") & ","
                     
                     
                     'Vuelvo a poner el registro donde toca
-                    Rs.MoveNext 'lo dejo en reciclado
+                    RS.MoveNext 'lo dejo en reciclado
                     
-                    campo = campo & DBSet(Rs!precioar, "N") & "," & DBSet(Rs!ImporteL, "N") & ")"
+                    campo = campo & DBSet(RS!precioar, "N") & "," & DBSet(RS!ImporteL, "N") & ")"
                     EjecutaSQL conAri, campo
                     
                     
@@ -12538,8 +12538,8 @@ Dim Fin As Boolean
                 End If
                 
             End If
-            Rs.MoveNext
-            If Rs.EOF Then Fin = True
+            RS.MoveNext
+            If RS.EOF Then Fin = True
         Wend
         If C <> "" Then
             C = "Fra: " & miRsAux!NumFactu & " " & miRsAux!Fecfactu & vbCrLf & vbCrLf & C
@@ -12547,7 +12547,7 @@ Dim Fin As Boolean
         End If
         
         'Siguiente factura
-        Rs.Close
+        RS.Close
         miRsAux.MoveNext
     Wend
     miRsAux.Close
