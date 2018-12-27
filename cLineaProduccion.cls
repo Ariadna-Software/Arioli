@@ -644,6 +644,7 @@ On Error GoTo EPonerArticuloEnCadenaProduccion
                     'Ejemplo:  L:5778 26/03/2013  EXP:26/09/2014
                     'Marzo2014  EXP: --> BEST BEFORE
                     LineaExtra = "L:" & mvarLoteTrazabilidad & " " & Format(Now, "dd/mm/yyyy")
+                    'Buscar B.BEF para ver si actualiz las lineas al cerrar lotes
                     If IsDate(mvarFechaCaducidad) Then LineaExtra = LineaExtra & " B.BEF.:" & Format(mvarFechaCaducidad, "dd/mm/yyyy")
                 End If
             End If
@@ -1020,13 +1021,13 @@ Dim cDepo As cDeposito
                 'S pondra
                 
                     If mvarLineaExtraEtiquetas <> "" Then
-                        If Mid(mvarLineaExtraEtiquetas, 1, 1) = "L" Then
-                            If InStr(1, mvarLineaExtraEtiquetas, "BEST BEFORE:") > 0 Then
+                        If Mid(mvarLineaExtraEtiquetas, 1, 2) = "L:" Then
+                            If InStr(1, mvarLineaExtraEtiquetas, "B.BEF.") > 0 Then
                                 'Se supone que tenia lo de:
                                  'Ejemplo:  L:5778 26/03/2013  EXP:26/09/2014
-                                 'MARZO 2014  EXP--> BEST BEFORE
+                                 'MARZO 2014  EXP--> BEST BEFORE  ---> B.BEF.
                                  Cadena = "L:" & vTipoMov.contador - 1 & " " & Format(Now, "dd/mm/yyyy")
-                                 If IsDate(mvarFechaCaducidad) Then Cadena = Cadena & " BEST BEFORE:" & Format(mvarFechaCaducidad, "dd/mm/yyyy")
+                                 If IsDate(mvarFechaCaducidad) Then Cadena = Cadena & " B.BEF.:" & Format(mvarFechaCaducidad, "dd/mm/yyyy")
                                  mvarLineaExtraEtiquetas = Cadena
                                 'UPDATEAMOS
                                 SQL = "UPDATE prodlin set LineaExtraEtiqueta = " & DBSet(Cadena, "T", "S")

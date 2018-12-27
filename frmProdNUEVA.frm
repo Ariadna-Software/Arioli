@@ -67,23 +67,18 @@ Begin VB.Form frmProdNUEVA
       _ExtentY        =   13361
       _Version        =   393216
       Tabs            =   7
+      Tab             =   5
       TabsPerRow      =   7
       TabHeight       =   520
       TabCaption(0)   =   "Lineas 0-2"
       TabPicture(0)   =   "frmProdNUEVA.frx":0000
-      Tab(0).ControlEnabled=   -1  'True
-      Tab(0).Control(0)=   "LineaIndicadora(0)"
-      Tab(0).Control(0).Enabled=   0   'False
-      Tab(0).Control(1)=   "LineaIndicadora(1)"
-      Tab(0).Control(1).Enabled=   0   'False
-      Tab(0).Control(2)=   "LineaIndicadora(2)"
-      Tab(0).Control(2).Enabled=   0   'False
-      Tab(0).Control(3)=   "FrameLinea1(0)"
-      Tab(0).Control(3).Enabled=   0   'False
-      Tab(0).Control(4)=   "FrameLinea1(1)"
-      Tab(0).Control(4).Enabled=   0   'False
-      Tab(0).Control(5)=   "FrameLinea1(2)"
-      Tab(0).Control(5).Enabled=   0   'False
+      Tab(0).ControlEnabled=   0   'False
+      Tab(0).Control(0)=   "FrameLinea1(2)"
+      Tab(0).Control(1)=   "FrameLinea1(1)"
+      Tab(0).Control(2)=   "FrameLinea1(0)"
+      Tab(0).Control(3)=   "LineaIndicadora(2)"
+      Tab(0).Control(4)=   "LineaIndicadora(1)"
+      Tab(0).Control(5)=   "LineaIndicadora(0)"
       Tab(0).ControlCount=   6
       TabCaption(1)   =   "Lineas 3-5"
       TabPicture(1)   =   "frmProdNUEVA.frx":001C
@@ -131,17 +126,27 @@ Begin VB.Form frmProdNUEVA
       Tab(4).ControlCount=   12
       TabCaption(5)   =   "Planning"
       TabPicture(5)   =   "frmProdNUEVA.frx":008C
-      Tab(5).ControlEnabled=   0   'False
+      Tab(5).ControlEnabled=   -1  'True
       Tab(5).Control(0)=   "lblPlann(2)"
+      Tab(5).Control(0).Enabled=   0   'False
       Tab(5).Control(1)=   "Line1(0)"
+      Tab(5).Control(1).Enabled=   0   'False
       Tab(5).Control(2)=   "lblPlann(0)"
+      Tab(5).Control(2).Enabled=   0   'False
       Tab(5).Control(3)=   "Line1(1)"
+      Tab(5).Control(3).Enabled=   0   'False
       Tab(5).Control(4)=   "lblPlann(3)"
+      Tab(5).Control(4).Enabled=   0   'False
       Tab(5).Control(5)=   "Line1(2)"
+      Tab(5).Control(5).Enabled=   0   'False
       Tab(5).Control(6)=   "lwp2(0)"
+      Tab(5).Control(6).Enabled=   0   'False
       Tab(5).Control(7)=   "lwp"
+      Tab(5).Control(7).Enabled=   0   'False
       Tab(5).Control(8)=   "cmdBuscarRef(1)"
+      Tab(5).Control(8).Enabled=   0   'False
       Tab(5).Control(9)=   "cmdBuscarRef(0)"
+      Tab(5).Control(9).Enabled=   0   'False
       Tab(5).ControlCount=   10
       TabCaption(6)   =   "Materia auxiliar"
       TabPicture(6)   =   "frmProdNUEVA.frx":00A8
@@ -1866,7 +1871,7 @@ Begin VB.Form frmProdNUEVA
       Begin VB.CommandButton cmdBuscarRef 
          Height          =   375
          Index           =   0
-         Left            =   -73080
+         Left            =   1920
          Picture         =   "frmProdNUEVA.frx":F118
          Style           =   1  'Graphical
          TabIndex        =   188
@@ -1877,7 +1882,7 @@ Begin VB.Form frmProdNUEVA
       Begin VB.CommandButton cmdBuscarRef 
          Height          =   375
          Index           =   1
-         Left            =   -73080
+         Left            =   1920
          Picture         =   "frmProdNUEVA.frx":F6A2
          Style           =   1  'Graphical
          TabIndex        =   187
@@ -3095,7 +3100,7 @@ Begin VB.Form frmProdNUEVA
          ForeColor       =   &H00008000&
          Height          =   2175
          Index           =   2
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   57
          Top             =   5160
          Width           =   13335
@@ -3334,7 +3339,7 @@ Begin VB.Form frmProdNUEVA
          ForeColor       =   &H00008000&
          Height          =   2175
          Index           =   1
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   38
          Top             =   2880
          Width           =   13335
@@ -3573,7 +3578,7 @@ Begin VB.Form frmProdNUEVA
          ForeColor       =   &H00008000&
          Height          =   2175
          Index           =   0
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   2
          Top             =   480
          Width           =   13335
@@ -3847,7 +3852,7 @@ Begin VB.Form frmProdNUEVA
       End
       Begin MSComctlLib.ListView lwp 
          Height          =   4095
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   184
          Top             =   720
          Width           =   13455
@@ -3903,7 +3908,7 @@ Begin VB.Form frmProdNUEVA
       Begin MSComctlLib.ListView lwp2 
          Height          =   2175
          Index           =   0
-         Left            =   -72600
+         Left            =   2400
          TabIndex        =   189
          Top             =   5160
          Width           =   11295
@@ -4098,8 +4103,8 @@ Begin VB.Form frmProdNUEVA
          BorderWidth     =   2
          Index           =   2
          Visible         =   0   'False
-         X1              =   240
-         X2              =   240
+         X1              =   -74760
+         X2              =   -74760
          Y1              =   5280
          Y2              =   7320
       End
@@ -4107,8 +4112,8 @@ Begin VB.Form frmProdNUEVA
          BorderWidth     =   2
          Index           =   1
          Visible         =   0   'False
-         X1              =   240
-         X2              =   240
+         X1              =   -74760
+         X2              =   -74760
          Y1              =   3000
          Y2              =   5040
       End
@@ -4116,8 +4121,8 @@ Begin VB.Form frmProdNUEVA
          BorderWidth     =   2
          Index           =   0
          Visible         =   0   'False
-         X1              =   240
-         X2              =   240
+         X1              =   -74760
+         X2              =   -74760
          Y1              =   720
          Y2              =   2640
       End
@@ -4125,8 +4130,8 @@ Begin VB.Form frmProdNUEVA
          BorderColor     =   &H00400000&
          BorderWidth     =   3
          Index           =   2
-         X1              =   -74760
-         X2              =   -61320
+         X1              =   240
+         X2              =   13680
          Y1              =   5040
          Y2              =   5040
       End
@@ -4144,7 +4149,7 @@ Begin VB.Form frmProdNUEVA
          ForeColor       =   &H00400000&
          Height          =   195
          Index           =   3
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   190
          Top             =   5280
          Width           =   1800
@@ -4153,8 +4158,8 @@ Begin VB.Form frmProdNUEVA
          BorderColor     =   &H00004000&
          BorderWidth     =   3
          Index           =   1
-         X1              =   -67320
-         X2              =   -61320
+         X1              =   7680
+         X2              =   13680
          Y1              =   600
          Y2              =   600
       End
@@ -4172,7 +4177,7 @@ Begin VB.Form frmProdNUEVA
          ForeColor       =   &H00004000&
          Height          =   195
          Index           =   0
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   186
          Top             =   480
          Width           =   1800
@@ -4181,8 +4186,8 @@ Begin VB.Form frmProdNUEVA
          BorderColor     =   &H00004000&
          BorderWidth     =   3
          Index           =   0
-         X1              =   -72720
-         X2              =   -69480
+         X1              =   2280
+         X2              =   5520
          Y1              =   600
          Y2              =   600
       End
@@ -4200,7 +4205,7 @@ Begin VB.Form frmProdNUEVA
          ForeColor       =   &H00004000&
          Height          =   195
          Index           =   2
-         Left            =   -69000
+         Left            =   6000
          TabIndex        =   185
          Top             =   480
          Width           =   1650
@@ -4822,7 +4827,7 @@ Dim Asc_lwp As Boolean
 Dim ParalecturaPoste As Byte
 
 Dim AuxLP As cLineaProduccion
-
+Dim MinAnyo As Integer
 Private Const NumeroLineasProduccion = 10
 'Abril 2012:   8 lineas, la ultima la MANUAL
 'Abril 2012:   9 lineas, la ultima la muestras
@@ -4846,12 +4851,12 @@ Private Sub PonerDatosLinea(ByRef LinPr As cLineaProduccion)
 Dim linea As Byte
 Dim L As cLineaProCompo
 Dim J As Integer
-Dim IT As ListItem
+Dim It As ListItem
 
     With LinPr
         
         linea = .linea
-        Me.txtCodartPPal(linea).Text = .codArtic
+        Me.txtCodartPPal(linea).Text = .codartic
         Me.txtNomartic(linea).Text = .NomArtic
         txtCantidad(linea).Text = Format(.CantidadEstimada, FormatoCantidad)
         Me.txtTraza(linea).Text = .LoteTrazabilidad
@@ -4861,9 +4866,9 @@ Dim IT As ListItem
         For J = 1 To .CuantasMP
             If .DevuelveComponenteLinea(J, L) Then
                 'OK, ha ledio la sublinea de componentes
-                Set IT = ListView1(linea).ListItems.Add
-                IT.Text = L.NomArticCompo
-                IT.SubItems(1) = L.LoteMateria
+                Set It = ListView1(linea).ListItems.Add
+                It.Text = L.NomArticCompo
+                It.SubItems(1) = L.LoteMateria
             End If
         Next
         
@@ -4899,13 +4904,13 @@ End Sub
 
 
 
-Private Sub PonerDatosLineaPalet(ByRef Cp As CPalet, DesdePonerTodosLosDatos As Boolean)
+Private Sub PonerDatosLineaPalet(ByRef cP As CPalet, DesdePonerTodosLosDatos As Boolean)
 Dim linea As Byte
 Dim Total As Integer
 Dim J As Integer
 Dim Cadena As String
 
-    With Cp
+    With cP
         
         linea = .LineaPeletizacion - 1
         Me.txtIdP(linea).Text = .ID
@@ -5253,7 +5258,7 @@ End Sub
 
 Private Sub cmdCerrarPalet_Click(Index As Integer)
 Dim J As Integer
-Dim Cp As CPalet
+Dim cP As CPalet
     'CERRAR PALET
     Timer1.Enabled = False
     
@@ -5262,13 +5267,13 @@ Dim Cp As CPalet
     NumRegElim = 0
     If Me.txtIdP(Index).Text <> "" Then
         NumRegElim = Me.txtIdP(Index).Text
-        Set Cp = New CPalet
-        Cp.Leer NumRegElim
-        If Cp.ID <> LineasDePaletizacion(Index).ID Then
+        Set cP = New CPalet
+        cP.Leer NumRegElim
+        If cP.ID <> LineasDePaletizacion(Index).ID Then
             MsgBox "Id palet distintos", vbExclamation
             NumRegElim = 0
         End If
-        Set Cp = Nothing
+        Set cP = Nothing
     Else
         MsgBox "Linea vacia", vbExclamation
     End If
@@ -5313,9 +5318,9 @@ End Sub
 
 Private Sub cmdCerrarProd_Click(Index As Integer)
 Dim CerrarPaletLineaManual As Boolean
-Dim Cp As CPalet
+Dim cP As CPalet
 Dim Tot As Integer
-Dim c As Collection
+Dim C As Collection
 
     'Vamos acambiar el lote.
     'Preguntara cuanto se ha producido en esta tanda, y cerraremos todos los valores
@@ -5334,9 +5339,9 @@ Dim c As Collection
             'Es la linea manual
             CerrarPaletLineaManual = True 'Lo cierro luego
             Aux = Mid(Aux, InStr(1, Aux, "-") + 1)
-            Set Cp = New CPalet
-            If Not Cp.Leer(CLng(Aux)) Then
-                Set Cp = Nothing
+            Set cP = New CPalet
+            If Not cP.Leer(CLng(Aux)) Then
+                Set cP = Nothing
                 Exit Sub
             End If
         Else
@@ -5366,9 +5371,9 @@ Dim c As Collection
                 Set miRsAux = New ADODB.Recordset
                 
                 If CerrarPaletLineaManual Then
-                    Cp.CargaDatosPalet c, False, Tot, False
-                    Cp.CerrarPalet Tot
-                    Set Cp = Nothing
+                    cP.CargaDatosPalet C, False, Tot, False
+                    cP.CerrarPalet Tot
+                    Set cP = Nothing
                 End If
                 
                 
@@ -5498,7 +5503,7 @@ Dim SQL As String
     
     SQL = "select prodlin.codigo,prodlin.idlin ,lotetraza from prodlin,prodtrazlin  where prodlin.codigo= prodtrazlin.codigo AND prodlin.idlin = prodtrazlin.idlin"
     SQL = SQL & " and lineaprod = " & KLinea & " and estado >0 and estado<10 ORDER BY lotetraza DESC"  'Pq puede que haya varios cambios de trazabilidad para la misma linea
-    miRsAux.Open SQL, Conn, adOpenKeyset, adLockPessimistic, adCmdText
+    miRsAux.Open SQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
     I = 0
     If Not miRsAux.EOF Then
         'UNO tiene seguro
@@ -5539,7 +5544,7 @@ Dim SQL As String
     LeerLineaPalet = False
     
     SQL = "select idpalet from prodpalets where  LineaPeletiza = " & KLinea & " and fhFin is null "  '
-    miRsAux.Open SQL, Conn, adOpenKeyset, adLockPessimistic, adCmdText
+    miRsAux.Open SQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
     I = 0
     If Not miRsAux.EOF Then
         'UNO tiene seguro
@@ -5930,6 +5935,12 @@ End Sub
 Private Sub CargarPlanning()
     'Habra que leer en una tabla si hay que recargar pedidos ...
     If True Then
+    
+        Aux = DevuelveDesdeBD(conAri, "min(fecentre)", "scaped", "1", "1")
+        If Aux = "" Then Aux = vEmpresa.FechaIni
+        MinAnyo = Year(CDate(Aux))
+    
+    
         Label3.Caption = "Planning"
         Label3.Refresh
         
@@ -5968,7 +5979,7 @@ Private Sub CargaTablaPlanning()
 
 
     Aux = "DELETE FROM tmpPlanning "
-    Conn.Execute Aux
+    conn.Execute Aux
     'Cargamos los datos del pedido
     Aux = "INSERT INTO tmpPlanning"
     Aux = Aux & " select sliped.codartic codartic ,sliped.nomartic nomartic"
@@ -5978,17 +5989,17 @@ Private Sub CargaTablaPlanning()
     Aux = Aux & " where scaped.numpedcl=sliped.numpedcl and"
     Aux = Aux & " sliped.codartic=sartic.codartic  and sliped.codartic <> '" & vParamAplic.ArtReciclado & "'"
     Aux = Aux & " and conjunto=1 group by 1,2,3,4"
-    Conn.Execute Aux
+    conn.Execute Aux
     
     'Actualizamos el stock actual
     Set miRsAux = New ADODB.Recordset
     Aux = "Select canstock,codartic FROM salmac where codalmac =1 AND codartic in (Select codartic from tmpplanning)"
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     While Not miRsAux.EOF
         Aux = "UPDATE tmpPlanning set stock=" & DBSet(miRsAux!CanStock, "N")
-        Aux = Aux & " WHERE codartic = " & DBSet(miRsAux!codArtic, "T")
+        Aux = Aux & " WHERE codartic = " & DBSet(miRsAux!codartic, "T")
         miRsAux.MoveNext
-        Conn.Execute Aux
+        conn.Execute Aux
     Wend
     miRsAux.Close
     
@@ -6001,7 +6012,7 @@ End Sub
 
 
 Private Sub PonerPlanningListview()
-Dim IT As ListItem
+Dim It As ListItem
 Dim Pal_ped As Currency
 Dim Pal_stock As Currency
 
@@ -6022,52 +6033,52 @@ Dim Pal_stock As Currency
     
     Me.lwp.ListItems.Clear
     
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     While Not miRsAux.EOF
-        If IT Is Nothing Then
+        If It Is Nothing Then
             'primera linea
-            Set IT = lwp.ListItems.Add()
-            IT.Text = " "
+            Set It = lwp.ListItems.Add()
+            It.Text = " "
             For NumRegElim = 2 To Me.lwp.ColumnHeaders.Count - 1
-                IT.SubItems(CInt(NumRegElim)) = " "
+                It.SubItems(CInt(NumRegElim)) = " "
             Next
-            IT.SubItems(6) = "Pedidos"
+            It.SubItems(6) = "Pedidos"
         End If
         
-        Set IT = lwp.ListItems.Add
-        IT.Text = miRsAux!codArtic
-        IT.SubItems(1) = miRsAux!NomArtic
+        Set It = lwp.ListItems.Add
+        It.Text = miRsAux!codartic
+        It.SubItems(1) = miRsAux!NomArtic
         
         'cajaspal,unicajas,enproduccion,
         'estas dos no se ven
-        IT.SubItems(2) = miRsAux!CajasPal
-        If miRsAux!CajasPal = 0 Then IT.ForeColor = vbRed
+        It.SubItems(2) = miRsAux!CajasPal
+        If miRsAux!CajasPal = 0 Then It.ForeColor = vbRed
         
-        IT.SubItems(3) = miRsAux!UniCajas
+        It.SubItems(3) = miRsAux!Unicajas
         
         
         'Totales
         'ud_pedidos ,stock
-        If IT.ForeColor <> vbRed Then
-            Pal_ped = miRsAux!ud_pedidos / miRsAux!UniCajas 'cuantas cajas
+        If It.ForeColor <> vbRed Then
+            Pal_ped = miRsAux!ud_pedidos / miRsAux!Unicajas 'cuantas cajas
             Pal_ped = Round(Pal_ped / miRsAux!CajasPal, 2)
-            IT.SubItems(4) = Format(Pal_ped, FormatoImporte)
+            It.SubItems(4) = Format(Pal_ped, FormatoImporte)
             
-            Pal_stock = miRsAux!stock / miRsAux!UniCajas 'cuantas cajas
+            Pal_stock = miRsAux!stock / miRsAux!Unicajas 'cuantas cajas
             Pal_stock = Round(Pal_stock / miRsAux!CajasPal, 2)
-            IT.SubItems(5) = Format(Pal_stock, FormatoImporte)
+            It.SubItems(5) = Format(Pal_stock, FormatoImporte)
             
             'diferencia
             Pal_ped = Pal_ped - Pal_stock
             If Pal_ped > 0 Then
-                IT.SubItems(6) = Format(Pal_ped, FormatoImporte)
+                It.SubItems(6) = Format(Pal_ped, FormatoImporte)
             Else
-                IT.SubItems(6) = " "
+                It.SubItems(6) = " "
             End If
         Else
-            IT.SubItems(4) = " "
-            IT.SubItems(5) = IT.SubItems(4)
-            IT.SubItems(6) = IT.SubItems(4)
+            It.SubItems(4) = " "
+            It.SubItems(5) = It.SubItems(4)
+            It.SubItems(6) = It.SubItems(4)
         End If
             
         miRsAux.MoveNext
@@ -6084,8 +6095,10 @@ Dim Cantidad As Currency
 Dim Colu As ColumnHeader
 Dim numPed As Long
 Dim Pedido As String 'hay que vincularlos con avab y buscar el campo referncia
+
+
+
     
- 
     
     If Me.lwp.ColumnHeaders.Count > 8 Then
         For J = lwp.ColumnHeaders.Count To 8 Step -1
@@ -6097,10 +6110,11 @@ Dim Pedido As String 'hay que vincularlos con avab y buscar el campo referncia
     Set miRsAux = New ADODB.Recordset
     
     'Vamos p'alla
-    Aux = "select sementre,scaped.numpedcl,sliped.codartic,cantidad,codclien,referenc,refproduccion from  scaped,sliped ,sartic"
+    
+    Aux = "select ((year(fecentre)-" & MinAnyo & ") *100) + sementre  as sementre,scaped.numpedcl,sliped.codartic,cantidad,codclien,referenc,refproduccion from  scaped,sliped ,sartic"
     Aux = Aux & " Where scaped.numpedcl = sliped.numpedcl And sliped.codArtic = sartic.codArtic"
     Aux = Aux & " And Conjunto = 1  and sliped.codartic <> '" & vParamAplic.ArtReciclado & "' order by sementre,numpedcl,numlinea "
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     numPed = 0
     While Not miRsAux.EOF
         
@@ -6131,7 +6145,19 @@ Dim Pedido As String 'hay que vincularlos con avab y buscar el campo referncia
             Set Colu = lwp.ColumnHeaders.Add()
         
             'encabezado con la semna
-            Colu.Text = miRsAux!sementre
+            Aux = ""
+            J = miRsAux!sementre
+            If J > 100 Then
+                Aux = CStr(J)
+                Aux = Mid(Aux, 1, Len(Aux) - 2)
+                
+                Aux = (Val(Aux) + MinAnyo) Mod 100 & "/"
+                
+                J = J Mod 100
+               
+            End If
+            Aux = Aux & CStr(J)
+            Colu.Text = Aux
             Colu.Width = 900
             Colu.Tag = miRsAux!numpedcl
             Me.lwp.ListItems(1).SubItems(Colu.Index - 1) = Pedido
@@ -6143,7 +6169,7 @@ Dim Pedido As String 'hay que vincularlos con avab y buscar el campo referncia
         
         'BUsco la referencia
         For J = 1 To lwp.ListItems.Count
-            If Me.lwp.ListItems(J).Text = miRsAux!codArtic Then
+            If Me.lwp.ListItems(J).Text = miRsAux!codartic Then
                 'Este es
                 Exit For
             End If
@@ -6186,62 +6212,77 @@ End Sub
 
 
 Private Sub CargaPorSemanaEntrega()
-Dim IT As ListItem
+Dim It As ListItem
 Dim Cantidad As Currency
 Dim stoc As Currency
 Dim Ped As Currency
-
+Dim J As Integer
 
     Me.lwp2(0).ListItems.Clear
-    Aux = "select sementre,scaped.numpedcl,sliped.codartic,cantidad,cajaspal,"
+    Aux = "select ((year(fecentre)-" & MinAnyo & ") *100) + sementre  as sementre,scaped.numpedcl,sliped.codartic,cantidad,cajaspal,"
     Aux = Aux & "tmpplanning.* "
     Aux = Aux & " from  scaped,sliped ,tmpplanning"
     Aux = Aux & " Where scaped.numpedcl = sliped.numpedcl And sliped.codArtic = tmpplanning.codArtic"
     Aux = Aux & "  order by sementre,numpedcl,numlinea  "
 
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
     
       
     
         'Metemos el ITEM
-        Set IT = Me.lwp2(0).ListItems.Add
-        IT.Text = miRsAux!codArtic
-        IT.SubItems(1) = miRsAux!NomArtic
+        Set It = Me.lwp2(0).ListItems.Add
+        It.Text = miRsAux!codartic
+        It.SubItems(1) = miRsAux!NomArtic
 
-        IT.SubItems(2) = miRsAux!numpedcl
-        IT.SubItems(3) = miRsAux!sementre
+        It.SubItems(2) = miRsAux!numpedcl
+        'Antes Dic2018
+        'It.SubItems(3) = miRsAux!sementre
+        Aux = ""
+        J = miRsAux!sementre
+        If J > 100 Then
+            Aux = CStr(J)
+            Aux = Mid(Aux, 1, Len(Aux) - 2)
+            
+            Aux = (Val(Aux) + MinAnyo) Mod 100 & "/"
+            
+            J = J Mod 100
+           
+        End If
+        Aux = Aux & CStr(J)
+        It.SubItems(3) = Aux
+
 
         Cantidad = miRsAux!CajasPal
-        Cantidad = miRsAux!UniCajas * Cantidad
+        Cantidad = miRsAux!Unicajas * Cantidad
 
         If Cantidad = 0 Then
             'ERROR
-            IT.SubItems(4) = "N/D"
-            IT.SubItems(5) = "N/D"
-            IT.SubItems(6) = " "
-            IT.SubItems(7) = " "
-            IT.SubItems(8) = 0 'uds por palet
+            It.SubItems(4) = "N/D"
+            It.SubItems(5) = "N/D"
+            It.SubItems(6) = " "
+            It.SubItems(7) = " "
+            It.SubItems(8) = 0 'uds por palet
             
         Else
             'Pedido
-            IT.SubItems(8) = Cantidad
+            It.SubItems(8) = Cantidad
             Ped = Round2(miRsAux!Cantidad / Cantidad, 2) 'cjas palet * uds
             
-            IT.SubItems(4) = Format(Ped, FormatoImporte)
+            It.SubItems(4) = Format(Ped, FormatoImporte)
             'stock
-            If Not VerStockArrastrado(IT, stoc) Then
+            If Not VerStockArrastrado(It, stoc) Then
                 stoc = miRsAux!stock
                 stoc = Round2(stoc / Cantidad, 2) 'palets en stock
             End If
-            IT.SubItems(5) = Format(stoc, FormatoImporte)
+            It.SubItems(5) = Format(stoc, FormatoImporte)
             
             stoc = stoc - Ped
-            IT.SubItems(7) = stoc 'columna oculta
-            IT.SubItems(6) = " "
+            It.SubItems(7) = stoc 'columna oculta
+            It.SubItems(6) = " "
             If stoc < 0 Then
-                IT.SubItems(6) = Format(Abs(stoc), FormatoImporte)
+                It.SubItems(6) = Format(Abs(stoc), FormatoImporte)
                
             End If
         End If
@@ -6257,12 +6298,12 @@ End Sub
 'Para cada articulo veremos si el stcok ha sido utlizado anteriormente
 ' para ello veremos desde la linea que acabamos de insertar hacia arriba si encontramos
 'la cantidad disponible
-Private Function VerStockArrastrado(ByRef IT As ListItem, ByRef KCantidas As Currency) As Boolean
+Private Function VerStockArrastrado(ByRef It As ListItem, ByRef KCantidas As Currency) As Boolean
 Dim J As Integer
 
     VerStockArrastrado = False
     For J = Me.lwp2(0).ListItems.Count - 1 To 1 Step -1
-        If Me.lwp2(0).ListItems(J).Text = IT.Text Then
+        If Me.lwp2(0).ListItems(J).Text = It.Text Then
             'Vemos si tiene "disponible"
             
             If Trim(Me.lwp2(0).ListItems(J).SubItems(5)) = "" Then
@@ -6437,12 +6478,17 @@ Dim I As Integer
 Dim J As Integer
 Dim Cantidad As Currency
 Dim C1 As Currency
-Dim IT As ListItem
+Dim It As ListItem
 Dim Colu As ColumnHeader
 Dim RN As ADODB.Recordset
 Dim ErrMateriasPrimas As String
 Dim CantidadSegunPlanning As Currency
-Dim Semana As Byte
+Dim Semana2 As Integer
+Dim AuxD As String
+Dim K As Integer
+Dim NumeroAnyoPedido As Integer 'Para los pedidos con fecha de entrega posteriores
+
+
 
     Me.lwp2(1).ListItems.Clear
     
@@ -6459,21 +6505,21 @@ Dim Semana As Byte
     Aux = Aux & " sarti1.codarti1=sartic.codartic and sartic.codartic=salmac.codartic"
     Aux = Aux & " and codalmac=1 and factorconversion=1"
     Aux = Aux & " and sarti1.codartic in (select codartic from tmpplanning) group by 1,2 order by 2"
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
-        Set IT = Me.lwp2(1).ListItems.Add
-        IT.Text = miRsAux!codArtic
-        IT.SubItems(1) = miRsAux!NomArtic
+        Set It = Me.lwp2(1).ListItems.Add
+        It.Text = miRsAux!codartic
+        It.SubItems(1) = miRsAux!NomArtic
         Cantidad = miRsAux!CanStock
         If Cantidad < 0 Then
             Cantidad = 0
-            IT.SubItems(2) = " "
-            IT.ForeColor = vbRed
+            It.SubItems(2) = " "
+            It.ForeColor = vbRed
             
         Else
-            IT.SubItems(2) = Format(Cantidad, FormatoCantidad)
+            It.SubItems(2) = Format(Cantidad, FormatoCantidad)
         End If
-        IT.SubItems(3) = Cantidad 'stock en numero, columna oculta
+        It.SubItems(3) = Cantidad 'stock en numero, columna oculta
         
         
         miRsAux.MoveNext
@@ -6488,13 +6534,33 @@ Dim Semana As Byte
     'Empezare en la columna 4
     
     Aux = "select sementre from scaped group by 1 order by 1"
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    'Dic2018
+    Aux = "select ((year(fecentre)-" & MinAnyo & ") *100) + sementre  as sementre from scaped group by 1 order by 1"
+    
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     NumRegElim = 5 'empieza en la 5
     While Not miRsAux.EOF
         NumRegElim = NumRegElim + 1
         Set Colu = Me.lwp2(1).ColumnHeaders.Add
         Colu.Alignment = lvwColumnRight
-        Colu.Text = "Sem" & miRsAux!sementre
+        
+        
+        'encabezado con la semna
+        AuxD = ""
+        K = miRsAux!sementre
+        If K > 100 Then
+            AuxD = CStr(K)
+            AuxD = Mid(AuxD, 1, Len(AuxD) - 2)
+            
+            AuxD = (Val(AuxD) + MinAnyo) Mod 100 & "/"
+            
+            K = K Mod 100
+           
+        End If
+        AuxD = AuxD & CStr(K)
+        
+        
+        Colu.Text = "Sem" & AuxD
         Colu.Width = 1000
         
         For J = 1 To Me.lwp2(1).ListItems.Count
@@ -6511,14 +6577,25 @@ Dim Semana As Byte
     
     Do   'el primero se hace
         NumRegElim = NumRegElim + 1
+        NumeroAnyoPedido = 0
         Aux = Mid(lwp2(1).ColumnHeaders(NumRegElim).Text, 4)  'SEM39-->39
-        Semana = CByte(Aux)
-        Aux = " and sementre=" & Aux & " and conjunto=1  and sliped.codartic<>'000000000000'  group by 1"
+        If InStr(1, Aux, "/") > 0 Then
+            NumeroAnyoPedido = Mid(Aux, 1, InStr(1, Aux, "/") - 1)
+            Aux = Mid(Aux, InStr(1, Aux, "/") + 1)
+        End If
+        Semana2 = CByte(Aux)
+        Aux = " and sementre=" & Aux & " and conjunto=1  and sliped.codartic<>'000000000000'"
         Aux = " scaped.numpedcl = sliped.numpedcl And sliped.codArtic = sartic.codArtic " & Aux
+         Aux = Aux & " AND year(fecentre)="
+        If NumeroAnyoPedido > 0 Then
+            Aux = Aux & CStr(2000 + NumeroAnyoPedido)
+        Else
+            Aux = Aux & CStr(MinAnyo)
+        End If
         'No miro la cantidad. VOY a ver la referencia y buscare
         ' el lwiew de la semana,y producto que valor hay que producir
-        Aux = "select sliped.codartic from scaped,sliped,sartic where" & Aux
-        miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        Aux = "select sliped.codartic from scaped,sliped,sartic where" & Aux & "   group by 1"
+        miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         
         
         
@@ -6528,11 +6605,11 @@ Dim Semana As Byte
                 'If Right(miRsAux!codartic, 3) = "103" Then Stop
                 
                 
-                CantidadSegunPlanning = CantidadAProducirSabiendoStock(Semana, miRsAux!codArtic)
+                CantidadSegunPlanning = CantidadAProducirSabiendoStock(Semana2, miRsAux!codartic, NumeroAnyoPedido)
                 
                 Aux = "select codarti1,cantidad from sarti1,sartic where sarti1.codarti1=sartic.codartic AND "
-                Aux = Aux & " sarti1.codartic=" & DBSet(miRsAux!codArtic, "T") & " AND factorconversion=1"
-                RN.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                Aux = Aux & " sarti1.codartic=" & DBSet(miRsAux!codartic, "T") & " AND factorconversion=1"
+                RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 While Not RN.EOF
                     
                     For J = 1 To Me.lwp2(1).ListItems.Count
@@ -6604,11 +6681,11 @@ Dim Semana As Byte
             Aux = " WHERE codartic in (" & Aux & ")"
             Aux = "select slippr.codartic,sum(cantidad) from slippr  " & Aux
             Aux = Aux & " group by 1"
-            miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             While Not miRsAux.EOF
         
                 For J = 1 To Me.lwp2(1).ListItems.Count
-                    If lwp2(1).ListItems(J).Text = miRsAux!codArtic Then
+                    If lwp2(1).ListItems(J).Text = miRsAux!codartic Then
                         
                         lwp2(1).ListItems(J).SubItems(4) = Format(miRsAux.Fields(1), FormatoCantidad)
                         'lwp2(1).ListItems(J).ListSubItems(4).Bold = True
@@ -6649,14 +6726,14 @@ End Sub
 
 
 
-Private Sub ImprimirPedido(Columna As Integer)
+Private Sub ImprimirPedido(columna As Integer)
 
     With frmImprimir
         'indRPT = 7 '7: Pedidos de Clientes
         Aux = DevuelveDesdeBD(conAri, "documrpt", "scryst", "codcryst", "7")
         .NombreRPT = Aux
         .Titulo = "Pedido de Ventas desde produccion"
-        .FormulaSeleccion = "{scaped.numpedcl}=" & Me.lwp.ColumnHeaders(Columna + 1).Tag
+        .FormulaSeleccion = "{scaped.numpedcl}=" & Me.lwp.ColumnHeaders(columna + 1).Tag
         .OtrosParametros = "|pCodigoISO=""1""|pCodigoRev=""02""|pLinea1=""Desde produccion""|SinValorar= 1|pTipoIVA=0|"
         .NumeroParametros = 4
         .Show vbModal
@@ -6664,19 +6741,38 @@ Private Sub ImprimirPedido(Columna As Integer)
 End Sub
 
 
-Private Function CantidadAProducirSabiendoStock(Semana As Byte, QueArticulo As String) As Currency
+Private Function CantidadAProducirSabiendoStock(Semana2 As Integer, QueArticulo As String, AnyoSiguiente As Integer) As Currency
 Dim I As Integer
 Dim Esta As Boolean
+Dim SemanaCalculada As Integer
+Dim SemanaListview As Integer
+
 
         CantidadAProducirSabiendoStock = 0
         Esta = False
+        
+        
+        SemanaCalculada = Semana2
+        If AnyoSiguiente > 0 Then SemanaCalculada = SemanaCalculada + 53
+    
         For I = 1 To Me.lwp2(0).ListItems.Count
+        
+          
+            If Not IsNumeric(Me.lwp2(0).ListItems(I).SubItems(3)) Then
+                
+                SemanaListview = 53 + Mid(Me.lwp2(0).ListItems(I).SubItems(3), 4)
+            Else
+                SemanaListview = Val(Me.lwp2(0).ListItems(I).SubItems(3))
+            End If
+           
+                
+        
             'Misma semana
-            If Val(Me.lwp2(0).ListItems(I).SubItems(3)) > Semana Then
+            If SemanaListview > SemanaCalculada Then
                 'Ya salimos
                 Exit For
             Else
-                If Val(Me.lwp2(0).ListItems(I).SubItems(3)) = Semana Then
+                If SemanaListview = SemanaCalculada Then
                     If Me.lwp2(0).ListItems(I).Text = QueArticulo Then
                         'Este es el articulo
                         Esta = True
@@ -6701,8 +6797,10 @@ Dim Esta As Boolean
                 End If
             End If
         Next I
+    
+        
         If Not Esta Then
-            MsgBox "No encontrado. Semana " & Semana & " Art. " & QueArticulo, vbExclamation
+            MsgBox "No encontrado. Semana " & Semana2 & " Art. " & QueArticulo, vbExclamation
         Else
             CantidadAProducirSabiendoStock = Round(CantidadAProducirSabiendoStock, 0)
         End If
@@ -6792,7 +6890,7 @@ Dim SQL As String
     Set miRsAux = New ADODB.Recordset
     SQL = "select prodlin.codigo,prodlin.idlin ,lotetraza from prodlin,prodtrazlin  where prodlin.codigo= prodtrazlin.codigo AND prodlin.idlin = prodtrazlin.idlin"
     SQL = SQL & " and lineaprod = " & KLinea & " and estado >0 and estado<10 ORDER BY lotetraza DESC"  'Pq puede que haya varios cambios de trazabilidad para la misma linea
-    miRsAux.Open SQL, Conn, adOpenKeyset, adLockPessimistic, adCmdText
+    miRsAux.Open SQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
     I = 0
     If Not miRsAux.EOF Then
         'UNO tiene seguro
@@ -6883,7 +6981,7 @@ Private Sub VerLineasEntradasDuplicadas()
 
     Aux = "Select lotetraza  from prodcajasduplicadas GROUP BY 1"
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not miRsAux.EOF
         For NumRegElim = 0 To NumeroLineasProduccion - 1
             If Val(txtTraza(NumRegElim).Text) = Val(miRsAux!lotetraza) Then

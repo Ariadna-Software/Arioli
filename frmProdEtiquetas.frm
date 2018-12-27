@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmProdEtiquetas 
@@ -8,15 +8,52 @@ Begin VB.Form frmProdEtiquetas
    ClientHeight    =   6540
    ClientLeft      =   45
    ClientTop       =   330
-   ClientWidth     =   8220
+   ClientWidth     =   10665
    Icon            =   "frmProdEtiquetas.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   6540
-   ScaleWidth      =   8220
+   ScaleWidth      =   10665
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.TextBox txtAux 
+      Appearance      =   0  'Flat
+      BorderStyle     =   0  'None
+      Height          =   270
+      Index           =   6
+      Left            =   8280
+      TabIndex        =   13
+      Tag             =   "ID|N|N|||prodparametiq|id|000|S|"
+      Text            =   "Dat"
+      Top             =   5040
+      Width           =   915
+   End
+   Begin VB.TextBox txtAux 
+      Appearance      =   0  'Flat
+      BorderStyle     =   0  'None
+      Height          =   270
+      Index           =   4
+      Left            =   6120
+      TabIndex        =   3
+      Tag             =   "Categoria|N|S|||prodparametiq|codfamia||N|"
+      Text            =   "Dat"
+      Top             =   5040
+      Width           =   915
+   End
+   Begin VB.TextBox txtAux 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000018&
+      BorderStyle     =   0  'None
+      Enabled         =   0   'False
+      Height          =   270
+      Index           =   5
+      Left            =   6960
+      TabIndex        =   12
+      Text            =   "Dat"
+      Top             =   5040
+      Width           =   1755
+   End
    Begin VB.TextBox txtAux 
       Appearance      =   0  'Flat
       BackColor       =   &H80000018&
@@ -25,7 +62,7 @@ Begin VB.Form frmProdEtiquetas
       Height          =   270
       Index           =   3
       Left            =   4920
-      TabIndex        =   9
+      TabIndex        =   10
       Text            =   "Dat"
       Top             =   5040
       Width           =   1755
@@ -50,7 +87,7 @@ Begin VB.Form frmProdEtiquetas
       Left            =   120
       MaxLength       =   4
       TabIndex        =   0
-      Tag             =   "Código Marca|N|N|0|9999|prodparametiq|codmarca||S|"
+      Tag             =   "Código Marca|N|N|0|9999|prodparametiq|codmarca||N|"
       Text            =   "Dat"
       Top             =   5040
       Width           =   800
@@ -73,11 +110,11 @@ Begin VB.Form frmProdEtiquetas
       Bindings        =   "frmProdEtiquetas.frx":000C
       Height          =   4710
       Left            =   120
-      TabIndex        =   8
+      TabIndex        =   9
       TabStop         =   0   'False
       Top             =   540
-      Width           =   7935
-      _ExtentX        =   13996
+      Width           =   10455
+      _ExtentX        =   18441
       _ExtentY        =   8308
       _Version        =   393216
       AllowUpdate     =   0   'False
@@ -141,23 +178,23 @@ Begin VB.Form frmProdEtiquetas
       Cancel          =   -1  'True
       Caption         =   "&Cancelar"
       Height          =   375
-      Left            =   7080
-      TabIndex        =   4
-      Top             =   6000
+      Left            =   9600
+      TabIndex        =   5
+      Top             =   5880
       Width           =   1035
    End
    Begin VB.CommandButton cmdAceptar 
       Caption         =   "&Aceptar"
       Height          =   375
-      Left            =   5760
-      TabIndex        =   3
-      Top             =   6000
+      Left            =   8280
+      TabIndex        =   4
+      Top             =   5880
       Width           =   1035
    End
    Begin VB.Frame Frame1 
       Height          =   555
       Left            =   90
-      TabIndex        =   6
+      TabIndex        =   7
       Top             =   5940
       Width           =   1755
       Begin VB.Label lblIndicador 
@@ -174,7 +211,7 @@ Begin VB.Form frmProdEtiquetas
          EndProperty
          Height          =   255
          Left            =   240
-         TabIndex        =   7
+         TabIndex        =   8
          Top             =   240
          Width           =   1200
       End
@@ -183,10 +220,10 @@ Begin VB.Form frmProdEtiquetas
       Align           =   1  'Align Top
       Height          =   390
       Left            =   0
-      TabIndex        =   5
+      TabIndex        =   6
       Top             =   0
-      Width           =   8220
-      _ExtentX        =   14499
+      Width           =   10665
+      _ExtentX        =   18812
       _ExtentY        =   688
       ButtonWidth     =   609
       ButtonHeight    =   582
@@ -296,7 +333,7 @@ Begin VB.Form frmProdEtiquetas
       EndProperty
       Height          =   375
       Left            =   120
-      TabIndex        =   10
+      TabIndex        =   11
       Top             =   5520
       Width           =   7815
    End
@@ -362,23 +399,30 @@ Dim Modo As Byte
 
 
 Private Sub PonerModo(vModo As Byte)
-Dim B As Boolean
-    
+Dim b As Boolean
+Dim I As Integer
     Modo = vModo
-    B = (Modo = 2)
+    b = (Modo = 2)
     PonerIndicador Me.lblIndicador, Modo
     
-    txtAux(0).visible = Not B
-    txtAux(1).visible = Not B
-    txtAux(2).visible = Not B
-    txtAux(3).visible = Not B
     
-    cmdAceptar.visible = Not B
-    cmdCancelar.visible = Not B
-    DataGrid1.Enabled = B
+    For I = 0 To 6
+        txtAux(I).visible = Not b
+    Next
+    
+    
+    
+    
+    cmdAceptar.visible = Not b
+    cmdCancelar.visible = Not b
+    DataGrid1.Enabled = b
 
     'Si estamos insertando o busqueda
     BloquearTxt txtAux(0), (Modo <> 3 And Modo <> 1)
+    BloquearTxt txtAux(3), True
+    BloquearTxt txtAux(4), (Modo <> 3 And Modo <> 1)
+    BloquearTxt txtAux(5), True
+    
     
     
     'Poner el tamaño de los campos. Si es modo Busqueda el MaxLength del campo
@@ -392,27 +436,27 @@ End Sub
 
 
 Private Sub PonerModoOpcionesMenu()
-Dim B As Boolean
+Dim b As Boolean
 
-    B = (Modo = 2)
+    b = (Modo = 2)
     
     'Buscar
-    Toolbar1.Buttons(1).Enabled = B
-    Me.mnBuscar.Enabled = B
+    Toolbar1.Buttons(1).Enabled = b
+    Me.mnBuscar.Enabled = b
     'Ver Todos
-    Toolbar1.Buttons(2).Enabled = B
-    Me.mnVerTodos.Enabled = B
+    Toolbar1.Buttons(2).Enabled = b
+    Me.mnVerTodos.Enabled = b
    
-    B = B And vUsu.Nivel = 0
+    b = b And vUsu.Nivel = 0
     'Insertar
-    Toolbar1.Buttons(5).Enabled = B
-    Me.mnNuevo.Enabled = B
+    Toolbar1.Buttons(5).Enabled = b
+    Me.mnNuevo.Enabled = b
     'Modificar
-    Toolbar1.Buttons(6).Enabled = B
-    Me.mnModificar.Enabled = B
+    Toolbar1.Buttons(6).Enabled = b
+    Me.mnModificar.Enabled = b
     'Eliminar
-    Toolbar1.Buttons(7).Enabled = B
-    Me.mnEliminar.Enabled = B
+    Toolbar1.Buttons(7).Enabled = b
+    Me.mnEliminar.Enabled = b
     
 
 End Sub
@@ -429,13 +473,12 @@ Private Sub BotonAnyadir()
 Dim anc As Single
     
     'Situamos el grid al final
-    AnyadirLinea DataGrid1, adodc1
+    AnyadirLinea DataGrid1, Adodc1
       
     anc = ObtenerAlto(DataGrid1, 10)
     
     'Obtenemos la siguiente numero de código de Marca
-    txtAux(0).Text = "": txtAux(1).Text = ""
-    txtAux(2).Text = "": txtAux(3).Text = ""
+    limpiar Me
     LLamaLineas anc, 3
     
     'Ponemos el foco
@@ -455,7 +498,7 @@ End Sub
 Private Sub BotonVerTodos()
 On Error Resume Next
     CargaGrid ""
-    If adodc1.Recordset.RecordCount <= 0 Then
+    If Adodc1.Recordset.RecordCount <= 0 Then
          'MsgBox "No hay ningún registro en la tabla " & NombreTabla, vbInformation
          MsgBox "No hay ningún registro en la tabla smarca", vbInformation
          Screen.MousePointer = vbDefault
@@ -473,8 +516,8 @@ Dim anc As Single
 Dim I As Integer
 On Error GoTo EModificar
 
-    If adodc1.Recordset.EOF Then Exit Sub
-    If adodc1.Recordset.RecordCount < 1 Then Exit Sub
+    If Adodc1.Recordset.EOF Then Exit Sub
+    If Adodc1.Recordset.RecordCount < 1 Then Exit Sub
 
 
     Screen.MousePointer = vbHourglass
@@ -496,6 +539,9 @@ On Error GoTo EModificar
     txtAux(1).Text = DataGrid1.Columns(1).Text
     txtAux(2).Text = DataGrid1.Columns(2).Text
     txtAux(3).Text = DataGrid1.Columns(3).Text
+    txtAux(4).Text = DataGrid1.Columns(4).Text
+    txtAux(5).Text = DataGrid1.Columns(5).Text
+    txtAux(6).Text = DataGrid1.Columns(6).Text
     LLamaLineas anc, 4
    
     Screen.MousePointer = vbDefault
@@ -505,20 +551,20 @@ End Sub
 
 
 Private Sub LLamaLineas(alto As Single, xModo As Byte)
+Dim I As Integer
 
     DeseleccionaGrid DataGrid1
     PonerModo xModo
     'Fijamos el ancho
-    
-    txtAux(0).Top = alto
-    txtAux(1).Top = alto
-    txtAux(2).Top = alto
-    txtAux(3).Top = alto
+    For I = 0 To 5
+        txtAux(I).Top = alto
+    Next I
 
     txtAux(0).Left = DataGrid1.Left + 340
-    txtAux(1).Left = txtAux(0).Left + txtAux(0).Width + 45
-    txtAux(2).Left = txtAux(1).Left + txtAux(1).Width + 45
-    txtAux(3).Left = txtAux(2).Left + txtAux(2).Width + 45
+    For I = 1 To 5
+        txtAux(I).Left = txtAux(I - 1).Left + txtAux(I - 1).Width + 45
+    Next I
+    txtAux(6).Left = 20000
 End Sub
 
 
@@ -527,26 +573,29 @@ Dim SQL As String
 On Error GoTo Error2
 
     'Ciertas comprobaciones
-    If adodc1.Recordset.EOF Then Exit Sub
+    If Adodc1.Recordset.EOF Then Exit Sub
     If Not SepuedeBorrar Then Exit Sub
     
     'El registro de codigo 0 no se puede Modificar ni Eliminar
-    If EsCodigoCero(CStr(adodc1.Recordset.Fields(0).Value), FormatoCod) Then Exit Sub
+    If EsCodigoCero(CStr(Adodc1.Recordset.Fields(0).Value), FormatoCod) Then Exit Sub
     
     '### a mano
     SQL = "¿Seguro que desea eliminar la etiqueta?" & vbCrLf
-    SQL = SQL & vbCrLf & "Código: " & Format(adodc1.Recordset.Fields(0), FormatoCod)
-    SQL = SQL & vbCrLf & "Denominación: " & adodc1.Recordset.Fields(1)
-    SQL = SQL & vbCrLf & "MARCA: " & DBLet(adodc1.Recordset.Fields(3), "T")
+    SQL = SQL & vbCrLf & "Código: " & Format(Adodc1.Recordset.Fields(0), FormatoCod)
+    SQL = SQL & vbCrLf & "Denominación: " & Adodc1.Recordset.Fields(1) & vbCrLf
+    SQL = SQL & vbCrLf & "MARCA:       " & DBLet(Adodc1.Recordset.Fields(3), "T")
+    If DBLet(Adodc1.Recordset.Fields(4), "T") <> "" Then SQL = SQL & vbCrLf & "CATEGORIA:      " & DBLet(Adodc1.Recordset.Fields(5), "T")
+    
+    
     If MsgBox(SQL, vbQuestion + vbYesNo) = vbYes Then
         'Hay que eliminar
-        NumRegElim = Me.adodc1.Recordset.AbsolutePosition
-        SQL = "Delete from prodparametiq where codmarca=" & adodc1.Recordset!codmarca
-        Conn.Execute SQL
-        CancelaADODC adodc1
+        NumRegElim = Me.Adodc1.Recordset.AbsolutePosition
+        SQL = "Delete from prodparametiq where id=" & Adodc1.Recordset!ID
+        conn.Execute SQL
+        CancelaADODC Adodc1
         CargaGrid ""
-        CancelaADODC Me.adodc1
-        SituarDataPosicion Me.adodc1, NumRegElim, SQL
+        CancelaADODC Me.Adodc1
+        SituarDataPosicion Me.Adodc1, NumRegElim, SQL
     End If
     
 Error2:
@@ -562,7 +611,9 @@ On Error Resume Next
 
     Select Case Modo
         Case 3   'INSERTAR
+            txtAux(6).Text = SugerirCodigoSiguienteStr("prodparametiq", "id")
             If DatosOk Then
+                
                 If InsertarDesdeForm(Me) Then
                     CargaGrid
                     BotonAnyadir
@@ -573,11 +624,11 @@ On Error Resume Next
             If DatosOk And BLOQUEADesdeFormulario(Me) Then
                 If ModificaDesdeFormulario(Me, 3) Then
                     TerminaBloquear
-                    I = adodc1.Recordset.Fields(0)
+                    I = Adodc1.Recordset.Fields(6)
                     PonerModo 2
-                    CancelaADODC Me.adodc1
+                    CancelaADODC Me.Adodc1
                     CargaGrid
-                    adodc1.Recordset.Find (adodc1.Recordset.Fields(0).Name & " =" & I)
+                    Adodc1.Recordset.Find (Adodc1.Recordset.Fields(6).Name & " =" & I)
                 End If
                 DataGrid1.SetFocus
             End If
@@ -600,9 +651,9 @@ Private Sub cmdCancelar_Click()
         Case 3 'Insertar
             DataGrid1.AllowAddNew = False
             'CargaGrid
-            If Not adodc1.Recordset.EOF Then adodc1.Recordset.MoveFirst
+            If Not Adodc1.Recordset.EOF Then Adodc1.Recordset.MoveFirst
         Case 4 'Modificar
-            Me.lblIndicador.Caption = adodc1.Recordset.AbsolutePosition & " de " & adodc1.Recordset.RecordCount
+            Me.lblIndicador.Caption = Adodc1.Recordset.AbsolutePosition & " de " & Adodc1.Recordset.RecordCount
         Case 1 'Buscar
             CargaGrid
     End Select
@@ -620,8 +671,8 @@ Private Sub DataGrid1_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub DataGrid1_RowColChange(LastRow As Variant, ByVal LastCol As Integer)
-    If Not adodc1.Recordset.EOF Then 'And Modo = 0 Then
-        lblIndicador.Caption = adodc1.Recordset.AbsolutePosition & " de " & adodc1.Recordset.RecordCount
+    If Not Adodc1.Recordset.EOF Then 'And Modo = 0 Then
+        lblIndicador.Caption = Adodc1.Recordset.AbsolutePosition & " de " & Adodc1.Recordset.RecordCount
     End If
 End Sub
 
@@ -657,7 +708,9 @@ Private Sub Form_Load()
       
     'Cadena consulta
     'prodparametiq  codmarca descripcion archivo tipo
-    CadenaConsulta = "Select prodparametiq.codmarca,descripcion,archivo,nommarca from prodparametiq left join smarca on prodparametiq.codmarca=smarca.codmarca"
+    CadenaConsulta = "Select prodparametiq.codmarca,descripcion,archivo,nommarca,prodparametiq.codfamia,nomfamia,id"
+    CadenaConsulta = CadenaConsulta & "  from prodparametiq left join smarca on prodparametiq.codmarca=smarca.codmarca"
+    CadenaConsulta = CadenaConsulta & " left join sfamia on prodparametiq.codfamia=sfamia.codfamia"
     CargaGrid
 End Sub
 
@@ -708,9 +761,9 @@ End Sub
 
 Private Sub CargaGrid(Optional SQL As String)
 Dim I As Byte
-Dim B As Boolean
+Dim b As Boolean
     
-    B = DataGrid1.Enabled
+    b = DataGrid1.Enabled
 
     If SQL <> "" Then
         SQL = CadenaConsulta & " WHERE " & SQL
@@ -719,12 +772,12 @@ Dim B As Boolean
     End If
     SQL = SQL & " ORDER BY codmarca"
 
-    CargaGridGnral DataGrid1, Me.adodc1, SQL, False
+    CargaGridGnral DataGrid1, Me.Adodc1, SQL, False
 
     
     'Nombre producto
     I = 0
-        DataGrid1.Columns(I).Caption = "Id"
+        DataGrid1.Columns(I).Caption = "Marca"
         DataGrid1.Columns(I).Width = 800
         DataGrid1.Columns(I).NumberFormat = FormatoCod
     
@@ -741,6 +794,17 @@ Dim B As Boolean
         DataGrid1.Columns(I).Caption = "Marca"
         DataGrid1.Columns(I).Width = 2330
             
+    I = 4
+        DataGrid1.Columns(I).Caption = "Categ."
+        DataGrid1.Columns(I).Width = 800
+            
+    I = 5
+        DataGrid1.Columns(I).Caption = "Descr. categoria"
+        DataGrid1.Columns(I).Width = 2330
+        
+    I = 6
+        DataGrid1.Columns(I).visible = False
+        
     'Fiajamos el cadancho
     If Not CadAncho Then
         'La primera vez fijamos el ancho y alto de  los txtaux
@@ -761,17 +825,17 @@ Dim B As Boolean
    
     'Habilitamos botones Modificar y Eliminar
    If Toolbar1.Buttons(6).Enabled = True Then
-        Toolbar1.Buttons(6).Enabled = Not adodc1.Recordset.EOF
-        Toolbar1.Buttons(7).Enabled = Not adodc1.Recordset.EOF
-        mnModificar.Enabled = Not adodc1.Recordset.EOF
-        mnEliminar.Enabled = Not adodc1.Recordset.EOF
+        Toolbar1.Buttons(6).Enabled = Not Adodc1.Recordset.EOF
+        Toolbar1.Buttons(7).Enabled = Not Adodc1.Recordset.EOF
+        mnModificar.Enabled = Not Adodc1.Recordset.EOF
+        mnEliminar.Enabled = Not Adodc1.Recordset.EOF
     End If
-   DataGrid1.Enabled = B
+   DataGrid1.Enabled = b
    DataGrid1.ScrollBars = dbgAutomatic
    
    'Actualizar indicador
-   If Not adodc1.Recordset.EOF And (Modo = 0) Then
-        lblIndicador.Caption = adodc1.Recordset.AbsolutePosition & " de " & adodc1.Recordset.RecordCount
+   If Not Adodc1.Recordset.EOF And (Modo = 0) Then
+        lblIndicador.Caption = Adodc1.Recordset.AbsolutePosition & " de " & Adodc1.Recordset.RecordCount
    Else
         Me.lblIndicador.Caption = ""
    End If
@@ -803,26 +867,61 @@ Private Sub txtAux_LostFocus(Index As Integer)
                 MsgBox "No existe la marca: " & txtAux(0).Text, vbExclamation
                 txtAux(0).Text = ""
                 PonerFoco txtAux(0)
+            Else
+                If Modo = 3 Then txtAux(1).Text = txtAux(3).Text
             End If
+            
         Else
             txtAux(0).Text = ""
+        End If
+        
+    ElseIf Index = 4 Then
+        txtAux(5).Text = ""
+        If PonerFormatoEntero(txtAux(Index)) Then
+            txtAux(5).Text = DevuelveDesdeBD(conAri, "nomfamia", "sfamia", "codfamia", txtAux(Index).Text)
+            If txtAux(5).Text = "" Then
+                MsgBox "No existe la categoria: " & txtAux(Index).Text, vbExclamation
+                txtAux(Index).Text = ""
+                PonerFoco txtAux(Index)
+            End If
+        Else
+            txtAux(Index).Text = ""
         End If
     End If
 End Sub
 
 
 Private Function DatosOk() As Boolean
-Dim B As Boolean
+Dim b As Boolean
+Dim C As String
 
-    B = CompForm(Me, 3)
-    If Not B Then Exit Function
+    b = CompForm(Me, 3)
+    If Not b Then Exit Function
     
+    If Val(txtAux(0).Text) = 0 Then
+            MsgBox "No puede insertar /modificar la marca GENERICA", vbExclamation
+            Exit Function
+    End If
     'Comprobar si ya existe el cod de marca en la tabla
-    If Modo = 3 Then 'Insertar
-        If ExisteCP(txtAux(0)) Then B = False
+    If Modo = 3 Then
+    
+        
+    
+    
+        If txtAux(4).Text = "" Then
+            C = " is null"
+        Else
+            C = "codfamia =" & txtAux(4).Text
+        End If
+        C = "codmarca= " & txtAux(0).Text & " AND " & C & " AND 1"
+        C = DevuelveDesdeBD(conAri, "id", "prodparametiq", C, "1")
+        If C <> "" Then
+            b = False
+            MsgBox "Ya esta dado de alta marca/familia", vbExclamation
+        End If
     End If
     
-    DatosOk = B
+    DatosOk = b
 End Function
 
 

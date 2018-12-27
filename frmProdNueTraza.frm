@@ -38,20 +38,20 @@ Begin VB.Form frmProdNueTraza2
       TabCaption(1)   =   "Pesajes"
       TabPicture(1)   =   "frmProdNueTraza.frx":0028
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Text5(12)"
-      Tab(1).Control(1)=   "Text5(11)"
-      Tab(1).Control(2)=   "Text5(10)"
-      Tab(1).Control(3)=   "Text5(5)"
-      Tab(1).Control(4)=   "Text5(8)"
-      Tab(1).Control(5)=   "Text5(9)"
-      Tab(1).Control(6)=   "cboSerie"
-      Tab(1).Control(7)=   "ListView2"
-      Tab(1).Control(8)=   "Label5(13)"
-      Tab(1).Control(9)=   "Label5(12)"
-      Tab(1).Control(10)=   "Label5(7)"
-      Tab(1).Control(11)=   "Label5(10)"
-      Tab(1).Control(12)=   "Label5(11)"
-      Tab(1).Control(13)=   "Label5(0)"
+      Tab(1).Control(0)=   "Label5(0)"
+      Tab(1).Control(1)=   "Label5(11)"
+      Tab(1).Control(2)=   "Label5(10)"
+      Tab(1).Control(3)=   "Label5(7)"
+      Tab(1).Control(4)=   "Label5(12)"
+      Tab(1).Control(5)=   "Label5(13)"
+      Tab(1).Control(6)=   "ListView2"
+      Tab(1).Control(7)=   "cboSerie"
+      Tab(1).Control(8)=   "Text5(9)"
+      Tab(1).Control(9)=   "Text5(8)"
+      Tab(1).Control(10)=   "Text5(5)"
+      Tab(1).Control(11)=   "Text5(10)"
+      Tab(1).Control(12)=   "Text5(11)"
+      Tab(1).Control(13)=   "Text5(12)"
       Tab(1).ControlCount=   14
       Begin VB.TextBox Text5 
          Alignment       =   2  'Center
@@ -921,7 +921,7 @@ Dim btnPrimero As Byte
 'Variable que indica el número del Boton  PrimerRegistro en la Toolbar1
 
 Private CadenaConsulta2 As String
-Private kCampo As Integer
+Private Kcampo As Integer
 '-------------------------------------------------------------------------
 Private Ordenasao As String
 Private PrimeraVez As Boolean
@@ -1015,9 +1015,9 @@ Private Sub BotonBuscar()
     Else
         HacerBusqueda
         If Data1.Recordset.EOF Then
-            Text1(kCampo).Text = ""
-            Text1(kCampo).BackColor = vbYellow
-            PonerFoco Text1(kCampo)
+            Text1(Kcampo).Text = ""
+            Text1(Kcampo).BackColor = vbYellow
+            PonerFoco Text1(Kcampo)
         End If
     End If
 End Sub
@@ -1048,22 +1048,22 @@ End Sub
 
 
 Private Sub BotonEliminar()
-Dim cad As String
+Dim Cad As String
 
     'Ciertas comprobaciones
     If Data1.Recordset.EOF Then Exit Sub
     
     '### a mano
-    cad = "¿Seguro que desea eliminar el Banco Propio? " & vbCrLf
-    cad = cad & vbCrLf & "Cod. Banco : " & Format(Data1.Recordset.Fields(0), "0000")
-    cad = cad & vbCrLf & "Desc. Banco: " & Data1.Recordset.Fields(1)
+    Cad = "¿Seguro que desea eliminar el Banco Propio? " & vbCrLf
+    Cad = Cad & vbCrLf & "Cod. Banco : " & Format(Data1.Recordset.Fields(0), "0000")
+    Cad = Cad & vbCrLf & "Desc. Banco: " & Data1.Recordset.Fields(1)
     
-    If MsgBox(cad, vbQuestion + vbYesNo) = vbYes Then     'Borramos
+    If MsgBox(Cad, vbQuestion + vbYesNo) = vbYes Then     'Borramos
         On Error GoTo Error2
         Screen.MousePointer = vbHourglass
         NumRegElim = Data1.Recordset.AbsolutePosition
-        cad = "Delete from sbanpr where codbanpr=" & Data1.Recordset!codbanpr
-        conn.Execute cad
+        Cad = "Delete from sbanpr where codbanpr=" & Data1.Recordset!codbanpr
+        conn.Execute Cad
 '        Data1.Recordset.Delete
         If SituarDataTrasEliminar(Data1, NumRegElim) Then
             PonerCampos
@@ -1080,16 +1080,16 @@ End Sub
 
 
 Private Sub cmdRegresar_Click()
-Dim cad As String
+Dim Cad As String
 
     If Data1.Recordset.EOF Then
         MsgBox "Ningún registro devuelto.", vbExclamation
         Exit Sub
     End If
     
-    cad = Data1.Recordset.Fields(0) & "|"
-    cad = cad & Data1.Recordset.Fields(1) & "|"
-    RaiseEvent DatoSeleccionado(cad)
+    Cad = Data1.Recordset.Fields(0) & "|"
+    Cad = Cad & Data1.Recordset.Fields(1) & "|"
+    RaiseEvent DatoSeleccionado(Cad)
     Unload Me
 End Sub
 
@@ -1146,7 +1146,7 @@ Private Sub Form_Load()
     LimpiarCampos   'Limpia los campos TextBox
 
     Ordenasao = " ORDER BY prodlin.codigo,prodlin.idlin ,lotetraza"
-
+    Ordenasao = " ORDER BY  fhinicio"
         
     'Vemos como esta guardado el valor del check
     chkVistaPrevia.Value = CheckValueLeer(Name)
@@ -1156,7 +1156,7 @@ Private Sub Form_Load()
     
     
     If QueTrazabilidad = 0 Then
-        Data1.RecordSource = MontaSQL2(False) & " AND  prodlin.idlin=-1"
+        Data1.RecordSource = MontaSQL2(False) & " AND  false"
         Data1.Refresh
     
         PonerModo 0
@@ -1302,7 +1302,7 @@ End Sub
 
 
 Private Sub Text1_GotFocus(Index As Integer)
-    kCampo = Index
+    Kcampo = Index
     ConseguirFoco Text1(Index), Modo
 End Sub
 
@@ -1408,28 +1408,28 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim cad As String
+Dim Cad As String
 
         'Llamamos a al form
         '##A mano
 
 
             'Cod Diag.|tabla|columna|tipo|formato|10·
-            cad = "Trazab.|prodtrazlin|lotetraza|N|000000|12·"
-            cad = cad & "Referencia|prodlin|codartic|T||22·"
-            cad = cad & "Articulo|sartic|nomartic|T||50·"
+            Cad = "Trazab.|prodtrazlin|lotetraza|N|000000|12·"
+            Cad = Cad & "Referencia|prodlin|codartic|T||22·"
+            Cad = Cad & "Articulo|sartic|nomartic|T||50·"
            
    
         
         
             Screen.MousePointer = vbHourglass
             Set frmB = New frmBuscaGrid
-            frmB.vCampos = cad
+            frmB.vCampos = Cad
             frmB.vTabla = "prodlin,prodtrazlin,sartic"
             
-            cad = MontaSQL2(True)
+            Cad = MontaSQL2(True)
             If cadB <> "" Then cadB = " AND " & cadB
-            frmB.vSQL = cad & cadB
+            frmB.vSQL = Cad & cadB
      
 
             frmB.vDevuelve = "0|"
@@ -1484,7 +1484,7 @@ EEPonerBusq:
 End Sub
 
 Private Sub PonerCampos()
-Dim i As Byte
+Dim I As Byte
     
     If Data1.Recordset.EOF Then Exit Sub
     Screen.MousePointer = vbHourglass
@@ -1669,11 +1669,11 @@ End Sub
 
 
 Private Sub PosicionarData()
-Dim cad As String
+Dim Cad As String
 Dim Indicador As String
 
-    cad = "(codbanpr=" & Text1(0).Text & ")"
-    If SituarData(Data1, cad, Indicador) Then
+    Cad = "(codbanpr=" & Text1(0).Text & ")"
+    If SituarData(Data1, Cad, Indicador) Then
         PonerModo 2
         lblIndicador.Caption = Indicador
     Else
@@ -1747,7 +1747,7 @@ Dim SQL As String
             End If
             
             SQL = SQL & Space(CLng(L))
-            SQL = SQL & "Lot:" & miRsAux!NUmlote & " / "
+            SQL = SQL & "Lot:" & miRsAux!numLote & " / "
             C2 = DBLet(miRsAux!cantutili, "N")
             If Int(C2) = C2 Then
                 SQL = SQL & Format(C2, "#,##0")
@@ -1924,7 +1924,7 @@ End Sub
 
 'De cada SERIE
 Private Sub ValoresEstadisticosMuestra2()
-Dim i As Integer
+Dim I As Integer
 Dim V As Currency
 Dim MedidaCorrecta As Boolean
 Dim LitrosUnidadMiles As Integer
@@ -1942,10 +1942,10 @@ Dim T As TextBox
     SQL = SQL & " AND lotetraza =" & Text1(9).Text
     SQL = SQL & " AND serie =" & cboSerie.Text
     miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    i = 0
-    If Not miRsAux.EOF Then i = DBLet(miRsAux!Cuantos, "N")
+    I = 0
+    If Not miRsAux.EOF Then I = DBLet(miRsAux!Cuantos, "N")
     MedidaCorrecta = False
-    If i > 0 Then
+    If I > 0 Then
         'Hay datos. Vamos a mostrarlos
         MedidaCorrecta = True
 '        Text5(1).Text = Format(miRsAux!PesoBotella, FormatoPrecio)

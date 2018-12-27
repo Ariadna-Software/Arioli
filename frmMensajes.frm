@@ -25,7 +25,7 @@ Begin VB.Form frmMensajes
       Begin VB.Label Label17 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
-         Caption         =   "C/ Uruguay 11, Despacho 710"
+         Caption         =   "Pasaje Ventura Feliu 13, Entlo 2º Izda"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -37,10 +37,10 @@ Begin VB.Form frmMensajes
          EndProperty
          ForeColor       =   &H00000040&
          Height          =   195
-         Left            =   3000
+         Left            =   2760
          TabIndex        =   10
          Top             =   2640
-         Width           =   2610
+         Width           =   3240
       End
       Begin VB.Label Label18 
          Alignment       =   2  'Center
@@ -803,7 +803,7 @@ Public cadWhere As String 'Cadena para pasarle la WHERE de la SELECT de los cobr
                           'o CodArtic para seleccionar los Nº Series
                           'para cargar el ListView
                           
-Public cadWHERE2 As String
+Public cadWhere2 As String
 
 Public vCampos As String 'Articulo y cantidad Empipados para Nº de Series
                          'Tambien para pasar el nombre de la tabla de lineas (sliped, slirep,...)
@@ -1035,14 +1035,14 @@ Dim SQL As String
         
         ActualizarPrecios = False
         'Compruebo si ha seleccionado algun articulo de los de precio ultima compra=0
-        cadWHERE2 = ""
+        cadWhere2 = ""
         SQL = ""
         For TotalArray = 1 To Me.ListView4.ListItems.Count
             If ListView4.ListItems(TotalArray).Checked Then
                 If ListView4.ListItems(TotalArray).Tag = "" Then
                     SQL = SQL & "M"
                 Else
-                    cadWHERE2 = cadWHERE2 & "M"
+                    cadWhere2 = cadWhere2 & "M"
                 End If
             End If
         Next
@@ -1052,15 +1052,15 @@ Dim SQL As String
             Exit Function
         End If
     
-        If cadWHERE2 = "" Then
+        If cadWhere2 = "" Then
             MsgBox "Seleccione algun articulo para actualizar", vbExclamation
             Exit Function
         End If
     
         'Llegado aqui todo correcto. Hacemos la pregunta de actualizar y a correr
         SQL = "artículo"
-        If Len(cadWHERE2) > 1 Then SQL = SQL & "s"
-        SQL = "Va a actualizar los precios de " & Len(cadWHERE2) & " " & SQL & vbCrLf & vbCrLf & "¿Desea continuar?"
+        If Len(cadWhere2) > 1 Then SQL = SQL & "s"
+        SQL = "Va a actualizar los precios de " & Len(cadWhere2) & " " & SQL & vbCrLf & vbCrLf & "¿Desea continuar?"
         If MsgBox(SQL, vbQuestion + vbYesNo) <> vbYes Then Exit Function
         
         
@@ -1129,14 +1129,14 @@ On Error GoTo EActualizaPrecios
         Case 16
             'ACtualizador de precio normal
             If Me.cmbActualizarTar.ListIndex <> 2 Then
-                cadWHERE2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(7))))
-                cadWHERE2 = "UPDATE sartic set preciove=" & cadWHERE2 & " WHERE codartic = '" & ListView4.ListItems(NumeroItem).Tag & "'"
-                conn.Execute cadWHERE2
+                cadWhere2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(7))))
+                cadWhere2 = "UPDATE sartic set preciove=" & cadWhere2 & " WHERE codartic = '" & ListView4.ListItems(NumeroItem).Tag & "'"
+                conn.Execute cadWhere2
             End If
             If Me.cmbActualizarTar.ListIndex <> 1 Then
-                cadWHERE2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(8))))
-                cadWHERE2 = "UPDATE slista set precioac=" & cadWHERE2 & " WHERE codartic = '" & ListView4.ListItems(NumeroItem).Tag & "' AND codlista =" & vCampos
-                conn.Execute cadWHERE2
+                cadWhere2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(8))))
+                cadWhere2 = "UPDATE slista set precioac=" & cadWhere2 & " WHERE codartic = '" & ListView4.ListItems(NumeroItem).Tag & "' AND codlista =" & vCampos
+                conn.Execute cadWhere2
             End If
             
             
@@ -1147,16 +1147,16 @@ On Error GoTo EActualizaPrecios
             
             vCampos = ""
             If Me.cmbActualizarTar.ListIndex <> 2 Then
-                cadWHERE2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(7))))
-                vCampos = " preciove = " & cadWHERE2
+                cadWhere2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(7))))
+                vCampos = " preciove = " & cadWhere2
             End If
             If Me.cmbActualizarTar.ListIndex <> 1 Then
-                cadWHERE2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(8))))
+                cadWhere2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(8))))
                 If vCampos <> "" Then vCampos = vCampos & ","
-                vCampos = vCampos & " preciouc = " & cadWHERE2
+                vCampos = vCampos & " preciouc = " & cadWhere2
             End If
-            cadWHERE2 = "UPDATE sartic set " & vCampos & " WHERE codartic = '" & ListView4.ListItems(NumeroItem).Tag & "'"
-            conn.Execute cadWHERE2
+            cadWhere2 = "UPDATE sartic set " & vCampos & " WHERE codartic = '" & ListView4.ListItems(NumeroItem).Tag & "'"
+            conn.Execute cadWhere2
             
             
             
@@ -1166,16 +1166,16 @@ On Error GoTo EActualizaPrecios
             '----------------------------
             vCampos = ""
             If Me.cmbActualizarTar.ListIndex <> 2 Then
-                cadWHERE2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(7))))
-                vCampos = " preciove = " & cadWHERE2
+                cadWhere2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(7))))
+                vCampos = " preciove = " & cadWhere2
             End If
             If Me.cmbActualizarTar.ListIndex <> 1 Then
-                cadWHERE2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(8))))
+                cadWhere2 = TransformaComasPuntos(CStr(ImporteFormateado(.SubItems(8))))
                 If vCampos <> "" Then vCampos = vCampos & ","
-                vCampos = vCampos & " preciouc = " & cadWHERE2
+                vCampos = vCampos & " preciouc = " & cadWhere2
             End If
-            cadWHERE2 = "UPDATE sartic set " & vCampos & " WHERE codartic = '" & ListView4.ListItems(NumeroItem).Tag & "'"
-            conn.Execute cadWHERE2
+            cadWhere2 = "UPDATE sartic set " & vCampos & " WHERE codartic = '" & ListView4.ListItems(NumeroItem).Tag & "'"
+            conn.Execute cadWhere2
             
             
                         
@@ -1206,20 +1206,20 @@ End Sub
 Private Sub cmdEtiqEstan_Click(Index As Integer)
     If Index = 1 Then
         'Cargo la tabla temporal con los datos que qeuremos imprimir
-        cadWHERE2 = "insert into `tmpnseries` (`codusu`,`codartic`,`numlinea`,`numlinealb`) VALUES "
+        cadWhere2 = "insert into `tmpnseries` (`codusu`,`codartic`,`numlinea`,`numlinealb`) VALUES "
         cadWhere = ""
         For NumRegElim = 1 To ListView3.ListItems.Count
             '                                                En el tag YA esta grabado
             If ListView3.ListItems(NumRegElim).Checked Then
                 cadWhere = cadWhere & ",(" & vUsu.Codigo & "," & ListView3.ListItems(NumRegElim).Tag & ",0)"
                 If (NumRegElim Mod 25) = 0 Then
-                    conn.Execute cadWHERE2 & Mid(cadWhere, 2) & ";"
+                    conn.Execute cadWhere2 & Mid(cadWhere, 2) & ";"
                     cadWhere = ""
                     DoEvents
                 End If
             End If
         Next NumRegElim
-        If cadWhere <> "" Then conn.Execute cadWHERE2 & Mid(cadWhere, 2) & ";"
+        If cadWhere <> "" Then conn.Execute cadWhere2 & Mid(cadWhere, 2) & ";"
     Else
         NumRegElim = 0
     End If
@@ -1722,21 +1722,21 @@ Private Sub CargaStockConjuntos(linea As String)
         
         Set miRsAux = New ADODB.Recordset
             'Deberiamos cargar los elementos que tiene subconjuntos
-            cadWHERE2 = "SELECT " & RecuperaValor(linea, 1) & ",sarti1.codarti1,nomartic,"
-            cadWHERE2 = cadWHERE2 & " sarti1.cantidad * " & TransformaComasPuntos(RecuperaValor(linea, 3)) & " as cantidad,"
-            cadWHERE2 = cadWHERE2 & " salmac.canstock as canstock,  canstock-(sarti1.cantidad * " & TransformaComasPuntos(RecuperaValor(linea, 3))
-            cadWHERE2 = cadWHERE2 & ") as disp From sarti1, salmac, sartic"
-            cadWHERE2 = cadWHERE2 & " Where sarti1.codarti1 = salmac.codArtic And sarti1.codarti1 = sartic.codArtic"
-            cadWHERE2 = cadWHERE2 & " and sarti1.codartic='" & DevNombreSQL(RecuperaValor(linea, 2)) & "'"
+            cadWhere2 = "SELECT " & RecuperaValor(linea, 1) & ",sarti1.codarti1,nomartic,"
+            cadWhere2 = cadWhere2 & " sarti1.cantidad * " & TransformaComasPuntos(RecuperaValor(linea, 3)) & " as cantidad,"
+            cadWhere2 = cadWhere2 & " salmac.canstock as canstock,  canstock-(sarti1.cantidad * " & TransformaComasPuntos(RecuperaValor(linea, 3))
+            cadWhere2 = cadWhere2 & ") as disp From sarti1, salmac, sartic"
+            cadWhere2 = cadWhere2 & " Where sarti1.codarti1 = salmac.codArtic And sarti1.codarti1 = sartic.codArtic"
+            cadWhere2 = cadWhere2 & " and sarti1.codartic='" & DevNombreSQL(RecuperaValor(linea, 2)) & "'"
             
-            miRsAux.Open cadWHERE2, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            miRsAux.Open cadWhere2, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             While Not miRsAux.EOF
                 CargaItemStock miRsAux, " * "
                 miRsAux.MoveNext
             Wend
             miRsAux.Close
         
-        cadWHERE2 = ""
+        cadWhere2 = ""
     Set miRsAux = Nothing
 End Sub
  
@@ -1768,7 +1768,7 @@ Dim Dif As Single
 
     On Error GoTo ECargarLista
 
-    If cadWHERE2 = "" Then
+    If cadWhere2 = "" Then
         'Mostramos los nº serie libres para seleccionar la cantidad
         SQL = "SELECT sserie.numserie, sserie.codartic, sartic.nomartic "
         SQL = SQL & "FROM sserie INNER JOIN sartic ON sserie.codartic=sartic.codartic "
@@ -1778,14 +1778,14 @@ Dim Dif As Single
         SQL = SQL & " ORDER BY sserie.codartic, numserie "
         
     Else 'venimos de modificar la cantidad y seleccionamos los ya asignados
-        If InStr(1, cadWHERE2, "|") > 0 Then
-            Dif = CSng(RecuperaValor(cadWHERE2, 1))
-            cadWHERE2 = RecuperaValor(cadWHERE2, 2)
+        If InStr(1, cadWhere2, "|") > 0 Then
+            Dif = CSng(RecuperaValor(cadWhere2, 1))
+            cadWhere2 = RecuperaValor(cadWhere2, 2)
         
             'seleccionamos nº serie del albaran que modificamos
             SQL = "SELECT sserie.numserie, sserie.codartic, sartic.nomartic "
             SQL = SQL & "FROM sserie INNER JOIN sartic ON sserie.codartic=sartic.codartic "
-            SQL = SQL & cadWHERE2
+            SQL = SQL & cadWhere2
                 
             
             If Dif < 0 Then
@@ -1811,7 +1811,7 @@ Dim Dif As Single
         Else
             'viene de una factura rectificativa, seleccionamos los nº de serie de
             'esa factura y marcamos los que queremos quitar
-            SQL = cadWHERE2
+            SQL = cadWhere2
         End If
     End If
     
@@ -2535,7 +2535,7 @@ Dim It As ListItem
         'Ponemos el codigo de articulo y el TIPO de IVA
         It.Tag = "'" & DevNombreSQL(RS!codartic) & "'," & RS!codigiva
         It.Text = RS!NomArtic
-        It.SubItems(1) = Format(RS!preciove, cadWHERE2)
+        It.SubItems(1) = Format(RS!preciove, cadWhere2)
         It.SubItems(2) = RS!nomfamia
         It.Checked = True
         RS.MoveNext
@@ -2586,11 +2586,11 @@ Dim SobreUPC As Boolean
     SobreUPC = Val(SQL) = 1
             
     
-    TotalArray = InStr(1, cadWHERE2, ",")
-    SQL = Mid(cadWHERE2, TotalArray + 1)
+    TotalArray = InStr(1, cadWhere2, ",")
+    SQL = Mid(cadWhere2, TotalArray + 1)
     decimales = Len(SQL)
     'Formato
-    cadWHERE2 = "#,##0." & Mid(cadWHERE2, TotalArray + 1)
+    cadWhere2 = "#,##0." & Mid(cadWhere2, TotalArray + 1)
     
     'Sql
     SQL = " SELECT sartic.nomartic,slista.codartic,sartic.preciove,sartic.preciouc,"
@@ -2667,19 +2667,19 @@ Dim SobreUPC As Boolean
             It.Text = It.Tag
             It.SubItems(1) = RS!NomArtic
             Aux = Round2(PrecioUC, decimales)
-            It.SubItems(2) = Format(Aux, cadWHERE2)
+            It.SubItems(2) = Format(Aux, cadWhere2)
             
             It.SubItems(3) = Format(margen * 100, FormatoPorcen)
             Aux = Round2(RS!preciove, decimales)
-            It.SubItems(4) = Format(Aux, cadWHERE2)
+            It.SubItems(4) = Format(Aux, cadWhere2)
             
             It.SubItems(5) = Format(MargenT * 100, FormatoPorcen)
             Aux = Round2(RS!precioac, decimales)
-            It.SubItems(6) = Format(Aux, cadWHERE2)
+            It.SubItems(6) = Format(Aux, cadWhere2)
             
 
-            It.SubItems(7) = Format(ImpPVP, cadWHERE2)
-            It.SubItems(8) = Format(ImpTar, cadWHERE2)
+            It.SubItems(7) = Format(ImpPVP, cadWhere2)
+            It.SubItems(8) = Format(ImpTar, cadWhere2)
             
             
             
@@ -2812,11 +2812,11 @@ Dim V1 As Single
     
     
     'Fomato importe
-    TotalArray = InStr(1, cadWHERE2, ",")
-    SQL = Mid(cadWHERE2, TotalArray + 1)
+    TotalArray = InStr(1, cadWhere2, ",")
+    SQL = Mid(cadWhere2, TotalArray + 1)
     decimales = Len(SQL)
     'Formato
-    cadWHERE2 = "#,##0." & Mid(cadWHERE2, TotalArray + 1)
+    cadWhere2 = "#,##0." & Mid(cadWhere2, TotalArray + 1)
     
     
     'Tres columna svamos a ponerlas a tamaño 0
@@ -2857,8 +2857,8 @@ Dim V1 As Single
                 Impor = Round2(Impor, CLng(decimales))
                 'Si precioventa distionto   o pcompra distionto
                 If IA <> Impor Or PC <> PCC Then
-                    vCampos = vCampos & Format(IA, cadWHERE2) & "|" & Format(Impor, cadWHERE2) & "|"
-                    vCampos = vCampos & Format(PC, cadWHERE2) & "|" & Format(PCC, cadWHERE2) & "|"
+                    vCampos = vCampos & Format(IA, cadWhere2) & "|" & Format(Impor, cadWhere2) & "|"
+                    vCampos = vCampos & Format(PC, cadWhere2) & "|" & Format(PCC, cadWhere2) & "|"
                     InsertarItemARticuloConjunto vCampos
                 End If
                     
@@ -2877,7 +2877,7 @@ Dim V1 As Single
             SQL = miRsAux!codartic
             vCampos = miRsAux!codartic & "|" & miRsAux!NomArtic & "|"
             PC = DBLet(miRsAux!PrecioUC, "N")
-            vCampos = vCampos & Format(PC, cadWHERE2)
+            vCampos = vCampos & Format(PC, cadWhere2)
             vCampos = vCampos & "|" & Format(DBLet(miRsAux!margecom, "N"), FormatoPorcen) & "|"
             
             
@@ -2908,8 +2908,8 @@ Dim V1 As Single
             Impor = Round2(Impor, CLng(decimales))
             'Si precioventa distionto   o pcompra distionto
             If IA <> Impor Or PC <> PCC Then
-                vCampos = vCampos & Format(IA, cadWHERE2) & "|" & Format(Impor, cadWHERE2) & "|"
-                vCampos = vCampos & Format(PC, cadWHERE2) & "|" & Format(PCC, cadWHERE2) & "|"
+                vCampos = vCampos & Format(IA, cadWhere2) & "|" & Format(Impor, cadWhere2) & "|"
+                vCampos = vCampos & Format(PC, cadWhere2) & "|" & Format(PCC, cadWhere2) & "|"
                 InsertarItemARticuloConjunto vCampos
             End If
     
@@ -2981,11 +2981,11 @@ Dim PVP2 As Currency
     
     
     'Fomato importe
-    TotalArray = InStr(1, cadWHERE2, ",")
-    SQL = Mid(cadWHERE2, TotalArray + 1)
+    TotalArray = InStr(1, cadWhere2, ",")
+    SQL = Mid(cadWhere2, TotalArray + 1)
     decimales = Len(SQL)
     'Formato
-    cadWHERE2 = "#,##0." & Mid(cadWHERE2, TotalArray + 1)
+    cadWhere2 = "#,##0." & Mid(cadWhere2, TotalArray + 1)
     
     
     'Tres columna svamos a ponerlas a tamaño 0
@@ -3027,7 +3027,7 @@ Dim PVP2 As Currency
                 SQL = miRsAux!codartic
                 vCampos = miRsAux!codartic & "|" & miRsAux!NomArtic & "|"
                 UPC1 = DBLet(miRsAux!PrecioUC, "N")
-                vCampos = vCampos & Format(UPC1, cadWHERE2)
+                vCampos = vCampos & Format(UPC1, cadWhere2)
                 vCampos = vCampos & "|0|"
                 PVP1 = DBLet(miRsAux!preciove, "N")
                 UPC2 = DBLet(miRsAux!UPC2, "N")
@@ -3042,8 +3042,8 @@ Dim PVP2 As Currency
                     UPC1 = Round2(UPC1, 3)
                     UPC2 = Round2(UPC2, 3)
                     If PVP1 <> PVP2 Or UPC1 <> UPC2 Then
-                        vCampos = vCampos & Format(PVP1, cadWHERE2) & "|" & Format(PVP2, cadWHERE2) & "|"
-                        vCampos = vCampos & Format(UPC1, cadWHERE2) & "|" & Format(UPC2, cadWHERE2) & "|"
+                        vCampos = vCampos & Format(PVP1, cadWhere2) & "|" & Format(PVP2, cadWhere2) & "|"
+                        vCampos = vCampos & Format(UPC1, cadWhere2) & "|" & Format(UPC2, cadWhere2) & "|"
                         InsertarItemARticuloConjunto vCampos
                     End If
                 End If

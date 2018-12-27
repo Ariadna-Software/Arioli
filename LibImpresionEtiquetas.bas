@@ -5,52 +5,68 @@ Option Explicit
 '                                                para rehutilizaar la variable
 Public Function ImprimeEtiquetasCajas(linea As Byte, Lote As Long, ByVal Articulo As String, Incio As Long, Cantidad As Long, DatosLineaExtra As String, DatosLineaExtra2 As String) As Boolean
 Dim NF As Integer
-Dim cad As String
+Dim Cad As String
 Dim Conta As Long
 Dim Linea1 As String
-
+Dim CodFamilia As String
+Dim Aux As String
 
     On Error GoTo EImprimeEtiquetasCajas:
     ImprimeEtiquetasCajas = False
     
     
     Set miRsAux = New ADODB.Recordset
-    cad = "Select carpetaSRV,pathArchBartender,extension,CajaL" & linea & " impresora FROM  prodparamimpr"
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Cad = "Select carpetaSRV,pathArchBartender,extension,CajaL" & linea & " impresora FROM  prodparamimpr"
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     'NO PUEDE SER EOF
     
     'registro es la marca
-    cad = DevuelveDesdeBD(conAri, "codmarca", "sartic", "codartic", Articulo, "T")
-    cad = "(codmarca = " & cad & " OR codmarca"
-    cad = DevuelveDesdeBD(conAri, "archivo", "prodparametiq", cad, " 0) ORDER BY codmarca DESC")
+    CodFamilia = "codfamia"
+    Cad = DevuelveDesdeBD(conAri, "codmarca", "sartic", "codartic", Articulo, "T", CodFamilia)
+    If Cad = "" Then Err.Raise 513, "Error insesperado obteniendo marca-familia del articulo"
     
+    'NUEVO Sept. 2018
+    'Tenemos marca famimilia
+    'Veremos si hay una etiqueta marca-familia
+    Aux = "codmarca = " & Cad & " AND codfamia "
+    Aux = DevuelveDesdeBD(conAri, "archivo", "prodparametiq", Aux, CodFamilia)
+    
+    If Aux <> "" Then
+        'Etiqueta especfiica para marca /categoria(famlia)
+        Cad = Aux
+    Else
+        Cad = "codfamia is null and (codmarca = " & Cad & " OR codmarca"
+        Cad = DevuelveDesdeBD(conAri, "archivo", "prodparametiq", Cad, " 0) ORDER BY codmarca DESC")
+    End If
+        
+        
     'No deberia pasar, por que la cero la tiene que traer
-    If cad = "" Then Err.Raise 513, "Error insesperado obteniendo nombre archivo etiqueta"
+    If Cad = "" Then Err.Raise 513, "Error insesperado obteniendo nombre archivo etiqueta"
     
     'La primera linea es la de "ordenes"
     'Ejmplo
     '%BTW% /AF="C:\MisDoc\BarTender\Formats\ParaComanderMarca.btw" /P /D="%Trigger File Name%" /PRN="HP DeskJet 1220C" /R=3 /P %END%
-    cad = "%BTW% /AF=""" & miRsAux!pathArchBartender & "\" & cad & """  /D=""%Trigger File Name%"" /PRN="""
+    Cad = "%BTW% /AF=""" & miRsAux!pathArchBartender & "\" & Cad & """  /D=""%Trigger File Name%"" /PRN="""
     'Ahora la impresora de la linea       r3: en que linea empiezan los datos
-    cad = cad & miRsAux!impresora & """ /R=3 /P "
-    Linea1 = cad
+    Cad = Cad & miRsAux!impresora & """ /R=3 /P "
+    Linea1 = Cad
     'Print #NF, "%END%"
     
     
     'Nomatic
-    cad = Articulo
+    Cad = Articulo
     Articulo = DevuelveDesdeBD(conAri, "nomartic", "sartic", "codartic", Articulo, "T")
     'Quito las comas , por si acaso
     Articulo = Replace(Articulo, ",", ".")
     Articulo = Articulo & ","
-    cad = DevuelveDesdeBD(conAri, "caj_codun", "sarti4", "codartic", cad, "T")
-    If cad = "" Then cad = "0"
-    Articulo = Articulo & cad & ","
+    Cad = DevuelveDesdeBD(conAri, "caj_codun", "sarti4", "codartic", Cad, "T")
+    If Cad = "" Then Cad = "0"
+    Articulo = Articulo & Cad & ","
     
     'Comprobamos que la carpeta esta accesible
-    cad = miRsAux!carpetaSRV & "\*.txt"
-    cad = Dir(cad, vbArchive) 'Si no estuviera daria error
+    Cad = miRsAux!carpetaSRV & "\*.txt"
+    Cad = Dir(Cad, vbArchive) 'Si no estuviera daria error
     
     
     
@@ -71,22 +87,22 @@ Dim Linea1 As String
         Print #NF, "%END%"
         
         For Conta = Incio + 1 To Incio + Cantidad
-            cad = Format(Lote, "00000000") & Format(Conta, "00000")
+            Cad = Format(Lote, "00000000") & Format(Conta, "00000")
             'Nuevo. 29 Marzo 2012
             'Pondremos separado el numero de lote  y una descripcion que lleva la produccion
-            cad = cad & "," & Lote & "," & Replace(DatosLineaExtra, ",", "") & "," & Replace(DatosLineaExtra2, ",", "")
-            Print #NF, Articulo & cad
+            Cad = Cad & "," & Lote & "," & Replace(DatosLineaExtra, ",", "") & "," & Replace(DatosLineaExtra2, ",", "")
+            Print #NF, Articulo & Cad
         Next Conta
     
         Close #NF
         NF = -1 'para que no vuelva a hacer close
     
         'Ahora lo copiamos donde diga el path
-        cad = Format(Now, "yymmdd_hhnnss") & vUsu.PC & "."
-        cad = cad & miRsAux!Extension
-        cad = miRsAux!carpetaSRV & "\" & cad
+        Cad = Format(Now, "yymmdd_hhnnss") & vUsu.PC & "."
+        Cad = Cad & miRsAux!extension
+        Cad = miRsAux!carpetaSRV & "\" & Cad
     
-        FileCopy App.Path & "\datoseti.txt", cad
+        FileCopy App.Path & "\datoseti.txt", Cad
     
     
 
@@ -111,7 +127,7 @@ End Function
 
 Public Function ImprimeEtiquetasMateriaAuxiliar() As Boolean
 Dim NF As Integer
-Dim cad As String
+Dim Cad As String
 Dim Prove As String
 Dim Destino As String
 
@@ -123,13 +139,13 @@ Dim Destino As String
     'Elimino el anterior
     If Dir(App.Path & "\datosMA.txt", vbArchive) <> "" Then Kill App.Path & "\datosMA.txt"
     Set miRsAux = New ADODB.Recordset
-    cad = "Select carpetaSRV,pathArchBartender,extension,MateriaAux impresora FROM  prodparamimpr"
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Cad = "Select carpetaSRV,pathArchBartender,extension,MateriaAux impresora FROM  prodparamimpr"
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     'Ahora lo copiamos donde diga el path
-    cad = Format(Now, "yymmdd_hhnn") & vUsu.PC & "."
-    cad = cad & miRsAux!Extension
-    Destino = miRsAux!carpetaSRV & "\" & cad
+    Cad = Format(Now, "yymmdd_hhnn") & vUsu.PC & "."
+    Cad = Cad & miRsAux!extension
+    Destino = miRsAux!carpetaSRV & "\" & Cad
     
     'No deberia pasar, por que la cero la tiene que traer
     'If cad = "" Then Err.Raise 513, "Error insesperado obteniendo nombre archivo etiqueta"
@@ -143,18 +159,18 @@ Dim Destino As String
     'La primera linea es la de "ordenes"
     'Ejmplo
     '%BTW% /AF="C:\MisDoc\BarTender\Formats\ParaComanderMarca.btw" /P /D="%Trigger File Name%" /PRN="HP DeskJet 1220C" /R=3 /P %END%
-    cad = "MateriaAux.btw"
-    cad = "%BTW% /AF=""" & miRsAux!pathArchBartender & "\" & cad & """  /D=""%Trigger File Name%"" /PRN="""
+    Cad = "MateriaAux.btw"
+    Cad = "%BTW% /AF=""" & miRsAux!pathArchBartender & "\" & Cad & """  /D=""%Trigger File Name%"" /PRN="""
     'Ahora la impresora de la linea       r3: en que linea empiezan los datos
-    cad = cad & miRsAux!impresora & """ /R=3 /P "
-    Print #NF, cad
+    Cad = Cad & miRsAux!impresora & """ /R=3 /P "
+    Print #NF, Cad
     Print #NF, "%END%"
     miRsAux.Close
     
     
     'Los registros estan en la tabla tmppartidas
-    cad = "Select * from tmppartidas where codusu = " & vUsu.Codigo & " order by idpartida,idnumoperacion"
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Cad = "Select * from tmppartidas where codusu = " & vUsu.Codigo & " order by idpartida,idnumoperacion"
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
     'NO PUEDE SER EOF, si no no hubiera entrado aqui
 
@@ -168,21 +184,21 @@ Dim Destino As String
         
         'qUE SE TRADUCE EN
         'codartic,Referencia,fecha,NOW,numlote,PROVEE,idnumoperacion,idpartida,idOperacion
-        cad = miRsAux!codartic & ",""" & TransformaComasPuntos(miRsAux!Referencia) & """,""" & Format(miRsAux!Fecha, "dd/mm/yyyy")
-        cad = cad & """,""" & Format(Now, "dd/mm/yyyy") & """,""" & miRsAux!NUmlote & ""","""
+        Cad = miRsAux!codartic & ",""" & TransformaComasPuntos(miRsAux!Referencia) & """,""" & Format(miRsAux!Fecha, "dd/mm/yyyy")
+        Cad = Cad & """,""" & Format(Now, "dd/mm/yyyy") & """,""" & miRsAux!numLote & ""","""
         
         
-        cad = cad & Format(miRsAux!idreferencia, "0000") & Prove & """,""" & miRsAux!idnumoperacion & ""","""
+        Cad = Cad & Format(miRsAux!idreferencia, "0000") & Prove & """,""" & miRsAux!idnumoperacion & ""","""
         
         
         
         'Nuevo.
         'Modificacion 2012. Pondra etiqueta numeti/toteti
         '
-        cad = cad & Format(miRsAux!IdPartida, "0000") & """,""" & DBLet(miRsAux!idOperacion, "T") & """,""" 'el ultimo vacio
-        cad = cad & Format(miRsAux!Cantidad, "0000") & "/" & Format(miRsAux!abs_cantidad, "0000") & """,""" & DBLet(miRsAux!idOperacion, "T") & """,""""" 'el ultimo vacio
+        Cad = Cad & Format(miRsAux!idPartida, "0000") & """,""" & DBLet(miRsAux!idoperacion, "T") & """,""" 'el ultimo vacio
+        Cad = Cad & Format(miRsAux!Cantidad, "0000") & "/" & Format(miRsAux!abs_cantidad, "0000") & """,""" & DBLet(miRsAux!idoperacion, "T") & """,""""" 'el ultimo vacio
         
-        Print #NF, cad
+        Print #NF, Cad
     
         miRsAux.MoveNext
     Wend
@@ -408,11 +424,11 @@ End Function
 '                                      15 L2  sacara 2 etiquetas cada una con sus datos pero el mismos SSCC
 Private Function ImprimirPaletOLIVELINE(IdPalet As Long) As Boolean
 Dim NF As Integer
-Dim cad As String
+Dim Cad As String
 Dim Destino As String
 Dim Aux As String
 Dim C2 As String
-Dim i As Integer
+Dim I As Integer
 Dim J As Integer
 Dim CC As Byte
 Dim TotalCajas As Integer
@@ -426,13 +442,13 @@ Dim ParaCodigoBarras As String
     'Elimino el anterior
     If Dir(App.Path & "\datosMA.txt", vbArchive) <> "" Then Kill App.Path & "\datosMA.txt"
     Set miRsAux = New ADODB.Recordset
-    cad = "Select carpetaSRV,pathArchBartender,extension,palets impresora FROM  prodparamimpr"
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Cad = "Select carpetaSRV,pathArchBartender,extension,palets impresora FROM  prodparamimpr"
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     'Ahora lo copiamos donde diga el path
-    cad = Format(Now, "yymmdd_hhnnss") & vUsu.PC & "."
-    cad = cad & miRsAux!Extension
-    Destino = miRsAux!carpetaSRV & "\" & cad
+    Cad = Format(Now, "yymmdd_hhnnss") & vUsu.PC & "."
+    Cad = Cad & miRsAux!extension
+    Destino = miRsAux!carpetaSRV & "\" & Cad
     
  
     NF = FreeFile
@@ -441,18 +457,18 @@ Dim ParaCodigoBarras As String
     'La primera linea es la de "ordenes"
     'Ejmplo
     '%BTW% /AF="C:\MisDoc\BarTender\Formats\ParaComanderMarca.btw" /P /D="%Trigger File Name%" /PRN="HP DeskJet 1220C" /R=3 /P %END%
-    cad = "PaletBuOliLine.btw"
-    cad = "%BTW% /AF=""" & miRsAux!pathArchBartender & "\" & cad & """  /D=""%Trigger File Name%"" /PRN="""
+    Cad = "PaletBuOliLine.btw"
+    Cad = "%BTW% /AF=""" & miRsAux!pathArchBartender & "\" & Cad & """  /D=""%Trigger File Name%"" /PRN="""
     'Ahora la impresora de la linea       r3: en que linea empiezan los datos
-    cad = cad & miRsAux!impresora & """ /R=3 /P "
-    Print #NF, cad
+    Cad = Cad & miRsAux!impresora & """ /R=3 /P "
+    Print #NF, Cad
     Print #NF, "%END%"
     miRsAux.Close
     
     
     'Si NO tienen todos la misma fecha de produccion no la ponemos arriba en el encabezado
     Aux = "Select fhinicio,fhFin,CajasProd from prodpalets where idpalet = " & IdPalet
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
 
     
     TotalCajas = miRsAux!Cajasprod
@@ -461,13 +477,13 @@ Dim ParaCodigoBarras As String
     
     
     Aux = "Select * from tmppartidas where codusu = " & vUsu.Codigo & " order by idpartida,idnumoperacion"
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
    
  
-    i = 0
+    I = 0
     While Not miRsAux.EOF
-            i = i + 1
+            I = I + 1
           
           
             ' 15 Abril 2013
@@ -482,10 +498,10 @@ Dim ParaCodigoBarras As String
             'Grabaremos: nomartic,inicio(11),caduca(17),lote,dun,cajaspalet,refer[000],kilos(3300),sscc
                  
 
-            Aux = """" & miRsAux!NUmlote & ""","""
+            Aux = """" & miRsAux!numLote & ""","""
             'Inicio
             C2 = "prodlin.codigo= prodtrazlin.codigo AND prodlin.idlin = prodtrazlin.idlin and lotetraza"
-            C2 = DevuelveDesdeBD(conAri, "fhinicio", "prodlin,prodtrazlin", C2, miRsAux!IdPartida)
+            C2 = DevuelveDesdeBD(conAri, "fhinicio", "prodlin,prodtrazlin", C2, miRsAux!idPartida)
             If C2 = "" Then
                 MsgBox "No se encuentra fecha produccion", vbExclamation
                 '------------------------
@@ -496,14 +512,14 @@ Dim ParaCodigoBarras As String
             ParaCodigoBarras = ",""" & Format(C2, "yymmdd") & ""","   'Antes ",""(11)" & Format(C2, "yymmdd") & ""","
             
             'Fecha cad y lote
-            Aux = Aux & Format(miRsAux!Fecha, "dd/mm/yyyy") & """,""" & Format(miRsAux!IdPartida, "000000") & ""","""
+            Aux = Aux & Format(miRsAux!Fecha, "dd/mm/yyyy") & """,""" & Format(miRsAux!idPartida, "000000") & ""","""
             'ParaCodigoBarras = ParaCodigoBarras & """(17)" & Format(miRsAux!Fecha, "yymmdd") & """,""(10)" & Format(miRsAux!IdPartida, "000000") & ""","""
-            ParaCodigoBarras = ParaCodigoBarras & """" & Format(miRsAux!Fecha, "yymmdd") & """,""" & Format(miRsAux!IdPartida, "000000") & ""","""
+            ParaCodigoBarras = ParaCodigoBarras & """" & Format(miRsAux!Fecha, "yymmdd") & """,""" & Format(miRsAux!idPartida, "000000") & ""","""
            
            
             C2 = DevuelveDesdeBD(conAri, "caj_codun", "sarti4", "codartic", miRsAux!codartic, "T")
             If C2 = "" Then
-                MsgBox "No se ha encontrado el codigo DUN para el articulo: " & DBLet(miRsAux!NUmlote, "T"), vbExclamation
+                MsgBox "No se ha encontrado el codigo DUN para el articulo: " & DBLet(miRsAux!numLote, "T"), vbExclamation
                 C2 = DevuelveDesdeBD(conAri, "codigoea", "sartic", "codartic", miRsAux!codartic, "T")
                 If C2 = "" Then C2 = miRsAux!codartic
                 
@@ -574,11 +590,11 @@ End Function
 '                                      15 L2  sacara 2 etiquetas cada una con sus datos pero el mismos SSCC
 Private Function ImprimirPaletNUEVO(IdPalet As Long) As Boolean
 Dim NF As Integer
-Dim cad As String
+Dim Cad As String
 Dim Destino As String
 Dim Aux As String
 Dim C2 As String
-Dim i As Integer
+Dim I As Integer
 Dim J As Integer
 Dim CC As Byte
 Dim TotalCajas As Integer
@@ -592,13 +608,13 @@ Dim ParaCodigoBarras As String
     'Elimino el anterior
     If Dir(App.Path & "\datosMA.txt", vbArchive) <> "" Then Kill App.Path & "\datosMA.txt"
     Set miRsAux = New ADODB.Recordset
-    cad = "Select carpetaSRV,pathArchBartender,extension,palets impresora FROM  prodparamimpr"
-    miRsAux.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    Cad = "Select carpetaSRV,pathArchBartender,extension,palets impresora FROM  prodparamimpr"
+    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     
     'Ahora lo copiamos donde diga el path
-    cad = Format(Now, "yymmdd_hhnnss") & vUsu.PC & "."
-    cad = cad & miRsAux!Extension
-    Destino = miRsAux!carpetaSRV & "\" & cad
+    Cad = Format(Now, "yymmdd_hhnnss") & vUsu.PC & "."
+    Cad = Cad & miRsAux!extension
+    Destino = miRsAux!carpetaSRV & "\" & Cad
     
  
     NF = FreeFile
@@ -609,19 +625,19 @@ Dim ParaCodigoBarras As String
     '%BTW% /AF="C:\MisDoc\BarTender\Formats\ParaComanderMarca.btw" /P /D="%Trigger File Name%" /PRN="HP DeskJet 1220C" /R=3 /P %END%
     'cad = "PaletBuOliLine.btw"
     'MAYO 2014
-    cad = "PaletBu.btw"
+    Cad = "PaletBu.btw"
     
-    cad = "%BTW% /AF=""" & miRsAux!pathArchBartender & "\" & cad & """  /D=""%Trigger File Name%"" /PRN="""
+    Cad = "%BTW% /AF=""" & miRsAux!pathArchBartender & "\" & Cad & """  /D=""%Trigger File Name%"" /PRN="""
     'Ahora la impresora de la linea       r3: en que linea empiezan los datos
-    cad = cad & miRsAux!impresora & """ /R=3 /P "
-    Print #NF, cad
+    Cad = Cad & miRsAux!impresora & """ /R=3 /P "
+    Print #NF, Cad
     Print #NF, "%END%"
     miRsAux.Close
     
     
     'Si NO tienen todos la misma fecha de produccion no la ponemos arriba en el encabezado
     Aux = "Select fhinicio,fhFin,CajasProd from prodpalets where idpalet = " & IdPalet
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
 
     
     TotalCajas = miRsAux!Cajasprod
@@ -630,13 +646,13 @@ Dim ParaCodigoBarras As String
     
     
     Aux = "Select * from tmppartidas where codusu = " & vUsu.Codigo & " order by idpartida,idnumoperacion"
-    miRsAux.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
    
  
-    i = 0
+    I = 0
     While Not miRsAux.EOF
-            i = i + 1
+            I = I + 1
           
           
             ' 15 Abril 2013
@@ -651,10 +667,10 @@ Dim ParaCodigoBarras As String
             'Grabaremos: nomartic,inicio(11),caduca(17),lote,dun,cajaspalet,refer[000],kilos(3300),sscc
                  
 
-            Aux = """" & miRsAux!NUmlote & ""","""
+            Aux = """" & miRsAux!numLote & ""","""
             'Inicio
             C2 = "prodlin.codigo= prodtrazlin.codigo AND prodlin.idlin = prodtrazlin.idlin and lotetraza"
-            C2 = DevuelveDesdeBD(conAri, "fhinicio", "prodlin,prodtrazlin", C2, miRsAux!IdPartida)
+            C2 = DevuelveDesdeBD(conAri, "fhinicio", "prodlin,prodtrazlin", C2, miRsAux!idPartida)
             If C2 = "" Then
                 MsgBox "No se encuentra fecha produccion", vbExclamation
                 '------------------------
@@ -665,14 +681,14 @@ Dim ParaCodigoBarras As String
             ParaCodigoBarras = ",""" & Format(C2, "yymmdd") & ""","   'Antes ",""(11)" & Format(C2, "yymmdd") & ""","
             
             'Fecha cad y lote
-            Aux = Aux & Format(miRsAux!Fecha, "dd/mm/yyyy") & """,""" & Format(miRsAux!IdPartida, "000000") & ""","""
+            Aux = Aux & Format(miRsAux!Fecha, "dd/mm/yyyy") & """,""" & Format(miRsAux!idPartida, "000000") & ""","""
             'ParaCodigoBarras = ParaCodigoBarras & """(17)" & Format(miRsAux!Fecha, "yymmdd") & """,""(10)" & Format(miRsAux!IdPartida, "000000") & ""","""
-            ParaCodigoBarras = ParaCodigoBarras & """" & Format(miRsAux!Fecha, "yymmdd") & """,""" & Format(miRsAux!IdPartida, "000000") & ""","""
+            ParaCodigoBarras = ParaCodigoBarras & """" & Format(miRsAux!Fecha, "yymmdd") & """,""" & Format(miRsAux!idPartida, "000000") & ""","""
            
            
             C2 = DevuelveDesdeBD(conAri, "caj_codun", "sarti4", "codartic", miRsAux!codartic, "T")
             If C2 = "" Then
-                MsgBox "No se ha encontrado el codigo DUN para el articulo: " & DBLet(miRsAux!NUmlote, "T"), vbExclamation
+                MsgBox "No se ha encontrado el codigo DUN para el articulo: " & DBLet(miRsAux!numLote, "T"), vbExclamation
                 C2 = DevuelveDesdeBD(conAri, "codigoea", "sartic", "codartic", miRsAux!codartic, "T")
                 If C2 = "" Then C2 = miRsAux!codartic
                 
@@ -750,7 +766,7 @@ Dim Cajas As Currency
     Set RN = New ADODB.Recordset
     DevuelvePesoPalet = 0
     Aux = "Select * from sarti4 where codartic='" & codartic & "'"
-    RN.Open Aux, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RN.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If Not RN.EOF Then
         Cajas = DBLet(RN!pal_udbas, "N")
         Cajas = Cajas * DBLet(RN!pal_udalt, "N")
@@ -768,21 +784,21 @@ Dim Cajas As Currency
 End Function
 'Digitos17b  string de lenth=17
 Private Function DevuelveDigitoControlSSCC(ByRef Digitos17b As String) As Byte
-Dim i As Byte
+Dim I As Byte
 Dim Tot As Integer
 Dim N As Byte
 
     Tot = 0
-    For i = 1 To 17 'SIEMPRE 17
-        N = CByte(Mid(Digitos17b, i, 1))
-        If (i Mod 2) = 0 Then
+    For I = 1 To 17 'SIEMPRE 17
+        N = CByte(Mid(Digitos17b, I, 1))
+        If (I Mod 2) = 0 Then
             'Par
             Tot = Tot + N
         Else
             'impar
             Tot = Tot + (3 * N)
         End If
-    Next i
+    Next I
     
     Tot = 10 - (Tot Mod 10)
     If Tot = 10 Then Tot = 0
