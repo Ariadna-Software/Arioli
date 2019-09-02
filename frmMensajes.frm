@@ -15,6 +15,107 @@ Begin VB.Form frmMensajes
    ScaleWidth      =   14160
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame FrameVerDatosStockProduccion 
+      Height          =   5775
+      Left            =   3360
+      TabIndex        =   50
+      Top             =   960
+      Visible         =   0   'False
+      Width           =   9855
+      Begin VB.CommandButton cmdStockProd 
+         Caption         =   "Cancelar"
+         Height          =   375
+         Index           =   1
+         Left            =   8400
+         TabIndex        =   54
+         Top             =   5160
+         Width           =   1095
+      End
+      Begin VB.CommandButton cmdStockProd 
+         Caption         =   "&Continuar"
+         CausesValidation=   0   'False
+         Height          =   375
+         Index           =   0
+         Left            =   7080
+         TabIndex        =   53
+         Top             =   5160
+         Width           =   1095
+      End
+      Begin MSComctlLib.ListView ListView5 
+         Height          =   3975
+         Left            =   240
+         TabIndex        =   52
+         Top             =   960
+         Width           =   9255
+         _ExtentX        =   16325
+         _ExtentY        =   7011
+         View            =   3
+         LabelWrap       =   -1  'True
+         HideSelection   =   -1  'True
+         FullRowSelect   =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         NumItems        =   5
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "Codigo"
+            Object.Width           =   2646
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Articulo"
+            Object.Width           =   4304
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   1
+            SubItemIndex    =   2
+            Text            =   "Resto"
+            Object.Width           =   2117
+         EndProperty
+         BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   1
+            SubItemIndex    =   3
+            Text            =   "Ud linea"
+            Object.Width           =   2540
+         EndProperty
+         BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   1
+            SubItemIndex    =   4
+            Text            =   "Stock"
+            Object.Width           =   2540
+         EndProperty
+      End
+      Begin VB.Label Label5 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Stock produccion"
+         BeginProperty Font 
+            Name            =   "Verdana"
+            Size            =   18
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   915
+         Left            =   240
+         TabIndex        =   51
+         Top             =   240
+         Width           =   6015
+      End
+   End
    Begin VB.Frame FrameAcercaDe 
       BorderStyle     =   0  'None
       Height          =   4335
@@ -337,82 +438,6 @@ Begin VB.Form frmMensajes
          Width           =   8175
       End
    End
-   Begin VB.Frame FrameEtiqEstant 
-      Height          =   7455
-      Left            =   0
-      TabIndex        =   31
-      Top             =   -120
-      Width           =   8535
-      Begin VB.CommandButton cmdEtiqEstan 
-         Caption         =   "Imprimir"
-         Height          =   375
-         Index           =   1
-         Left            =   5520
-         TabIndex        =   34
-         Top             =   6960
-         Width           =   1215
-      End
-      Begin VB.CommandButton cmdEtiqEstan 
-         Caption         =   "Cancelar"
-         Height          =   375
-         Index           =   0
-         Left            =   6960
-         TabIndex        =   33
-         Top             =   6960
-         Width           =   1215
-      End
-      Begin MSComctlLib.ListView ListView3 
-         Height          =   6495
-         Left            =   240
-         TabIndex        =   32
-         Top             =   360
-         Width           =   8055
-         _ExtentX        =   14208
-         _ExtentY        =   11456
-         View            =   3
-         LabelWrap       =   -1  'True
-         HideSelection   =   -1  'True
-         Checkboxes      =   -1  'True
-         FullRowSelect   =   -1  'True
-         _Version        =   393217
-         ForeColor       =   -2147483640
-         BackColor       =   -2147483643
-         BorderStyle     =   1
-         Appearance      =   1
-         NumItems        =   3
-         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            Text            =   "Descripcion"
-            Object.Width           =   6703
-         EndProperty
-         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            Alignment       =   1
-            SubItemIndex    =   1
-            Text            =   "Precio"
-            Object.Width           =   2117
-         EndProperty
-         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            SubItemIndex    =   2
-            Text            =   "Familia"
-            Object.Width           =   4410
-         EndProperty
-      End
-      Begin VB.Image imgCheck 
-         Height          =   240
-         Index           =   1
-         Left            =   600
-         Picture         =   "frmMensajes.frx":0F6E
-         Top             =   6960
-         Width           =   240
-      End
-      Begin VB.Image imgCheck 
-         Height          =   240
-         Index           =   0
-         Left            =   240
-         Picture         =   "frmMensajes.frx":10B8
-         Top             =   6960
-         Width           =   240
-      End
-   End
    Begin VB.Frame FrameErrores 
       Height          =   5535
       Left            =   0
@@ -433,7 +458,7 @@ Begin VB.Form frmMensajes
          MultiLine       =   -1  'True
          ScrollBars      =   3  'Both
          TabIndex        =   28
-         Text            =   "frmMensajes.frx":1202
+         Text            =   "frmMensajes.frx":0F6E
          Top             =   360
          Width           =   7695
       End
@@ -460,7 +485,7 @@ Begin VB.Form frmMensajes
          Left            =   240
          MultiLine       =   -1  'True
          TabIndex        =   23
-         Text            =   "frmMensajes.frx":1208
+         Text            =   "frmMensajes.frx":0F74
          Top             =   240
          Width           =   6615
       End
@@ -755,6 +780,82 @@ Begin VB.Form frmMensajes
          Width           =   4695
       End
    End
+   Begin VB.Frame FrameEtiqEstant 
+      Height          =   7455
+      Left            =   0
+      TabIndex        =   31
+      Top             =   -120
+      Width           =   8535
+      Begin VB.CommandButton cmdEtiqEstan 
+         Caption         =   "Imprimir"
+         Height          =   375
+         Index           =   1
+         Left            =   5520
+         TabIndex        =   34
+         Top             =   6960
+         Width           =   1215
+      End
+      Begin VB.CommandButton cmdEtiqEstan 
+         Caption         =   "Cancelar"
+         Height          =   375
+         Index           =   0
+         Left            =   6960
+         TabIndex        =   33
+         Top             =   6960
+         Width           =   1215
+      End
+      Begin MSComctlLib.ListView ListView3 
+         Height          =   6495
+         Left            =   240
+         TabIndex        =   32
+         Top             =   360
+         Width           =   8055
+         _ExtentX        =   14208
+         _ExtentY        =   11456
+         View            =   3
+         LabelWrap       =   -1  'True
+         HideSelection   =   -1  'True
+         Checkboxes      =   -1  'True
+         FullRowSelect   =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   1
+         NumItems        =   3
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "Descripcion"
+            Object.Width           =   6703
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Alignment       =   1
+            SubItemIndex    =   1
+            Text            =   "Precio"
+            Object.Width           =   2117
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   2
+            Text            =   "Familia"
+            Object.Width           =   4410
+         EndProperty
+      End
+      Begin VB.Image imgCheck 
+         Height          =   240
+         Index           =   1
+         Left            =   600
+         Picture         =   "frmMensajes.frx":0F7A
+         Top             =   6960
+         Width           =   240
+      End
+      Begin VB.Image imgCheck 
+         Height          =   240
+         Index           =   0
+         Left            =   240
+         Picture         =   "frmMensajes.frx":10C4
+         Top             =   6960
+         Width           =   240
+      End
+   End
 End
 Attribute VB_Name = "frmMensajes"
 Attribute VB_GlobalNameSpace = False
@@ -797,6 +898,7 @@ Public OpcionMensaje As Byte
 
 
 '25 .- Correcion de precios de AVAB compandose con los de Morales
+'26 .- MOxiente. Falta stock componentes
 
 
 Public cadWhere As String 'Cadena para pasarle la WHERE de la SELECT de los cobros pendientes o de Pedido(para comp. stock)
@@ -1265,6 +1367,14 @@ Private Sub cmdSelTodos_Click()
     Next I
 End Sub
 
+Private Sub cmdStockProd_Click(Index As Integer)
+    If Index = 0 Then
+        Set listacod = Nothing
+        Set listacod = New Collection
+    End If
+    Unload Me
+End Sub
+
 Private Sub Form_Activate()
 Dim OK As Boolean
 
@@ -1316,6 +1426,9 @@ Dim OK As Boolean
             End If
         Case 18
             PonerFoco txtMante(0)
+            
+        Case 26
+            CargaListaProduccion
     End Select
     
     Screen.MousePointer = vbDefault
@@ -1336,6 +1449,7 @@ On Error Resume Next
     FrameEtiqEstant.visible = False
     FrameCorreccionPrecios.visible = False
     FrameTraspasoMante.visible = False
+    FrameVerDatosStockProduccion.visible = False
     PulsadoSalir = True
     PrimeraVez = True
     
@@ -1499,6 +1613,13 @@ On Error Resume Next
             H = FrameTraspasoMante.Height
             W = FrameTraspasoMante.Width
             PonerFrameVisible FrameTraspasoMante, True, H, W
+
+        Case 26
+            
+             Caption = "Produccion"
+            H = FrameVerDatosStockProduccion.Height
+            W = FrameVerDatosStockProduccion.Width
+            PonerFrameVisible FrameVerDatosStockProduccion, True, H, W
 
     End Select
     'Me.cmdCancel(indFrame).Cancel = True
@@ -3066,3 +3187,20 @@ ECargaPVPPreciosDesdeMorales:
     Set miRsAux = Nothing
 End Sub
 
+
+
+Private Sub CargaListaProduccion()
+
+Dim It As ListItem
+    
+    For NumRegElim = 1 To listacod.Count
+        Set It = ListView5.ListItems.Add
+       vCampos = listacod.Item(NumRegElim)
+        It.Text = RecuperaValor(vCampos, 4)
+        It.SubItems(1) = RecuperaValor(vCampos, 5)
+        It.SubItems(2) = RecuperaValor(vCampos, 1)
+        It.SubItems(3) = RecuperaValor(vCampos, 2)
+        It.SubItems(4) = RecuperaValor(vCampos, 3)
+    Next
+    Me.cmdStockProd(1).Cancel = True
+End Sub

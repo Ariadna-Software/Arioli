@@ -1436,7 +1436,7 @@ Private Sub Form_Load()
         
 
     NombreTabla = "sordprod"
-    Ordenacion = " ORDER BY codigo "
+    Ordenacion = " ORDER BY feccreacion "
   
         
     'Vemos como esta guardado el valor del check
@@ -1455,6 +1455,7 @@ Private Sub Form_Load()
     Else
         CadenaConsulta = CadenaConsulta & DatosADevolverBusqueda2
     End If
+    
     Data1.RecordSource = CadenaConsulta
     Data1.Refresh
     
@@ -2082,6 +2083,12 @@ Dim vArtic As CArticulo
             Exit Function
         End If
     End If
+    
+    
+    If b And vParamAplic.QUE_EMPRESA > 0 Then b = ComprobarStockMoixent
+    
+    
+    
     
     DatosOkLinea = b
 
@@ -2983,9 +2990,6 @@ Dim SQL As String
     Espera 0.2
     
     
-    'MAYO 2010
-    'Por algun motivo, que desconzco, ya no utilizaba aqui el factor de conversion
-    'Lo vuelvo a poner
     SQL = "INSERT INTO sliordpr2"
     SQL = SQL & "( codigo, codalmac, codartic ,codarti2,cantidad ) "
     
@@ -3260,3 +3264,95 @@ Dim LlamaLoteDesdeAqui As Boolean
 End Sub
 
 
+Private Function ComprobarStockMoixent() As Boolean
+Dim SQL As String
+Dim RA As ADODB.Recordset
+Dim MensajeparaMostrar As String
+Dim cS As Currency
+Dim St As Currency
+Dim Fin As Boolean
+Dim Cadena As String
+    On Error GoTo eComprobarStockMoixent
+    
+    ComprobarStockMoixent = False
+
+    Set miRsAux = New ADODB.Recordset
+    Set RA = New ADODB.Recordset
+    MensajeparaMostrar = ""
+    'CUANTO HAY PENDIENTE DE SERVIR
+    SQL = " select codarti2,sliordpr.codalmac,sum(sliordpr2.cantidad) PDteProd From sordprod, sliordpr, sliordpr2, sartic"
+    SQL = SQL & " Where sordprod.Codigo = sliordpr.Codigo and sordprod.codigo=sliordpr2.codigo "
+    SQL = SQL & " and sliordpr.codalmac=sliordpr2.codalmac and sliordpr.codartic=sliordpr2.codartic"
+    SQL = SQL & " and sliordpr2.codartic=sartic.codartic  AND  fecproduccion IS null"
+    'SI ESTA MODIFICANDO
+    SQL = SQL & " and not (sliordpr.codigo, sliordpr.codartic) IN ((" & Text1(0).Text & ", '" & txtAux(4).Text & "'))"
+    SQL = SQL & " group by codarti2,sliordpr.codalmac ORDER BY 1,2"
+    RA.Open SQL, conn, adOpenKeyset, adLockPessimistic, adCmdText
+    
+    'Voy a ver cuanto necesito
+    SQL = "SELECT sarti1.codarti1,round(cantidad * " & DBSet(txtAux(4).Text, "N")
+    'Factor conversion. Solo se aplica cuando metamos en stock. Ahora no
+    SQL = SQL & " * factorconversion , "
+     SQL = SQL & CStr(IIf(vParamAplic.QUE_EMPRESA = 4, 2, 4))
+    SQL = SQL & ") cuanto FROM sarti1,sartic WHERE sarti1.codarti1=sartic.codartic and ctrstock  AND sarti1.codartic ="
+    SQL = SQL & DBSet(txtAux(1).Text, "T")
+    miRsAux.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Set listacod = New Collection
+    While Not miRsAux.EOF
+        'Veo si existe el articulo desde otrasd s`producciones abiertas
+        cS = 0
+        RA.Find "codarti2 =" & DBSet(miRsAux!codarti1, "T"), , adSearchForward, 1
+        
+        If Not RA.EOF Then
+            'Vemos si esta codalmac. Deberia ser est
+             If RA!codAlmac <> Val(txtAux(0).Text) Then Err.Raise 513, , "Error obeniendo codalmac"
+            cS = RA!PDteProd
+        End If
+        Cadena = Format(cS, FormatoCantidad) & "|"
+        
+        cS = cS + miRsAux!cuanto
+        SQL = Format(miRsAux!cuanto, FormatoCantidad)
+        Cadena = Cadena & SQL & "|"
+        
+        
+        'STOCK
+        SQL = "codartic =" & DBSet(miRsAux!codarti1, "T") & " AND codalmac"
+        SQL = DevuelveDesdeBD(conAri, "canstock", "salmac", SQL, txtAux(0).Text)
+        St = 0
+        If SQL <> "" Then St = CCur(SQL)
+        
+        If St < cS Then
+            'Hay menos que lo que necesitamos en total
+            SQL = Format(St, FormatoCantidad)
+            Cadena = Cadena & SQL & "|"
+            
+            'articulo
+            SQL = "codartic =" & DBSet(miRsAux!codarti1, "T") & " AND 1"
+            SQL = DevuelveDesdeBD(conAri, "nomartic", "sartic", SQL, 1)
+            
+            Cadena = Cadena & miRsAux!codarti1 & "|" & SQL & "|"
+            
+            
+            
+            listacod.Add Cadena
+        End If
+        
+        
+        miRsAux.MoveNext
+    Wend
+    miRsAux.Close
+    RA.Close
+    
+    
+    If listacod.Count > 0 Then
+        frmMensajes.OpcionMensaje = 26
+        frmMensajes.Show vbModal
+        
+    End If
+    ComprobarStockMoixent = listacod.Count = 0
+eComprobarStockMoixent:
+    If Err.Number <> 0 Then MuestraError Err.Number, , Err.Description
+    Set miRsAux = Nothing
+    Set RA = Nothing
+    Set listacod = Nothing
+End Function
