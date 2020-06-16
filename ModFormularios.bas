@@ -875,9 +875,9 @@ Public Sub ActualizarToolbarGnral(ByRef Toolbar1 As Toolbar, Modo As Byte, Kmodo
 'Kmodo: Modo que se va a poner
 Dim b As Boolean
     
-    b = (Modo = 5 Or Modo = 6 Or Modo = 7)
+    b = (Modo = 5 Or Modo = 6 Or Modo = 7 Or Modo = 8)
     
-    If (b) And (Kmodo <> 5 And Kmodo <> 6 And Kmodo <> 7) Then 'Cabecera
+    If (b) And (Kmodo <> 5 And Kmodo <> 6 And Kmodo <> 7 And Kmodo <> 8) Then 'Cabecera
         'El modo antigu era modificando las lineas
         'Luego hay que reestablecer los dibujitos y los TIPS
         '-- insertar
@@ -890,7 +890,7 @@ Dim b As Boolean
         Toolbar1.Buttons(posic + 2).Image = 5
         Toolbar1.Buttons(posic + 2).ToolTipText = "Eliminar"
     End If
-    If (Kmodo = 5 Or Kmodo = 6 Or Kmodo = 7) Then 'Lineas
+    If (Kmodo = 5 Or Kmodo = 6 Or Kmodo = 7 Or Kmodo = 8) Then  'Lineas
         'Ponemos nuevos dibujitos y tal y tal
         'Luego hay que reestablecer los dibujitos y los TIPS
         '-- insertar
@@ -1078,7 +1078,7 @@ End Function
 Public Function PonerFormatoEntero(ByRef T As TextBox) As Boolean
 'Comprueba que el valor del textbox es un entero y le pone el formato
 Dim mTag As CTag
-Dim Cad As String
+Dim cad As String
 Dim Formato As String
 On Error GoTo EPonerFormato
 
@@ -1088,14 +1088,14 @@ On Error GoTo EPonerFormato
     Set mTag = New CTag
     mTag.Cargar T
     If mTag.Cargado Then
-       Cad = mTag.Nombre 'descripcion del campo
+       cad = mTag.Nombre 'descripcion del campo
        Formato = mTag.Formato
     End If
     Set mTag = Nothing
 
     If Not EsEnteroNew(T.Text) Then
         PonerFormatoEntero = False
-        MsgBox "El campo " & Cad & " tiene que ser un número entero.", vbExclamation
+        MsgBox "El campo " & cad & " tiene que ser un número entero.", vbExclamation
         PonerFoco T
     Else
          T.Text = Format(T.Text, Formato)
@@ -1399,7 +1399,7 @@ Public Function PonerNombreDeCod(ByRef Txt As TextBox, bd As Byte, Tabla As Stri
 'Devuelve el nombre/Descripción asociado al Código correspondiente
 'Además pone formato al campo txt del código a partir del Tag
 Dim SQL As String
-Dim Devuelve As String
+Dim devuelve As String
 Dim vtag As CTag
 Dim ValorCodigo As String
 On Error GoTo EPonerNombresDeCod
@@ -1411,17 +1411,17 @@ On Error GoTo EPonerNombresDeCod
     If ValorCodigo <> "" Then
         Set vtag = New CTag
         If vtag.Cargar(Txt) Then
-            If Codigo = "" Then Codigo = vtag.Columna
+            If Codigo = "" Then Codigo = vtag.columna
             If Tipo = "" Then Tipo = vtag.TipoDato
             SQL = DevuelveDesdeBD(bd, campo, Tabla, Codigo, ValorCodigo, Tipo)
             If vtag.TipoDato = "N" Then ValorCodigo = Format(ValorCodigo, vtag.Formato)
             If SQL = "" Then
                 If Texto = "" Then
-                    Devuelve = "No existe " & vtag.Nombre & ": " & ValorCodigo
+                    devuelve = "No existe " & vtag.Nombre & ": " & ValorCodigo
                 Else
-                    Devuelve = "No existe " & Texto & ": " & ValorCodigo
+                    devuelve = "No existe " & Texto & ": " & ValorCodigo
                 End If
-                MsgBox Devuelve, vbExclamation
+                MsgBox devuelve, vbExclamation
 '                Txt.Text = ""
                 'si ponemos foco bucle
 '                PonerFoco Txt
@@ -1446,7 +1446,7 @@ Public Function ExisteCP(T As TextBox) As Boolean
 'comprueba para un campo de texto que sea clave primaria, si ya existe un
 'registro con ese valor
 Dim vtag As CTag
-Dim Devuelve As String
+Dim devuelve As String
 On Error GoTo EExiste
 
     ExisteCP = False
@@ -1454,8 +1454,8 @@ On Error GoTo EExiste
         If T.Tag <> "" Then
             Set vtag = New CTag
             If vtag.Cargar(T) Then
-                Devuelve = DevuelveDesdeBDNew(conAri, vtag.Tabla, vtag.Columna, vtag.Columna, T.Text, vtag.TipoDato)
-                If Devuelve <> "" Then
+                devuelve = DevuelveDesdeBDNew(conAri, vtag.Tabla, vtag.columna, vtag.columna, T.Text, vtag.TipoDato)
+                If devuelve <> "" Then
                     MsgBox "Ya existe un registro para " & vtag.Nombre & ": " & T.Text, vbExclamation
                     ExisteCP = True
                 End If
@@ -1739,7 +1739,7 @@ Dim b As Boolean
             
             'PAIS
             If vParamAplic.ContabilidadNueva Then
-                Aux = MiFormat(vClien.IBAN, "") & MiFormat(vClien.Banco, "0000") & MiFormat(vClien.Sucursal, "0000") & MiFormat(vClien.DigControl, "00") & MiFormat(vClien.CuentaBan, "0000000000")
+                Aux = MiFormat(vClien.iBan, "") & MiFormat(vClien.Banco, "0000") & MiFormat(vClien.Sucursal, "0000") & MiFormat(vClien.DigControl, "00") & MiFormat(vClien.CuentaBan, "0000000000")
                 SQL = SQL & DBSet(Aux, "T")
 
             Else
@@ -1769,10 +1769,10 @@ Dim b As Boolean
                 End If
                             
                 SQL = SQL & ","
-                If vClien.IBAN = "" Then
+                If vClien.iBan = "" Then
                     SQL = SQL & "NULL"
                 Else
-                    SQL = SQL & "'" & vClien.IBAN & "'"
+                    SQL = SQL & "'" & vClien.iBan & "'"
                 End If
             End If
             SQL = SQL & ")"
@@ -1815,7 +1815,7 @@ Dim b As Boolean
             
             'CuentaBAnco
             If vParamAplic.ContabilidadNueva Then
-                Aux = MiFormat(vProve.IBAN, "") & MiFormat(vProve.Banco, "0000") & MiFormat(vProve.Sucursal, "0000") & MiFormat(vProve.DigControl, "00") & MiFormat(vProve.CuentaBan, "0000000000")
+                Aux = MiFormat(vProve.iBan, "") & MiFormat(vProve.Banco, "0000") & MiFormat(vProve.Sucursal, "0000") & MiFormat(vProve.DigControl, "00") & MiFormat(vProve.CuentaBan, "0000000000")
                 SQL = SQL & DBSet(Aux, "T")
 
             Else
@@ -1845,10 +1845,10 @@ Dim b As Boolean
                 End If
                             
                 SQL = SQL & ","
-                If vProve.IBAN = "" Then
+                If vProve.iBan = "" Then
                     SQL = SQL & "NULL"
                 Else
-                    SQL = SQL & "'" & vProve.IBAN & "'"
+                    SQL = SQL & "'" & vProve.iBan & "'"
                 End If
             End If
             SQL = SQL & ")"
@@ -1938,45 +1938,45 @@ End Sub
 
 
 
-Public Function ComprobarHayStock(stockOrig As Single, stockTras As Single, codartic As String, NomArtic As String, tipoMov As String)
+Public Function ComprobarHayStock(stockOrig As Single, stockTras As Single, codArtic As String, NomArtic As String, tipoMov As String)
 'IN: stockOrig: stock existente en almacen Origen
 '    stockTras: stock a traspasar del origen a otro almacen
 Dim b As Boolean
-Dim Devuelve As String
+Dim devuelve As String
 
     ComprobarHayStock = False
     If stockOrig >= CSng(stockTras) Then
     'Si cantidad en stock > cantidad a traspasar entonces
         b = True
     Else    'No hay suficiente stock en almacen origen
-        Devuelve = "Control de Stock : " & vbCrLf
-        Devuelve = Devuelve & "---------------------- " & vbCrLf & vbCrLf
-        Devuelve = Devuelve & " No hay suficiente Stock en el Almacen del Artículo:"
-        Devuelve = Devuelve & vbCrLf & " Código:   " & codartic & vbCrLf
-        Devuelve = Devuelve & " Desc.: " & NomArtic & vbCrLf & vbCrLf
-        Devuelve = Devuelve & "(Stock=" & stockOrig & ")"
+        devuelve = "Control de Stock : " & vbCrLf
+        devuelve = devuelve & "---------------------- " & vbCrLf & vbCrLf
+        devuelve = devuelve & " No hay suficiente Stock en el Almacen del Artículo:"
+        devuelve = devuelve & vbCrLf & " Código:   " & codArtic & vbCrLf
+        devuelve = devuelve & " Desc.: " & NomArtic & vbCrLf & vbCrLf
+        devuelve = devuelve & "(Stock=" & stockOrig & ")"
 
         If tipoMov = "OFE" Then
-            MsgBox Devuelve, vbInformation
+            MsgBox devuelve, vbInformation
         Else
             If vParamAplic.ControlStock Then
             'Si hay control Stock no permitir traspaso
                 b = False
                 Select Case tipoMov
                     Case "REG"
-                        Devuelve = Devuelve & vbCrLf & vbCrLf & " No se puede realizar el Movimiento de Almacen. "
+                        devuelve = devuelve & vbCrLf & vbCrLf & " No se puede realizar el Movimiento de Almacen. "
                     Case "TRA"
-                        Devuelve = Devuelve & vbCrLf & vbCrLf & " No se puede realizar el Traspaso de Almacen. "
+                        devuelve = devuelve & vbCrLf & vbCrLf & " No se puede realizar el Traspaso de Almacen. "
                 End Select
-                MsgBox Devuelve, vbExclamation
+                MsgBox devuelve, vbExclamation
             Else
                 Select Case tipoMov
                 Case "REG"
-                    Devuelve = Devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Movimiento de Almacen? "
+                    devuelve = devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Movimiento de Almacen? "
                 Case "TRA"
-                    Devuelve = Devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Traspaso de Almacen? "
+                    devuelve = devuelve & vbCrLf & vbCrLf & " ¿Desea realizar el Traspaso de Almacen? "
                 End Select
-                If MsgBox(Devuelve, vbQuestion + vbYesNo) = vbYes Then
+                If MsgBox(devuelve, vbQuestion + vbYesNo) = vbYes Then
                     b = True
                 Else
                     b = False

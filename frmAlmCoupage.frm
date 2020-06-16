@@ -1884,7 +1884,7 @@ Dim b As Boolean
     If Modo = 3 Then
         CadenaConsulta = ""
         If Val(Me.Text1(6).Text) > MaxNumDepositos_ Then
-            If Val(Me.Text1(6).Text) < 107 Then
+            If Val(Me.Text1(6).Text) < 100 Then
                 CadenaConsulta = "Deposito incorrecto (" & MaxNumDepositos_ & ".." & "106)"
             Else
                 If Val(Me.Text1(6).Text) > 109 Then CadenaConsulta = "Deposito incorrecto (>109)"

@@ -16,170 +16,61 @@ Begin VB.Form frmListado
    ScaleWidth      =   10845
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.Frame frameListado 
-      Height          =   5535
-      Left            =   360
-      TabIndex        =   10
-      Top             =   120
-      Width           =   6555
-      Begin VB.Frame FrameHomologacion 
-         Height          =   1335
-         Left            =   600
-         TabIndex        =   601
-         Top             =   3480
-         Width           =   5415
-         Begin VB.CheckBox chkProvHomologado 
-            Caption         =   "Mostrar acciones"
-            Height          =   255
-            Index           =   1
-            Left            =   3120
-            TabIndex        =   604
-            Top             =   840
-            Width           =   1575
-         End
-         Begin VB.ComboBox cboMultiPorposito 
-            Height          =   315
-            Index           =   0
-            ItemData        =   "frmListado.frx":000C
-            Left            =   1440
-            List            =   "frmListado.frx":0019
-            Style           =   2  'Dropdown List
-            TabIndex        =   602
-            Top             =   240
-            Width           =   1815
-         End
-         Begin VB.CheckBox chkProvHomologado 
-            Caption         =   "Mostrar observaciones"
-            Height          =   255
-            Index           =   0
-            Left            =   480
-            TabIndex        =   603
-            Top             =   840
-            Width           =   2295
-         End
-         Begin VB.Label Label1 
-            Caption         =   "Homologados"
-            Height          =   195
-            Index           =   7
-            Left            =   120
-            TabIndex        =   605
-            Top             =   240
-            Width           =   975
-         End
-      End
-      Begin VB.Frame frameOrdenar 
-         Caption         =   "Ordenar por"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00000080&
-         Height          =   735
-         Left            =   600
-         TabIndex        =   150
-         Top             =   2640
-         Width           =   3375
-         Begin VB.OptionButton OptNombre 
-            Caption         =   "Descripción"
-            Height          =   375
-            Left            =   1680
-            TabIndex        =   3
-            Top             =   240
-            Width           =   1455
-         End
-         Begin VB.OptionButton Optcodigo 
-            Caption         =   "Código"
-            Height          =   375
-            Left            =   120
-            TabIndex        =   2
-            Top             =   240
-            Width           =   1215
-         End
-      End
+   Begin VB.Frame FramePack 
+      Height          =   1455
+      Left            =   1800
+      TabIndex        =   606
+      Top             =   6120
+      Visible         =   0   'False
+      Width           =   6135
       Begin VB.TextBox txtNombre 
          BackColor       =   &H80000018&
          Height          =   285
-         Index           =   2
-         Left            =   2480
+         Index           =   127
+         Left            =   1920
          Locked          =   -1  'True
-         TabIndex        =   12
+         TabIndex        =   610
          Text            =   "Text5"
-         Top             =   2040
-         Width           =   3255
-      End
-      Begin VB.TextBox txtNombre 
-         BackColor       =   &H80000018&
-         Height          =   285
-         Index           =   1
-         Left            =   2480
-         Locked          =   -1  'True
-         TabIndex        =   11
-         Text            =   "Text5"
-         Top             =   1560
-         Width           =   3255
+         Top             =   480
+         Width           =   3975
       End
       Begin VB.TextBox txtCodigo 
-         Alignment       =   1  'Right Justify
          Height          =   285
-         Index           =   2
-         Left            =   1605
-         TabIndex        =   1
-         Top             =   2040
-         Width           =   830
+         Index           =   127
+         Left            =   360
+         TabIndex        =   607
+         Top             =   480
+         Width           =   1455
       End
-      Begin VB.TextBox txtCodigo 
-         Alignment       =   1  'Right Justify
-         Height          =   285
-         Index           =   1
-         Left            =   1605
-         TabIndex        =   0
-         Top             =   1560
-         Width           =   830
-      End
-      Begin VB.CommandButton cmdAceptar 
+      Begin VB.CommandButton cmdArticuloPack 
          Caption         =   "&Aceptar"
          Height          =   375
-         Index           =   1
-         Left            =   3720
-         TabIndex        =   4
-         Top             =   5040
+         Left            =   3840
+         TabIndex        =   608
+         Top             =   960
          Width           =   975
       End
       Begin VB.CommandButton cmdCancel 
          Caption         =   "&Cancelar"
          Height          =   375
-         Index           =   1
-         Left            =   4800
-         TabIndex        =   5
-         Top             =   5040
+         Index           =   100
+         Left            =   4920
+         TabIndex        =   609
+         Top             =   960
          Width           =   975
       End
-      Begin VB.Image imgBuscar 
+      Begin VB.Image imgBuscarG 
          Height          =   240
-         Index           =   2
-         Left            =   1320
-         Picture         =   "frmListado.frx":0044
-         ToolTipText     =   "Buscar marca"
-         Top             =   2040
+         Index           =   95
+         Left            =   1440
+         Picture         =   "frmListado.frx":000C
+         ToolTipText     =   "Buscar artículo"
+         Top             =   240
          Width           =   240
       End
-      Begin VB.Image imgBuscar 
-         Height          =   240
-         Index           =   1
-         Left            =   1320
-         Picture         =   "frmListado.frx":0146
-         ToolTipText     =   "Buscar marca"
-         Top             =   1560
-         Width           =   240
-      End
-      Begin VB.Label Label1 
+      Begin VB.Label Label4 
          AutoSize        =   -1  'True
-         Caption         =   "Código"
+         Caption         =   "Articulo pack"
          BeginProperty Font 
             Name            =   "Tahoma"
             Size            =   8.25
@@ -191,48 +82,11 @@ Begin VB.Form frmListado
          EndProperty
          ForeColor       =   &H00000080&
          Height          =   195
-         Index           =   1
-         Left            =   720
-         TabIndex        =   16
-         Top             =   1200
-         Width           =   570
-      End
-      Begin VB.Label Label1 
-         Caption         =   "Hasta"
-         Height          =   195
-         Index           =   3
-         Left            =   720
-         TabIndex        =   14
-         Top             =   2040
-         Width           =   420
-      End
-      Begin VB.Label Label1 
-         Caption         =   "Desde"
-         Height          =   195
-         Index           =   2
-         Left            =   720
-         TabIndex        =   13
-         Top             =   1605
-         Width           =   465
-      End
-      Begin VB.Label lblTitulo 
-         Caption         =   "Listado Marcas"
-         BeginProperty Font 
-            Name            =   "Tahoma"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00800000&
-         Height          =   345
-         Index           =   1
-         Left            =   600
-         TabIndex        =   15
-         Top             =   480
-         Width           =   5055
+         Index           =   93
+         Left            =   240
+         TabIndex        =   611
+         Top             =   240
+         Width           =   1110
       End
    End
    Begin VB.Frame FrameEstMargenes 
@@ -421,7 +275,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   20
          Left            =   3840
-         Picture         =   "frmListado.frx":0248
+         Picture         =   "frmListado.frx":010E
          Top             =   3240
          Width           =   240
       End
@@ -438,7 +292,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   19
          Left            =   1560
-         Picture         =   "frmListado.frx":02D3
+         Picture         =   "frmListado.frx":0199
          Top             =   3240
          Width           =   240
       End
@@ -493,7 +347,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   69
          Left            =   1515
-         Picture         =   "frmListado.frx":035E
+         Picture         =   "frmListado.frx":0224
          ToolTipText     =   "Buscar artículo"
          Top             =   2160
          Width           =   240
@@ -502,7 +356,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   70
          Left            =   1515
-         Picture         =   "frmListado.frx":0460
+         Picture         =   "frmListado.frx":0326
          ToolTipText     =   "Buscar artículo"
          Top             =   2520
          Width           =   240
@@ -549,7 +403,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   67
          Left            =   1515
-         Picture         =   "frmListado.frx":0562
+         Picture         =   "frmListado.frx":0428
          ToolTipText     =   "Buscar familia"
          Top             =   1080
          Width           =   240
@@ -558,7 +412,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   68
          Left            =   1515
-         Picture         =   "frmListado.frx":0664
+         Picture         =   "frmListado.frx":052A
          ToolTipText     =   "buscar familia"
          Top             =   1440
          Width           =   240
@@ -699,9 +553,9 @@ Begin VB.Form frmListado
       End
       Begin VB.ComboBox cmbDecimales 
          Height          =   315
-         ItemData        =   "frmListado.frx":0766
+         ItemData        =   "frmListado.frx":062C
          Left            =   600
-         List            =   "frmListado.frx":0773
+         List            =   "frmListado.frx":0639
          Style           =   2  'Dropdown List
          TabIndex        =   275
          Top             =   6120
@@ -739,7 +593,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   87
             Left            =   80
-            Picture         =   "frmListado.frx":0792
+            Picture         =   "frmListado.frx":0658
             ToolTipText     =   "Buscar almacen"
             Top             =   60
             Width           =   240
@@ -755,7 +609,7 @@ Begin VB.Form frmListado
          Begin VB.CommandButton cmdBajar 
             Height          =   510
             Left            =   1920
-            Picture         =   "frmListado.frx":0894
+            Picture         =   "frmListado.frx":075A
             Style           =   1  'Graphical
             TabIndex        =   359
             Top             =   1305
@@ -765,7 +619,7 @@ Begin VB.Form frmListado
             Caption         =   " "
             Height          =   510
             Left            =   1920
-            Picture         =   "frmListado.frx":0B9E
+            Picture         =   "frmListado.frx":0A64
             Style           =   1  'Graphical
             TabIndex        =   358
             Top             =   600
@@ -1064,9 +918,9 @@ Begin VB.Form frmListado
       End
       Begin VB.ComboBox cmbProduccion2 
          Height          =   315
-         ItemData        =   "frmListado.frx":0EA8
+         ItemData        =   "frmListado.frx":0D6E
          Left            =   2280
-         List            =   "frmListado.frx":0EB2
+         List            =   "frmListado.frx":0D78
          Style           =   2  'Dropdown List
          TabIndex        =   589
          Top             =   6120
@@ -1158,7 +1012,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   18
          Left            =   1515
-         Picture         =   "frmListado.frx":0EE3
+         Picture         =   "frmListado.frx":0DA9
          Top             =   840
          Width           =   240
       End
@@ -1166,7 +1020,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   26
          Left            =   1515
-         Picture         =   "frmListado.frx":0FE5
+         Picture         =   "frmListado.frx":0EAB
          ToolTipText     =   "Buscar tipo articulo"
          Top             =   4485
          Width           =   240
@@ -1175,7 +1029,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   25
          Left            =   1515
-         Picture         =   "frmListado.frx":10E7
+         Picture         =   "frmListado.frx":0FAD
          ToolTipText     =   "Buscar tipo articulo"
          Top             =   4155
          Width           =   240
@@ -1222,7 +1076,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   22
          Left            =   1515
-         Picture         =   "frmListado.frx":11E9
+         Picture         =   "frmListado.frx":10AF
          ToolTipText     =   "Buscar marca"
          Top             =   2625
          Width           =   240
@@ -1231,7 +1085,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   21
          Left            =   1515
-         Picture         =   "frmListado.frx":12EB
+         Picture         =   "frmListado.frx":11B1
          ToolTipText     =   "Buscar marca"
          Top             =   2280
          Width           =   240
@@ -1296,7 +1150,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   20
          Left            =   1515
-         Picture         =   "frmListado.frx":13ED
+         Picture         =   "frmListado.frx":12B3
          ToolTipText     =   "Buscar familia"
          Top             =   1770
          Width           =   240
@@ -1305,7 +1159,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   19
          Left            =   1515
-         Picture         =   "frmListado.frx":14EF
+         Picture         =   "frmListado.frx":13B5
          ToolTipText     =   "Buscar familia"
          Top             =   1440
          Width           =   240
@@ -1332,7 +1186,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   28
          Left            =   1515
-         Picture         =   "frmListado.frx":15F1
+         Picture         =   "frmListado.frx":14B7
          ToolTipText     =   "Buscar artículo"
          Top             =   5400
          Width           =   240
@@ -1341,7 +1195,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   27
          Left            =   1515
-         Picture         =   "frmListado.frx":16F3
+         Picture         =   "frmListado.frx":15B9
          ToolTipText     =   "Buscar artículo"
          Top             =   5085
          Width           =   240
@@ -1426,7 +1280,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   23
          Left            =   1515
-         Picture         =   "frmListado.frx":17F5
+         Picture         =   "frmListado.frx":16BB
          ToolTipText     =   "Buscar proveedor"
          Top             =   3195
          Width           =   240
@@ -1435,7 +1289,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   24
          Left            =   1515
-         Picture         =   "frmListado.frx":18F7
+         Picture         =   "frmListado.frx":17BD
          ToolTipText     =   "Buscar proveedor"
          Top             =   3540
          Width           =   240
@@ -1764,7 +1618,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   3
          Left            =   4670
-         Picture         =   "frmListado.frx":19F9
+         Picture         =   "frmListado.frx":18BF
          Top             =   4440
          Width           =   240
       End
@@ -1830,7 +1684,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   17
          Left            =   1635
-         Picture         =   "frmListado.frx":1A84
+         Picture         =   "frmListado.frx":194A
          Top             =   4680
          Width           =   240
       End
@@ -1838,7 +1692,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   16
          Left            =   1635
-         Picture         =   "frmListado.frx":1B86
+         Picture         =   "frmListado.frx":1A4C
          ToolTipText     =   "Buscar provedor"
          Top             =   3960
          Width           =   240
@@ -1847,7 +1701,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   15
          Left            =   1635
-         Picture         =   "frmListado.frx":1C88
+         Picture         =   "frmListado.frx":1B4E
          ToolTipText     =   "Buscar proveedor"
          Top             =   3600
          Width           =   240
@@ -1932,7 +1786,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   11
          Left            =   1635
-         Picture         =   "frmListado.frx":1D8A
+         Picture         =   "frmListado.frx":1C50
          ToolTipText     =   "Buscar artículo"
          Top             =   1680
          Width           =   240
@@ -1941,7 +1795,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   12
          Left            =   1635
-         Picture         =   "frmListado.frx":1E8C
+         Picture         =   "frmListado.frx":1D52
          ToolTipText     =   "Buscar artículo"
          Top             =   2040
          Width           =   240
@@ -1988,7 +1842,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   13
          Left            =   1635
-         Picture         =   "frmListado.frx":1F8E
+         Picture         =   "frmListado.frx":1E54
          ToolTipText     =   "Buscar familia"
          Top             =   2640
          Width           =   240
@@ -1997,7 +1851,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   14
          Left            =   1635
-         Picture         =   "frmListado.frx":2090
+         Picture         =   "frmListado.frx":1F56
          ToolTipText     =   "Buscar familia"
          Top             =   3000
          Width           =   240
@@ -2046,7 +1900,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   10
          Left            =   1635
-         Picture         =   "frmListado.frx":2192
+         Picture         =   "frmListado.frx":2058
          ToolTipText     =   "Buscar almacen"
          Top             =   1080
          Width           =   240
@@ -2055,7 +1909,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   2
          Left            =   2140
-         Picture         =   "frmListado.frx":2294
+         Picture         =   "frmListado.frx":215A
          Top             =   4440
          Width           =   240
       End
@@ -2159,9 +2013,9 @@ Begin VB.Form frmListado
          End
          Begin VB.ComboBox cboTipMov 
             Height          =   315
-            ItemData        =   "frmListado.frx":231F
+            ItemData        =   "frmListado.frx":21E5
             Left            =   110
-            List            =   "frmListado.frx":2321
+            List            =   "frmListado.frx":21E7
             Style           =   2  'Dropdown List
             TabIndex        =   170
             Top             =   440
@@ -2323,7 +2177,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   4
             Left            =   915
-            Picture         =   "frmListado.frx":2323
+            Picture         =   "frmListado.frx":21E9
             Top             =   480
             Width           =   240
          End
@@ -2331,7 +2185,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   5
             Left            =   3360
-            Picture         =   "frmListado.frx":23AE
+            Picture         =   "frmListado.frx":2274
             Top             =   480
             Width           =   240
          End
@@ -2523,7 +2377,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   77
          Left            =   1035
-         Picture         =   "frmListado.frx":2439
+         Picture         =   "frmListado.frx":22FF
          ToolTipText     =   "Buscar cliente"
          Top             =   1440
          Width           =   240
@@ -2541,7 +2395,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   79
          Left            =   1035
-         Picture         =   "frmListado.frx":253B
+         Picture         =   "frmListado.frx":2401
          ToolTipText     =   "Buscar dir/dpto"
          Top             =   2400
          Visible         =   0   'False
@@ -2551,7 +2405,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   78
          Left            =   1035
-         Picture         =   "frmListado.frx":263D
+         Picture         =   "frmListado.frx":2503
          ToolTipText     =   "Buscar dir/dpto"
          Top             =   2040
          Visible         =   0   'False
@@ -2602,7 +2456,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   76
          Left            =   1035
-         Picture         =   "frmListado.frx":273F
+         Picture         =   "frmListado.frx":2605
          ToolTipText     =   "Buscar cliente"
          Top             =   1080
          Width           =   240
@@ -2702,7 +2556,7 @@ Begin VB.Form frmListado
       Begin VB.CommandButton cmdDeselTodos 
          Height          =   435
          Left            =   9000
-         Picture         =   "frmListado.frx":2841
+         Picture         =   "frmListado.frx":2707
          Style           =   1  'Graphical
          TabIndex        =   178
          Top             =   740
@@ -2711,7 +2565,7 @@ Begin VB.Form frmListado
       Begin VB.CommandButton cmdSelTodos 
          Height          =   435
          Left            =   9720
-         Picture         =   "frmListado.frx":2F2B
+         Picture         =   "frmListado.frx":2DF1
          Style           =   1  'Graphical
          TabIndex        =   177
          Top             =   740
@@ -2897,7 +2751,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   65
          Left            =   1200
-         Picture         =   "frmListado.frx":3615
+         Picture         =   "frmListado.frx":34DB
          ToolTipText     =   "Cliente"
          Top             =   4560
          Visible         =   0   'False
@@ -2907,7 +2761,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   66
          Left            =   1200
-         Picture         =   "frmListado.frx":3717
+         Picture         =   "frmListado.frx":35DD
          Top             =   4920
          Visible         =   0   'False
          Width           =   240
@@ -2974,7 +2828,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   1
          Left            =   3315
-         Picture         =   "frmListado.frx":3819
+         Picture         =   "frmListado.frx":36DF
          Top             =   3000
          Width           =   240
       End
@@ -2982,7 +2836,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   0
          Left            =   1155
-         Picture         =   "frmListado.frx":38A4
+         Picture         =   "frmListado.frx":376A
          Top             =   3000
          Width           =   240
       End
@@ -2990,7 +2844,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   34
          Left            =   1155
-         Picture         =   "frmListado.frx":392F
+         Picture         =   "frmListado.frx":37F5
          ToolTipText     =   "Buscar almacen"
          Top             =   3960
          Width           =   240
@@ -2999,7 +2853,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   33
          Left            =   1155
-         Picture         =   "frmListado.frx":3A31
+         Picture         =   "frmListado.frx":38F7
          ToolTipText     =   "Buscar almacen"
          Top             =   3600
          Width           =   240
@@ -3084,7 +2938,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   32
          Left            =   1155
-         Picture         =   "frmListado.frx":3B33
+         Picture         =   "frmListado.frx":39F9
          ToolTipText     =   "Buscar familia"
          Top             =   2400
          Width           =   240
@@ -3093,7 +2947,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   31
          Left            =   1155
-         Picture         =   "frmListado.frx":3C35
+         Picture         =   "frmListado.frx":3AFB
          ToolTipText     =   "Buscar familia"
          Top             =   2040
          Width           =   240
@@ -3140,7 +2994,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   30
          Left            =   1155
-         Picture         =   "frmListado.frx":3D37
+         Picture         =   "frmListado.frx":3BFD
          ToolTipText     =   "Buscar artículo"
          Top             =   1440
          Width           =   240
@@ -3149,7 +3003,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   29
          Left            =   1155
-         Picture         =   "frmListado.frx":3E39
+         Picture         =   "frmListado.frx":3CFF
          ToolTipText     =   "Buscar artículo"
          Top             =   1080
          Width           =   240
@@ -3396,7 +3250,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   7
          Left            =   1640
-         Picture         =   "frmListado.frx":3F3B
+         Picture         =   "frmListado.frx":3E01
          Top             =   3720
          Width           =   240
       End
@@ -3404,7 +3258,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   6
          Left            =   1640
-         Picture         =   "frmListado.frx":3FC6
+         Picture         =   "frmListado.frx":3E8C
          Top             =   3360
          Width           =   240
       End
@@ -3412,7 +3266,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   7
          Left            =   1635
-         Picture         =   "frmListado.frx":4051
+         Picture         =   "frmListado.frx":3F17
          ToolTipText     =   "Buscar cliente"
          Top             =   1680
          Width           =   240
@@ -3430,7 +3284,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   9
          Left            =   1635
-         Picture         =   "frmListado.frx":4153
+         Picture         =   "frmListado.frx":4019
          ToolTipText     =   "Buscar dir/dpto"
          Top             =   2640
          Width           =   240
@@ -3439,7 +3293,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   8
          Left            =   1635
-         Picture         =   "frmListado.frx":4255
+         Picture         =   "frmListado.frx":411B
          ToolTipText     =   "buscar dir/dpto"
          Top             =   2280
          Width           =   240
@@ -3543,7 +3397,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   6
          Left            =   1635
-         Picture         =   "frmListado.frx":4357
+         Picture         =   "frmListado.frx":421D
          ToolTipText     =   "Buscar cliente"
          Top             =   1320
          Width           =   240
@@ -3754,7 +3608,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   49
          Left            =   1635
-         Picture         =   "frmListado.frx":4459
+         Picture         =   "frmListado.frx":431F
          ToolTipText     =   "Buscar cliente"
          Top             =   1320
          Width           =   240
@@ -3763,7 +3617,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   54
          Left            =   1635
-         Picture         =   "frmListado.frx":455B
+         Picture         =   "frmListado.frx":4421
          ToolTipText     =   "Buscar contrato"
          Top             =   3720
          Width           =   240
@@ -3772,7 +3626,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   53
          Left            =   1635
-         Picture         =   "frmListado.frx":465D
+         Picture         =   "frmListado.frx":4523
          ToolTipText     =   "Buscar  contrato"
          Top             =   3360
          Width           =   240
@@ -3875,7 +3729,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   51
          Left            =   1635
-         Picture         =   "frmListado.frx":475F
+         Picture         =   "frmListado.frx":4625
          ToolTipText     =   "Buscar dir/dpto"
          Top             =   2280
          Width           =   240
@@ -3884,7 +3738,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   52
          Left            =   1635
-         Picture         =   "frmListado.frx":4861
+         Picture         =   "frmListado.frx":4727
          ToolTipText     =   "Buscar dir/dpto"
          Top             =   2640
          Width           =   240
@@ -3902,7 +3756,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   50
          Left            =   1635
-         Picture         =   "frmListado.frx":4963
+         Picture         =   "frmListado.frx":4829
          ToolTipText     =   "Buscar cliente"
          Top             =   1680
          Width           =   240
@@ -3967,7 +3821,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   1
             Left            =   1275
-            Picture         =   "frmListado.frx":4A65
+            Picture         =   "frmListado.frx":492B
             ToolTipText     =   "Buscar cliente"
             Top             =   720
             Width           =   240
@@ -3985,7 +3839,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   0
             Left            =   1275
-            Picture         =   "frmListado.frx":4B67
+            Picture         =   "frmListado.frx":4A2D
             ToolTipText     =   "Buscar cliente"
             Top             =   360
             Width           =   240
@@ -4121,7 +3975,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   4
             Left            =   1275
-            Picture         =   "frmListado.frx":4C69
+            Picture         =   "frmListado.frx":4B2F
             ToolTipText     =   "Buscar marca"
             Top             =   360
             Width           =   240
@@ -4130,7 +3984,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   5
             Left            =   1275
-            Picture         =   "frmListado.frx":4D6B
+            Picture         =   "frmListado.frx":4C31
             ToolTipText     =   "Buscar marca"
             Top             =   720
             Width           =   240
@@ -4223,7 +4077,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   63
             Left            =   1275
-            Picture         =   "frmListado.frx":4E6D
+            Picture         =   "frmListado.frx":4D33
             ToolTipText     =   "Buscar proveedor"
             Top             =   360
             Width           =   240
@@ -4232,7 +4086,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   64
             Left            =   1275
-            Picture         =   "frmListado.frx":4F6F
+            Picture         =   "frmListado.frx":4E35
             ToolTipText     =   "Buscar proveedor"
             Top             =   720
             Width           =   240
@@ -4357,7 +4211,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   2
          Left            =   1635
-         Picture         =   "frmListado.frx":5071
+         Picture         =   "frmListado.frx":4F37
          Top             =   2280
          Width           =   240
       End
@@ -4365,7 +4219,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   3
          Left            =   1635
-         Picture         =   "frmListado.frx":5173
+         Picture         =   "frmListado.frx":5039
          ToolTipText     =   "Buscar familia"
          Top             =   2640
          Width           =   240
@@ -4469,7 +4323,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   90
          Left            =   1395
-         Picture         =   "frmListado.frx":5275
+         Picture         =   "frmListado.frx":513B
          ToolTipText     =   "Buscar motivo baja"
          Top             =   2280
          Width           =   240
@@ -4498,7 +4352,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   89
          Left            =   1395
-         Picture         =   "frmListado.frx":5377
+         Picture         =   "frmListado.frx":523D
          ToolTipText     =   "Buscar trabajador"
          Top             =   1560
          Width           =   240
@@ -4507,7 +4361,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   12
          Left            =   1395
-         Picture         =   "frmListado.frx":5479
+         Picture         =   "frmListado.frx":533F
          Top             =   960
          Width           =   240
       End
@@ -4567,9 +4421,9 @@ Begin VB.Form frmListado
       End
       Begin VB.ComboBox cmbEliFac 
          Height          =   315
-         ItemData        =   "frmListado.frx":5504
+         ItemData        =   "frmListado.frx":53CA
          Left            =   3360
-         List            =   "frmListado.frx":5506
+         List            =   "frmListado.frx":53CC
          Style           =   2  'Dropdown List
          TabIndex        =   495
          Top             =   3000
@@ -4743,7 +4597,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   16
          Left            =   3600
-         Picture         =   "frmListado.frx":5508
+         Picture         =   "frmListado.frx":53CE
          Top             =   1440
          Width           =   240
       End
@@ -4799,7 +4653,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   15
          Left            =   1320
-         Picture         =   "frmListado.frx":5593
+         Picture         =   "frmListado.frx":5459
          Top             =   1440
          Width           =   240
       End
@@ -4846,7 +4700,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   94
          Left            =   1395
-         Picture         =   "frmListado.frx":561E
+         Picture         =   "frmListado.frx":54E4
          Top             =   2520
          Width           =   240
       End
@@ -4863,7 +4717,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   93
          Left            =   1395
-         Picture         =   "frmListado.frx":5720
+         Picture         =   "frmListado.frx":55E6
          Top             =   2160
          Width           =   240
       End
@@ -4979,7 +4833,7 @@ Begin VB.Form frmListado
          Left            =   1320
          MultiLine       =   -1  'True
          TabIndex        =   461
-         Text            =   "frmListado.frx":5822
+         Text            =   "frmListado.frx":56E8
          Top             =   4200
          Width           =   5175
       End
@@ -5167,7 +5021,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   75
          Left            =   960
-         Picture         =   "frmListado.frx":5828
+         Picture         =   "frmListado.frx":56EE
          ToolTipText     =   "Buscar cliente"
          Top             =   840
          Width           =   240
@@ -5199,9 +5053,9 @@ Begin VB.Form frmListado
       Width           =   7635
       Begin VB.ComboBox cboDecimales 
          Height          =   315
-         ItemData        =   "frmListado.frx":592A
+         ItemData        =   "frmListado.frx":57F0
          Left            =   3480
-         List            =   "frmListado.frx":593D
+         List            =   "frmListado.frx":5803
          Style           =   2  'Dropdown List
          TabIndex        =   580
          Top             =   5520
@@ -5424,7 +5278,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   56
          Left            =   1635
-         Picture         =   "frmListado.frx":595E
+         Picture         =   "frmListado.frx":5824
          ToolTipText     =   "Buscar tarifa"
          Top             =   1560
          Width           =   240
@@ -5442,7 +5296,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   58
          Left            =   1635
-         Picture         =   "frmListado.frx":5A60
+         Picture         =   "frmListado.frx":5926
          ToolTipText     =   "Buscar familia"
          Top             =   2520
          Width           =   240
@@ -5451,7 +5305,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   57
          Left            =   1635
-         Picture         =   "frmListado.frx":5B62
+         Picture         =   "frmListado.frx":5A28
          ToolTipText     =   "Buscar familia"
          Top             =   2160
          Width           =   240
@@ -5498,7 +5352,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   62
          Left            =   1635
-         Picture         =   "frmListado.frx":5C64
+         Picture         =   "frmListado.frx":5B2A
          ToolTipText     =   "Buscar artículo"
          Top             =   4680
          Width           =   240
@@ -5507,7 +5361,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   61
          Left            =   1635
-         Picture         =   "frmListado.frx":5D66
+         Picture         =   "frmListado.frx":5C2C
          ToolTipText     =   "Buscar artículo"
          Top             =   4320
          Width           =   240
@@ -5610,7 +5464,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   59
          Left            =   1635
-         Picture         =   "frmListado.frx":5E68
+         Picture         =   "frmListado.frx":5D2E
          ToolTipText     =   "Buscar marca"
          Top             =   3240
          Width           =   240
@@ -5619,7 +5473,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   60
          Left            =   1635
-         Picture         =   "frmListado.frx":5F6A
+         Picture         =   "frmListado.frx":5E30
          ToolTipText     =   "Buscar marca"
          Top             =   3600
          Width           =   240
@@ -5648,7 +5502,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   55
          Left            =   1635
-         Picture         =   "frmListado.frx":606C
+         Picture         =   "frmListado.frx":5F32
          ToolTipText     =   "Buscar tarifa"
          Top             =   1200
          Width           =   240
@@ -5786,7 +5640,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   14
             Left            =   4680
-            Picture         =   "frmListado.frx":616E
+            Picture         =   "frmListado.frx":6034
             Top             =   1080
             Width           =   240
          End
@@ -5794,7 +5648,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   13
             Left            =   2160
-            Picture         =   "frmListado.frx":61F9
+            Picture         =   "frmListado.frx":60BF
             Top             =   1080
             Width           =   240
          End
@@ -5822,7 +5676,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   92
             Left            =   1515
-            Picture         =   "frmListado.frx":6284
+            Picture         =   "frmListado.frx":614A
             ToolTipText     =   "Buscar motivo baja"
             Top             =   600
             Width           =   240
@@ -5840,7 +5694,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   91
             Left            =   1515
-            Picture         =   "frmListado.frx":6386
+            Picture         =   "frmListado.frx":624C
             ToolTipText     =   "Buscar motivo baja"
             Top             =   240
             Width           =   240
@@ -5953,7 +5807,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   109
             Left            =   1155
-            Picture         =   "frmListado.frx":6488
+            Picture         =   "frmListado.frx":634E
             Top             =   720
             Width           =   240
          End
@@ -6204,7 +6058,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   9
             Left            =   3555
-            Picture         =   "frmListado.frx":6513
+            Picture         =   "frmListado.frx":63D9
             Top             =   360
             Width           =   240
          End
@@ -6212,7 +6066,7 @@ Begin VB.Form frmListado
             Height          =   240
             Index           =   8
             Left            =   1275
-            Picture         =   "frmListado.frx":659E
+            Picture         =   "frmListado.frx":6464
             Top             =   360
             Width           =   240
          End
@@ -6297,7 +6151,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   41
          Left            =   1635
-         Picture         =   "frmListado.frx":6629
+         Picture         =   "frmListado.frx":64EF
          Top             =   1200
          Width           =   240
       End
@@ -6314,7 +6168,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   42
          Left            =   1635
-         Picture         =   "frmListado.frx":672B
+         Picture         =   "frmListado.frx":65F1
          Top             =   1560
          Width           =   240
       End
@@ -6322,7 +6176,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   44
          Left            =   1635
-         Picture         =   "frmListado.frx":682D
+         Picture         =   "frmListado.frx":66F3
          ToolTipText     =   "Buscar cliente"
          Top             =   2520
          Width           =   240
@@ -6340,7 +6194,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   46
          Left            =   1635
-         Picture         =   "frmListado.frx":692F
+         Picture         =   "frmListado.frx":67F5
          ToolTipText     =   "Buscar agente"
          Top             =   3480
          Width           =   240
@@ -6349,7 +6203,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   45
          Left            =   1635
-         Picture         =   "frmListado.frx":6A31
+         Picture         =   "frmListado.frx":68F7
          ToolTipText     =   "Buscar agente"
          Top             =   3120
          Width           =   240
@@ -6453,7 +6307,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   47
          Left            =   1635
-         Picture         =   "frmListado.frx":6B33
+         Picture         =   "frmListado.frx":69F9
          ToolTipText     =   "Buscar tipo contrato"
          Top             =   4080
          Width           =   240
@@ -6462,7 +6316,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   48
          Left            =   1635
-         Picture         =   "frmListado.frx":6C35
+         Picture         =   "frmListado.frx":6AFB
          ToolTipText     =   "Buscar tipo contrato"
          Top             =   4440
          Width           =   240
@@ -6471,7 +6325,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   43
          Left            =   1635
-         Picture         =   "frmListado.frx":6D37
+         Picture         =   "frmListado.frx":6BFD
          ToolTipText     =   "Buscar cliente"
          Top             =   2160
          Width           =   240
@@ -6652,7 +6506,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   83
          Left            =   1395
-         Picture         =   "frmListado.frx":6E39
+         Picture         =   "frmListado.frx":6CFF
          ToolTipText     =   "Buscar tipo contrato"
          Top             =   2640
          Width           =   240
@@ -6670,7 +6524,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   82
          Left            =   1395
-         Picture         =   "frmListado.frx":6F3B
+         Picture         =   "frmListado.frx":6E01
          ToolTipText     =   "Buscar tipo contrato"
          Top             =   2280
          Width           =   240
@@ -6708,7 +6562,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   81
          Left            =   1395
-         Picture         =   "frmListado.frx":703D
+         Picture         =   "frmListado.frx":6F03
          ToolTipText     =   "Buscar cliente"
          Top             =   1560
          Width           =   240
@@ -6726,7 +6580,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   80
          Left            =   1395
-         Picture         =   "frmListado.frx":713F
+         Picture         =   "frmListado.frx":7005
          ToolTipText     =   "Buscar cliente"
          Top             =   1200
          Width           =   240
@@ -6965,7 +6819,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   88
          Left            =   2280
-         Picture         =   "frmListado.frx":7241
+         Picture         =   "frmListado.frx":7107
          ToolTipText     =   "Buscar ruta"
          Top             =   3240
          Width           =   240
@@ -7013,7 +6867,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   86
          Left            =   2280
-         Picture         =   "frmListado.frx":7343
+         Picture         =   "frmListado.frx":7209
          ToolTipText     =   "Buscar ruta"
          Top             =   2902
          Width           =   240
@@ -7022,7 +6876,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   39
          Left            =   2280
-         Picture         =   "frmListado.frx":7445
+         Picture         =   "frmListado.frx":730B
          ToolTipText     =   "Buscar contrato"
          Top             =   3840
          Width           =   240
@@ -7069,7 +6923,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   40
          Left            =   2280
-         Picture         =   "frmListado.frx":7547
+         Picture         =   "frmListado.frx":740D
          ToolTipText     =   "Buscar contrato"
          Top             =   4200
          Width           =   240
@@ -7117,7 +6971,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   35
          Left            =   2160
-         Picture         =   "frmListado.frx":7649
+         Picture         =   "frmListado.frx":750F
          ToolTipText     =   "Buscar cliente"
          Top             =   960
          Width           =   240
@@ -7126,7 +6980,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   38
          Left            =   2235
-         Picture         =   "frmListado.frx":774B
+         Picture         =   "frmListado.frx":7611
          ToolTipText     =   "Buscar tipo contrato"
          Top             =   2280
          Width           =   240
@@ -7135,7 +6989,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   37
          Left            =   2235
-         Picture         =   "frmListado.frx":784D
+         Picture         =   "frmListado.frx":7713
          ToolTipText     =   "Buscar tipo contrato"
          Top             =   1920
          Width           =   240
@@ -7209,7 +7063,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   36
          Left            =   2160
-         Picture         =   "frmListado.frx":794F
+         Picture         =   "frmListado.frx":7815
          ToolTipText     =   "Buscar cliente"
          Top             =   1320
          Width           =   240
@@ -7390,7 +7244,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   97
          Left            =   1440
-         Picture         =   "frmListado.frx":7A51
+         Picture         =   "frmListado.frx":7917
          ToolTipText     =   "Buscar tecnico"
          Top             =   3480
          Width           =   240
@@ -7438,7 +7292,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   96
          Left            =   1440
-         Picture         =   "frmListado.frx":7B53
+         Picture         =   "frmListado.frx":7A19
          ToolTipText     =   "Buscar tecnico"
          Top             =   3120
          Width           =   240
@@ -7486,7 +7340,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   10
          Left            =   1440
-         Picture         =   "frmListado.frx":7C55
+         Picture         =   "frmListado.frx":7B1B
          Top             =   1080
          Width           =   240
       End
@@ -7552,7 +7406,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   11
          Left            =   3960
-         Picture         =   "frmListado.frx":7CE0
+         Picture         =   "frmListado.frx":7BA6
          Top             =   1080
          Width           =   240
       End
@@ -7560,7 +7414,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   84
          Left            =   1440
-         Picture         =   "frmListado.frx":7D6B
+         Picture         =   "frmListado.frx":7C31
          ToolTipText     =   "Buscar ruta"
          Top             =   1920
          Width           =   240
@@ -7608,7 +7462,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   85
          Left            =   1440
-         Picture         =   "frmListado.frx":7E6D
+         Picture         =   "frmListado.frx":7D33
          ToolTipText     =   "Buscar ruta"
          Top             =   2280
          Width           =   240
@@ -7657,9 +7511,9 @@ Begin VB.Form frmListado
       End
       Begin VB.ComboBox cboDecimal 
          Height          =   315
-         ItemData        =   "frmListado.frx":7F6F
+         ItemData        =   "frmListado.frx":7E35
          Left            =   1440
-         List            =   "frmListado.frx":7F82
+         List            =   "frmListado.frx":7E48
          Style           =   2  'Dropdown List
          TabIndex        =   446
          Top             =   4080
@@ -7774,7 +7628,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   18
          Left            =   3840
-         Picture         =   "frmListado.frx":7F95
+         Picture         =   "frmListado.frx":7E5B
          Top             =   3480
          Width           =   240
       End
@@ -7782,7 +7636,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   17
          Left            =   1515
-         Picture         =   "frmListado.frx":8020
+         Picture         =   "frmListado.frx":7EE6
          Top             =   3480
          Width           =   240
       End
@@ -7867,7 +7721,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   74
          Left            =   1515
-         Picture         =   "frmListado.frx":80AB
+         Picture         =   "frmListado.frx":7F71
          ToolTipText     =   "Buscar familia"
          Top             =   1680
          Width           =   240
@@ -7876,7 +7730,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   73
          Left            =   1515
-         Picture         =   "frmListado.frx":81AD
+         Picture         =   "frmListado.frx":8073
          ToolTipText     =   "Buscar familia"
          Top             =   1320
          Width           =   240
@@ -7923,7 +7777,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   72
          Left            =   1515
-         Picture         =   "frmListado.frx":82AF
+         Picture         =   "frmListado.frx":8175
          ToolTipText     =   "Buscar artículo"
          Top             =   2760
          Width           =   240
@@ -7932,7 +7786,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   71
          Left            =   1515
-         Picture         =   "frmListado.frx":83B1
+         Picture         =   "frmListado.frx":8277
          ToolTipText     =   "Buscar artículo"
          Top             =   2400
          Width           =   240
@@ -8194,7 +8048,7 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   3
          Left            =   920
-         Picture         =   "frmListado.frx":84B3
+         Picture         =   "frmListado.frx":8379
          ToolTipText     =   "Buscar almacén"
          Top             =   1800
          Width           =   240
@@ -8203,10 +8057,229 @@ Begin VB.Form frmListado
          Height          =   240
          Index           =   4
          Left            =   3200
-         Picture         =   "frmListado.frx":85B5
+         Picture         =   "frmListado.frx":847B
          ToolTipText     =   "Buscar almacén"
          Top             =   1800
          Width           =   240
+      End
+   End
+   Begin VB.Frame frameListado 
+      Height          =   5535
+      Left            =   360
+      TabIndex        =   10
+      Top             =   120
+      Width           =   6555
+      Begin VB.Frame FrameHomologacion 
+         Height          =   1335
+         Left            =   600
+         TabIndex        =   601
+         Top             =   3480
+         Width           =   5415
+         Begin VB.CheckBox chkProvHomologado 
+            Caption         =   "Mostrar acciones"
+            Height          =   255
+            Index           =   1
+            Left            =   3120
+            TabIndex        =   604
+            Top             =   840
+            Width           =   1575
+         End
+         Begin VB.ComboBox cboMultiPorposito 
+            Height          =   315
+            Index           =   0
+            ItemData        =   "frmListado.frx":857D
+            Left            =   1440
+            List            =   "frmListado.frx":858A
+            Style           =   2  'Dropdown List
+            TabIndex        =   602
+            Top             =   240
+            Width           =   1815
+         End
+         Begin VB.CheckBox chkProvHomologado 
+            Caption         =   "Mostrar observaciones"
+            Height          =   255
+            Index           =   0
+            Left            =   480
+            TabIndex        =   603
+            Top             =   840
+            Width           =   2295
+         End
+         Begin VB.Label Label1 
+            Caption         =   "Homologados"
+            Height          =   195
+            Index           =   7
+            Left            =   120
+            TabIndex        =   605
+            Top             =   240
+            Width           =   975
+         End
+      End
+      Begin VB.Frame frameOrdenar 
+         Caption         =   "Ordenar por"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   735
+         Left            =   600
+         TabIndex        =   150
+         Top             =   2640
+         Width           =   3375
+         Begin VB.OptionButton OptNombre 
+            Caption         =   "Descripción"
+            Height          =   375
+            Left            =   1680
+            TabIndex        =   3
+            Top             =   240
+            Width           =   1455
+         End
+         Begin VB.OptionButton Optcodigo 
+            Caption         =   "Código"
+            Height          =   375
+            Left            =   120
+            TabIndex        =   2
+            Top             =   240
+            Width           =   1215
+         End
+      End
+      Begin VB.TextBox txtNombre 
+         BackColor       =   &H80000018&
+         Height          =   285
+         Index           =   2
+         Left            =   2480
+         Locked          =   -1  'True
+         TabIndex        =   12
+         Text            =   "Text5"
+         Top             =   2040
+         Width           =   3255
+      End
+      Begin VB.TextBox txtNombre 
+         BackColor       =   &H80000018&
+         Height          =   285
+         Index           =   1
+         Left            =   2480
+         Locked          =   -1  'True
+         TabIndex        =   11
+         Text            =   "Text5"
+         Top             =   1560
+         Width           =   3255
+      End
+      Begin VB.TextBox txtCodigo 
+         Alignment       =   1  'Right Justify
+         Height          =   285
+         Index           =   2
+         Left            =   1605
+         TabIndex        =   1
+         Top             =   2040
+         Width           =   830
+      End
+      Begin VB.TextBox txtCodigo 
+         Alignment       =   1  'Right Justify
+         Height          =   285
+         Index           =   1
+         Left            =   1605
+         TabIndex        =   0
+         Top             =   1560
+         Width           =   830
+      End
+      Begin VB.CommandButton cmdAceptar 
+         Caption         =   "&Aceptar"
+         Height          =   375
+         Index           =   1
+         Left            =   3720
+         TabIndex        =   4
+         Top             =   5040
+         Width           =   975
+      End
+      Begin VB.CommandButton cmdCancel 
+         Caption         =   "&Cancelar"
+         Height          =   375
+         Index           =   1
+         Left            =   4800
+         TabIndex        =   5
+         Top             =   5040
+         Width           =   975
+      End
+      Begin VB.Image imgBuscar 
+         Height          =   240
+         Index           =   2
+         Left            =   1320
+         Picture         =   "frmListado.frx":85B5
+         ToolTipText     =   "Buscar marca"
+         Top             =   2040
+         Width           =   240
+      End
+      Begin VB.Image imgBuscar 
+         Height          =   240
+         Index           =   1
+         Left            =   1320
+         Picture         =   "frmListado.frx":86B7
+         ToolTipText     =   "Buscar marca"
+         Top             =   1560
+         Width           =   240
+      End
+      Begin VB.Label Label1 
+         AutoSize        =   -1  'True
+         Caption         =   "Código"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   1
+         Left            =   720
+         TabIndex        =   16
+         Top             =   1200
+         Width           =   570
+      End
+      Begin VB.Label Label1 
+         Caption         =   "Hasta"
+         Height          =   195
+         Index           =   3
+         Left            =   720
+         TabIndex        =   14
+         Top             =   2040
+         Width           =   420
+      End
+      Begin VB.Label Label1 
+         Caption         =   "Desde"
+         Height          =   195
+         Index           =   2
+         Left            =   720
+         TabIndex        =   13
+         Top             =   1605
+         Width           =   465
+      End
+      Begin VB.Label lblTitulo 
+         Caption         =   "Listado Marcas"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   14.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   345
+         Index           =   1
+         Left            =   600
+         TabIndex        =   15
+         Top             =   480
+         Width           =   5055
       End
    End
 End
@@ -8399,7 +8472,7 @@ Public OpcionListado As Integer
     '96 .- Frecuencias
     '97 .- Eliminar facturas
     '99 .- Traspaso a mantenimientos anulados
-    
+    '100.- Articulo pack
     
     '510 .- AVAB. Correcion de precios caomparando con morales
     
@@ -8831,7 +8904,7 @@ End Sub
 Private Sub cmdAceptarArtic_Click()
 'Listado de Articulos
 Dim campo As String
-Dim Devuelve As String
+Dim devuelve As String
 Dim Opcion As Byte, numOp As Byte
 Dim cadFrom As String
 
@@ -8904,8 +8977,8 @@ Dim cadFrom As String
      If txtCodigo(62).Text <> "" Or txtCodigo(63).Text <> "" Then
         campo = "{sartic.codfamia}"
         'Parametro Desde/Hasta Familila
-        Devuelve = "pDHFamilia=""Familia: "
-        If Not PonerDesdeHasta(campo, "N", 62, 63, Devuelve) Then Exit Sub
+        devuelve = "pDHFamilia=""Familia: "
+        If Not PonerDesdeHasta(campo, "N", 62, 63, devuelve) Then Exit Sub
     End If
     
     'Cadena para seleccion D/H MARCA
@@ -8913,8 +8986,8 @@ Dim cadFrom As String
     If txtCodigo(64).Text <> "" Or txtCodigo(65).Text <> "" Then
         campo = "{sartic.codmarca}"
         'Parametro Desde/Hasta Marca
-        Devuelve = "pDHMarca=""Marca: "
-        If Not PonerDesdeHasta(campo, "N", 64, 65, Devuelve) Then Exit Sub
+        devuelve = "pDHMarca=""Marca: "
+        If Not PonerDesdeHasta(campo, "N", 64, 65, devuelve) Then Exit Sub
     End If
     
     'Cadena para seleccion D/H PROVEEDOR
@@ -8922,8 +8995,8 @@ Dim cadFrom As String
     If txtCodigo(66).Text <> "" Or txtCodigo(67).Text <> "" Then
         campo = "{sartic.codprove}"
         'Parametro Desde/Hasta Proveedor
-        Devuelve = "pDHProveedor=""Proveedor: "
-        If Not PonerDesdeHasta(campo, "N", 66, 67, Devuelve) Then Exit Sub
+        devuelve = "pDHProveedor=""Proveedor: "
+        If Not PonerDesdeHasta(campo, "N", 66, 67, devuelve) Then Exit Sub
     End If
     
     'Cadena para seleccion D/H TIPO ARTICULO
@@ -8931,8 +9004,8 @@ Dim cadFrom As String
     If txtCodigo(68).Text <> "" Or txtCodigo(69).Text <> "" Then
         campo = "{sartic.codtipar}"
         'Parametro Desde/Hasta Tipo Articulo
-        Devuelve = "pDHTipoArt=""Tipo Articulo: "
-        If Not PonerDesdeHasta(campo, "T", 68, 69, Devuelve) Then Exit Sub
+        devuelve = "pDHTipoArt=""Tipo Articulo: "
+        If Not PonerDesdeHasta(campo, "T", 68, 69, devuelve) Then Exit Sub
     End If
     
     'Cadena para seleccion D/H ARTICULO
@@ -8940,8 +9013,8 @@ Dim cadFrom As String
     If txtCodigo(70).Text <> "" Or txtCodigo(71).Text <> "" Then
         campo = "{sartic.codartic}"
         'Parametro Desde/Hasta Articulo
-        Devuelve = "pDHArticulo=""Articulo: "
-        If Not PonerDesdeHasta(campo, "T", 70, 71, Devuelve) Then Exit Sub
+        devuelve = "pDHArticulo=""Articulo: "
+        If Not PonerDesdeHasta(campo, "T", 70, 71, devuelve) Then Exit Sub
     End If
     
     
@@ -8954,7 +9027,7 @@ Dim cadFrom As String
         'Veos que articulos quiere mostrar en funcion de la situacion
         '---------------------------------
         ' si los de situacion NORMAL
-        Devuelve = ""
+        devuelve = ""
         If Me.chkSitaucionArticulo(0).Value = 1 Then
             'SI los BLOQUEADO
             If Me.chkSitaucionArticulo(1).Value = 1 Then
@@ -8962,7 +9035,7 @@ Dim cadFrom As String
                     'LOS QUIERE TODOS. NO PONGO NADA
                 Else
                     'NO QUEIRE LOS CADUCADOS
-                    Devuelve = " < 2"
+                    devuelve = " < 2"
                 End If
             Else
                 'Los bloqueados NO
@@ -8970,31 +9043,31 @@ Dim cadFrom As String
                 
                 '       si los caducados
                 If Me.chkSitaucionArticulo(2).Value = 1 Then
-                    Devuelve = " <> 1"
+                    devuelve = " <> 1"
                     
                 Else
                 '       los caducados tampoco, es decir solo los normales
-                    Devuelve = " = 0"
+                    devuelve = " = 0"
                 End If
             End If
         Else
             'NO QUIERE LOS NORMALES
             If Me.chkSitaucionArticulo(1).Value = 1 Then
                 If Me.chkSitaucionArticulo(2).Value = 1 Then
-                        Devuelve = " > 0"
+                        devuelve = " > 0"
                 Else
-                        Devuelve = " = 1" 'solo bloqueados
+                        devuelve = " = 1" 'solo bloqueados
                 End If
             Else
                 'Es decir, NO QUIERE ni normal ni bloqueados, SOLO caducados
-                Devuelve = " = 2"
+                devuelve = " = 2"
             End If
 
         End If
-        If Devuelve <> "" Then
-            campo = "{sartic.codstatu} " & Devuelve
+        If devuelve <> "" Then
+            campo = "{sartic.codstatu} " & devuelve
             AnyadirAFormula cadFormula, campo
-            Devuelve = ""
+            devuelve = ""
         End If
         
     ''''If OpcionListado = 6 Then '6: Listado de Articulos
@@ -9143,7 +9216,7 @@ End Sub
 Private Sub cmdAceptarAviPtes_Click()
 '409: Listado Avisos averias pendientes
 Dim Tabla As String
-Dim campo As String, Cad As String
+Dim campo As String, cad As String
 
     InicializarVbles
     
@@ -9165,25 +9238,25 @@ Dim campo As String, Cad As String
     '----------------------------------
     If txtCodigo(84).Text <> "" Or txtCodigo(85).Text <> "" Then
         campo = "{sclien.codrutas}"
-        Cad = "pDHRuta=""Rutas: "
-        If Not PonerDesdeHasta(campo, "N", 84, 85, Cad) Then Exit Sub
+        cad = "pDHRuta=""Rutas: "
+        If Not PonerDesdeHasta(campo, "N", 84, 85, cad) Then Exit Sub
     End If
 
 
 
     'Cadena para seleccion SITUACION
     '----------------------------------
-    Cad = "pDHSitua=""Situación: "
+    cad = "pDHSitua=""Situación: "
     If Me.cboSituaAviso.ListIndex = -1 Or Me.cboSituaAviso.ListIndex = 0 Then
-        Cad = Cad & "Todas" & """|"
+        cad = cad & "Todas" & """|"
     Else
-        Cad = Cad & Me.cboSituaAviso.List(Me.cboSituaAviso.ListIndex) & """|"
+        cad = cad & Me.cboSituaAviso.List(Me.cboSituaAviso.ListIndex) & """|"
         campo = "{" & Tabla & ".situacio}=" & Me.cboSituaAviso.ListIndex - 1
         
         If Not AnyadirAFormula(cadFormula, campo) Then Exit Sub
         If Not AnyadirAFormula(Cadselect, campo) Then Exit Sub
     End If
-    Cadparam = Cadparam & Cad
+    Cadparam = Cadparam & cad
     NumParam = NumParam + 1
 
 
@@ -9191,8 +9264,8 @@ Dim campo As String, Cad As String
     '----------------------------------
     If txtCodigo(82).Text <> "" Or txtCodigo(83).Text <> "" Then
         campo = "{scaavi.fechaavi}"
-        Cad = "pDHFecha=""Fecha: "
-        If Not PonerDesdeHasta(campo, "F", 82, 83, Cad) Then Exit Sub
+        cad = "pDHFecha=""Fecha: "
+        If Not PonerDesdeHasta(campo, "F", 82, 83, cad) Then Exit Sub
     End If
 
 
@@ -9200,8 +9273,8 @@ Dim campo As String, Cad As String
     '----------------------------------
     If txtCodigo(96).Text <> "" Or txtCodigo(97).Text <> "" Then
         campo = "{scaavi.codtecni}"
-        Cad = "pDHTecni=""Técnico: "
-        If Not PonerDesdeHasta(campo, "N", 96, 97, Cad) Then Exit Sub
+        cad = "pDHTecni=""Técnico: "
+        If Not PonerDesdeHasta(campo, "N", 96, 97, cad) Then Exit Sub
     End If
 
 
@@ -9217,7 +9290,7 @@ End Sub
 Private Sub cmdAceptarDtosFM_Click()
 '54: Listado de Descuentos Familia/Marca
 '309: Listado precio compras
-Dim campo As String, Cad As String
+Dim campo As String, cad As String
 Dim Tabla As String
 
     InicializarVbles
@@ -9245,8 +9318,8 @@ Dim Tabla As String
     If txtCodigo(75).Text <> "" Or txtCodigo(76).Text <> "" Then
         campo = "{" & Tabla & ".codfamia}"
         If OpcionListado = 309 Then campo = "{sartic.codfamia}"
-        Cad = "pDHFamilia=""Familia: "
-        If Not PonerDesdeHasta(campo, "N", 75, 76, Cad) Then Exit Sub
+        cad = "pDHFamilia=""Familia: "
+        If Not PonerDesdeHasta(campo, "N", 75, 76, cad) Then Exit Sub
     End If
 
     If OpcionListado = 54 Then
@@ -9254,8 +9327,8 @@ Dim Tabla As String
         '--------------------------------------------
         If txtCodigo(73).Text <> "" Or txtCodigo(74).Text <> "" Then
             campo = "{sdtofm.codclien}"
-            Cad = "pDHCliente=""Cliente: "
-            If Not PonerDesdeHasta(campo, "N", 73, 74, Cad) Then Exit Sub
+            cad = "pDHCliente=""Cliente: "
+            If Not PonerDesdeHasta(campo, "N", 73, 74, cad) Then Exit Sub
         End If
     
     
@@ -9263,16 +9336,16 @@ Dim Tabla As String
         '--------------------------------------------
         If txtCodigo(77).Text <> "" Or txtCodigo(78).Text <> "" Then
             campo = "{sdtofm.codmarca}"
-            Cad = "pDHMarca=""Marca: "
-            If Not PonerDesdeHasta(campo, "N", 77, 78, Cad) Then Exit Sub
+            cad = "pDHMarca=""Marca: "
+            If Not PonerDesdeHasta(campo, "N", 77, 78, cad) Then Exit Sub
         End If
     ElseIf OpcionListado = 309 Then
         'Cadena para seleccion D/H PROVEEDOR
         '--------------------------------------------
         If txtCodigo(79).Text <> "" Or txtCodigo(80).Text <> "" Then
             campo = "{" & Tabla & ".codprove}"
-            Cad = "pDHProveedor=""Proveedor: "
-            If Not PonerDesdeHasta(campo, "N", 79, 80, Cad) Then Exit Sub
+            cad = "pDHProveedor=""Proveedor: "
+            If Not PonerDesdeHasta(campo, "N", 79, 80, cad) Then Exit Sub
         End If
     End If
     
@@ -9429,7 +9502,7 @@ End Sub
 Private Sub cmdAceptarMante_Click()
 'Listado de Mantenimientos
 Dim cadFrom As String
-Dim campo As String, Devuelve As String
+Dim campo As String, devuelve As String
 Dim Codigo  As String
 
     InicializarVbles
@@ -9496,8 +9569,8 @@ Dim Codigo  As String
     If txtCodigo(45).Text <> "" Or txtCodigo(46).Text <> "" Then
         campo = "{sclien.codzonas}"
 '        'Parametro Desde/Hasta Zona
-        Devuelve = "pDHZona=""Zona: "
-        If Not PonerDesdeHasta(campo, "N", 45, 46, Devuelve) Then Exit Sub
+        devuelve = "pDHZona=""Zona: "
+        If Not PonerDesdeHasta(campo, "N", 45, 46, devuelve) Then Exit Sub
     End If
     
     'Cadena para seleccion CLIENTE
@@ -9505,8 +9578,8 @@ Dim Codigo  As String
     If txtCodigo(47).Text <> "" Or txtCodigo(48).Text <> "" Then
         campo = "{" & Codigo & ".codclien}"
         'Parametro Desde/Hasta Cliente
-        Devuelve = "pDHCliente=""Cliente: "
-        If Not PonerDesdeHasta(campo, "N", 47, 48, Devuelve) Then Exit Sub
+        devuelve = "pDHCliente=""Cliente: "
+        If Not PonerDesdeHasta(campo, "N", 47, 48, devuelve) Then Exit Sub
     End If
     
     'Cadena para seleccion AGENTE
@@ -9514,8 +9587,8 @@ Dim Codigo  As String
     If txtCodigo(49).Text <> "" Or txtCodigo(50).Text <> "" Then
         campo = "{sclien.codagent}"
         'Parametro Desde/Hasta Agente
-        Devuelve = "pDHAgente=""Agente: "
-        If Not PonerDesdeHasta(campo, "N", 49, 50, Devuelve) Then Exit Sub
+        devuelve = "pDHAgente=""Agente: "
+        If Not PonerDesdeHasta(campo, "N", 49, 50, devuelve) Then Exit Sub
     End If
     
     'Cadena para seleccion TIPO CONTRATO
@@ -9523,23 +9596,23 @@ Dim Codigo  As String
     If txtCodigo(51).Text <> "" Or txtCodigo(52).Text <> "" Then
         campo = "{" & Codigo & ".codtipco}"
         'Parametro Desde/Hasta Tipo Contrato
-        Devuelve = "pDHTipoCon=""Tipo Contrato: "
-        If Not PonerDesdeHasta(campo, "T", 51, 52, Devuelve) Then Exit Sub
+        devuelve = "pDHTipoCon=""Tipo Contrato: "
+        If Not PonerDesdeHasta(campo, "T", 51, 52, devuelve) Then Exit Sub
     End If
     
     'Motivo de baja. Solo para anulados
     If OpcionListado = 76 Then
         If txtCodigo(115).Text <> "" Or txtCodigo(116).Text <> "" Then
             campo = "{scamana.fechabaj}"
-            Devuelve = "pDHFecha=""Fecha: "
-            If Not PonerDesdeHasta(campo, "F", 115, 116, Devuelve) Then Exit Sub
+            devuelve = "pDHFecha=""Fecha: "
+            If Not PonerDesdeHasta(campo, "F", 115, 116, devuelve) Then Exit Sub
         End If
     
         If txtCodigo(113).Text <> "" Or txtCodigo(114).Text <> "" Then
             campo = "{" & Codigo & ".codincid}"
             'Parametro Desde/Hasta Cliente
-            Devuelve = "pDHMotivo=""Motivo anul.: "
-            If Not PonerDesdeHasta(campo, "T", 113, 114, Devuelve) Then Exit Sub
+            devuelve = "pDHMotivo=""Motivo anul.: "
+            If Not PonerDesdeHasta(campo, "T", 113, 114, devuelve) Then Exit Sub
         End If
         
         
@@ -9555,20 +9628,20 @@ Dim Codigo  As String
             Exit Sub
         End If
         If txtCodigo(53).Text <> "" Then
-            Devuelve = "Date(" & Year(txtCodigo(53).Text) & "," & Month(txtCodigo(53).Text) & "," & Day(txtCodigo(53).Text) & ")"
+            devuelve = "Date(" & Year(txtCodigo(53).Text) & "," & Month(txtCodigo(53).Text) & "," & Day(txtCodigo(53).Text) & ")"
             'Parametro D/H Fecha
-            If Devuelve <> "" Then
-                Devuelve = "pDFecha=" & Devuelve & "|"
-                Cadparam = Cadparam & Devuelve & """|"
+            If devuelve <> "" Then
+                devuelve = "pDFecha=" & devuelve & "|"
+                Cadparam = Cadparam & devuelve & """|"
                 NumParam = NumParam + 1
             End If
         End If
         
         If txtCodigo(54).Text <> "" Then
-            Devuelve = "Date(" & Year(txtCodigo(54).Text) & "," & Month(txtCodigo(54).Text) & "," & Day(txtCodigo(54).Text) & ")"
-            If Devuelve <> "" Then
-                Devuelve = "pHFecha=" & Devuelve & "|"
-                Cadparam = Cadparam & Devuelve & """|"
+            devuelve = "Date(" & Year(txtCodigo(54).Text) & "," & Month(txtCodigo(54).Text) & "," & Day(txtCodigo(54).Text) & ")"
+            If devuelve <> "" Then
+                devuelve = "pHFecha=" & devuelve & "|"
+                Cadparam = Cadparam & devuelve & """|"
                 NumParam = NumParam + 1
             End If
         End If
@@ -9587,26 +9660,26 @@ Dim Codigo  As String
         
         'Mostraremos los clientes para imprimirles etiquetas
         If Cadselect <> "" Then
-            Devuelve = " WHERE " & Cadselect
+            devuelve = " WHERE " & Cadselect
         Else
-            Devuelve = ""
+            devuelve = ""
         End If
-        Devuelve = "Select sclien.codclien,nomclien,nifclien FROM " & cadFrom & Devuelve
-        Devuelve = Devuelve & " group by 1"
+        devuelve = "Select sclien.codclien,nomclien,nifclien FROM " & cadFrom & devuelve
+        devuelve = devuelve & " group by 1"
         NumRegElim = 0
-        frmMensajes.cadWhere = Devuelve
+        frmMensajes.cadWhere = devuelve
         frmMensajes.OpcionMensaje = 17 'Etiquetas clientes mantenimientos
         frmMensajes.Show vbModal
         If NumRegElim = 0 Then Exit Sub
     
         cadFormula = "({tmpnlotes.codusu} =" & vUsu.Codigo & ")"
     End If
-    Devuelve = ""
+    devuelve = ""
     If OpcionListado = 78 Then
-        If Me.chkMante(2).Value Then Devuelve = "EMAIL"
+        If Me.chkMante(2).Value Then devuelve = "EMAIL"
     End If
     
-    If Devuelve = "" Then
+    If devuelve = "" Then
         LlamarImprimir
     Else
 
@@ -9621,25 +9694,25 @@ Dim Codigo  As String
        
         DoEvents
         If Me.optMante(0).Value Then
-            Devuelve = "1"
+            devuelve = "1"
         Else
-            Devuelve = "2"
+            devuelve = "2"
         End If
         
-        Devuelve = "Select maiclie" & Devuelve & " as el_mail,nomclien,scaman.* "
-        Devuelve = Devuelve & " FROM  scaman INNER JOIN sclien ON scaman.codclien=sclien.codclien"
-        If Cadselect <> "" Then Devuelve = Devuelve & " AND " & Cadselect
+        devuelve = "Select maiclie" & devuelve & " as el_mail,nomclien,scaman.* "
+        devuelve = devuelve & " FROM  scaman INNER JOIN sclien ON scaman.codclien=sclien.codclien"
+        If Cadselect <> "" Then devuelve = devuelve & " AND " & Cadselect
         
         'INNER JOIN `ariges2`.`stipco` `stipco` ON `scaman`.`codtipco`=`stipco`.`codtipco`"
         Set miRsAux = New ADODB.Recordset
-        miRsAux.Open Devuelve, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        miRsAux.Open devuelve, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
     
-        Devuelve = ""
+        devuelve = ""
         NumRegElim = 0
         While Not miRsAux.EOF
             If IsNull(miRsAux!el_mail) Then
-                Devuelve = Devuelve & "    - " & miRsAux!nomclien & vbCrLf
+                devuelve = devuelve & "    - " & miRsAux!nomclien & vbCrLf
             Else
                 'INSERTAMOS
                 NumRegElim = NumRegElim + 1
@@ -9658,10 +9731,10 @@ Dim Codigo  As String
         End If
         
         
-        If Devuelve <> "" Then
-            If Len(Devuelve) > 500 Then Devuelve = Mid(Devuelve, 1, 500) & " ....."
-            Devuelve = "Clientes sin mail: " & vbCrLf & Devuelve & "¿Continuar?"
-            If MsgBox(Devuelve, vbQuestion + vbYesNo) = vbNo Then Exit Sub
+        If devuelve <> "" Then
+            If Len(devuelve) > 500 Then devuelve = Mid(devuelve, 1, 500) & " ....."
+            devuelve = "Clientes sin mail: " & vbCrLf & devuelve & "¿Continuar?"
+            If MsgBox(devuelve, vbQuestion + vbYesNo) = vbNo Then Exit Sub
         End If
         
         
@@ -9738,7 +9811,7 @@ End Sub
 
 Private Sub cmdAceptarNSerie_Click()
 Dim campo As String
-Dim Cad As String
+Dim cad As String
 
     If txtCodigo(37).Text = "" Or txtCodigo(38).Text = "" Then 'And (txtCodigo(33).Text = "" Or txtCodigo(34).Text = "") Then
         MsgBox "Debe seleccionar un cliente para Imprimir.", vbInformation
@@ -9765,8 +9838,8 @@ Dim Cad As String
     If txtCodigo(37).Text <> "" Or txtCodigo(38).Text <> "" Then
         campo = Codigo & ".codclien}"
         'Parametro Desde/Hasta Cliente
-        Cad = "pDHCliente=""Cliente: "
-        If Not PonerDesdeHasta(campo, "N", 37, 38, Cad) Then Exit Sub
+        cad = "pDHCliente=""Cliente: "
+        If Not PonerDesdeHasta(campo, "N", 37, 38, cad) Then Exit Sub
     End If
     
     'Cadena para seleccion Del DEPARTAMENTO
@@ -9775,11 +9848,11 @@ Dim Cad As String
         campo = Codigo & ".coddirec}"
         'Parametro Desde/Hasta Direc/Dpto
         If vParamAplic.Departamento Then
-            Cad = "pDHDirec=""Dpto.: "
+            cad = "pDHDirec=""Dpto.: "
         Else
-            Cad = "pDHDirec=""Direc.: "
+            cad = "pDHDirec=""Direc.: "
         End If
-        If Not PonerDesdeHasta(campo, "N", 39, 40, Cad) Then Exit Sub
+        If Not PonerDesdeHasta(campo, "N", 39, 40, cad) Then Exit Sub
     End If
     
     'Cadena para seleccion Nº CONTRATO
@@ -9787,8 +9860,8 @@ Dim Cad As String
     If txtCodigo(41).Text <> "" Or txtCodigo(42).Text <> "" Then
         campo = Codigo & ".nummante}"
         'Parametro Desde/Hasta Cliente
-        Cad = "pDHContrato=""Nº Mantenimiento: "
-        If Not PonerDesdeHasta(campo, "T", 41, 42, Cad) Then Exit Sub
+        cad = "pDHContrato=""Nº Mantenimiento: "
+        If Not PonerDesdeHasta(campo, "T", 41, 42, cad) Then Exit Sub
     End If
     
     'Comprobar si hay registros a Mostrar antes de abrir el Informe
@@ -9804,7 +9877,7 @@ End Sub
 
 Private Sub cmdAceptarRepxClien_Click()
 'Reparaciones por Cliente
-Dim Devuelve As String
+Dim devuelve As String
 Dim campo As String
 Dim Tabla As String
 
@@ -9829,8 +9902,8 @@ Dim Tabla As String
     '---------------------------------------------
     If txtCodigo(33).Text <> "" Or txtCodigo(34).Text <> "" Then
         campo = "{" & Tabla & ".codclien}"
-        Devuelve = "pDHCliente=""Cliente: "
-        If Not PonerDesdeHasta(campo, "N", 33, 34, Devuelve) Then Exit Sub
+        devuelve = "pDHCliente=""Cliente: "
+        If Not PonerDesdeHasta(campo, "N", 33, 34, devuelve) Then Exit Sub
     End If
     
     'Cadena para seleccion Desde y Hasta DIREC/DPTO
@@ -9838,11 +9911,11 @@ Dim Tabla As String
     If txtCodigo(35).Text <> "" Or txtCodigo(36).Text <> "" Then
         campo = "{" & Tabla & ".coddirec}"
         If vParamAplic.Departamento Then
-            Devuelve = "pDHDpto=""Departamento: "
+            devuelve = "pDHDpto=""Departamento: "
         Else
-            Devuelve = "pDHDpto=""Dirección: "
+            devuelve = "pDHDpto=""Dirección: "
         End If
-        If Not PonerDesdeHasta(campo, "N", 35, 36, Devuelve) Then Exit Sub
+        If Not PonerDesdeHasta(campo, "N", 35, 36, devuelve) Then Exit Sub
     End If
     
     
@@ -9851,8 +9924,8 @@ Dim Tabla As String
     If Trim(txtCodigo(43).Text) <> "" Or Trim(txtCodigo(44).Text) <> "" Then
         campo = "{" & Tabla & ".fecentre}"
         If OpcionListado = 406 Then campo = "{" & Tabla & ".fecrepar}"
-        Devuelve = "pDHFecha=""Fecha Rep.: "
-        If Not PonerDesdeHasta(campo, "F", 43, 44, Devuelve) Then Exit Sub
+        devuelve = "pDHFecha=""Fecha Rep.: "
+        If Not PonerDesdeHasta(campo, "F", 43, 44, devuelve) Then Exit Sub
     End If
     
    'Comprobar si hay registros a Mostrar antes de abrir el Informe
@@ -9876,15 +9949,15 @@ Dim Tabla As String
         On Error GoTo EFrecu
         'Insertar en la tabla temporal tmpInformes el total de reparaciones para cada
         'codartic, numserie para el criterio de seleccion introducid
-        Devuelve = "INSERT INTO tmpinformes(codusu,nombre1,nombre2,campo1) "
-        Devuelve = Devuelve & "SELECT " & vUsu.Codigo & ", codartic,numserie,count(numserie) as campo1 from schrep "
-        Devuelve = Devuelve & " WHERE " & Cadselect
-        Devuelve = Devuelve & " group by codartic,numserie"
-        conn.Execute Devuelve
+        devuelve = "INSERT INTO tmpinformes(codusu,nombre1,nombre2,campo1) "
+        devuelve = devuelve & "SELECT " & vUsu.Codigo & ", codartic,numserie,count(numserie) as campo1 from schrep "
+        devuelve = devuelve & " WHERE " & Cadselect
+        devuelve = devuelve & " group by codartic,numserie"
+        conn.Execute devuelve
         
         'Eliminamos de la tabla aquellos registros que no superen el nº de reparaciones introducido
-        Devuelve = "DELETE FROM tmpinformes where codusu=" & vUsu.Codigo & " and campo1<=" & txtCodigo(0).Text
-        conn.Execute Devuelve
+        devuelve = "DELETE FROM tmpinformes where codusu=" & vUsu.Codigo & " and campo1<=" & txtCodigo(0).Text
+        conn.Execute devuelve
         
         'Volver a comprobar que hay registro a mostrar para ello miramos en la
         'tabla tmpInformes que supere el nº de reparaciones a mostrar
@@ -9907,7 +9980,7 @@ End Sub
 
 Private Sub cmdAceptarRepxDia_Click()
 'Reparaciones por Dia
-Dim Devuelve As String
+Dim devuelve As String
 Dim param As String
 Dim TotalMante As Integer
 Dim RS As ADODB.Recordset
@@ -9946,9 +10019,9 @@ Dim SeguirConLaContabilizacion As Boolean
             cadTitulo = "Reparaciones por día"
         Case 73
             'Añadir el parametro total Mantenim. si estamos en Informe de Altas
-            Devuelve = "SELECT DISTINCT COUNT(*) FROM scaman "
+            devuelve = "SELECT DISTINCT COUNT(*) FROM scaman "
             Set RS = New ADODB.Recordset
-            RS.Open Devuelve, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+            RS.Open devuelve, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             If Not RS.EOF Then
                 TotalMante = RS.Fields(0).Value
                 Cadparam = Cadparam & "pTotalMante=" & TotalMante & "|"
@@ -9961,11 +10034,11 @@ Dim SeguirConLaContabilizacion As Boolean
             fecha1 = Day(txtCodigo(31).Text) & "/" & Month(txtCodigo(31).Text) & "/" & Year(txtCodigo(31).Text) - 1
             fecha2 = Day(txtCodigo(32).Text) & "/" & Month(txtCodigo(32).Text) & "/" & Year(txtCodigo(32).Text) - 1
             Codigo = "scaman.fechaini"
-            Devuelve = CadenaDesdeHastaBD(fecha1, fecha2, Codigo, "F")
-            If Devuelve <> "" And Devuelve <> "Error" Then
-                Devuelve = "SELECT DISTINCT COUNT(*) FROM scaman WHERE " & Devuelve
+            devuelve = CadenaDesdeHastaBD(fecha1, fecha2, Codigo, "F")
+            If devuelve <> "" And devuelve <> "Error" Then
+                devuelve = "SELECT DISTINCT COUNT(*) FROM scaman WHERE " & devuelve
                 Set RS = New ADODB.Recordset
-                RS.Open Devuelve, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+                RS.Open devuelve, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
                 If Not RS.EOF Then
                     TotalMante = RS.Fields(0).Value
                     Cadparam = Cadparam & "pTotalAnte=" & TotalMante & "|"
@@ -10015,10 +10088,10 @@ Dim SeguirConLaContabilizacion As Boolean
         If Not ComprobarFechasConta(32) Then Exit Sub
     End If
     
-    Devuelve = CadenaDesdeHasta(txtCodigo(31).Text, txtCodigo(32).Text, Codigo, "F", "Fecha Factura")
-    If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
+    devuelve = CadenaDesdeHasta(txtCodigo(31).Text, txtCodigo(32).Text, Codigo, "F", "Fecha Factura")
+    If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
     'Parametro D/H Fecha
-    If Devuelve <> "" And param <> "" Then
+    If devuelve <> "" And param <> "" Then
         Cadparam = Cadparam & AnyadirParametroDH(param, 31, 32) & """|"
         NumParam = NumParam + 1
     End If
@@ -10046,16 +10119,16 @@ Dim SeguirConLaContabilizacion As Boolean
             
             '- añadir desde/hasta factura a cadena seleccion registros
             Codigo = "{scafac.numfactu}"
-            Devuelve = CadenaDesdeHasta(txtCodigo(121).Text, txtCodigo(122).Text, Codigo, "N", "Nº Factura")
-            If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
+            devuelve = CadenaDesdeHasta(txtCodigo(121).Text, txtCodigo(122).Text, Codigo, "N", "Nº Factura")
+            If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
             'Parametro D/H nº factura
-            If Devuelve <> "" And param <> "" Then
+            If devuelve <> "" And param <> "" Then
                 Cadparam = Cadparam & AnyadirParametroDH(param, 31, 32) & """|"
                 NumParam = NumParam + 1
             End If
             ' añadir a la formula de bd
-            Devuelve = CadenaDesdeHastaBD(txtCodigo(121).Text, txtCodigo(122).Text, Codigo, "N")
-            If Not AnyadirAFormula(Cadselect, Devuelve) Then Exit Sub
+            devuelve = CadenaDesdeHastaBD(txtCodigo(121).Text, txtCodigo(122).Text, Codigo, "N")
+            If Not AnyadirAFormula(Cadselect, devuelve) Then Exit Sub
         End If
     
                 
@@ -10063,10 +10136,10 @@ Dim SeguirConLaContabilizacion As Boolean
         If Me.cboTipMov.ListIndex >= 0 Then
             If Trim(Me.cboTipMov.List(Me.cboTipMov.ListIndex)) <> "" Then
                 Codigo = "{scafac.codtipom}"
-                Devuelve = Mid(Me.cboTipMov.List(Me.cboTipMov.ListIndex), 1, 3)
-                Devuelve = Codigo & "=" & DBSet(Devuelve, "T")
-                If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
-                If Not AnyadirAFormula(Cadselect, Devuelve) Then Exit Sub
+                devuelve = Mid(Me.cboTipMov.List(Me.cboTipMov.ListIndex), 1, 3)
+                devuelve = Codigo & "=" & DBSet(devuelve, "T")
+                If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
+                If Not AnyadirAFormula(Cadselect, devuelve) Then Exit Sub
             End If
         End If
     End If
@@ -10082,11 +10155,11 @@ Dim SeguirConLaContabilizacion As Boolean
         ' Contabilizar facturas en B
         If Not Me.OptClientes Then
             If vUsu.TrabajadorB Then
-                Devuelve = "1"
+                devuelve = "1"
             Else
-                Devuelve = "0"
+                devuelve = "0"
             End If
-            Cadselect = Cadselect & " AND " & NomTabla & ".presupuesto = " & Devuelve
+            Cadselect = Cadselect & " AND " & NomTabla & ".presupuesto = " & devuelve
         End If
         
         'Nuevo 7 Abril 08
@@ -10120,12 +10193,12 @@ Dim SeguirConLaContabilizacion As Boolean
                 
         If Me.OptProve.Tag = "" Then
             If Me.OptClientes.Value Then
-                Devuelve = "CLI"
+                devuelve = "CLI"
             Else
-                Devuelve = "PRO"
+                devuelve = "PRO"
             End If
         Else
-            Devuelve = "TIK"
+            devuelve = "TIK"
         End If
         'Abril 2009.
         'Facturas proveedores van al B,  a la conta B
@@ -10133,7 +10206,7 @@ Dim SeguirConLaContabilizacion As Boolean
         
         CambiaConta = False
         ConexionContaOk = True
-        If Devuelve = "PRO" Then
+        If devuelve = "PRO" Then
             '------------------------------------
             '  Proveedores
             If vUsu.TrabajadorB Then
@@ -10145,7 +10218,7 @@ Dim SeguirConLaContabilizacion As Boolean
                 End If
             End If
             
-        ElseIf Devuelve = "CLI" Then
+        ElseIf devuelve = "CLI" Then
             'CLIENTES para tipos de factura FAZ, es decir, el B
             If vUsu.TrabajadorB Then
                 If AbrirConexionConta(True) Then
@@ -10165,9 +10238,9 @@ Dim SeguirConLaContabilizacion As Boolean
 
                         
                     
-                        Devuelve = "Contabilizar facturas " & Devuelve & ":" & vbCrLf & NomTabla & vbCrLf & Cadselect
-                        If CambiaConta Then Devuelve = Devuelve & " Conta b."
-                        LOG.Insertar 5, vUsu, Devuelve
+                        devuelve = "Contabilizar facturas " & devuelve & ":" & vbCrLf & NomTabla & vbCrLf & Cadselect
+                        If CambiaConta Then devuelve = devuelve & " Conta b."
+                        LOG.Insertar 5, vUsu, devuelve
                         Set LOG = Nothing
                         '-----------------------------------------------------------------------------
                         
@@ -10229,7 +10302,7 @@ Dim RS As ADODB.Recordset
         RS.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         SQL = ""
         If Not RS.EOF Then
-            SQL = "(" & DBSet(txtCodigo(81).Text, "T") & ", " & DBSet(RS!codartic, "T", "N") & "," & DBSet(RS!codTipar, "T", "N") & ","
+            SQL = "(" & DBSet(txtCodigo(81).Text, "T") & ", " & DBSet(RS!codArtic, "T", "N") & "," & DBSet(RS!codTipar, "T", "N") & ","
             SQL = SQL & DBSet(RS!CodClien, "N", "S") & "," & DBSet(RS!CodDirec, "N", "S") & "," & DBSet(RS!TieneMan, "N", "S") & ","
             SQL = SQL & DBSet(RS!numMante, "T", "S") & "," & DBSet(RS!ultrepar, "F", "S") & "," & DBSet(RS!fingaran, "F", "S") & ","
             SQL = SQL & DBSet(RS!Codtipom, "T", "S") & "," & DBSet(RS!NumFactu, "N", "S") & "," & DBSet(RS!FechaVta, "F", "S") & ","
@@ -10307,6 +10380,41 @@ Dim cadFrom As String
     LlamarImprimir
 End Sub
 
+
+Private Sub cmdArticuloPack_Click()
+    If Me.txtCodigo(127).Text = "" Or txtNombre(127).Text = "" Then Exit Sub
+    
+    cadTitulo = DevuelveDesdeBD(conAri, "Count(*)", "sarti6", "codartic", txtCodigo(127).Text, "T")
+    If Val(cadTitulo) = 0 Then
+        MsgBox "el articulo no tiene articulos asociados al PACK de venta", vbExclamation
+        Exit Sub
+    End If
+
+    Set miRsAux = New ADODB.Recordset
+
+    cadTitulo = "SELECT salmac.codartic,nomartic,canstock,sarti6.cantidad from salmac,sartic,sarti6"
+    cadTitulo = cadTitulo & " where salmac.codartic=Sartic.codartic and codalmac=1 and ctrstock=1 and"
+    cadTitulo = cadTitulo & " salmac.codartic =sarti6.codarti1 AND  sarti6.codartic =" & DBSet(txtCodigo(127).Text, "T")
+    miRsAux.Open cadTitulo, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    cadTitulo = ""
+    While Not miRsAux.EOF
+        If miRsAux!CanStock < miRsAux!Cantidad Then cadTitulo = cadTitulo & " - " & miRsAux!codArtic & "  " & miRsAux!NomArtic & "(" & miRsAux!CanStock & ")" & vbCrLf
+        miRsAux.MoveNext
+    Wend
+    miRsAux.Close
+    Set miRsAux = Nothing
+    If cadTitulo <> "" Then
+        cadTitulo = "No hay suficiente stock: " & vbCrLf & vbCrLf & cadTitulo & vbCrLf & "¿Continuar?"
+        
+    Else
+        cadTitulo = "¿continuar?"
+    End If
+    If MsgBox(cadTitulo, vbQuestion + vbYesNoCancel) <> vbYes Then Exit Sub
+    CadenaDesdeOtroForm = txtCodigo(127)
+    Unload Me
+        
+            
+End Sub
 
 Private Sub cmdBajar_Click()
 'Bajar el item seleccionado del listview2
@@ -10609,7 +10717,7 @@ End Sub
 ' Informe teorico mantenimientos
 Private Sub cmdManteTeorico_Click()
 Dim cadFrom As String
-Dim campo As String, Devuelve As String
+Dim campo As String, devuelve As String
 Dim Codigo  As String
 
     InicializarVbles
@@ -10639,8 +10747,8 @@ Dim Codigo  As String
     If txtCodigo(102).Text <> "" Or txtCodigo(103).Text <> "" Then
         campo = "{" & Codigo & ".codclien}"
         'Parametro Desde/Hasta Cliente
-        Devuelve = "pDHCliente=""Cliente: "
-        If Not PonerDesdeHasta(campo, "N", 102, 103, Devuelve) Then Exit Sub
+        devuelve = "pDHCliente=""Cliente: "
+        If Not PonerDesdeHasta(campo, "N", 102, 103, devuelve) Then Exit Sub
     End If
 
     
@@ -10649,8 +10757,8 @@ Dim Codigo  As String
     If txtCodigo(104).Text <> "" Or txtCodigo(105).Text <> "" Then
         campo = "{" & Codigo & ".codtipco}"
         'Parametro Desde/Hasta Tipo Contrato
-        Devuelve = "pDHTipoCon=""Tipo Contrato: "
-        If Not PonerDesdeHasta(campo, "T", 104, 105, Devuelve) Then Exit Sub
+        devuelve = "pDHTipoCon=""Tipo Contrato: "
+        If Not PonerDesdeHasta(campo, "T", 104, 105, devuelve) Then Exit Sub
     End If
        
     'Comprobar si hay registros a Mostrar antes de abrir el Informe
@@ -10796,6 +10904,9 @@ Dim IndiceFoco As Integer
         Case 99
             'PonerFoco txtCodigo(110)
             IndiceFoco = 110
+            
+        Case 100
+            IndiceFoco = 127
         Case 247  'y Correccion de listados de precios tarias etc
              'PonerFoco txtCodigo(107)
              IndiceFoco = 107
@@ -10844,6 +10955,7 @@ Dim H As Integer, W As Integer
     FrameHcoMante.visible = False
     FrameAlbaranesMarcaFacturar.visible = False
     FrameHomologacion.visible = False
+    FramePack.visible = False
     CommitConexion
     
     
@@ -10929,7 +11041,7 @@ Dim H As Integer, W As Integer
         End If
         
         If OpcionListado = 223 Then
-            Dim Cad As String
+            Dim cad As String
             
             'If vParamAplic.ContabilizarTicketAgrupados Then
             '    cad = "codtipom like 'FA%'"
@@ -10938,12 +11050,12 @@ Dim H As Integer, W As Integer
             'End If
             
             If vUsu.TrabajadorB Then
-                Cad = "codtipom = 'FAZ'"
+                cad = "codtipom = 'FAZ'"
             Else
-                Cad = "codtipom <> 'FAZ'"
+                cad = "codtipom <> 'FAZ'"
             End If
-            Cad = Cad & " and not isnull(letraser) and trim(letraser)<>''"
-            CargarCombo_TipMov Me.cboTipMov, "stipom", "codtipom", "nomtipom", Cad, True
+            cad = cad & " and not isnull(letraser) and trim(letraser)<>''"
+            CargarCombo_TipMov Me.cboTipMov, "stipom", "codtipom", "nomtipom", cad, True
         End If
         
     Case 64, 406 'Listado Reparaciones por Cliente
@@ -11042,7 +11154,14 @@ Dim H As Integer, W As Integer
         cadTitulo = "Pasar a mantenimientos anulados"
         conSubRPT = False
         txtCodigo(110).Text = Format(Now, "dd/mm/yyyy")
-
+    
+    Case 100
+        H = Me.FramePack.Height
+        W = Me.FramePack.Width
+        PonerFrameVisible FramePack, True, H, W
+        indFrame = OpcionListado
+        cadTitulo = "Venta articulo PACK"
+        Me.Caption = "Venta articulo PACK"
     End Select
     
     
@@ -11357,13 +11476,14 @@ Private Sub imgBuscarG_Click(Index As Integer)
             End Select
             AbrirFrmAlmPropios
             
-        Case 11, 12, 27, 28, 29, 30, 61, 62, 69, 70, 71, 72 'cod. ARTICULO
+        Case 11, 12, 27, 28, 29, 30, 61, 62, 69, 70, 71, 72, 95 'cod. ARTICULO
             Select Case Index
                 Case 11, 12: IndCodigo = Index + 3
                 Case 27, 28: IndCodigo = Index + 43
                 Case 29, 30: IndCodigo = Index - 24
                 Case 61, 62: IndCodigo = Index - 32
                 Case 69, 70, 71, 72: IndCodigo = Index + 21
+                Case 95: IndCodigo = 127
             End Select
             Set frmMtoArticulos = New frmAlmArticulos
             frmMtoArticulos.DatosADevolverBusqueda2 = "@1@" 'Abrimos en Modo Busqueda
@@ -11807,7 +11927,7 @@ Dim EsNomCod As Boolean 'Si es campo Cod-Descripcion llama a PonerNombreDeCod
                 If (Index = 86 Or Index = 87) Then txtCodigo(Index).Text = Format(txtCodigo(Index).Text, "000000")
             End If
             
-        Case 5, 6, 14, 15, 29, 30, 70, 71, 90, 91, 92, 93 'Cod. ARTICULO
+        Case 5, 6, 14, 15, 29, 30, 70, 71, 90, 91, 92, 93, 127 'Cod. ARTICULO
             EsNomCod = True
             Tabla = "sartic"
             codCampo = "codartic"
@@ -12048,35 +12168,35 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim Cad As String
+Dim cad As String
 Dim Tabla As String
 Dim Titulo As String
 
     'Llamamos a al form
-    Cad = ""
+    cad = ""
     Conexion = conAri    'Conexión a BD: Ariges
     Select Case OpcionListado
         Case 7 'Traspaso de Almacenes
-            Cad = Cad & "Nº Trasp|scatra|codtrasp|N|0000000|40·Almacen Origen|scatra|almaorig|N|000|20·Almacen Destino|scatra|almadest|N|000|20·Fecha|scatra|fechatra|F||20·"
+            cad = cad & "Nº Trasp|scatra|codtrasp|N|0000000|40·Almacen Origen|scatra|almaorig|N|000|20·Almacen Destino|scatra|almadest|N|000|20·Fecha|scatra|fechatra|F||20·"
             Tabla = "scatra"
             Titulo = "Traspaso Almacenes"
         Case 8 'Movimientos de Almacen
-            Cad = Cad & "Nº Movim.|scamov|codmovim|N|0000000|40·Almacen|scamov|codalmac|N|000|30·Fecha|scamov|fecmovim|F||30·"
+            cad = cad & "Nº Movim.|scamov|codmovim|N|0000000|40·Almacen|scamov|codalmac|N|000|30·Fecha|scamov|fecmovim|F||30·"
             Tabla = "scamov"
             Titulo = "Movimientos Almacen"
         Case 9, 12, 13, 14, 15, 16, 17 '9: Movimientos Articulos
                    '12: Inventario Articulos
                    '14:Actualizar Diferencias de Stock Inventariado
                    '16: Listado Valoracion stock inventariado
-            Cad = Cad & "Código|sartic|codartic|T||30·Denominacion|sartic|nomartic|T||70·"
+            cad = cad & "Código|sartic|codartic|T||30·Denominacion|sartic|nomartic|T||70·"
             Tabla = "sartic"
             Titulo = "Articulos"
     End Select
           
-    If Cad <> "" Then
+    If cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = Cad
+        frmB.vCampos = cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -12572,9 +12692,9 @@ End Sub
 
 
 Private Function PonerFormulaYParametrosInf9() As Boolean
-Dim Cad As String
+Dim cad As String
 Dim todosMarcados As Boolean
-Dim Devuelve As String
+Dim devuelve As String
 Dim I As Byte
 
     PonerFormulaYParametrosInf9 = False
@@ -12595,30 +12715,30 @@ Dim I As Byte
     '-- Cadena para seleccion Desde y Hasta ARTICULO
     If txtCodigo(5).Text <> "" Or txtCodigo(6).Text <> "" Then
         Codigo = "{smoval.codartic}"
-        Devuelve = "pDHArticulo=""Artículo: "
-        If Not PonerDesdeHasta(Codigo, "T", 5, 6, Devuelve) Then Exit Function
+        devuelve = "pDHArticulo=""Artículo: "
+        If Not PonerDesdeHasta(Codigo, "T", 5, 6, devuelve) Then Exit Function
     End If
                     
     '-- Cadena para seleccion Desde y Hasta FAMILIA
     If txtCodigo(7).Text <> "" Or txtCodigo(8).Text <> "" Then
         Codigo = "{sartic.codfamia}"
-        Devuelve = "pDHFamilia=""Familia: "
-        If Not PonerDesdeHasta(Codigo, "N", 7, 8, Devuelve) Then Exit Function
+        devuelve = "pDHFamilia=""Familia: "
+        If Not PonerDesdeHasta(Codigo, "N", 7, 8, devuelve) Then Exit Function
     End If
         
     '-- Cadena para seleccion Desde y Hasta ALMACEN
     If txtCodigo(11).Text <> "" Or txtCodigo(12).Text <> "" Then
         Codigo = "{smoval.codalmac}"
-        Devuelve = "pDHAlmacen=""Almacen: "
-        If Not PonerDesdeHasta(Codigo, "N", 11, 12, Devuelve) Then Exit Function
+        devuelve = "pDHAlmacen=""Almacen: "
+        If Not PonerDesdeHasta(Codigo, "N", 11, 12, devuelve) Then Exit Function
     End If
     
     
     '-- Cadena para seleccion Desde y Hasta CLIENTE/PROVEEDOR
     If txtCodigo(86).Text <> "" Or txtCodigo(87).Text <> "" Then
         Codigo = "{smoval.codigope}"
-        Devuelve = "pDHOperario=""Cliente/Proveedor/Trab.: "
-        If Not PonerDesdeHasta(Codigo, "N", 86, 87, Devuelve) Then Exit Function
+        devuelve = "pDHOperario=""Cliente/Proveedor/Trab.: "
+        If Not PonerDesdeHasta(Codigo, "N", 86, 87, devuelve) Then Exit Function
     End If
     
         
@@ -12629,8 +12749,8 @@ Dim I As Byte
     '-- Cadena para seleccion Desde y Hasta FECHA
     If txtCodigo(9).Text <> "" Or txtCodigo(10).Text <> "" Then
         Codigo = "{smoval.fechamov}"
-        Devuelve = "pDHFecha=""Fecha: "
-        If Not PonerDesdeHasta(Codigo, "F", 9, 10, Devuelve) Then Exit Function
+        devuelve = "pDHFecha=""Fecha: "
+        If Not PonerDesdeHasta(Codigo, "F", 9, 10, devuelve) Then Exit Function
     End If
         
     '-- seleccionar los articulos que tienen control de stock
@@ -12641,7 +12761,7 @@ Dim I As Byte
         
     '-- Cadena de Seleccion TIPOS de MOVIMIENTOS
     Codigo = "{smoval.detamovi}"
-    Devuelve = ""
+    devuelve = ""
     'Si todos seleccionados no añadir la select
     todosMarcados = True
     I = 1
@@ -12652,58 +12772,58 @@ Dim I As Byte
     
     'si no estan todos seleccionados montar select de los seleccionados
     If Not todosMarcados Then
-        Cad = ""
-        Devuelve = ""
+        cad = ""
+        devuelve = ""
         For I = 1 To Me.ListView1.ListItems.Count
             If Me.ListView1.ListItems(I).Checked Then
-                If Cad = "" Then
-                    Cad = Me.ListView1.ListItems(I).Text
+                If cad = "" Then
+                    cad = Me.ListView1.ListItems(I).Text
                 Else
-                    Cad = Cad & ", " & Me.ListView1.ListItems(I).Text
+                    cad = cad & ", " & Me.ListView1.ListItems(I).Text
                 End If
-                If Devuelve = "" Then
-                    Devuelve = Codigo & " = """ & Me.ListView1.ListItems(I).Text & """"
+                If devuelve = "" Then
+                    devuelve = Codigo & " = """ & Me.ListView1.ListItems(I).Text & """"
                 Else
-                    Devuelve = Devuelve & " or " & Codigo & " = """ & Me.ListView1.ListItems(I).Text & """"
+                    devuelve = devuelve & " or " & Codigo & " = """ & Me.ListView1.ListItems(I).Text & """"
                 End If
             End If
         Next I
 
-        If Devuelve <> "" Then 'Hay algun movimiento marcado
+        If devuelve <> "" Then 'Hay algun movimiento marcado
             If cadFormula <> "" Then
-                cadFormula = cadFormula & " AND " & "(" & Devuelve & ")"
+                cadFormula = cadFormula & " AND " & "(" & devuelve & ")"
 '                devuelve = QuitarCaracterACadena(devuelve, "{")
 '                devuelve = QuitarCaracterACadena(devuelve, "}")
-                Cadselect = Cadselect & " AND " & "(" & Devuelve & ")"
+                Cadselect = Cadselect & " AND " & "(" & devuelve & ")"
                 Cadparam = Cadparam
             Else
-                cadFormula = "(" & Devuelve & ")"
+                cadFormula = "(" & devuelve & ")"
 '                devuelve = QuitarCaracterACadena(devuelve, "{")
 '                devuelve = QuitarCaracterACadena(devuelve, "}")
-                Cadselect = "(" & Devuelve & ")"
+                Cadselect = "(" & devuelve & ")"
             End If
-            Cad = "pTiposMov=""Tipos Movimiento: " & Cad
-            Cadparam = Cadparam & Cad & """|"
+            cad = "pTiposMov=""Tipos Movimiento: " & cad
+            Cadparam = Cadparam & cad & """|"
             NumParam = NumParam + 1
         Else 'Todos desmarcados
-            Cad = ""
+            cad = ""
             For I = 1 To ListView1.ListItems.Count
-                If Cad = "" Then
-                    Cad = """" & ListView1.ListItems(I).Text & """"
+                If cad = "" Then
+                    cad = """" & ListView1.ListItems(I).Text & """"
                 Else
-                    Cad = Cad & ", """ & ListView1.ListItems(I).Text & """"
+                    cad = cad & ", """ & ListView1.ListItems(I).Text & """"
                 End If
             Next I
-            Devuelve = Codigo & " NOT IN [" & Cad & "]"
-            Cad = Codigo & " NOT IN (" & Cad & ")"
-            Cad = QuitarCaracterACadena(Cad, "{")
-            Cad = QuitarCaracterACadena(Cad, "}")
+            devuelve = Codigo & " NOT IN [" & cad & "]"
+            cad = Codigo & " NOT IN (" & cad & ")"
+            cad = QuitarCaracterACadena(cad, "{")
+            cad = QuitarCaracterACadena(cad, "}")
             If cadFormula = "" Then
-                cadFormula = "(" & Devuelve & ")"
-                Cadselect = "(" & Cad & ")"
+                cadFormula = "(" & devuelve & ")"
+                Cadselect = "(" & cad & ")"
             Else
-                cadFormula = cadFormula & " AND " & "(" & Devuelve & ")"
-                Cadselect = Cadselect & " AND " & "(" & Cad & ")"
+                cadFormula = cadFormula & " AND " & "(" & devuelve & ")"
+                Cadselect = Cadselect & " AND " & "(" & cad & ")"
             End If
         End If
     End If
@@ -12719,8 +12839,8 @@ End Function
 
 
 Private Function PonerFormulaYParametrosInf12() As Boolean
-Dim Cad As String, cadFrom As String
-Dim Devuelve As String
+Dim cad As String, cadFrom As String
+Dim devuelve As String
 Dim ImprStock As String
 Dim CodAux As String
 Dim strValorado As String
@@ -12731,7 +12851,7 @@ Dim bytPrecio As Byte
     Cadparam = "|pNomEmpre=""" & vParam.NombreEmpresa & """|"
     NumParam = NumParam + 1
     cadFrom = ""
-    Devuelve = ""
+    devuelve = ""
     PonerFormulaYParametrosInf12 = False
     
     '===================================================
@@ -12754,11 +12874,11 @@ Dim bytPrecio As Byte
     '-----------------------------------
     Codigo = CodAux & "codalmac}"
     If Trim(txtCodigo(13).Text) <> "" Then _
-    Devuelve = Codigo & " = " & Val(txtCodigo(13).Text)
-    If Devuelve <> "" Then
-        cadFormula = Devuelve
-        Cad = "pAlmacen= ""Almacen: " & Format(txtCodigo(13).Text, "000") & " " & txtNombre(13).Text
-        Cadparam = Cadparam & Cad & """|"
+    devuelve = Codigo & " = " & Val(txtCodigo(13).Text)
+    If devuelve <> "" Then
+        cadFormula = devuelve
+        cad = "pAlmacen= ""Almacen: " & Format(txtCodigo(13).Text, "000") & " " & txtNombre(13).Text
+        Cadparam = Cadparam & cad & """|"
         NumParam = NumParam + 1
     End If
             
@@ -12766,8 +12886,8 @@ Dim bytPrecio As Byte
     '----------------------------------------------
     If txtCodigo(14).Text <> "" Or txtCodigo(15).Text <> "" Then
         Codigo = CodAux & "codartic}"
-        Devuelve = "pDHArticulo=""Articulo: "
-        If Not PonerDesdeHasta(Codigo, "T", 14, 15, Devuelve) Then Exit Function
+        devuelve = "pDHArticulo=""Articulo: "
+        If Not PonerDesdeHasta(Codigo, "T", 14, 15, devuelve) Then Exit Function
     End If
     
     'Cadena para seleccion Desde y Hasta FAMILIA
@@ -12777,8 +12897,8 @@ Dim bytPrecio As Byte
             Case 12, 15, 16, 17, 19: Codigo = "{sartic.codfamia}"
             Case Else: Codigo = "{sinven.codfamia}"
         End Select
-        Cad = "pDHFamilia=""Familia: "
-        If Not PonerDesdeHasta(Codigo, "N", 16, 17, Cad) Then Exit Function
+        cad = "pDHFamilia=""Familia: "
+        If Not PonerDesdeHasta(Codigo, "N", 16, 17, cad) Then Exit Function
     End If
     cadFrom = cadFrom & " INNER JOIN sartic ON " & CodAux & "codartic=sartic.codartic "
     'Enero 2008
@@ -12800,8 +12920,8 @@ Dim bytPrecio As Byte
             Case 12, 15, 16, 17, 19: Codigo = "{sartic.codprove}"
             Case Else: Codigo = "{sinven.codprove}"
         End Select
-        Cad = "pDHProveedor=""Proveedor: "
-        If Not PonerDesdeHasta(Codigo, "N", 18, 19, Cad) Then Exit Function
+        cad = "pDHProveedor=""Proveedor: "
+        If Not PonerDesdeHasta(Codigo, "N", 18, 19, cad) Then Exit Function
     End If
     
 
@@ -12818,33 +12938,33 @@ Dim bytPrecio As Byte
         If txtCodigo(20).Text <> "" Or txtCodigo(22).Text <> "" Then
             'codigo = "{salmac.codartic}"
             Codigo = CodAux & "fechainv}"
-            Devuelve = CadenaDesdeHasta(txtCodigo(20).Text, txtCodigo(22).Text, Codigo, "F")
+            devuelve = CadenaDesdeHasta(txtCodigo(20).Text, txtCodigo(22).Text, Codigo, "F")
     
-            If Devuelve = "Error" Then Exit Function
+            If devuelve = "Error" Then Exit Function
             
-            If Not AnyadirAFormula(cadFormula, Devuelve) Then
+            If Not AnyadirAFormula(cadFormula, devuelve) Then
                 Exit Function
-            ElseIf Devuelve <> "" Then
-                Cad = "pDHFecha=""Fecha: "
+            ElseIf devuelve <> "" Then
+                cad = "pDHFecha=""Fecha: "
                 If txtCodigo(20).Text <> "" Then _
-                    Cad = Cad & "desde " & txtCodigo(20).Text
+                    cad = cad & "desde " & txtCodigo(20).Text
                 If txtCodigo(22).Text <> "" Then _
-                    Cad = Cad & "  hasta " & txtCodigo(22).Text
-                Cadparam = Cadparam & Cad & """|"
+                    cad = cad & "  hasta " & txtCodigo(22).Text
+                Cadparam = Cadparam & cad & """|"
                 NumParam = NumParam + 1
                 'Para Comprobar si hay registros a Mostrar antes de abrir el Informe
-                Devuelve = "salmac.fechainv"
-                Devuelve = CadenaDesdeHastaBD(txtCodigo(20).Text, txtCodigo(22).Text, Devuelve, "F")
-                AnyadirAFormula Cadselect, Devuelve
+                devuelve = "salmac.fechainv"
+                devuelve = CadenaDesdeHastaBD(txtCodigo(20).Text, txtCodigo(22).Text, devuelve, "F")
+                AnyadirAFormula Cadselect, devuelve
             Else
                 'Si no hay fecha de inventario seleccionada coger solo
                 'los articulos de los que se haya hecho inventario alguna vez
-                Devuelve = "not isnull({salmac.fechainv})"
-                If Not AnyadirAFormula(cadFormula, Devuelve) Then
+                devuelve = "not isnull({salmac.fechainv})"
+                If Not AnyadirAFormula(cadFormula, devuelve) Then
                     Exit Function
                 End If
-                Devuelve = "not isnull(salmac.fechainv)"
-                AnyadirAFormula Cadselect, Devuelve
+                devuelve = "not isnull(salmac.fechainv)"
+                AnyadirAFormula Cadselect, devuelve
             End If
         End If
     End If
@@ -12853,36 +12973,36 @@ Dim bytPrecio As Byte
     '------------------------------------------------
     If OpcionListado = 15 Then '15: Listado de Articulos Inactivos
          If txtCodigo(20).Text <> "" Then _
-            Cad = "pFechaInve=""" & txtCodigo(20).Text & """"
+            cad = "pFechaInve=""" & txtCodigo(20).Text & """"
         
         'Poner en el parametro pListaArt la lista de Articulos que no tiene
         'un registro de movimiento en la smoval con fecha posterior a la
         'fecha de inactividad
         strValorado = ListaArtActivos(Cadselect, txtCodigo(20).Text)
-        Cad = "pListaArtic=""" & strValorado & """|"
-        Cadparam = Cadparam & Cad
+        cad = "pListaArtic=""" & strValorado & """|"
+        Cadparam = Cadparam & cad
         NumParam = NumParam + 1
         
         'Añadir a la formula de seleccion que no sea uno de la lista
-        Devuelve = " not (" & CodAux & "codartic} in {@pListaArtic})"
-        If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Function
+        devuelve = " not (" & CodAux & "codartic} in {@pListaArtic})"
+        If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Function
         
         strValorado = QuitarCaracterACadena(strValorado, "[")
         strValorado = QuitarCaracterACadena(strValorado, "]")
-        Devuelve = " not (salmac.codartic in (" & strValorado & "))"
-        AnyadirAFormula Cadselect, Devuelve
+        devuelve = " not (salmac.codartic in (" & strValorado & "))"
+        AnyadirAFormula Cadselect, devuelve
     End If
     
     'Cadena de seleccion de FECHA de Stocks a una Fecha
     '--------------------------------------------------
      If OpcionListado = 19 Then
         If txtCodigo(20).Text <> "" Then
-            Cad = txtCodigo(20).Text
+            cad = txtCodigo(20).Text
             'Hora
             If txtCodigo(22).Text <> "" Then _
-                Cad = Cad & "  " & txtCodigo(22).Text
+                cad = cad & "  " & txtCodigo(22).Text
                 
-            Cadparam = Cadparam & "pFechaStock=""" & Cad & """|"
+            Cadparam = Cadparam & "pFechaStock=""" & cad & """|"
             NumParam = NumParam + 1
         End If
      End If
@@ -12892,16 +13012,16 @@ Dim bytPrecio As Byte
     If OpcionListado = 16 Or OpcionListado = 17 Or OpcionListado = 15 Then
         If Me.chkSinStock.Value = 0 Then
             If OpcionListado = 16 Then
-                Devuelve = "{salmac.stockinv}<>0"
+                devuelve = "{salmac.stockinv}<>0"
             Else
-                Devuelve = CodAux & "canstock}<>0"
+                devuelve = CodAux & "canstock}<>0"
             End If
-            If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Function
+            If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Function
             
-            Devuelve = QuitarCaracterACadena(Devuelve, "{")
-            Devuelve = QuitarCaracterACadena(Devuelve, "}")
-            Devuelve = QuitarCaracterACadena(Devuelve, "_1")
-            AnyadirAFormula Cadselect, Devuelve
+            devuelve = QuitarCaracterACadena(devuelve, "{")
+            devuelve = QuitarCaracterACadena(devuelve, "}")
+            devuelve = QuitarCaracterACadena(devuelve, "_1")
+            AnyadirAFormula Cadselect, devuelve
         End If
     ElseIf OpcionListado = 19 Then
          If Me.chkSinStock.Value Then
@@ -13005,7 +13125,7 @@ End Function
 
 Private Function PonerFormulaYParametrosInf28() As Boolean
 'Informes de Descuentos y Tarifas
-Dim Cad As String
+Dim cad As String
 Dim cadCodigo As String
 
     Cadparam = "|pNomEmpre=""" & vParam.NombreEmpresa & """|"
@@ -13021,12 +13141,12 @@ Dim cadCodigo As String
      If txtCodigo(23).Text <> "" Or txtCodigo(24).Text <> "" Then
         If OpcionListado = 30 Then 'Precios Especiales Cliente
             cadCodigo = Codigo & ".codclien}"
-            Cad = "pDHCliente=""Cliente: "
+            cad = "pDHCliente=""Cliente: "
         Else
             cadCodigo = Codigo & ".codlista}"
-            Cad = "pDHTarifa=""Tarifa: "
+            cad = "pDHTarifa=""Tarifa: "
         End If
-        If Not PonerDesdeHasta(cadCodigo, "N", 23, 24, Cad) Then Exit Function
+        If Not PonerDesdeHasta(cadCodigo, "N", 23, 24, cad) Then Exit Function
     End If
             
             
@@ -13034,8 +13154,8 @@ Dim cadCodigo As String
     '--------------------------------------------
     If txtCodigo(25).Text <> "" Or txtCodigo(26).Text <> "" Then
         cadCodigo = "{sartic.codfamia}"
-        Cad = "pDHFamilia=""Familia: "
-        If Not PonerDesdeHasta(cadCodigo, "N", 25, 26, Cad) Then Exit Function
+        cad = "pDHFamilia=""Familia: "
+        If Not PonerDesdeHasta(cadCodigo, "N", 25, 26, cad) Then Exit Function
     End If
     
     If OpcionListado <> 245 Then
@@ -13043,8 +13163,8 @@ Dim cadCodigo As String
         '--------------------------------------------
         If txtCodigo(27).Text <> "" Or txtCodigo(28).Text <> "" Then
             cadCodigo = "{sartic.codmarca}"
-            Cad = "pDHMarca=""Marca: "
-            If Not PonerDesdeHasta(cadCodigo, "N", 27, 28, Cad) Then Exit Function
+            cad = "pDHMarca=""Marca: "
+            If Not PonerDesdeHasta(cadCodigo, "N", 27, 28, cad) Then Exit Function
         End If
     End If
             
@@ -13052,8 +13172,8 @@ Dim cadCodigo As String
     '----------------------------------------------
     If txtCodigo(29).Text <> "" Or txtCodigo(30).Text <> "" Then
         cadCodigo = Codigo & ".codartic}"
-        Cad = "pDHArticulo=""Articulo: "
-        If Not PonerDesdeHasta(cadCodigo, "T", 29, 30, Cad) Then Exit Function
+        cad = "pDHArticulo=""Articulo: "
+        If Not PonerDesdeHasta(cadCodigo, "T", 29, 30, cad) Then Exit Function
     End If
  
  
@@ -13062,26 +13182,26 @@ Dim cadCodigo As String
     If (OpcionListado = 28 Or OpcionListado = 29) Then
         'Parámetro Salta Pag. en Familia (Si/No)
         If Me.chkSaltaPagTarif.Value = 1 Then
-            Cad = "True"
+            cad = "True"
         Else
-           Cad = "False"
+           cad = "False"
         End If
-        Cadparam = Cadparam & "pSaltaFamilia=" & Cad & "|"
+        Cadparam = Cadparam & "pSaltaFamilia=" & cad & "|"
         NumParam = NumParam + 1
     End If
        
     If OpcionListado = 245 Then
         'Parámetro mostrar solo tarifas con errores (Si/No)
-        Cad = Abs(Val(Me.chkMostrarErrores.Value))
-        Cadparam = Cadparam & "Suprimr=" & Cad & "|"
+        cad = Abs(Val(Me.chkMostrarErrores.Value))
+        Cadparam = Cadparam & "Suprimr=" & cad & "|"
         NumParam = NumParam + 1
         'Decimales
         If cboDecimales.ListIndex < 0 Then
             MsgBox "Seleccione decimales", vbExclamation
             Exit Function
         End If
-        Cad = (cboDecimales.ItemData(Me.cboDecimales.ListIndex))
-        Cadparam = Cadparam & "Decimales=" & Cad & "|"
+        cad = (cboDecimales.ItemData(Me.cboDecimales.ListIndex))
+        Cadparam = Cadparam & "Decimales=" & cad & "|"
         NumParam = NumParam + 1
     End If
        
@@ -13089,19 +13209,19 @@ Dim cadCodigo As String
 End Function
 
 
-Private Function AnyadirParametroDH(Cad As String, indD As Byte, indH As Byte) As String
+Private Function AnyadirParametroDH(cad As String, indD As Byte, indH As Byte) As String
 On Error Resume Next
     
      If txtCodigo(indD).Text <> "" Then
-        Cad = Cad & "desde " & txtCodigo(indD).Text
-        If txtNombre(indD).Text <> "" Then Cad = Cad & " - " & txtNombre(indD).Text
+        cad = cad & "desde " & txtCodigo(indD).Text
+        If txtNombre(indD).Text <> "" Then cad = cad & " - " & txtNombre(indD).Text
     End If
     If txtCodigo(indH).Text <> "" Then
-        Cad = Cad & "  hasta " & txtCodigo(indH).Text
-        If txtNombre(indH).Text <> "" Then Cad = Cad & " - " & txtNombre(indH).Text
+        cad = cad & "  hasta " & txtCodigo(indH).Text
+        If txtNombre(indH).Text <> "" Then cad = cad & " - " & txtNombre(indH).Text
     End If
     
-    AnyadirParametroDH = Cad
+    AnyadirParametroDH = cad
     If Err.Number <> 0 Then Err.Clear
 End Function
 
@@ -13425,7 +13545,7 @@ Dim bol As Boolean
         
         
         
-                DevStock = DevuelveDesdeBDNew(conAri, "salmac", "canstock", "codartic", RS!codartic, "T", , "codalmac", RS!codAlmac, "N")
+                DevStock = DevuelveDesdeBDNew(conAri, "salmac", "canstock", "codartic", RS!codArtic, "T", , "codalmac", RS!codAlmac, "N")
                 If DevStock <> "" Then
         
                     CanStock2 = CCur(DevStock)
@@ -13436,9 +13556,9 @@ Dim bol As Boolean
                     End If
                     Diferencia = RS!existenc - (CanStock2 - Movimientos)
                     If Diferencia <> 0 Then 'Insertar Movimiento de Entrada/Salida en Almacen
-                        CadValues = DBSet(RS!codartic, "T") & ", " & RS!codAlmac & ", '" & Format(RS!fechainv, "yyyy-mm-dd") & "', '"
+                        CadValues = DBSet(RS!codArtic, "T") & ", " & RS!codAlmac & ", '" & Format(RS!fechainv, "yyyy-mm-dd") & "', '"
                         CadValues = CadValues & Format(RS!horainve, "yyyy-mm-dd hh:mm:ss") & "', "
-                        bol = InsertarMovimArticulos2(CadValues, RS!codartic, Diferencia, LetraSerie, NumMovim, numlinea)
+                        bol = InsertarMovimArticulos2(CadValues, RS!codArtic, Diferencia, LetraSerie, NumMovim, numlinea)
                         numlinea = numlinea + 1
                     Else
                         bol = True
@@ -13458,7 +13578,7 @@ Dim bol As Boolean
             ADonde = "Actualizando Stock de Articulos en Almacen. Tabla: salmac."
             Movimientos = CanStock2 + Diferencia
             SQL = "UPDATE salmac SET canstock=" & DBSet(Movimientos, "N") & ", statusin=0"
-            SQL = SQL & " WHERE codartic=" & DBSet(RS!codartic, "T") & " AND codalmac=" & RS!codAlmac
+            SQL = SQL & " WHERE codartic=" & DBSet(RS!codArtic, "T") & " AND codalmac=" & RS!codAlmac
             conn.Execute SQL
         End If
 
@@ -13512,14 +13632,14 @@ EActualizarInven:
 End Function
 
 
-Private Function InsertarMovimArticulos2(CadValues As String, codartic As String, Cantidad As Currency, LetraSerie As String, NumMovim As Long, numlinea As Long) As Boolean
+Private Function InsertarMovimArticulos2(CadValues As String, codArtic As String, Cantidad As Currency, LetraSerie As String, NumMovim As Long, numlinea As Long) As Boolean
 Dim vImporte As Single, vPrecioVenta As String
 Dim tipoMov As Byte
 Dim SQL As String
 On Error Resume Next
          
         'Obtener el precio de venta del articulo
-         vPrecioVenta = DevuelveDesdeBDNew(conAri, "sartic", "preciomp", "codartic", codartic, "T")
+         vPrecioVenta = DevuelveDesdeBDNew(conAri, "sartic", "preciomp", "codartic", codArtic, "T")
         If vPrecioVenta <> "" Then
             vImporte = Abs(Cantidad * CSng(vPrecioVenta))
         Else
@@ -13719,24 +13839,24 @@ End Sub
 
 
 Private Function PonerDesdeHasta(campo As String, Tipo As String, indD As Byte, indH As Byte, param As String) As Boolean
-Dim Devuelve As String
-Dim Cad As String
+Dim devuelve As String
+Dim cad As String
 
     PonerDesdeHasta = False
-    Devuelve = CadenaDesdeHasta(txtCodigo(indD).Text, txtCodigo(indH).Text, campo, Tipo)
-    If Devuelve = "Error" Then Exit Function
-    If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Function
+    devuelve = CadenaDesdeHasta(txtCodigo(indD).Text, txtCodigo(indH).Text, campo, Tipo)
+    If devuelve = "Error" Then Exit Function
+    If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Function
     
     If Tipo <> "F" Then
         'Fecha para Crystal Report
-        If Not AnyadirAFormula(Cadselect, Devuelve) Then Exit Function
+        If Not AnyadirAFormula(Cadselect, devuelve) Then Exit Function
     Else
         'Fecha para la Base de Datos
-        Cad = CadenaDesdeHastaBD(txtCodigo(indD).Text, txtCodigo(indH).Text, campo, Tipo)
-        If Not AnyadirAFormula(Cadselect, Cad) Then Exit Function
+        cad = CadenaDesdeHastaBD(txtCodigo(indD).Text, txtCodigo(indH).Text, campo, Tipo)
+        If Not AnyadirAFormula(Cadselect, cad) Then Exit Function
     End If
     
-    If Devuelve <> "" Then
+    If devuelve <> "" Then
         If param <> "" Then
             'Parametro Desde/Hasta
             Cadparam = Cadparam & AnyadirParametroDH(param, indD, indH) & """|"
@@ -13906,7 +14026,7 @@ Private Function ComprobarFechasConta(Ind As Integer) As Boolean
 'comprobar que el periodo de fechas a contabilizar esta dentro del
 'periodo de fechas del ejercicio de la contabilidad
 Dim FechaIni As String, FechaFin As String
-Dim Cad As String
+Dim cad As String
 Dim RS As ADODB.Recordset
     
 On Error GoTo EComprobar
@@ -13931,10 +14051,10 @@ On Error GoTo EComprobar
             Orden2 = FechaFin
         
             If Not EntreFechas(FechaIni, txtCodigo(Ind).Text, FechaFin) Then
-                 Cad = "El período de contabilización debe estar dentro del ejercicio:" & vbCrLf & vbCrLf
-                 Cad = Cad & "    Desde: " & FechaIni & vbCrLf
-                 Cad = Cad & "    Hasta: " & FechaFin
-                 MsgBox Cad, vbExclamation
+                 cad = "El período de contabilización debe estar dentro del ejercicio:" & vbCrLf & vbCrLf
+                 cad = cad & "    Desde: " & FechaIni & vbCrLf
+                 cad = cad & "    Hasta: " & FechaFin
+                 MsgBox cad, vbExclamation
                  txtCodigo(Ind).Text = ""
             Else
                 ComprobarFechasConta = True
@@ -15193,11 +15313,11 @@ Dim m As CParamRpt
         
         If Dir(App.Path & "\docum.pdf", vbArchive) <> "" Then Kill App.Path & "\docum.pdf"
     
-        Label14(22).Caption = "Mantenimiento: " & miRsAux!codartic & " Cliente: " & miRsAux!codProve
+        Label14(22).Caption = "Mantenimiento: " & miRsAux!codArtic & " Cliente: " & miRsAux!codProve
         Label14(22).Refresh
         
 '
-        cadFormula = "({scaman.nummante}='" & miRsAux!codartic & "') "
+        cadFormula = "({scaman.nummante}='" & miRsAux!codArtic & "') "
         cadFormula = cadFormula & " AND ({scaman.codclien}=" & miRsAux!codProve & ") "
 
 
@@ -15339,11 +15459,11 @@ Dim Aux As String
     miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
     While Not miRsAux.EOF
-        Label4(91).Caption = miRsAux!codartic
+        Label4(91).Caption = miRsAux!codArtic
         Label4(91).Refresh
         
         Aux = "UPDATE tmpTomInventario SET movpost = " & TransformaComasPuntos(CStr(DBLet(miRsAux.Fields(1), "N")))
-        Aux = Aux & " WHERE codartic = '" & miRsAux!codartic & "'"
+        Aux = Aux & " WHERE codartic = '" & miRsAux!codArtic & "'"
         Aux = Aux & " AND codalmac = " & txtCodigo(13).Text
         Aux = Aux & " AND codusu  = " & vUsu.Codigo
         conn.Execute Aux
@@ -15433,7 +15553,7 @@ Dim R As ADODB.Recordset
             If R!Conjunto > 0 Then
                 ' LLEVA conjuntos
                 miSQL = "select sarti1.codarti1,cantidad from sarti1,sartic where  sarti1.codarti1=sartic.codartic and factorconversion<>1"
-                miSQL = miSQL & " AND sarti1.codartic =" & DBSet(R!codartic, "T")
+                miSQL = miSQL & " AND sarti1.codartic =" & DBSet(R!codArtic, "T")
                 miRsAux.Open miSQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
             
                 
@@ -15479,7 +15599,7 @@ Dim R As ADODB.Recordset
                     campo = TransformaComasPuntos(CStr(Cantidad))
 
        
-                        miSQL = "INSERT INTO tmpstockfec2(codusu,codartic,codalmac,stock)  VALUES (" & vUsu.Codigo & "," & DBSet(R!codartic, "T")
+                        miSQL = "INSERT INTO tmpstockfec2(codusu,codartic,codalmac,stock)  VALUES (" & vUsu.Codigo & "," & DBSet(R!codArtic, "T")
                         miSQL = miSQL & ",0," & campo & ")"
                         
                    

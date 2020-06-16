@@ -174,7 +174,8 @@ Private mvarSIIFechaIni As Date
 
 
 
-
+'Junio 2020
+Private mvarPackVtaARticulo As Boolean
 
 
 
@@ -935,6 +936,9 @@ Public Property Get Sii_Dias() As Integer
 End Property
 
 
+Public Property Get PackVtaARticulo() As Boolean
+     PackVtaARticulo = mvarPackVtaARticulo
+End Property
 
 
 '------------------------------------------------
@@ -1089,6 +1093,7 @@ On Error GoTo Err3
         FijarFechaActiva
 
 
+        mvarPackVtaARticulo = DBLet(RS!PackArticulo, "N") = 1
         Leer = 0
     End If
 
@@ -1275,20 +1280,20 @@ End Function
 
 
 Public Function DevuleveTipoIVA_RE(TipoIVAOrigen As Integer) As Integer
-Dim Devuelve As Integer
+Dim devuelve As Integer
     
     'IVA con recargo de equivalencia
-    Devuelve = TipoIVAOrigen
+    devuelve = TipoIVAOrigen
     If TipoIVAOrigen = TipoIVA1 Then
-        Devuelve = TipoIVAre1
+        devuelve = TipoIVAre1
     ElseIf TipoIVAOrigen = vParamAplic.TipoIVA2 Then
-        Devuelve = TipoIVAre2
+        devuelve = TipoIVAre2
     ElseIf TipoIVAOrigen = TipoIVA3 Then
-        Devuelve = TipoIVAre3
+        devuelve = TipoIVAre3
     Else
         MsgBox "NO se ha encontrado la correspondencia para el IVA RE: " & TipoIVAOrigen, vbExclamation
     End If
-    DevuleveTipoIVA_RE = Devuelve
+    DevuleveTipoIVA_RE = devuelve
 End Function
 
 
@@ -1345,16 +1350,16 @@ End Sub
 
 
 Public Function DevuelveTipoIVA_OLD(ConRecargo As Boolean, TipoIVAOrigen As Integer) As Integer
-Dim Devuelve As Integer
+Dim devuelve As Integer
     
-    Devuelve = TipoIVAOrigen
+    devuelve = TipoIVAOrigen
     
     If ConRecargo Then
         'IVA con recargo de equivalencia
         If TipoIVAOrigen = TipoIVA1 Then
-            Devuelve = Me.OLDIVAre1
+            devuelve = Me.OLDIVAre1
         ElseIf TipoIVAOrigen = vParamAplic.TipoIVA2 Then
-            Devuelve = Me.OLDIVAre2
+            devuelve = Me.OLDIVAre2
         Else
             MsgBox "NO se ha encontrado la correspondencia para el ANTIGUO IVA RE: " & TipoIVAOrigen, vbExclamation
         End If
@@ -1362,9 +1367,9 @@ Dim Devuelve As Integer
     
     Else
         If TipoIVAOrigen = TipoIVA1 Then
-            Devuelve = OLDIVA1
+            devuelve = OLDIVA1
         ElseIf TipoIVAOrigen = vParamAplic.TipoIVA2 Then
-            Devuelve = OLDIVA2
+            devuelve = OLDIVA2
         Else
             MsgBox "NO se ha encontrado la correspondencia para el ANTIGUO IVA: " & TipoIVAOrigen, vbExclamation
         End If
@@ -1372,7 +1377,7 @@ Dim Devuelve As Integer
     
     
     End If
-    DevuelveTipoIVA_OLD = Devuelve
+    DevuelveTipoIVA_OLD = devuelve
 End Function
 
 

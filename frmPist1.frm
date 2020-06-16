@@ -3300,11 +3300,12 @@ Private Sub Text10_KeyPress(KeyAscii As Integer)
     KEYpressGnral KeyAscii, 2, False
 End Sub
 
+'*************************** TEXT expedicion  *************
 Private Sub Text10_LostFocus()
 Dim cadErr As String
 Dim L1 As Long
 'Dim CadAux As String
-
+        
  
     Text10.Text = Trim(Text10.Text)
     If Text10.Text = "" Then Exit Sub
@@ -3319,6 +3320,10 @@ Dim L1 As Long
     
     If L1 = 0 Then
         L1 = InStr(Text10.Text, "38412594")
+        If L1 > 0 Then
+            'Empieza directamente por 38..
+            
+        End If
     End If
     
     If L1 > 0 Then
@@ -3328,7 +3333,7 @@ Dim L1 As Long
             'Lo que estaba antes
             SQL = Mid(Text10.Text, L1 + 4)
         Else
-            SQL = Mid(Text10.Text, L1)
+            SQL = Mid(Text10.Text, L1 + 4)
         End If
         'El fin del sscc es 10 caracteres despues
         If Len(SQL) > 18 Then SQL = Mid(SQL, 1, 18)
@@ -3339,10 +3344,10 @@ Dim L1 As Long
         'Comprobacion
         
         If Len(SQL) <> 18 Then
-            cadErr = "Longitud incorrecta"
+            cadErr = "Longitud incorrecta:" & SQL
         Else
             If Not IsNumeric(SQL) Then
-                cadErr = "Campo numerico"
+                cadErr = "Campo numerico:" & SQL
             Else
                 If Mid(SQL, 1, 8) <> "38412594" Then   'los de morales empiezan asi
                     cadErr = "no pertenece a Aceites Morales"
@@ -3378,7 +3383,7 @@ Dim L1 As Long
     
     
     If Not IsNumeric(Text10.Text) Then
-        cadErr = "Campo numerico"
+        cadErr = "Campo numerico(II)" & Text10.Text
         
     Else
     
@@ -3444,7 +3449,7 @@ Private Sub Text12_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub Text12_LostFocus()
-Dim L As Integer
+Dim L As Long
 Dim cadErr As String
 Dim SQL As String
 
@@ -4452,7 +4457,7 @@ Private Sub txtCPalet_KeyPress(Index As Integer, KeyAscii As Integer)
 End Sub
     
 Private Sub ProcesaPaletCambio(Index As Integer)
-Dim L As Integer
+Dim L As Long
 Dim cadErr As String
 
 
@@ -4488,7 +4493,7 @@ Dim cadErr As String
             cadErr = "Longitud incorrecta"
         Else
             If Not IsNumeric(SQL) Then
-                cadErr = "Campo numerico"
+                cadErr = "Campo numerico: " & SQL
             Else
                 If Mid(SQL, 1, 8) <> "38412594" Then   'los de morales empiezan asi
                     cadErr = "no pertenece a Aceites Morales"

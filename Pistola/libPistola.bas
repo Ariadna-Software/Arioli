@@ -19,7 +19,7 @@ Public FormatoFechaHora As String
 
     '#,##0.00
 Public FormatoImporte As String 'Decimal(12,2)
-Public FormatoPrecio As String 'Decimal(10,4)
+Public FormatoPrecio As String 'Decimal(10,4)txtAnterior
 Public FormatoCantidad As String 'Decimal(10,2)
 Public FormatoCantidad2 As String 'Decimal(8,2)
 Public FormatoDescuento As String 'Decimal(4,2)
@@ -344,7 +344,7 @@ End Function
 
 
 Public Function DevuelveDesdeBD(NoUtilizado As Byte, kCampo As String, Ktabla As String, Kcodigo As String, ValorCodigo As String, Optional Tipo As String, Optional ByRef otroCampo As String) As String
-    Dim Rs As Recordset
+    Dim RS As Recordset
     Dim cad As String
     Dim Aux As String
     
@@ -369,19 +369,19 @@ Public Function DevuelveDesdeBD(NoUtilizado As Byte, kCampo As String, Ktabla As
 '    Debug.Print cad
     
     'Creamos el sql
-    Set Rs = New ADODB.Recordset
+    Set RS = New ADODB.Recordset
     
 
-    Rs.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+    RS.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
 
     
-    If Not Rs.EOF Then
+    If Not RS.EOF Then
         
-        DevuelveDesdeBD = DBLet(Rs.Fields(0))
-        If otroCampo <> "" Then otroCampo = DBLet(Rs.Fields(1))
+        DevuelveDesdeBD = DBLet(RS.Fields(0))
+        If otroCampo <> "" Then otroCampo = DBLet(RS.Fields(1))
     End If
-    Rs.Close
-    Set Rs = Nothing
+    RS.Close
+    Set RS = Nothing
     Exit Function
 EDevuelveDesdeBD:
         MuestraError Err.Number, "Devuelve DesdeBD.", Err.Description
@@ -968,7 +968,7 @@ End Function
 
 Public Function DevuelveDesdeBDNew(vBD As Byte, Ktabla As String, kCampo As String, Kcodigo1 As String, valorCodigo1 As String, Optional tipo1 As String, Optional ByRef otroCampo As String, Optional KCodigo2 As String, Optional ValorCodigo2 As String, Optional tipo2 As String, Optional KCodigo3 As String, Optional ValorCodigo3 As String, Optional tipo3 As String) As String
 'IN: vBD --> Base de Datos a la que se accede
-Dim Rs As Recordset
+Dim RS As Recordset
 Dim cad As String
 Dim Aux As String
     
@@ -1040,20 +1040,20 @@ On Error GoTo EDevuelveDesdeBDnew
     
     
     'Creamos el sql
-    Set Rs = New ADODB.Recordset
+    Set RS = New ADODB.Recordset
     
     If vBD = conAri Then 'BD 1: Ariges
-        Rs.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
+        RS.Open cad, Conn, adOpenForwardOnly, adLockOptimistic, adCmdText
     Else    'BD 2: Conta
-        Rs.Open cad, ConnConta, adOpenForwardOnly, adLockOptimistic, adCmdText
+        RS.Open cad, ConnConta, adOpenForwardOnly, adLockOptimistic, adCmdText
     End If
     
-    If Not Rs.EOF Then
-        DevuelveDesdeBDNew = DBLet(Rs.Fields(0))
-        If otroCampo <> "" Then otroCampo = DBLet(Rs.Fields(1))
+    If Not RS.EOF Then
+        DevuelveDesdeBDNew = DBLet(RS.Fields(0))
+        If otroCampo <> "" Then otroCampo = DBLet(RS.Fields(1))
     End If
-    Rs.Close
-    Set Rs = Nothing
+    RS.Close
+    Set RS = Nothing
     Exit Function
     
 EDevuelveDesdeBDnew:
@@ -1063,22 +1063,22 @@ End Function
 
 
 Public Function EntreFechas(FIni As String, FechaComp As String, FFin As String) As Boolean
-Dim b As Boolean
-    b = False
+Dim B As Boolean
+    B = False
     If FIni <> "" And FFin <> "" Then
         If EsFechaIgualPosterior(FIni, FechaComp, False) And EsFechaIgualPosterior(FechaComp, FFin, False) Then
-            b = True
+            B = True
         End If
     ElseIf FIni = "" And FFin <> "" Then
         If EsFechaIgualPosterior(FechaComp, FFin, False) Then
-            b = True
+            B = True
         End If
     ElseIf FIni <> "" And FFin = "" Then
         If EsFechaIgualPosterior(FIni, FechaComp, False) Then
-            b = True
+            B = True
         End If
     End If
-    EntreFechas = b
+    EntreFechas = B
 End Function
 
 
@@ -1124,15 +1124,15 @@ End Function
 
 
 
-Public Sub BloquearTxt(ByRef Text As TextBox, b As Boolean, Optional EsContador As Boolean)
+Public Sub BloquearTxt(ByRef Text As TextBox, B As Boolean, Optional EsContador As Boolean)
 'Bloquea un control de tipo TextBox
 'Si lo bloquea lo pone de color amarillo claro sino lo pone en color blanco (sino es contador)
 'pero si es contador lo pone color azul claro
 On Error Resume Next
 
-    Text.Locked = b
-    If Not b And Text.Enabled = False Then Text.Enabled = True
-    If b Then
+    Text.Locked = B
+    If Not B And Text.Enabled = False Then Text.Enabled = True
+    If B Then
         If EsContador Then
             'Si Es un campo que se obtiene de un contador poner color azul
 '            Text.BackColor = &H80000013 'Azul Claro

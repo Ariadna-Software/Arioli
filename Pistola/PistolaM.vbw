@@ -1,9 +1,9 @@
-libPistola = 1, 112, 872, 373, Z
-Usuario = 0, 0, 871, 261, C
+libPistola = 1, 112, 872, 373, 
+Usuario = 0, 0, 871, 261, 
 frmLogin = 44, 58, 856, 319, , 66, 87, 878, 348, C
 pcname = 0, 0, 0, 0, C
 frmSelempresa = 88, 116, 959, 377, C, 66, 87, 878, 348, C
-frmPist1 = 28, 13, 1031, 501, C, 17, 57, 829, 618, C
+frmPist1 = 28, 13, 1031, 501, Z, 17, 57, 829, 618, C
 cLineaProduccion = 22, 29, 893, 290, 
 cLineaProCompo = 132, 174, 874, 605, C
 CTiposMov = 100, 100, 918, 566, C
