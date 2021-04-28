@@ -931,7 +931,7 @@ Private CadenaConsulta As String
 Private Ordenacion As String
 Private NombreTabla As String  'Nombre de la tabla o de la
 Private NomTablaLineas As String 'Nombre de la Tabla de lineas
-Private Kcampo As Integer
+Private kCampo As Integer
 '-------------------------------------------------------------------------
 
 Dim dtoGn As Currency
@@ -1178,7 +1178,7 @@ End Sub
 Private Sub ListView1_ItemCheck(ByVal Item As MSComctlLib.ListItem)
 'Cuando se selecciona un albaran de la lista
 Dim I As Integer
-Dim Cad As String
+Dim cad As String
 Dim TipoFP As Integer 'Forma de pago
 Dim TipoDtoPP As Currency 'descuento pronto pago
 Dim tipoDtoGn As Currency 'descuento general
@@ -1259,7 +1259,7 @@ Private Sub mnVerAlbaran_Click()
 End Sub
 
 Private Sub Text1_GotFocus(Index As Integer)
-    Kcampo = Index
+    kCampo = Index
     ConseguirFoco Text1(Index), Modo2
 End Sub
 
@@ -1503,7 +1503,7 @@ End Sub
 Private Function DatosOk() As Boolean
 'Comprobar que los datos del frame de introduccion son correctos antes de cargar datos
 Dim vtag As CTag
-Dim Cad As String
+Dim cad As String
 Dim I As Byte
 
     On Error GoTo EDatosOK
@@ -1515,16 +1515,16 @@ Dim I As Byte
             If Text1(I).Tag <> "" Then
                 Set vtag = New CTag
                 If vtag.Cargar(Text1(I)) Then
-                    Cad = vtag.Nombre
+                    cad = vtag.Nombre
                 Else
-                    Cad = "Campo"
+                    cad = "Campo"
                 End If
                 Set vtag = Nothing
             Else
-                Cad = "Campo"
-                If I = 5 Then Cad = "Cta. Prev. Pago"
+                cad = "Campo"
+                If I = 5 Then cad = "Cta. Prev. Pago"
             End If
-            MsgBox Cad & " no puede estar vacio. Reintroduzca", vbExclamation
+            MsgBox cad & " no puede estar vacio. Reintroduzca", vbExclamation
             PonerFoco Text1(I)
             Exit Function
         End If
@@ -1550,34 +1550,34 @@ Dim I As Byte
     
     
     'todos los albaranes seleccionados deben tener la misma: forma pago, dto ppago, dto gnral
-    Cad = "select count(distinct codforpa,dtoppago,dtognral) from scaalp "
-    Cad = Cad & " WHERE " & Replace(cadWhere, "slialp", "scaalp")
-    If RegistrosAListar(Cad) > 1 Then
+    cad = "select count(distinct codforpa,dtoppago,dtognral) from scaalp "
+    cad = cad & " WHERE " & Replace(cadWhere, "slialp", "scaalp")
+    If RegistrosAListar(cad) > 1 Then
         MsgBox "No se puede facturar albaranes con distintas: forma de pago, dto gral, dto ppago.", vbExclamation
         Exit Function
     End If
     
     
     'Si la forpa es TRANSFERENCIA entonces compruebo la si tiene cta bancaria
-    Cad = "select distinct (codforpa) from scaalp "
-    Cad = Cad & " WHERE " & Replace(cadWhere, "slialp", "scaalp")
+    cad = "select distinct (codforpa) from scaalp "
+    cad = cad & " WHERE " & Replace(cadWhere, "slialp", "scaalp")
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
-    Cad = miRsAux.Fields(0)
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    cad = miRsAux.Fields(0)
     miRsAux.Close
     
     
     
     'Ahora buscamos el tipforpa del codforpa
-    Cad = "Select tipforpa from sforpa where codforpa=" & Cad
-    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    cad = "Select tipforpa from sforpa where codforpa=" & cad
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     I = 0
     If miRsAux.EOF Then
         MsgBox "Error en el TIPO de forma de pago", vbExclamation
     Else
         I = 1
-        Cad = miRsAux.Fields(0)
-        If Val(Cad) = vbFPTransferencia Then
+        cad = miRsAux.Fields(0)
+        If Val(cad) = vbFPTransferencia Then
             'Compruebo que la forpa es transferencia
             I = 2
         End If
@@ -1590,8 +1590,8 @@ Dim I As Byte
         'La forma de pago es transferencia. Debo comprobar que existe la cuenta bancaria
         'del proveedor
         If vProve.CuentaBan = "" Or vProve.DigControl = "" Or vProve.Sucursal = "" Or vProve.Banco = "" Then
-            Cad = "Cuenta bancaria incorrecta. Forma de pago: transferencia.    ¿Continuar?"
-            If MsgBox(Cad, vbQuestion + vbYesNoCancel) <> vbYes Then I = 0
+            cad = "Cuenta bancaria incorrecta. Forma de pago: transferencia.    ¿Continuar?"
+            If MsgBox(cad, vbQuestion + vbYesNoCancel) <> vbYes Then I = 0
         End If
     End If
     
@@ -1763,7 +1763,7 @@ Dim I As Integer
 Dim SQL As String
 Dim cadAux As String
 Dim vFactu As CFacturaCom
-Dim Exento As Boolean
+Dim exento As Boolean
 Dim CambioIVA As Boolean
 
     'Limpiar en el form los datos calculados de la factura
@@ -1815,21 +1815,19 @@ Dim CambioIVA As Boolean
     Set vFactu = New CFacturaCom
     vFactu.DtoPPago = dtoPP
     vFactu.DtoGnral = dtoGn
-    Exento = False
-    If vUsu.TrabajadorB Then
-        Exento = True
-    Else
-        SQL = DevuelveDesdeBD(conAri, "tipprove", "sprove", "codprove", Text1(3).Text)
-        If SQL = "1" Or SQL = "2" Then Exento = True
-    End If
+    
+    
+    exento = False
+    If vUsu.TrabajadorB Then exento = True
+    
     CambioIVA = False
-    If Not Exento Then
+    If Not exento Then
         If Text1(1).Text <> "" Then
             If CDate(Text1(1).Text) < CDate("01/09/2012") Then CambioIVA = True
         End If
     End If
-    'FacturaB
-    If vFactu.CalcularDatosFactura(cadWhere, "scaalp", "slialp", CambioIVA, Exento) Then
+    vFactu.FijarTipoIvaProveedor Val(Text1(3).Text)
+    If vFactu.CalcularDatosFactura2(cadWhere, "scaalp", "slialp", CambioIVA, exento) Then
         Text1(6).Text = vFactu.BrutoFac
         Text1(7).Text = vFactu.ImpPPago
         Text1(8).Text = vFactu.ImpGnral
@@ -1897,20 +1895,20 @@ End Function
 
 
 Private Sub BotonFacturar()
-Dim Cad As String
+Dim cad As String
 
     Screen.MousePointer = vbHourglass
     
     
     
-    Cad = ""
+    cad = ""
     If Text1(3).Text = "" Then
-        Cad = "Falta proveedor"
+        cad = "Falta proveedor"
     Else
-        If Not IsNumeric(Text1(3).Text) Then Cad = "Campo proveedor debe ser numérico"
+        If Not IsNumeric(Text1(3).Text) Then cad = "Campo proveedor debe ser numérico"
     End If
-    If Cad <> "" Then
-        MsgBox Cad, vbExclamation
+    If cad <> "" Then
+        MsgBox cad, vbExclamation
         Exit Sub
     End If
         
@@ -1982,7 +1980,7 @@ Dim vFactu As CFacturaCom
         vFactu.CCC_Oficina = vProve.Sucursal
         vFactu.CCC_CC = vProve.DigControl
         vFactu.CCC_CTa = vProve.CuentaBan
-        vFactu.iBan = vProve.iBan
+        vFactu.IBAN = vProve.IBAN
         
         'Si es trabajador de B factura en B
         vFactu.Facb = vUsu.TrabajadorB
@@ -2010,16 +2008,16 @@ End Function
 
 Private Function ExisteFacturaEnHco() As Boolean
 'Comprobamos si la factura ya existe en la tabla de Facturas a Proveedor: scafpc
-Dim Cad As String
+Dim cad As String
 
     ExisteFacturaEnHco = False
     'Tiene que tener valor los 3 campos de clave primaria antes de comprobar
     If Not (Text1(0).Text <> "" And Text1(1).Text <> "" And Text1(3).Text <> "") Then Exit Function
     
     ' No debe existir el número de factura para el proveedor en hco
-    Cad = "SELECT count(*) FROM scafpc "
-    Cad = Cad & " WHERE codprove=" & Text1(3).Text & " AND numfactu=" & DBSet(Text1(0).Text, "T") & " AND year(fecfactu)=" & Year(Text1(1).Text)
-    If RegistrosAListar(Cad) > 0 Then
+    cad = "SELECT count(*) FROM scafpc "
+    cad = cad & " WHERE codprove=" & Text1(3).Text & " AND numfactu=" & DBSet(Text1(0).Text, "T") & " AND year(fecfactu)=" & Year(Text1(1).Text)
+    If RegistrosAListar(cad) > 0 Then
         MsgBox "Factura de proveedor ya existente. Reintroduzca.", vbExclamation
         ExisteFacturaEnHco = True
         Exit Function
@@ -2113,7 +2111,7 @@ Dim Aux As String
     miRsAux.Open Aux, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Aux = ""
     While Not miRsAux.EOF
-        If DBLet(miRsAux!numlotes, "T") = "" Then Aux = Aux & miRsAux!codartic & "  " & miRsAux!NomArtic & vbCrLf
+        If DBLet(miRsAux!numlotes, "T") = "" Then Aux = Aux & miRsAux!codArtic & "  " & miRsAux!NomArtic & vbCrLf
         
         miRsAux.MoveNext
     Wend

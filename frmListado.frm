@@ -10182,6 +10182,21 @@ Dim SeguirConLaContabilizacion As Boolean
     End If
     
     If Not HayRegParaInforme(NomTabla, Cadselect) Then Exit Sub
+        
+    If OpcionListado = 223 Then
+        'Contaibilizar facturas
+        devuelve = ""
+        If Cadselect <> "" Then devuelve = " WHERE " & Cadselect
+        devuelve = "Select count(*) FROM " & NomTabla & devuelve
+        devuelve = NumRegistros(devuelve)
+        If devuelve = 0 Then
+            MsgBox "No existen facturas a contabilizar con esos parámetros", vbInformation
+        Else
+            devuelve = devuelve & " factura" & IIf(Val(devuelve) = 1, "", "s")
+            devuelve = "Hay " & devuelve & " para contabilizar. ¿Continuar?"
+            If MsgBox(devuelve, vbQuestion + vbYesNoCancel) <> vbYes Then Exit Sub
+        End If
+    End If
     
     If OpcionListado <> 223 Then
         LlamarImprimir

@@ -1458,7 +1458,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Dim Cad As String
+Dim cad As String
 Dim RS As ADODB.Recordset
 
 Dim DepositoDblClik As Integer
@@ -1502,20 +1502,20 @@ Dim KMostrar As Byte
 Dim Deposito As Integer
 Dim Lotes As String
 
-    Cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
-    Cad = Cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
-    Cad = Cad & " left join sartic on spartidas.codartic=sartic.codartic"
-    Cad = Cad & " WHERE DepositoVtaDirecta=0"
+    cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
+    cad = cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
+    cad = cad & " left join sartic on spartidas.codartic=sartic.codartic"
+    cad = cad & " WHERE DepositoVtaDirecta=0"
     
     Set RS = New ADODB.Recordset
-    RS.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RS.EOF
         'Sera ERROR SI,
         ' o sartic.codartic=null
         ' o factorconverrsion=1
         KMostrar = 2 'todo
         If DBLet(RS!numLote, "T") <> "" Then
-            If DBLet(RS!codartic, "T") = "" Then
+            If DBLet(RS!codArtic, "T") = "" Then
                 KMostrar = 0 'ERROR
             Else
                 If RS!FactorConversion = 1 Then KMostrar = 0
@@ -1557,12 +1557,12 @@ Dim Lotes As String
     'Vamos a ver cual esta envasando en linea de produccion
     If Lotes <> "" Then
         
-        Cad = "select numlote,prodlin.codigo,prodlin.idlin from prodlin,prodtrazcompo"
-        Cad = Cad & " where prodlin.codigo= prodtrazcompo.codigo AND prodlin.idlin = "
-        Cad = Cad & " prodtrazcompo.idlin and prodtrazcompo.cantutili is null and estado >0"
-        Cad = Cad & " and estado<10 and numlote in"
-        Cad = Cad & " (" & Mid(Lotes, 2) & ")"
-        RS.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        cad = "select numlote,prodlin.codigo,prodlin.idlin from prodlin,prodtrazcompo"
+        cad = cad & " where prodlin.codigo= prodtrazcompo.codigo AND prodlin.idlin = "
+        cad = cad & " prodtrazcompo.idlin and prodtrazcompo.cantutili is null and estado >0"
+        cad = cad & " and estado<10 and numlote in"
+        cad = cad & " (" & Mid(Lotes, 2) & ")"
+        RS.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         While Not RS.EOF
             For KMostrar = 0 To MaxNumDepositos_ - 1
                 If Me.txtLote(KMostrar).Text = RS!numLote Then
@@ -1592,19 +1592,19 @@ Private Sub LimpiarDatosDeposito(HayError As Boolean, kDeposito As Integer)
         'DATOS rs
         'NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote
         If RS.EOF Then
-            Cad = "Consulta vacia (EOF)"
+            cad = "Consulta vacia (EOF)"
         Else
-            Cad = "Deposito:      " & DBLet(RS!NumDeposito, "T") & vbCrLf
-            Cad = Cad & "Capacidad:     " & DBLet(RS!Capacidad, "T") & vbCrLf
-            Cad = Cad & "Codigo:     " & DBLet(RS!codartic, "T") & vbCrLf
-            Cad = Cad & "Referencia:   " & DBLet(RS!NomArtic, "T") & vbCrLf
-            Cad = Cad & "Factor conversion:      " & DBLet(RS!FactorConversion, "T") & vbCrLf
-            Cad = Cad & "LOTE:      " & DBLet(RS!numLote, "T") & vbCrLf
+            cad = "Deposito:      " & DBLet(RS!NumDeposito, "T") & vbCrLf
+            cad = cad & "Capacidad:     " & DBLet(RS!Capacidad, "T") & vbCrLf
+            cad = cad & "Codigo:     " & DBLet(RS!codArtic, "T") & vbCrLf
+            cad = cad & "Referencia:   " & DBLet(RS!NomArtic, "T") & vbCrLf
+            cad = cad & "Factor conversion:      " & DBLet(RS!FactorConversion, "T") & vbCrLf
+            cad = cad & "LOTE:      " & DBLet(RS!numLote, "T") & vbCrLf
             
-            Cad = "Error datos deposito: " & vbCrLf & vbCrLf & Cad
+            cad = "Error datos deposito: " & vbCrLf & vbCrLf & cad
     
         End If
-        MsgBox Cad, vbExclamation
+        MsgBox cad, vbExclamation
             
     End If
 End Sub
@@ -1617,7 +1617,7 @@ Dim Cantidad As Currency
     
     Me.txtLote(kDeposito).visible = True
     Me.txtLote(kDeposito).Text = RS!numLote
-    Me.txtLote(kDeposito).ToolTipText = RS!codartic & "  " & RS!NomArtic
+    Me.txtLote(kDeposito).ToolTipText = RS!codArtic & "  " & RS!NomArtic
     Me.txtLote(kDeposito).Alignment = 2
     
     If DBLet(RS!Kilos, "N") = 0 Then
@@ -1690,14 +1690,14 @@ Dim KMostrar As Byte
 Dim Lotes As String
 Dim QueImage As Integer
 
-    Cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
-    Cad = Cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
-    Cad = Cad & " left join sartic on spartidas.codartic=sartic.codartic"
-    Cad = Cad & " WHERE DepositoVtaDirecta=1 ORDER BY numdeposito"
+    cad = "select NumDeposito,capacidad,kilos,spartidas.codartic,nomartic,factorconversion,spartidas.numlote"
+    cad = cad & " from proddepositos left join spartidas on proddepositos.numlote=spartidas.numlote"
+    cad = cad & " left join sartic on spartidas.codartic=sartic.codartic"
+    cad = cad & " WHERE DepositoVtaDirecta=1 ORDER BY numdeposito"
     
     QueImage = 0
     Set RS = New ADODB.Recordset
-    RS.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RS.EOF
         'Sera ERROR SI,
         ' o sartic.codartic=null
@@ -1708,7 +1708,7 @@ Dim QueImage As Integer
         imgLinea(QueImage).Tag = RS!NumDeposito & "|"
         If DBLet(RS!numLote, "T") <> "" Then
             
-            If DBLet(RS!codartic, "T") = "" Then
+            If DBLet(RS!codArtic, "T") = "" Then
                 KMostrar = 0 'ERROR
             Else
                 If RS!FactorConversion <> 1 Then   'Junio18 Puede ser >1 como la vinagreta o <1 como el aceite

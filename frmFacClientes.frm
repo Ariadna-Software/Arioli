@@ -124,25 +124,25 @@ Begin VB.Form frmFacClientes
       TabCaption(1)   =   "Otros Datos"
       TabPicture(1)   =   "frmFacClientes.frx":0028
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "frameDptoDirec"
+      Tab(1).Control(0)=   "frameDptoVentas"
       Tab(1).Control(1)=   "frameDptoAdmon"
-      Tab(1).Control(2)=   "frameDptoVentas"
+      Tab(1).Control(2)=   "frameDptoDirec"
       Tab(1).ControlCount=   3
       TabCaption(2)   =   "Direcciones"
       TabPicture(2)   =   "frmFacClientes.frx":0044
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "FrameDirecciones"
-      Tab(2).Control(1)=   "ToolAux"
+      Tab(2).Control(0)=   "ToolAux"
+      Tab(2).Control(1)=   "FrameDirecciones"
       Tab(2).ControlCount=   2
       TabCaption(3)   =   "Documentos"
       TabPicture(3)   =   "frmFacClientes.frx":0060
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label2"
-      Tab(3).Control(1)=   "imgFecha(3)"
-      Tab(3).Control(2)=   "Label3"
-      Tab(3).Control(3)=   "lw1"
-      Tab(3).Control(4)=   "Text1(46)"
-      Tab(3).Control(5)=   "Frame3"
+      Tab(3).Control(0)=   "Frame3"
+      Tab(3).Control(1)=   "Text1(46)"
+      Tab(3).Control(2)=   "lw1"
+      Tab(3).Control(3)=   "Label3"
+      Tab(3).Control(4)=   "imgFecha(3)"
+      Tab(3).Control(5)=   "Label2"
       Tab(3).ControlCount=   6
       Begin VB.TextBox Text1 
          Height          =   285
@@ -2421,7 +2421,7 @@ Private CadenaConsulta As String
 
 Private Ordenacion As String
 Private NombreTabla As String  'Nombre de la tabla o de la
-Private Kcampo As Integer
+Private kCampo As Integer
 '-------------------------------------------------------------------------
 Private HaDevueltoDatos As Boolean
 
@@ -2529,7 +2529,7 @@ Private Sub chkTasaReciclado_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub cmdAceptar_Click()
-Dim Cad As String, Indicador As String
+Dim cad As String, Indicador As String
 
     Screen.MousePointer = vbHourglass
     On Error GoTo Error1
@@ -2566,8 +2566,8 @@ Dim Cad As String, Indicador As String
             'Actualizar el registro en la tabla de lineas 'sdirec' (Direcciones/Departamentos)
             If InsertarModificarLinea Then
                 Espera 0.5
-                Cad = "coddirec = " & Text3(0).Text & ""
-                If SituarData(Data2, Cad, Indicador) Then
+                cad = "coddirec = " & Text3(0).Text & ""
+                If SituarData(Data2, cad, Indicador) Then
                     ModificaLineas = 0
 '                    lblIndicador.Caption = Indicador
                     PonerModoFrame 0
@@ -2584,7 +2584,7 @@ End Sub
 
 
 Private Sub cmdCancelar_Click()
-Dim Cad As String
+Dim cad As String
 Dim Indicador As String
 
     Select Case Modo
@@ -2609,8 +2609,8 @@ Dim Indicador As String
                     LimpiarCamposDirecciones
                 End If
             ElseIf ModificaLineas = 2 Then 'Modificar
-                 Cad = "(coddirec=" & Text3(0).Text & ")"
-                 If SituarData(Data2, Cad, Indicador) Then
+                 cad = "(coddirec=" & Text3(0).Text & ")"
+                 If SituarData(Data2, cad, Indicador) Then
                     PonerCamposDirecciones
 '                    lblIndicador.Caption = Indicador
                  End If
@@ -2718,9 +2718,9 @@ Private Sub BotonBuscar()
     Else
         HacerBusqueda
         If Data1.Recordset.EOF Then
-            Text1(Kcampo).Text = ""
-            Text1(Kcampo).BackColor = vbYellow
-            PonerFoco Text1(Kcampo)
+            Text1(kCampo).Text = ""
+            Text1(kCampo).BackColor = vbYellow
+            PonerFoco Text1(kCampo)
         End If
     End If
 End Sub
@@ -2823,18 +2823,18 @@ End Sub
 
 
 Private Sub BotonEliminar()
-Dim Cad As String
+Dim cad As String
 
     'Ciertas comprobaciones
     If Data1.Recordset.EOF Then Exit Sub
 
     '### a mano
-    Cad = "¿Seguro que desea eliminar el Cliente?"
-    Cad = Cad & vbCrLf & "Cod. : " & Data1.Recordset.Fields(0)
-    Cad = Cad & vbCrLf & "Nombre: " & Data1.Recordset.Fields(1)
+    cad = "¿Seguro que desea eliminar el Cliente?"
+    cad = cad & vbCrLf & "Cod. : " & Data1.Recordset.Fields(0)
+    cad = cad & vbCrLf & "Nombre: " & Data1.Recordset.Fields(1)
 
     'Borramos
-    If MsgBox(Cad, vbQuestion + vbYesNo) = vbYes Then
+    If MsgBox(cad, vbQuestion + vbYesNo) = vbYes Then
         'Hay que eliminar
         On Error GoTo Error2
         Screen.MousePointer = vbHourglass
@@ -2859,7 +2859,7 @@ End Sub
 
 Private Sub BotonEliminarLinea()
 'Eliminar una linea De ArticulosxAlmacen
-Dim Cad As String, cad2 As String
+Dim cad As String, cad2 As String
 Dim I As Integer
 
     If Data2.Recordset.EOF Then Exit Sub
@@ -2874,18 +2874,18 @@ Dim I As Integer
     'Dependiendo del parametro de la aplicacion trabajamos con Dpto o Direc.
     If vParamAplic.Departamento Then
         cad2 = " Dpto. "
-        Cad = " el Departamento?"
+        cad = " el Departamento?"
     Else
         cad2 = " Direc. "
-        Cad = " la Dirección?"
+        cad = " la Dirección?"
     End If
     
-    Cad = "¿Seguro que desea eliminar " & Cad & vbCrLf
-    Cad = Cad & vbCrLf & "Cod." & cad2 & ": " & Format(Data2.Recordset.Fields(1), FormatoCampo(Text3(0)))
-    Cad = Cad & vbCrLf & "Nombre" & cad2 & ": " & Data2.Recordset.Fields(2)
+    cad = "¿Seguro que desea eliminar " & cad & vbCrLf
+    cad = cad & vbCrLf & "Cod." & cad2 & ": " & Format(Data2.Recordset.Fields(1), FormatoCampo(Text3(0)))
+    cad = cad & vbCrLf & "Nombre" & cad2 & ": " & Data2.Recordset.Fields(2)
     
     'Borramos
-    If MsgBox(Cad, vbQuestion + vbYesNo) = vbYes Then
+    If MsgBox(cad, vbQuestion + vbYesNo) = vbYes Then
         'Hay que eliminar
         On Error GoTo Error2
         Screen.MousePointer = vbHourglass
@@ -2950,13 +2950,13 @@ End Sub
 
 
 Private Sub cmdRegresar_Click()
-Dim Cad As String
+Dim cad As String
 Dim Indicador As String
 
     'Quitar lineas y volver a la cabecera
     If Modo = 5 Then  'modo 5: Lineas Direcciones/Departamentos
-        Cad = "(codclien=" & Text1(0).Text & ")"
-        If SituarData(Data1, Cad, Indicador) Then
+        cad = "(codclien=" & Text1(0).Text & ")"
+        If SituarData(Data1, cad, Indicador) Then
 '            PonerLineaVisible False
             PonerModo 2
             lblIndicador.Caption = Indicador
@@ -2967,11 +2967,11 @@ Dim Indicador As String
             Exit Sub
         End If
         
-        Cad = Data1.Recordset.Fields(0) & "|"
-        Cad = Cad & Data1.Recordset.Fields(1) & "|"
-        Cad = Cad & Data1.Recordset!perclie1 & "|"
-        Cad = Cad & Data1.Recordset!maiclie1 & "|"
-        RaiseEvent DatoSeleccionado(Cad)
+        cad = Data1.Recordset.Fields(0) & "|"
+        cad = cad & Data1.Recordset.Fields(1) & "|"
+        cad = cad & Data1.Recordset!perclie1 & "|"
+        cad = cad & Data1.Recordset!maiclie1 & "|"
+        RaiseEvent DatoSeleccionado(cad)
         Unload Me
     End If
 End Sub
@@ -2991,14 +2991,14 @@ Private Sub Form_Load()
     Me.Icon = frmppal.Icon
 
     'Icono de busqueda
-    For Kcampo = 0 To Me.imgBuscar.Count - 1
-        Me.imgBuscar(Kcampo).Picture = frmppal.imgListComun.ListImages(19).Picture
-    Next Kcampo
+    For kCampo = 0 To Me.imgBuscar.Count - 1
+        Me.imgBuscar(kCampo).Picture = frmppal.imgListComun.ListImages(19).Picture
+    Next kCampo
     
     'Icono de e-mail
-    For Kcampo = 0 To Me.ImgMail.Count - 1
-        Me.ImgMail(Kcampo).Picture = frmppal.imgListComun.ListImages(20).Picture
-    Next Kcampo
+    For kCampo = 0 To Me.ImgMail.Count - 1
+        Me.ImgMail(kCampo).Picture = frmppal.imgListComun.ListImages(20).Picture
+    Next kCampo
 
     'Para no verlo
     Text1(48).Left = 15000
@@ -3208,21 +3208,21 @@ End Sub
 Private Sub frmCP_DatoSeleccionado(CadenaSeleccion As String)
 'Formulario Mantenimiento C. Postales
 Dim Indice As Byte
-Dim Devuelve As String
+Dim devuelve As String
 
     If CByte(Me.imgBuscar(0).Tag) = 9 Then Indice = 4
     If Indice = 4 Then 'Form Principal de Clientes
         Text1(Indice).Text = RecuperaValor(CadenaSeleccion, 1) 'CPostal
         'Poblacion
-        Text1(Indice + 1).Text = ObtenerPoblacion(Text1(Indice).Text, Devuelve)
+        Text1(Indice + 1).Text = ObtenerPoblacion(Text1(Indice).Text, devuelve)
         'provincia
-        Text1(Indice + 2).Text = Devuelve
+        Text1(Indice + 2).Text = devuelve
 
     Else 'Lineas de Direcciones/Dptos
         Text3(3).Text = RecuperaValor(CadenaSeleccion, 1) 'CPostal
-        Text3(4).Text = ObtenerPoblacion(Text3(3).Text, Devuelve)  'Poblacion
+        Text3(4).Text = ObtenerPoblacion(Text3(3).Text, devuelve)  'Poblacion
         'provincia
-        Text3(5).Text = Devuelve
+        Text3(5).Text = devuelve
     End If
 End Sub
 
@@ -3506,7 +3506,7 @@ Dim Seleccionado As Long
     lw1.SetFocus
     Seleccionado = lw1.SelectedItem.Index
     CargaDatosLW
-    lw1.SelectedItem.Selected = False
+    If Not lw1.SelectedItem Is Nothing Then lw1.SelectedItem.Selected = False
     Set lw1.SelectedItem = Nothing
     If lw1.ListItems.Count >= Seleccionado Then
             lw1.ListItems(Seleccionado).Selected = True
@@ -3568,7 +3568,7 @@ End Sub
 'Los metodos del text tendran que estar
 'Los descomentamos cuando esten puestos ya los controles
 Private Sub Text1_GotFocus(Index As Integer)
-    Kcampo = Index
+    kCampo = Index
     If Index = 4 Then HaCambiadoCP = False
     If Index <> 22 Then ConseguirFoco Text1(Index), Modo
 End Sub
@@ -3771,36 +3771,36 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim Cad As String
+Dim cad As String
 Dim Tabla As String
 Dim Titulo As String
 Dim Conexion As Byte
 
     'Llamamos a al form
     '##A mano
-    Cad = ""
+    cad = ""
     Select Case Val(Me.imgBuscar(0).Tag)
         Case 5  'Cuenta Contable
             'Se llama a Busqueda desde el campo Cuenta contable
             '#A MANO: Porque busca en la tabla cuentas
             'de la base de datos de Contabilidad
-            Cad = Cad & "Código|cuentas|codmacta|T||30·Denominacion|cuentas|nommacta|T||70·"
+            cad = cad & "Código|cuentas|codmacta|T||30·Denominacion|cuentas|nommacta|T||70·"
             Tabla = "cuentas"
             Titulo = "Cuentas Contables"
             Conexion = conConta    'Conexión a BD: Conta
         Case Else   'Registro de la tabla de cabeceras: sartic
-            Cad = Cad & ParaGrid(Text1(0), 10, "Código")
-            Cad = Cad & ParaGrid(Text1(1), 50, "Nombre")
-            Cad = Cad & ParaGrid(Text1(2), 40, "Nombre Comercial")
+            cad = cad & ParaGrid(Text1(0), 10, "Código")
+            cad = cad & ParaGrid(Text1(1), 50, "Nombre")
+            cad = cad & ParaGrid(Text1(2), 40, "Nombre Comercial")
             Tabla = "sclien"
             Titulo = "Clientes"
             Conexion = conAri    'Conexión a BD: Ariges
     End Select
            
-    If Cad <> "" Then
+    If cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = Cad
+        frmB.vCampos = cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
@@ -3820,7 +3820,7 @@ Dim Conexion As Byte
 '            If (Not Data1.Recordset.EOF) And DatosADevolverBusqueda <> "" Then _
 '                cmdRegresar_Click
         Else   'de ha devuelto datos, es decir NO ha devuelto datos
-            PonerFoco Text1(Kcampo)
+            PonerFoco Text1(kCampo)
         End If
     End If
     Screen.MousePointer = vbDefault
@@ -4145,6 +4145,16 @@ Dim fec As Date
     End If
     If Not b Then Exit Function
     
+    If cboTipoIVA.ListIndex = 3 Then
+        b = False
+        If cboPais.ListIndex > 0 Then b = True
+                
+        If Not b Then
+            MsgBox "Debe indicar el pais del cliente", vbExclamation
+            Exit Function
+        End If
+    End If
+    
     
     '- Validar que la cuenta bancaria es correcta
     Comprueba_CuentaBan (Text1(31).Text & Text1(32).Text & Text1(33).Text & Text1(34).Text)
@@ -4191,7 +4201,7 @@ End Function
 
 Private Function DatosOkLinea() As Boolean
 Dim b As Boolean
-Dim Devuelve As String
+Dim devuelve As String
 On Error GoTo EDatosOkLinea
 
     DatosOkLinea = False
@@ -4226,18 +4236,18 @@ On Error GoTo EDatosOkLinea
     
     'Comprobamos  si ya existe Si estamos insertando
     'conAri: conexion a BD Ariges
-    Devuelve = DevuelveDesdeBDNew(conAri, "sdirec", "coddirec", "codclien", Text1(0).Text, "N", , "coddirec", Text3(0).Text, "N")
+    devuelve = DevuelveDesdeBDNew(conAri, "sdirec", "coddirec", "codclien", Text1(0).Text, "N", , "coddirec", Text3(0).Text, "N")
     'If ModificaLineas = 1 And DevuelveExisteEnBD(conAri, "sdirec", "codclien", Text1(0).Text, "N", "coddirec", Text3(0).Text, "N") Then
-    If ModificaLineas = 1 And Devuelve <> "" Then
+    If ModificaLineas = 1 And devuelve <> "" Then
         b = False
         If vParamAplic.Departamento Then
-            Devuelve = " el Departamento "
+            devuelve = " el Departamento "
         Else
-            Devuelve = " la Dirección "
+            devuelve = " la Dirección "
         End If
-        Devuelve = "Ya existe" & Devuelve & " del Cliente: " & vbCrLf
-        Devuelve = Devuelve & "Codigo: " & Text3(0).Text & vbCrLf
-        MsgBox Devuelve, vbExclamation
+        devuelve = "Ya existe" & devuelve & " del Cliente: " & vbCrLf
+        devuelve = devuelve & "Codigo: " & Text3(0).Text & vbCrLf
+        MsgBox devuelve, vbExclamation
     End If
     
     
@@ -4282,7 +4292,7 @@ End Sub
 
 
 Private Sub Text3_LostFocus(Index As Integer)
-Dim Devuelve As String
+Dim devuelve As String
 
     On Error Resume Next
     
@@ -4299,8 +4309,8 @@ Dim Devuelve As String
 
         Case 3 'Cod. Postal
             If (Not VieneDeBuscar) Or (VieneDeBuscar And HaCambiadoCP) Then
-                Text3(Index + 1).Text = ObtenerPoblacion(Text3(Index).Text, Devuelve)
-                Text3(Index + 2).Text = Devuelve
+                Text3(Index + 1).Text = ObtenerPoblacion(Text3(Index).Text, devuelve)
+                Text3(Index + 2).Text = devuelve
             End If
             VieneDeBuscar = False
             
@@ -4540,10 +4550,10 @@ End Sub
 
 
 Private Sub PosicionarData()
-Dim Indicador As String, Cad As String
+Dim Indicador As String, cad As String
 
-    Cad = "(codclien=" & Val(Text1(0).Text) & ")"
-    If SituarData(Data1, Cad, Indicador) Then
+    cad = "(codclien=" & Val(Text1(0).Text) & ")"
+    If SituarData(Data1, cad, Indicador) Then
 '       PonerModo 2
        lblIndicador.Caption = Indicador
     Else
@@ -4723,7 +4733,7 @@ Dim bs As Byte
 End Sub
 
 Private Sub CargaDatosLW2()
-Dim Cad As String
+Dim cad As String
 Dim RS As ADODB.Recordset
 Dim It As ListItem
 Dim ElIcono As Integer
@@ -4748,33 +4758,33 @@ Dim GroupBy As String
     Select Case CByte(RecuperaValor(lw1.Tag, 1))
     Case 2
         'ALBARANES
-        Cad = "select c.codtipom,c.numalbar,fechaalb,sum(importel) from scaalb c,slialb l where c.codtipom=l.codtipom and c.numalbar=l.numalbar"
+        cad = "select c.codtipom,c.numalbar,fechaalb,sum(importel) from scaalb c,slialb l where c.codtipom=l.codtipom and c.numalbar=l.numalbar"
         'QUE NO MUESTRE EL "B"
-        If Not vUsu.TrabajadorB Then Cad = Cad & " AND c.codtipom <> 'ALZ'"
+        If Not vUsu.TrabajadorB Then cad = cad & " AND c.codtipom <> 'ALZ'"
         GroupBy = "1,2,3"
         BuscaChekc = "fechaalb"
         
     Case 0
         'OFERTAS
-        Cad = "select c.numofert,c.fecofert,fecentre,if(aceptado=1,""SI"","" "") ,sum(importel) from scapre c,slipre l where"
-        Cad = Cad & " c.numofert=l.numofert "
+        cad = "select c.numofert,c.fecofert,fecentre,if(aceptado=1,""SI"","" "") ,sum(importel) from scapre c,slipre l where"
+        cad = cad & " c.numofert=l.numofert "
         GroupBy = "1,2"
         BuscaChekc = "fecofert"
     Case 1
         'PEDIDOS
-        Cad = "select c.numpedcl,c.fecpedcl,fecentre,if(visadore=1,""SI"",""""),sum(importel) from scaped c,sliped l"
-        Cad = Cad & " where c.numpedcl=l.numpedcl "
+        cad = "select c.numpedcl,c.fecpedcl,fecentre,if(visadore=1,""SI"",""""),sum(importel) from scaped c,sliped l"
+        cad = cad & " where c.numpedcl=l.numpedcl "
         BuscaChekc = "fecpedcl"
         GroupBy = "1,2"
     Case 3
-        Cad = "select codtipom,numfactu,fecfactu,totalfac from scafac WHERE 1=1"
+        cad = "select codtipom,numfactu,fecfactu,totalfac from scafac WHERE 1=1"
         'QUE NO MUESTRE EL "B"
-        If Not vUsu.TrabajadorB Then Cad = Cad & " AND codtipom <> 'FAZ'"
+        If Not vUsu.TrabajadorB Then cad = cad & " AND codtipom <> 'FAZ'"
         BuscaChekc = "fecfactu"
         GroupBy = "1,2,3"
     Case 4
         'PRECIOS ESPECIALES
-        Cad = "select s.codartic,nomartic,precioac from sprees s,sartic a where s.codartic=a.codartic"
+        cad = "select s.codartic,nomartic,precioac from sprees s,sartic a where s.codartic=a.codartic"
         BuscaChekc = ""
         GroupBy = ""
     End Select
@@ -4783,24 +4793,24 @@ Dim GroupBy As String
     'La fecha
     
     'EL where del codclien
-    Cad = Cad & " and codclien=" & Data1.Recordset!CodClien
+    cad = cad & " and codclien=" & Data1.Recordset!CodClien
     
     'La fecha
-    If BuscaChekc <> "" Then Cad = Cad & " and " & BuscaChekc & " >='" & Format(imgFecha(3).Tag, FormatoFecha) & "'"
+    If BuscaChekc <> "" Then cad = cad & " and " & BuscaChekc & " >='" & Format(imgFecha(3).Tag, FormatoFecha) & "'"
     
     
     'El group by
-    If GroupBy <> "" Then Cad = Cad & " GROUP BY " & GroupBy
+    If GroupBy <> "" Then cad = cad & " GROUP BY " & GroupBy
     
     'El ORDER BY
     'BuscaChekc="" si es la opcion de precios especiales
     If BuscaChekc = "" Then BuscaChekc = " codartic "
-    Cad = Cad & " ORDER BY " & BuscaChekc & " DESC"
+    cad = cad & " ORDER BY " & BuscaChekc & " DESC"
     BuscaChekc = ""
     
     lw1.ListItems.Clear
     Set RS = New ADODB.Recordset
-    RS.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not RS.EOF
         Set It = lw1.ListItems.Add()
         If lw1.ColumnHeaders(1).Tag <> "" Then

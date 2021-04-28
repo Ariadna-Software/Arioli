@@ -122,7 +122,7 @@ Dim TotalKm As Integer
 Dim PrecioKm As Currency
 Dim ImporteL As Currency
 Dim Ampliacion As String  'ampliacion de la linea: "Dia,Dia,Dia..." de los albaranes con desplazamiento
-Dim codartic As String
+Dim codArtic As String
 Dim despIVA As Integer 'tipo de IVA del articulo para desplazamientos
 '------------------------------------------------------------------
 
@@ -750,12 +750,12 @@ End Property
 
 
 
-Public Property Let iBan(ByVal vData As String)
+Public Property Let IBAN(ByVal vData As String)
      mIban = vData
 End Property
 
-Public Property Get iBan() As String
-     iBan = mIban
+Public Property Get IBAN() As String
+     IBAN = mIban
 End Property
 
 
@@ -805,7 +805,7 @@ Dim SQL As String
         mCodsucur = CStr(DBLet(RS!codsucur, "N"))
         mDigContr = DBLet(RS!digcontr, "T")
         mCuentaba = DBLet(RS!cuentaba, "T")
-        mIban = DBLet(RS!iBan, "T")
+        mIban = DBLet(RS!IBAN, "T")
         mBrutofac = CStr(RS!BrutoFac)
         mTotalfac = CStr(RS!TotalFac)
 
@@ -1018,7 +1018,7 @@ Dim InsertFinalContaNueva As String
                     'departamento y transfer
                     CadValues2 = CadValues2 & "," & DBSet(Me.DirDpto, "N", "S") & ",NULL" & InsertFinalContaNueva & ")"
                 Else
-                    CadValues2 = CadValues2 & DBSet(ImpVenci2, "N") & ", '" & CuentaPrev & "', " & DBSet(Banco, "N") & ", " & DBSet(Sucursal, "N") & ", " & DBSet(DigControl, "T") & ", " & DBSet(CuentaBan, "T") & "," & DBSet(iBan, "T", "S") & ", " & textcsb33 & ", " & DBSet(Agente, "N")
+                    CadValues2 = CadValues2 & DBSet(ImpVenci2, "N") & ", '" & CuentaPrev & "', " & DBSet(Banco, "N") & ", " & DBSet(Sucursal, "N") & ", " & DBSet(DigControl, "T") & ", " & DBSet(CuentaBan, "T") & "," & DBSet(IBAN, "T", "S") & ", " & textcsb33 & ", " & DBSet(Agente, "N")
                         
                     'departamento y transfer
                     CadValues2 = CadValues2 & "," & DBSet(Me.DirDpto, "N", "S") & ",NULL)"
@@ -1061,7 +1061,7 @@ Dim InsertFinalContaNueva As String
                               
                     Else
                 
-                        CadValues2 = CadValues2 & DBSet(ImpVenci2, "N") & ", " & DBSet(CuentaPrev, "T") & ", " & DBSet(Banco, "N") & ", " & DBSet(Sucursal, "N") & ", " & DBSet(DigControl, "T") & ", " & DBSet(CuentaBan, "T") & "," & DBSet(iBan, "T", "S") & ", " & textcsb33 & ", " & DBSet(Agente, "N") & ", "
+                        CadValues2 = CadValues2 & DBSet(ImpVenci2, "N") & ", " & DBSet(CuentaPrev, "T") & ", " & DBSet(Banco, "N") & ", " & DBSet(Sucursal, "N") & ", " & DBSet(DigControl, "T") & ", " & DBSet(CuentaBan, "T") & "," & DBSet(IBAN, "T", "S") & ", " & textcsb33 & ", " & DBSet(Agente, "N") & ", "
                         CadValues2 = CadValues2 & DBSet(Me.DirDpto, "N", "S") & ",NULL)"
                     End If
                 Next I
@@ -1714,9 +1714,15 @@ Dim NueroIvas As Integer
                 If vParamAplic.IVA_Exento2 = 0 Then MsgBox "Falta configurar el IVA exento", vbExclamation
                 TipoIVA1 = vParamAplic.IVA_Exento2
             Else
+                
+                'ABril. 2021. Lo mismo que Ariges. El ivaintracom deberia ser 0
+                
                 'exento intracom
-                If vParamAplic.IVA_Intracomunitario = 0 Then MsgBox "Falta configurar el IVA intracomunitario", vbExclamation
-                TipoIVA1 = vParamAplic.IVA_Intracomunitario
+                'If vParamAplic.IVA_Intracomunitario = 0 Then MsgBox "Falta configurar el IVA intracomunitario", vbExclamation
+                'TipoIVA1 = vParamAplic.IVA_Intracomunitario
+                                                
+                If vParamAplic.IVA_Exento2 = 0 Then MsgBox "Falta configurar el IVA exento", vbExclamation
+                TipoIVA1 = vParamAplic.IVA_Exento2
                 
             End If
         
@@ -2093,7 +2099,7 @@ Private Function InsertarFactura(cadSQL As String, Optional cadNumFac As String,
 Dim b As Boolean
 Dim vTipoMov As CTiposMov
 Dim Existe As Boolean
-Dim Devuelve As String
+Dim devuelve As String
 
     InsertarFactura = False
     
@@ -2109,8 +2115,8 @@ Dim Devuelve As String
             'para ello vemos si existe una Factura con ese contador y si existe la incrementamos
             Do
                 NumFactu = vTipoMov.ConseguirContador(Codtipom)
-                Devuelve = DevuelveDesdeBDNew(conAri, "scafac", "numfactu", "codtipom", Codtipom, "T", , "numfactu", CStr(NumFactu), "N", "fecfactu", Fecfactu, "F")
-                If Devuelve <> "" Then
+                devuelve = DevuelveDesdeBDNew(conAri, "scafac", "numfactu", "codtipom", Codtipom, "T", , "numfactu", CStr(NumFactu), "N", "fecfactu", Fecfactu, "F")
+                If devuelve <> "" Then
                     'Ya existe el contador incrementarlo
                     Existe = True
                     vTipoMov.IncrementarContador (Codtipom)
@@ -2131,22 +2137,22 @@ Dim Devuelve As String
     If Not b Then Exit Function
     
     '### Laura: 14/11/2006 Recuperar facturas Alzira
-    Devuelve = ""
+    devuelve = ""
     If EstaRecuFac = True Then
         'comprobar q el total de la factura a insertar coincide con el total de la
         'factura en conta.cabfact si esta existe en conta
-        Devuelve = "SELECT COUNT(*) FROM cabfact WHERE numserie=" & DBSet(Me.LetraSerie, "T")
-        Devuelve = Devuelve & " AND codfaccl=" & Me.NumFactu & " AND anofaccl=" & Year(Fecfactu)
-        If (RegistrosAListar(Devuelve, conConta) > 0) Then
-            Devuelve = DevuelveDesdeBDNew(conConta, "cabfact", "totfaccl", "numserie", Me.LetraSerie, "T", , "codfaccl", Me.NumFactu, "N", "anofaccl", Year(Me.Fecfactu), "N")
-            If Devuelve <> "" Then
-                If CCur(Devuelve) <> Me.TotalFac Then
+        devuelve = "SELECT COUNT(*) FROM cabfact WHERE numserie=" & DBSet(Me.LetraSerie, "T")
+        devuelve = devuelve & " AND codfaccl=" & Me.NumFactu & " AND anofaccl=" & Year(Fecfactu)
+        If (RegistrosAListar(devuelve, conConta) > 0) Then
+            devuelve = DevuelveDesdeBDNew(conConta, "cabfact", "totfaccl", "numserie", Me.LetraSerie, "T", , "codfaccl", Me.NumFactu, "N", "anofaccl", Year(Me.Fecfactu), "N")
+            If devuelve <> "" Then
+                If CCur(devuelve) <> Me.TotalFac Then
                     If MsgBox("El total de la factura no coincide con el total en la Contabilidad" & vbCrLf & "¿Desea continuar?", vbQuestion + vbYesNo) = vbNo Then
                         b = False
                     End If
                 End If
             End If
-            Devuelve = "EXISTE"
+            devuelve = "EXISTE"
         End If
         If Not b Then Exit Function
     End If
@@ -2178,7 +2184,7 @@ Dim Devuelve As String
     
    
     '#Laura: 14/11/2006 Recuperar facturas Alzira
-    If EstaRecuFac = True And Devuelve = "EXISTE" Then
+    If EstaRecuFac = True And devuelve = "EXISTE" Then
         b = MarcarContabilizada
         If Not b Then Exit Function
     End If
@@ -2200,7 +2206,7 @@ Private Function InsertarFacturaTicket(cadSQL As String) As Boolean
 'Insertamos en las tablas de factura de cliente: scafac, scafac1, slifac
 'Es un ticket de venta
 Dim b As Boolean
-Dim Devuelve As String
+Dim devuelve As String
 
     InsertarFacturaTicket = False
     
@@ -2242,7 +2248,7 @@ Dim vClien As CCliente
 Dim Nulo2 As String
 Dim Nulo3 As String
 Dim ctaDpto As Boolean
-Dim Cad As String, cad2 As String
+Dim cad As String, cad2 As String
 
     On Error GoTo EInsertar
 
@@ -2271,20 +2277,20 @@ Dim Cad As String, cad2 As String
             If Me.DirDpto <> "" Then
                 'comprobar que el dpto del cliente tiene cta bancaria
                 cad2 = "digcontr"
-                Cad = DevuelveDesdeBDNew(conAri, "sdirec", "cuentaba", "codclien", Me.Cliente, "N", cad2, "coddirec", Me.DirDpto, "N")
-                If Cad <> "" And cad2 <> "" Then ctaDpto = True
+                cad = DevuelveDesdeBDNew(conAri, "sdirec", "cuentaba", "codclien", Me.Cliente, "N", cad2, "coddirec", Me.DirDpto, "N")
+                If cad <> "" And cad2 <> "" Then ctaDpto = True
             End If
         End If
         
         If ctaDpto Then 'cogemos la cta bancaria del departamento
-            Me.CuentaBan = Cad
+            Me.CuentaBan = cad
 '            cad = DevuelveDesdeBDNew(conAri, "sdirec", "digcontr", "codclien", Me.Cliente, "N", , "coddirec", Me.DirDpto, "N")
             Me.DigControl = cad2
             cad2 = "codsucur"
-            Cad = DevuelveDesdeBDNew(conAri, "sdirec", "codbanco", "codclien", Me.Cliente, "N", cad2, "coddirec", Me.DirDpto, "N")
-            Me.Banco = Cad
+            cad = DevuelveDesdeBDNew(conAri, "sdirec", "codbanco", "codclien", Me.Cliente, "N", cad2, "coddirec", Me.DirDpto, "N")
+            Me.Banco = cad
             Me.Sucursal = cad2
-            Me.iBan = ""
+            Me.IBAN = ""
         Else 'cuenta bancaria del cliente
             Set vClien = New CCliente
             If vClien.LeerDatos(Cliente) Then
@@ -2292,7 +2298,7 @@ Dim Cad As String, cad2 As String
                 Sucursal = vClien.Sucursal
                 DigControl = vClien.DigControl
                 CuentaBan = vClien.CuentaBan
-                iBan = vClien.iBan
+                IBAN = vClien.IBAN
                 mPais = vClien.Pais
                 
             Else
@@ -2300,7 +2306,7 @@ Dim Cad As String, cad2 As String
                 Sucursal = ValorNulo
                 DigControl = ValorNulo
                 CuentaBan = ValorNulo
-                iBan = ValorNulo
+                IBAN = ValorNulo
                 mPais = "ES"
             End If
             Set vClien = Nothing
@@ -2350,12 +2356,12 @@ Private Function InsertarCabAlbaranesFactu(cadSQL As String) As Boolean
 'Insertar las cabeceras de los Albaranes de la factura en la tabla: scafac1
 'NumTicket: para cuando de venta generamos Factura en numalbar guardamos el ticket que la genero
 Dim SQL As String
-Dim Devuelve As String
+Dim devuelve As String
 Dim MantenimientoObservacion As String
 
     On Error GoTo EInsertarAlb
 
-    Devuelve = ""
+    devuelve = ""
     If Codtipom = "FTI" Then
 '        cadSQL = Replace(cadSQL, "sliven", "scaven")
     Else
@@ -2382,14 +2388,14 @@ Dim MantenimientoObservacion As String
         SQL = SQL & "'" & Format(Fecfactu, FormatoFecha) & "'," & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," 'datos de pedido a nulo
         SQL = SQL & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," 'datos de oferta a nulo
         'obtenemos el codigo de envio de cliente
-        Devuelve = DevuelveDesdeBDNew(conAri, "sclien", "codenvio", "codclien", Cliente, "N")
-        SQL = SQL & DBSet(Devuelve, "N") & ","
+        devuelve = DevuelveDesdeBDNew(conAri, "sclien", "codenvio", "codclien", Cliente, "N")
+        SQL = SQL & DBSet(devuelve, "N") & ","
         'trabajadores
         SQL = SQL & DBSet(OpeFactu, "N") & "," & ValorNulo & "," & DBSet(OpeFactu, "N") & ","
         'observaciones
         '---- Laura 10/10/06: poner en la observacion 1 el valor de scaven.observa1
-        Devuelve = DevuelveDesdeBDNew(conAri, "scaven", "observa1", "numtermi", Me.NumTerminal, "N", , "numventa", Me.NumVenta, "N", "fecventa", Me.Fecfactu, "F")
-        SQL = SQL & DBSet(Devuelve, "T") & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo & ","
+        devuelve = DevuelveDesdeBDNew(conAri, "scaven", "observa1", "numtermi", Me.NumTerminal, "N", , "numventa", Me.NumVenta, "N", "fecventa", Me.Fecfactu, "F")
+        SQL = SQL & DBSet(devuelve, "T") & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo & ","
         
         'Dic 2009.  observa6
         'SQL = SQL & NumTerminal & "," & NumVenta & ")"
@@ -2429,14 +2435,14 @@ Dim MantenimientoObservacion As String
         SQL = SQL & "'" & Format(Fecfactu, FormatoFecha) & "'," & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," 'datos de pedido a nulo
         SQL = SQL & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," 'datos de oferta a nulo
         'obtenemos el codigo de envio de cliente
-        Devuelve = DevuelveDesdeBDNew(conAri, "sclien", "codenvio", "codclien", Cliente, "N")
-        SQL = SQL & DBSet(Devuelve, "N") & ","
+        devuelve = DevuelveDesdeBDNew(conAri, "sclien", "codenvio", "codclien", Cliente, "N")
+        SQL = SQL & DBSet(devuelve, "N") & ","
         'trabajadores
         SQL = SQL & DBSet(OpeFactu, "N") & "," & ValorNulo & "," & DBSet(OpeFactu, "N") & ","
         'observaciones 1
         If Codtipom = "FTI" Then
             '---- Laura 19/12/06: poner en la observacion 1 el valor de scaven.observa1
-            Devuelve = DevuelveDesdeBDNew(conAri, "scaven", "observa1", "numtermi", Me.NumTerminal, "N", , "numventa", Me.NumVenta, "N", "fecventa", Me.Fecfactu, "F")
+            devuelve = DevuelveDesdeBDNew(conAri, "scaven", "observa1", "numtermi", Me.NumTerminal, "N", , "numventa", Me.NumVenta, "N", "fecventa", Me.Fecfactu, "F")
         Else
             'La linea viene en el campo concefac que hemos guardado en observaciones
             If Codtipom = "FAM" Then
@@ -2455,18 +2461,18 @@ Dim MantenimientoObservacion As String
                 End If
                                                             
                 If mObservacion <> "" Then
-                    Devuelve = MantenimientoObservacion
+                    devuelve = MantenimientoObservacion
                     
                 Else
-                    Devuelve = ""
+                    devuelve = ""
                     mObservacion = MantenimientoObservacion
                 End If
                 
             Else
-                Devuelve = ""
+                devuelve = ""
             End If
         End If
-        SQL = SQL & DBSet(Devuelve, "T") & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo
+        SQL = SQL & DBSet(devuelve, "T") & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo & "," & ValorNulo
         'DIC 2009
         'SQL = SQL & "," & DBSet(NumTerminal, "N", "S") & "," & DBSet(NumVenta, "N", "S") & ")"
         SQL = SQL & "," & DBSet(NumTerminal, "N", "S") & "," & DBSet(NumVenta, "N", "S") & ",NULL"
@@ -2496,7 +2502,7 @@ End Function
 Private Function InsertarLineasFactu(cadSQL As String) As Boolean
 'Insertar las lineas de los Albaranes de la factura en la tabla: slifac
 Dim SQL As String
-Dim Cad As String
+Dim cad As String
 Dim cad2 As String
 Dim cArt As CArticulo
 Dim InsertaTbLotes As Boolean
@@ -2532,16 +2538,16 @@ Dim InsertaTbLotes As Boolean
         If ArticFac <> "" Then
             Set cArt = New CArticulo
             If cArt.LeerDatos(ArticFac) Then
-                Cad = cArt.Nombre   'Aunque luego machaco cad con la nueva amplicacion: contrato + numerocontrato
+                cad = cArt.Nombre   'Aunque luego machaco cad con la nueva amplicacion: contrato + numerocontrato
             End If
 '            cad2 = "preciomp"
 '            cad = DevuelveDesdeBDNew(conAri, "sartic", "nomartic", "codartic", ArticFac, "T", cad2)
         End If
         
-        Cad = DevuelveDesdeBDNew(conAri, "stipco", "nomtipco", "codtipco", TipCoMan, "T")
-        Cad = Cad & "  Nº: " & numMante
+        cad = DevuelveDesdeBDNew(conAri, "stipco", "nomtipco", "codtipco", TipCoMan, "T")
+        cad = cad & "  Nº: " & numMante
         
-        SQL = SQL & DBSet(Cad, "T") & ","
+        SQL = SQL & DBSet(cad, "T") & ","
             
         'campo Ampliacion linea segun el tipopago del mantenimientos
         '-----------------------
@@ -2559,9 +2565,9 @@ Dim InsertaTbLotes As Boolean
 '            cad = MonthName(CLng(MesFactu)) & " de " & Year(FecFactu)
 '            cad = UCase(cad)
 '        End If
-        Cad = mObservacion
+        cad = mObservacion
         
-        SQL = SQL & DBSet(Cad, "T") & ","
+        SQL = SQL & DBSet(cad, "T") & ","
             
         'cantidad, precio, dtos
         SQL = SQL & "1," & DBSet(BrutoFac, "N") & ", 0,0, "
@@ -2691,7 +2697,7 @@ End Function
 
 Private Function InsertarDetEquip() As Boolean
 Dim SQL As String
-Dim Cad As String
+Dim cad As String
 
     'si son facturas de MAntenimiento y parametro de stipco: detallar equipos en la factura=true
     'guardar en una tabla el resumen por tipo de articulo de los Nº Series de equipos
@@ -2703,11 +2709,11 @@ Dim Cad As String
     SQL = DevuelveDesdeBDNew(conAri, "stipco", "detequip", "codtipco", TipCoMan, "T")
     
     If SQL = "1" Then 'Detalla Equipo
-        Cad = ObtenerSQLcomponentes(" WHERE codclien=" & Cliente & " AND nummante=" & DBSet(numMante, "T"))
+        cad = ObtenerSQLcomponentes(" WHERE codclien=" & Cliente & " AND nummante=" & DBSet(numMante, "T"))
         SQL = "Select distinct '" & Codtipom & "' as codtipom," & NumFactu & " as numfactu,'" & Format(Fecfactu, FormatoFecha) & "' as fecfactu,"
-        Cad = Replace(Cad, "Select distinct", SQL)
+        cad = Replace(cad, "Select distinct", SQL)
         SQL = "INSERT INTO srecom (codtipom,numfactu,fecfactu,codtipar,nomtipar,cantidad) "
-        SQL = SQL & Cad
+        SQL = SQL & cad
 
         conn.Execute SQL
     End If
@@ -2744,7 +2750,7 @@ Private Function InsertarDesplaz() As Boolean
 'Añadir cantkm * preciokm al bruto de la factura
 'Insertar linea en tabla slifac con el importe del desplazamiento
 Dim SQL As String
-Dim Cad As String
+Dim cad As String
 Dim b As Boolean
 
     On Error GoTo EDesplaz
@@ -2768,8 +2774,8 @@ Dim b As Boolean
         SQL = SQL & DBSet(AlmFactu, "N") & ","
             
         'codartic,nomartic,ampliaci
-        Cad = DevuelveDesdeBDNew(conAri, "sartic", "nomartic", "codartic", codartic, "T")
-        SQL = SQL & DBSet(codartic, "T") & "," & DBSet(Cad, "T") & "," & DBSet(Ampliacion, "T") & ","
+        cad = DevuelveDesdeBDNew(conAri, "sartic", "nomartic", "codartic", codArtic, "T")
+        SQL = SQL & DBSet(codArtic, "T") & "," & DBSet(cad, "T") & "," & DBSet(Ampliacion, "T") & ","
         'cantidad,precioar,dtoline1,dtoline2,importel,origpre
         SQL = SQL & DBSet(TotalKm, "N") & "," & DBSet(PrecioKm, "N") & ",0,0," & DBSet(ImporteL, "N") & ",'M')"
         
@@ -2824,13 +2830,13 @@ Dim SQL As String
         
         If TotalKm > 0 Then
             'obtenemos el precio del km de los parametros, y el cod Articulo
-            codartic = "codartid"
-            SQL = DevuelveDesdeBDNew(conAri, "spara1", "preukmcl", "codigo", "1", "N", codartic)
+            codArtic = "codartid"
+            SQL = DevuelveDesdeBDNew(conAri, "spara1", "preukmcl", "codigo", "1", "N", codArtic)
             PrecioKm = CCur(ComprobarCero(SQL))
             ImporteL = Round(TotalKm * PrecioKm, 2)
             
             'obtenemos el tipo IVA del articulo de desplazamiento
-            SQL = DevuelveDesdeBDNew(conAri, "sartic", "codigiva", "codartic", codartic, "T")
+            SQL = DevuelveDesdeBDNew(conAri, "sartic", "codigiva", "codartic", codArtic, "T")
             despIVA = CInt(ComprobarCero(SQL))
         End If
     End If
@@ -2896,7 +2902,7 @@ Dim numlinea As Integer
                 'mirar primero si hay algun hastaca2<=cantidad
                 '--------------------------------------------------
                 SQL = "SELECT * from sbonif "
-                SQL = SQL & " WHERE codartic=" & DBSet(RS!codartic, "T") '& " AND (" & RS!Cantidad & "<=sbonif.hastaca1)"
+                SQL = SQL & " WHERE codartic=" & DBSet(RS!codArtic, "T") '& " AND (" & RS!Cantidad & "<=sbonif.hastaca1)"
                 SQL = SQL & " order by hastaca1 desc "
                 Set RSaux = New ADODB.Recordset
                 RSaux.Open SQL, conn, adOpenForwardOnly, adLockOptimistic, adCmdText

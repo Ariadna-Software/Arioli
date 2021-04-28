@@ -23,6 +23,7 @@ Private mFecFactu As String 'FEcha Factura
 Private mFecRecep As String 'FEcha Recepcion
 
 Private mCodmacta As String 'cuenta del proveedor para insertar in spagop
+Private mKTipoIVA As Integer  '0, Normal  1, Intra  2. Extranjero  3.  REA  4 Modulos
 
 Private mNomProve As String 'nombre del proveedor
 Private mDomProve As String 'domicilio
@@ -360,6 +361,18 @@ Public Property Get TipoIVA2() As Byte
      TipoIVA2 = mTipoiva2
 End Property
 
+
+'TIPO IVA
+Public Property Let TipoIVA(ByVal vData As Integer)
+     mKTipoIVA = vData
+End Property
+
+Public Property Get TipoIVA() As Integer
+     TipoIVA = mKTipoIVA
+End Property
+
+
+
 '**** Tipo iva 3 de la Factura
 
 Public Property Let TipoIVA3(ByVal vData As Byte)
@@ -493,11 +506,11 @@ Public Property Get CCC_CTa() As String
 End Property
 
 'Cuenta banacaria.  Cuenta
-Public Property Let iBan(ByVal vData As String)
+Public Property Let IBAN(ByVal vData As String)
      mIban = vData
 End Property
-Public Property Get iBan() As String
-     iBan = mIban
+Public Property Get IBAN() As String
+     IBAN = mIban
 End Property
 
 
@@ -1157,7 +1170,7 @@ End Function
 
 
 
-Public Function CalcularDatosFactura(cadWhere As String, NomTabla As String, NomTablaLin As String, CambiarIVA As Boolean, Exento As Boolean) As Boolean
+Public Function CalcularDatosFactura2(cadWhere As String, NomTabla As String, NomTablaLin As String, CambiarIVA As Boolean, exento As Boolean) As Boolean
 
 'cadWhere: cad para la where de la SQL que selecciona las lineas del albaran o la factura
 'nomTabla: nombre de la tabla de albaranes(scaalp) o de AlbaranesXFactura(scafpa)
@@ -1176,15 +1189,20 @@ Dim ImpAux As Currency
 Dim ImpIVA As Currency
 Dim ImpBImIVA As Currency 'Importe Base imponible a la que hay q aplicar el IVA
 Dim TipoIVA_Aplicable As Integer
-    CalcularDatosFactura = False
-    On Error GoTo ECalcular
 
-   
+    On Error GoTo ECalcular
+    
+    CalcularDatosFactura2 = False
+    
     cadWhere = Replace(cadWhere, NomTabla, NomTablaLin)
-    If Exento Then
+    If exento Then   'si va en canal 2... es exento
         SQL = "SELECT " & vParamAplic.IVA_Exento2 & " as codigiva"
     Else
-        SQL = "SELECT " & "sartic.codigiva"
+        If mKTipoIVA = 1 Then
+            SQL = "SELECT " & vParamAplic.IVA_Intracomunitario & " as codigiva"
+        Else
+            SQL = "SELECT " & "sartic.codigiva"
+        End If
     End If
     SQL = SQL & ",sum(importel) as bruto"
     SQL = SQL & " FROM " & NomTablaLin & " LEFT OUTER JOIN sartic ON " & NomTablaLin & ".codartic=sartic.codartic"
@@ -1297,16 +1315,20 @@ Dim TipoIVA_Aplicable As Integer
     BaseImp = TotBruto - ImpPPago - ImpGnral
     
     'TOTAL de la factura
-    TotalFac = BaseImp + TotImpIVA
+    TotalFac = BaseImp
+    
+    'Abril2021
+    If mKTipoIVA <> 1 Then TotalFac = TotalFac + TotImpIVA
+    
     If PorRet > 0 And ImpRet2 <> 0 Then TotalFac = TotalFac - ImpRet2
     
-    CalcularDatosFactura = True
+    CalcularDatosFactura2 = True
     
 ECalcular:
     If Err.Number <> 0 Then
-        CalcularDatosFactura = False
+        CalcularDatosFactura2 = False
     Else
-        CalcularDatosFactura = True
+        CalcularDatosFactura2 = True
     End If
 End Function
 
@@ -1340,3 +1362,11 @@ EActualizar:
     cadErr = "Error al marcar como contabilizada:" & Err.Description
 End Function
 
+
+
+
+Public Sub FijarTipoIvaProveedor(ByRef vCodProve As Long)
+        '0, Normal  1, Intra  2. Extranjero  3.  REA  4 Modulos
+        mKTipoIVA = CInt(DevuelveDesdeBDNew(conAri, "sprove", "tipprove", "codprove", CStr(vCodProve), "N"))
+        
+End Sub
