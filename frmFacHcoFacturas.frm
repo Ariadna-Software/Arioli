@@ -273,115 +273,115 @@ Begin VB.Form frmFacHcoFacturas
       TabCaption(1)   =   "Albaranes"
       TabPicture(1)   =   "frmFacHcoFacturas.frx":0A2A
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "imgBuscar(7)"
-      Tab(1).Control(1)=   "Label1(9)"
-      Tab(1).Control(2)=   "Label1(23)"
-      Tab(1).Control(3)=   "Label1(24)"
-      Tab(1).Control(4)=   "Label1(21)"
-      Tab(1).Control(5)=   "Label1(2)"
-      Tab(1).Control(6)=   "Label1(6)"
-      Tab(1).Control(7)=   "Label1(18)"
-      Tab(1).Control(8)=   "Label1(22)"
-      Tab(1).Control(9)=   "Label1(40)"
-      Tab(1).Control(10)=   "imgBuscar(8)"
-      Tab(1).Control(11)=   "imgBuscar(9)"
-      Tab(1).Control(12)=   "imgBuscar(6)"
-      Tab(1).Control(13)=   "DataGrid2"
-      Tab(1).Control(14)=   "DataGrid1"
-      Tab(1).Control(15)=   "txtAux(8)"
-      Tab(1).Control(16)=   "txtAux(7)"
-      Tab(1).Control(17)=   "txtAux(6)"
-      Tab(1).Control(18)=   "txtAux(4)"
-      Tab(1).Control(19)=   "Text3(2)"
-      Tab(1).Control(20)=   "Text2(2)"
-      Tab(1).Control(21)=   "Text3(1)"
-      Tab(1).Control(22)=   "Text2(1)"
-      Tab(1).Control(23)=   "Text3(0)"
-      Tab(1).Control(24)=   "Text2(0)"
-      Tab(1).Control(25)=   "Text3(8)"
-      Tab(1).Control(26)=   "Text3(6)"
-      Tab(1).Control(27)=   "Text3(7)"
-      Tab(1).Control(28)=   "Text3(5)"
-      Tab(1).Control(29)=   "Text3(4)"
-      Tab(1).Control(30)=   "Text3(3)"
-      Tab(1).Control(31)=   "Text2(3)"
-      Tab(1).Control(32)=   "txtAux(0)"
-      Tab(1).Control(33)=   "txtAux(1)"
-      Tab(1).Control(34)=   "txtAux(2)"
-      Tab(1).Control(35)=   "txtAux(3)"
-      Tab(1).Control(36)=   "txtAux(5)"
-      Tab(1).Control(37)=   "txtAux3(0)"
-      Tab(1).Control(38)=   "txtAux3(1)"
-      Tab(1).Control(39)=   "txtAux3(2)"
-      Tab(1).Control(40)=   "Text3(14)"
-      Tab(1).Control(41)=   "Text3(15)"
-      Tab(1).Control(42)=   "txtAux(9)"
-      Tab(1).Control(43)=   "txtAux(10)"
-      Tab(1).Control(44)=   "cmdaux"
-      Tab(1).Control(45)=   "txtAux(11)"
+      Tab(1).Control(0)=   "txtAux(11)"
+      Tab(1).Control(1)=   "cmdaux"
+      Tab(1).Control(2)=   "txtAux(10)"
+      Tab(1).Control(3)=   "txtAux(9)"
+      Tab(1).Control(4)=   "Text3(15)"
+      Tab(1).Control(5)=   "Text3(14)"
+      Tab(1).Control(6)=   "txtAux3(2)"
+      Tab(1).Control(7)=   "txtAux3(1)"
+      Tab(1).Control(8)=   "txtAux3(0)"
+      Tab(1).Control(9)=   "txtAux(5)"
+      Tab(1).Control(10)=   "txtAux(3)"
+      Tab(1).Control(11)=   "txtAux(2)"
+      Tab(1).Control(12)=   "txtAux(1)"
+      Tab(1).Control(13)=   "txtAux(0)"
+      Tab(1).Control(14)=   "Text2(3)"
+      Tab(1).Control(15)=   "Text3(3)"
+      Tab(1).Control(16)=   "Text3(4)"
+      Tab(1).Control(17)=   "Text3(5)"
+      Tab(1).Control(18)=   "Text3(7)"
+      Tab(1).Control(19)=   "Text3(6)"
+      Tab(1).Control(20)=   "Text3(8)"
+      Tab(1).Control(21)=   "Text2(0)"
+      Tab(1).Control(22)=   "Text3(0)"
+      Tab(1).Control(23)=   "Text2(1)"
+      Tab(1).Control(24)=   "Text3(1)"
+      Tab(1).Control(25)=   "Text2(2)"
+      Tab(1).Control(26)=   "Text3(2)"
+      Tab(1).Control(27)=   "txtAux(4)"
+      Tab(1).Control(28)=   "txtAux(6)"
+      Tab(1).Control(29)=   "txtAux(7)"
+      Tab(1).Control(30)=   "txtAux(8)"
+      Tab(1).Control(31)=   "DataGrid1"
+      Tab(1).Control(32)=   "DataGrid2"
+      Tab(1).Control(33)=   "imgBuscar(6)"
+      Tab(1).Control(34)=   "imgBuscar(9)"
+      Tab(1).Control(35)=   "imgBuscar(8)"
+      Tab(1).Control(36)=   "Label1(40)"
+      Tab(1).Control(37)=   "Label1(22)"
+      Tab(1).Control(38)=   "Label1(18)"
+      Tab(1).Control(39)=   "Label1(6)"
+      Tab(1).Control(40)=   "Label1(2)"
+      Tab(1).Control(41)=   "Label1(21)"
+      Tab(1).Control(42)=   "Label1(24)"
+      Tab(1).Control(43)=   "Label1(23)"
+      Tab(1).Control(44)=   "Label1(9)"
+      Tab(1).Control(45)=   "imgBuscar(7)"
       Tab(1).ControlCount=   46
       TabCaption(2)   =   "  Datos carga"
       TabPicture(2)   =   "frmFacHcoFacturas.frx":0A46
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Label1(73)"
-      Tab(2).Control(1)=   "Label1(72)"
-      Tab(2).Control(2)=   "Label1(71)"
-      Tab(2).Control(3)=   "Label1(70)"
-      Tab(2).Control(4)=   "Label1(69)"
-      Tab(2).Control(5)=   "Label1(68)"
-      Tab(2).Control(6)=   "Label1(67)"
-      Tab(2).Control(7)=   "Label1(66)"
-      Tab(2).Control(8)=   "Label1(65)"
-      Tab(2).Control(9)=   "Label1(64)"
-      Tab(2).Control(10)=   "Label1(63)"
-      Tab(2).Control(11)=   "Label1(62)"
-      Tab(2).Control(12)=   "Label1(61)"
-      Tab(2).Control(13)=   "Label1(60)"
-      Tab(2).Control(14)=   "Label1(59)"
-      Tab(2).Control(15)=   "Label1(58)"
-      Tab(2).Control(16)=   "Label1(57)"
-      Tab(2).Control(17)=   "Label1(53)"
-      Tab(2).Control(18)=   "Label1(56)"
-      Tab(2).Control(19)=   "Label1(55)"
-      Tab(2).Control(20)=   "Label1(54)"
-      Tab(2).Control(21)=   "Label1(48)"
-      Tab(2).Control(22)=   "chkCarga(3)"
-      Tab(2).Control(23)=   "chkCarga(2)"
-      Tab(2).Control(24)=   "chkCarga(1)"
-      Tab(2).Control(25)=   "Text3(30)"
-      Tab(2).Control(26)=   "chkCarga(0)"
-      Tab(2).Control(27)=   "Text3(32)"
-      Tab(2).Control(28)=   "Text3(31)"
-      Tab(2).Control(29)=   "Text3(20)"
-      Tab(2).Control(30)=   "Text3(29)"
-      Tab(2).Control(31)=   "Text3(25)"
-      Tab(2).Control(32)=   "Text3(33)"
-      Tab(2).Control(33)=   "Text3(26)"
-      Tab(2).Control(34)=   "Text3(24)"
-      Tab(2).Control(35)=   "Text3(19)"
-      Tab(2).Control(36)=   "Text3(18)"
-      Tab(2).Control(37)=   "Text3(28)"
-      Tab(2).Control(38)=   "Text3(22)"
-      Tab(2).Control(39)=   "Text3(21)"
-      Tab(2).Control(40)=   "Text3(17)"
-      Tab(2).Control(41)=   "Text3(27)"
-      Tab(2).Control(42)=   "Text3(23)"
-      Tab(2).Control(43)=   "Text3(34)"
+      Tab(2).Control(0)=   "Text3(34)"
+      Tab(2).Control(1)=   "Text3(23)"
+      Tab(2).Control(2)=   "Text3(27)"
+      Tab(2).Control(3)=   "Text3(17)"
+      Tab(2).Control(4)=   "Text3(21)"
+      Tab(2).Control(5)=   "Text3(22)"
+      Tab(2).Control(6)=   "Text3(28)"
+      Tab(2).Control(7)=   "Text3(18)"
+      Tab(2).Control(8)=   "Text3(19)"
+      Tab(2).Control(9)=   "Text3(24)"
+      Tab(2).Control(10)=   "Text3(26)"
+      Tab(2).Control(11)=   "Text3(33)"
+      Tab(2).Control(12)=   "Text3(25)"
+      Tab(2).Control(13)=   "Text3(29)"
+      Tab(2).Control(14)=   "Text3(20)"
+      Tab(2).Control(15)=   "Text3(31)"
+      Tab(2).Control(16)=   "Text3(32)"
+      Tab(2).Control(17)=   "chkCarga(0)"
+      Tab(2).Control(18)=   "Text3(30)"
+      Tab(2).Control(19)=   "chkCarga(1)"
+      Tab(2).Control(20)=   "chkCarga(2)"
+      Tab(2).Control(21)=   "chkCarga(3)"
+      Tab(2).Control(22)=   "Label1(48)"
+      Tab(2).Control(23)=   "Label1(54)"
+      Tab(2).Control(24)=   "Label1(55)"
+      Tab(2).Control(25)=   "Label1(56)"
+      Tab(2).Control(26)=   "Label1(53)"
+      Tab(2).Control(27)=   "Label1(57)"
+      Tab(2).Control(28)=   "Label1(58)"
+      Tab(2).Control(29)=   "Label1(59)"
+      Tab(2).Control(30)=   "Label1(60)"
+      Tab(2).Control(31)=   "Label1(61)"
+      Tab(2).Control(32)=   "Label1(62)"
+      Tab(2).Control(33)=   "Label1(63)"
+      Tab(2).Control(34)=   "Label1(64)"
+      Tab(2).Control(35)=   "Label1(65)"
+      Tab(2).Control(36)=   "Label1(66)"
+      Tab(2).Control(37)=   "Label1(67)"
+      Tab(2).Control(38)=   "Label1(68)"
+      Tab(2).Control(39)=   "Label1(69)"
+      Tab(2).Control(40)=   "Label1(70)"
+      Tab(2).Control(41)=   "Label1(71)"
+      Tab(2).Control(42)=   "Label1(72)"
+      Tab(2).Control(43)=   "Label1(73)"
       Tab(2).ControlCount=   44
       TabCaption(3)   =   "Observaciones"
       TabPicture(3)   =   "frmFacHcoFacturas.frx":0A62
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label1(47)"
-      Tab(3).Control(1)=   "imgBuscar(10)"
-      Tab(3).Control(2)=   "Label1(46)"
-      Tab(3).Control(3)=   "FrObserva2"
-      Tab(3).Control(4)=   "Text3(9)"
+      Tab(3).Control(0)=   "Text1(46)"
+      Tab(3).Control(1)=   "Text3(16)"
+      Tab(3).Control(2)=   "Text3(13)"
+      Tab(3).Control(3)=   "Text3(12)"
+      Tab(3).Control(4)=   "Text3(11)"
       Tab(3).Control(5)=   "Text3(10)"
-      Tab(3).Control(6)=   "Text3(11)"
-      Tab(3).Control(7)=   "Text3(12)"
-      Tab(3).Control(8)=   "Text3(13)"
-      Tab(3).Control(9)=   "Text3(16)"
-      Tab(3).Control(10)=   "Text1(46)"
+      Tab(3).Control(6)=   "Text3(9)"
+      Tab(3).Control(7)=   "FrObserva2"
+      Tab(3).Control(8)=   "Label1(46)"
+      Tab(3).Control(9)=   "imgBuscar(10)"
+      Tab(3).Control(10)=   "Label1(47)"
       Tab(3).ControlCount=   11
       Begin VB.TextBox Text3 
          Alignment       =   1  'Right Justify
@@ -2955,7 +2955,7 @@ Private CadenaConsulta As String
 Private Ordenacion As String
 Private NombreTabla As String  'Nombre de la tabla o de la
 Private NomTablaLineas As String 'Nombre de la Tabla de lineas
-Private Kcampo As Integer
+Private kCampo As Integer
 '-------------------------------------------------------------------------
 Private HaDevueltoDatos As Boolean
 
@@ -3095,9 +3095,9 @@ Dim anc As Single
     Else
         HacerBusqueda
         If Data1.Recordset.EOF Then
-            Text1(Kcampo).Text = ""
-            Text1(Kcampo).BackColor = vbYellow
-            PonerFoco Text1(Kcampo)
+            Text1(kCampo).Text = ""
+            Text1(kCampo).BackColor = vbYellow
+            PonerFoco Text1(kCampo)
         End If
     End If
 End Sub
@@ -3252,8 +3252,8 @@ Dim b As Boolean
                     txtAux(jj).visible = b
                 End If
             Next jj
-            cmdAux.Top = alto
-            cmdAux.visible = b
+            cmdaux.Top = alto
+            cmdaux.visible = b
             
         Case "DataGrid2"
             DeseleccionaGrid Me.DataGrid2
@@ -3271,7 +3271,7 @@ Private Sub BotonEliminar()
 'Eliminar Registro de la Cabecera: Tabla de Facturas (scafac)
 ' y los registros correspondientes de las tablas cab. albaranes (scafac1)
 ' y las lineas de la factura (slifac)
-Dim Cad As String
+Dim cad As String
 'Dim vTipoMov As CTiposMov
 
     On Error GoTo EEliminar
@@ -3282,17 +3282,17 @@ Dim Cad As String
     'solo se puede modificar la factura si no esta contabilizada
     If FactContabilizada2(False) Then Exit Sub
     
-    Cad = "Cabecera de Facturas." & vbCrLf
-    Cad = Cad & "-------------------------------------      " & vbCrLf & vbCrLf
-    Cad = Cad & "Va a eliminar la Factura:            "
-    Cad = Cad & vbCrLf & "Tipo:  " & Text1(1).Text
-    Cad = Cad & vbCrLf & "Nº Fact.:  " & Format(Text1(0).Text, "0000000")
-    Cad = Cad & vbCrLf & "Fecha:  " & Format(Text1(2).Text, "dd/mm/yyyy")
+    cad = "Cabecera de Facturas." & vbCrLf
+    cad = cad & "-------------------------------------      " & vbCrLf & vbCrLf
+    cad = cad & "Va a eliminar la Factura:            "
+    cad = cad & vbCrLf & "Tipo:  " & Text1(1).Text
+    cad = cad & vbCrLf & "Nº Fact.:  " & Format(Text1(0).Text, "0000000")
+    cad = cad & vbCrLf & "Fecha:  " & Format(Text1(2).Text, "dd/mm/yyyy")
 
-    Cad = Cad & vbCrLf & vbCrLf & " ¿Desea Eliminarla? "
+    cad = cad & vbCrLf & vbCrLf & " ¿Desea Eliminarla? "
 
     'Borramos
-    If MsgBox(Cad, vbQuestion + vbYesNo) = vbYes Then
+    If MsgBox(cad, vbQuestion + vbYesNo) = vbYes Then
         'Hay que eliminar
 '        On Error GoTo EEliminar
         Screen.MousePointer = vbHourglass
@@ -3383,7 +3383,7 @@ End Sub
 
 Private Sub cmdRegresar_Click()
 'Este es el boton Cabecera
-Dim Cad As String
+Dim cad As String
 
     'Quitar lineas y volver a la cabecera
     If Modo = 5 Then  'modo 5: Mantenimientos Lineas
@@ -3398,9 +3398,9 @@ Dim Cad As String
             MsgBox "Ningún registro devuelto.", vbExclamation
             Exit Sub
         End If
-        Cad = Data1.Recordset.Fields(0) & "|"
-        Cad = Cad & Data1.Recordset.Fields(1) & "|"
-        RaiseEvent DatoSeleccionado(Cad)
+        cad = Data1.Recordset.Fields(0) & "|"
+        cad = cad & Data1.Recordset.Fields(1) & "|"
+        RaiseEvent DatoSeleccionado(cad)
         Unload Me
     End If
 End Sub
@@ -3582,9 +3582,9 @@ Private Sub Form_Load()
     Me.Icon = frmppal.Icon
     
      'Icono de busqueda
-    For Kcampo = 0 To Me.imgBuscar.Count - 1
-        Me.imgBuscar(Kcampo).Picture = frmppal.imgListComun.ListImages(19).Picture
-    Next Kcampo
+    For kCampo = 0 To Me.imgBuscar.Count - 1
+        Me.imgBuscar(kCampo).Picture = frmppal.imgListComun.ListImages(19).Picture
+    Next kCampo
 
     ' ICONITOS DE LA BARRA
     btnPrimero = 21
@@ -3766,13 +3766,13 @@ End Sub
 Private Sub frmCP_DatoSeleccionado(CadenaSeleccion As String)
 'Formulario Mantenimiento C. Postales
 Dim Indice As Byte
-Dim Devuelve As String
+Dim devuelve As String
 
     Indice = 9
     Text1(Indice).Text = RecuperaValor(CadenaSeleccion, 1) 'CPostal
-    Text1(Indice + 1).Text = ObtenerPoblacion(Text1(Indice).Text, Devuelve)  'Poblacion
+    Text1(Indice + 1).Text = ObtenerPoblacion(Text1(Indice).Text, devuelve)  'Poblacion
     'provincia
-    Text1(Indice + 2).Text = Devuelve
+    Text1(Indice + 2).Text = devuelve
 End Sub
 
 
@@ -4052,7 +4052,7 @@ End Sub
 'Los metodos del text tendran que estar
 'Los descomentamos cuando esten puestos ya los controles
 Private Sub Text1_GotFocus(Index As Integer)
-    Kcampo = Index
+    kCampo = Index
     If Index = 9 Then HaCambiadoCP = False 'CPostal
     If Index = 1 And Modo = 1 Then
         SendKeys "{tab}"
@@ -4082,7 +4082,7 @@ End Sub
 '----------------------------------------------------------------
 '----------------------------------------------------------------
 Private Sub Text1_LostFocus(Index As Integer)
-Dim Devuelve As String
+Dim devuelve As String
         
     If Not PerderFocoGnral(Text1(Index), Modo) Then Exit Sub
         
@@ -4099,12 +4099,12 @@ Dim Devuelve As String
                 
                 NumRegElim = InStr(1, Text1(Index).Text, ".")
                 If NumRegElim > 0 Then
-                    Devuelve = Mid(Text1(Index).Text, NumRegElim + 1)
+                    devuelve = Mid(Text1(Index).Text, NumRegElim + 1)
                     Text1(Index).Text = Mid(Text1(Index).Text, 1, NumRegElim - 1)
-                    NumRegElim = Len(Text1(Index).Text) + Len(Devuelve)
+                    NumRegElim = Len(Text1(Index).Text) + Len(devuelve)
                     If NumRegElim < 7 Then
                         NumRegElim = 7 - NumRegElim
-                        Text1(Index).Text = Text1(Index).Text & String(NumRegElim, "0") & Devuelve
+                        Text1(Index).Text = Text1(Index).Text & String(NumRegElim, "0") & devuelve
                     End If
                     
                 End If
@@ -4142,8 +4142,8 @@ Dim Devuelve As String
                 Exit Sub
              End If
              If (Not VieneDeBuscar) Or (VieneDeBuscar And HaCambiadoCP) Then
-                 Text1(Index + 1).Text = ObtenerPoblacion(Text1(Index).Text, Devuelve)
-                 Text1(Index + 2).Text = Devuelve
+                 Text1(Index + 1).Text = ObtenerPoblacion(Text1(Index).Text, devuelve)
+                 Text1(Index + 2).Text = devuelve
             End If
             VieneDeBuscar = False
         
@@ -4152,10 +4152,10 @@ Dim Devuelve As String
                 'Comprobar que el cliente seleccionada tiene esa direccion
                 If PonerDptoEnCliente Then
                     'Comprobar que el cliente tiene mantenimientos en esa direc/dpto
-                    Devuelve = DevuelveDesdeBDNew(conAri, "scaman", "nummante", "codclien", Text1(4).Text, "N", , "coddirec", Text1(12).Text, "N")
-                    If Devuelve <> "" And Text1(Index).Locked = False Then
-                        Devuelve = "El cliente tiene Mantenimientos."
-                        MsgBox Devuelve, vbInformation
+                    devuelve = DevuelveDesdeBDNew(conAri, "scaman", "nummante", "codclien", Text1(4).Text, "N", , "coddirec", Text1(12).Text, "N")
+                    If devuelve <> "" And Text1(Index).Locked = False Then
+                        devuelve = "El cliente tiene Mantenimientos."
+                        MsgBox devuelve, vbInformation
                     End If
                 Else
                     PonerFoco Text1(Index)
@@ -4234,25 +4234,25 @@ End Sub
 
 Private Sub MandaBusquedaPrevia(cadB As String)
 'Carga el formulario frmBuscaGrid con los valores correspondientes
-Dim Cad As String
+Dim cad As String
 Dim Tabla As String
 Dim Titulo As String
-Dim Desc As String, Devuelve As String
+Dim Desc As String, devuelve As String
     'Llamamos a al form
     '##A mano
-    Cad = ""
+    cad = ""
     If EsCabecera Then
-        Cad = Cad & ParaGrid(Text1(1), 10, "Tipo Fac.")
-        Cad = Cad & ParaGrid(Text1(0), 15, "Nº Factura")
-        Cad = Cad & ParaGrid(Text1(2), 15, "Fecha Fac.")
-        Cad = Cad & ParaGrid(Text1(4), 10, "Cliente")
-        Cad = Cad & ParaGrid(Text1(5), 50, "Nombre Cliente")
+        cad = cad & ParaGrid(Text1(1), 10, "Tipo Fac.")
+        cad = cad & ParaGrid(Text1(0), 15, "Nº Factura")
+        cad = cad & ParaGrid(Text1(2), 15, "Fecha Fac.")
+        cad = cad & ParaGrid(Text1(4), 10, "Cliente")
+        cad = cad & ParaGrid(Text1(5), 50, "Nombre Cliente")
         Tabla = NombreTabla & " INNER JOIN scafac1 ON scafac.codtipom=scafac1.codtipom AND scafac.numfactu=scafac1.numfactu AND scafac.fecfactu=scafac1.fecfactu "
         'CadenaConsulta = "select scafac.* from " & NombreTabla & " INNER JOIN scafac1 ON scafac.codtipom=scafac1.codtipom AND scafac.numfactu=scafac1.numfactu AND scafac.fecfactu=scafac1.fecfactu "
         'CadenaConsulta = CadenaConsulta & " WHERE " & cadB & " GROUP BY scafac.codtipom,scafac.numfactu,scafac.fecfactu " & Ordenacion
         
         Titulo = "Facturas"
-        Devuelve = "0|1|2|"
+        devuelve = "0|1|2|"
     Else
         If vParamAplic.Departamento Then
             Titulo = "Dptos Cliente: "
@@ -4262,22 +4262,22 @@ Dim Desc As String, Devuelve As String
             Desc = "Direc."
         End If
         Titulo = Titulo & Text1(4).Text & " - " & Text1(5).Text
-        Cad = Cad & "Cod. " & Desc & "|sdirec|coddirec|N||15·"
-        Cad = Cad & "Desc. " & Desc & "|sdirec|nomdirec|T||35·"
+        cad = cad & "Cod. " & Desc & "|sdirec|coddirec|N||15·"
+        cad = cad & "Desc. " & Desc & "|sdirec|nomdirec|T||35·"
         Tabla = "sdirec"
-        Devuelve = "0|1|"
+        devuelve = "0|1|"
     End If
            
-    If Cad <> "" Then
+    If cad <> "" Then
         Screen.MousePointer = vbHourglass
         Set frmB = New frmBuscaGrid
-        frmB.vCampos = Cad
+        frmB.vCampos = cad
         frmB.vTabla = Tabla
         frmB.vSQL = cadB
         HaDevueltoDatos = False
         '###A mano
 '        frmB.vDevuelve = "0|1|"
-        frmB.vDevuelve = Devuelve
+        frmB.vDevuelve = devuelve
         frmB.vTitulo = Titulo
         frmB.vselElem = 0
         frmB.vConexionGrid = conAri  'Conexión a BD: Ariges
@@ -4314,7 +4314,7 @@ Private Sub PonerCadenaBusqueda()
         MsgBox "No hay ningún registro en la tabla " & NombreTabla, vbInformation
         Screen.MousePointer = vbDefault
         If Modo = 1 Then
-            PonerFoco Text1(Kcampo)
+            PonerFoco Text1(kCampo)
 '            Text1(0).BackColor = vbYellow
         End If
         Exit Sub
@@ -4969,14 +4969,14 @@ Private Sub txtAux_LostFocus(Index As Integer)
 End Sub
 
 
-Private Sub BotonMtoLineas(numTab As Integer, Cad As String)
+Private Sub BotonMtoLineas(numTab As Integer, cad As String)
     Me.SSTab2.Tab = numTab
     If Me.DataGrid1.visible Then
         If Me.Data2.Recordset.RecordCount < 1 Then
             MsgBox "La factura no tiene lineas.", vbInformation
             Exit Sub
         End If
-        TituloLinea = Cad
+        TituloLinea = cad
     End If
     
     If FactContabilizada2(False) Then
@@ -5011,19 +5011,27 @@ Dim vTipoMov As CTiposMov
     LEtra = ObtenerLetraSerie(Data1.Recordset!Codtipom)
     
     If LEtra <> "" Then
-        SQL = " numserie='" & LEtra & "' AND codfaccl=" & Data1.Recordset.Fields!NumFactu
-        SQL = SQL & " AND anofaccl=" & Year(Data1.Recordset.Fields!Fecfactu)
+        If False Then
+            'Junio 2021 *** Lo pongo dentro del false para borrar en la proxima
+            'Le daba fallo a moixent.
+            'No tiene SENTIDO. Primero habria que seraprar conta nueva de conta antiuga
+            '  Y segundo si esta contabilizada.... no deberia
+            
+            SQL = " numserie='" & LEtra & "' AND codfaccl=" & Data1.Recordset.Fields!NumFactu
+            SQL = SQL & " AND anofaccl=" & Year(Data1.Recordset.Fields!Fecfactu)
+            
+            'Lineas
+            ConnConta.Execute "Delete from linfact WHERE " & SQL
+            
+            'cabecera
+            ConnConta.Execute "Delete from cabfact WHERE " & SQL
+            
+            'cobros
+            SQL = " numserie='" & LEtra & "' AND codfaccl=" & Data1.Recordset.Fields!NumFactu
+            SQL = SQL & " AND fecfaccl='" & Format(Data1.Recordset.Fields!Fecfactu, FormatoFecha) & "'"
+            ConnConta.Execute "Delete from scobro WHERE " & SQL
         
-        'Lineas
-        ConnConta.Execute "Delete from linfact WHERE " & SQL
-        
-        'cabecera
-        ConnConta.Execute "Delete from cabfact WHERE " & SQL
-        
-        'cobros
-        SQL = " numserie='" & LEtra & "' AND codfaccl=" & Data1.Recordset.Fields!NumFactu
-        SQL = SQL & " AND fecfaccl='" & Format(Data1.Recordset.Fields!Fecfactu, FormatoFecha) & "'"
-        ConnConta.Execute "Delete from scobro WHERE " & SQL
+        End If
         b = True
     Else
         b = False
@@ -5326,7 +5334,7 @@ Dim NumParam As Byte
 Dim Cadselect As String 'select para insertar en tabla temporal
 Dim indRPT As Byte 'Indica el tipo de Documento en la tabla "scryst"
 Dim nomDocu As String 'Nombre de Informe rpt de crystal
-Dim Devuelve As String
+Dim devuelve As String
 Dim ImprimeDirecto As Boolean
 
     If Text1(0).Text = "" Then
@@ -5372,21 +5380,21 @@ Dim ImprimeDirecto As Boolean
     '---------------------------------------------------
     If Text1(0).Text <> "" Then
         'Cod Tipo Movimiento
-        Devuelve = "{" & NombreTabla & ".codtipom}='" & Text1(1).Text & "'"
-        If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
+        devuelve = "{" & NombreTabla & ".codtipom}='" & Text1(1).Text & "'"
+        If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
         
         'Nº Factura
-        Devuelve = "{" & NombreTabla & ".numfactu}=" & Val(Text1(0).Text)
-        If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
+        devuelve = "{" & NombreTabla & ".numfactu}=" & Val(Text1(0).Text)
+        If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
         
         Cadselect = cadFormula
         
         'Fecha Factura
-        Devuelve = "{" & NombreTabla & ".fecfactu}= Date(" & Year(Text1(2).Text) & "," & Month(Text1(2).Text) & "," & Day(Text1(2).Text) & ")"
-        If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
+        devuelve = "{" & NombreTabla & ".fecfactu}= Date(" & Year(Text1(2).Text) & "," & Month(Text1(2).Text) & "," & Day(Text1(2).Text) & ")"
+        If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
         'Fecha Factura en cadSelect
-        Devuelve = "{" & NombreTabla & ".fecfactu}= '" & Format(Text1(2).Text, FormatoFecha) & "'"
-        If Not AnyadirAFormula(Cadselect, Devuelve) Then Exit Sub
+        devuelve = "{" & NombreTabla & ".fecfactu}= '" & Format(Text1(2).Text, FormatoFecha) & "'"
+        If Not AnyadirAFormula(Cadselect, devuelve) Then Exit Sub
     End If
    
     If Not HayRegParaInforme(NombreTabla, Cadselect) Then Exit Sub
@@ -5932,48 +5940,48 @@ End Function
 
 
 Private Function ObtenerSelFactura() As String
-Dim Cad As String
+Dim cad As String
 Dim RS As ADODB.Recordset
 
     On Error Resume Next
 
-    Cad = ""
+    cad = ""
     '******************************************************
     'laura: esto se puede comentar, ya no hay movimiento FTI en la smoval
     If hcoCodTipoM = "FTI" Then
         'no hay albaran directamente va a factura de ticket
         
         'ver si lo encontramos como factura: codtipom, numfactu,fecfactu
-        Cad = "SELECT COUNT(*) FROM scafac "
-        Cad = Cad & " WHERE codtipom='" & hcoCodTipoM & "' AND numfactu= " & hcoCodMovim & " AND fecfactu=" & DBSet(hcoFechaMov, "F")
-        If RegistrosAListar(Cad) > 0 Then
-            Cad = " WHERE codtipom='" & hcoCodTipoM & "' AND numfactu= " & hcoCodMovim & " AND fecfactu=" & DBSet(hcoFechaMov, "F")
+        cad = "SELECT COUNT(*) FROM scafac "
+        cad = cad & " WHERE codtipom='" & hcoCodTipoM & "' AND numfactu= " & hcoCodMovim & " AND fecfactu=" & DBSet(hcoFechaMov, "F")
+        If RegistrosAListar(cad) > 0 Then
+            cad = " WHERE codtipom='" & hcoCodTipoM & "' AND numfactu= " & hcoCodMovim & " AND fecfactu=" & DBSet(hcoFechaMov, "F")
         Else
-            Cad = ""
+            cad = ""
         End If
     Else
         If hcoCodTipoM = "FAM" Then
-            Cad = "  WHERE codtipom='" & hcoCodTipoM & "' AND numfactu= " & hcoCodMovim & " AND fecfactu=" & DBSet(hcoFechaMov, "F")
+            cad = "  WHERE codtipom='" & hcoCodTipoM & "' AND numfactu= " & hcoCodMovim & " AND fecfactu=" & DBSet(hcoFechaMov, "F")
         End If
     End If
     '******************************************************
         
-    If Cad = "" Then
+    If cad = "" Then
         'En la smoval estaba e mov. de ALbaran
-        Cad = "SELECT codtipom,numfactu,fecfactu FROM scafac1 "
-        Cad = Cad & " WHERE codtipoa=" & DBSet(hcoCodTipoM, "T") & " AND numalbar=" & hcoCodMovim & " AND fechaalb=" & DBSet(hcoFechaMov, "F")
+        cad = "SELECT codtipom,numfactu,fecfactu FROM scafac1 "
+        cad = cad & " WHERE codtipoa=" & DBSet(hcoCodTipoM, "T") & " AND numalbar=" & hcoCodMovim & " AND fechaalb=" & DBSet(hcoFechaMov, "F")
         
         Set RS = New ADODB.Recordset
-        RS.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        RS.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         If Not RS.EOF Then 'where para la factura
-            Cad = " WHERE codtipom='" & RS!Codtipom & "' AND numfactu= " & RS!NumFactu & " AND fecfactu=" & DBSet(RS!Fecfactu, "F")
+            cad = " WHERE codtipom='" & RS!Codtipom & "' AND numfactu= " & RS!NumFactu & " AND fecfactu=" & DBSet(RS!Fecfactu, "F")
         Else
-            Cad = " WHERE numfactu=-1"
+            cad = " WHERE numfactu=-1"
         End If
         RS.Close
         Set RS = Nothing
     End If
-    ObtenerSelFactura = Cad
+    ObtenerSelFactura = cad
 End Function
 
 
@@ -6024,7 +6032,7 @@ Dim cadFormula As String
 Dim Cadparam As String
 Dim NumParam As Byte
 Dim nomDocu As String 'Nombre de Informe rpt de crystal
-Dim Devuelve As String
+Dim devuelve As String
 Dim ImprimeDirecto As Boolean
 
     If Me.Data1.Recordset Is Nothing Then Exit Sub
@@ -6053,17 +6061,17 @@ Dim ImprimeDirecto As Boolean
     
     
     'Cod Tipo Movimiento
-    Devuelve = "{slifac.codtipom}='" & Text1(1).Text & "'"
-    If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
+    devuelve = "{slifac.codtipom}='" & Text1(1).Text & "'"
+    If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
     
     'Nº Factura
-    Devuelve = "{slifac.numfactu}=" & Val(Text1(0).Text)
-    If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
+    devuelve = "{slifac.numfactu}=" & Val(Text1(0).Text)
+    If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
     
     
     'Fecha Factura
-    Devuelve = "{slifac.fecfactu}= Date(" & Year(Text1(2).Text) & "," & Month(Text1(2).Text) & "," & Day(Text1(2).Text) & ")"
-    If Not AnyadirAFormula(cadFormula, Devuelve) Then Exit Sub
+    devuelve = "{slifac.fecfactu}= Date(" & Year(Text1(2).Text) & "," & Month(Text1(2).Text) & "," & Day(Text1(2).Text) & ")"
+    If Not AnyadirAFormula(cadFormula, devuelve) Then Exit Sub
 
 
     Cadparam = Cadparam & "codusu=" & vUsu.Codigo & "|"
@@ -6092,7 +6100,7 @@ Dim RS As ADODB.Recordset
 Dim Aux As String
 Dim F As Date
 Dim masDeUnLinea As String
-Dim codartic As String
+Dim codArtic As String
 Dim DAV As String
 
 
@@ -6134,9 +6142,9 @@ Dim uniTexto As String
 
         
         If SQL = "" Then
-            MsgBox "No se encuentra el articulo para el lote: " & RS!NUmlote, vbExclamation
+            MsgBox "No se encuentra el articulo para el lote: " & RS!numLote, vbExclamation
         Else
-            codartic = SQL
+            codArtic = SQL
             
             BuscaChekc = ""
             If masDeUnLinea <> "" Then
@@ -6147,7 +6155,7 @@ Dim uniTexto As String
             
             'Sept. Pondremos las cajas si tienen(deberia tener valor) unicajas
             'If BuscaChekc <> "" Then BuscaChekc = "(" & RS!Cantidad & ")"
-            SQL = DevuelveDesdeBD(conAri, "unicajas", "sartic", "codartic", codartic)
+            SQL = DevuelveDesdeBD(conAri, "unicajas", "sartic", "codartic", codArtic)
             Unicajas = 1
             If Val(SQL) > 1 Then Unicajas = Val(SQL)
             If Unicajas < 2 Then
@@ -6160,11 +6168,11 @@ Dim uniTexto As String
             End If
             
             'El lote sin la fecprod
-            NumRegElim = InStr(RS!NUmlote, " ")
+            NumRegElim = InStr(RS!numLote, " ")
             If NumRegElim > 0 Then
-                SQL = Mid(RS!NUmlote, 1, NumRegElim)
+                SQL = Mid(RS!numLote, 1, NumRegElim)
             Else
-                SQL = Mid(RS!NUmlote, 5)
+                SQL = Mid(RS!numLote, 5)
             End If
             BuscaChekc = SQL & BuscaChekc 'Aqui tendre ej: 9945(23) para el nº lote 9945 2011/10/21
             
@@ -6179,14 +6187,14 @@ Dim uniTexto As String
 
             SQL = DevuelveDesdeBD(conAri, "codartic", "slifac", SQL, CStr(RS!numlinea))
             If SQL = "" Then
-                MsgBox "No se encuentra el articulo para el lote: " & RS!NUmlote, vbExclamation
+                MsgBox "No se encuentra el articulo para el lote: " & RS!numLote, vbExclamation
             Else
             
 
                 
                 DAV = SQL  'codartic
             
-                SQL = " codartic = " & DBSet(DAV, "T") & " AND numlote=" & DBSet(RS!NUmlote, "T") & " AND 1"
+                SQL = " codartic = " & DBSet(DAV, "T") & " AND numlote=" & DBSet(RS!numLote, "T") & " AND 1"
                 SQL = DevuelveDesdeBD(conAri, "numalbar", "ariges" & EmprMorales & ".spartidas", SQL, "1")
             End If
             
@@ -6217,7 +6225,7 @@ Dim uniTexto As String
                     'Verifico la fecha de caducidad
                     If DAV <> "" Then
                         If Not IsDate(DAV) Then
-                            MsgBox "Error obteniendo caducidad. Lote: " & RS!NUmlote
+                            MsgBox "Error obteniendo caducidad. Lote: " & RS!numLote
                             DAV = DateAdd("yyyy", 2, CDate(SQL))
                         End If
                     End If
@@ -6236,12 +6244,12 @@ Dim uniTexto As String
                 'MAL. No se encuentra en la uno el lote del articulo. No pongo fechas
                 SQL = vUsu.Codigo & "," & RS!NumAlbar & "," & RS!numlinea & "," & RS!linea & ","
                 
-                NumRegElim = InStr(RS!NUmlote, " ")
+                NumRegElim = InStr(RS!numLote, " ")
                 If NumRegElim > 0 Then
-                    DAV = Mid(RS!NUmlote, 1, NumRegElim)
+                    DAV = Mid(RS!numLote, 1, NumRegElim)
                 Else
                     'Nuevos numeros de lote
-                    DAV = Mid(RS!NUmlote, 5)
+                    DAV = Mid(RS!numLote, 5)
                 End If
                 SQL = SQL & DBSet(RS!Cantidad, "N", "N") & "," & DBSet(Trim(DAV), "T") & ",'',''"
             Else
