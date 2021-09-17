@@ -22,7 +22,7 @@ Public miRsAux As ADODB.Recordset
 
 
 Public listacod As Collection
-Public listaimpresion As Collection  'Esta lista servira para cuando queramos imprimir
+Public listaimpresion As Collection  'Esta lista servirá para cuando queramos imprimir
 
 'Cuiado con esta varibale
 Public DatosModificados As Boolean
@@ -635,7 +635,7 @@ Public TotalTipos As Integer   'Menos 1. Es decir, si hay tres tipos la var vale
 Public Sub PonerArrayTiposMensaje()
 Dim L As Long
 Dim Fin As Integer
-Dim i As Integer
+Dim I As Integer
 Dim J As Integer
 Dim Cortar11 As String
 'Public Type RegistroTipoMensaje   ' Crea un tipo definido por el usuario.
@@ -647,7 +647,7 @@ Dim Cortar11 As String
     TotalTipos = 0
     Cortar11 = "Select count(*) from mailtipo"
     Set miRsAux = New ADODB.Recordset
-    miRsAux.Open Cortar11, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Cortar11, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     Fin = 0
     If Not miRsAux.EOF Then Fin = DBLet(miRsAux.Fields(0), "N")
     miRsAux.Close
@@ -659,9 +659,9 @@ Dim Cortar11 As String
     TotalTipos = Fin
     
     Cortar11 = "Select * from mailtipo order by tipo "
-    miRsAux.Open Cortar11, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    miRsAux.Open Cortar11, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     J = 0
-    i = 0
+    I = 0
     
     
     While Not miRsAux.EOF
@@ -673,16 +673,16 @@ Dim Cortar11 As String
                 ArrayTipoMen(Fin).Descripcion = ""
                 ArrayTipoMen(Fin).Icono = 0
             Next Fin
-            i = miRsAux!Tipo
+            I = miRsAux!Tipo
         End If
         
-        ArrayTipoMen(i).Color = DBLet(miRsAux!Color, "N")
-        ArrayTipoMen(i).Descripcion = miRsAux!Descripcion
-        ArrayTipoMen(i).Icono = miRsAux!numico
+        ArrayTipoMen(I).Color = DBLet(miRsAux!Color, "N")
+        ArrayTipoMen(I).Descripcion = miRsAux!Descripcion
+        ArrayTipoMen(I).Icono = miRsAux!numico
         J = miRsAux!Tipo
         
         miRsAux.MoveNext
-        i = i + 1
+        I = I + 1
     Wend
     miRsAux.Close
     Set miRsAux = Nothing

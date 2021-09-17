@@ -166,14 +166,14 @@ Private Sub Text1_LostFocus()
 End Sub
 
 Private Function PonerDatosAlbaran() As Boolean
-Dim Cad As String
+Dim cad As String
 Dim cP As cPartidas
 
     PonerDatosAlbaran = False
-    Cad = "select neto , nomprove,numalbar,EntradaFinalizada from vallentradacamionlineas,vallentradacamion,sprove"
-    Cad = Cad & " Where vallentradacamionlineas.entrada = vallentradacamion.entrada And sprove.codProve = vallentradacamion.codProve"
-    Cad = Cad & " and EntradaFinalizada=1 and  numalbar=" & Text1.Text
-    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    cad = "select neto , nomprove,numalbar,EntradaFinalizada from vallentradacamionlineas,vallentradacamion,sprove"
+    cad = cad & " Where vallentradacamionlineas.entrada = vallentradacamion.entrada And sprove.codProve = vallentradacamion.codProve"
+    cad = cad & " and EntradaFinalizada=1 and  numalbar=" & Text1.Text
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     If miRsAux.EOF Then
         MsgBox "No existe albaran o no esta generado", vbExclamation
         
@@ -183,9 +183,9 @@ Dim cP As cPartidas
         ListView1.ListItems.Clear
         miRsAux.Close
         
-        Cad = "select loteproducido,artproducido from vallalmazaraprocesoalb,vallalmazaraproceso where "
-        Cad = Cad & " vallalmazaraprocesoalb.ID = vallalmazaraproceso.ID and numalbar=" & Text1.Text
-        miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        cad = "select loteproducido,artproducido from vallalmazaraprocesoalb,vallalmazaraproceso where "
+        cad = cad & " vallalmazaraprocesoalb.ID = vallalmazaraproceso.ID and numalbar=" & Text1.Text
+        miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         If miRsAux.EOF Then
             MsgBox "Error grave. No se encuentra porduccion almazara", vbExclamation
         Else
@@ -206,26 +206,26 @@ End Function
 
 
 Private Sub CargaArbol()
-Dim Cad As String
+Dim cad As String
 Dim UltDeposito As String
 Dim UltNivel As Integer
 Dim Nodo As Integer
 
-    Cad = "select * from tmptraza where codusu =" & vUsu.Codigo & " order by contador"
-    miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    cad = "select * from tmptraza where codusu =" & vUsu.Codigo & " order by contador"
+    miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     
     UltNivel = -1
     While Not miRsAux.EOF
-        Cad = Space(miRsAux!nivle * 4) & miRsAux!idoperacion
-        ListView1.ListItems.Add , , Cad
+        cad = Space(miRsAux!nivle * 4) & miRsAux!idoperacion
+        ListView1.ListItems.Add , , cad
         If Mid(miRsAux!idoperacion, 1, 3) = "Cou" Then
             If UltNivel < miRsAux!nivle Then
                 UltNivel = miRsAux!nivle
                 Nodo = InStr(1, miRsAux!idoperacion, "(")
-                Cad = Mid(miRsAux!idoperacion, Nodo + 1)
-                Nodo = InStr(1, Cad, ")")
-                Cad = Mid(Cad, 1, Nodo - 1)
-                UltDeposito = CInt(Cad)
+                cad = Mid(miRsAux!idoperacion, Nodo + 1)
+                Nodo = InStr(1, cad, ")")
+                cad = Mid(cad, 1, Nodo - 1)
+                UltDeposito = CInt(cad)
                 Nodo = ListView1.ListItems.Count
             End If
         End If
@@ -234,13 +234,13 @@ Dim Nodo As Integer
     miRsAux.Close
     
     If UltDeposito <> "" Then
-        Cad = "select * from olicoupage where codigo=" & UltDeposito
-        miRsAux.Open Cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+        cad = "select * from olicoupage where codigo=" & UltDeposito
+        miRsAux.Open cad, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
         If Not miRsAux.EOF Then
-            Cad = "  DEP: " & miRsAux!Deposito
+            cad = "  DEP: " & miRsAux!Deposito
             
             ListView1.ListItems(Nodo).Bold = True
-            ListView1.ListItems(Nodo).Text = ListView1.ListItems(Nodo).Text & Cad
+            ListView1.ListItems(Nodo).Text = ListView1.ListItems(Nodo).Text & cad
         End If
         miRsAux.Close
     End If

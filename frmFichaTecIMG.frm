@@ -1,7 +1,7 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "Comdlg32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmFichaTecIMG_ 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Ficha técnica. IMAGENES"
@@ -241,7 +241,7 @@ Dim PrimeraVez As Boolean
 
 
 Dim It As ListItem
-Dim Contador As Integer
+Dim contador As Integer
 
 
 Private Sub InsertarDesdeFichero()
@@ -323,8 +323,8 @@ Dim Aux As String
             It.SubItems(3) = Aux
                 
         Else
-            Contador = Contador + 1
-            It.Text = "Nuevo " & Contador
+            contador = contador + 1
+            It.Text = "Nuevo " & contador
         End If
         
         It.SubItems(1) = Abs(DesdeBD)   'DesdeBD 0:NO  numero: el codigo en la BD
@@ -354,7 +354,7 @@ End Function
 Private Sub MoverItem(Index As Integer)
 Dim cad As String
 Dim Aux As String
-Dim i As Integer
+Dim I As Integer
 Dim Seleccionado As Integer
 
     If lw1.SelectedItem Is Nothing Then Exit Sub
@@ -372,29 +372,29 @@ Dim Seleccionado As Integer
         
         'ESTAMOS EN EL ULTIMO
         If Seleccionado >= lw1.ListItems.Count Then Exit Sub
-        i = Seleccionado + 1
+        I = Seleccionado + 1
         
     Else
         'ESTAMOS EN EL primero
         If Seleccionado = 1 Then Exit Sub
-        i = Seleccionado - 1
+        I = Seleccionado - 1
 
     End If
     InsertandoImg = True  'para que no recarge
     
    
-    Aux = lw1.ListItems(i).Text & "|" & lw1.ListItems(i).SubItems(1) & "|" & lw1.ListItems(i).SubItems(2) & "|" & lw1.ListItems(i).SubItems(3) & "|"
-    lw1.ListItems(i).Text = lw1.SelectedItem.Text
-    lw1.ListItems(i).SubItems(1) = lw1.SelectedItem.SubItems(1)
-    lw1.ListItems(i).SubItems(2) = lw1.SelectedItem.SubItems(2)
-    lw1.ListItems(i).SubItems(3) = lw1.SelectedItem.SubItems(3)
+    Aux = lw1.ListItems(I).Text & "|" & lw1.ListItems(I).SubItems(1) & "|" & lw1.ListItems(I).SubItems(2) & "|" & lw1.ListItems(I).SubItems(3) & "|"
+    lw1.ListItems(I).Text = lw1.SelectedItem.Text
+    lw1.ListItems(I).SubItems(1) = lw1.SelectedItem.SubItems(1)
+    lw1.ListItems(I).SubItems(2) = lw1.SelectedItem.SubItems(2)
+    lw1.ListItems(I).SubItems(3) = lw1.SelectedItem.SubItems(3)
          
     lw1.ListItems(Seleccionado).Text = RecuperaValor(Aux, 1)
     lw1.ListItems(Seleccionado).SubItems(1) = RecuperaValor(Aux, 2)
     lw1.ListItems(Seleccionado).SubItems(2) = RecuperaValor(Aux, 3)
     lw1.ListItems(Seleccionado).SubItems(3) = RecuperaValor(Aux, 4)
     
-    Set lw1.SelectedItem = lw1.ListItems(i)
+    Set lw1.SelectedItem = lw1.ListItems(I)
     
     lw1.SetFocus
     
@@ -407,7 +407,7 @@ End Sub
 
 Private Sub EliminarIMg()
 Dim C As String
-Dim i As Integer
+Dim I As Integer
     If lw1.ListItems.Count = 0 Then Exit Sub
     If lw1.SelectedItem Is Nothing Then Exit Sub
      
@@ -417,23 +417,23 @@ Dim i As Integer
     
     
     
-    i = lw1.SelectedItem.Index
+    I = lw1.SelectedItem.Index
     
-    lw1.ListItems.Remove i
+    lw1.ListItems.Remove I
     If lw1.ListItems.Count = 0 Then
-        i = 0
+        I = 0
     Else
         If lw1.SelectedItem Is Nothing Then
-            i = 0
+            I = 0
         Else
-            i = 1
+            I = 1
         End If
     End If
         
         
     
     
-    If i = 0 Then
+    If I = 0 Then
         CargarIMG ""
     Else
         'i = i - 1
@@ -459,7 +459,7 @@ Dim Eliminar As Boolean
     
     C = "Select max(codigo) from sfichtecdocs"
     Set RS = New ADODB.Recordset
-    RS.Open C, Conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    RS.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     L = 0
     If Not RS.EOF Then
         If Not IsNull(RS.Fields(0)) Then L = RS.Fields(0)
@@ -488,7 +488,7 @@ Dim Eliminar As Boolean
             C = " not codigo IN (" & C & ")"
             C = "codartic = '" & RecuperaValor(vDatos, 1) & "' AND " & C
             C = "DELETE FROM sfichtecdocs WHERE " & C
-            Conn.Execute C
+            conn.Execute C
         
         End If
     End If
@@ -496,7 +496,7 @@ Dim Eliminar As Boolean
         'Ha quitado todos
         C = "codartic = '" & RecuperaValor(vDatos, 1) & "'"
         C = "DELETE FROM sfichtecdocs WHERE " & C
-        Conn.Execute C
+        conn.Execute C
         Me.cmdGuardar.visible = False
         Exit Sub
     End If
@@ -505,29 +505,29 @@ Dim Eliminar As Boolean
         If Val(lw1.ListItems(K).SubItems(1)) > 0 Then
             C = "UPDATE sfichtecdocs set orden=" & K
             C = C & " WHERE codigo =" & lw1.ListItems(K).SubItems(3)
-            Conn.Execute C
+            conn.Execute C
             
         Else
             'ES NUEVO
             C = "Insert into sfichtecdocs(codigo,codartic,orden) VALUES (" & L & ",'" & RecuperaValor(vDatos, 1) & "'," & K & ")"
-            Conn.Execute C
+            conn.Execute C
             Espera 0.2
             
             'Abro parar guardar el binary
             C = "Select * from sfichtecdocs where codigo =" & L
-            adodc1.ConnectionString = Conn
-            adodc1.RecordSource = C
-            adodc1.Refresh
+            Adodc1.ConnectionString = conn
+            Adodc1.RecordSource = C
+            Adodc1.Refresh
 '
-            If adodc1.Recordset.EOF Then
+            If Adodc1.Recordset.EOF Then
                 'MAAAAAAAAAAAAL
 
             Else
                 'Guardar
                  InsertandoImg = True
                 CargarIMG lw1.ListItems(K).SubItems(2)
-                GuardarBinary adodc1.Recordset!campo, lw1.ListItems(K).SubItems(2)
-                adodc1.Recordset.Update
+                GuardarBinary Adodc1.Recordset!campo, lw1.ListItems(K).SubItems(2)
+                Adodc1.Recordset.Update
             End If
 
             L = L + 1
@@ -617,24 +617,24 @@ Dim L As Long
     C = "Select * from sfichtecdocs where codartic='" & RecuperaValor(vDatos, 1) & "' ORDER BY orden"
     Me.lblCarga2.Caption = "Leyendo desde BD "
     Me.lblCarga2.Refresh
-    adodc1.ConnectionString = Conn
-    adodc1.RecordSource = C
-    adodc1.Refresh
+    Adodc1.ConnectionString = conn
+    Adodc1.RecordSource = C
+    Adodc1.Refresh
 
-    If adodc1.Recordset.EOF Then
+    If Adodc1.Recordset.EOF Then
         'NO HAY NINGUNA
     
     Else
         'LEEMOS LAS IMAGENES
         InsertandoImg = True
-        While Not adodc1.Recordset.EOF
-            L = adodc1.Recordset!Codigo
-            Me.lblCarga2.Caption = "Leyendo desde BD " & L & "       " & adodc1.Recordset.AbsolutePosition & " de " & adodc1.Recordset.RecordCount
+        While Not Adodc1.Recordset.EOF
+            L = Adodc1.Recordset!Codigo
+            Me.lblCarga2.Caption = "Leyendo desde BD " & L & "       " & Adodc1.Recordset.AbsolutePosition & " de " & Adodc1.Recordset.RecordCount
             lblCarga2.Refresh
             C = App.Path & "\" & CarpetaIMG & "\" & L
-            If LeerBinary(adodc1.Recordset!campo, C) Then AnyadirAlListview C, True
+            If LeerBinary(Adodc1.Recordset!campo, C) Then AnyadirAlListview C, True
             
-            adodc1.Recordset.MoveNext
+            Adodc1.Recordset.MoveNext
         Wend
     
     
@@ -643,13 +643,13 @@ Dim L As Long
         If lw1.ListItems.Count > 0 Then CargarIMG lw1.ListItems(1).SubItems(2)
     End If
 
-    Set adodc1.Recordset = Nothing
+    Set Adodc1.Recordset = Nothing
 End Sub
 
 Private Sub lw1_Click()
     
     If InsertandoImg Then Exit Sub
-    
+    If lw1.SelectedItem Is Nothing Then Exit Sub
     CargarIMG lw1.SelectedItem.SubItems(2)
 End Sub
 
@@ -696,7 +696,7 @@ Private Sub Imprimir()
             .SoloImprimir = False
             .EnvioEMail = False
             
-            .opcion = 2015
+            .Opcion = 2015
             .Show vbModal
         End With
 End Sub

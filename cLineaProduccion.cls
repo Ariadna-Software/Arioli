@@ -80,17 +80,17 @@ End Property
 
 
 
-Public Property Let codartic(ByVal vData As String)
+Public Property Let codArtic(ByVal vData As String)
 'se usa al asignar un valor a la propiedad, en la parte izquierda de una asignación.
 'Syntax: X.codartic = 5
     mvarcodartic = vData
 End Property
 
 
-Public Property Get codartic() As String
+Public Property Get codArtic() As String
 'se usa al recuperar un valor de una propiedad, en la parte derecha de una asignación.
 'Syntax: Debug.Print X.codartic
-    codartic = mvarcodartic
+    codArtic = mvarcodartic
 End Property
 
 
@@ -289,7 +289,7 @@ Dim Can As Currency
     vRs.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     LeerDesdeTrazabilidad = False
     If Not vRs.EOF Then
-           mvarcodartic = vRs!codartic
+           mvarcodartic = vRs!codArtic
            mvarCodProduccion = CodigoProduccion
            mvaridLiProd = idSubLinProd
            mvarNomArtic = vRs!NomArtic
@@ -330,7 +330,7 @@ Dim Can As Currency
     'si no que cruzo con codartic
     SQL = "Select prodtrazcompo.*,nomartic,factorconversion,cantidad from prodtrazcompo,sartic,sarti1 WHERE"
     SQL = SQL & " prodtrazcompo.codartic=Sartic.codartic AND "
-    SQL = SQL & " sarti1.codarti1=prodtrazcompo.codartic AND sarti1.codartic='" & Me.codartic & "' AND"
+    SQL = SQL & " sarti1.codarti1=prodtrazcompo.codartic AND sarti1.codartic='" & Me.codArtic & "' AND"
     SQL = SQL & " prodtrazcompo.codigo =" & CodigoProduccion & " AND idlin = " & idSubLinProd
     SQL = SQL & " AND prodtrazcompo.lineaprod =" & lineaprod & " and prodtrazcompo.lotetraza=" & lotetraza
     SQL = SQL & " ORDER BY factorconversion,codartic "
@@ -354,7 +354,7 @@ Dim Can As Currency
             Can = CCur(vRs!FactorConversion)
             Can = Round2(Can * mvarCantidadEstimada, 2)
             If vRs!Cantidad <> 1 Then Can = Round2(Can * vRs!Cantidad, 2)
-            vectorComponentes(J).AsignarValoresComponentes vRs!codartic, vRs!NomArtic, Can, CCur(vRs!FactorConversion), vRs!Cantidad
+            vectorComponentes(J).AsignarValoresComponentes vRs!codArtic, vRs!NomArtic, Can, CCur(vRs!FactorConversion), vRs!Cantidad
             vectorComponentes(J).AsignarLote vRs!numLote
             vRs.MoveNext
             J = J + 1
@@ -403,7 +403,7 @@ Dim cant As Currency
     vRs.Open SQL, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     LeerDeOrdenProduccion = False
     If Not vRs.EOF Then
-           mvarcodartic = vRs!codartic
+           mvarcodartic = vRs!codArtic
            mvarCodProduccion = CodigoProduccion
            mvaridLiProd = idSubLinProd
            mvarNomArtic = vRs!NomArtic
@@ -1066,7 +1066,7 @@ End Function
 Private Function CerrarProduccionCantidades(SoloComprobar As Boolean, CantidadProducida_ As Currency, Cajasprod As Integer) As Boolean
 Dim vCStock2 As cStock
 Dim b As Boolean
-Dim Cad As String
+Dim cad As String
 Dim I As Integer
 Dim canti As Currency
 
@@ -1127,13 +1127,13 @@ Dim canti As Currency
         For I = 1 To MateriaSinTrazabilidad.Count
             b = False
             
-            Cad = RecuperaValor(MateriaSinTrazabilidad(I), 3)  'Cantidad de sarti1
+            cad = RecuperaValor(MateriaSinTrazabilidad(I), 3)  'Cantidad de sarti1
             
-            canti = CCur(Cad)
+            canti = CCur(cad)
             canti = Round2(CantidadProducida_ * canti)
         
-            Cad = RecuperaValor(MateriaSinTrazabilidad(I), 1)
-            If InicializarCStock(vCStock2, "S", CInt(I - 1), canti, Cad) Then
+            cad = RecuperaValor(MateriaSinTrazabilidad(I), 1)
+            If InicializarCStock(vCStock2, "S", CInt(I - 1), canti, cad) Then
                 
                 If vCStock2.MueveStock Then
                     If SoloComprobar Then
@@ -1230,13 +1230,13 @@ Private Function InicializarCStock(ByRef vCStock As cStock, TipoM As String, Sub
     vCStock.Cantidad = vcantidadpro
     If TipoM = "E" Then
         'articulo producido
-        vCStock.codartic = Me.codartic
+        vCStock.codArtic = Me.codArtic
     Else
         If DesdeMateraNoTrazable <> "" Then
-            vCStock.codartic = DesdeMateraNoTrazable
+            vCStock.codArtic = DesdeMateraNoTrazable
         Else
             'Materia trazabilidad
-            vCStock.codartic = vectorComponentes(Sublineas).codarticCompo
+            vCStock.codArtic = vectorComponentes(Sublineas).codarticCompo
         End If
     End If
     
@@ -1259,7 +1259,7 @@ Dim ErroresEnPartidas As String
 Dim PuedeSeguir As Boolean
 Dim cP As cPartidas   'Para los numeros de lote
 Dim cL As cLotaje
-Dim Cad As String
+Dim cad As String
 Dim vCan As Currency
 Dim botones As Long
 Dim N As Integer
@@ -1289,11 +1289,11 @@ Dim K As Byte
 
     PuedeSeguir = True
     For K = 1 To Me.CuantasMP
-            Cad = ""
+            cad = ""
             If Not cP.LeerDesdeArticulo(vectorComponentes(K - 1).codarticCompo, vCodAlmac, vectorComponentes(K - 1).LoteMateria) Then
                 'MAL ninguna partida asociada al LOTE.
                 
-                Cad = vectorComponentes(K - 1).NomArticCompo & " " & vectorComponentes(K - 1).LoteMateria & "        NO encuetra idPartida asocidado"
+                cad = vectorComponentes(K - 1).NomArticCompo & " " & vectorComponentes(K - 1).LoteMateria & "        NO encuetra idPartida asocidado"
                 PuedeSeguir = False
                 
             Else
@@ -1307,24 +1307,24 @@ Dim K As Byte
                 If SoloComprobar Then
                     If vCan > cP.Cantidad Then
                         'NECESITA MAS DE LAS QUE VA A PRODUCIR
-                        Cad = vectorComponentes(K - 1).NomArticCompo
-                        If Len(Cad) < 30 Then
-                            Cad = Cad & Space(10)
-                        ElseIf Len(Cad) < 25 Then
-                            Cad = Cad & Space(28)
+                        cad = vectorComponentes(K - 1).NomArticCompo
+                        If Len(cad) < 30 Then
+                            cad = cad & Space(10)
+                        ElseIf Len(cad) < 25 Then
+                            cad = cad & Space(28)
                         End If
-                        Cad = Cad & "    idPartida: " & cP.idPartida & " Lote: " & vectorComponentes(K - 1).LoteMateria & "        Cantidad INSUFICIENTE (" & vCan & "/" & cP.Cantidad & ")"
+                        cad = cad & "    idPartida: " & cP.idPartida & " Lote: " & vectorComponentes(K - 1).LoteMateria & "        Cantidad INSUFICIENTE (" & vCan & "/" & cP.Cantidad & ")"
                     End If
                 Else
                    
                     cP.IncrementarCantidad -1 * vCan
                     
-                    InsertarMovientosLotesProduccion cL, cP, vCan, Me.codartic
+                    InsertarMovientosLotesProduccion cL, cP, vCan, Me.codArtic
                 End If
             End If
             
             
-            If Cad <> "" Then ErroresEnPartidas = ErroresEnPartidas & Cad & vbCrLf
+            If cad <> "" Then ErroresEnPartidas = ErroresEnPartidas & cad & vbCrLf
 
     Next K
     
@@ -1336,12 +1336,12 @@ Dim K As Byte
    'ENTRADA DE PRODUCTO
                     'Vemos si ya existe
                     'LoteReal = RL!Numlote & " " & Format(txtFecha(0).Text, "yyyy/mm/dd")
-                    If cP.LeerDesdeArticulo(Me.codartic, vCodAlmac, Format(Me.LoteTrazabilidad, "0000000000")) Then
+                    If cP.LeerDesdeArticulo(Me.codArtic, vCodAlmac, Format(Me.LoteTrazabilidad, "0000000000")) Then
                         If SoloComprobar Then
-                            Cad = "     -YA EXISTE el lote de produccion para el articulo de venta:" & vbCrLf
-                            Cad = Cad & Space(20) & Me.NomArtic & "   Lote " & Me.LoteTrazabilidad & "    idPartida: " & cP.idPartida
+                            cad = "     -YA EXISTE el lote de produccion para el articulo de venta:" & vbCrLf
+                            cad = cad & Space(20) & Me.NomArtic & "   Lote " & Me.LoteTrazabilidad & "    idPartida: " & cP.idPartida
                             
-                            ErroresEnPartidas = Cad & vbCrLf & ErroresEnPartidas & vbCrLf
+                            ErroresEnPartidas = cad & vbCrLf & ErroresEnPartidas & vbCrLf
                         Else
                             'Ya existia(por algun motivo)
                             cP.IncrementarCantidad CantidadProducida
@@ -1353,15 +1353,15 @@ Dim K As Byte
                         If Not SoloComprobar Then
                             cP.Cantidad = CantidadProducida
                             cP.codAlmac = vCodAlmac
-                            cP.codartic = Me.codartic
+                            cP.codArtic = Me.codArtic
                             cP.codProve = 0
                             cP.Fecha = FH_Incio
                             'Si cambiamos esto hay que mirar el packing list
                             cP.NumAlbar = "NP" & Format(Me.CodProduccion, "00000") & Format(Me.idLiProd, "00")
                             cP.numLote = Format(Me.LoteTrazabilidad, "0000000000")
                             If Not cP.Insertar Then
-                                Cad = "Error insertando partidas/lotes: " & cP.codartic
-                                Err.Raise 513, , Cad
+                                cad = "Error insertando partidas/lotes: " & cP.codArtic
+                                Err.Raise 513, , cad
                             End If
                         
                     End If
@@ -1370,10 +1370,10 @@ Dim K As Byte
                         cL.tipoMov = 1
                         cL.Cantidad = cP.Cantidad
                         cL.codAlmac = cP.codAlmac
-                        cL.codartic = cP.codartic
+                        cL.codArtic = cP.codArtic
                         cL.codarti2 = ""
                         cL.numLote = cP.numLote
-                        If Not cL.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & cP.codartic
+                        If Not cL.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & cP.codArtic
                         
                         
                         '13/12/2010
@@ -1424,11 +1424,11 @@ Private Sub InsertarMovientosLotesProduccion(ByRef cLot As cLotaje, cPar As cPar
     cLot.tipoMov = 0  'Salida
     cLot.Cantidad = Abs(Cantidad)
     cLot.codAlmac = cPar.codAlmac
-    cLot.codartic = cPar.codartic
+    cLot.codArtic = cPar.codArtic
     cLot.codarti2 = ArticuloProduccion
     cLot.numLote = cPar.numLote
 
-    If Not cLot.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & cPar.codartic
+    If Not cLot.InsertarLote Then Err.Raise vbObjectError + 513, , "Error insertando en mov lotes: " & cPar.codArtic
     
 End Sub
 
@@ -1514,7 +1514,7 @@ Private Sub RegularizarFinLote_Partida(IndiceDelArray As Integer)
 Dim cPar As cPartidas
 Dim cDEP As cDeposito
 Dim cLot As cLotaje
-Dim vvCstock As cStock
+'Dim vvCstock2 As cStock
 Dim Aux As String
 Dim Donde As String
 Dim Cantidad As Currency
@@ -1527,7 +1527,7 @@ Dim Cantidad As Currency
     Set cPar = New cPartidas
     Set cDEP = New cDeposito
     Set cLot = New cLotaje
-    Set vvCstock = New cStock
+    'Set vvCstock = New cStock
     
     Donde = "Leyendo clases"
     Aux = "numlote = " & DBSet(vectorComponentes(IndiceDelArray - 1).LoteMateria, "T") & " AND codartic "
@@ -1545,44 +1545,45 @@ Dim Cantidad As Currency
     
         
     Set cLot = New cLotaje
-    Set vvCstock = New cStock
+    
         
    
     
     
     'Un linea mas en smoval
-    vvCstock.DetaMov = "DEP"
+    
+    'vvCstock.DetaMov = "DEP"
     '0=Salida, 1=Entrada
     If cPar.Cantidad >= 0 Then
-        vvCstock.tipoMov = "S"
+     '   vvCstock.tipoMov = "S"
         cLot.tipoMov = 0
     Else
-        vvCstock.tipoMov = "E"
+     '   vvCstock.tipoMov = "E"
         cLot.tipoMov = 1
     End If
-    vvCstock.Cantidad = Abs(cPar.Cantidad)
-    vvCstock.Trabajador = TrbConectado
-    'vCStock.Documento = RecuperaValor(Intercambio, 1)
-    vvCstock.Fechamov = Format(Now, "dd/mm/yyyy")
-    vvCstock.HoraMov = Now
-    vvCstock.codAlmac = vCodAlmac
-    vvCstock.codartic = cPar.codartic
-    vvCstock.Importe = 0
-    vvCstock.Documento = "FIN" & Format(cPar.idPartida, "0000000")
+    'vvCstock.Cantidad = Abs(cPar.Cantidad)
+    'vvCstock.Trabajador = TrbConectado
+    ''vCStock.Documento = RecuperaValor(Intercambio, 1)
+    'vvCstock.Fechamov = Format(Now, "dd/mm/yyyy")
+    'vvCstock.HoraMov = Now
+    'vvCstock.codAlmac = vCodAlmac
+    'vvCstock.codArtic = cPar.codArtic
+    'vvCstock.Importe = 0
+    'vvCstock.Documento = "FIN" & Format(cPar.idPartida, "0000000")
     
-    cLot.codAlmac = vvCstock.codAlmac
-    cLot.codartic = vvCstock.codartic
-    cLot.DetaMov = vvCstock.DetaMov
-    cLot.Fechamov = vvCstock.Fechamov
-    cLot.HoraMov = vvCstock.HoraMov
+    cLot.codAlmac = vCodAlmac 'vvCstock.codAlmac
+    cLot.codArtic = cPar.codArtic 'vvCstock.codArtic
+    cLot.DetaMov = "DEP" 'vvCstock.DetaMov
+    cLot.Fechamov = Format(Now, "dd/mm/yyyy") ' vvCstock.Fechamov
+    cLot.HoraMov = Now ' vvCstock.HoraMov
     cLot.numLote = cPar.numLote
     
-    cLot.Cantidad = vvCstock.Cantidad
+    cLot.Cantidad = Abs(cPar.Cantidad) ' vvCstock.Cantidad
     cLot.LineaDocu = cDEP.NumDeposito
-    cLot.Documento = vvCstock.Documento
+    cLot.Documento = "FIN" & Format(cPar.idPartida, "0000000") 'vvCstock.Documento
     
     cLot.InsertarLote
-    vvCstock.MoverStock False
+    'vvCstock.MoverStock False
     cDEP.QuitarAsignacionDeposito2 0, Now, -cDEP.Kilos  'Veremos este codigo
     cPar.AjustarFinPartida
     
@@ -1594,7 +1595,7 @@ eRegularizarFinLote_Partida:
     Set cPar = Nothing
     Set cDEP = Nothing
     Set cLot = Nothing
-    Set vvCstock = Nothing
+    'Set vvCstock = Nothing
     
 End Sub
 
