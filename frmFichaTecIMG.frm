@@ -16,6 +16,14 @@ Begin VB.Form frmFichaTecIMG_
    ScaleWidth      =   10740
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CheckBox chkPDf 
+      Caption         =   "Previsualizar PDFs en impresion"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   6
+      Top             =   6480
+      Width           =   3015
+   End
    Begin VB.CommandButton cmdGuardar 
       Caption         =   "Guardar cambios"
       Height          =   375
@@ -34,8 +42,8 @@ Begin VB.Form frmFichaTecIMG_
    End
    Begin MSAdodcLib.Adodc Adodc1 
       Height          =   495
-      Left            =   1320
-      Top             =   6360
+      Left            =   1800
+      Top             =   7560
       Visible         =   0   'False
       Width           =   2415
       _ExtentX        =   4260
@@ -152,7 +160,7 @@ Begin VB.Form frmFichaTecIMG_
       BackColor       =   -2147483643
       BorderStyle     =   1
       Appearance      =   1
-      NumItems        =   4
+      NumItems        =   5
       BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
          Text            =   "imagen"
          Object.Width           =   2540
@@ -171,6 +179,11 @@ Begin VB.Form frmFichaTecIMG_
          SubItemIndex    =   3
          Text            =   "codigoBD"
          Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   4
+         Text            =   "PDF"
+         Object.Width           =   1235
       EndProperty
    End
    Begin VB.Label Label1 
@@ -230,7 +243,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 
-Private Const CarpetaIMG = "ImgFicFT"
+Private Const CarpetaIMG = "ImgFicFT"   'si cambio aqui, cambiar tambien en impresion ficha tencina producto venta
 Public vDatos As String 'codartic|nomartic|
 
 
@@ -249,13 +262,13 @@ Dim Cadena As String
 Dim Carpeta As String
 Dim Aux As String
 Dim J As Integer
-
+Dim ContadorNuevos As Integer
 
     cd1.FileName = ""
     cd1.InitDir = "c:\"
     cd1.Flags = cdlOFNAllowMultiselect Or cdlOFNExplorer
     cd1.MaxFileSize = 1024 * 30
-    cd1.Filter = "Archivos Jpg|*.jpg|Archivos Png|*.png|Archivos TIFF|*.tif"
+    cd1.Filter = "Archivos Jpg|*.jpg|Archivos Png|*.png|Archivos TIFF|*.tif|Adobe acrobat |*.pdf|"
     cd1.ShowOpen
     cd1.MaxFileSize = 256
     cd1.CancelError = False
@@ -266,11 +279,24 @@ Dim J As Integer
     Screen.MousePointer = vbHourglass
     InsertandoImg = True
     
+    
+    
+    'Los nodos nuevos el KEY empieza por N   , los de bbdd por B
+    ContadorNuevos = 0
+    For J = 1 To Me.lw1.ListItems.Count
+        Cadena = lw1.ListItems(J).Key
+        If Mid(Cadena, 1, 1) = "N" Then
+            Aux = Mid(Cadena, 2)
+            If Val(Aux) > ContadorNuevos Then ContadorNuevos = Val(Aux)
+        End If
+    Next
+    ContadorNuevos = ContadorNuevos + 1
+    
     J = InStr(1, cd1.FileName, Chr(0))
-    Cadena = cd1.FileName
+    Cadena = LCase(cd1.FileName)
     If J = 0 Then
         'Solo hay un archivo es decir c:\..\eje.txt
-        AnyadirAlListview Cadena, False
+        AnyadirAlListview Cadena, IIf(LCase(Right(Cadena, 3)) = "pdf", True, False), -ContadorNuevos
         
     Else
         Carpeta = Mid(Cadena, 1, J - 1)
@@ -287,7 +313,7 @@ Dim J As Integer
                 Aux = Mid(Cadena, J + 1)
                 Cadena = Mid(Cadena, 1, J - 1)
             End If
-            AnyadirAlListview Carpeta & Aux, False
+            AnyadirAlListview Carpeta & Aux, IIf(LCase(Right(Cadena, 3)) = "pdf", True, False), -ContadorNuevos
         Wend
     End If
     
@@ -297,37 +323,50 @@ Dim J As Integer
     J = lw1.ListItems.Count
     Set lw1.SelectedItem = lw1.ListItems(J)
     Cadena = lw1.ListItems(J).SubItems(2)
+    
     'Cargamos la imagene ''''PREVISUALIZAR
-        
-    CargarIMG (Cadena)
-    cmdGuardar.visible = True
+    CargarIMG IIf(LCase(Right(Cadena, 3)) = "pdf", "", Cadena)
+    If cmdGuardar.Tag = 0 Then cmdGuardar.visible = True
     InsertandoImg = False
     Screen.MousePointer = vbDefault
 End Sub
 
-Private Sub AnyadirAlListview(vpaz As String, DesdeBD As Boolean)
+Private Sub AnyadirAlListview(vpaz As String, EsPDF As Boolean, IndiceKey As Long)
+Dim DesdeBD As Boolean
 Dim J As Integer
 Dim Aux As String
     If Dir(vpaz, vbArchive) = "" Then
         MsgBox "No existe el archivo: " & vpaz, vbExclamation
     Else
-        'List1.AddItem vpaz
-        Set It = lw1.ListItems.Add()
+        
+        
+        'If DesdeBD Then
+        Aux = IIf(IndiceKey < 0, "N", "B")
+        Aux = Aux & Format(Abs(IndiceKey), "0000000")
+
+        Set It = lw1.ListItems.Add(, CStr(Aux))
         It.SmallIcon = 23
         
-        If DesdeBD Then
+        If IndiceKey >= 0 Then
             J = InStrRev(vpaz, "\") + 1
             Aux = Mid(vpaz, J)
             It.Text = "Código " & Aux
-            If Not IsNumeric(Aux) Then It.SmallIcon = 9
-            It.SubItems(3) = Aux
+            If Not IsNumeric(Aux) Then It.SmallIcon = 10
                 
+            It.SubItems(3) = Aux
+                It.ToolTipText = "imagen"
         Else
+            It.SmallIcon = 9
             contador = contador + 1
             It.Text = "Nuevo " & contador
         End If
-        
-        It.SubItems(1) = Abs(DesdeBD)   'DesdeBD 0:NO  numero: el codigo en la BD
+        If EsPDF Then
+            It.SubItems(4) = "SI"
+            It.ToolTipText = "PDF"
+        Else
+            
+        End If
+        It.SubItems(1) = IndiceKey    'Abs(DesdeBD)   'DesdeBD 0:NO  numero: el codigo en la BD
         It.SubItems(2) = vpaz
         
         Set It = Nothing
@@ -356,7 +395,7 @@ Dim cad As String
 Dim Aux As String
 Dim I As Integer
 Dim Seleccionado As Integer
-
+Dim Clave As String
     If lw1.SelectedItem Is Nothing Then Exit Sub
     'Si no hay, o hay uno nos salimos
     'If List1.ListCount <= 1 Then Exit Sub
@@ -384,22 +423,32 @@ Dim Seleccionado As Integer
     
    
     Aux = lw1.ListItems(I).Text & "|" & lw1.ListItems(I).SubItems(1) & "|" & lw1.ListItems(I).SubItems(2) & "|" & lw1.ListItems(I).SubItems(3) & "|"
+    Aux = Aux & lw1.ListItems(I).SubItems(4) & "|" & lw1.ListItems(I).SmallIcon & "|"
+    Clave = lw1.ListItems(I).Key & "|" & lw1.ListItems(Seleccionado).Key & "|"
+    lw1.ListItems(Seleccionado).Key = "B999999"
+    
+    lw1.ListItems(I).Key = RecuperaValor(Clave, 2)
     lw1.ListItems(I).Text = lw1.SelectedItem.Text
     lw1.ListItems(I).SubItems(1) = lw1.SelectedItem.SubItems(1)
     lw1.ListItems(I).SubItems(2) = lw1.SelectedItem.SubItems(2)
     lw1.ListItems(I).SubItems(3) = lw1.SelectedItem.SubItems(3)
-         
+    lw1.ListItems(I).SubItems(4) = lw1.SelectedItem.SubItems(4)
+    lw1.ListItems(I).SmallIcon = lw1.SelectedItem.SmallIcon
+    
+    lw1.ListItems(Seleccionado).Key = RecuperaValor(Clave, 1)
     lw1.ListItems(Seleccionado).Text = RecuperaValor(Aux, 1)
     lw1.ListItems(Seleccionado).SubItems(1) = RecuperaValor(Aux, 2)
     lw1.ListItems(Seleccionado).SubItems(2) = RecuperaValor(Aux, 3)
     lw1.ListItems(Seleccionado).SubItems(3) = RecuperaValor(Aux, 4)
+    lw1.ListItems(Seleccionado).SubItems(4) = RecuperaValor(Aux, 5)
+    lw1.ListItems(Seleccionado).SmallIcon = CInt(RecuperaValor(Aux, 6))
     
     Set lw1.SelectedItem = lw1.ListItems(I)
     
     lw1.SetFocus
     
     InsertandoImg = False
-    cmdGuardar.visible = True
+    If cmdGuardar.Tag = 0 Then cmdGuardar.visible = True
     
     
     
@@ -444,7 +493,7 @@ Dim I As Integer
         CargarIMG lw1.SelectedItem.SubItems(2)
         InsertandoImg = False
     End If
-    cmdGuardar.visible = True
+    If cmdGuardar.Tag = 0 Then cmdGuardar.visible = True
 End Sub
 
 
@@ -473,14 +522,8 @@ Dim Eliminar As Boolean
     C = ""
     Eliminar = True
     For K = 1 To lw1.ListItems.Count
-        If Val(lw1.ListItems(K).SubItems(1)) > 0 Then
-            'Por sia caso hubo error en la caerga
-            If lw1.ListItems(K).SmallIcon = 9 Then
-                Eliminar = False
-            Else
-                C = C & ", " & lw1.ListItems(K).SubItems(3)
-            End If
-        End If
+        If Mid(lw1.ListItems(K).Key, 1, 1) = "B" Then C = C & ", " & Mid(lw1.ListItems(K).Key, 2)
+
     Next
     If Eliminar Then
         If C <> "" Then
@@ -502,14 +545,16 @@ Dim Eliminar As Boolean
     End If
     For K = 1 To lw1.ListItems.Count
         
-        If Val(lw1.ListItems(K).SubItems(1)) > 0 Then
+        If Mid(lw1.ListItems(K).Key, 1, 1) = "B" Then
             C = "UPDATE sfichtecdocs set orden=" & K
-            C = C & " WHERE codigo =" & lw1.ListItems(K).SubItems(3)
+            C = C & " WHERE codigo =" & Mid(lw1.ListItems(K).Key, 2)
             conn.Execute C
             
         Else
             'ES NUEVO
-            C = "Insert into sfichtecdocs(codigo,codartic,orden) VALUES (" & L & ",'" & RecuperaValor(vDatos, 1) & "'," & K & ")"
+            
+            C = IIf(lw1.ListItems(K).SubItems(4) <> "", 1, 0)
+            C = "Insert into sfichtecdocs(codigo,codartic,orden,espdf) VALUES (" & L & ",'" & RecuperaValor(vDatos, 1) & "'," & K & "," & C & ")"
             conn.Execute C
             Espera 0.2
             
@@ -524,8 +569,13 @@ Dim Eliminar As Boolean
 
             Else
                 'Guardar
+                
+                lw1.ListItems(K).Key = "B" & Format(L, "0000000")
+                
+                
+                
                  InsertandoImg = True
-                CargarIMG lw1.ListItems(K).SubItems(2)
+                If lw1.ListItems(K).SubItems(4) = "" Then CargarIMG lw1.ListItems(K).SubItems(2)
                 GuardarBinary Adodc1.Recordset!campo, lw1.ListItems(K).SubItems(2)
                 Adodc1.Recordset.Update
             End If
@@ -541,9 +591,7 @@ Private Sub Form_Activate()
     If PrimeraVez Then
         PrimeraVez = False
         Screen.MousePointer = vbHourglass
-        ProcesarCarpetaImagenes
-        
-        CargarArchivos
+        If ProcesarCarpetaImagenes Then CargarArchivos
         
         
         lblCarga2.Caption = lblCarga2.Tag
@@ -578,35 +626,36 @@ Private Sub Form_Load()
     End If
     
     
-    lw1.ColumnHeaders(1).Width = lw1.Width - 520
+    lw1.ColumnHeaders(1).Width = lw1.Width - 1120
     Set lw1.SmallIcons = frmppal.ImgListPpal
     Me.lblCarga2.Tag = RecuperaValor(Me.vDatos, 2)
     If Not EsArticulo Then lblCarga2.Tag = " Categoría: " & lblCarga2.Tag
-    
+    cmdGuardar.Tag = 1
     lblCarga2.Caption = "Leyendo datos BD"
 End Sub
 
 
 
 
-Private Sub ProcesarCarpetaImagenes()
+Private Function ProcesarCarpetaImagenes() As Boolean
 Dim C As String
     On Error GoTo EProcesarCarpetaImagenes
+    ProcesarCarpetaImagenes = False
     C = App.Path & "\" & CarpetaIMG
     If Dir(C, vbDirectory) = "" Then
         MkDir C
     Else
         If Dir(C & "\*.*", vbArchive) <> "" Then Kill C & "\*.*"
     End If
-    
+    ProcesarCarpetaImagenes = True
     
     
 
 
-    Exit Sub
+    Exit Function
 EProcesarCarpetaImagenes:
     MuestraError Err.Number, "ProcesarCarpetaImagenes"
-End Sub
+End Function
 
 
 
@@ -620,7 +669,7 @@ Dim L As Long
     Adodc1.ConnectionString = conn
     Adodc1.RecordSource = C
     Adodc1.Refresh
-
+    
     If Adodc1.Recordset.EOF Then
         'NO HAY NINGUNA
     
@@ -631,18 +680,18 @@ Dim L As Long
             L = Adodc1.Recordset!Codigo
             Me.lblCarga2.Caption = "Leyendo desde BD " & L & "       " & Adodc1.Recordset.AbsolutePosition & " de " & Adodc1.Recordset.RecordCount
             lblCarga2.Refresh
-            C = App.Path & "\" & CarpetaIMG & "\" & L
-            If LeerBinary(Adodc1.Recordset!campo, C) Then AnyadirAlListview C, True
+            C = App.Path & "\" & CarpetaIMG & "\" & L & IIf(Val(Adodc1.Recordset!EsPDF) = 1, ".pdf", "")
+            If LeerBinary(Adodc1.Recordset!campo, C) Then AnyadirAlListview C, IIf(Val(Adodc1.Recordset!EsPDF), True, False), L
             
             Adodc1.Recordset.MoveNext
         Wend
     
-    
+        
         
         InsertandoImg = False
-        If lw1.ListItems.Count > 0 Then CargarIMG lw1.ListItems(1).SubItems(2)
+        If lw1.ListItems.Count > 0 Then CargarIMG IIf(Trim(lw1.ListItems(1).SubItems(4)) <> "", "", lw1.ListItems(1).SubItems(2))
     End If
-
+    cmdGuardar.Tag = 0
     Set Adodc1.Recordset = Nothing
 End Sub
 
@@ -650,7 +699,20 @@ Private Sub lw1_Click()
     
     If InsertandoImg Then Exit Sub
     If lw1.SelectedItem Is Nothing Then Exit Sub
-    CargarIMG lw1.SelectedItem.SubItems(2)
+    
+    
+    CargarIMG IIf(Trim(lw1.SelectedItem.SubItems(4)) <> "", "", lw1.SelectedItem.SubItems(2))
+End Sub
+
+Private Sub lw1_DblClick()
+
+    If InsertandoImg Then Exit Sub
+    If lw1.SelectedItem Is Nothing Then Exit Sub
+    If lw1.SelectedItem.SubItems(4) = "SI" Then
+    
+        LanzaVisorMimeDocumento Me.hwnd, lw1.SelectedItem.SubItems(2)
+    End If
+    
 End Sub
 
 Private Sub Toolbar1_ButtonClick(ByVal Button As MSComctlLib.Button)
@@ -680,12 +742,29 @@ End Sub
 
 
 Private Sub Imprimir()
-
-
+        
+        If lw1.ListItems.Count = 0 Then Exit Sub
+        
+        If Me.cmdGuardar.visible Then MsgBox "Las modificaciones no estan guardadas", vbExclamation
+        
+        
+        AnchoLogin = ""
+        CadenaDesdeOtroForm = ""
+        For NumRegElim = 1 To Me.lw1.ListItems.Count
+            If Me.lw1.ListItems(NumRegElim).SubItems(4) <> "" Then
+                'Es un PDF
+                AnchoLogin = AnchoLogin & "X"
+            Else
+                CadenaDesdeOtroForm = CadenaDesdeOtroForm & "X"
+            End If
+        Next
+    
+        
+        
         With frmImprimir
             If EsArticulo Then
                 .NombreRPT = "morImgArt.rpt"
-                .FormulaSeleccion = "{sartic.codartic}=""" & RecuperaValor(vDatos, 1) & """"
+                .FormulaSeleccion = "{sartic.codartic}=""" & RecuperaValor(vDatos, 1) & """ " ' AND {sfichtecdocs.esPDF}=0 "
             Else
                 .NombreRPT = "morImgCate.rpt"
                 .FormulaSeleccion = "{sfichtecdocs.codartic}= """ & RecuperaValor(vDatos, 1) & """"
@@ -697,6 +776,23 @@ Private Sub Imprimir()
             .EnvioEMail = False
             
             .Opcion = 2015
-            .Show vbModal
+                .Show vbModal
         End With
+        
+        If AnchoLogin <> "" Then
+            'Abrimos todos los PDF para que los imprima
+            For NumRegElim = 1 To Me.lw1.ListItems.Count
+                If lw1.ListItems(NumRegElim).SubItems(4) <> "" Then
+                    CadenaDesdeOtroForm = lw1.ListItems(NumRegElim).SubItems(2)
+                    If chkPDf.Value = 0 Then
+                        lanzaImpresionShellDirecta Me.hwnd, CadenaDesdeOtroForm
+                    Else
+                        LanzaVisorMimeDocumento Me.hwnd, CadenaDesdeOtroForm
+                    End If
+                End If
+            
+            Next
+        End If
+        AnchoLogin = ""
+        CadenaDesdeOtroForm = ""
 End Sub

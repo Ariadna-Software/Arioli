@@ -51,6 +51,23 @@ Private Declare Sub WTSFreeMemory Lib "wtsapi32.dll" ( _
 
 Private Declare Function lstrcpy Lib "kernel32" Alias "lstrcpyA" ( _
     ByVal lpString1 As String, ByVal lpString2 As Long) As Long
+    
+    
+    
+    
+'------------------------------------------------------------------------
+'------------------------------------------------------------------------
+' Lanza visores predeterminados por MIME
+Private Declare Function ShellExecute Lib "shell32.dll" Alias _
+    "ShellExecuteA" (ByVal hwnd As Long, ByVal lpOperation As String, _
+    ByVal lpFile As String, ByVal lpParameters As String, _
+    ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
+
+
+
+
+    
+    
 
 '------------------------------------------------------------------------
 '------------------------------------------------------------------------
@@ -134,7 +151,7 @@ Private Function GetComputerNameTS() As String
     Dim RetVal As Long
     Dim lpBuffer As Long
     Dim Count As Long
-    Dim p As Long
+    Dim P As Long
     Dim QueryInfo As String
     Dim CurrentSessionId As Long
     Dim CurrentProcessId As Long
@@ -156,8 +173,8 @@ Private Function GetComputerNameTS() As String
     If RetVal Then
         ' WTSEnumerateProcesses was successful.
 
-        p = lpBuffer
-        QueryInfo = PointerToStringA(p)
+        P = lpBuffer
+        QueryInfo = PointerToStringA(P)
         
         ' Free the memory buffer.
         WTSFreeMemory lpBuffer
@@ -183,12 +200,25 @@ End Function
 
 
 Public Function ComputerName() As String
-    Dim nom As String
+    Dim Nom As String
     
     'Por Terminal Server
-    nom = GetComputerNameTS
+    Nom = GetComputerNameTS
     
     'Si no conectado por TServer mirar en local
-    If nom = "" Then nom = ComputerNameL
-    ComputerName = nom
+    If Nom = "" Then Nom = ComputerNameL
+    ComputerName = Nom
 End Function
+
+
+
+
+Public Function LanzaVisorMimeDocumento(Formhwnd As Long, Archivo As String)
+    Call ShellExecute(Formhwnd, "Open", Archivo, "", "", 1)
+End Function
+
+
+Public Function lanzaImpresionShellDirecta(Formhwnd As Long, Archivo As String)
+    Call ShellExecute(Formhwnd, "print", Archivo, vbNullString, vbNullString, 1)
+End Function
+

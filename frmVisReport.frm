@@ -90,7 +90,7 @@ Private Sub CRViewer1_PrintButtonClicked(UseDefault As Boolean)
     UseDefault = False
     If Dir(App.Path & "\SeleImpr.dat", vbArchive) <> "" Then
 
-        If mrpt.PrinterSetupEx(Me.hWnd) = 0 Then
+        If mrpt.PrinterSetupEx(Me.hwnd) = 0 Then
             
             'ok
             EstaImpreso = True
@@ -146,9 +146,9 @@ Dim NomImpre As String
         'Puede que alguna tabla este vinculada a ARICONTA
         If LCase(CStr(mrpt.Database.Tables(I).ConnectionProperties.Item("DSN"))) = "vconta" Then
             'A conta
-            mrpt.Database.Tables(I).SetLogOnInfo "vConta", "conta" & vParamAplic.NumeroConta, vParamAplic.UsuarioConta, vParamAplic.PasswordConta
+            mrpt.Database.Tables(I).SetLogOnInfo "vConta", "ariconta" & vParamAplic.NumeroConta, vParamAplic.UsuarioConta, vParamAplic.PasswordConta
             If (InStr(1, mrpt.Database.Tables(I).Name, "_") = 0) Then
-               mrpt.Database.Tables(I).Location = "conta" & vParamAplic.NumeroConta & "." & mrpt.Database.Tables(I).Name
+               mrpt.Database.Tables(I).Location = "ariconta" & vParamAplic.NumeroConta & "." & mrpt.Database.Tables(I).Name
             End If
     
     
@@ -402,18 +402,18 @@ Private Sub Exportar()
 End Sub
 
 Private Sub PonerMargen()
-Dim Cad As String
+Dim cad As String
 Dim I As Integer
     On Error GoTo EPon
-    Cad = Dir(App.Path & "\*.mrg")
-    If Cad <> "" Then
-        I = InStr(1, Cad, ".")
+    cad = Dir(App.Path & "\*.mrg")
+    If cad <> "" Then
+        I = InStr(1, cad, ".")
         If I > 0 Then
-            Cad = Mid(Cad, 1, I - 1)
-            If IsNumeric(Cad) Then
-                If Val(Cad) > 4000 Then Cad = "4000"
-                If Val(Cad) > 0 Then
-                    mrpt.BottomMargin = mrpt.BottomMargin + Val(Cad)
+            cad = Mid(cad, 1, I - 1)
+            If IsNumeric(cad) Then
+                If Val(cad) > 4000 Then cad = "4000"
+                If Val(cad) > 0 Then
+                    mrpt.BottomMargin = mrpt.BottomMargin + Val(cad)
                 End If
             End If
         End If
@@ -447,9 +447,9 @@ Dim I As Byte
                            smrpt.Database.Tables(I).Location = vEmpresa.BDAriges & "." & smrpt.Database.Tables(I).Name
                         End If
                     ElseIf smrpt.Database.Tables(I).ConnectionProperties.Item("DSN") = "vConta" Then
-                        smrpt.Database.Tables(I).SetLogOnInfo "vConta", "conta" & vParamAplic.NumeroConta, vParamAplic.UsuarioConta, vParamAplic.PasswordConta
+                        smrpt.Database.Tables(I).SetLogOnInfo "vConta", "ariconta" & vParamAplic.NumeroConta, vParamAplic.UsuarioConta, vParamAplic.PasswordConta
                         If (InStr(1, smrpt.Database.Tables(I).Name, "_") = 0) Then
-                           smrpt.Database.Tables(I).Location = "conta" & vParamAplic.NumeroConta & "." & smrpt.Database.Tables(I).Name
+                           smrpt.Database.Tables(I).Location = "ariconta" & vParamAplic.NumeroConta & "." & smrpt.Database.Tables(I).Name
                         End If
                     End If
                     '------

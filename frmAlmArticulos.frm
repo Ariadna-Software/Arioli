@@ -52,102 +52,102 @@ Begin VB.Form frmAlmArticulos
       TabCaption(0)   =   "Datos básicos   "
       TabPicture(0)   =   "frmAlmArticulos.frx":000C
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "imgCuentas(3)"
-      Tab(0).Control(1)=   "Label1(17)"
-      Tab(0).Control(2)=   "Label1(7)"
-      Tab(0).Control(3)=   "Label1(8)"
-      Tab(0).Control(4)=   "Label1(6)"
-      Tab(0).Control(5)=   "Label1(5)"
-      Tab(0).Control(6)=   "imgCuentas(2)"
-      Tab(0).Control(7)=   "imgCuentas(1)"
-      Tab(0).Control(8)=   "imgCuentas(5)"
-      Tab(0).Control(9)=   "imgCuentas(4)"
-      Tab(0).Control(10)=   "Label1(9)"
-      Tab(0).Control(11)=   "Label1(20)"
-      Tab(0).Control(12)=   "Label1(19)"
-      Tab(0).Control(13)=   "Label1(2)"
-      Tab(0).Control(14)=   "Label1(3)"
-      Tab(0).Control(15)=   "Label1(4)"
-      Tab(0).Control(16)=   "Label1(16)"
-      Tab(0).Control(17)=   "imgFecha(0)"
-      Tab(0).Control(18)=   "lblSumaStocks"
-      Tab(0).Control(19)=   "Label1(36)"
-      Tab(0).Control(20)=   "imgCuentas(0)"
-      Tab(0).Control(21)=   "imgPreciosProv"
-      Tab(0).Control(22)=   "FrameDatosAlmacen2"
-      Tab(0).Control(23)=   "chkSeries"
+      Tab(0).Control(0)=   "ChkTrazabilidad"
+      Tab(0).Control(1)=   "Frame5"
+      Tab(0).Control(2)=   "Text1(30)"
+      Tab(0).Control(3)=   "FrameLitrosUd"
+      Tab(0).Control(4)=   "chkCtrStock"
+      Tab(0).Control(5)=   "txtSumaStock"
+      Tab(0).Control(6)=   "Text1(10)"
+      Tab(0).Control(7)=   "cboStatus"
+      Tab(0).Control(8)=   "Text1(9)"
+      Tab(0).Control(9)=   "Text1(8)"
+      Tab(0).Control(10)=   "Text1(11)"
+      Tab(0).Control(11)=   "Text1(12)"
+      Tab(0).Control(12)=   "Text1(6)"
+      Tab(0).Control(13)=   "Text2(4)"
+      Tab(0).Control(14)=   "Text2(0)"
+      Tab(0).Control(15)=   "Text2(1)"
+      Tab(0).Control(16)=   "Text2(5)"
+      Tab(0).Control(17)=   "Text2(2)"
+      Tab(0).Control(18)=   "Text1(4)"
+      Tab(0).Control(19)=   "Text1(7)"
+      Tab(0).Control(20)=   "Text1(3)"
+      Tab(0).Control(21)=   "Text1(2)"
+      Tab(0).Control(22)=   "Text1(5)"
+      Tab(0).Control(23)=   "Text2(3)"
       Tab(0).Control(24)=   "chkConjunto"
-      Tab(0).Control(25)=   "Text2(3)"
-      Tab(0).Control(26)=   "Text1(5)"
-      Tab(0).Control(27)=   "Text1(2)"
-      Tab(0).Control(28)=   "Text1(3)"
-      Tab(0).Control(29)=   "Text1(7)"
-      Tab(0).Control(30)=   "Text1(4)"
-      Tab(0).Control(31)=   "Text2(2)"
-      Tab(0).Control(32)=   "Text2(5)"
-      Tab(0).Control(33)=   "Text2(1)"
-      Tab(0).Control(34)=   "Text2(0)"
-      Tab(0).Control(35)=   "Text2(4)"
-      Tab(0).Control(36)=   "Text1(6)"
-      Tab(0).Control(37)=   "Text1(12)"
-      Tab(0).Control(38)=   "Text1(11)"
-      Tab(0).Control(39)=   "Text1(8)"
-      Tab(0).Control(40)=   "Text1(9)"
-      Tab(0).Control(41)=   "cboStatus"
-      Tab(0).Control(42)=   "Text1(10)"
-      Tab(0).Control(43)=   "txtSumaStock"
-      Tab(0).Control(44)=   "chkCtrStock"
-      Tab(0).Control(45)=   "FrameLitrosUd"
-      Tab(0).Control(46)=   "Text1(30)"
-      Tab(0).Control(47)=   "Frame5"
-      Tab(0).Control(48)=   "ChkTrazabilidad"
+      Tab(0).Control(25)=   "chkSeries"
+      Tab(0).Control(26)=   "FrameDatosAlmacen2"
+      Tab(0).Control(27)=   "imgPreciosProv"
+      Tab(0).Control(28)=   "imgCuentas(0)"
+      Tab(0).Control(29)=   "Label1(36)"
+      Tab(0).Control(30)=   "lblSumaStocks"
+      Tab(0).Control(31)=   "imgFecha(0)"
+      Tab(0).Control(32)=   "Label1(16)"
+      Tab(0).Control(33)=   "Label1(4)"
+      Tab(0).Control(34)=   "Label1(3)"
+      Tab(0).Control(35)=   "Label1(2)"
+      Tab(0).Control(36)=   "Label1(19)"
+      Tab(0).Control(37)=   "Label1(20)"
+      Tab(0).Control(38)=   "Label1(9)"
+      Tab(0).Control(39)=   "imgCuentas(4)"
+      Tab(0).Control(40)=   "imgCuentas(5)"
+      Tab(0).Control(41)=   "imgCuentas(1)"
+      Tab(0).Control(42)=   "imgCuentas(2)"
+      Tab(0).Control(43)=   "Label1(5)"
+      Tab(0).Control(44)=   "Label1(6)"
+      Tab(0).Control(45)=   "Label1(8)"
+      Tab(0).Control(46)=   "Label1(7)"
+      Tab(0).Control(47)=   "Label1(17)"
+      Tab(0).Control(48)=   "imgCuentas(3)"
       Tab(0).ControlCount=   49
       TabCaption(1)   =   "Otros Datos"
       TabPicture(1)   =   "frmAlmArticulos.frx":0028
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label2(3)"
-      Tab(1).Control(1)=   "Label2(2)"
-      Tab(1).Control(2)=   "Label2(11)"
-      Tab(1).Control(3)=   "Label2(1)"
+      Tab(1).Control(0)=   "Text1(28)"
+      Tab(1).Control(1)=   "FrameServicios"
+      Tab(1).Control(2)=   "Text1(19)"
+      Tab(1).Control(3)=   "Text1(20)"
       Tab(1).Control(4)=   "Text1(21)"
-      Tab(1).Control(5)=   "Text1(20)"
-      Tab(1).Control(6)=   "Text1(19)"
-      Tab(1).Control(7)=   "FrameServicios"
-      Tab(1).Control(8)=   "Text1(28)"
+      Tab(1).Control(5)=   "Label2(1)"
+      Tab(1).Control(6)=   "Label2(11)"
+      Tab(1).Control(7)=   "Label2(2)"
+      Tab(1).Control(8)=   "Label2(3)"
       Tab(1).ControlCount=   9
       TabCaption(2)   =   "Componentes"
       TabPicture(2)   =   "frmAlmArticulos.frx":0044
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "cmdImprCompo"
-      Tab(2).Control(1)=   "txtConjunto(7)"
-      Tab(2).Control(2)=   "txtConjunto(6)"
-      Tab(2).Control(3)=   "cmdActualizarImportes1(1)"
-      Tab(2).Control(4)=   "cmdActualizarImportes1(0)"
-      Tab(2).Control(5)=   "txtConjunto(5)"
-      Tab(2).Control(6)=   "txtConjunto(4)"
-      Tab(2).Control(7)=   "txtConjunto(3)"
-      Tab(2).Control(8)=   "txtConjunto(2)"
-      Tab(2).Control(9)=   "txtConjunto(1)"
-      Tab(2).Control(10)=   "txtConjunto(0)"
-      Tab(2).Control(11)=   "txtAux(5)"
-      Tab(2).Control(12)=   "txtAux(4)"
-      Tab(2).Control(13)=   "txtAux(3)"
-      Tab(2).Control(14)=   "txtAux2"
-      Tab(2).Control(15)=   "txtAux(1)"
-      Tab(2).Control(16)=   "txtAux(0)"
-      Tab(2).Control(17)=   "cmdAux"
-      Tab(2).Control(18)=   "DataGrid1"
-      Tab(2).Control(19)=   "Data2"
-      Tab(2).Control(20)=   "Label5(7)"
-      Tab(2).Control(21)=   "Label5(6)"
-      Tab(2).Control(22)=   "Line5"
-      Tab(2).Control(23)=   "Label5(5)"
-      Tab(2).Control(24)=   "Label5(4)"
-      Tab(2).Control(25)=   "Label5(3)"
-      Tab(2).Control(26)=   "Label5(2)"
-      Tab(2).Control(27)=   "Label5(1)"
-      Tab(2).Control(28)=   "Label5(0)"
-      Tab(2).Control(29)=   "Line4"
+      Tab(2).Control(0)=   "Line4"
+      Tab(2).Control(1)=   "Label5(0)"
+      Tab(2).Control(2)=   "Label5(1)"
+      Tab(2).Control(3)=   "Label5(2)"
+      Tab(2).Control(4)=   "Label5(3)"
+      Tab(2).Control(5)=   "Label5(4)"
+      Tab(2).Control(6)=   "Label5(5)"
+      Tab(2).Control(7)=   "Line5"
+      Tab(2).Control(8)=   "Label5(6)"
+      Tab(2).Control(9)=   "Label5(7)"
+      Tab(2).Control(10)=   "Data2"
+      Tab(2).Control(11)=   "DataGrid1"
+      Tab(2).Control(12)=   "cmdAux"
+      Tab(2).Control(13)=   "txtAux(0)"
+      Tab(2).Control(14)=   "txtAux(1)"
+      Tab(2).Control(15)=   "txtAux2"
+      Tab(2).Control(16)=   "txtAux(3)"
+      Tab(2).Control(17)=   "txtAux(4)"
+      Tab(2).Control(18)=   "txtAux(5)"
+      Tab(2).Control(19)=   "txtConjunto(0)"
+      Tab(2).Control(20)=   "txtConjunto(1)"
+      Tab(2).Control(21)=   "txtConjunto(2)"
+      Tab(2).Control(22)=   "txtConjunto(3)"
+      Tab(2).Control(23)=   "txtConjunto(4)"
+      Tab(2).Control(24)=   "txtConjunto(5)"
+      Tab(2).Control(25)=   "cmdActualizarImportes1(0)"
+      Tab(2).Control(26)=   "cmdActualizarImportes1(1)"
+      Tab(2).Control(27)=   "txtConjunto(6)"
+      Tab(2).Control(28)=   "txtConjunto(7)"
+      Tab(2).Control(29)=   "cmdImprCompo"
       Tab(2).ControlCount=   30
       TabCaption(3)   =   "x"
       TabPicture(3)   =   "frmAlmArticulos.frx":0060
@@ -180,38 +180,38 @@ Begin VB.Form frmAlmArticulos
       TabCaption(4)   =   "Stocks"
       TabPicture(4)   =   "frmAlmArticulos.frx":007C
       Tab(4).ControlEnabled=   0   'False
-      Tab(4).Control(0)=   "DataGrid3"
-      Tab(4).Control(1)=   "FrameArtxAlmac"
-      Tab(4).Control(2)=   "Text3(2)"
-      Tab(4).Control(3)=   "Text2(8)"
-      Tab(4).Control(4)=   "Text3(0)"
-      Tab(4).Control(5)=   "cmdAlma"
+      Tab(4).Control(0)=   "cmdAlma"
+      Tab(4).Control(1)=   "Text3(0)"
+      Tab(4).Control(2)=   "Text2(8)"
+      Tab(4).Control(3)=   "Text3(2)"
+      Tab(4).Control(4)=   "FrameArtxAlmac"
+      Tab(4).Control(5)=   "DataGrid3"
       Tab(4).ControlCount=   6
       TabCaption(5)   =   "Documentos"
       TabPicture(5)   =   "frmAlmArticulos.frx":0098
       Tab(5).ControlEnabled=   0   'False
-      Tab(5).Control(0)=   "Label2(0)"
-      Tab(5).Control(1)=   "lw1"
-      Tab(5).Control(2)=   "Frame4"
-      Tab(5).Control(3)=   "FrameDisponible"
+      Tab(5).Control(0)=   "FrameDisponible"
+      Tab(5).Control(1)=   "Frame4"
+      Tab(5).Control(2)=   "lw1"
+      Tab(5).Control(3)=   "Label2(0)"
       Tab(5).ControlCount=   4
       TabCaption(6)   =   "Ficha técnica"
       TabPicture(6)   =   "frmAlmArticulos.frx":00B4
       Tab(6).ControlEnabled=   0   'False
-      Tab(6).Control(0)=   "Label1(37)"
-      Tab(6).Control(1)=   "Label1(38)"
-      Tab(6).Control(2)=   "Label1(42)"
-      Tab(6).Control(3)=   "FrFichaTec(3)"
-      Tab(6).Control(4)=   "FrFichaTec(8)"
-      Tab(6).Control(5)=   "FrFichaTec(4)"
-      Tab(6).Control(6)=   "Text5(0)"
-      Tab(6).Control(7)=   "Text5(1)"
-      Tab(6).Control(8)=   "cboTipoArt"
-      Tab(6).Control(9)=   "cmdIMpriFT"
-      Tab(6).Control(10)=   "FrFichaTec(7)"
-      Tab(6).Control(11)=   "FrFichaTec(6)"
-      Tab(6).Control(12)=   "FramePalet"
-      Tab(6).Control(13)=   "cmdImg"
+      Tab(6).Control(0)=   "cmdImg"
+      Tab(6).Control(1)=   "FramePalet"
+      Tab(6).Control(2)=   "FrFichaTec(6)"
+      Tab(6).Control(3)=   "FrFichaTec(7)"
+      Tab(6).Control(4)=   "cmdIMpriFT"
+      Tab(6).Control(5)=   "cboTipoArt"
+      Tab(6).Control(6)=   "Text5(1)"
+      Tab(6).Control(7)=   "Text5(0)"
+      Tab(6).Control(8)=   "FrFichaTec(4)"
+      Tab(6).Control(9)=   "FrFichaTec(8)"
+      Tab(6).Control(10)=   "FrFichaTec(3)"
+      Tab(6).Control(11)=   "Label1(42)"
+      Tab(6).Control(12)=   "Label1(38)"
+      Tab(6).Control(13)=   "Label1(37)"
       Tab(6).ControlCount=   14
       Begin VB.TextBox txtAux3 
          Appearance      =   0  'Flat
@@ -3916,7 +3916,7 @@ Dim bol As Boolean
                 Else
                     cad = IIf(ModificaLineas = 2, "N", "")
                     LLamaLineas2 0, 0, 5
-                    CargaGrid Me.DataGrid4, Me.Data5, True
+                    CargaGrid Me.DataGrid4, Me.data5, True
                     ModificaLineas = IIf(cad = "", 1, 2)
                 End If
                 If ModificaLineas = 2 Then 'Modificar
@@ -3926,7 +3926,7 @@ Dim bol As Boolean
                     ElseIf Modo = 6 Then
                         data3.Recordset.Find (data3.Recordset.Fields(1).Name & " =" & CInt(Me.cmdAceptar.Tag))
                     Else
-                        Data5.Recordset.Find (Data5.Recordset.Fields(1).Name & " =" & CInt(Me.cmdAceptar.Tag))
+                        data5.Recordset.Find (data5.Recordset.Fields(1).Name & " =" & CInt(Me.cmdAceptar.Tag))
                     End If
                     PonerBotonCabecera True
 '                    Me.lblIndicador.Caption = ""
@@ -4100,9 +4100,9 @@ On Error Resume Next
                 DataGrid4.AllowAddNew = False
                 DataGrid4.Enabled = False
                 LLamaLineas2 0, 0, 5
-                NumRegElim = Data5.Recordset.AbsolutePosition
-                CargaGrid DataGrid4, Data5, True
-                SituarDataPosicion Data5, NumRegElim, Me.lblIndicador.Caption
+                NumRegElim = data5.Recordset.AbsolutePosition
+                CargaGrid DataGrid4, data5, True
+                SituarDataPosicion data5, NumRegElim, Me.lblIndicador.Caption
 
             Case 5
                 
@@ -4237,7 +4237,7 @@ Dim anc As Single
         For anc = 0 To 3
             txtAux3(anc).Text = ""
         Next
-        AnyadirLinea DataGrid4, Data5
+        AnyadirLinea DataGrid4, data5
         anc = ObtenerAlto(DataGrid4, 20)
         LLamaLineas2 anc, 1, 5
         PonerFoco Me.txtAux3(0)
@@ -4581,20 +4581,20 @@ Dim SQL As String
     On Error GoTo Error2
     If Modo <> 8 Then Exit Sub
     'Ciertas comprobaciones
-    If Data5.Recordset.EOF Then Exit Sub
+    If data5.Recordset.EOF Then Exit Sub
     
     SQL = "Seguro que desea eliminar el ariculo del  PACK de venta:"
-    SQL = SQL & vbCrLf & "Codigo: " & Data5.Recordset!codarti1
-    SQL = SQL & vbCrLf & "Descripción: " & Data5.Recordset!NomArtic
+    SQL = SQL & vbCrLf & "Codigo: " & data5.Recordset!codarti1
+    SQL = SQL & vbCrLf & "Descripción: " & data5.Recordset!NomArtic
     
     If MsgBox(SQL, vbQuestion + vbYesNo) = vbYes Then
         'Hay que eliminar
         SQL = "Delete from sarti6 where codartic=" & DBSet(Data1.Recordset!codArtic, "T")
-        SQL = SQL & " and numlinea=" & Data5.Recordset!numlinea
+        SQL = SQL & " and numlinea=" & data5.Recordset!numlinea
         conn.Execute SQL
-        CancelaADODC Me.Data5
-        CargaGrid Me.DataGrid4, Me.Data5, True
-        CancelaADODC Me.Data5
+        CancelaADODC Me.data5
+        CargaGrid Me.DataGrid4, Me.data5, True
+        CancelaADODC Me.data5
     End If
     
 Error2:
@@ -5414,7 +5414,7 @@ Dim I As Integer
                 
         Case 8
                 Aux = " codartic=" & DBSet(Text1(0).Text, "T")
-                If BloqueaRegistro("sartic", Aux) Then BotonModificarConjunto Me.DataGrid4, Me.Data5
+                If BloqueaRegistro("sartic", Aux) Then BotonModificarConjunto Me.DataGrid4, Me.data5
         Case Else   'Modificar Artículos
             If BLOQUEADesdeFormulario(Me) Then BotonModificar
 '            If BloqueaRegistroForm(Me) Then BotonModificar
@@ -5823,7 +5823,7 @@ On Error GoTo EPonerLineas
     'Stocks
     CargaGrid DataGrid3, Data4, enlaza
 
-    CargaGrid DataGrid4, Data5, enlaza
+    CargaGrid DataGrid4, data5, enlaza
 
 
     Screen.MousePointer = vbDefault
@@ -7204,7 +7204,7 @@ On Error GoTo EInsertarModificarInstalacion
         SQL = SQL & " ,cantidad = " & DBSet(txtAux3(2).Text, "N")
         SQL = SQL & " ,precioUD = " & DBSet(txtAux3(3).Text, "N")
         SQL = SQL & " WHERE codartic = " & DBSet(Text1(0).Text, "T") & " AND "
-        SQL = SQL & " numlinea =" & Data5.Recordset!numlinea
+        SQL = SQL & " numlinea =" & data5.Recordset!numlinea
     End If
     
     conn.Execute SQL
@@ -7250,7 +7250,7 @@ Dim SQL As String
         DataGrid3.ScrollBars = dbgAutomatic
     ElseIf vDataGrid.Name = "DataGrid4" Then
         SQL = MontaSQLCarga(enlaza, 5)
-        CargaGridGnral DataGrid4, Me.Data5, SQL, PrimeraVez
+        CargaGridGnral DataGrid4, Me.data5, SQL, PrimeraVez
         
         
         
@@ -8516,7 +8516,7 @@ End Sub
 Private Sub RecalcularPesosArtVenta(Arti1 As String)
 Dim C As String
 Dim R As ADODB.Recordset
-Dim Cajaspalet As Integer
+Dim CajasPalet As Integer
     On Error GoTo ERecalcularPesosArtVenta
     
     C = "Select sartic.codartic,unicajas,pesoneto,pal_udbas,pal_udalt from sarti1,sartic,sarti4 where "
@@ -8526,8 +8526,8 @@ Dim Cajaspalet As Integer
     R.Open C, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
     While Not R.EOF
         'pal_udbas`,`pal_udalt`
-        Cajaspalet = CInt(DBLet(R!pal_udbas, "N")) * CInt(DBLet(R!pal_udalt, "N"))
-        RecalcularPesoArticulo CStr(R!codArtic), CInt(DBLet(R!Unicajas, "N")), Cajaspalet, CCur(DBLet(R!pesoneto, "N")), False
+        CajasPalet = CInt(DBLet(R!pal_udbas, "N")) * CInt(DBLet(R!pal_udalt, "N"))
+        RecalcularPesoArticulo CStr(R!codArtic), CInt(DBLet(R!Unicajas, "N")), CajasPalet, CCur(DBLet(R!pesoneto, "N")), False
         R.MoveNext
     Wend
     R.Close

@@ -2022,7 +2022,7 @@ Dim TipoIvaFactura As Byte '0 Normal   1 R.E     2 Exento
         'Veremos que opcion de CC es la que hay que pasar (agrupar o no agrupar)
         vCCos = CodCCost
         '---- Insertar lineas de Factura en la Conta
-        b = InsertarLinFact("scafpc", cadWhere, cadMen, vLlevaRetencion, Mc.contador, "", TipoIvaFactura) 'El ultinmo seria intracom
+        b = InsertarLinFact("scafpc", cadWhere, cadMen, vLlevaRetencion, Mc.Contador, "", TipoIvaFactura) 'El ultinmo seria intracom
         
         cadMen = "Insertando Lin. Factura: " & cadMen
 
@@ -2063,8 +2063,8 @@ EContab:
         
         'Si es correcto entonces creo una entrada en tmp para luego listar los resultados de
         'la contabilizacion
-         If Mc.contador > 0 Then
-            SQL = "DELETE from tmpinformes where codusu = " & vUsu.Codigo & " AND codigo1= " & Mc.contador
+         If Mc.Contador > 0 Then
+            SQL = "DELETE from tmpinformes where codusu = " & vUsu.Codigo & " AND codigo1= " & Mc.Contador
             conn.Execute SQL
         End If
     
@@ -2119,7 +2119,7 @@ Dim CodIntra As String
             AnyoFacPr = RS!anofacpr
             
             'Para que contabilice las facturas automaticamente
-            If vCF.RealizarContabilizacion Then vCF.FijarNumeroFactura Mc.contador, AnyoFacPr, ""
+            If vCF.RealizarContabilizacion Then vCF.FijarNumeroFactura Mc.Contador, AnyoFacPr, ""
             
             'SI es facutra socio y tiene retencion
             DatosRetencion = ""
@@ -2140,7 +2140,7 @@ Dim CodIntra As String
             If DBLet(RS!BaseIVA3, "N") = "0" Then Nulo3 = "S"
             SQL = ""
             If vParamAplic.ContabilidadNueva Then SQL = "'" & SerieFraPro & "',"
-            SQL = SQL & Mc.contador & "," & DBSet(RS!Fecfactu, "F") & "," & RS!anofacpr & "," & DBSet(RS!FecRecep, "F") & ","
+            SQL = SQL & Mc.Contador & "," & DBSet(RS!Fecfactu, "F") & "," & RS!anofacpr & "," & DBSet(RS!FecRecep, "F") & ","
             If vParamAplic.ContabilidadNueva Then SQL = SQL & DBSet(RS!FecRecep, "F") & ","
             SQL = SQL & DBSet(RS!NumFactu, "T") & "," & DBSet(RS!Codmacta, "T") & ","
             
@@ -2243,7 +2243,7 @@ Dim CodIntra As String
                 'para las lineas
                 'factpro_totales(numserie,numregis,fecharec,anofactu,numlinea,baseimpo,codigiva,porciva,porcrec,impoiva,imporec)
                 'IVA 1, siempre existe
-                Aux = "'" & SerieFraPro & "'," & Mc.contador & "," & DBSet(RS!FecRecep, "F") & "," & RS!anofacpr & ","
+                Aux = "'" & SerieFraPro & "'," & Mc.Contador & "," & DBSet(RS!FecRecep, "F") & "," & RS!anofacpr & ","
                 
                 SQL2 = Aux & "1," & DBSet(RS!BaseIVA1, "N") & "," & RS!TipoIVA1 & "," & DBSet(RS!porciva1, "N") & ","
                 SQL2 = SQL2 & ValorNulo & "," & DBSet(RS!impoiva1, "N") & "," & ValorNulo
@@ -2348,7 +2348,7 @@ Dim CodIntra As String
             
             
             'Para saber el numreo de registro que le asigna a la factrua
-            SQL = "INSERT INTO tmpinformes (codusu,codigo1,nombre1,nombre2,importe1) VALUES (" & vUsu.Codigo & "," & Mc.contador
+            SQL = "INSERT INTO tmpinformes (codusu,codigo1,nombre1,nombre2,importe1) VALUES (" & vUsu.Codigo & "," & Mc.Contador
             SQL = SQL & ",'" & DevNombreSQL(RS!NumFactu) & " @ " & Format(RS!Fecfactu, "dd/mm/yyyy") & "','" & DevNombreSQL(RS!nomprove) & "'," & RS!codProve & ")"
             conn.Execute SQL
         End If
