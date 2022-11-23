@@ -3,14 +3,14 @@ Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmMoixent 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Moixent"
-   ClientHeight    =   5430
+   ClientHeight    =   6000
    ClientLeft      =   45
    ClientTop       =   435
    ClientWidth     =   8550
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5430
+   ScaleHeight     =   6000
    ScaleWidth      =   8550
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
@@ -19,26 +19,26 @@ Begin VB.Form frmMoixent
       Caption         =   "&Cancelar"
       Height          =   495
       Left            =   7200
-      TabIndex        =   15
-      Top             =   4800
+      TabIndex        =   17
+      Top             =   5400
       Width           =   1215
    End
    Begin VB.CommandButton cmdAceptar 
       Caption         =   "&Aceptar"
       Height          =   495
       Left            =   5760
-      TabIndex        =   14
-      Top             =   4800
+      TabIndex        =   16
+      Top             =   5400
       Width           =   1215
    End
    Begin TabDlg.SSTab SSTab1 
-      Height          =   4335
+      Height          =   5055
       Left            =   120
-      TabIndex        =   16
+      TabIndex        =   18
       Top             =   120
       Width           =   8295
       _ExtentX        =   14631
-      _ExtentY        =   7646
+      _ExtentY        =   8916
       _Version        =   393216
       Tabs            =   2
       Tab             =   1
@@ -46,24 +46,27 @@ Begin VB.Form frmMoixent
       TabCaption(0)   =   "Albarán venta"
       TabPicture(0)   =   "frmMoixent.frx":0000
       Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtEAN(0)"
-      Tab(0).Control(1)=   "txtImporte(0)"
-      Tab(0).Control(2)=   "txtDescClie(0)"
-      Tab(0).Control(3)=   "txtCliente(0)"
-      Tab(0).Control(4)=   "txtLote(0)"
-      Tab(0).Control(5)=   "txtArticulo(0)"
-      Tab(0).Control(6)=   "txtDescArticulo(0)"
-      Tab(0).Control(7)=   "imgLote(0)"
+      Tab(0).Control(0)=   "imgArticulo(0)"
+      Tab(0).Control(1)=   "Label4(2)"
+      Tab(0).Control(2)=   "Label4(0)"
+      Tab(0).Control(3)=   "imgCliente(0)"
+      Tab(0).Control(4)=   "lblDpto(33)"
+      Tab(0).Control(5)=   "Label4(7)"
+      Tab(0).Control(6)=   "Label1(0)"
+      Tab(0).Control(7)=   "Label1(1)"
       Tab(0).Control(8)=   "Label1(2)"
-      Tab(0).Control(9)=   "Label1(1)"
-      Tab(0).Control(10)=   "Label1(0)"
-      Tab(0).Control(11)=   "Label4(7)"
-      Tab(0).Control(12)=   "lblDpto(33)"
-      Tab(0).Control(13)=   "imgCliente(0)"
-      Tab(0).Control(14)=   "Label4(0)"
-      Tab(0).Control(15)=   "Label4(2)"
-      Tab(0).Control(16)=   "imgArticulo(0)"
-      Tab(0).ControlCount=   17
+      Tab(0).Control(9)=   "imgLote(0)"
+      Tab(0).Control(10)=   "Label4(14)"
+      Tab(0).Control(11)=   "imgFecha(0)"
+      Tab(0).Control(12)=   "txtDescArticulo(0)"
+      Tab(0).Control(13)=   "txtArticulo(0)"
+      Tab(0).Control(14)=   "txtLote(0)"
+      Tab(0).Control(15)=   "txtCliente(0)"
+      Tab(0).Control(16)=   "txtDescClie(0)"
+      Tab(0).Control(17)=   "txtImporte(0)"
+      Tab(0).Control(18)=   "txtEAN(0)"
+      Tab(0).Control(19)=   "txtfECHA(0)"
+      Tab(0).ControlCount=   20
       TabCaption(1)   =   "Trasiegos"
       TabPicture(1)   =   "frmMoixent.frx":001C
       Tab(1).ControlEnabled=   -1  'True
@@ -99,33 +102,57 @@ Begin VB.Form frmMoixent
       Tab(1).Control(14).Enabled=   0   'False
       Tab(1).Control(15)=   "imgLote(2)"
       Tab(1).Control(15).Enabled=   0   'False
-      Tab(1).Control(16)=   "txtEAN(1)"
+      Tab(1).Control(16)=   "Label4(13)"
       Tab(1).Control(16).Enabled=   0   'False
-      Tab(1).Control(17)=   "txtArticulo(1)"
+      Tab(1).Control(17)=   "imgFecha(1)"
       Tab(1).Control(17).Enabled=   0   'False
-      Tab(1).Control(18)=   "txtDescArticulo(1)"
+      Tab(1).Control(18)=   "txtEAN(1)"
       Tab(1).Control(18).Enabled=   0   'False
-      Tab(1).Control(19)=   "txtLote(1)"
+      Tab(1).Control(19)=   "txtArticulo(1)"
       Tab(1).Control(19).Enabled=   0   'False
-      Tab(1).Control(20)=   "txtImporte(1)"
+      Tab(1).Control(20)=   "txtDescArticulo(1)"
       Tab(1).Control(20).Enabled=   0   'False
-      Tab(1).Control(21)=   "txtLote(2)"
+      Tab(1).Control(21)=   "txtLote(1)"
       Tab(1).Control(21).Enabled=   0   'False
-      Tab(1).Control(22)=   "txtImporte(2)"
+      Tab(1).Control(22)=   "txtImporte(1)"
       Tab(1).Control(22).Enabled=   0   'False
-      Tab(1).Control(23)=   "txtObslin(0)"
+      Tab(1).Control(23)=   "txtLote(2)"
       Tab(1).Control(23).Enabled=   0   'False
-      Tab(1).Control(24)=   "txtObslin(1)"
+      Tab(1).Control(24)=   "txtImporte(2)"
       Tab(1).Control(24).Enabled=   0   'False
-      Tab(1).Control(25)=   "txtObslin(2)"
+      Tab(1).Control(25)=   "txtObslin(0)"
       Tab(1).Control(25).Enabled=   0   'False
-      Tab(1).ControlCount=   26
+      Tab(1).Control(26)=   "txtObslin(1)"
+      Tab(1).Control(26).Enabled=   0   'False
+      Tab(1).Control(27)=   "txtObslin(2)"
+      Tab(1).Control(27).Enabled=   0   'False
+      Tab(1).Control(28)=   "txtfECHA(1)"
+      Tab(1).Control(28).Enabled=   0   'False
+      Tab(1).ControlCount=   29
+      Begin VB.TextBox txtfECHA 
+         Height          =   285
+         Index           =   1
+         Left            =   1800
+         TabIndex        =   15
+         Text            =   "Text1"
+         Top             =   4320
+         Width           =   1095
+      End
+      Begin VB.TextBox txtfECHA 
+         Height          =   285
+         Index           =   0
+         Left            =   -74640
+         TabIndex        =   5
+         Text            =   "Text1"
+         Top             =   4440
+         Width           =   1095
+      End
       Begin VB.TextBox txtObslin 
          Height          =   285
          Index           =   2
          Left            =   5280
          MaxLength       =   50
-         TabIndex        =   12
+         TabIndex        =   13
          Text            =   "Text1"
          Top             =   2640
          Width           =   2895
@@ -135,7 +162,7 @@ Begin VB.Form frmMoixent
          Index           =   1
          Left            =   5280
          MaxLength       =   50
-         TabIndex        =   9
+         TabIndex        =   10
          Text            =   "Text1"
          Top             =   1920
          Width           =   2895
@@ -143,10 +170,10 @@ Begin VB.Form frmMoixent
       Begin VB.TextBox txtObslin 
          Height          =   615
          Index           =   0
-         Left            =   1440
+         Left            =   1800
          MaxLength       =   200
          MultiLine       =   -1  'True
-         TabIndex        =   13
+         TabIndex        =   14
          Text            =   "frmMoixent.frx":0038
          Top             =   3360
          Width           =   5535
@@ -156,7 +183,7 @@ Begin VB.Form frmMoixent
          Height          =   285
          Index           =   2
          Left            =   3120
-         TabIndex        =   11
+         TabIndex        =   12
          Text            =   "Text1"
          Top             =   2640
          Width           =   1215
@@ -165,7 +192,7 @@ Begin VB.Form frmMoixent
          Height          =   285
          Index           =   2
          Left            =   960
-         TabIndex        =   10
+         TabIndex        =   11
          Text            =   "Text1"
          Top             =   2640
          Width           =   1335
@@ -175,7 +202,7 @@ Begin VB.Form frmMoixent
          Height          =   285
          Index           =   1
          Left            =   3120
-         TabIndex        =   8
+         TabIndex        =   9
          Text            =   "Text1"
          Top             =   1920
          Width           =   1215
@@ -184,7 +211,7 @@ Begin VB.Form frmMoixent
          Height          =   285
          Index           =   1
          Left            =   960
-         TabIndex        =   7
+         TabIndex        =   8
          Text            =   "Text1"
          Top             =   1920
          Width           =   1335
@@ -195,7 +222,7 @@ Begin VB.Form frmMoixent
          Index           =   1
          Left            =   3840
          Locked          =   -1  'True
-         TabIndex        =   31
+         TabIndex        =   33
          Text            =   "Text5"
          Top             =   1080
          Width           =   4215
@@ -205,7 +232,7 @@ Begin VB.Form frmMoixent
          Index           =   1
          Left            =   2280
          MaxLength       =   16
-         TabIndex        =   6
+         TabIndex        =   7
          Top             =   1080
          Width           =   1455
       End
@@ -214,7 +241,7 @@ Begin VB.Form frmMoixent
          Index           =   1
          Left            =   600
          MaxLength       =   16
-         TabIndex        =   5
+         TabIndex        =   6
          Top             =   1080
          Width           =   1575
       End
@@ -243,7 +270,7 @@ Begin VB.Form frmMoixent
          Index           =   0
          Left            =   -73440
          Locked          =   -1  'True
-         TabIndex        =   20
+         TabIndex        =   22
          Text            =   "Text1"
          Top             =   3360
          Width           =   5175
@@ -281,16 +308,74 @@ Begin VB.Form frmMoixent
          Index           =   0
          Left            =   -71160
          Locked          =   -1  'True
-         TabIndex        =   17
+         TabIndex        =   19
          Text            =   "Text5"
          Top             =   1200
          Width           =   4215
+      End
+      Begin VB.Image imgFecha 
+         Height          =   240
+         Index           =   1
+         Left            =   1200
+         Picture         =   "frmMoixent.frx":003E
+         ToolTipText     =   "Buscar fecha"
+         Top             =   4320
+         Width           =   240
+      End
+      Begin VB.Image imgFecha 
+         Height          =   240
+         Index           =   0
+         Left            =   -74040
+         Picture         =   "frmMoixent.frx":00C9
+         ToolTipText     =   "Buscar fecha"
+         Top             =   4080
+         Width           =   240
+      End
+      Begin VB.Label Label4 
+         AutoSize        =   -1  'True
+         Caption         =   "Fecha"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000080&
+         Height          =   195
+         Index           =   14
+         Left            =   -74640
+         TabIndex        =   43
+         Top             =   4080
+         Width           =   495
+      End
+      Begin VB.Label Label4 
+         AutoSize        =   -1  'True
+         Caption         =   "FECHA"
+         BeginProperty Font 
+            Name            =   "Tahoma"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   285
+         Index           =   13
+         Left            =   240
+         TabIndex        =   42
+         Top             =   4320
+         Width           =   810
       End
       Begin VB.Image imgLote 
          Height          =   240
          Index           =   2
          Left            =   720
-         Picture         =   "frmMoixent.frx":003E
+         Picture         =   "frmMoixent.frx":0154
          Top             =   2640
          Width           =   240
       End
@@ -298,7 +383,7 @@ Begin VB.Form frmMoixent
          Height          =   240
          Index           =   1
          Left            =   720
-         Picture         =   "frmMoixent.frx":0140
+         Picture         =   "frmMoixent.frx":0256
          Top             =   1920
          Width           =   240
       End
@@ -306,7 +391,7 @@ Begin VB.Form frmMoixent
          Height          =   240
          Index           =   0
          Left            =   -74160
-         Picture         =   "frmMoixent.frx":0242
+         Picture         =   "frmMoixent.frx":0358
          Top             =   1920
          Width           =   240
       End
@@ -326,7 +411,7 @@ Begin VB.Form frmMoixent
          Height          =   240
          Index           =   12
          Left            =   120
-         TabIndex        =   39
+         TabIndex        =   41
          Top             =   480
          Width           =   765
       End
@@ -346,7 +431,7 @@ Begin VB.Form frmMoixent
          Height          =   195
          Index           =   11
          Left            =   4560
-         TabIndex        =   38
+         TabIndex        =   40
          Top             =   2640
          Width           =   615
       End
@@ -366,7 +451,7 @@ Begin VB.Form frmMoixent
          Height          =   195
          Index           =   10
          Left            =   4560
-         TabIndex        =   37
+         TabIndex        =   39
          Top             =   1920
          Width           =   615
       End
@@ -386,7 +471,7 @@ Begin VB.Form frmMoixent
          Height          =   195
          Index           =   9
          Left            =   240
-         TabIndex        =   36
+         TabIndex        =   38
          Top             =   3360
          Width           =   1065
       End
@@ -406,7 +491,7 @@ Begin VB.Form frmMoixent
          Height          =   195
          Index           =   8
          Left            =   2400
-         TabIndex        =   35
+         TabIndex        =   37
          Top             =   2640
          Width           =   645
       End
@@ -426,7 +511,7 @@ Begin VB.Form frmMoixent
          Height          =   195
          Index           =   6
          Left            =   360
-         TabIndex        =   34
+         TabIndex        =   36
          Top             =   2640
          Width           =   315
       End
@@ -446,7 +531,7 @@ Begin VB.Form frmMoixent
          Height          =   195
          Index           =   5
          Left            =   2400
-         TabIndex        =   33
+         TabIndex        =   35
          Top             =   1920
          Width           =   645
       End
@@ -466,7 +551,7 @@ Begin VB.Form frmMoixent
          Height          =   195
          Index           =   4
          Left            =   360
-         TabIndex        =   32
+         TabIndex        =   34
          Top             =   1920
          Width           =   315
       End
@@ -475,7 +560,7 @@ Begin VB.Form frmMoixent
          Height          =   255
          Index           =   5
          Left            =   2280
-         TabIndex        =   30
+         TabIndex        =   32
          Top             =   840
          Width           =   735
       End
@@ -484,7 +569,7 @@ Begin VB.Form frmMoixent
          Height          =   255
          Index           =   4
          Left            =   3840
-         TabIndex        =   29
+         TabIndex        =   31
          Top             =   840
          Width           =   1095
       End
@@ -492,7 +577,7 @@ Begin VB.Form frmMoixent
          Height          =   240
          Index           =   1
          Left            =   960
-         Picture         =   "frmMoixent.frx":0344
+         Picture         =   "frmMoixent.frx":045A
          Top             =   840
          Width           =   240
       End
@@ -501,7 +586,7 @@ Begin VB.Form frmMoixent
          Height          =   255
          Index           =   3
          Left            =   600
-         TabIndex        =   28
+         TabIndex        =   30
          Top             =   840
          Width           =   735
       End
@@ -521,7 +606,7 @@ Begin VB.Form frmMoixent
          Height          =   285
          Index           =   3
          Left            =   120
-         TabIndex        =   27
+         TabIndex        =   29
          Top             =   2280
          Width           =   1215
       End
@@ -541,7 +626,7 @@ Begin VB.Form frmMoixent
          Height          =   285
          Index           =   1
          Left            =   120
-         TabIndex        =   26
+         TabIndex        =   28
          Top             =   1560
          Width           =   930
       End
@@ -550,7 +635,7 @@ Begin VB.Form frmMoixent
          Height          =   255
          Index           =   2
          Left            =   -71160
-         TabIndex        =   25
+         TabIndex        =   27
          Top             =   960
          Width           =   1095
       End
@@ -559,7 +644,7 @@ Begin VB.Form frmMoixent
          Height          =   255
          Index           =   1
          Left            =   -74640
-         TabIndex        =   24
+         TabIndex        =   26
          Top             =   960
          Width           =   735
       End
@@ -568,7 +653,7 @@ Begin VB.Form frmMoixent
          Height          =   255
          Index           =   0
          Left            =   -72720
-         TabIndex        =   23
+         TabIndex        =   25
          Top             =   960
          Width           =   735
       End
@@ -588,7 +673,7 @@ Begin VB.Form frmMoixent
          Height          =   195
          Index           =   7
          Left            =   -71760
-         TabIndex        =   22
+         TabIndex        =   24
          Top             =   1920
          Width           =   750
       End
@@ -608,7 +693,7 @@ Begin VB.Form frmMoixent
          Height          =   195
          Index           =   33
          Left            =   -74640
-         TabIndex        =   21
+         TabIndex        =   23
          Top             =   3000
          Width           =   585
       End
@@ -616,7 +701,7 @@ Begin VB.Form frmMoixent
          Height          =   240
          Index           =   0
          Left            =   -73920
-         Picture         =   "frmMoixent.frx":0446
+         Picture         =   "frmMoixent.frx":055C
          Top             =   3000
          Width           =   240
       End
@@ -636,7 +721,7 @@ Begin VB.Form frmMoixent
          Height          =   195
          Index           =   0
          Left            =   -74640
-         TabIndex        =   19
+         TabIndex        =   21
          Top             =   1920
          Width           =   375
       End
@@ -656,7 +741,7 @@ Begin VB.Form frmMoixent
          Height          =   195
          Index           =   2
          Left            =   -74640
-         TabIndex        =   18
+         TabIndex        =   20
          Top             =   720
          Width           =   660
       End
@@ -664,7 +749,7 @@ Begin VB.Form frmMoixent
          Height          =   240
          Index           =   0
          Left            =   -73920
-         Picture         =   "frmMoixent.frx":0548
+         Picture         =   "frmMoixent.frx":065E
          Top             =   720
          Width           =   240
       End
@@ -683,7 +768,8 @@ Private WithEvents frmCli As frmFacClientes
 Attribute frmCli.VB_VarHelpID = -1
 Private WithEvents frmL As frmAlmPartidas
 Attribute frmL.VB_VarHelpID = -1
-
+Private WithEvents frmF As frmCal
+Attribute frmF.VB_VarHelpID = -1
 
 Dim Codigo As String
 Dim PriVez As Boolean
@@ -708,6 +794,50 @@ Private Sub cmdAceptar_Click()
 End Sub
 
 
+
+Private Function FechaArticuloOK(cual As Integer) As Boolean
+
+    FechaArticuloOK = False
+    
+    If Not EsFechaOKConta(CDate(txtfECHA(cual).Text)) Then Exit Function
+            
+            
+    'Si el inventario es mayor o igual a la fecha
+    Set miRsAux = New ADODB.Recordset
+    Codigo = "select sartic.codartic,codstatu,statusin,fechainv from sartic inner join salmac on sartic.codartic=salmac.codartic and codalmac=1"
+    Codigo = Codigo & " where sartic.codartic=" & DBSet(txtArticulo(cual).Text, "T")
+    miRsAux.Open Codigo, conn, adOpenForwardOnly, adLockPessimistic, adCmdText
+    Codigo = ""
+    If miRsAux.EOF Then
+        Codigo = "No existe articulo en almacen 1"
+    Else
+        If IsNull(miRsAux!codArtic) Then
+            Codigo = "No existe articulo en almacen 1"
+        Else
+            'Si existe
+            If DBLet(miRsAux!codstatu, "N") > 0 Then
+                Codigo = "Articulo caducado / bloquado"
+            Else
+                If DBLet(miRsAux!statusin, "N") > 0 Then
+                    Codigo = "Articulo inventariandose"
+                Else
+                    If Not IsNull(miRsAux!fechainv) Then
+                        If CDate(txtfECHA(cual).Text) <= miRsAux!fechainv Then Codigo = "Fecha inventario posterior"
+                    End If
+                End If
+            End If
+        End If
+    End If
+    miRsAux.Close
+    Set miRsAux = Nothing
+    If Codigo <> "" Then
+        MsgBox Codigo, vbExclamation
+    Else
+        FechaArticuloOK = True
+    End If
+End Function
+
+
 Private Sub BotonAlbaran()
 Dim Cli As CCliente
     'Comprobaciones
@@ -716,12 +846,15 @@ Dim Cli As CCliente
     If Me.txtLote(0).Text = "" Then Codigo = Codigo & "    -Lote" & vbCrLf
     If Me.txtImporte(0).Text = "" Then Codigo = Codigo & "    -Cantidad" & vbCrLf
     If Me.txtCliente(0).Text = "" Then Codigo = Codigo & "    -Cliente" & vbCrLf
-    
+    If txtfECHA(0).Text = "" Then Codigo = Codigo & "    -Fecha" & vbCrLf
     If Codigo <> "" Then
         Codigo = "Campos vacios: " & vbCrLf & vbCrLf & Codigo
         MsgBox Codigo, vbExclamation
         Exit Sub
     End If
+    
+    If Not FechaArticuloOK(0) Then Exit Sub
+    
     
     'Pregunta
     If MsgBox("Desea realizar el albarán?", vbQuestion + vbYesNo) = vbNo Then Exit Sub
@@ -759,7 +892,7 @@ Dim cP As cPartidas
         If Me.txtLote(NumRegElim).Text = "" Then Codigo = Codigo & "    -Lote(" & NumRegElim & ")" & vbCrLf
         If Me.txtImporte(NumRegElim).Text = "" Then Codigo = Codigo & "    -Cantidad" & NumRegElim & ")" & vbCrLf
     Next
-    
+    If txtfECHA(1).Text = "" Then Codigo = Codigo & "    -Fecha" & vbCrLf
     If Codigo <> "" Then
         Codigo = "Campos vacios: " & vbCrLf & vbCrLf & Codigo
         MsgBox Codigo, vbExclamation
@@ -791,6 +924,9 @@ Dim cP As cPartidas
         PonerFoco txtLote(NumRegElim)
         Exit Sub
     End If
+    
+    If Not FechaArticuloOK(1) Then Exit Sub
+    
     
     'Si las cantidades no son iguales
     If Me.txtImporte(1).Text <> txtImporte(2).Text Then
@@ -825,10 +961,16 @@ Private Sub Form_Load()
     limpiar Me
     SSTab1.Tab = 1
     PriVez = True
+    txtfECHA(0).Text = Format(Now, "dd/mm/yyyy")
+    txtfECHA(1).Text = txtfECHA(0).Text
 End Sub
 
 Private Sub frmCli_DatoSeleccionado(CadenaSeleccion As String)
      Codigo = CadenaSeleccion
+End Sub
+
+Private Sub frmF_Selec(vFecha As Date)
+    Codigo = Format(vFecha, "dd/mm/yyyy")
 End Sub
 
 Private Sub frmL_DatoSeleccionado(CadenaSeleccion As String)
@@ -865,6 +1007,20 @@ Private Sub imgCliente_Click(Index As Integer)
         Me.txtCliente(Index).Text = RecuperaValor(Codigo, 1)
         Me.txtDescClie(Index).Text = RecuperaValor(Codigo, 2)
         Codigo = ""
+    End If
+End Sub
+
+Private Sub imgFecha_Click(Index As Integer)
+
+   Set frmF = New frmCal
+   frmF.Fecha = Now
+   If txtfECHA(Index).Text <> "" Then frmF.Fecha = CDate(txtfECHA(Index).Text)
+   Codigo = ""
+   frmF.Show vbModal
+   Set frmF = Nothing
+   If Codigo <> "" Then
+        txtfECHA(Index).Text = Codigo
+        txtfECHA_LostFocus Index
     End If
 End Sub
 
@@ -975,6 +1131,29 @@ Dim T As String
     
 End Sub
 
+Private Sub txtfECHA_GotFocus(Index As Integer)
+    ConseguirFoco txtfECHA(Index), 3
+End Sub
+
+Private Sub txtfECHA_KeyPress(Index As Integer, KeyAscii As Integer)
+    KEYpressGnral KeyAscii, 2, True
+End Sub
+
+Private Sub txtfECHA_LostFocus(Index As Integer)
+    txtfECHA(Index).Text = Trim(txtfECHA(Index).Text)
+    
+    If txtfECHA(Index).Text <> "" Then
+        
+        PonerFormatoFecha txtfECHA(Index)
+        
+        If txtfECHA(Index).Text <> "" Then
+            If Not EsFechaOKConta(CDate(txtfECHA(Index).Text)) Then txtfECHA(Index).Text = ""
+        End If
+    End If
+    
+    If txtfECHA(Index).Text = "" Then txtfECHA(Index).Text = Format(Now, "dd/mm/yyyy")
+End Sub
+
 Private Sub txtImporte_GotFocus(Index As Integer)
     ConseguirFoco txtImporte(Index), 3
 End Sub
@@ -1029,7 +1208,7 @@ Private Sub txtCliente_LostFocus(Index As Integer)
 End Sub
 
 
-Private Sub txtLote_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub txtlote_KeyPress(Index As Integer, KeyAscii As Integer)
     KEYpressGnral KeyAscii, 2, True
 End Sub
 
@@ -1038,8 +1217,8 @@ End Sub
 'genera albaran
 
 Private Function GeneraAlbaran(vCli As CCliente) As Boolean
-Dim vTipomov As CTiposMov
-Dim vCStock As CStock
+Dim vTipoMov As CTiposMov
+Dim vCStock As cStock
 Dim CPrecioFact As CPreciosFact
 Dim cArt As CArticulo
 Dim cP As cPartidas
@@ -1059,8 +1238,8 @@ Dim OrigP As String
     'Comprobar si mientras tanto se incremento el contador de Pedidos
     'para ello vemos si existe una oferta con ese contador y si existe la incrementamos
     
-    Set vTipomov = New CTiposMov
-    Set vCStock = New CStock
+    Set vTipoMov = New CTiposMov
+    Set vCStock = New cStock
     Set cArt = New CArticulo
     Set cP = New cPartidas
     MenError = "leer articulo"
@@ -1077,10 +1256,10 @@ Dim OrigP As String
     
     
     'Aqui empieza la transaccion. El contador lo dejamos a parte
-    Conn.BeginTrans
+    conn.BeginTrans
     
     MenError = "leer movimiento"
-    If Not vTipomov.Leer("ALV") Then Err.Raise 513   'Obtenenmos el contador
+    If Not vTipoMov.Leer("ALV") Then Err.Raise 513   'Obtenenmos el contador
     
     
     MenError = "Error al insertar en la tabla Cabecera de Albaranes ."
@@ -1101,8 +1280,8 @@ Dim OrigP As String
     vSQL = vSQL & " `refproduccion`) values ( "
     
     '`codtipom`,`numalbar`,`fechaalb`,`factursn`,`codclien`,`nomclien`,
-    vTipomov.contador = vTipomov.ConseguirContador(vTipomov.TipoMovimiento)
-    vSQL = vSQL & "'" & vTipomov.TipoMovimiento & "'," & vTipomov.contador & "," & DBSet(Now, "F") & ",1," & vCli.Codigo & "," & DBSet(vCli.Nombre, "T") & ","
+    vTipoMov.Contador = vTipoMov.ConseguirContador(vTipoMov.TipoMovimiento)
+    vSQL = vSQL & "'" & vTipoMov.TipoMovimiento & "'," & vTipoMov.Contador & "," & DBSet(txtfECHA(0).Text, "F") & ",1," & vCli.Codigo & "," & DBSet(vCli.Nombre, "T") & ","
 
     ' `domclien`,`codpobla`,`pobclien`,`proclien`,`nifclien`,`telclien`,`coddirec`,"
     vSQL = vSQL & DBSet(vCli.Domicilio, "T") & "," & DBSet(vCli.CPostal, "T") & "," & DBSet(vCli.Poblacion, "T") & ","
@@ -1118,29 +1297,30 @@ Dim OrigP As String
     ' `numfactu`,`fecfactu`,`esticket`,`numtermi`,`numventa`,`aportacion`,`observa6`,refproduccion"
      vSQL = vSQL & ",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL)"
     
-    Conn.Execute vSQL, , adCmdText
+    conn.Execute vSQL, , adCmdText
     
  
     'Actualizar el campo fechamov (ult. movimiento) de la tabla de clientes (sclien)
     MenError = "Actualizando Fecha Movimiento del Cliente."
-    vCli.ActualizaUltFecMovim Now
+    vCli.ActualizaUltFecMovim txtfECHA(0).Text
     
     'Linea del albaran
     '----------------------------------------------------------------------------------------
     vCStock.tipoMov = "S"
-    vCStock.DetaMov = vTipomov.TipoMovimiento
-    vCStock.Documento = vTipomov.contador
-    vCStock.Fechamov = Now
+    vCStock.DetaMov = vTipoMov.TipoMovimiento
+    vCStock.Documento = vTipoMov.Contador
+    vCStock.Fechamov = txtfECHA(0).Text
     vCStock.codArtic = cArt.Codigo
-    vCStock.codalmac = 1 'FALTA###
+    vCStock.codAlmac = 1 'FALTA###
     vCStock.Cantidad = ImporteFormateado(Me.txtImporte(0).Text)
     vCStock.LineaDocu = 1
-    vCStock.HoraMov = Now
+    vCStock.HoraMov = txtfECHA(0).Text & " " & Format(Now, "hh:nn:ss")
     
     'Comprobar si se mueve mover stock (hay stock, o si no hay pero no control de stock)
     bol = True
     If vCStock.MueveStock Then
         bol = vCStock.MoverStock(False)
+        If bol Then bol = vCStock.ActualizarStock
     End If
     
     
@@ -1180,7 +1360,7 @@ Dim OrigP As String
         vSQL = "INSERT INTO slialb"
         vSQL = vSQL & "(codtipom, numalbar,numlinea, codalmac, codartic, nomartic, ampliaci, cantidad, precioar, "
         vSQL = vSQL & "dtoline1, dtoline2, importel, origpre,codprovex,cajas,PrecioLitro,palets,hectogrado) "
-        vSQL = vSQL & "VALUES ('" & vTipomov.TipoMovimiento & "', " & vTipomov.contador & ",1 , " & vCStock.codalmac & ","
+        vSQL = vSQL & "VALUES ('" & vTipoMov.TipoMovimiento & "', " & vTipoMov.Contador & ",1 , " & vCStock.codAlmac & ","
         vSQL = vSQL & DBSet(vCStock.codArtic, "T") & ", " & DBSet(cArt.Nombre, "T") & ", NULL , "
         vSQL = vSQL & DBSet(vCStock.Cantidad, "N") & ", "
         vSQL = vSQL & DBSet(Precio, "N") & ", " & DBSet(CPrecioFact.Descuento1, "N") & ", "
@@ -1200,7 +1380,7 @@ Dim OrigP As String
         vSQL = vSQL & "1)" 'hectogrado es un UNO
     
         MenError = "Insertar linea."
-        Conn.Execute vSQL
+        conn.Execute vSQL
     
     
     
@@ -1208,11 +1388,11 @@ Dim OrigP As String
         MenError = "Error movimientos lotes."
         Set cLot = New cLotaje
         cLot.codArtic = vCStock.codArtic
-        cLot.codalmac = vCStock.codalmac
+        cLot.codAlmac = vCStock.codAlmac
         cLot.DetaMov = vCStock.DetaMov
         cLot.Documento = vCStock.Documento
         cLot.ProvCliTra = vCStock.Trabajador
-        cLot.Numlote = cP.Numlote
+        cLot.NUmlote = cP.NUmlote
         cLot.Cantidad = vCStock.Cantidad
         cLot.LineaDocu = 1
         cLot.SubLinea = 1 'La sublinea del lote 'Normalmente 1 o 2
@@ -1226,11 +1406,11 @@ Dim OrigP As String
 
         MenError = "Lotes albaran."
         vSQL = "insert into `slialblotes` (`codtipom`,`numalbar`,`numlinea`,`linea`,`numlote`,cantidad) "
-        vSQL = vSQL & "VALUES ('" & vTipomov.TipoMovimiento & "', " & vTipomov.contador & "," & vCStock.LineaDocu & " , " & cLot.SubLinea
+        vSQL = vSQL & "VALUES ('" & vTipoMov.TipoMovimiento & "', " & vTipoMov.Contador & "," & vCStock.LineaDocu & " , " & cLot.SubLinea
    
         'Ahora
-        vSQL = vSQL & ",'" & DevNombreSQL(cP.Numlote) & "'," & DBSet(vCStock.Cantidad, "N") & ")"
-        Conn.Execute vSQL
+        vSQL = vSQL & ",'" & DevNombreSQL(cP.NUmlote) & "'," & DBSet(vCStock.Cantidad, "N") & ")"
+        conn.Execute vSQL
          
         
     
@@ -1242,9 +1422,9 @@ Dim OrigP As String
     
     
         MenError = "Error al actualizar el contador."
-        NumRegElim = vTipomov.contador  'para la impresion
-        vTipomov.contador = vTipomov.contador - 1
-        vTipomov.IncrementarContador vTipomov.TipoMovimiento
+        NumRegElim = vTipoMov.Contador  'para la impresion
+        vTipoMov.Contador = vTipoMov.Contador - 1
+        vTipoMov.IncrementarContador vTipoMov.TipoMovimiento
 
         GeneraAlbaran = True
         
@@ -1253,11 +1433,11 @@ Dim OrigP As String
 EInsertarOferta:
     If Err.Number <> 0 Then
         MuestraError Err.Number, MenError, Err.Description
-        Conn.RollbackTrans
+        conn.RollbackTrans
     Else
-        Conn.CommitTrans
+        conn.CommitTrans
     End If
-    Set vTipomov = Nothing
+    Set vTipoMov = Nothing
     Set vCStock = Nothing
     Set cArt = Nothing
     Set CPrecioFact = Nothing
@@ -1270,8 +1450,8 @@ End Function
 
 Private Sub ImprimeAlbaran()
 Dim cadFormula As String
-Dim cadParam As String
-Dim numParam As Byte
+Dim Cadparam As String
+Dim NumParam As Byte
 'Dim cadSelect As String 'select para insertar en tabla temporal
 Dim nomDocu As String 'Nombre de Informe rpt de crystal
 Dim devuelve As String
@@ -1280,18 +1460,18 @@ Dim ImpresionDirecta As Boolean
     '------------------------ Esta copiado del boton imprimir en albaran
 
                 
-    If Not PonerParamRPT(10, cadParam, numParam, nomDocu, ImpresionDirecta) Then Exit Sub
+    If Not PonerParamRPT(10, Cadparam, NumParam, nomDocu, ImpresionDirecta) Then Exit Sub
    
     'Añadir el codigo de usuario como parametro para link con tabla Temporal (tmptiposiva) en el Report
     'tabla temporal para el calculo del bruto total para cada tipo de IVA
-    cadParam = cadParam & "pCodUsu=" & vUsu.Codigo & "|"
-    numParam = numParam + 1
+    Cadparam = Cadparam & "pCodUsu=" & vUsu.Codigo & "|"
+    NumParam = NumParam + 1
     
     
     
     'PUNTO VERDE
-    cadParam = cadParam & "PuntoVerde= """ & vParamAplic.ArtReciclado & """|"
-    numParam = numParam + 1
+    Cadparam = Cadparam & "PuntoVerde= """ & vParamAplic.ArtReciclado & """|"
+    NumParam = NumParam + 1
     
     
     'Si se imprimen importes y/o
@@ -1301,8 +1481,8 @@ Dim ImpresionDirecta As Boolean
     ' 0 "Todo"
     ' 1 "Cantidad y Precio"
     ' 2 "Cantidad"
-    cadParam = cadParam & "Albarcon=" & devuelve & "|"
-    numParam = numParam + 1
+    Cadparam = Cadparam & "Albarcon=" & devuelve & "|"
+    NumParam = NumParam + 1
 
     frmImprimir.NombreRPT = nomDocu
         
@@ -1328,8 +1508,8 @@ Dim ImpresionDirecta As Boolean
     'esta en cadselect
     
     If Codigo = "" Then Codigo = "0"
-    cadParam = cadParam & "pTipoIVA=" & Codigo & "|"
-    numParam = numParam + 1
+    Cadparam = Cadparam & "pTipoIVA=" & Codigo & "|"
+    NumParam = NumParam + 1
 
 
 '
@@ -1339,11 +1519,11 @@ Dim ImpresionDirecta As Boolean
 '    Else
         With frmImprimir
             .FormulaSeleccion = cadFormula
-            .OtrosParametros = cadParam
-            .NumeroParametros = numParam
+            .OtrosParametros = Cadparam
+            .NumeroParametros = NumParam
             .SoloImprimir = False
             .EnvioEMail = False
-            .opcion = 45 'Es el que esta en frmfacentalb
+            .Opcion = 45 'Es el que esta en frmfacentalb
             .Titulo = "Albaran de Cliente"
             .ConSubInforme = True
             .Show vbModal
@@ -1354,21 +1534,21 @@ End Sub
 
 
 Private Function HacerTrasiego()
-Dim Ok As Boolean
+Dim OK As Boolean
     'Insertamos en scatra y en slitra
     'despues abriremos el frmTraspaso y que actualice directamente
-    Conn.BeginTrans
+    conn.BeginTrans
     
-    Ok = InsertarTablasTraspaso
-    If Ok Then
-        Conn.CommitTrans
+    OK = InsertarTablasTraspaso
+    If OK Then
+        conn.CommitTrans
         Espera 0.3
         Screen.MousePointer = vbHourglass
             With frmAlmMovimientos2
                 .TrasiegoMoixent = True  'UNICO SITIO A TRUE
                 .EsHistorico = False
                 .hcoCodMovim = NumRegElim
-                .hcoFechaMovim = Now
+                .hcoFechaMovim = CDate(txtfECHA(1).Text)
                 .Show vbModal
             End With
         
@@ -1381,55 +1561,55 @@ Dim Ok As Boolean
             MsgBox "Avise soporte tecnico", vbCritical
         End If
     Else
-        Conn.RollbackTrans
+        conn.RollbackTrans
     End If
 End Function
 
 
 Private Function InsertarTablasTraspaso() As Boolean
-Dim vTipomov As CTiposMov
-Dim B As Boolean
+Dim vTipoMov As CTiposMov
+Dim b As Boolean
 
     InsertarTablasTraspaso = False
     
-    Set vTipomov = New CTiposMov
+    Set vTipoMov = New CTiposMov
     NumRegElim = -1
-    B = False
-    If vTipomov.Leer("REG") Then
+    b = False
+    If vTipoMov.Leer("REG") Then
   
     
         'cabecera
         'scamov codmovim,codalmac,fecmovim,codtraba,observa1,situacio
         Codigo = PonerTrabajadorConectado("")  'NO SERA "", ya lo he comprobado arriba
-        Codigo = " VALUES (" & vTipomov.contador & ",1,now()," & Codigo & ","
+        Codigo = " VALUES (" & vTipoMov.Contador & ",1," & DBSet(txtfECHA(1).Text, "F") & "," & Codigo & ","
         Codigo = Codigo & DBSet(Me.txtObslin(0), "T", "S") & ",1)"  '1: YA esta impreso
         Codigo = "INSERT INTO scamov(codmovim,codalmac,fecmovim,codtraba,observa1,situacio)" & Codigo
-        B = EjecutaSQL(conAri, Codigo, True)
+        b = EjecutaSQL(conAri, Codigo, True)
         
-        If B Then
+        If b Then
             'lineas
             'slimov codmovim ,numlinea,codartic,cantidad,tipomovi,motimovi,numlote,
             Codigo = ""
             For NumRegElim = 1 To 2
-                Codigo = Codigo & ", (" & vTipomov.contador & "," & NumRegElim & "," & DBSet(Me.txtArticulo(1).Text, "T") & "," & DBSet(Me.txtImporte(NumRegElim), "N")
+                Codigo = Codigo & ", (" & vTipoMov.Contador & "," & NumRegElim & "," & DBSet(Me.txtArticulo(1).Text, "T") & "," & DBSet(Me.txtImporte(NumRegElim), "N")
                 Codigo = Codigo & "," & Abs(NumRegElim = 2) & "," & DBSet(txtObslin(NumRegElim), "T") & "," & DBSet(txtLote(NumRegElim).Text, "T") & ")"
             Next
             
             Codigo = Mid(Codigo, 2)
             Codigo = "INSERT INTO slimov(codmovim ,numlinea,codartic,cantidad,tipomovi,motimovi,numlote) VALUES " & Codigo
-            B = EjecutaSQL(conAri, Codigo, True)
+            b = EjecutaSQL(conAri, Codigo, True)
                     
         End If
         
-        If B Then
-            NumRegElim = vTipomov.contador
-            vTipomov.IncrementarContador ("REG")
+        If b Then
+            NumRegElim = vTipoMov.Contador
+            vTipoMov.IncrementarContador ("REG")
         Else
             NumRegElim = -1
         End If
     End If
-    Set vTipomov = Nothing
-    InsertarTablasTraspaso = B
+    Set vTipoMov = Nothing
+    InsertarTablasTraspaso = b
 End Function
 
 
